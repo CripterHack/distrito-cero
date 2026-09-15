@@ -1,9 +1,9 @@
-# Recursos actuales · v0.12 Continuidad anatómica
+# Recursos de Distrito Cero
 
-La malla actual se genera con `python tools/build_hero_v012.py`, se empaqueta con `python build.py` y se exporta con `python tools/export_continuity_glb.py`. El HTML contiene sus propios buffers y mapas. No carga un GLB remoto ni necesita los archivos externos para jugar.
+Este directorio conserva insumos de autoría, bases geométricas, exportaciones GLB y referencias de QA de varias versiones. **El juego vigente es v0.19**, no la versión indicada en el nombre de cada recurso.
 
-`dc012-human-continuity.glb`: personaje neutral actual, 13 grupos de material, 49 huesos y siete estudios procedurales. Apariencia portable aproximada. La deformación glTF estándar puede diferir de los cuaterniones duales del juego.
+El índice rector está en [docs/project/ASSETS.md](../docs/project/ASSETS.md). La geometría humana del runtime está embebida en `src/hero-asset.js`, junto a materiales y generación de peinados en sus módulos. `dc019-equipment.glb` es el kit de equipamiento de esta base. Los GLB humanos anteriores son referencias/exportaciones históricas, no un exportador de todas las funciones del creador actual.
 
-`hero-native-report.json`: informe geométrico actual. `anatomy-source/`: insumos anteriores de cabeza y piel con licencias y huellas conservadas.
+Para construir el juego: `python3 build.py`. Para reconstruir el kit actual: `python3 tools/export_contact.py`. No ejecutar una receta de otra versión sobre las fuentes actuales sin verificar su contrato y su insumo.
 
-Ver **ATTRIBUTION-v012.md**, **ATTRIBUTION-v09.md** y **ATTRIBUTION-v010.md**. Las exportaciones de versiones anteriores y las referencias de autoría Higgsfield permanecen identificadas como históricas. No se distribuyen archivos de fuentes tipográficas.
+Preservar `anatomy-source/`, los baselines y las atribuciones hasta demostrar que una migración puede reproducir los assets sin ellos. El HTML no solicita esos archivos por red. No se distribuyen fuentes tipográficas. La política de licencia global pendiente está en [LICENSING](../docs/project/LICENSING.md).
