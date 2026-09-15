@@ -1,12 +1,35 @@
-# QA, CI y reproducción
+# QA reproducible desde el repositorio
 
-## Dos niveles de evidencia
+## Runner vigente (DC-001 / issue #2)
 
-`qa/v019/` contiene los resultados que acompañaron al paquete original. Son archivos históricos y no deben sobrescribirse para simular una ejecución nueva. El workflow de CI prepara una copia aislada del checkout, elimina sus resultados antiguos de v0.19 y publica sólo los generados por el run actual.
+```sh
+python3 -m tools.qa.run --suite handling
+# Chromium instalado en una ruta explícita, con Xvfb en Linux:
+xvfb-run -a python3 -m tools.qa.run --suite handling --browser /usr/bin/chromium --headed
+# Las cinco suites de navegador heredadas, con sus aserciones conservadas:
+xvfb-run -a python3 -m tools.qa.run --suite all --headed --timeout 600
+python3 tests/qa_runner.test.py
+```
 
-La base documenta 328 tests Node, 271 aserciones de navegador y una prueba del kit GLB. Una comprobación de navegador no equivale a una sesión independiente ni a cobertura exhaustiva. Las cifras actuales se leen del run y del hash concreto.
+Omitir `--browser` selecciona el Chromium instalado por Playwright. `--headed` utiliza un display existente o el proporcionado por `xvfb-run`; `--display` permite configurarlo explícitamente. No se instala ni se sustituye el navegador del sistema. Python 3.12, Node 22 y Playwright 1.57.0 son las versiones de referencia de CI, no dependencias para jugar.
 
-## Puerta básica
+El runner acepta `--root`, `--output`, `--browser`, `--origin`, `--headed`, `--display` y `--timeout`. La salida debe ser un directorio NUEVO bajo `<root>/artifacts/`. Rechaza rutas que escaparan mediante symlink, destinos existentes y suites de un modo de origen distinto. Cada ejecución genera un `runId` y usa una copia aislada sin los informes históricos. No modifica el checkout, sus partidas o `qa/v019/`.
+
+`run.json` registra commit, hash del HTML, configuración, códigos de salida, duración y resultado por suite. Los logs se conservan incluso al fallar. El gate exige proceso satisfactorio, informe nuevo, número exacto de aserciones, cero fallos/errores/peticiones externas y el mismo HTML antes/después. Un timeout termina el grupo de procesos, incluido el navegador. Un JSON antiguo aprobado nunca sustituye una ejecución.
+
+## Registro explícito de suites
+
+| Suite | Comando original | Aserciones actuales |
+| :--- | :--- | ---: |
+| handling | contact_browser.py | 51 |
+| arsenal | contact_arsenal.py | 78 |
+| library | contact_library.py | 64 |
+| campaign | contact_legacy.py | 52 |
+| continuous | contact_continuous.py | 26 |
+
+Estos casos usan `--origin fixture`: HTML inyectado y almacenamiento en memoria. La continua conserva RAF, renderer, cámara y simulación, pero también prepara posiciones iniciales. Las otras controlan keyframes para separar lógica y coste gráfico. **No son persistencia nativa ni un benchmark físico.** Las aserciones se conservaron al extraer la configuración de lanzamiento a `tests/qa_support.py`.
+
+## Pruebas básicas
 
 ```sh
 python3 build.py
@@ -16,50 +39,16 @@ python3 tests/contact_exports.test.py
 git diff --exit-code -- index.html assets/dc019-equipment.glb
 ```
 
-En una feature que cambia esos artefactos, regenerarlos y revisar sus diferencias antes de versionarlos. La CI comprueba después que el checkout ya contiene la salida correcta. No se deben versionar logs de otra máquina como si fueran resultado de la CI.
+En una feature con cambios de runtime, regenerar y versionar la salida revisada. La CI comprueba que el commit incluye el HTML correcto. No sumar recuentos de versiones viejas como resultados nuevos.
 
-## Integración de navegador de la base
+## Evidencia original y ejecución actual
 
-| Script actual | Resultado esperado de la base | Informe |
-| :--- | :--- | :--- |
-| `tests/contact_browser.py` | 51 aserciones | `handling-browser.json` |
-| `tests/contact_arsenal.py` | 78 aserciones | `arsenal-browser.json` |
-| `tests/contact_library.py` | 64 aserciones | `library-regression.json` |
-| `tests/contact_legacy.py` | 52 aserciones | `legacy/browser-report.json` |
-| `tests/contact_continuous.py` | 26 aserciones | `arsenal-continuous.json` |
+`qa/v019/` y `SOURCE-MANIFEST.json` se mantienen como evidencia de la importación. Los auditores históricos que deducen la base del primer commit de Git no son gates universales de este repositorio. No ejecutar toda la colección de tests geométricos históricos con criterios contradictorios entre versiones.
 
-Todos escriben bajo `qa/v019/`. La suite de manejo usa fotogramas WebGL reales y pasos controlados, con almacenamiento en memoria. La continua conserva el bucle original y sus inputs, pero también prepara posiciones iniciales. Ninguna demuestra persistencia nativa tras cerrar el navegador.
+La CI usa el mismo runner del desarrollador y publica sólo su directorio de artefactos. El número de tests no certifica anatomía, realismo, diversión, FPS ni cobertura completa del mundo abierto.
 
-El CI inicial ejecuta manejo en cada PR/push y permite la batería completa por ejecución manual. Utiliza Python 3.12, Node 22 y Playwright 1.57.0 con su Chromium instalado. La ruta `/usr/bin/chromium` se adapta en el runner de CI porque las pruebas heredadas la fijan en código. El nuevo harness de la spec 001 debe eliminar esa restricción sin reescribir todas las aserciones.
+## Próximas puertas
 
-Reproducción local en una copia de trabajo de QA, con Chromium compatible y Xvfb:
+Persistencia nativa HTTP con cierre/reapertura, dos pestañas, lifecycle WebGL, recursos bajo recorridos largos y dispositivos físicos. Cada una debe tener su propio informe y modo explícito. Un bloqueo de navegación del laboratorio se registra como bloqueo, no se elude ni se reemplaza con un fixture anunciado como nativo.
 
-```sh
-python3 -m pip install playwright==1.57.0
-python3 -m playwright install --with-deps chromium
-# Configurar /usr/bin/chromium para este entorno de desarrollo o usar el futuro harness.
-xvfb-run -a python3 tests/contact_browser.py
-```
-
-No reemplazar el navegador personal del usuario ni elevar privilegios fuera de un runner administrado. Instalar dependencias es sólo para desarrollar, no para jugar. La documentación de [Playwright](https://playwright.dev/python/docs/browsers) explica la correspondencia entre la versión de la herramienta y sus binarios.
-
-## Por qué no usar todos los scripts históricos como gate
-
-`tools/audit_contact_release.py` deduce un commit base de la raíz del historial Git temporal de autoría. La raíz de este repositorio nuevo sólo tiene el importador. Por ello ese cálculo ya no representa la base de comparación. Sus informes originales siguen siendo válidos para su entrega, pero el script no es un auditor universal del repositorio publicado.
-
-`tools/run_contact_browser.py` fija DISPLAY=:99 y escribe resultados históricos. La CI inicial no depende de él: usa procesos explícitos con estado de salida, verifica los informes nuevos y sus hashes. Los antiguos tests de cuello pueden exigir dimensiones deliberadamente cambiadas después. Seleccionar invariantes vigentes y registrar sustituciones, no borrar tests incómodos ni sumar pases incompatibles.
-
-## Puertas nuevas por construir
-
-1. Harness configurable con directorio de artefactos único, timeout, entorno y rechazo de informes obsoletos.
-2. HTTP local real con perfil persistente: crear dos partidas, cerrar/reabrir, comprobar identidad y progreso, eliminar una sin que reaparezca.
-3. Dos pestañas reales: rechazar revisión obsoleta y guardar copia sin perder la más reciente.
-4. Pérdida/restauración de contexto y mensajes de recuperación, sin reinicio silencioso de la partida.
-5. Sesión de 30 minutos con recambio de sectores y límites de recursos.
-6. Matriz física de navegadores y dispositivos, comparaciones de personajes y playtest completo.
-
-## Informes mínimos
-
-Commit y SHA-256 de HTML, fecha UTC real, comandos y códigos, versión de navegador, renderer/GPU reportado, resolución y calidad, semilla, almacenamiento nativo/fixture, estado preparado/recorrido y fallos. No registrar tokens, rutas personales sensibles o partidas de usuarios.
-
-Las fallas de infraestructura se clasifican y reintentan sólo después de inspeccionar la causa. No ocultar un CONTEXT_LOST_WEBGL con múltiples reintentos hasta lograr un verde. Mantener el primer fallo y el alcance de la recuperación.
+Referencias: documentación oficial de Playwright sobre BrowserType y persistent contexts, y MDN WebGL context lost/restored. Las pruebas de navegador pueden requerir herramientas de desarrollo instaladas; el juego no las requiere.

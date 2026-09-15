@@ -9,6 +9,7 @@ timed by the software GPU. Native browser persistence and Safari are not claimed
 """
 from pathlib import Path
 from playwright.sync_api import sync_playwright
+from qa_support import launch_options
 import json,hashlib
 ROOT=Path(__file__).resolve().parents[1]
 OUT=ROOT/'qa/v019/legacy';OUT.mkdir(parents=True,exist_ok=True)
@@ -42,7 +43,7 @@ def capture(page,name,high=False):
 def reset_player(page,x,z):
     page.evaluate('''({x,z})=>{const a=DC_APP;a.sim.cancelAccess(true);if(a.sim.player.car!==null){a.sim.actor().speed=0;a.sim.actor().parked=true;}Object.assign(a.sim.player,{x,z,car:null,y:0,vy:0,vx:0,vz:0,transition:null,dodge:0,stagger:0});a.renderer.camera.initialized=false;a.renderer.camera.yaw=0;a.sim.pin=null;a.sim.events=[];}''',{'x':x,'z':z})
 with sync_playwright() as p:
-    browser=p.chromium.launch(executable_path='/usr/bin/chromium',headless=False,args=['--no-sandbox','--use-angle=swiftshader','--enable-unsafe-swiftshader','--disable-dev-shm-usage'])
+    browser=p.chromium.launch(**launch_options())
     context,page=load(browser,960,640)
     capture(page,'01-menu.png',True)
     page.click('#start');page.click('#commitCreator');page.click('#dismissTutorial')

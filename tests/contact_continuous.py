@@ -4,14 +4,15 @@ Initial positions are prepared to reproduce the scenario. Isolated test localSto
 from pathlib import Path
 import os,json,time,hashlib
 from playwright.sync_api import sync_playwright
-R=Path(__file__).resolve().parents[1];O=R/'qa/v019';os.environ.setdefault('DISPLAY',':99')
+from qa_support import launch_options
+R=Path(__file__).resolve().parents[1];O=R/'qa/v019'
 FIXTURE="""(()=>{let d=new Map([['distrito-cero:settings:v1',JSON.stringify({quality:'eco',sound:false,rain:false,bloom:false})]]);Object.defineProperty(window,'localStorage',{value:{getItem:k=>d.get(k)||null,setItem:(k,v)=>d.set(k,String(v)),removeItem:k=>d.delete(k)}});})();"""
 checks=[];errors=[];requests=[]
 def ck(n,v):
  checks.append({'name':n,'pass':bool(v)});print(time.strftime('%H:%M:%S'),('PASS 'if v else'FAIL ')+n,flush=True);assert v,n
 try:
  with sync_playwright() as pw:
-  b=pw.chromium.launch(executable_path='/usr/bin/chromium',headless=False,args=['--no-sandbox','--use-angle=swiftshader','--enable-unsafe-swiftshader','--disable-dev-shm-usage']);p=b.new_page(viewport={'width':680,'height':440});p.on('pageerror',lambda e:errors.append(str(e)));p.on('console',lambda m:errors.append(m.text)if m.type=='error'else None);p.on('request',lambda r:requests.append(r.url)if r.url.startswith(('http:','https:'))else None);p.set_content((R/'index.html').read_text().replace('<script>','<script>'+FIXTURE,1),timeout=60000);p.wait_for_function('!!window.DC_APP',timeout=60000);p.click('#start');p.click('#commitCreator');p.click('#dismissTutorial')
+  b=pw.chromium.launch(**launch_options());p=b.new_page(viewport={'width':680,'height':440});p.on('pageerror',lambda e:errors.append(str(e)));p.on('console',lambda m:errors.append(m.text)if m.type=='error'else None);p.on('request',lambda r:requests.append(r.url)if r.url.startswith(('http:','https:'))else None);p.set_content((R/'index.html').read_text().replace('<script>','<script>'+FIXTURE,1),timeout=60000);p.wait_for_function('!!window.DC_APP',timeout=60000);p.click('#start');p.click('#commitCreator');p.click('#dismissTutorial')
   p.evaluate('DC_APP.renderer.humanReady');ck('All three embedded maps load during native loop',p.evaluate('DC_APP.renderer.humanTextureStatus.loaded===3&&DC_APP.renderer.humanTextureStatus.failed===0'));
   ck('Live game boot',p.evaluate('DC_APP.renderer.gl.getError()===0'))
   # Equip and use through native input with the renderer and RAF still running.

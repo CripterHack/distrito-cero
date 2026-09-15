@@ -5,7 +5,8 @@ A separate identity_continuous.py tests the unmodified loop. No native file stor
 from pathlib import Path
 import json,os,hashlib,time
 from playwright.sync_api import sync_playwright
-R=Path(__file__).resolve().parents[1];O=R/'qa/v019';os.environ.setdefault('DISPLAY',':99')
+from qa_support import launch_options
+R=Path(__file__).resolve().parents[1];O=R/'qa/v019'
 HTML=(R/'index.html').read_text();checks=[];errors=[];requests=[];pages=0
 FIXTURE='''(()=>{window.testStore=new Map([['distrito-cero:settings:v1',JSON.stringify({quality:'eco',sound:false,rain:false,bloom:false})]]);Object.defineProperty(window,'localStorage',{value:{getItem:k=>testStore.get(k)||null,setItem:(k,v)=>testStore.set(k,String(v)),removeItem:k=>testStore.delete(k)}});})();'''
 def ck(n,v):
@@ -26,7 +27,7 @@ def import_obj(p,obj,name='importada.json'):
 def hit(p,id):return p.evaluate('''id=>{const e=document.getElementById(id),r=e.getBoundingClientRect(),h=document.elementFromPoint(r.x+r.width/2,r.y+r.height/2);return r.width>0&&r.x>=0&&r.y>=0&&r.right<=innerWidth+.1&&r.bottom<=innerHeight+.1&&(h===e||e.contains(h));}''',id)
 try:
  with sync_playwright() as pw:
-  b=pw.chromium.launch(executable_path='/usr/bin/chromium',headless=False,args=['--no-sandbox','--use-angle=swiftshader','--enable-unsafe-swiftshader','--disable-dev-shm-usage'])
+  b=pw.chromium.launch(**launch_options())
   c,p=load(b)
   ck('Landing offers creator and named library',p.locator('#start').is_visible()and p.locator('#landingSaves').is_visible())
   p.click('#start');ck('New story enters creator before gameplay',p.evaluate('DC_APP.mode==="creator"&&!DC_APP.started'))

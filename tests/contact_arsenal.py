@@ -4,7 +4,8 @@ This suite pauses RAF scheduling after boot. See arsenal_continuous.py for the n
 from pathlib import Path
 import os,json,hashlib,time
 from playwright.sync_api import sync_playwright
-R=Path(__file__).resolve().parents[1];O=R/'qa/v019';os.environ.setdefault('DISPLAY',':99');checks=[];errors=[];requests=[]
+from qa_support import launch_options
+R=Path(__file__).resolve().parents[1];O=R/'qa/v019';checks=[];errors=[];requests=[]
 HTML=(R/'index.html').read_text()
 FIX="""(()=>{window.testStore=new Map([['distrito-cero:settings:v1',JSON.stringify({quality:'eco',rain:false,bloom:false,sound:false})]]);Object.defineProperty(window,'localStorage',{value:{getItem:k=>testStore.get(k)||null,setItem:(k,v)=>testStore.set(k,String(v)),removeItem:k=>testStore.delete(k)}});})();"""
 def ck(n,v):
@@ -27,7 +28,7 @@ def hit(p,id):
 
 try:
  with sync_playwright() as pw:
-  b=pw.chromium.launch(executable_path='/usr/bin/chromium',headless=False,args=['--no-sandbox','--use-angle=swiftshader','--enable-unsafe-swiftshader','--disable-dev-shm-usage']);p=b.new_page(viewport={'width':1100,'height':760});p.set_default_timeout(25000)
+  b=pw.chromium.launch(**launch_options());p=b.new_page(viewport={'width':1100,'height':760});p.set_default_timeout(25000)
   p.on('pageerror',lambda e:errors.append(str(e)));p.on('console',lambda e:errors.append(e.text)if e.type=='error'else None);p.on('request',lambda r:requests.append(r.url)if r.url.startswith(('http:','https:'))else None)
   p.set_content(HTML.replace('<script>','<script>'+FIX,1),timeout=90000);p.wait_for_function('!!window.DC_APP',timeout=90000);p.evaluate('DC_APP.renderer.humanReady');p.evaluate('window.requestAnimationFrame=()=>0');p.wait_for_timeout(160)
   ck('Boot uses actual v0.17 simulation and renderer',p.evaluate('DC_APP.sim instanceof DC.EquipmentSimulation&&DC_APP.renderer instanceof DC.EquipmentRenderer'))
