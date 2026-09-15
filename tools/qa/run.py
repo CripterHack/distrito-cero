@@ -7,6 +7,7 @@ from pathlib import Path
 from datetime import datetime, timezone
 import argparse, hashlib, json, os, shutil, signal, subprocess, sys, tempfile, time, uuid
 from .config import Config
+from .workspace import stage_workspace
 
 def digest(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
@@ -98,8 +99,8 @@ def run_suites(config,suites):
     try:
         with tempfile.TemporaryDirectory(prefix='dc-qa-') as temp:
             stage=Path(temp)/'workspace'
-            # Never copy .git, user data, previous artifacts, or any historical reports.
-            shutil.copytree(config.root,stage,ignore=shutil.ignore_patterns('.git','.worktrees','artifacts','qa','__pycache__','.venv','node_modules','.env','.env.*'),symlinks=False)
+            # Historical root qa is excluded; tools/qa remains executable test code.
+            stage_workspace(config.root,stage)
             (stage/'qa/v019/legacy').mkdir(parents=True)
             for suite in suites:
                 entry=execute_suite(config,suite,stage,sha,run_id);manifest['suites'].append(entry)

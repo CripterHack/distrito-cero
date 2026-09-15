@@ -2,10 +2,10 @@ name: Character reference benchmark
 on:
   pull_request:
     branches: [master]
-    paths: ['src/**', 'build.py', 'tools/qa/**', 'tests/character*', 'tests/benchmarks/**', '.github/workflows/character-benchmark.yml']
+    paths: ['src/**', 'build.py', 'tools/qa/**', 'tests/character*', 'tests/benchmarks/**', 'tests/qa_stage_assets.test.py', '.github/workflows/character-benchmark.yml']
   push:
     branches: [master]
-    paths: ['src/**', 'build.py', 'tools/qa/**', 'tests/character*', 'tests/benchmarks/**', '.github/workflows/character-benchmark.yml']
+    paths: ['src/**', 'build.py', 'tools/qa/**', 'tests/character*', 'tests/benchmarks/**', 'tests/qa_stage_assets.test.py', '.github/workflows/character-benchmark.yml']
   workflow_dispatch:
     inputs:
       matrix:
@@ -36,6 +36,7 @@ jobs:
       - name: Verify contracts and unchanged runtime
         run: |
           python3 tests/character_matrix.test.py
+          python3 tests/qa_stage_assets.test.py
           python3 tests/qa_selection.test.py
           node --test tests/character-stage.test.cjs
           python3 build.py
@@ -56,6 +57,11 @@ jobs:
           fi
           echo '### Character reference generated' >> "$GITHUB_STEP_SUMMARY"
           echo 'Read report.html and art-review.json in the artifact. Numerical checks do not approve anatomy or claim FPS.' >> "$GITHUB_STEP_SUMMARY"
+      - name: Show failure diagnostics
+        if: failure()
+        run: |
+          if test -f artifacts/ci-characters/characters.log; then tail -100 artifacts/ci-characters/characters.log; fi
+          if test -f artifacts/ci-characters/characters.json; then python3 -c 'import json; d=json.load(open("artifacts/ci-characters/characters.json")); print(d.get("failure"), d.get("errors"))'; fi
       - name: Upload only fresh gallery and measurements
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
