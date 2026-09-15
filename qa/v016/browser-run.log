@@ -1,0 +1,8 @@
+START traits_browser
+END {'suite': 'traits_browser', 'exit_code': 0, 'elapsed_s': 16.33}
+START traits_library
+END {'suite': 'traits_library', 'exit_code': 0, 'elapsed_s': 41.48}
+START traits_legacy
+END {'suite': 'traits_legacy', 'exit_code': 0, 'elapsed_s': 41.74}
+START traits_continuous
+END {'suite': 'traits_continuous', 'exit_code': 0, 'elapsed_s': 77.51}

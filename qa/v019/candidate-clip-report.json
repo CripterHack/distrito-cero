@@ -1,0 +1,1330 @@
+{
+  "sha256": "e5eabdd59dde45afc06c1f45b1a64eafb44da2bdcee4d8606e6c1daae849eaa5",
+  "frames": 120,
+  "playbackFPS": 20,
+  "duration": 6,
+  "errors": [],
+  "states": [
+    {
+      "frame": 0,
+      "phase": "Guardia baja",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 0,
+      "gl": 0
+    },
+    {
+      "frame": 1,
+      "phase": "Guardia baja",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 0,
+      "gl": 0
+    },
+    {
+      "frame": 2,
+      "phase": "Guardia baja",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 0,
+      "gl": 0
+    },
+    {
+      "frame": 3,
+      "phase": "Guardia baja",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 0,
+      "gl": 0
+    },
+    {
+      "frame": 4,
+      "phase": "Guardia baja",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 0,
+      "gl": 0
+    },
+    {
+      "frame": 5,
+      "phase": "Guardia baja",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 0,
+      "gl": 0
+    },
+    {
+      "frame": 6,
+      "phase": "Guardia baja",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 0,
+      "gl": 0
+    },
+    {
+      "frame": 7,
+      "phase": "Guardia baja",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 0,
+      "gl": 0
+    },
+    {
+      "frame": 8,
+      "phase": "Guardia baja",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 0,
+      "gl": 0
+    },
+    {
+      "frame": 9,
+      "phase": "Guardia baja",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 0,
+      "gl": 0
+    },
+    {
+      "frame": 10,
+      "phase": "Guardia baja",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 0,
+      "gl": 0
+    },
+    {
+      "frame": 11,
+      "phase": "Guardia baja",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 0,
+      "gl": 0
+    },
+    {
+      "frame": 12,
+      "phase": "Guardia baja",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 0,
+      "gl": 0
+    },
+    {
+      "frame": 13,
+      "phase": "Guardia baja",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 0,
+      "gl": 0
+    },
+    {
+      "frame": 14,
+      "phase": "Guardia baja",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 0,
+      "gl": 0
+    },
+    {
+      "frame": 15,
+      "phase": "Apuntar",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 0,
+      "gl": 0
+    },
+    {
+      "frame": 16,
+      "phase": "Apuntar",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 0,
+      "gl": 0
+    },
+    {
+      "frame": 17,
+      "phase": "Apuntar",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 0,
+      "gl": 0
+    },
+    {
+      "frame": 18,
+      "phase": "Apuntar",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 0,
+      "gl": 0
+    },
+    {
+      "frame": 19,
+      "phase": "Apuntar",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 0,
+      "gl": 0
+    },
+    {
+      "frame": 20,
+      "phase": "Apuntar",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 0,
+      "gl": 0
+    },
+    {
+      "frame": 21,
+      "phase": "Apuntar",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 0,
+      "gl": 0
+    },
+    {
+      "frame": 22,
+      "phase": "Apuntar",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 0,
+      "gl": 0
+    },
+    {
+      "frame": 23,
+      "phase": "Apuntar",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 0,
+      "gl": 0
+    },
+    {
+      "frame": 24,
+      "phase": "Apuntar",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 0,
+      "gl": 0
+    },
+    {
+      "frame": 25,
+      "phase": "Apuntar",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 0,
+      "gl": 0
+    },
+    {
+      "frame": 26,
+      "phase": "Apuntar",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 0,
+      "gl": 0
+    },
+    {
+      "frame": 27,
+      "phase": "Apuntar",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 0,
+      "gl": 0
+    },
+    {
+      "frame": 28,
+      "phase": "Apuntar",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 0,
+      "gl": 0
+    },
+    {
+      "frame": 29,
+      "phase": "Apuntar",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 0,
+      "gl": 0
+    },
+    {
+      "frame": 30,
+      "phase": "Apuntar",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 0,
+      "gl": 0
+    },
+    {
+      "frame": 31,
+      "phase": "Apuntar",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 0,
+      "gl": 0
+    },
+    {
+      "frame": 32,
+      "phase": "Recuperar",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 33,
+      "phase": "Recuperar",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 34,
+      "phase": "Recuperar",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 35,
+      "phase": "Apuntar",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 36,
+      "phase": "Apuntar",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 37,
+      "phase": "Apuntar",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 38,
+      "phase": "Apuntar",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 39,
+      "phase": "Apuntar",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 40,
+      "phase": "Recargar",
+      "magazine": [
+        -0.0,
+        -0.0,
+        0
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 41,
+      "phase": "Recargar",
+      "magazine": [
+        -0.0,
+        -0.0,
+        0
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 42,
+      "phase": "Recargar",
+      "magazine": [
+        -0.0,
+        -0.0,
+        0
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 43,
+      "phase": "Recargar",
+      "magazine": [
+        -0.0,
+        -0.0,
+        0
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 44,
+      "phase": "Recargar",
+      "magazine": [
+        -0.0,
+        -0.0,
+        0
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 45,
+      "phase": "Recargar",
+      "magazine": [
+        -0.0,
+        -0.0,
+        0
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 46,
+      "phase": "Recargar",
+      "magazine": [
+        -0.0,
+        -0.0,
+        0
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 47,
+      "phase": "Recargar",
+      "magazine": [
+        -0.0,
+        -0.0,
+        0
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 48,
+      "phase": "Recargar",
+      "magazine": [
+        -0.0,
+        -0.0,
+        0
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 49,
+      "phase": "Recargar",
+      "magazine": [
+        -0.0,
+        -0.0,
+        0
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 50,
+      "phase": "Recargar",
+      "magazine": [
+        -0.0007340286602348156,
+        -0.006195201892381843,
+        0.0007340286602348156
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 51,
+      "phase": "Recargar",
+      "magazine": [
+        -0.0036561229451732924,
+        -0.030857677657262585,
+        0.0036561229451732924
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 52,
+      "phase": "Recargar",
+      "magazine": [
+        -0.008068783428670191,
+        -0.0681005321379764,
+        0.008068783428670191
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 53,
+      "phase": "Recargar",
+      "magazine": [
+        -0.013174915886897468,
+        -0.11119629008541462,
+        0.013174915886897468
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 54,
+      "phase": "Recargar",
+      "magazine": [
+        -0.018177426096027148,
+        -0.15341747625046911,
+        0.018177426096027148
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 55,
+      "phase": "Recargar",
+      "magazine": [
+        -0.022279219832231245,
+        -0.1880366153840317,
+        0.022279219832231245
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 56,
+      "phase": "Recargar",
+      "magazine": [
+        -0.024683202871681714,
+        -0.20832623223699367,
+        0.024683202871681714
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 57,
+      "phase": "Recargar",
+      "magazine": [
+        -0.025,
+        -0.211,
+        0.025
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 58,
+      "phase": "Recargar",
+      "magazine": [
+        -0.025,
+        -0.211,
+        0.025
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 59,
+      "phase": "Recargar",
+      "magazine": [
+        -0.025,
+        -0.211,
+        0.025
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 60,
+      "phase": "Recargar",
+      "magazine": [
+        -0.025,
+        -0.211,
+        0.025
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 61,
+      "phase": "Recargar",
+      "magazine": [
+        -0.025,
+        -0.211,
+        0.025
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 62,
+      "phase": "Recargar",
+      "magazine": [
+        -0.025,
+        -0.211,
+        0.025
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 63,
+      "phase": "Recargar",
+      "magazine": [
+        -0.024702957535192072,
+        -0.20849296159702108,
+        0.024702957535192072
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 64,
+      "phase": "Recargar",
+      "magazine": [
+        -0.022142440589007294,
+        -0.18688219857122154,
+        0.022142440589007294
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 65,
+      "phase": "Recargar",
+      "magazine": [
+        -0.01772575197326692,
+        -0.14960534665437278,
+        0.01772575197326692
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 66,
+      "phase": "Recargar",
+      "magazine": [
+        -0.012390352127140429,
+        -0.1045745719530652,
+        0.012390352127140429
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 67,
+      "phase": "Recargar",
+      "magazine": [
+        -0.007073701489797288,
+        -0.05970204057388911,
+        0.007073701489797288
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 68,
+      "phase": "Recargar",
+      "magazine": [
+        -0.0027132605004070057,
+        -0.022899918623435125,
+        0.0027132605004070057
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 69,
+      "phase": "Recargar",
+      "magazine": [
+        -0.00024648959813900194,
+        -0.0020803722082931766,
+        0.00024648959813900194
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 70,
+      "phase": "Recargar",
+      "magazine": [
+        -0.0,
+        -0.0,
+        0
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 71,
+      "phase": "Recargar",
+      "magazine": [
+        -0.0,
+        -0.0,
+        0
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 72,
+      "phase": "Recargar",
+      "magazine": [
+        -0.0,
+        -0.0,
+        0
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 73,
+      "phase": "Recargar",
+      "magazine": [
+        -0.0,
+        -0.0,
+        0
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 74,
+      "phase": "Recargar",
+      "magazine": [
+        -0.0,
+        -0.0,
+        0
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 75,
+      "phase": "Recargar",
+      "magazine": [
+        -0.0,
+        -0.0,
+        0
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 76,
+      "phase": "Recargar",
+      "magazine": [
+        -0.0,
+        -0.0,
+        0
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 77,
+      "phase": "Apuntar",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 78,
+      "phase": "Apuntar",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 79,
+      "phase": "Apuntar",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 80,
+      "phase": "Apuntar",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 81,
+      "phase": "Apuntar",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 82,
+      "phase": "Apuntar",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 83,
+      "phase": "Apuntar",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 84,
+      "phase": "Apuntar",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 85,
+      "phase": "Apuntar",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 86,
+      "phase": "Apuntar",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 87,
+      "phase": "Apuntar",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 88,
+      "phase": "Apuntar",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 89,
+      "phase": "Apuntar",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 90,
+      "phase": "Apuntar",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 91,
+      "phase": "Apuntar",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 92,
+      "phase": "Apuntar",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 93,
+      "phase": "Apuntar",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 94,
+      "phase": "Apuntar",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 95,
+      "phase": "Apuntar",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 96,
+      "phase": "Apuntar",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 97,
+      "phase": "Apuntar",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 98,
+      "phase": "Apuntar",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 99,
+      "phase": "Apuntar",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 100,
+      "phase": "Apuntar",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 101,
+      "phase": "Apuntar",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 102,
+      "phase": "Apuntar",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 103,
+      "phase": "Apuntar",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 104,
+      "phase": "Apuntar",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 105,
+      "phase": "Guardia baja",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 106,
+      "phase": "Guardia baja",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 107,
+      "phase": "Guardia baja",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 108,
+      "phase": "Guardia baja",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 109,
+      "phase": "Guardia baja",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 110,
+      "phase": "Guardia baja",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 111,
+      "phase": "Guardia baja",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 112,
+      "phase": "Guardia baja",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 113,
+      "phase": "Guardia baja",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 114,
+      "phase": "Guardia baja",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 115,
+      "phase": "Guardia baja",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 116,
+      "phase": "Guardia baja",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 117,
+      "phase": "Guardia baja",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 118,
+      "phase": "Guardia baja",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 1,
+      "gl": 0
+    },
+    {
+      "frame": 119,
+      "phase": "Guardia baja",
+      "magazine": [
+        0,
+        0,
+        0
+      ],
+      "shots": 1,
+      "gl": 0
+    }
+  ],
+  "note": "Prepared camera and initial state, production simulation and WebGL renderer. Controlled clock, not measured real-time performance."
+}

@@ -1,0 +1,135 @@
+TAP version 13
+# palmAnchorMaxError 6.4812846508058e-8
+# articulationMaxReachError 9.89904906816763e-8
+# locomotionPalmError 8.131335827335385e-8
+# Subtest: contacts describe a palm surface distinct from the wrist
+ok 1 - contacts describe a palm surface distinct from the wrist
+  ---
+  duration_ms: 226.956165
+  type: 'test'
+  ...
+# Subtest: posed anatomical palm landmarks coincide with their prop anchors
+ok 2 - posed anatomical palm landmarks coincide with their prop anchors
+  ---
+  duration_ms: 611.977268
+  type: 'test'
+  ...
+# Subtest: long-arm support palms are authored on the underside rather than to the side of the foregrip
+ok 3 - long-arm support palms are authored on the underside rather than to the side of the foregrip
+  ---
+  duration_ms: 10.672261
+  type: 'test'
+  ...
+# Subtest: stock brace uses the articulated shoulder at neutral aim
+ok 4 - stock brace uses the articulated shoulder at neutral aim
+  ---
+  duration_ms: 10.871075
+  type: 'test'
+  ...
+# Subtest: aiming alone does not close the trigger index
+ok 5 - aiming alone does not close the trigger index
+  ---
+  duration_ms: 10.758339
+  type: 'test'
+  ...
+# Subtest: reload lets the support fingers open in free travel and close on the magazine
+ok 6 - reload lets the support fingers open in free travel and close on the magazine
+  ---
+  duration_ms: 10.637199
+  type: 'test'
+  ...
+# Subtest: magazine motion includes cant and the palm follows its transformed surface
+ok 7 - magazine motion includes cant and the palm follows its transformed surface
+  ---
+  duration_ms: 10.252422
+  type: 'test'
+  ...
+# Subtest: translating and rotating a part agrees with its render transform
+ok 8 - translating and rotating a part agrees with its render transform
+  ---
+  duration_ms: 10.256648
+  type: 'test'
+  ...
+# Subtest: reload choreography is continuous for wrists and moving pieces
+ok 9 - reload choreography is continuous for wrists and moving pieces
+  ---
+  duration_ms: 206.342874
+  type: 'test'
+  ...
+# Subtest: all grip bases and targets remain finite over sampled actions and appearances
+ok 10 - all grip bases and targets remain finite over sampled actions and appearances
+  ---
+  duration_ms: 4993.60237
+  type: 'test'
+  ...
+# Subtest: angular handling inertia is bounded and recovers without mutating snapshots
+ok 11 - angular handling inertia is bounded and recovers without mutating snapshots
+  ---
+  duration_ms: 11.246117
+  type: 'test'
+  ...
+# Subtest: reload and aim changes keep an orthonormal contact orientation
+ok 12 - reload and aim changes keep an orthonormal contact orientation
+  ---
+  duration_ms: 101.920416
+  type: 'test'
+  ...
+# Subtest: firearm handles have a shared rounded grip mesh
+ok 13 - firearm handles have a shared rounded grip mesh
+  ---
+  duration_ms: 3.180334
+  type: 'test'
+  ...
+# Subtest: render mount and skeleton consume the same sampled locomotion state
+ok 14 - render mount and skeleton consume the same sampled locomotion state
+  ---
+  duration_ms: 66.854494
+  type: 'test'
+  ...
+# Subtest: sidearm aim extends forward from the carried posture instead of remaining at the chest
+ok 15 - sidearm aim extends forward from the carried posture instead of remaining at the chest
+  ---
+  duration_ms: 11.148743
+  type: 'test'
+  ...
+# Subtest: trigger finger flexion transitions instead of snapping between sampled frames
+ok 16 - trigger finger flexion transitions instead of snapping between sampled frames
+  ---
+  duration_ms: 11.068895
+  type: 'test'
+  ...
+# Subtest: shoulder brace follows the fitted neck/body coordination used by the crowd renderer
+not ok 17 - shoulder brace follows the fitted neck/body coordination used by the crowd renderer
+  ---
+  duration_ms: 18.882987
+  type: 'test'
+  location: '/mnt/data/dc-v019-work/distrito-cero/tests/contact-articulation.test.cjs:23:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+    
+      a.ok(dist(target,m.brace.target)<.001)
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/mnt/data/dc-v019-work/distrito-cero/tests/contact-articulation.test.cjs:23:491)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+1..17
+# tests 17
+# suites 0
+# pass 16
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 6401.704903

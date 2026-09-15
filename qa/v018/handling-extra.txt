@@ -1,0 +1,111 @@
+TAP version 13
+# socketMaxError 0.001816071212429473
+# Subtest: every usable item defines dedicated oriented contact sockets
+ok 1 - every usable item defines dedicated oriented contact sockets
+  ---
+  duration_ms: 189.386736
+  type: 'test'
+  ...
+# Subtest: oriented wrist reaches the socket without stretching forearm or moving fingers away
+ok 2 - oriented wrist reaches the socket without stretching forearm or moving fingers away
+  ---
+  duration_ms: 13.374852
+  type: 'test'
+  ...
+# Subtest: all equipment sockets stay attainable in pitch/crouch/aim/reload states
+ok 3 - all equipment sockets stay attainable in pitch/crouch/aim/reload states
+  ---
+  duration_ms: 6554.196986
+  type: 'test'
+  ...
+# Subtest: primary grip fingers and support fingers do not use identical profiles
+ok 4 - primary grip fingers and support fingers do not use identical profiles
+  ---
+  duration_ms: 10.49319
+  type: 'test'
+  ...
+# Subtest: support hand follows the moving magazine and returns without teleporting
+ok 5 - support hand follows the moving magazine and returns without teleporting
+  ---
+  duration_ms: 11.066986
+  type: 'test'
+  ...
+# Subtest: magazine is a separate mesh, avoiding a static duplicate behind the moving one
+ok 6 - magazine is a separate mesh, avoiding a static duplicate behind the moving one
+  ---
+  duration_ms: 1.99088
+  type: 'test'
+  ...
+# Subtest: shared recoil spring is finite and frame-rate stable
+ok 7 - shared recoil spring is finite and frame-rate stable
+  ---
+  duration_ms: 18.782941
+  type: 'test'
+  ...
+# Subtest: handling state is transient and cannot leak to inventory snapshot
+ok 8 - handling state is transient and cannot leak to inventory snapshot
+  ---
+  duration_ms: 10.252217
+  type: 'test'
+  ...
+# Subtest: different actors never share spring or hand pose state
+ok 9 - different actors never share spring or hand pose state
+  ---
+  duration_ms: 19.089883
+  type: 'test'
+  ...
+# Subtest: mount is a pure read and preserves ray/muzzle equivalence
+ok 10 - mount is a pure read and preserves ray/muzzle equivalence
+  ---
+  duration_ms: 9.993618
+  type: 'test'
+  ...
+# Subtest: selector uses alpha surfaces rather than opacity on text
+ok 11 - selector uses alpha surfaces rather than opacity on text
+  ---
+  duration_ms: 0.680906
+  type: 'test'
+  ...
+# Subtest: contact frames remain perpendicular throughout all reload transitions
+ok 12 - contact frames remain perpendicular throughout all reload transitions
+  ---
+  duration_ms: 19.877631
+  type: 'test'
+  ...
+# Subtest: forearm retains its length after contact roll and each finger stays with wrist
+ok 13 - forearm retains its length after contact roll and each finger stays with wrist
+  ---
+  duration_ms: 14.617464
+  type: 'test'
+  ...
+# Subtest: equipping animation contacts remain reachable during the raise
+not ok 14 - equipping animation contacts remain reachable during the raise
+  ---
+  duration_ms: 12.329978
+  type: 'test'
+  location: '/mnt/data/dc-v018-work/distrito-cero/tests/handling.test.cjs:20:1'
+  failureType: 'testCodeFailure'
+  error: 'rifle ready 0 0.013721896739360195'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/mnt/data/dc-v018-work/distrito-cero/tests/handling.test.cjs:20:431)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+1..14
+# tests 14
+# suites 0
+# pass 13
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 6948.309459

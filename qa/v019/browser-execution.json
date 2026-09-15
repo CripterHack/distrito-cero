@@ -1,0 +1,25 @@
+{
+  "html": "3aa9a27f4941ea1c701069c61db133ab3c93087e35d833d4921ba25b8a4b059f",
+  "suites": [
+    {
+      "suite": "contact_browser",
+      "code": 0
+    },
+    {
+      "suite": "contact_arsenal",
+      "code": 0
+    },
+    {
+      "suite": "contact_library",
+      "code": 0
+    },
+    {
+      "suite": "contact_legacy",
+      "code": 0
+    },
+    {
+      "suite": "contact_continuous",
+      "code": 0
+    }
+  ]
+}

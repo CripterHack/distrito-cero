@@ -1,0 +1,53 @@
+PASS WebGL2 boot 960
+PASS Rendered frame 01-menu.png
+PASS W moves the on-foot player
+PASS F enters the nearby vehicle
+PASS W accelerates the actual simulation
+PASS D steers right
+PASS Rendered frame 02-driving.png
+PASS Brake then F exits safely
+PASS Pause stops simulation time
+PASS Rendered frame 03-pause.png
+PASS M opens the map
+PASS Map click sets a GPS point
+PASS Rendered frame 04-map.png
+PASS GPS clear works
+PASS Phone opens the actual story dialogue
+PASS Rendered frame 05-dialogue.png
+PASS Story confirmation advances the chapter
+PASS Entering a car advances the vehicle chapter
+PASS Picking up the file triggers police heat
+PASS Wanted refuge is blocked
+PASS Unwanted refuge advances to transmission
+PASS Terminal transmission advances with game time
+PASS Transmission activates the final escape
+PASS Public ending completes the story
+PASS Repeatable delivery can be accepted
+PASS Delivery arrival pays the reward
+PASS Save writes a validated snapshot
+PASS Continue restores the snapshot
+PASS P opens photo mode
+PASS Rendered frame 06-photo.png
+PASS WebGL2 boot 390
+PASS Touch controls automatically enabled
+PASS Portrait control reachable: touchCar
+PASS Portrait control reachable: touchAction
+PASS Portrait control reachable: touchBrake
+PASS Portrait control reachable: joystick
+PASS Portrait control reachable: pauseButton
+PASS Portrait control reachable: mapButton
+PASS Touch joystick moves the player
+PASS Touch end clears joystick state
+PASS Touch SUBIR enters a car
+PASS Rendered frame 07-mobile-portrait.png
+PASS Landscape control reachable: touchCar
+PASS Landscape control reachable: touchAction
+PASS Landscape control reachable: touchBrake
+PASS Landscape control reachable: joystick
+PASS Landscape control reachable: pauseButton
+PASS Landscape control reachable: mapButton
+PASS Rendered frame 08-mobile-landscape.png
+PASS Touch pause reachable and functional
+PASS No uncaught JS or WebGL console errors
+PASS No external requests from the game
+TOTAL 52 checks passed

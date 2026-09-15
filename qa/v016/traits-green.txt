@@ -1,0 +1,82 @@
+TAP version 13
+# Subtest: v016 supports eleven stable hair styles, retaining previous IDs
+ok 1 - v016 supports eleven stable hair styles, retaining previous IDs
+  ---
+  duration_ms: 0.992364
+  type: 'test'
+  ...
+# Subtest: legacy appearance fills the new traits without overwriting prior style
+ok 2 - legacy appearance fills the new traits without overwriting prior style
+  ---
+  duration_ms: 1.226006
+  type: 'test'
+  ...
+# Subtest: new fields reject nonfinite out of range or nonboolean values
+ok 3 - new fields reject nonfinite out of range or nonboolean values
+  ---
+  duration_ms: 0.198178
+  type: 'test'
+  ...
+# Subtest: cervical fit reduces head separation without flattening head features
+ok 4 - cervical fit reduces head separation without flattening head features
+  ---
+  duration_ms: 0.67129
+  type: 'test'
+  ...
+# Subtest: length changes do not invert cervical surface along its height
+ok 5 - length changes do not invert cervical surface along its height
+  ---
+  duration_ms: 1.327518
+  type: 'test'
+  ...
+# Subtest: rest skin palette is identity in the fitted bind space
+ok 6 - rest skin palette is identity in the fitted bind space
+  ---
+  duration_ms: 4.430338
+  type: 'test'
+  ...
+# Subtest: fitted head pivot is lower in every animated cervical pose
+ok 7 - fitted head pivot is lower in every animated cervical pose
+  ---
+  duration_ms: 4.813846
+  type: 'test'
+  ...
+# Subtest: fitted cervical animation preserves arm and leg matrices
+ok 8 - fitted cervical animation preserves arm and leg matrices
+  ---
+  duration_ms: 1.128108
+  type: 'test'
+  ...
+# Subtest: hair geometries are distinct, finite, deterministic and bounded
+ok 9 - hair geometries are distinct, finite, deterministic and bounded
+  ---
+  duration_ms: 748.699851
+  type: 'test'
+  ...
+# Subtest: hair selection and volume survive full save and slot roundtrip
+ok 10 - hair selection and volume survive full save and slot roundtrip
+  ---
+  duration_ms: 519.631206
+  type: 'test'
+  ...
+# Subtest: invalid new trait cannot alter prior saved bytes or session
+ok 11 - invalid new trait cannot alter prior saved bytes or session
+  ---
+  duration_ms: 12.689069
+  type: 'test'
+  ...
+# Subtest: NPCs use new styles and valid per-actor traits deterministically
+ok 12 - NPCs use new styles and valid per-actor traits deterministically
+  ---
+  duration_ms: 0.685852
+  type: 'test'
+  ...
+1..12
+# tests 12
+# suites 0
+# pass 12
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1398.741449

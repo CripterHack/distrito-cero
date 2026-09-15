@@ -1,0 +1,77 @@
+TAP version 13
+# socketMaxError 0.001816071212429473
+# Subtest: every usable item defines dedicated oriented contact sockets
+ok 1 - every usable item defines dedicated oriented contact sockets
+  ---
+  duration_ms: 180.915648
+  type: 'test'
+  ...
+# Subtest: oriented wrist reaches the socket without stretching forearm or moving fingers away
+ok 2 - oriented wrist reaches the socket without stretching forearm or moving fingers away
+  ---
+  duration_ms: 15.438703
+  type: 'test'
+  ...
+# Subtest: all equipment sockets stay attainable in pitch/crouch/aim/reload states
+ok 3 - all equipment sockets stay attainable in pitch/crouch/aim/reload states
+  ---
+  duration_ms: 6383.813757
+  type: 'test'
+  ...
+# Subtest: primary grip fingers and support fingers do not use identical profiles
+ok 4 - primary grip fingers and support fingers do not use identical profiles
+  ---
+  duration_ms: 9.941659
+  type: 'test'
+  ...
+# Subtest: support hand follows the moving magazine and returns without teleporting
+ok 5 - support hand follows the moving magazine and returns without teleporting
+  ---
+  duration_ms: 10.210064
+  type: 'test'
+  ...
+# Subtest: magazine is a separate mesh, avoiding a static duplicate behind the moving one
+ok 6 - magazine is a separate mesh, avoiding a static duplicate behind the moving one
+  ---
+  duration_ms: 1.859191
+  type: 'test'
+  ...
+# Subtest: shared recoil spring is finite and frame-rate stable
+ok 7 - shared recoil spring is finite and frame-rate stable
+  ---
+  duration_ms: 17.597886
+  type: 'test'
+  ...
+# Subtest: handling state is transient and cannot leak to inventory snapshot
+ok 8 - handling state is transient and cannot leak to inventory snapshot
+  ---
+  duration_ms: 9.36403
+  type: 'test'
+  ...
+# Subtest: different actors never share spring or hand pose state
+ok 9 - different actors never share spring or hand pose state
+  ---
+  duration_ms: 20.80001
+  type: 'test'
+  ...
+# Subtest: mount is a pure read and preserves ray/muzzle equivalence
+ok 10 - mount is a pure read and preserves ray/muzzle equivalence
+  ---
+  duration_ms: 9.862471
+  type: 'test'
+  ...
+# Subtest: selector uses alpha surfaces rather than opacity on text
+ok 11 - selector uses alpha surfaces rather than opacity on text
+  ---
+  duration_ms: 1.314571
+  type: 'test'
+  ...
+1..11
+# tests 11
+# suites 0
+# pass 11
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 6732.908067

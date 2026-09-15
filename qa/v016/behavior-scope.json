@@ -1,0 +1,194 @@
+[
+  {
+    "file": "src/app.js",
+    "before": "b9ed33cbdda9ff6403120e8f86a5dadf8cb4bc8bd2dd36fc0bc0dffb7d4f13df",
+    "after": "b9ed33cbdda9ff6403120e8f86a5dadf8cb4bc8bd2dd36fc0bc0dffb7d4f13df",
+    "changed": false
+  },
+  {
+    "file": "src/appearance.js",
+    "before": "bca489bbfcd592e05659d3e41e93dcf03d8f5c3a9865d9c278d7e46e7627c585",
+    "after": "f63382e887310320cc566e63ceaac77f049e310350fe3284c9e675f8bd9f3a31",
+    "changed": true
+  },
+  {
+    "file": "src/audio.js",
+    "before": "b5542175cda159c3868b3d5c4c7250b4c8d5cd84615836ff8bf3e9eaccad9315",
+    "after": "b5542175cda159c3868b3d5c4c7250b4c8d5cd84615836ff8bf3e9eaccad9315",
+    "changed": false
+  },
+  {
+    "file": "src/cast-renderer.js",
+    "before": "b022065cd630697e597b490125d2274311c08bec14a5b795e1b21dcded88eba8",
+    "after": "78f136ffce65dc69144b39ed1d232fefcbdccb1ac6ebbe885fb31bc73425390f",
+    "changed": true
+  },
+  {
+    "file": "src/character-fit.js",
+    "before": null,
+    "after": "efdf174324622f53f2be64763bb47c1e6401e9ea637d72cd403dd93caa2223e7",
+    "changed": true
+  },
+  {
+    "file": "src/character-motion.js",
+    "before": "9e87594e74732c1eb590a6ad46b6e90882584bb53575699cce6e8463846e984a",
+    "after": "9e87594e74732c1eb590a6ad46b6e90882584bb53575699cce6e8463846e984a",
+    "changed": false
+  },
+  {
+    "file": "src/core.js",
+    "before": "b1d0f35f9a6351c4db4a9648c20b161ce8bb5037d1b6eb3cec103d4e91be9ce9",
+    "after": "b1d0f35f9a6351c4db4a9648c20b161ce8bb5037d1b6eb3cec103d4e91be9ce9",
+    "changed": false
+  },
+  {
+    "file": "src/crowd-geometry.js",
+    "before": "f010b0a8e1ab91cd2f03e6397dc940732ba63cec76ac9645bebe0300a8f6cb81",
+    "after": "f010b0a8e1ab91cd2f03e6397dc940732ba63cec76ac9645bebe0300a8f6cb81",
+    "changed": false
+  },
+  {
+    "file": "src/dual-quaternion.js",
+    "before": "cf2d72966dec06f5a4e53265a4ec6b3ed983749534027885930fd93cb3516ca4",
+    "after": "cf2d72966dec06f5a4e53265a4ec6b3ed983749534027885930fd93cb3516ca4",
+    "changed": false
+  },
+  {
+    "file": "src/dynamics.js",
+    "before": "23fb55d52982200881b0f2648fbd2b2e1e90a973367bf7cb77bf666ba1364e34",
+    "after": "23fb55d52982200881b0f2648fbd2b2e1e90a973367bf7cb77bf666ba1364e34",
+    "changed": false
+  },
+  {
+    "file": "src/frontier-renderer.js",
+    "before": "e8c136da8329cbab78381655aeac2a99fda7d2ec7fc643c8d75f7ccf7b6c625f",
+    "after": "e8c136da8329cbab78381655aeac2a99fda7d2ec7fc643c8d75f7ccf7b6c625f",
+    "changed": false
+  },
+  {
+    "file": "src/frontier-simulation.js",
+    "before": "8d05a4390cc06d53eaa6fbf716c1900052343b5f87185affd90acad5c54d5a85",
+    "after": "8d05a4390cc06d53eaa6fbf716c1900052343b5f87185affd90acad5c54d5a85",
+    "changed": false
+  },
+  {
+    "file": "src/frontier-ui.js",
+    "before": "f2cb10a787c7b3aa3fc70d642bb27a573a76fbbd8a766c3f3f95e03dea8cf6fd",
+    "after": "f2cb10a787c7b3aa3fc70d642bb27a573a76fbbd8a766c3f3f95e03dea8cf6fd",
+    "changed": false
+  },
+  {
+    "file": "src/frontier-world.js",
+    "before": "f89bcb30acc1b03b4ea0350cd55f2df960d560c83881f7f794b34b640556ac0d",
+    "after": "f89bcb30acc1b03b4ea0350cd55f2df960d560c83881f7f794b34b640556ac0d",
+    "changed": false
+  },
+  {
+    "file": "src/hair-geometry.js",
+    "before": null,
+    "after": "240b745e08b42ab84f3ffaaceecec9ed1da92a887044543bcd6a3c6c9bdfcc7a",
+    "changed": true
+  },
+  {
+    "file": "src/hero-asset.js",
+    "before": "7dedf527bfe9e257c3067a4db063521e09a72d680ed2f8323fedd69a202ee5f4",
+    "after": "7dedf527bfe9e257c3067a4db063521e09a72d680ed2f8323fedd69a202ee5f4",
+    "changed": false
+  },
+  {
+    "file": "src/human-materials.js",
+    "before": "48effe6fbf4aa9bea65b7369cdb78a907e58b7d6dcb90b52155aae220b54dde8",
+    "after": "48effe6fbf4aa9bea65b7369cdb78a907e58b7d6dcb90b52155aae220b54dde8",
+    "changed": false
+  },
+  {
+    "file": "src/identity-ui.js",
+    "before": "bba3899683df4d5c019b311f3791ff9d1555fb8ac7f7c0ceafc3446df34bab89",
+    "after": "7dd32b0bf158714d0bedf892ad197ec814667b6d8c2a3aafdcda790b22b0e3b5",
+    "changed": true
+  },
+  {
+    "file": "src/interactions.js",
+    "before": "1dfb8b5475577131af50442cd2278a4b52af256d063d986a7c220c780d0318be",
+    "after": "1dfb8b5475577131af50442cd2278a4b52af256d063d986a7c220c780d0318be",
+    "changed": false
+  },
+  {
+    "file": "src/occupancy.js",
+    "before": "3ed6dc23d56b485e9a7c18d447ac2acf74b922b524911b2910fb8025d516ba00",
+    "after": "3ed6dc23d56b485e9a7c18d447ac2acf74b922b524911b2910fb8025d516ba00",
+    "changed": false
+  },
+  {
+    "file": "src/page.html",
+    "before": "0e4f2a646b2711c2871a0d2224fb763bca54940bd70b14bd7676e58b143f9d5e",
+    "after": "c478ced6553bc24cfe1ad0781501f8df29b6ecd1e5fafc8760d729bf89653c57",
+    "changed": true
+  },
+  {
+    "file": "src/police.js",
+    "before": "797ac841a39442aa317004710a6a85f467e7a945cee6b14dfa1eba0c47440322",
+    "after": "797ac841a39442aa317004710a6a85f467e7a945cee6b14dfa1eba0c47440322",
+    "changed": false
+  },
+  {
+    "file": "src/reactive-renderer.js",
+    "before": "cc09c2d9f019888c59b5ec0c0f1429aca55b1cbf1329815cae03364302deb1e7",
+    "after": "cc09c2d9f019888c59b5ec0c0f1429aca55b1cbf1329815cae03364302deb1e7",
+    "changed": false
+  },
+  {
+    "file": "src/realism-renderer.js",
+    "before": "177da4335a9dfe040b14e789365609ee70fd877f4c174a616ec50fb4e1f32970",
+    "after": "177da4335a9dfe040b14e789365609ee70fd877f4c174a616ec50fb4e1f32970",
+    "changed": false
+  },
+  {
+    "file": "src/renderer.js",
+    "before": "ece8735152b1b0e466db83736988f33b5a135493e1176ee7b195114a3cee3f63",
+    "after": "1cb9f58a14b6b673223823f9b5afb07593c49a603230a5ad9e1e6490aaeabb57",
+    "changed": true
+  },
+  {
+    "file": "src/save-store.js",
+    "before": "48d9a547dedf79e60610bd535e882cb4c762eca92171461a71b99c4d7b886a5e",
+    "after": "48d9a547dedf79e60610bd535e882cb4c762eca92171461a71b99c4d7b886a5e",
+    "changed": false
+  },
+  {
+    "file": "src/simulation.js",
+    "before": "49955078fb7649441af6c49488f7e60ebd0f4ebd424a3688e3b0621715037039",
+    "after": "49955078fb7649441af6c49488f7e60ebd0f4ebd424a3688e3b0621715037039",
+    "changed": false
+  },
+  {
+    "file": "src/skin-rig.js",
+    "before": "fe2f28e3f25d70ed58b1fd832b8239b258e9e1feda9488210e4e27355fcfb250",
+    "after": "00b0fb80e130637c9df6fc4bae64bcd0e4cc748320cd402eb4ba06f7756fac31",
+    "changed": true
+  },
+  {
+    "file": "src/style.css",
+    "before": "9b6fb5418ade20df655ef30f22d6db51b0be219cd9a9d58fff884d0ba6bf184b",
+    "after": "147d0276f45f00cb57693063c3ead5124121f8678b5c846a9c33395818dbaf5e",
+    "changed": true
+  },
+  {
+    "file": "src/vehicle-asset.js",
+    "before": "8170c4ba4debe5133c75d5629c8c774dfd1609188675499cec6d90bd5da3f6ac",
+    "after": "8170c4ba4debe5133c75d5629c8c774dfd1609188675499cec6d90bd5da3f6ac",
+    "changed": false
+  },
+  {
+    "file": "src/visual-geometry.js",
+    "before": "94f2eeaceff571f79be60e9796c84096217fbc41ff125c3361134aadfc176ad2",
+    "after": "94f2eeaceff571f79be60e9796c84096217fbc41ff125c3361134aadfc176ad2",
+    "changed": false
+  },
+  {
+    "file": "src/world.js",
+    "before": "0792973473b56dcf97bd5c296d379bc3db1738e8b6f6543a8e954a1ca3830c7c",
+    "after": "0792973473b56dcf97bd5c296d379bc3db1738e8b6f6543a8e954a1ca3830c7c",
+    "changed": false
+  }
+]

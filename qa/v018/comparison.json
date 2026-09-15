@@ -1,0 +1,13 @@
+{
+  "before": "/mnt/data/dc-v018-work/distrito-cero/qa/v018/before-rifle.png",
+  "after": "/mnt/data/dc-v018-work/distrito-cero/qa/v018/review-rifle.png",
+  "crop": [
+    225,
+    170,
+    850,
+    580
+  ],
+  "retouch": false,
+  "beforeHtml": "fc2679da41268f6be0264c96f54a83ed77886157d67a27e87dbd125aa06d6f93",
+  "afterHtml": "7c5a3e017869843da5af6c4ae8383038d8a1be69f386c4aa0ae660a996e15a9b"
+}

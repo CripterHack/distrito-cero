@@ -1,0 +1,232 @@
+TAP version 13
+# Subtest: arsenal has fourteen unique options and required Gauss EMP optics
+ok 1 - arsenal has fourteen unique options and required Gauss EMP optics
+  ---
+  duration_ms: 1.57079
+  type: 'test'
+  ...
+# Subtest: new game is unarmed and inventory is independent
+ok 2 - new game is unarmed and inventory is independent
+  ---
+  duration_ms: 44.16402
+  type: 'test'
+  ...
+# Subtest: ray box intersects at nearest positive distance and parallel misses
+ok 3 - ray box intersects at nearest positive distance and parallel misses
+  ---
+  duration_ms: 0.246646
+  type: 'test'
+  ...
+# Subtest: closest building blocks target behind it
+ok 4 - closest building blocks target behind it
+  ---
+  duration_ms: 15.769388
+  type: 'test'
+  ...
+# Subtest: car collision proxy rotates with vehicle
+ok 5 - car collision proxy rotates with vehicle
+  ---
+  duration_ms: 11.238215
+  type: 'test'
+  ...
+# Subtest: single semiautomatic press consumes one round even while held
+ok 6 - single semiautomatic press consumes one round even while held
+  ---
+  duration_ms: 12.419317
+  type: 'test'
+  ...
+# Subtest: automatic fire respects interval rather than frame count
+ok 7 - automatic fire respects interval rather than frame count
+  ---
+  duration_ms: 19.561786
+  type: 'test'
+  ...
+# Subtest: reload transfers only missing rounds once at completion
+ok 8 - reload transfers only missing rounds once at completion
+  ---
+  duration_ms: 15.369264
+  type: 'test'
+  ...
+# Subtest: switching cancels reload without gaining rounds
+ok 9 - switching cancels reload without gaining rounds
+  ---
+  duration_ms: 12.532105
+  type: 'test'
+  ...
+# Subtest: Gauss must charge and release, then spends exactly one cell
+ok 10 - Gauss must charge and release, then spends exactly one cell
+  ---
+  duration_ms: 10.873965
+  type: 'test'
+  ...
+# Subtest: short Gauss charge and cancelled charge do not fire
+ok 11 - short Gauss charge and cancelled charge do not fire
+  ---
+  duration_ms: 10.576633
+  type: 'test'
+  ...
+# Subtest: Gauss penetrates cars but not an opaque building
+ok 12 - Gauss penetrates cars but not an opaque building
+  ---
+  duration_ms: 11.81382
+  type: 'test'
+  ...
+# Subtest: damage uses vehicle zones and never goes below valid save health
+ok 13 - damage uses vehicle zones and never goes below valid save health
+  ---
+  duration_ms: 14.077748
+  type: 'test'
+  ...
+# Subtest: prop hit calls existing breakage and persistence rules
+ok 14 - prop hit calls existing breakage and persistence rules
+  ---
+  duration_ms: 13.754017
+  type: 'test'
+  ...
+# Subtest: EMP disables car propulsion but does not deal biological or vehicle health damage
+ok 15 - EMP disables car propulsion but does not deal biological or vehicle health damage
+  ---
+  duration_ms: 17.241813
+  type: 'test'
+  ...
+# Subtest: EMP respects walls and its radial limit
+ok 16 - EMP respects walls and its radial limit
+  ---
+  duration_ms: 13.240095
+  type: 'test'
+  ...
+# Subtest: EMP-equipped player cannot accelerate disabled vehicle, which coasts instead of teleporting
+ok 17 - EMP-equipped player cannot accelerate disabled vehicle, which coasts instead of teleporting
+  ---
+  duration_ms: 17.718922
+  type: 'test'
+  ...
+# Subtest: binoculars are non-damaging and zoom index is bounded
+ok 18 - binoculars are non-damaging and zoom index is bounded
+  ---
+  duration_ms: 11.928359
+  type: 'test'
+  ...
+# Subtest: no weapon use during vehicle access or carrying object
+ok 19 - no weapon use during vehicle access or carrying object
+  ---
+  duration_ms: 12.408642
+  type: 'test'
+  ...
+# Subtest: projectile fleet and visual effects have bounded capacity
+ok 20 - projectile fleet and visual effects have bounded capacity
+  ---
+  duration_ms: 11.024518
+  type: 'test'
+  ...
+# Subtest: explosion does not damage a car through an opaque building
+ok 21 - explosion does not damage a car through an opaque building
+  ---
+  duration_ms: 11.152398
+  type: 'test'
+  ...
+# Subtest: equipment saves independently and old snapshots get defaults
+ok 22 - equipment saves independently and old snapshots get defaults
+  ---
+  duration_ms: 27.985685
+  type: 'test'
+  ...
+# Subtest: malformed equipment rejects before mutating progress
+ok 23 - malformed equipment rejects before mutating progress
+  ---
+  duration_ms: 13.030354
+  type: 'test'
+  ...
+# Subtest: old multiple-slot catalogue roundtrip preserves equipment independently
+ok 24 - old multiple-slot catalogue roundtrip preserves equipment independently
+  ---
+  duration_ms: 67.9854
+  type: 'test'
+  ...
+# Subtest: grenade rests after several bounces and detonates only when fuse expires
+ok 25 - grenade rests after several bounces and detonates only when fuse expires
+  ---
+  duration_ms: 14.96862
+  type: 'test'
+  ...
+# Subtest: swept rocket collision hits a thin wall crossed in one frame
+ok 26 - swept rocket collision hits a thin wall crossed in one frame
+  ---
+  duration_ms: 16.791345
+  type: 'test'
+  ...
+# Subtest: stunned evicted driver remains still until recovery
+ok 27 - stunned evicted driver remains still until recovery
+  ---
+  duration_ms: 17.627235
+  type: 'test'
+  ...
+# Subtest: EMP lamp lookup recovers without marking permanent destruction
+ok 28 - EMP lamp lookup recovers without marking permanent destruction
+  ---
+  duration_ms: 11.813148
+  type: 'test'
+  ...
+# Subtest: supply refills for game currency only when near, stopped and not wanted
+ok 29 - supply refills for game currency only when near, stopped and not wanted
+  ---
+  duration_ms: 16.348166
+  type: 'test'
+  ...
+# Subtest: melee is range limited and an opaque wall stops the swing
+ok 30 - melee is range limited and an opaque wall stops the swing
+  ---
+  duration_ms: 13.841028
+  type: 'test'
+  ...
+# Subtest: camera may see target but wall between body and muzzle blocks the shot
+ok 31 - camera may see target but wall between body and muzzle blocks the shot
+  ---
+  duration_ms: 11.918875
+  type: 'test'
+  ...
+# Subtest: invalid ammunition and fields cannot partially replace named slot progress
+ok 32 - invalid ammunition and fields cannot partially replace named slot progress
+  ---
+  duration_ms: 13.367624
+  type: 'test'
+  ...
+# Subtest: all equipment shapes are finite, nondegenerate, outward and budgeted
+ok 33 - all equipment shapes are finite, nondegenerate, outward and budgeted
+  ---
+  duration_ms: 41.794735
+  type: 'test'
+  ...
+# Subtest: weapon grip landmarks are attainable across equipment, aiming and crouch
+ok 34 - weapon grip landmarks are attainable across equipment, aiming and crouch
+  ---
+  duration_ms: 42.121859
+  type: 'test'
+  ...
+# Subtest: a fresh physical press immediately after equipment change is not lost
+ok 35 - a fresh physical press immediately after equipment change is not lost
+  ---
+  duration_ms: 11.334218
+  type: 'test'
+  ...
+# Subtest: cancelled held trigger without a fresh press cannot restart firing
+ok 36 - cancelled held trigger without a fresh press cannot restart firing
+  ---
+  duration_ms: 12.782857
+  type: 'test'
+  ...
+# Subtest: long-weapon stocks terminate at the shoulder rather than behind the back
+ok 37 - long-weapon stocks terminate at the shoulder rather than behind the back
+  ---
+  duration_ms: 14.225597
+  type: 'test'
+  ...
+1..37
+# tests 37
+# suites 0
+# pass 37
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 705.504319

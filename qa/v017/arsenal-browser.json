@@ -1,0 +1,322 @@
+{
+  "sha256": "fc2679da41268f6be0264c96f54a83ed77886157d67a27e87dbd125aa06d6f93",
+  "passed": 78,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "Boot uses actual v0.17 simulation and renderer",
+      "pass": true
+    },
+    {
+      "name": "Character creator and library still available",
+      "pass": true
+    },
+    {
+      "name": "New named story begins with hands free",
+      "pass": true
+    },
+    {
+      "name": "Tab opens accessible selector and pauses simulation",
+      "pass": true
+    },
+    {
+      "name": "All fourteen catalogue entries present",
+      "pass": true
+    },
+    {
+      "name": "Pending choice does not equip or spend resources",
+      "pass": true
+    },
+    {
+      "name": "Closing cancels choice",
+      "pass": true
+    },
+    {
+      "name": "Technology filter exposes Gauss and EMP",
+      "pass": true
+    },
+    {
+      "name": "Selection equips the real Gauss model",
+      "pass": true
+    },
+    {
+      "name": "Selecting from UI cannot discharge a weapon",
+      "pass": true
+    },
+    {
+      "name": "Gauss charges while held without consuming cell",
+      "pass": true
+    },
+    {
+      "name": "Gauss release consumes exactly one cell and emits trail",
+      "pass": true
+    },
+    {
+      "name": "Pause cancels stored charge",
+      "pass": true
+    },
+    {
+      "name": "Resuming does not release the cancelled charge",
+      "pass": true
+    },
+    {
+      "name": "Window focus loss clears charge and pauses",
+      "pass": true
+    },
+    {
+      "name": "Focus return cannot fire the old press",
+      "pass": true
+    },
+    {
+      "name": "Fast native mouse click is captured once",
+      "pass": true
+    },
+    {
+      "name": "Aimed shot damages the visible vehicle zone",
+      "pass": true
+    },
+    {
+      "name": "Holding semiautomatic trigger does not repeat shots",
+      "pass": true
+    },
+    {
+      "name": "Reload completes and preserves total ammunition",
+      "pass": true
+    },
+    {
+      "name": "Right drag aims and adjusts camera yaw and pitch",
+      "pass": true
+    },
+    {
+      "name": "Right release ends held aim",
+      "pass": true
+    },
+    {
+      "name": "Automatic weapon repeats at a bounded cadence",
+      "pass": true
+    },
+    {
+      "name": "EMP pulse disables nearby car without health damage",
+      "pass": true
+    },
+    {
+      "name": "Distant car remains unaffected",
+      "pass": true
+    },
+    {
+      "name": "Nearby lamp interruption does not destroy it",
+      "pass": true
+    },
+    {
+      "name": "EMP does not clear the police alert",
+      "pass": true
+    },
+    {
+      "name": "Disabled engine cannot accelerate from rest",
+      "pass": true
+    },
+    {
+      "name": "Disabled headlight source is absent in production shader",
+      "pass": true
+    },
+    {
+      "name": "Weapons are visually holstered while driving",
+      "pass": true
+    },
+    {
+      "name": "EMP timer expires instead of becoming permanent damage",
+      "pass": true
+    },
+    {
+      "name": "Launcher creates a moving projectile",
+      "pass": true
+    },
+    {
+      "name": "Rocket travels instead of a hitscan only",
+      "pass": true
+    },
+    {
+      "name": "Grenade survives before its fuse expires",
+      "pass": true
+    },
+    {
+      "name": "Grenade detonates after fuse with bounded blast effect",
+      "pass": true
+    },
+    {
+      "name": "Optics activate without weapon fire or ammo consumption",
+      "pass": true
+    },
+    {
+      "name": "Mouse wheel changes real FOV to 8×",
+      "pass": true
+    },
+    {
+      "name": "Ground measurement does not dereference an absent object",
+      "pass": true
+    },
+    {
+      "name": "Observed surface creates GPS pin",
+      "pass": true
+    },
+    {
+      "name": "Leaving optics restores nonzoom view",
+      "pass": true
+    },
+    {
+      "name": "Hands-free returns original camera and interaction controls",
+      "pass": true
+    },
+    {
+      "name": "Loading first slot restores its own Gauss ammunition",
+      "pass": true
+    },
+    {
+      "name": "Loading second slot restores its own EMP",
+      "pass": true
+    },
+    {
+      "name": "Downloaded catalogue contains both equipment inventories",
+      "pass": true
+    },
+    {
+      "name": "Shared weapon model renders baton",
+      "pass": true
+    },
+    {
+      "name": "Shared weapon model renders blade",
+      "pass": true
+    },
+    {
+      "name": "Shared weapon model renders pistol",
+      "pass": true
+    },
+    {
+      "name": "Shared weapon model renders revolver",
+      "pass": true
+    },
+    {
+      "name": "Shared weapon model renders smg",
+      "pass": true
+    },
+    {
+      "name": "Shared weapon model renders shotgun",
+      "pass": true
+    },
+    {
+      "name": "Shared weapon model renders rifle",
+      "pass": true
+    },
+    {
+      "name": "Shared weapon model renders sniper",
+      "pass": true
+    },
+    {
+      "name": "Shared weapon model renders launcher",
+      "pass": true
+    },
+    {
+      "name": "Shared weapon model renders grenade",
+      "pass": true
+    },
+    {
+      "name": "Shared weapon model renders gauss",
+      "pass": true
+    },
+    {
+      "name": "Shared weapon model renders emp",
+      "pass": true
+    },
+    {
+      "name": "Shared weapon model renders binoculars",
+      "pass": true
+    },
+    {
+      "name": "Geometry allocation remains bounded",
+      "pass": true
+    },
+    {
+      "name": "Touch target reachable 390 openArsenal",
+      "pass": true
+    },
+    {
+      "name": "Touch target reachable 390 touchFire",
+      "pass": true
+    },
+    {
+      "name": "Touch target reachable 390 touchAim",
+      "pass": true
+    },
+    {
+      "name": "Touch target reachable 390 touchCar",
+      "pass": true
+    },
+    {
+      "name": "Touch target reachable 390 joystick",
+      "pass": true
+    },
+    {
+      "name": "Touch target reachable 390 pauseButton",
+      "pass": true
+    },
+    {
+      "name": "Touch hold charges Gauss 390",
+      "pass": true
+    },
+    {
+      "name": "Touch cancellation cannot release Gauss 390",
+      "pass": true
+    },
+    {
+      "name": "Mobile selector confirm is reachable 390",
+      "pass": true
+    },
+    {
+      "name": "Touch target reachable 844 openArsenal",
+      "pass": true
+    },
+    {
+      "name": "Touch target reachable 844 touchFire",
+      "pass": true
+    },
+    {
+      "name": "Touch target reachable 844 touchAim",
+      "pass": true
+    },
+    {
+      "name": "Touch target reachable 844 touchCar",
+      "pass": true
+    },
+    {
+      "name": "Touch target reachable 844 joystick",
+      "pass": true
+    },
+    {
+      "name": "Touch target reachable 844 pauseButton",
+      "pass": true
+    },
+    {
+      "name": "Touch hold charges Gauss 844",
+      "pass": true
+    },
+    {
+      "name": "Touch cancellation cannot release Gauss 844",
+      "pass": true
+    },
+    {
+      "name": "Mobile selector confirm is reachable 844",
+      "pass": true
+    },
+    {
+      "name": "No JavaScript or shader exceptions",
+      "pass": true
+    },
+    {
+      "name": "No external network requests",
+      "pass": true
+    }
+  ],
+  "errors": [],
+  "requests": [],
+  "environment": "Chromium Xvfb SwiftShader. Native keyboard/mouse/DOM inputs and explicit simulation/WebGL frames. Memory localStorage fixture. RAF scheduling paused after boot; native loop tested separately."
+}

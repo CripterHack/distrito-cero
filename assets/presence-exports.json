@@ -1,0 +1,16 @@
+[
+  {
+    "file": "dc08-hero-native.glb",
+    "bytes": 1286088,
+    "meshes": 11,
+    "nodes": 29,
+    "animations": 5
+  },
+  {
+    "file": "dc08-coupe-native.glb",
+    "bytes": 148920,
+    "meshes": 8,
+    "nodes": 15,
+    "animations": 0
+  }
+]

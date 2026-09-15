@@ -1,0 +1,141 @@
+{
+  "passed": 26,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "All three embedded maps load during native loop",
+      "pass": true
+    },
+    {
+      "name": "Live game boot",
+      "pass": true
+    },
+    {
+      "name": "Native numeric selection draws Gauss",
+      "pass": true
+    },
+    {
+      "name": "Gauss charges in untouched simulation loop",
+      "pass": true
+    },
+    {
+      "name": "Native release fires and damages target",
+      "pass": true
+    },
+    {
+      "name": "EMP pulse works through a short real key press",
+      "pass": true
+    },
+    {
+      "name": "EMP produces a finite electronic timer",
+      "pass": true
+    },
+    {
+      "name": "Binocular zoom changes live camera projection",
+      "pass": true
+    },
+    {
+      "name": "Live optical observation marks a visible location",
+      "pass": true
+    },
+    {
+      "name": "Selector pauses and disarms held inputs",
+      "pass": true
+    },
+    {
+      "name": "Returning to hands free restores original view",
+      "pass": true
+    },
+    {
+      "name": "Native loop continues across all equipment modes",
+      "pass": true
+    },
+    {
+      "name": "Actual key begins extraction, not instant car access",
+      "pass": true
+    },
+    {
+      "name": "Renderer uses independent actor palettes during extraction",
+      "pass": true
+    },
+    {
+      "name": "Paired action completes in untouched loop",
+      "pass": true
+    },
+    {
+      "name": "Real simulation time and frames advanced",
+      "pass": true
+    },
+    {
+      "name": "No GL error after seat transfer",
+      "pass": true
+    },
+    {
+      "name": "Newly occupied vehicle accelerates",
+      "pass": true
+    },
+    {
+      "name": "Live exit restores on-foot control",
+      "pass": true
+    },
+    {
+      "name": "Natural locomotion continues after exit",
+      "pass": true
+    },
+    {
+      "name": "Continuous drive crosses streamed sector seam",
+      "pass": true
+    },
+    {
+      "name": "World and crowd GPU allocations remain bounded",
+      "pass": true
+    },
+    {
+      "name": "Atlas works with native loop",
+      "pass": true
+    },
+    {
+      "name": "Final rendering without GL errors",
+      "pass": true
+    },
+    {
+      "name": "No JavaScript or shader exceptions",
+      "pass": true
+    },
+    {
+      "name": "No external requests",
+      "pass": true
+    }
+  ],
+  "errors": [],
+  "requests": [],
+  "observed": {
+    "stats": {
+      "actors": 1,
+      "drivers": 0,
+      "evicted": 0,
+      "lod": [
+        1,
+        0,
+        0
+      ],
+      "triangles": 89433,
+      "paletteRows": 1,
+      "drawBatches": 14,
+      "hairGeometries": 4
+    },
+    "frameCount": 186,
+    "stream": {
+      "loaded": 25,
+      "pending": 0,
+      "instances": 24248,
+      "buffers": 63
+    },
+    "position": {
+      "x": 2020,
+      "z": 8
+    }
+  },
+  "sha256": "7c5a3e017869843da5af6c4ae8383038d8a1be69f386c4aa0ae660a996e15a9b",
+  "environment": "Chromium Xvfb SwiftShader 680x440. Unmodified RAF/camera/render/simulation with prepared initial poses and native keys. Isolated test storage. Not a hardware FPS benchmark."
+}

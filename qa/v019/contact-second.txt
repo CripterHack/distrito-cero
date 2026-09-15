@@ -1,0 +1,419 @@
+TAP version 13
+# palmAnchorMaxError 7.894025017025276e-8
+# articulationMaxReachError 9.89904906816763e-8
+# Subtest: contacts describe a palm surface distinct from the wrist
+ok 1 - contacts describe a palm surface distinct from the wrist
+  ---
+  duration_ms: 232.689898
+  type: 'test'
+  ...
+# Subtest: posed anatomical palm landmarks coincide with their prop anchors
+ok 2 - posed anatomical palm landmarks coincide with their prop anchors
+  ---
+  duration_ms: 690.998764
+  type: 'test'
+  ...
+# Subtest: long-arm support palms are authored on the underside rather than to the side of the foregrip
+ok 3 - long-arm support palms are authored on the underside rather than to the side of the foregrip
+  ---
+  duration_ms: 11.001384
+  type: 'test'
+  ...
+# Subtest: stock brace uses the articulated shoulder at neutral aim
+ok 4 - stock brace uses the articulated shoulder at neutral aim
+  ---
+  duration_ms: 17.047937
+  type: 'test'
+  ...
+# Subtest: aiming alone does not close the trigger index
+ok 5 - aiming alone does not close the trigger index
+  ---
+  duration_ms: 13.917518
+  type: 'test'
+  ...
+# Subtest: reload lets the support fingers open in free travel and close on the magazine
+ok 6 - reload lets the support fingers open in free travel and close on the magazine
+  ---
+  duration_ms: 11.173979
+  type: 'test'
+  ...
+# Subtest: magazine motion includes cant and the palm follows its transformed surface
+ok 7 - magazine motion includes cant and the palm follows its transformed surface
+  ---
+  duration_ms: 16.170011
+  type: 'test'
+  ...
+# Subtest: translating and rotating a part agrees with its render transform
+ok 8 - translating and rotating a part agrees with its render transform
+  ---
+  duration_ms: 11.73004
+  type: 'test'
+  ...
+# Subtest: reload choreography is continuous for wrists and moving pieces
+ok 9 - reload choreography is continuous for wrists and moving pieces
+  ---
+  duration_ms: 252.490426
+  type: 'test'
+  ...
+# Subtest: all grip bases and targets remain finite over sampled actions and appearances
+ok 10 - all grip bases and targets remain finite over sampled actions and appearances
+  ---
+  duration_ms: 5708.246277
+  type: 'test'
+  ...
+# Subtest: angular handling inertia is bounded and recovers without mutating snapshots
+ok 11 - angular handling inertia is bounded and recovers without mutating snapshots
+  ---
+  duration_ms: 12.763435
+  type: 'test'
+  ...
+# Subtest: reload and aim changes keep an orthonormal contact orientation
+ok 12 - reload and aim changes keep an orthonormal contact orientation
+  ---
+  duration_ms: 132.759957
+  type: 'test'
+  ...
+# Subtest: firearm handles have a shared rounded grip mesh
+ok 13 - firearm handles have a shared rounded grip mesh
+  ---
+  duration_ms: 4.016357
+  type: 'test'
+  ...
+# Subtest: arsenal has fourteen unique options and required Gauss EMP optics
+ok 14 - arsenal has fourteen unique options and required Gauss EMP optics
+  ---
+  duration_ms: 1.642133
+  type: 'test'
+  ...
+# Subtest: new game is unarmed and inventory is independent
+ok 15 - new game is unarmed and inventory is independent
+  ---
+  duration_ms: 75.461755
+  type: 'test'
+  ...
+# Subtest: ray box intersects at nearest positive distance and parallel misses
+ok 16 - ray box intersects at nearest positive distance and parallel misses
+  ---
+  duration_ms: 3.756703
+  type: 'test'
+  ...
+# Subtest: closest building blocks target behind it
+ok 17 - closest building blocks target behind it
+  ---
+  duration_ms: 19.174885
+  type: 'test'
+  ...
+# Subtest: car collision proxy rotates with vehicle
+ok 18 - car collision proxy rotates with vehicle
+  ---
+  duration_ms: 15.512792
+  type: 'test'
+  ...
+# Subtest: single semiautomatic press consumes one round even while held
+ok 19 - single semiautomatic press consumes one round even while held
+  ---
+  duration_ms: 23.147116
+  type: 'test'
+  ...
+# Subtest: automatic fire respects interval rather than frame count
+ok 20 - automatic fire respects interval rather than frame count
+  ---
+  duration_ms: 24.386876
+  type: 'test'
+  ...
+# Subtest: reload transfers only missing rounds once at completion
+ok 21 - reload transfers only missing rounds once at completion
+  ---
+  duration_ms: 14.143261
+  type: 'test'
+  ...
+# Subtest: switching cancels reload without gaining rounds
+ok 22 - switching cancels reload without gaining rounds
+  ---
+  duration_ms: 24.291776
+  type: 'test'
+  ...
+# Subtest: Gauss must charge and release, then spends exactly one cell
+ok 23 - Gauss must charge and release, then spends exactly one cell
+  ---
+  duration_ms: 21.620835
+  type: 'test'
+  ...
+# Subtest: short Gauss charge and cancelled charge do not fire
+ok 24 - short Gauss charge and cancelled charge do not fire
+  ---
+  duration_ms: 19.335673
+  type: 'test'
+  ...
+# Subtest: Gauss penetrates cars but not an opaque building
+ok 25 - Gauss penetrates cars but not an opaque building
+  ---
+  duration_ms: 21.812558
+  type: 'test'
+  ...
+# Subtest: damage uses vehicle zones and never goes below valid save health
+ok 26 - damage uses vehicle zones and never goes below valid save health
+  ---
+  duration_ms: 20.575932
+  type: 'test'
+  ...
+# Subtest: prop hit calls existing breakage and persistence rules
+ok 27 - prop hit calls existing breakage and persistence rules
+  ---
+  duration_ms: 14.23086
+  type: 'test'
+  ...
+# Subtest: EMP disables car propulsion but does not deal biological or vehicle health damage
+ok 28 - EMP disables car propulsion but does not deal biological or vehicle health damage
+  ---
+  duration_ms: 13.401014
+  type: 'test'
+  ...
+# Subtest: EMP respects walls and its radial limit
+ok 29 - EMP respects walls and its radial limit
+  ---
+  duration_ms: 13.477939
+  type: 'test'
+  ...
+# Subtest: EMP-equipped player cannot accelerate disabled vehicle, which coasts instead of teleporting
+ok 30 - EMP-equipped player cannot accelerate disabled vehicle, which coasts instead of teleporting
+  ---
+  duration_ms: 12.829381
+  type: 'test'
+  ...
+# Subtest: binoculars are non-damaging and zoom index is bounded
+ok 31 - binoculars are non-damaging and zoom index is bounded
+  ---
+  duration_ms: 12.926104
+  type: 'test'
+  ...
+# Subtest: no weapon use during vehicle access or carrying object
+ok 32 - no weapon use during vehicle access or carrying object
+  ---
+  duration_ms: 13.874703
+  type: 'test'
+  ...
+# Subtest: projectile fleet and visual effects have bounded capacity
+ok 33 - projectile fleet and visual effects have bounded capacity
+  ---
+  duration_ms: 19.87626
+  type: 'test'
+  ...
+# Subtest: explosion does not damage a car through an opaque building
+ok 34 - explosion does not damage a car through an opaque building
+  ---
+  duration_ms: 14.84121
+  type: 'test'
+  ...
+# Subtest: equipment saves independently and old snapshots get defaults
+ok 35 - equipment saves independently and old snapshots get defaults
+  ---
+  duration_ms: 33.246069
+  type: 'test'
+  ...
+# Subtest: malformed equipment rejects before mutating progress
+ok 36 - malformed equipment rejects before mutating progress
+  ---
+  duration_ms: 17.245408
+  type: 'test'
+  ...
+# Subtest: old multiple-slot catalogue roundtrip preserves equipment independently
+ok 37 - old multiple-slot catalogue roundtrip preserves equipment independently
+  ---
+  duration_ms: 72.359336
+  type: 'test'
+  ...
+# Subtest: grenade rests after several bounces and detonates only when fuse expires
+ok 38 - grenade rests after several bounces and detonates only when fuse expires
+  ---
+  duration_ms: 13.93345
+  type: 'test'
+  ...
+# Subtest: swept rocket collision hits a thin wall crossed in one frame
+ok 39 - swept rocket collision hits a thin wall crossed in one frame
+  ---
+  duration_ms: 15.990056
+  type: 'test'
+  ...
+# Subtest: stunned evicted driver remains still until recovery
+ok 40 - stunned evicted driver remains still until recovery
+  ---
+  duration_ms: 22.534914
+  type: 'test'
+  ...
+# Subtest: EMP lamp lookup recovers without marking permanent destruction
+ok 41 - EMP lamp lookup recovers without marking permanent destruction
+  ---
+  duration_ms: 15.34276
+  type: 'test'
+  ...
+# Subtest: supply refills for game currency only when near, stopped and not wanted
+ok 42 - supply refills for game currency only when near, stopped and not wanted
+  ---
+  duration_ms: 16.329026
+  type: 'test'
+  ...
+# Subtest: melee is range limited and an opaque wall stops the swing
+ok 43 - melee is range limited and an opaque wall stops the swing
+  ---
+  duration_ms: 12.377104
+  type: 'test'
+  ...
+# Subtest: camera may see target but wall between body and muzzle blocks the shot
+ok 44 - camera may see target but wall between body and muzzle blocks the shot
+  ---
+  duration_ms: 11.392241
+  type: 'test'
+  ...
+# Subtest: invalid ammunition and fields cannot partially replace named slot progress
+ok 45 - invalid ammunition and fields cannot partially replace named slot progress
+  ---
+  duration_ms: 17.789181
+  type: 'test'
+  ...
+# Subtest: all equipment shapes are finite, nondegenerate, outward and budgeted
+ok 46 - all equipment shapes are finite, nondegenerate, outward and budgeted
+  ---
+  duration_ms: 86.717474
+  type: 'test'
+  ...
+# Subtest: weapon grip landmarks are attainable across equipment, aiming and crouch
+not ok 47 - weapon grip landmarks are attainable across equipment, aiming and crouch
+  ---
+  duration_ms: 44.074729
+  type: 'test'
+  location: '/mnt/data/dc-v019-work/distrito-cero/tests/equipment.test.cjs:40:1'
+  failureType: 'testCodeFailure'
+  error: 'smg L crouch 0 pitch -0.35 error 0.04139434548446587'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/mnt/data/dc-v019-work/distrito-cero/tests/equipment.test.cjs:40:754)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: a fresh physical press immediately after equipment change is not lost
+ok 48 - a fresh physical press immediately after equipment change is not lost
+  ---
+  duration_ms: 10.457932
+  type: 'test'
+  ...
+# Subtest: cancelled held trigger without a fresh press cannot restart firing
+ok 49 - cancelled held trigger without a fresh press cannot restart firing
+  ---
+  duration_ms: 12.65829
+  type: 'test'
+  ...
+# Subtest: long-weapon stocks terminate at the shoulder rather than behind the back
+ok 50 - long-weapon stocks terminate at the shoulder rather than behind the back
+  ---
+  duration_ms: 13.826012
+  type: 'test'
+  ...
+# socketMaxError 9.89904906816763e-8
+# Subtest: every usable item defines dedicated oriented contact sockets
+ok 51 - every usable item defines dedicated oriented contact sockets
+  ---
+  duration_ms: 317.922911
+  type: 'test'
+  ...
+# Subtest: oriented wrist reaches the socket without stretching forearm or moving fingers away
+ok 52 - oriented wrist reaches the socket without stretching forearm or moving fingers away
+  ---
+  duration_ms: 24.487475
+  type: 'test'
+  ...
+# Subtest: all equipment sockets stay attainable in pitch/crouch/aim/reload states
+ok 53 - all equipment sockets stay attainable in pitch/crouch/aim/reload states
+  ---
+  duration_ms: 8234.619381
+  type: 'test'
+  ...
+# Subtest: primary grip fingers and support fingers do not use identical profiles
+ok 54 - primary grip fingers and support fingers do not use identical profiles
+  ---
+  duration_ms: 14.092256
+  type: 'test'
+  ...
+# Subtest: support hand follows the moving magazine and returns without teleporting
+ok 55 - support hand follows the moving magazine and returns without teleporting
+  ---
+  duration_ms: 33.832037
+  type: 'test'
+  ...
+# Subtest: magazine is a separate mesh, avoiding a static duplicate behind the moving one
+ok 56 - magazine is a separate mesh, avoiding a static duplicate behind the moving one
+  ---
+  duration_ms: 3.358306
+  type: 'test'
+  ...
+# Subtest: shared recoil spring is finite and frame-rate stable
+ok 57 - shared recoil spring is finite and frame-rate stable
+  ---
+  duration_ms: 21.300224
+  type: 'test'
+  ...
+# Subtest: handling state is transient and cannot leak to inventory snapshot
+ok 58 - handling state is transient and cannot leak to inventory snapshot
+  ---
+  duration_ms: 11.133169
+  type: 'test'
+  ...
+# Subtest: different actors never share spring or hand pose state
+ok 59 - different actors never share spring or hand pose state
+  ---
+  duration_ms: 22.797483
+  type: 'test'
+  ...
+# Subtest: mount is a pure read and preserves ray/muzzle equivalence
+ok 60 - mount is a pure read and preserves ray/muzzle equivalence
+  ---
+  duration_ms: 13.367763
+  type: 'test'
+  ...
+# Subtest: selector uses alpha surfaces rather than opacity on text
+ok 61 - selector uses alpha surfaces rather than opacity on text
+  ---
+  duration_ms: 0.606736
+  type: 'test'
+  ...
+# Subtest: contact frames remain perpendicular throughout all reload transitions
+ok 62 - contact frames remain perpendicular throughout all reload transitions
+  ---
+  duration_ms: 105.989797
+  type: 'test'
+  ...
+# Subtest: forearm retains its length after contact roll and each finger stays with wrist
+ok 63 - forearm retains its length after contact roll and each finger stays with wrist
+  ---
+  duration_ms: 17.381386
+  type: 'test'
+  ...
+# Subtest: equipping animation contacts remain reachable during the raise
+ok 64 - equipping animation contacts remain reachable during the raise
+  ---
+  duration_ms: 24.774691
+  type: 'test'
+  ...
+# Subtest: binocular wrists cradle the barrels from below eye level instead of hanging over them
+ok 65 - binocular wrists cradle the barrels from below eye level instead of hanging over them
+  ---
+  duration_ms: 11.730742
+  type: 'test'
+  ...
+1..65
+# tests 65
+# suites 0
+# pass 64
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 8924.893005

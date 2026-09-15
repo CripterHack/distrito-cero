@@ -1,0 +1,21 @@
+{
+  "gl": 0,
+  "look": {
+    "version": 1,
+    "skin": 1,
+    "hair": 1,
+    "coat": 0,
+    "pants": 0,
+    "eyes": 1,
+    "hairStyle": 8,
+    "build": -0.25,
+    "face": -0.24,
+    "neck": 0,
+    "neckLength": 0,
+    "hairVolume": 0,
+    "browMatch": true
+  },
+  "options": 11,
+  "errors": [],
+  "sha256": "7ccaff6042669755fdb18e920099519cda5af785113be9807bc952f3ee4f320c"
+}

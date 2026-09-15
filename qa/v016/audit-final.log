@@ -1,0 +1,41 @@
+{
+  "version": "0.16",
+  "base": "0.15 Integraci\u00f3n cervical",
+  "html": {
+    "bytes": 8757362,
+    "sha256": "7ccaff6042669755fdb18e920099519cda5af785113be9807bc952f3ee4f320c"
+  },
+  "glb": {
+    "bytes": 4360272,
+    "sha256": "2154216a0e1246c7d9e7ffe4a326e92b7240c84555102bb36714221dd73ed5d2"
+  },
+  "logic": 251,
+  "geometry": 47,
+  "browserChecks": 171,
+  "browsers": [
+    {
+      "file": "traits-browser.json",
+      "passed": 39,
+      "sha256": "7ccaff6042669755fdb18e920099519cda5af785113be9807bc952f3ee4f320c"
+    },
+    {
+      "file": "library-regression.json",
+      "passed": 64,
+      "sha256": "7ccaff6042669755fdb18e920099519cda5af785113be9807bc952f3ee4f320c"
+    },
+    {
+      "file": "legacy/browser-report.json",
+      "passed": 52,
+      "sha256": "7ccaff6042669755fdb18e920099519cda5af785113be9807bc952f3ee4f320c"
+    },
+    {
+      "file": "integration-continuous.json",
+      "passed": 16,
+      "sha256": "7ccaff6042669755fdb18e920099519cda5af785113be9807bc952f3ee4f320c"
+    }
+  ],
+  "gpuSamples": 432,
+  "fittedPoseSamples": 297,
+  "rebuildIdentical": true,
+  "limitations": "Stylized, not AAA/photorealistic. Chromium/SwiftShader, memory storage fixture, prepared scene positions. No physical GPU FPS, native file reopen persistence, physical phone or general collision guarantee."
+}

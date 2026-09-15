@@ -1,0 +1,1444 @@
+TAP version 13
+# Subtest: body rig has explicit clavicles and three joints in each of ten digits
+ok 1 - body rig has explicit clavicles and three joints in each of ten digits
+  ---
+  duration_ms: 0.968207
+  type: 'test'
+  ...
+# Subtest: all rest skin matrices are identity, including fingers
+ok 2 - all rest skin matrices are identity, including fingers
+  ---
+  duration_ms: 2.827507
+  type: 'test'
+  ...
+# Subtest: body proportions expose the raised wrist and fitted shoulder landmarks
+ok 3 - body proportions expose the raised wrist and fitted shoulder landmarks
+  ---
+  duration_ms: 0.151048
+  type: 'test'
+  ...
+# Subtest: grip closes fingers and does not change hand location
+ok 4 - grip closes fingers and does not change hand location
+  ---
+  duration_ms: 3.825819
+  type: 'test'
+  ...
+# Subtest: digit transforms remain finite through all gameplay poses and independent between actors
+ok 5 - digit transforms remain finite through all gameplay poses and independent between actors
+  ---
+  duration_ms: 4.026882
+  type: 'test'
+  ...
+# Subtest: IK wrist movement propagates to all fingertip bones
+ok 6 - IK wrist movement propagates to all fingertip bones
+  ---
+  duration_ms: 0.930852
+  type: 'test'
+  ...
+# Subtest: curling phalanges preserve their segment length
+ok 7 - curling phalanges preserve their segment length
+  ---
+  duration_ms: 10.15678
+  type: 'test'
+  ...
+# Subtest: seated and carrying hands select deliberate grip rather than idle
+ok 8 - seated and carrying hands select deliberate grip rather than idle
+  ---
+  duration_ms: 0.959986
+  type: 'test'
+  ...
+# Subtest: GPU palette layout is derived from actual skeleton length
+ok 9 - GPU palette layout is derived from actual skeleton length
+  ---
+  duration_ms: 0.330879
+  type: 'test'
+  ...
+# Subtest: closed thumb opposes the fingers rather than sticking sideways
+ok 10 - closed thumb opposes the fingers rather than sticking sideways
+  ---
+  duration_ms: 5.148831
+  type: 'test'
+  ...
+# Subtest: driver wrists can actually attain the shared steering targets
+ok 11 - driver wrists can actually attain the shared steering targets
+  ---
+  duration_ms: 13.48472
+  type: 'test'
+  ...
+# Subtest: vehicle cabin configuration is shared and target generation is pure
+ok 12 - vehicle cabin configuration is shared and target generation is pure
+  ---
+  duration_ms: 0.405921
+  type: 'test'
+  ...
+# Subtest: crowd reducer preserves valid weighted triangles and bounds
+ok 13 - crowd reducer preserves valid weighted triangles and bounds
+  ---
+  duration_ms: 1.165124
+  type: 'test'
+  ...
+# Subtest: duplicate tiny triangles collapse rather than exploding
+ok 14 - duplicate tiny triangles collapse rather than exploding
+  ---
+  duration_ms: 0.309786
+  type: 'test'
+  ...
+# Subtest: seated transition has no discontinuous change in body scale
+ok 15 - seated transition has no discontinuous change in body scale
+  ---
+  duration_ms: 5.312237
+  type: 'test'
+  ...
+# Subtest: two-bone arm contact targets are reached without NaN
+ok 16 - two-bone arm contact targets are reached without NaN
+  ---
+  duration_ms: 1.457494
+  type: 'test'
+  ...
+# Subtest: impossible arm goal clamps to reach without stretching
+ok 17 - impossible arm goal clamps to reach without stretching
+  ---
+  duration_ms: 0.702407
+  type: 'test'
+  ...
+# Subtest: blink envelope is bounded, deterministic and staggered across actors
+ok 18 - blink envelope is bounded, deterministic and staggered across actors
+  ---
+  duration_ms: 0.639163
+  type: 'test'
+  ...
+# Subtest: cervical volume responds to constitution independently of neck preference
+ok 19 - cervical volume responds to constitution independently of neck preference
+  ---
+  duration_ms: 0.845923
+  type: 'test'
+  ...
+# Subtest: neck preference is bounded across constitution range
+ok 20 - neck preference is bounded across constitution range
+  ---
+  duration_ms: 0.348765
+  type: 'test'
+  ...
+# Subtest: neck preferences preserve chin, upper face, fingers, shoes and eye geometry
+ok 21 - neck preferences preserve chin, upper face, fingers, shoes and eye geometry
+  ---
+  duration_ms: 0.725623
+  type: 'test'
+  ...
+# Subtest: clothing opening responds at the wider neck circumference
+ok 22 - clothing opening responds at the wider neck circumference
+  ---
+  duration_ms: 0.162575
+  type: 'test'
+  ...
+# Subtest: volume settings do not modify bone dimensions, physics or profile schema
+ok 23 - volume settings do not modify bone dimensions, physics or profile schema
+  ---
+  duration_ms: 6.216949
+  type: 'test'
+  ...
+# Subtest: cervical look request changes head without rotating the torso
+ok 24 - cervical look request changes head without rotating the torso
+  ---
+  duration_ms: 5.21478
+  type: 'test'
+  ...
+# Subtest: head orientation has explicit bounded neck/head diagnostics
+ok 25 - head orientation has explicit bounded neck/head diagnostics
+  ---
+  duration_ms: 0.489808
+  type: 'test'
+  ...
+# Subtest: cervical request never changes feet or wrist targets
+ok 26 - cervical request never changes feet or wrist targets
+  ---
+  duration_ms: 1.222971
+  type: 'test'
+  ...
+# Subtest: cervical motion is deterministic, finite and does not alter actor input
+ok 27 - cervical motion is deterministic, finite and does not alter actor input
+  ---
+  duration_ms: 3.178075
+  type: 'test'
+  ...
+# Subtest: small look steps do not jump at neutral or range limits
+ok 28 - small look steps do not jump at neutral or range limits
+  ---
+  duration_ms: 22.017456
+  type: 'test'
+  ...
+# Subtest: neck thickness must not inflate chin, lips or jaw tip
+ok 29 - neck thickness must not inflate chin, lips or jaw tip
+  ---
+  duration_ms: 0.57139
+  type: 'test'
+  ...
+# Subtest: neckline follows neck thickness and remains unchanged elsewhere
+ok 30 - neckline follows neck thickness and remains unchanged elsewhere
+  ---
+  duration_ms: 0.278519
+  type: 'test'
+  ...
+# Subtest: dual palette is present and bind-pose identity retains arbitrary points
+ok 31 - dual palette is present and bind-pose identity retains arbitrary points
+  ---
+  duration_ms: 3.477084
+  type: 'test'
+  ...
+# Subtest: single influence DQ equals rigid matrix for rotations, including near 180 degrees
+ok 32 - single influence DQ equals rigid matrix for rotations, including near 180 degrees
+  ---
+  duration_ms: 0.31243
+  type: 'test'
+  ...
+# Subtest: dual quaternion twist retains radius where matrix blending collapses
+ok 33 - dual quaternion twist retains radius where matrix blending collapses
+  ---
+  duration_ms: 0.153742
+  type: 'test'
+  ...
+# Subtest: antipodal quaternion signs do not cancel blended skin
+ok 34 - antipodal quaternion signs do not cancel blended skin
+  ---
+  duration_ms: 0.210547
+  type: 'test'
+  ...
+# Subtest: packing writes only the requested actor row
+ok 35 - packing writes only the requested actor row
+  ---
+  duration_ms: 0.375615
+  type: 'test'
+  ...
+# Subtest: invalid palette input is rejected
+ok 36 - invalid palette input is rejected
+  ---
+  duration_ms: 0.459432
+  type: 'test'
+  ...
+# Subtest: neck parameter is bounded, optional for old saves, and copied
+ok 37 - neck parameter is bounded, optional for old saves, and copied
+  ---
+  duration_ms: 0.287643
+  type: 'test'
+  ...
+# Subtest: neck volume does not move the head crown, skin hands or soles
+ok 38 - neck volume does not move the head crown, skin hands or soles
+  ---
+  duration_ms: 0.257678
+  type: 'test'
+  ...
+# Subtest: neck appearance roundtrips with full save and rejects invalid import atomically
+ok 39 - neck appearance roundtrips with full save and rejects invalid import atomically
+  ---
+  duration_ms: 100.390491
+  type: 'test'
+  ...
+# Subtest: save library search/sort never mutates slots or writes storage
+ok 40 - save library search/sort never mutates slots or writes storage
+  ---
+  duration_ms: 128.200666
+  type: 'test'
+  ...
+# Subtest: core exports deterministic random and geometry
+ok 41 - core exports deterministic random and geometry
+  ---
+  duration_ms: 1.158294
+  type: 'test'
+  ...
+# Subtest: same seed yields same random sequence
+ok 42 - same seed yields same random sequence
+  ---
+  duration_ms: 0.408055
+  type: 'test'
+  ...
+# Subtest: collision stops player outside rectangle
+ok 43 - collision stops player outside rectangle
+  ---
+  duration_ms: 0.508725
+  type: 'test'
+  ...
+# Subtest: movement slides along walls
+ok 44 - movement slides along walls
+  ---
+  duration_ms: 0.353182
+  type: 'test'
+  ...
+# Subtest: city is deterministic and has usable spawn
+ok 45 - city is deterministic and has usable spawn
+  ---
+  duration_ms: 12.157954
+  type: 'test'
+  ...
+# Subtest: routes stay connected and reach destination
+ok 46 - routes stay connected and reach destination
+  ---
+  duration_ms: 1.856254
+  type: 'test'
+  ...
+# Subtest: on-foot movement changes position
+ok 47 - on-foot movement changes position
+  ---
+  duration_ms: 184.107714
+  type: 'test'
+  ...
+# Subtest: player enters an adjacent car and exits safely
+ok 48 - player enters an adjacent car and exits safely
+  ---
+  duration_ms: 5.33393
+  type: 'test'
+  ...
+# Subtest: driving accelerates without non-finite positions
+ok 49 - driving accelerates without non-finite positions
+  ---
+  duration_ms: 201.451039
+  type: 'test'
+  ...
+# Subtest: wanted level never exceeds five or becomes negative
+ok 50 - wanted level never exceeds five or becomes negative
+  ---
+  duration_ms: 5.072476
+  type: 'test'
+  ...
+# Subtest: save roundtrip restores valid state
+ok 51 - save roundtrip restores valid state
+  ---
+  duration_ms: 5.913181
+  type: 'test'
+  ...
+# Subtest: bad or future saves rejected
+ok 52 - bad or future saves rejected
+  ---
+  duration_ms: 4.019562
+  type: 'test'
+  ...
+# Subtest: mission cannot advance from arbitrary location
+ok 53 - mission cannot advance from arbitrary location
+  ---
+  duration_ms: 2.036907
+  type: 'test'
+  ...
+# Subtest: right movement is right in a +Z-facing right-handed camera
+ok 54 - right movement is right in a +Z-facing right-handed camera
+  ---
+  duration_ms: 7.24075
+  type: 'test'
+  ...
+# Subtest: right steering turns right in chase-camera space
+ok 55 - right steering turns right in chase-camera space
+  ---
+  duration_ms: 109.884202
+  type: 'test'
+  ...
+# Subtest: story conversation starts only near the phone and advances on confirmation
+ok 56 - story conversation starts only near the phone and advances on confirmation
+  ---
+  duration_ms: 2.170598
+  type: 'test'
+  ...
+# Subtest: story advances when the assigned vehicle is entered
+ok 57 - story advances when the assigned vehicle is entered
+  ---
+  duration_ms: 2.427104
+  type: 'test'
+  ...
+# Subtest: wanted player cannot use the story refuge
+ok 58 - wanted player cannot use the story refuge
+  ---
+  duration_ms: 1.717185
+  type: 'test'
+  ...
+# Subtest: upload requires staying on foot close to the terminal
+ok 59 - upload requires staying on foot close to the terminal
+  ---
+  duration_ms: 2.055064
+  type: 'test'
+  ...
+# Subtest: completed upload activates the final escape
+ok 60 - completed upload activates the final escape
+  ---
+  duration_ms: 1.794081
+  type: 'test'
+  ...
+# Subtest: both campaign endings are reachable and reward differently
+ok 61 - both campaign endings are reachable and reward differently
+  ---
+  duration_ms: 4.8559
+  type: 'test'
+  ...
+# Subtest: free roam disables story triggers
+ok 62 - free roam disables story triggers
+  ---
+  duration_ms: 2.944984
+  type: 'test'
+  ...
+# Subtest: delivery success pays and clears active job
+ok 63 - delivery success pays and clears active job
+  ---
+  duration_ms: 17.579405
+  type: 'test'
+  ...
+# Subtest: expired job gives no reward
+ok 64 - expired job gives no reward
+  ---
+  duration_ms: 1.875914
+  type: 'test'
+  ...
+# Subtest: race requires a vehicle
+ok 65 - race requires a vehicle
+  ---
+  duration_ms: 1.684195
+  type: 'test'
+  ...
+# Subtest: police heat decays after losing sight
+ok 66 - police heat decays after losing sight
+  ---
+  duration_ms: 4.763541
+  type: 'test'
+  ...
+# Subtest: arrest respawns player and preserves story
+ok 67 - arrest respawns player and preserves story
+  ---
+  duration_ms: 34.14304
+  type: 'test'
+  ...
+# Subtest: collectibles reward only once
+ok 68 - collectibles reward only once
+  ---
+  duration_ms: 1.803425
+  type: 'test'
+  ...
+# Subtest: zero-delta simulation remains finite
+ok 69 - zero-delta simulation remains finite
+  ---
+  duration_ms: 2.278921
+  type: 'test'
+  ...
+# Subtest: all mission destinations are outside buildings
+ok 70 - all mission destinations are outside buildings
+  ---
+  duration_ms: 1.363262
+  type: 'test'
+  ...
+# Subtest: restoring does not resume transient timed jobs
+ok 71 - restoring does not resume transient timed jobs
+  ---
+  duration_ms: 4.050949
+  type: 'test'
+  ...
+# Subtest: a stolen police car cannot detect or arrest its own driver
+ok 72 - a stolen police car cannot detect or arrest its own driver
+  ---
+  duration_ms: 2.958564
+  type: 'test'
+  ...
+# Subtest: save restores police vehicle appearance and stolen state
+ok 73 - save restores police vehicle appearance and stolen state
+  ---
+  duration_ms: 5.28727
+  type: 'test'
+  ...
+# Subtest: map projection places camera-right world direction on the right
+ok 74 - map projection places camera-right world direction on the right
+  ---
+  duration_ms: 0.097567
+  type: 'test'
+  ...
+# Subtest: map click inverse preserves world positions
+ok 75 - map click inverse preserves world positions
+  ---
+  duration_ms: 0.13306
+  type: 'test'
+  ...
+# Subtest: humanoid pose distinguishes idle walk run and airborne states
+ok 76 - humanoid pose distinguishes idle walk run and airborne states
+  ---
+  duration_ms: 0.304157
+  type: 'test'
+  ...
+# Subtest: humanoid pose counter-rotates shoulders and reacts to turning
+ok 77 - humanoid pose counter-rotates shoulders and reacts to turning
+  ---
+  duration_ms: 0.104176
+  type: 'test'
+  ...
+# Subtest: on-foot animation state tracks speed sprint jump and landing
+ok 78 - on-foot animation state tracks speed sprint jump and landing
+  ---
+  duration_ms: 239.555757
+  type: 'test'
+  ...
+# Subtest: reactive props exist as per-session physics state
+ok 79 - reactive props exist as per-session physics state
+  ---
+  duration_ms: 8.265382
+  type: 'test'
+  ...
+# Subtest: starting objects are accessible and not inside buildings
+ok 80 - starting objects are accessible and not inside buildings
+  ---
+  duration_ms: 4.241185
+  type: 'test'
+  ...
+# Subtest: deterministic ids and a new game does not inherit damage
+ok 81 - deterministic ids and a new game does not inherit damage
+  ---
+  duration_ms: 4.248155
+  type: 'test'
+  ...
+# Subtest: small contacts do not break a lamp
+ok 82 - small contacts do not break a lamp
+  ---
+  duration_ms: 3.131925
+  type: 'test'
+  ...
+# Subtest: strong impact breaks a lamp once and extinguishes it
+ok 83 - strong impact breaks a lamp once and extinguishes it
+  ---
+  duration_ms: 3.441481
+  type: 'test'
+  ...
+# Subtest: hinged props settle with a finite non-growing rotation
+ok 84 - hinged props settle with a finite non-growing rotation
+  ---
+  duration_ms: 81.78423
+  type: 'test'
+  ...
+# Subtest: damage selects the impacted vehicle panel
+ok 85 - damage selects the impacted vehicle panel
+  ---
+  duration_ms: 0.385891
+  type: 'test'
+  ...
+# Subtest: repair clears damage and restores health
+ok 86 - repair clears damage and restores health
+  ---
+  duration_ms: 0.257718
+  type: 'test'
+  ...
+# Subtest: zero relative speed touching a prop causes no cumulative car damage
+ok 87 - zero relative speed touching a prop causes no cumulative car damage
+  ---
+  duration_ms: 3.30814
+  type: 'test'
+  ...
+# Subtest: small object can be picked up, thrown and cannot duplicate
+ok 88 - small object can be picked up, thrown and cannot duplicate
+  ---
+  duration_ms: 4.061494
+  type: 'test'
+  ...
+# Subtest: stationary nearby car can be pushed without starting police pursuit
+ok 89 - stationary nearby car can be pushed without starting police pursuit
+  ---
+  duration_ms: 23.28864
+  type: 'test'
+  ...
+# Subtest: crouch reduces movement speed and has a blended pose
+ok 90 - crouch reduces movement speed and has a blended pose
+  ---
+  duration_ms: 232.4428
+  type: 'test'
+  ...
+# Subtest: holding jump does not cause automatic repeated jumping
+ok 91 - holding jump does not cause automatic repeated jumping
+  ---
+  duration_ms: 242.673921
+  type: 'test'
+  ...
+# Subtest: velocity decays smoothly instead of an instant stop
+ok 92 - velocity decays smoothly instead of an instant stop
+  ---
+  duration_ms: 3.885981
+  type: 'test'
+  ...
+# Subtest: damage and broken prop states survive save and restore
+ok 93 - damage and broken prop states survive save and restore
+  ---
+  duration_ms: 6.282247
+  type: 'test'
+  ...
+# Subtest: legacy save without dynamic data is still valid
+ok 94 - legacy save without dynamic data is still valid
+  ---
+  duration_ms: 4.383689
+  type: 'test'
+  ...
+# Subtest: invalid dynamic coordinates reject import before changing state
+ok 95 - invalid dynamic coordinates reject import before changing state
+  ---
+  duration_ms: 2.066431
+  type: 'test'
+  ...
+# Subtest: particles and skid marks have a fixed upper bound
+ok 96 - particles and skid marks have a fixed upper bound
+  ---
+  duration_ms: 9.453221
+  type: 'test'
+  ...
+# Subtest: repair is cancelable without charging for unfinished work
+ok 97 - repair is cancelable without charging for unfinished work
+  ---
+  duration_ms: 64.583304
+  type: 'test'
+  ...
+# Subtest: repair pays once only after completion
+ok 98 - repair pays once only after completion
+  ---
+  duration_ms: 521.145714
+  type: 'test'
+  ...
+# Subtest: foot IK keeps standing soles above the floor
+ok 99 - foot IK keeps standing soles above the floor
+  ---
+  duration_ms: 0.474374
+  type: 'test'
+  ...
+# Subtest: foot IK remains finite across the running cycle
+ok 100 - foot IK remains finite across the running cycle
+  ---
+  duration_ms: 0.868378
+  type: 'test'
+  ...
+# Subtest: fallen lamp fixture rests above the ground plane
+ok 101 - fallen lamp fixture rests above the ground plane
+  ---
+  duration_ms: 88.291316
+  type: 'test'
+  ...
+# Subtest: damage on an unoccupied vehicle is preserved in a save
+ok 102 - damage on an unoccupied vehicle is preserved in a save
+  ---
+  duration_ms: 6.374046
+  type: 'test'
+  ...
+# Subtest: garage service also clears cosmetic damage when the player is outside
+ok 103 - garage service also clears cosmetic damage when the player is outside
+  ---
+  duration_ms: 2.463919
+  type: 'test'
+  ...
+# Subtest: a fallen crown is supported by the ground, not buried below it
+ok 104 - a fallen crown is supported by the ground, not buried below it
+  ---
+  duration_ms: 83.543899
+  type: 'test'
+  ...
+# Subtest: frontier class available and unbounded beyond original city
+ok 105 - frontier class available and unbounded beyond original city
+  ---
+  duration_ms: 13.669138
+  type: 'test'
+  ...
+# Subtest: same seed and sector produce identical immutable geometry
+ok 106 - same seed and sector produce identical immutable geometry
+  ---
+  duration_ms: 18.072417
+  type: 'test'
+  ...
+# Subtest: different seeds produce different sectors
+ok 107 - different seeds produce different sectors
+  ---
+  duration_ms: 17.113893
+  type: 'test'
+  ...
+# Subtest: original campaign city buildings and points preserved
+ok 108 - original campaign city buildings and points preserved
+  ---
+  duration_ms: 5.71261
+  type: 'test'
+  ...
+# Subtest: all requested settlement types occur in starter atlas
+ok 109 - all requested settlement types occur in starter atlas
+  ---
+  duration_ms: 7.590967
+  type: 'test'
+  ...
+# Subtest: roads agree across adjacent cell edges including negatives
+ok 110 - roads agree across adjacent cell edges including negatives
+  ---
+  duration_ms: 79.385258
+  type: 'test'
+  ...
+# Subtest: buildings never intrude into shared roadside margin
+ok 111 - buildings never intrude into shared roadside margin
+  ---
+  duration_ms: 190.128453
+  type: 'test'
+  ...
+# Subtest: generation order does not alter a revisited chunk
+ok 112 - generation order does not alter a revisited chunk
+  ---
+  duration_ms: 502.28431
+  type: 'test'
+  ...
+# Subtest: cache remains bounded after many distant samples
+ok 113 - cache remains bounded after many distant samples
+  ---
+  duration_ms: 598.916521
+  type: 'test'
+  ...
+# Subtest: roads provide bounded connected routing outside legacy limits
+ok 114 - roads provide bounded connected routing outside legacy limits
+  ---
+  duration_ms: 10.135929
+  type: 'test'
+  ...
+# Subtest: very distant route is a safe bounded prefix, not a huge loop
+ok 115 - very distant route is a safe bounded prefix, not a huge loop
+  ---
+  duration_ms: 37.051929
+  type: 'test'
+  ...
+# Subtest: invalid coordinates are rejected rather than poisoning caches
+ok 116 - invalid coordinates are rejected rather than poisoning caches
+  ---
+  duration_ms: 5.493089
+  type: 'test'
+  ...
+# Subtest: expedition simulation can travel to all five regions and retains mission
+ok 117 - expedition simulation can travel to all five regions and retains mission
+  ---
+  duration_ms: 532.824705
+  type: 'test'
+  ...
+# Subtest: fast travel refuses pursuit and timed contracts without moving
+ok 118 - fast travel refuses pursuit and timed contracts without moving
+  ---
+  duration_ms: 128.985647
+  type: 'test'
+  ...
+# Subtest: world save restores remote position, seed, and prop destruction
+ok 119 - world save restores remote position, seed, and prop destruction
+  ---
+  duration_ms: 835.260418
+  type: 'test'
+  ...
+# Subtest: legacy save imports without procedural fields
+ok 120 - legacy save imports without procedural fields
+  ---
+  duration_ms: 127.475234
+  type: 'test'
+  ...
+# Subtest: invalid procedural save rejected
+ok 121 - invalid procedural save rejected
+  ---
+  duration_ms: 127.351428
+  type: 'test'
+  ...
+# Subtest: unsupported save version cannot mutate world seed
+ok 122 - unsupported save version cannot mutate world seed
+  ---
+  duration_ms: 131.070746
+  type: 'test'
+  ...
+# Subtest: corrupt classic prop data cannot mutate world on seed import
+ok 123 - corrupt classic prop data cannot mutate world on seed import
+  ---
+  duration_ms: 220.315909
+  type: 'test'
+  ...
+# Subtest: edge coordinates fail safely before streaming outside representable domain
+ok 124 - edge coordinates fail safely before streaming outside representable domain
+  ---
+  duration_ms: 119.865718
+  type: 'test'
+  ...
+# Subtest: regional cooperative creates a local paid delivery, not a legacy city destination
+ok 125 - regional cooperative creates a local paid delivery, not a legacy city destination
+  ---
+  duration_ms: 271.504372
+  type: 'test'
+  ...
+# Subtest: anatomical head replaces the parametric ring approximation
+ok 126 - anatomical head replaces the parametric ring approximation
+  ---
+  duration_ms: 0.974457
+  type: 'test'
+  ...
+# Subtest: embedded skin maps have correct roles and bounded resolutions
+ok 127 - embedded skin maps have correct roles and bounded resolutions
+  ---
+  duration_ms: 0.315725
+  type: 'test'
+  ...
+# Subtest: skin tint is relative and preserves the reference appearance
+ok 128 - skin tint is relative and preserves the reference appearance
+  ---
+  duration_ms: 1.835944
+  type: 'test'
+  ...
+# Subtest: LOD does not merge opposite UV seam corners
+ok 129 - LOD does not merge opposite UV seam corners
+  ---
+  duration_ms: 0.932083
+  type: 'test'
+  ...
+# Subtest: appearance has four distinct editable presets, without runtime dependencies
+ok 130 - appearance has four distinct editable presets, without runtime dependencies
+  ---
+  duration_ms: 1.13602
+  type: 'test'
+  ...
+# Subtest: appearance is bounded and rejects nonfinite shapes, unknown colors and future schemas
+ok 131 - appearance is bounded and rejects nonfinite shapes, unknown colors and future schemas
+  ---
+  duration_ms: 0.295034
+  type: 'test'
+  ...
+# Subtest: appearance copies do not share mutable state
+ok 132 - appearance copies do not share mutable state
+  ---
+  duration_ms: 0.54453
+  type: 'test'
+  ...
+# Subtest: appearance and name survive the full game save and restore
+ok 133 - appearance and name survive the full game save and restore
+  ---
+  duration_ms: 64.110573
+  type: 'test'
+  ...
+# Subtest: legacy saves adopt a default appearance without removing other progress
+ok 134 - legacy saves adopt a default appearance without removing other progress
+  ---
+  duration_ms: 47.062169
+  type: 'test'
+  ...
+# Subtest: invalid identity cannot partly restore progress or world seed
+ok 135 - invalid identity cannot partly restore progress or world seed
+  ---
+  duration_ms: 84.904778
+  type: 'test'
+  ...
+# Subtest: two named slots keep progress and appearance independent
+ok 136 - two named slots keep progress and appearance independent
+  ---
+  duration_ms: 76.171079
+  type: 'test'
+  ...
+# Subtest: identical display names never identify a slot
+ok 137 - identical display names never identify a slot
+  ---
+  duration_ms: 62.395862
+  type: 'test'
+  ...
+# Subtest: slot update touches only its id and requires a current revision
+ok 138 - slot update touches only its id and requires a current revision
+  ---
+  duration_ms: 160.474772
+  type: 'test'
+  ...
+# Subtest: rename changes only metadata and updates revision
+ok 139 - rename changes only metadata and updates revision
+  ---
+  duration_ms: 39.749801
+  type: 'test'
+  ...
+# Subtest: duplicate copies an isolated snapshot and deleting it preserves the original
+ok 140 - duplicate copies an isolated snapshot and deleting it preserves the original
+  ---
+  duration_ms: 73.390924
+  type: 'test'
+  ...
+# Subtest: malformed imports cannot append or change the catalogue
+ok 141 - malformed imports cannot append or change the catalogue
+  ---
+  duration_ms: 39.368156
+  type: 'test'
+  ...
+# Subtest: quota failure leaves all previous data intact
+ok 142 - quota failure leaves all previous data intact
+  ---
+  duration_ms: 54.020683
+  type: 'test'
+  ...
+# Subtest: unreadable catalogue is not silently replaced
+ok 143 - unreadable catalogue is not silently replaced
+  ---
+  duration_ms: 27.223483
+  type: 'test'
+  ...
+# Subtest: read denial and write denial are explicit failures
+ok 144 - read denial and write denial are explicit failures
+  ---
+  duration_ms: 0.42538
+  type: 'test'
+  ...
+# Subtest: legacy migration is non-destructive and idempotent
+ok 145 - legacy migration is non-destructive and idempotent
+  ---
+  duration_ms: 59.352351
+  type: 'test'
+  ...
+# Subtest: migration tombstone prevents resurrection after user deletes last migrated slot
+ok 146 - migration tombstone prevents resurrection after user deletes last migrated slot
+  ---
+  duration_ms: 40.26179
+  type: 'test'
+  ...
+# Subtest: twelve slot limit does not overwrite an existing slot
+ok 147 - twelve slot limit does not overwrite an existing slot
+  ---
+  duration_ms: 397.065871
+  type: 'test'
+  ...
+# Subtest: names normalize whitespace, limit length, preserve accents and reject empty
+ok 148 - names normalize whitespace, limit length, preserve accents and reject empty
+  ---
+  duration_ms: 63.921779
+  type: 'test'
+  ...
+# Subtest: validated JSON snapshot cannot change through caller references
+ok 149 - validated JSON snapshot cannot change through caller references
+  ---
+  duration_ms: 42.381392
+  type: 'test'
+  ...
+# Subtest: bulk restore preserves all named snapshots with new ids
+ok 150 - bulk restore preserves all named snapshots with new ids
+  ---
+  duration_ms: 150.106754
+  type: 'test'
+  ...
+# Subtest: one bad snapshot rejects entire bulk import before write
+ok 151 - one bad snapshot rejects entire bulk import before write
+  ---
+  duration_ms: 75.265877
+  type: 'test'
+  ...
+# Subtest: bulk quota rejection cannot evict saved slots
+ok 152 - bulk quota rejection cannot evict saved slots
+  ---
+  duration_ms: 365.436407
+  type: 'test'
+  ...
+# Subtest: volume morph keeps fingertip bones, soles, and height unchanged
+ok 153 - volume morph keeps fingertip bones, soles, and height unchanged
+  ---
+  duration_ms: 0.508966
+  type: 'test'
+  ...
+# Subtest: shape controls produce finite bounded changes distinct from material tint
+ok 154 - shape controls produce finite bounded changes distinct from material tint
+  ---
+  duration_ms: 0.609077
+  type: 'test'
+  ...
+# Subtest: actor profile does not replace saved player identity with NPC tint
+ok 155 - actor profile does not replace saved player identity with NPC tint
+  ---
+  duration_ms: 11.185118
+  type: 'test'
+  ...
+# Subtest: all moving cars including police have an identity, starter is empty
+ok 156 - all moving cars including police have an identity, starter is empty
+  ---
+  duration_ms: 151.489475
+  type: 'test'
+  ...
+# Subtest: empty access reserves and waits before transferring control
+ok 157 - empty access reserves and waits before transferring control
+  ---
+  duration_ms: 507.161612
+  type: 'test'
+  ...
+# Subtest: occupied access yields exactly one evicted driver
+ok 158 - occupied access yields exactly one evicted driver
+  ---
+  duration_ms: 550.633626
+  type: 'test'
+  ...
+# Subtest: cancel prior to extraction leaves the original occupant
+ok 159 - cancel prior to extraction leaves the original occupant
+  ---
+  duration_ms: 137.032081
+  type: 'test'
+  ...
+# Subtest: cancel after extraction does not resurrect driver
+ok 160 - cancel after extraction does not resurrect driver
+  ---
+  duration_ms: 448.449561
+  type: 'test'
+  ...
+# Subtest: moving input cancels access
+ok 161 - moving input cancels access
+  ---
+  duration_ms: 189.321955
+  type: 'test'
+  ...
+# Subtest: fast car is refused rather than frozen remotely
+ok 162 - fast car is refused rather than frozen remotely
+  ---
+  duration_ms: 127.109183
+  type: 'test'
+  ...
+# Subtest: seat reservation prevents travel and repair
+ok 163 - seat reservation prevents travel and repair
+  ---
+  duration_ms: 147.305928
+  type: 'test'
+  ...
+# Subtest: door blocked by another vehicle is refused
+ok 164 - door blocked by another vehicle is refused
+  ---
+  duration_ms: 120.17927
+  type: 'test'
+  ...
+# Subtest: starting access does not extend police grace
+ok 165 - starting access does not extend police grace
+  ---
+  duration_ms: 127.268359
+  type: 'test'
+  ...
+# Subtest: significant collision displacement interrupts reservation
+ok 166 - significant collision displacement interrupts reservation
+  ---
+  duration_ms: 133.341027
+  type: 'test'
+  ...
+# Subtest: exit preserves player control until feet clear the door
+ok 167 - exit preserves player control until feet clear the door
+  ---
+  duration_ms: 450.794761
+  type: 'test'
+  ...
+# Subtest: cancel exit retains seat and closes the door
+ok 168 - cancel exit retains seat and closes the door
+  ---
+  duration_ms: 315.329497
+  type: 'test'
+  ...
+# Subtest: police theft reports once and vehicle no longer chases itself
+ok 169 - police theft reports once and vehicle no longer chases itself
+  ---
+  duration_ms: 390.506341
+  type: 'test'
+  ...
+# Subtest: non-starter theft cannot advance starter mission
+ok 170 - non-starter theft cannot advance starter mission
+  ---
+  duration_ms: 301.298075
+  type: 'test'
+  ...
+# Subtest: starter mission advances on completed entry only
+ok 171 - starter mission advances on completed entry only
+  ---
+  duration_ms: 316.182125
+  type: 'test'
+  ...
+# Subtest: save during access is safe and does not mutate current transaction
+ok 172 - save during access is safe and does not mutate current transaction
+  ---
+  duration_ms: 294.549
+  type: 'test'
+  ...
+# Subtest: stolen vehicle identity and vacant original survive save restore
+ok 173 - stolen vehicle identity and vacant original survive save restore
+  ---
+  duration_ms: 488.860452
+  type: 'test'
+  ...
+# Subtest: malformed occupant snapshot is rejected before world mutation
+ok 174 - malformed occupant snapshot is rejected before world mutation
+  ---
+  duration_ms: 117.043319
+  type: 'test'
+  ...
+# Subtest: legacy save imports into new occupation model
+ok 175 - legacy save imports into new occupation model
+  ---
+  duration_ms: 133.918762
+  type: 'test'
+  ...
+# Subtest: phase samples and bone matrices stay finite
+ok 176 - phase samples and bone matrices stay finite
+  ---
+  duration_ms: 203.524955
+  type: 'test'
+  ...
+# Subtest: saving an occupied nonstarter vehicle preserves all panel damage without contaminating starter
+ok 177 - saving an occupied nonstarter vehicle preserves all panel damage without contaminating starter
+  ---
+  duration_ms: 244.705015
+  type: 'test'
+  ...
+# Subtest: corrupt panel damage is refused before modifying the loaded world
+ok 178 - corrupt panel damage is refused before modifying the loaded world
+  ---
+  duration_ms: 138.467144
+  type: 'test'
+  ...
+# Subtest: paired extraction preserves separation and continuous player trajectory through release
+ok 179 - paired extraction preserves separation and continuous player trajectory through release
+  ---
+  duration_ms: 282.348089
+  type: 'test'
+  ...
+# Subtest: final occupancy/world chain preserves reverse escape after patrol contact
+ok 180 - final occupancy/world chain preserves reverse escape after patrol contact
+  ---
+  duration_ms: 226.296399
+  type: 'test'
+  ...
+# Subtest: final occupancy/world chain preserves forward escape after rear impact
+ok 181 - final occupancy/world chain preserves forward escape after rear impact
+  ---
+  duration_ms: 198.983597
+  type: 'test'
+  ...
+# Subtest: grounded sole has a contact, not an unreachable ankle during the stride
+ok 182 - grounded sole has a contact, not an unreachable ankle during the stride
+  ---
+  duration_ms: 5.229042
+  type: 'test'
+  ...
+# Subtest: organic motion exposes phase diagnostics and heel/toe articulation
+ok 183 - organic motion exposes phase diagnostics and heel/toe articulation
+  ---
+  duration_ms: 1.431946
+  type: 'test'
+  ...
+# Subtest: all gait phases retain ground clearance and attainable support
+ok 184 - all gait phases retain ground clearance and attainable support
+  ---
+  duration_ms: 85.888739
+  type: 'test'
+  ...
+# Subtest: seated target pose remains seated and does not acquire ground foot locks
+ok 185 - seated target pose remains seated and does not acquire ground foot locks
+  ---
+  duration_ms: 0.353673
+  type: 'test'
+  ...
+# Subtest: running elbows bend and arms oppose leading legs
+ok 186 - running elbows bend and arms oppose leading legs
+  ---
+  duration_ms: 0.27925
+  type: 'test'
+  ...
+# Subtest: acceleration and braking produce distinct bounded posture
+ok 187 - acceleration and braking produce distinct bounded posture
+  ---
+  duration_ms: 0.372631
+  type: 'test'
+  ...
+# Subtest: contextual fingers differ between wheel and box, without moving wrist
+ok 188 - contextual fingers differ between wheel and box, without moving wrist
+  ---
+  duration_ms: 0.655416
+  type: 'test'
+  ...
+# Subtest: rest breathing differs between actors and has no root-coordinate mutation
+ok 189 - rest breathing differs between actors and has no root-coordinate mutation
+  ---
+  duration_ms: 0.805963
+  type: 'test'
+  ...
+# Subtest: visible tracking holds support points and is idempotent at same timestamp
+ok 190 - visible tracking holds support points and is idempotent at same timestamp
+  ---
+  duration_ms: 0.650059
+  type: 'test'
+  ...
+# Subtest: tracking resets on teleport and has bounded memory
+ok 191 - tracking resets on teleport and has bounded memory
+  ---
+  duration_ms: 2.386653
+  type: 'test'
+  ...
+# Subtest: motion tracking never creates a lock while seated or airborne
+ok 192 - motion tracking never creates a lock while seated or airborne
+  ---
+  duration_ms: 0.27219
+  type: 'test'
+  ...
+# Subtest: visual tracking leaves actor inputs and serialization fields untouched
+ok 193 - visual tracking leaves actor inputs and serialization fields untouched
+  ---
+  duration_ms: 0.130607
+  type: 'test'
+  ...
+# Subtest: cadence is finite, zero at rest, and shared between run and walk previews
+ok 194 - cadence is finite, zero at rest, and shared between run and walk previews
+  ---
+  duration_ms: 0.107321
+  type: 'test'
+  ...
+# Subtest: sequential straight gait holds the contacting ankle while root travels
+ok 195 - sequential straight gait holds the contacting ankle while root travels
+  ---
+  duration_ms: 28.552654
+  type: 'test'
+  ...
+# Subtest: sitting transition remains continuous rather than changing IK branches abruptly
+ok 196 - sitting transition remains continuous rather than changing IK branches abruptly
+  ---
+  duration_ms: 13.286252
+  type: 'test'
+  ...
+# Subtest: turns and a stop release obsolete support and leave finite bounds
+ok 197 - turns and a stop release obsolete support and leave finite bounds
+  ---
+  duration_ms: 47.579156
+  type: 'test'
+  ...
+# Subtest: heel strike and push-off remain continuous at both cycle boundaries
+ok 198 - heel strike and push-off remain continuous at both cycle boundaries
+  ---
+  duration_ms: 0.282535
+  type: 'test'
+  ...
+# Subtest: parallel vehicles moving together do not lose speed from a side scrape
+ok 199 - parallel vehicles moving together do not lose speed from a side scrape
+  ---
+  duration_ms: 12.111103
+  type: 'test'
+  ...
+# Subtest: side-by-side vehicles 2.5 m apart do not collide with an oversized circular body
+ok 200 - side-by-side vehicles 2.5 m apart do not collide with an oversized circular body
+  ---
+  duration_ms: 7.445157
+  type: 'test'
+  ...
+# Subtest: perfectly overlapping cars are separated instead of skipped
+ok 201 - perfectly overlapping cars are separated instead of skipped
+  ---
+  duration_ms: 5.146458
+  type: 'test'
+  ...
+# Subtest: zero-delta contact solving does not change position or speed
+ok 202 - zero-delta contact solving does not change position or speed
+  ---
+  duration_ms: 4.870141
+  type: 'test'
+  ...
+# Subtest: a rear-end hit initiated by police does not blame the stationary player
+ok 203 - a rear-end hit initiated by police does not blame the stationary player
+  ---
+  duration_ms: 5.74587
+  type: 'test'
+  ...
+# Subtest: a deliberate high-speed ram by the player still has consequences
+ok 204 - a deliberate high-speed ram by the player still has consequences
+  ---
+  duration_ms: 4.717021
+  type: 'test'
+  ...
+# Subtest: repeated tangential contact does not produce frame-dependent velocity drain
+ok 205 - repeated tangential contact does not produce frame-dependent velocity drain
+  ---
+  duration_ms: 40.956547
+  type: 'test'
+  ...
+# Subtest: reverse and steering let the player pull away after front police contact
+ok 206 - reverse and steering let the player pull away after front police contact
+  ---
+  duration_ms: 130.651226
+  type: 'test'
+  ...
+# Subtest: a rear police contact does not prevent forward acceleration
+ok 207 - a rear police contact does not prevent forward acceleration
+  ---
+  duration_ms: 105.453716
+  type: 'test'
+  ...
+# Subtest: running on foot is not mistaken for being motionless by arrest logic
+ok 208 - running on foot is not mistaken for being motionless by arrest logic
+  ---
+  duration_ms: 3.066046
+  type: 'test'
+  ...
+# Subtest: walking against a wall uses actual displacement rather than intended speed
+ok 209 - walking against a wall uses actual displacement rather than intended speed
+  ---
+  duration_ms: 32.95442
+  type: 'test'
+  ...
+# Subtest: police cannot arrest through an opaque wall
+ok 210 - police cannot arrest through an opaque wall
+  ---
+  duration_ms: 4.665233
+  type: 'test'
+  ...
+# Subtest: remaining stationary and visible can still lead to arrest
+ok 211 - remaining stationary and visible can still lead to arrest
+  ---
+  duration_ms: 37.880256
+  type: 'test'
+  ...
+# Subtest: capture progress recedes when movement resumes
+ok 212 - capture progress recedes when movement resumes
+  ---
+  duration_ms: 3.370343
+  type: 'test'
+  ...
+# Subtest: pursuit records a last-known location instead of tracking through walls
+ok 213 - pursuit records a last-known location instead of tracking through walls
+  ---
+  duration_ms: 3.134739
+  type: 'test'
+  ...
+# Subtest: stationary pursuit brakes short of the player rather than driving into the centre
+ok 214 - stationary pursuit brakes short of the player rather than driving into the centre
+  ---
+  duration_ms: 61.162045
+  type: 'test'
+  ...
+# Subtest: escape progress and status are available to the HUD
+ok 215 - escape progress and status are available to the HUD
+  ---
+  duration_ms: 2.184108
+  type: 'test'
+  ...
+# Subtest: surrender requires a nearby visible officer and a stopped actor
+ok 216 - surrender requires a nearby visible officer and a stopped actor
+  ---
+  duration_ms: 1.956696
+  type: 'test'
+  ...
+# Subtest: holding surrender resolves the encounter with a reduced cost and keeps story progress
+ok 217 - holding surrender resolves the encounter with a reduced cost and keeps story progress
+  ---
+  duration_ms: 19.154075
+  type: 'test'
+  ...
+# Subtest: releasing surrender cancels the countdown without deducting cash
+ok 218 - releasing surrender cancels the countdown without deducting cash
+  ---
+  duration_ms: 1.89341
+  type: 'test'
+  ...
+# Subtest: movement input cancels surrender even while the player is blocked
+ok 219 - movement input cancels surrender even while the player is blocked
+  ---
+  duration_ms: 2.948519
+  type: 'test'
+  ...
+# Subtest: respawn clears detection, recovery and surrender transient state
+ok 220 - respawn clears detection, recovery and surrender transient state
+  ---
+  duration_ms: 1.839289
+  type: 'test'
+  ...
+# Subtest: old v1 save format remains compatible with v0.3 and resets capture
+ok 221 - old v1 save format remains compatible with v0.3 and resets capture
+  ---
+  duration_ms: 5.203633
+  type: 'test'
+  ...
+# Subtest: exiting a car does not place the player inside an adjacent patrol
+ok 222 - exiting a car does not place the player inside an adjacent patrol
+  ---
+  duration_ms: 3.379006
+  type: 'test'
+  ...
+# Subtest: search routing is identical for different unseen player locations
+ok 223 - search routing is identical for different unseen player locations
+  ---
+  duration_ms: 6.339344
+  type: 'test'
+  ...
+# Subtest: two patrols on opposing bumpers leave a controllable escape window
+ok 224 - two patrols on opposing bumpers leave a controllable escape window
+  ---
+  duration_ms: 244.797651
+  type: 'test'
+  ...
+# Subtest: car-car physics also separates two police vehicles instead of stacking them
+ok 225 - car-car physics also separates two police vehicles instead of stacking them
+  ---
+  duration_ms: 2.119051
+  type: 'test'
+  ...
+# Subtest: reversing from initial police contact remains possible at different simulation steps
+ok 226 - reversing from initial police contact remains possible at different simulation steps
+  ---
+  duration_ms: 407.810535
+  type: 'test'
+  ...
+# Subtest: surrender cannot produce negative cash
+ok 227 - surrender cannot produce negative cash
+  ---
+  duration_ms: 2.028735
+  type: 'test'
+  ...
+# Subtest: surrender cannot happen through walls
+ok 228 - surrender cannot happen through walls
+  ---
+  duration_ms: 2.075485
+  type: 'test'
+  ...
+# Subtest: rotated vehicle footprint detects a real head-on bumper overlap
+ok 229 - rotated vehicle footprint detects a real head-on bumper overlap
+  ---
+  duration_ms: 0.154162
+  type: 'test'
+  ...
+# Subtest: separating car velocities are not treated as a second impact
+ok 230 - separating car velocities are not treated as a second impact
+  ---
+  duration_ms: 1.847682
+  type: 'test'
+  ...
+# Subtest: Skin rig exposes a deterministic pose evaluator
+ok 231 - Skin rig exposes a deterministic pose evaluator
+  ---
+  duration_ms: 0.815007
+  type: 'test'
+  ...
+# Subtest: Skin rig rest palette leaves bind vertices unchanged
+ok 232 - Skin rig rest palette leaves bind vertices unchanged
+  ---
+  duration_ms: 3.197985
+  type: 'test'
+  ...
+# Subtest: Idle, walk, run, airborne, carry and crouch skin palettes are finite
+ok 233 - Idle, walk, run, airborne, carry and crouch skin palettes are finite
+  ---
+  duration_ms: 5.788735
+  type: 'test'
+  ...
+# Subtest: Walking and carrying actually change skin matrices
+ok 234 - Walking and carrying actually change skin matrices
+  ---
+  duration_ms: 1.435061
+  type: 'test'
+  ...
+# Subtest: Weighted mesh validation rejects corrupt weights, normals and out-of-range joints
+ok 235 - Weighted mesh validation rejects corrupt weights, normals and out-of-range joints
+  ---
+  duration_ms: 0.443478
+  type: 'test'
+  ...
+# Subtest: Shared visual meshes have finite unit normals and nondegenerate triangles
+ok 236 - Shared visual meshes have finite unit normals and nondegenerate triangles
+  ---
+  duration_ms: 110.758096
+  type: 'test'
+  ...
+# Subtest: Visual geometry remains deterministic and bounded
+ok 237 - Visual geometry remains deterministic and bounded
+  ---
+  duration_ms: 89.360611
+  type: 'test'
+  ...
+# Subtest: The right window has outward normals and roof has a curved crown
+ok 238 - The right window has outward normals and roof has a curved crown
+  ---
+  duration_ms: 34.376336
+  type: 'test'
+  ...
+# Subtest: all shipped JavaScript parses, including the DOM-only editor
+ok 239 - all shipped JavaScript parses, including the DOM-only editor
+  ---
+  duration_ms: 40.13033
+  type: 'test'
+  ...
+1..239
+# tests 239
+# suites 0
+# pass 239
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 8437.911656

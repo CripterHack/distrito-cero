@@ -1,0 +1,5623 @@
+{
+  "cases": [
+    {
+      "material": 40,
+      "build": -1,
+      "neckLength": -1,
+      "hairVolume": -1,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 5.0926208583490506e-08,
+      "normalError": 6.141046815510975e-08
+    },
+    {
+      "material": 40,
+      "build": -1,
+      "neckLength": -1,
+      "hairVolume": -1,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 7.2479249269008506e-09,
+      "normalError": 8.014477858697688e-06
+    },
+    {
+      "material": 40,
+      "build": -1,
+      "neckLength": -1,
+      "hairVolume": -1,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 8.392333983309186e-08,
+      "normalError": 1.6585223860943188e-08
+    },
+    {
+      "material": 40,
+      "build": -1,
+      "neckLength": -1,
+      "hairVolume": -1,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 4.100799566586488e-08,
+      "normalError": 1.6585207096575516e-08
+    },
+    {
+      "material": 40,
+      "build": -1,
+      "neckLength": -1,
+      "hairVolume": 0,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 5.0926208583490506e-08,
+      "normalError": 6.141046815510975e-08
+    },
+    {
+      "material": 40,
+      "build": -1,
+      "neckLength": -1,
+      "hairVolume": 0,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 7.2479249269008506e-09,
+      "normalError": 8.014477858697688e-06
+    },
+    {
+      "material": 40,
+      "build": -1,
+      "neckLength": -1,
+      "hairVolume": 0,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 8.392333983309186e-08,
+      "normalError": 1.6585223860943188e-08
+    },
+    {
+      "material": 40,
+      "build": -1,
+      "neckLength": -1,
+      "hairVolume": 0,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 4.100799566586488e-08,
+      "normalError": 1.6585207096575516e-08
+    },
+    {
+      "material": 40,
+      "build": -1,
+      "neckLength": -1,
+      "hairVolume": 1,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 5.0926208583490506e-08,
+      "normalError": 6.141046815510975e-08
+    },
+    {
+      "material": 40,
+      "build": -1,
+      "neckLength": -1,
+      "hairVolume": 1,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 7.2479249269008506e-09,
+      "normalError": 8.014477858697688e-06
+    },
+    {
+      "material": 40,
+      "build": -1,
+      "neckLength": -1,
+      "hairVolume": 1,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 8.392333983309186e-08,
+      "normalError": 1.6585223860943188e-08
+    },
+    {
+      "material": 40,
+      "build": -1,
+      "neckLength": -1,
+      "hairVolume": 1,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 4.100799566586488e-08,
+      "normalError": 1.6585207096575516e-08
+    },
+    {
+      "material": 40,
+      "build": -1,
+      "neckLength": 0,
+      "hairVolume": -1,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 1.8370778898102458e-08,
+      "normalError": 7.619362685229447e-08
+    },
+    {
+      "material": 40,
+      "build": -1,
+      "neckLength": 0,
+      "hairVolume": -1,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 1.711594421749396e-08,
+      "normalError": 7.216895499206899e-06
+    },
+    {
+      "material": 40,
+      "build": -1,
+      "neckLength": 0,
+      "hairVolume": -1,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 6.705522526129215e-10,
+      "normalError": 1.6585223860943188e-08
+    },
+    {
+      "material": 40,
+      "build": -1,
+      "neckLength": 0,
+      "hairVolume": -1,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 4.2915344167226976e-08,
+      "normalError": 1.6585207096575516e-08
+    },
+    {
+      "material": 40,
+      "build": -1,
+      "neckLength": 0,
+      "hairVolume": 0,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 1.8370778898102458e-08,
+      "normalError": 7.619362685229447e-08
+    },
+    {
+      "material": 40,
+      "build": -1,
+      "neckLength": 0,
+      "hairVolume": 0,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 1.711594421749396e-08,
+      "normalError": 7.216895499206899e-06
+    },
+    {
+      "material": 40,
+      "build": -1,
+      "neckLength": 0,
+      "hairVolume": 0,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 6.705522526129215e-10,
+      "normalError": 1.6585223860943188e-08
+    },
+    {
+      "material": 40,
+      "build": -1,
+      "neckLength": 0,
+      "hairVolume": 0,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 4.2915344167226976e-08,
+      "normalError": 1.6585207096575516e-08
+    },
+    {
+      "material": 40,
+      "build": -1,
+      "neckLength": 0,
+      "hairVolume": 1,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 1.8370778898102458e-08,
+      "normalError": 7.619362685229447e-08
+    },
+    {
+      "material": 40,
+      "build": -1,
+      "neckLength": 0,
+      "hairVolume": 1,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 1.711594421749396e-08,
+      "normalError": 7.216895499206899e-06
+    },
+    {
+      "material": 40,
+      "build": -1,
+      "neckLength": 0,
+      "hairVolume": 1,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 6.705522526129215e-10,
+      "normalError": 1.6585223860943188e-08
+    },
+    {
+      "material": 40,
+      "build": -1,
+      "neckLength": 0,
+      "hairVolume": 1,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 4.2915344167226976e-08,
+      "normalError": 1.6585207096575516e-08
+    },
+    {
+      "material": 40,
+      "build": -1,
+      "neckLength": 1,
+      "hairVolume": -1,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 1.4184650565240986e-08,
+      "normalError": 5.939754921246987e-08
+    },
+    {
+      "material": 40,
+      "build": -1,
+      "neckLength": 1,
+      "hairVolume": -1,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 4.147981336188877e-08,
+      "normalError": 6.322909687939138e-06
+    },
+    {
+      "material": 40,
+      "build": -1,
+      "neckLength": 1,
+      "hairVolume": -1,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 3.528594971768939e-08,
+      "normalError": 1.6585223860943188e-08
+    },
+    {
+      "material": 40,
+      "build": -1,
+      "neckLength": 1,
+      "hairVolume": -1,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 7.629394449537585e-09,
+      "normalError": 1.6585207096575516e-08
+    },
+    {
+      "material": 40,
+      "build": -1,
+      "neckLength": 1,
+      "hairVolume": 0,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 1.4184650565240986e-08,
+      "normalError": 5.939754921246987e-08
+    },
+    {
+      "material": 40,
+      "build": -1,
+      "neckLength": 1,
+      "hairVolume": 0,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 4.147981336188877e-08,
+      "normalError": 6.322909687939138e-06
+    },
+    {
+      "material": 40,
+      "build": -1,
+      "neckLength": 1,
+      "hairVolume": 0,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 3.528594971768939e-08,
+      "normalError": 1.6585223860943188e-08
+    },
+    {
+      "material": 40,
+      "build": -1,
+      "neckLength": 1,
+      "hairVolume": 0,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 7.629394449537585e-09,
+      "normalError": 1.6585207096575516e-08
+    },
+    {
+      "material": 40,
+      "build": -1,
+      "neckLength": 1,
+      "hairVolume": 1,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 1.4184650565240986e-08,
+      "normalError": 5.939754921246987e-08
+    },
+    {
+      "material": 40,
+      "build": -1,
+      "neckLength": 1,
+      "hairVolume": 1,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 4.147981336188877e-08,
+      "normalError": 6.322909687939138e-06
+    },
+    {
+      "material": 40,
+      "build": -1,
+      "neckLength": 1,
+      "hairVolume": 1,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 3.528594971768939e-08,
+      "normalError": 1.6585223860943188e-08
+    },
+    {
+      "material": 40,
+      "build": -1,
+      "neckLength": 1,
+      "hairVolume": 1,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 7.629394449537585e-09,
+      "normalError": 1.6585207096575516e-08
+    },
+    {
+      "material": 40,
+      "build": 0,
+      "neckLength": -1,
+      "hairVolume": -1,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 5.0926208583490506e-08,
+      "normalError": 2.77961198502652e-08
+    },
+    {
+      "material": 40,
+      "build": 0,
+      "neckLength": -1,
+      "hairVolume": -1,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 7.2479249269008506e-09,
+      "normalError": 2.7796116186529218e-08
+    },
+    {
+      "material": 40,
+      "build": 0,
+      "neckLength": -1,
+      "hairVolume": -1,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 8.392333983309186e-08,
+      "normalError": 1.6585223860943188e-08
+    },
+    {
+      "material": 40,
+      "build": 0,
+      "neckLength": -1,
+      "hairVolume": -1,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 4.100799566586488e-08,
+      "normalError": 1.6585207096575516e-08
+    },
+    {
+      "material": 40,
+      "build": 0,
+      "neckLength": -1,
+      "hairVolume": 0,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 5.0926208583490506e-08,
+      "normalError": 2.77961198502652e-08
+    },
+    {
+      "material": 40,
+      "build": 0,
+      "neckLength": -1,
+      "hairVolume": 0,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 7.2479249269008506e-09,
+      "normalError": 2.7796116186529218e-08
+    },
+    {
+      "material": 40,
+      "build": 0,
+      "neckLength": -1,
+      "hairVolume": 0,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 8.392333983309186e-08,
+      "normalError": 1.6585223860943188e-08
+    },
+    {
+      "material": 40,
+      "build": 0,
+      "neckLength": -1,
+      "hairVolume": 0,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 4.100799566586488e-08,
+      "normalError": 1.6585207096575516e-08
+    },
+    {
+      "material": 40,
+      "build": 0,
+      "neckLength": -1,
+      "hairVolume": 1,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 5.0926208583490506e-08,
+      "normalError": 2.77961198502652e-08
+    },
+    {
+      "material": 40,
+      "build": 0,
+      "neckLength": -1,
+      "hairVolume": 1,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 7.2479249269008506e-09,
+      "normalError": 2.7796116186529218e-08
+    },
+    {
+      "material": 40,
+      "build": 0,
+      "neckLength": -1,
+      "hairVolume": 1,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 8.392333983309186e-08,
+      "normalError": 1.6585223860943188e-08
+    },
+    {
+      "material": 40,
+      "build": 0,
+      "neckLength": -1,
+      "hairVolume": 1,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 4.100799566586488e-08,
+      "normalError": 1.6585207096575516e-08
+    },
+    {
+      "material": 40,
+      "build": 0,
+      "neckLength": 0,
+      "hairVolume": -1,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 1.8370778898102458e-08,
+      "normalError": 3.2928876403381935e-08
+    },
+    {
+      "material": 40,
+      "build": 0,
+      "neckLength": 0,
+      "hairVolume": -1,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 1.711594421749396e-08,
+      "normalError": 3.2928869631021485e-08
+    },
+    {
+      "material": 40,
+      "build": 0,
+      "neckLength": 0,
+      "hairVolume": -1,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 6.705522526129215e-10,
+      "normalError": 1.6585223860943188e-08
+    },
+    {
+      "material": 40,
+      "build": 0,
+      "neckLength": 0,
+      "hairVolume": -1,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 4.2915344167226976e-08,
+      "normalError": 1.6585207096575516e-08
+    },
+    {
+      "material": 40,
+      "build": 0,
+      "neckLength": 0,
+      "hairVolume": 0,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 1.8370778898102458e-08,
+      "normalError": 3.2928876403381935e-08
+    },
+    {
+      "material": 40,
+      "build": 0,
+      "neckLength": 0,
+      "hairVolume": 0,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 1.711594421749396e-08,
+      "normalError": 3.2928869631021485e-08
+    },
+    {
+      "material": 40,
+      "build": 0,
+      "neckLength": 0,
+      "hairVolume": 0,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 6.705522526129215e-10,
+      "normalError": 1.6585223860943188e-08
+    },
+    {
+      "material": 40,
+      "build": 0,
+      "neckLength": 0,
+      "hairVolume": 0,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 4.2915344167226976e-08,
+      "normalError": 1.6585207096575516e-08
+    },
+    {
+      "material": 40,
+      "build": 0,
+      "neckLength": 0,
+      "hairVolume": 1,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 1.8370778898102458e-08,
+      "normalError": 3.2928876403381935e-08
+    },
+    {
+      "material": 40,
+      "build": 0,
+      "neckLength": 0,
+      "hairVolume": 1,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 1.711594421749396e-08,
+      "normalError": 3.2928869631021485e-08
+    },
+    {
+      "material": 40,
+      "build": 0,
+      "neckLength": 0,
+      "hairVolume": 1,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 6.705522526129215e-10,
+      "normalError": 1.6585223860943188e-08
+    },
+    {
+      "material": 40,
+      "build": 0,
+      "neckLength": 0,
+      "hairVolume": 1,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 4.2915344167226976e-08,
+      "normalError": 1.6585207096575516e-08
+    },
+    {
+      "material": 40,
+      "build": 0,
+      "neckLength": 1,
+      "hairVolume": -1,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 1.4184650565240986e-08,
+      "normalError": 1.1186321757783446e-08
+    },
+    {
+      "material": 40,
+      "build": 0,
+      "neckLength": 1,
+      "hairVolume": -1,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 4.147981336188877e-08,
+      "normalError": 1.1186326087653242e-08
+    },
+    {
+      "material": 40,
+      "build": 0,
+      "neckLength": 1,
+      "hairVolume": -1,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 3.528594971768939e-08,
+      "normalError": 1.6585223860943188e-08
+    },
+    {
+      "material": 40,
+      "build": 0,
+      "neckLength": 1,
+      "hairVolume": -1,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 7.629394449537585e-09,
+      "normalError": 1.6585207096575516e-08
+    },
+    {
+      "material": 40,
+      "build": 0,
+      "neckLength": 1,
+      "hairVolume": 0,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 1.4184650565240986e-08,
+      "normalError": 1.1186321757783446e-08
+    },
+    {
+      "material": 40,
+      "build": 0,
+      "neckLength": 1,
+      "hairVolume": 0,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 4.147981336188877e-08,
+      "normalError": 1.1186326087653242e-08
+    },
+    {
+      "material": 40,
+      "build": 0,
+      "neckLength": 1,
+      "hairVolume": 0,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 3.528594971768939e-08,
+      "normalError": 1.6585223860943188e-08
+    },
+    {
+      "material": 40,
+      "build": 0,
+      "neckLength": 1,
+      "hairVolume": 0,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 7.629394449537585e-09,
+      "normalError": 1.6585207096575516e-08
+    },
+    {
+      "material": 40,
+      "build": 0,
+      "neckLength": 1,
+      "hairVolume": 1,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 1.4184650565240986e-08,
+      "normalError": 1.1186321757783446e-08
+    },
+    {
+      "material": 40,
+      "build": 0,
+      "neckLength": 1,
+      "hairVolume": 1,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 4.147981336188877e-08,
+      "normalError": 1.1186326087653242e-08
+    },
+    {
+      "material": 40,
+      "build": 0,
+      "neckLength": 1,
+      "hairVolume": 1,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 3.528594971768939e-08,
+      "normalError": 1.6585223860943188e-08
+    },
+    {
+      "material": 40,
+      "build": 0,
+      "neckLength": 1,
+      "hairVolume": 1,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 7.629394449537585e-09,
+      "normalError": 1.6585207096575516e-08
+    },
+    {
+      "material": 40,
+      "build": 1,
+      "neckLength": -1,
+      "hairVolume": -1,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 5.0926208583490506e-08,
+      "normalError": 6.537448682397695e-08
+    },
+    {
+      "material": 40,
+      "build": 1,
+      "neckLength": -1,
+      "hairVolume": -1,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 7.93765439488503e-09,
+      "normalError": 8.97143068651074e-06
+    },
+    {
+      "material": 40,
+      "build": 1,
+      "neckLength": -1,
+      "hairVolume": -1,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 8.392333983309186e-08,
+      "normalError": 1.6585223860943188e-08
+    },
+    {
+      "material": 40,
+      "build": 1,
+      "neckLength": -1,
+      "hairVolume": -1,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 4.100799566586488e-08,
+      "normalError": 1.6585207096575516e-08
+    },
+    {
+      "material": 40,
+      "build": 1,
+      "neckLength": -1,
+      "hairVolume": 0,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 5.0926208583490506e-08,
+      "normalError": 6.537448682397695e-08
+    },
+    {
+      "material": 40,
+      "build": 1,
+      "neckLength": -1,
+      "hairVolume": 0,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 7.93765439488503e-09,
+      "normalError": 8.97143068651074e-06
+    },
+    {
+      "material": 40,
+      "build": 1,
+      "neckLength": -1,
+      "hairVolume": 0,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 8.392333983309186e-08,
+      "normalError": 1.6585223860943188e-08
+    },
+    {
+      "material": 40,
+      "build": 1,
+      "neckLength": -1,
+      "hairVolume": 0,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 4.100799566586488e-08,
+      "normalError": 1.6585207096575516e-08
+    },
+    {
+      "material": 40,
+      "build": 1,
+      "neckLength": -1,
+      "hairVolume": 1,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 5.0926208583490506e-08,
+      "normalError": 6.537448682397695e-08
+    },
+    {
+      "material": 40,
+      "build": 1,
+      "neckLength": -1,
+      "hairVolume": 1,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 7.93765439488503e-09,
+      "normalError": 8.97143068651074e-06
+    },
+    {
+      "material": 40,
+      "build": 1,
+      "neckLength": -1,
+      "hairVolume": 1,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 8.392333983309186e-08,
+      "normalError": 1.6585223860943188e-08
+    },
+    {
+      "material": 40,
+      "build": 1,
+      "neckLength": -1,
+      "hairVolume": 1,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 4.100799566586488e-08,
+      "normalError": 1.6585207096575516e-08
+    },
+    {
+      "material": 40,
+      "build": 1,
+      "neckLength": 0,
+      "hairVolume": -1,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 1.8370778898102458e-08,
+      "normalError": 8.26323305336274e-08
+    },
+    {
+      "material": 40,
+      "build": 1,
+      "neckLength": 0,
+      "hairVolume": -1,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 1.711594421749396e-08,
+      "normalError": 7.773848416103846e-06
+    },
+    {
+      "material": 40,
+      "build": 1,
+      "neckLength": 0,
+      "hairVolume": -1,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 6.705522526129215e-10,
+      "normalError": 1.6585223860943188e-08
+    },
+    {
+      "material": 40,
+      "build": 1,
+      "neckLength": 0,
+      "hairVolume": -1,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 4.2915344167226976e-08,
+      "normalError": 1.6585207096575516e-08
+    },
+    {
+      "material": 40,
+      "build": 1,
+      "neckLength": 0,
+      "hairVolume": 0,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 1.8370778898102458e-08,
+      "normalError": 8.26323305336274e-08
+    },
+    {
+      "material": 40,
+      "build": 1,
+      "neckLength": 0,
+      "hairVolume": 0,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 1.711594421749396e-08,
+      "normalError": 7.773848416103846e-06
+    },
+    {
+      "material": 40,
+      "build": 1,
+      "neckLength": 0,
+      "hairVolume": 0,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 6.705522526129215e-10,
+      "normalError": 1.6585223860943188e-08
+    },
+    {
+      "material": 40,
+      "build": 1,
+      "neckLength": 0,
+      "hairVolume": 0,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 4.2915344167226976e-08,
+      "normalError": 1.6585207096575516e-08
+    },
+    {
+      "material": 40,
+      "build": 1,
+      "neckLength": 0,
+      "hairVolume": 1,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 1.8370778898102458e-08,
+      "normalError": 8.26323305336274e-08
+    },
+    {
+      "material": 40,
+      "build": 1,
+      "neckLength": 0,
+      "hairVolume": 1,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 1.711594421749396e-08,
+      "normalError": 7.773848416103846e-06
+    },
+    {
+      "material": 40,
+      "build": 1,
+      "neckLength": 0,
+      "hairVolume": 1,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 6.705522526129215e-10,
+      "normalError": 1.6585223860943188e-08
+    },
+    {
+      "material": 40,
+      "build": 1,
+      "neckLength": 0,
+      "hairVolume": 1,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 4.2915344167226976e-08,
+      "normalError": 1.6585207096575516e-08
+    },
+    {
+      "material": 40,
+      "build": 1,
+      "neckLength": 1,
+      "hairVolume": -1,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 1.4184650565240986e-08,
+      "normalError": 4.5952786797975875e-08
+    },
+    {
+      "material": 40,
+      "build": 1,
+      "neckLength": 1,
+      "hairVolume": -1,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 4.147981336188877e-08,
+      "normalError": 6.667567588602985e-06
+    },
+    {
+      "material": 40,
+      "build": 1,
+      "neckLength": 1,
+      "hairVolume": -1,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 3.528594971768939e-08,
+      "normalError": 1.6585223860943188e-08
+    },
+    {
+      "material": 40,
+      "build": 1,
+      "neckLength": 1,
+      "hairVolume": -1,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 7.629394449537585e-09,
+      "normalError": 1.6585207096575516e-08
+    },
+    {
+      "material": 40,
+      "build": 1,
+      "neckLength": 1,
+      "hairVolume": 0,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 1.4184650565240986e-08,
+      "normalError": 4.5952786797975875e-08
+    },
+    {
+      "material": 40,
+      "build": 1,
+      "neckLength": 1,
+      "hairVolume": 0,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 4.147981336188877e-08,
+      "normalError": 6.667567588602985e-06
+    },
+    {
+      "material": 40,
+      "build": 1,
+      "neckLength": 1,
+      "hairVolume": 0,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 3.528594971768939e-08,
+      "normalError": 1.6585223860943188e-08
+    },
+    {
+      "material": 40,
+      "build": 1,
+      "neckLength": 1,
+      "hairVolume": 0,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 7.629394449537585e-09,
+      "normalError": 1.6585207096575516e-08
+    },
+    {
+      "material": 40,
+      "build": 1,
+      "neckLength": 1,
+      "hairVolume": 1,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 1.4184650565240986e-08,
+      "normalError": 4.5952786797975875e-08
+    },
+    {
+      "material": 40,
+      "build": 1,
+      "neckLength": 1,
+      "hairVolume": 1,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 4.147981336188877e-08,
+      "normalError": 6.667567588602985e-06
+    },
+    {
+      "material": 40,
+      "build": 1,
+      "neckLength": 1,
+      "hairVolume": 1,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 3.528594971768939e-08,
+      "normalError": 1.6585223860943188e-08
+    },
+    {
+      "material": 40,
+      "build": 1,
+      "neckLength": 1,
+      "hairVolume": 1,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 7.629394449537585e-09,
+      "normalError": 1.6585207096575516e-08
+    },
+    {
+      "material": 31,
+      "build": -1,
+      "neckLength": -1,
+      "hairVolume": -1,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 5.0926208583490506e-08,
+      "normalError": 6.141046815510975e-08
+    },
+    {
+      "material": 31,
+      "build": -1,
+      "neckLength": -1,
+      "hairVolume": -1,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 7.2479249269008506e-09,
+      "normalError": 7.249608901582771e-06
+    },
+    {
+      "material": 31,
+      "build": -1,
+      "neckLength": -1,
+      "hairVolume": -1,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 8.392333983309186e-08,
+      "normalError": 1.6585223860943188e-08
+    },
+    {
+      "material": 31,
+      "build": -1,
+      "neckLength": -1,
+      "hairVolume": -1,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 4.100799566586488e-08,
+      "normalError": 1.6585207096575516e-08
+    },
+    {
+      "material": 31,
+      "build": -1,
+      "neckLength": -1,
+      "hairVolume": 0,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 5.0926208583490506e-08,
+      "normalError": 6.141046815510975e-08
+    },
+    {
+      "material": 31,
+      "build": -1,
+      "neckLength": -1,
+      "hairVolume": 0,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 7.2479249269008506e-09,
+      "normalError": 7.249608901582771e-06
+    },
+    {
+      "material": 31,
+      "build": -1,
+      "neckLength": -1,
+      "hairVolume": 0,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 8.392333983309186e-08,
+      "normalError": 1.6585223860943188e-08
+    },
+    {
+      "material": 31,
+      "build": -1,
+      "neckLength": -1,
+      "hairVolume": 0,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 4.100799566586488e-08,
+      "normalError": 1.6585207096575516e-08
+    },
+    {
+      "material": 31,
+      "build": -1,
+      "neckLength": -1,
+      "hairVolume": 1,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 5.0926208583490506e-08,
+      "normalError": 6.141046815510975e-08
+    },
+    {
+      "material": 31,
+      "build": -1,
+      "neckLength": -1,
+      "hairVolume": 1,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 7.2479249269008506e-09,
+      "normalError": 7.249608901582771e-06
+    },
+    {
+      "material": 31,
+      "build": -1,
+      "neckLength": -1,
+      "hairVolume": 1,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 8.392333983309186e-08,
+      "normalError": 1.6585223860943188e-08
+    },
+    {
+      "material": 31,
+      "build": -1,
+      "neckLength": -1,
+      "hairVolume": 1,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 4.100799566586488e-08,
+      "normalError": 1.6585207096575516e-08
+    },
+    {
+      "material": 31,
+      "build": -1,
+      "neckLength": 0,
+      "hairVolume": -1,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 1.8370778898102458e-08,
+      "normalError": 7.619362685229447e-08
+    },
+    {
+      "material": 31,
+      "build": -1,
+      "neckLength": 0,
+      "hairVolume": -1,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 1.711594421749396e-08,
+      "normalError": 6.126434690501004e-06
+    },
+    {
+      "material": 31,
+      "build": -1,
+      "neckLength": 0,
+      "hairVolume": -1,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 6.705522526129215e-10,
+      "normalError": 1.6585223860943188e-08
+    },
+    {
+      "material": 31,
+      "build": -1,
+      "neckLength": 0,
+      "hairVolume": -1,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 4.2915344167226976e-08,
+      "normalError": 1.6585207096575516e-08
+    },
+    {
+      "material": 31,
+      "build": -1,
+      "neckLength": 0,
+      "hairVolume": 0,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 1.8370778898102458e-08,
+      "normalError": 7.619362685229447e-08
+    },
+    {
+      "material": 31,
+      "build": -1,
+      "neckLength": 0,
+      "hairVolume": 0,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 1.711594421749396e-08,
+      "normalError": 6.126434690501004e-06
+    },
+    {
+      "material": 31,
+      "build": -1,
+      "neckLength": 0,
+      "hairVolume": 0,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 6.705522526129215e-10,
+      "normalError": 1.6585223860943188e-08
+    },
+    {
+      "material": 31,
+      "build": -1,
+      "neckLength": 0,
+      "hairVolume": 0,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 4.2915344167226976e-08,
+      "normalError": 1.6585207096575516e-08
+    },
+    {
+      "material": 31,
+      "build": -1,
+      "neckLength": 0,
+      "hairVolume": 1,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 1.8370778898102458e-08,
+      "normalError": 7.619362685229447e-08
+    },
+    {
+      "material": 31,
+      "build": -1,
+      "neckLength": 0,
+      "hairVolume": 1,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 1.711594421749396e-08,
+      "normalError": 6.126434690501004e-06
+    },
+    {
+      "material": 31,
+      "build": -1,
+      "neckLength": 0,
+      "hairVolume": 1,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 6.705522526129215e-10,
+      "normalError": 1.6585223860943188e-08
+    },
+    {
+      "material": 31,
+      "build": -1,
+      "neckLength": 0,
+      "hairVolume": 1,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 4.2915344167226976e-08,
+      "normalError": 1.6585207096575516e-08
+    },
+    {
+      "material": 31,
+      "build": -1,
+      "neckLength": 1,
+      "hairVolume": -1,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 1.4184650565240986e-08,
+      "normalError": 5.939754921246987e-08
+    },
+    {
+      "material": 31,
+      "build": -1,
+      "neckLength": 1,
+      "hairVolume": -1,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 4.147981336188877e-08,
+      "normalError": 5.223964854861318e-06
+    },
+    {
+      "material": 31,
+      "build": -1,
+      "neckLength": 1,
+      "hairVolume": -1,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 3.528594971768939e-08,
+      "normalError": 1.6585223860943188e-08
+    },
+    {
+      "material": 31,
+      "build": -1,
+      "neckLength": 1,
+      "hairVolume": -1,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 7.629394449537585e-09,
+      "normalError": 1.6585207096575516e-08
+    },
+    {
+      "material": 31,
+      "build": -1,
+      "neckLength": 1,
+      "hairVolume": 0,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 1.4184650565240986e-08,
+      "normalError": 5.939754921246987e-08
+    },
+    {
+      "material": 31,
+      "build": -1,
+      "neckLength": 1,
+      "hairVolume": 0,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 4.147981336188877e-08,
+      "normalError": 5.223964854861318e-06
+    },
+    {
+      "material": 31,
+      "build": -1,
+      "neckLength": 1,
+      "hairVolume": 0,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 3.528594971768939e-08,
+      "normalError": 1.6585223860943188e-08
+    },
+    {
+      "material": 31,
+      "build": -1,
+      "neckLength": 1,
+      "hairVolume": 0,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 7.629394449537585e-09,
+      "normalError": 1.6585207096575516e-08
+    },
+    {
+      "material": 31,
+      "build": -1,
+      "neckLength": 1,
+      "hairVolume": 1,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 1.4184650565240986e-08,
+      "normalError": 5.939754921246987e-08
+    },
+    {
+      "material": 31,
+      "build": -1,
+      "neckLength": 1,
+      "hairVolume": 1,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 4.147981336188877e-08,
+      "normalError": 5.223964854861318e-06
+    },
+    {
+      "material": 31,
+      "build": -1,
+      "neckLength": 1,
+      "hairVolume": 1,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 3.528594971768939e-08,
+      "normalError": 1.6585223860943188e-08
+    },
+    {
+      "material": 31,
+      "build": -1,
+      "neckLength": 1,
+      "hairVolume": 1,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 7.629394449537585e-09,
+      "normalError": 1.6585207096575516e-08
+    },
+    {
+      "material": 31,
+      "build": 0,
+      "neckLength": -1,
+      "hairVolume": -1,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 5.0926208583490506e-08,
+      "normalError": 2.77961198502652e-08
+    },
+    {
+      "material": 31,
+      "build": 0,
+      "neckLength": -1,
+      "hairVolume": -1,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 7.2479249269008506e-09,
+      "normalError": 2.7796116186529218e-08
+    },
+    {
+      "material": 31,
+      "build": 0,
+      "neckLength": -1,
+      "hairVolume": -1,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 8.392333983309186e-08,
+      "normalError": 1.6585223860943188e-08
+    },
+    {
+      "material": 31,
+      "build": 0,
+      "neckLength": -1,
+      "hairVolume": -1,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 4.100799566586488e-08,
+      "normalError": 1.6585207096575516e-08
+    },
+    {
+      "material": 31,
+      "build": 0,
+      "neckLength": -1,
+      "hairVolume": 0,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 5.0926208583490506e-08,
+      "normalError": 2.77961198502652e-08
+    },
+    {
+      "material": 31,
+      "build": 0,
+      "neckLength": -1,
+      "hairVolume": 0,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 7.2479249269008506e-09,
+      "normalError": 2.7796116186529218e-08
+    },
+    {
+      "material": 31,
+      "build": 0,
+      "neckLength": -1,
+      "hairVolume": 0,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 8.392333983309186e-08,
+      "normalError": 1.6585223860943188e-08
+    },
+    {
+      "material": 31,
+      "build": 0,
+      "neckLength": -1,
+      "hairVolume": 0,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 4.100799566586488e-08,
+      "normalError": 1.6585207096575516e-08
+    },
+    {
+      "material": 31,
+      "build": 0,
+      "neckLength": -1,
+      "hairVolume": 1,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 5.0926208583490506e-08,
+      "normalError": 2.77961198502652e-08
+    },
+    {
+      "material": 31,
+      "build": 0,
+      "neckLength": -1,
+      "hairVolume": 1,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 7.2479249269008506e-09,
+      "normalError": 2.7796116186529218e-08
+    },
+    {
+      "material": 31,
+      "build": 0,
+      "neckLength": -1,
+      "hairVolume": 1,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 8.392333983309186e-08,
+      "normalError": 1.6585223860943188e-08
+    },
+    {
+      "material": 31,
+      "build": 0,
+      "neckLength": -1,
+      "hairVolume": 1,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 4.100799566586488e-08,
+      "normalError": 1.6585207096575516e-08
+    },
+    {
+      "material": 31,
+      "build": 0,
+      "neckLength": 0,
+      "hairVolume": -1,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 1.8370778898102458e-08,
+      "normalError": 3.2928876403381935e-08
+    },
+    {
+      "material": 31,
+      "build": 0,
+      "neckLength": 0,
+      "hairVolume": -1,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 1.711594421749396e-08,
+      "normalError": 3.2928869631021485e-08
+    },
+    {
+      "material": 31,
+      "build": 0,
+      "neckLength": 0,
+      "hairVolume": -1,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 6.705522526129215e-10,
+      "normalError": 1.6585223860943188e-08
+    },
+    {
+      "material": 31,
+      "build": 0,
+      "neckLength": 0,
+      "hairVolume": -1,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 4.2915344167226976e-08,
+      "normalError": 1.6585207096575516e-08
+    },
+    {
+      "material": 31,
+      "build": 0,
+      "neckLength": 0,
+      "hairVolume": 0,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 1.8370778898102458e-08,
+      "normalError": 3.2928876403381935e-08
+    },
+    {
+      "material": 31,
+      "build": 0,
+      "neckLength": 0,
+      "hairVolume": 0,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 1.711594421749396e-08,
+      "normalError": 3.2928869631021485e-08
+    },
+    {
+      "material": 31,
+      "build": 0,
+      "neckLength": 0,
+      "hairVolume": 0,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 6.705522526129215e-10,
+      "normalError": 1.6585223860943188e-08
+    },
+    {
+      "material": 31,
+      "build": 0,
+      "neckLength": 0,
+      "hairVolume": 0,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 4.2915344167226976e-08,
+      "normalError": 1.6585207096575516e-08
+    },
+    {
+      "material": 31,
+      "build": 0,
+      "neckLength": 0,
+      "hairVolume": 1,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 1.8370778898102458e-08,
+      "normalError": 3.2928876403381935e-08
+    },
+    {
+      "material": 31,
+      "build": 0,
+      "neckLength": 0,
+      "hairVolume": 1,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 1.711594421749396e-08,
+      "normalError": 3.2928869631021485e-08
+    },
+    {
+      "material": 31,
+      "build": 0,
+      "neckLength": 0,
+      "hairVolume": 1,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 6.705522526129215e-10,
+      "normalError": 1.6585223860943188e-08
+    },
+    {
+      "material": 31,
+      "build": 0,
+      "neckLength": 0,
+      "hairVolume": 1,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 4.2915344167226976e-08,
+      "normalError": 1.6585207096575516e-08
+    },
+    {
+      "material": 31,
+      "build": 0,
+      "neckLength": 1,
+      "hairVolume": -1,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 1.4184650565240986e-08,
+      "normalError": 1.1186321757783446e-08
+    },
+    {
+      "material": 31,
+      "build": 0,
+      "neckLength": 1,
+      "hairVolume": -1,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 4.147981336188877e-08,
+      "normalError": 1.1186326087653242e-08
+    },
+    {
+      "material": 31,
+      "build": 0,
+      "neckLength": 1,
+      "hairVolume": -1,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 3.528594971768939e-08,
+      "normalError": 1.6585223860943188e-08
+    },
+    {
+      "material": 31,
+      "build": 0,
+      "neckLength": 1,
+      "hairVolume": -1,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 7.629394449537585e-09,
+      "normalError": 1.6585207096575516e-08
+    },
+    {
+      "material": 31,
+      "build": 0,
+      "neckLength": 1,
+      "hairVolume": 0,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 1.4184650565240986e-08,
+      "normalError": 1.1186321757783446e-08
+    },
+    {
+      "material": 31,
+      "build": 0,
+      "neckLength": 1,
+      "hairVolume": 0,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 4.147981336188877e-08,
+      "normalError": 1.1186326087653242e-08
+    },
+    {
+      "material": 31,
+      "build": 0,
+      "neckLength": 1,
+      "hairVolume": 0,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 3.528594971768939e-08,
+      "normalError": 1.6585223860943188e-08
+    },
+    {
+      "material": 31,
+      "build": 0,
+      "neckLength": 1,
+      "hairVolume": 0,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 7.629394449537585e-09,
+      "normalError": 1.6585207096575516e-08
+    },
+    {
+      "material": 31,
+      "build": 0,
+      "neckLength": 1,
+      "hairVolume": 1,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 1.4184650565240986e-08,
+      "normalError": 1.1186321757783446e-08
+    },
+    {
+      "material": 31,
+      "build": 0,
+      "neckLength": 1,
+      "hairVolume": 1,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 4.147981336188877e-08,
+      "normalError": 1.1186326087653242e-08
+    },
+    {
+      "material": 31,
+      "build": 0,
+      "neckLength": 1,
+      "hairVolume": 1,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 3.528594971768939e-08,
+      "normalError": 1.6585223860943188e-08
+    },
+    {
+      "material": 31,
+      "build": 0,
+      "neckLength": 1,
+      "hairVolume": 1,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 7.629394449537585e-09,
+      "normalError": 1.6585207096575516e-08
+    },
+    {
+      "material": 31,
+      "build": 1,
+      "neckLength": -1,
+      "hairVolume": -1,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 5.0926208583490506e-08,
+      "normalError": 6.537448682397695e-08
+    },
+    {
+      "material": 31,
+      "build": 1,
+      "neckLength": -1,
+      "hairVolume": -1,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 7.2479249269008506e-09,
+      "normalError": 3.651221065825716e-06
+    },
+    {
+      "material": 31,
+      "build": 1,
+      "neckLength": -1,
+      "hairVolume": -1,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 8.392333983309186e-08,
+      "normalError": 1.6585223860943188e-08
+    },
+    {
+      "material": 31,
+      "build": 1,
+      "neckLength": -1,
+      "hairVolume": -1,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 4.100799566586488e-08,
+      "normalError": 1.6585207096575516e-08
+    },
+    {
+      "material": 31,
+      "build": 1,
+      "neckLength": -1,
+      "hairVolume": 0,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 5.0926208583490506e-08,
+      "normalError": 6.537448682397695e-08
+    },
+    {
+      "material": 31,
+      "build": 1,
+      "neckLength": -1,
+      "hairVolume": 0,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 7.2479249269008506e-09,
+      "normalError": 3.651221065825716e-06
+    },
+    {
+      "material": 31,
+      "build": 1,
+      "neckLength": -1,
+      "hairVolume": 0,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 8.392333983309186e-08,
+      "normalError": 1.6585223860943188e-08
+    },
+    {
+      "material": 31,
+      "build": 1,
+      "neckLength": -1,
+      "hairVolume": 0,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 4.100799566586488e-08,
+      "normalError": 1.6585207096575516e-08
+    },
+    {
+      "material": 31,
+      "build": 1,
+      "neckLength": -1,
+      "hairVolume": 1,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 5.0926208583490506e-08,
+      "normalError": 6.537448682397695e-08
+    },
+    {
+      "material": 31,
+      "build": 1,
+      "neckLength": -1,
+      "hairVolume": 1,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 7.2479249269008506e-09,
+      "normalError": 3.651221065825716e-06
+    },
+    {
+      "material": 31,
+      "build": 1,
+      "neckLength": -1,
+      "hairVolume": 1,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 8.392333983309186e-08,
+      "normalError": 1.6585223860943188e-08
+    },
+    {
+      "material": 31,
+      "build": 1,
+      "neckLength": -1,
+      "hairVolume": 1,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 4.100799566586488e-08,
+      "normalError": 1.6585207096575516e-08
+    },
+    {
+      "material": 31,
+      "build": 1,
+      "neckLength": 0,
+      "hairVolume": -1,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 1.8370778898102458e-08,
+      "normalError": 8.26323305336274e-08
+    },
+    {
+      "material": 31,
+      "build": 1,
+      "neckLength": 0,
+      "hairVolume": -1,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 1.711594421749396e-08,
+      "normalError": 3.368479021992332e-06
+    },
+    {
+      "material": 31,
+      "build": 1,
+      "neckLength": 0,
+      "hairVolume": -1,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 6.705522526129215e-10,
+      "normalError": 1.6585223860943188e-08
+    },
+    {
+      "material": 31,
+      "build": 1,
+      "neckLength": 0,
+      "hairVolume": -1,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 4.2915344167226976e-08,
+      "normalError": 1.6585207096575516e-08
+    },
+    {
+      "material": 31,
+      "build": 1,
+      "neckLength": 0,
+      "hairVolume": 0,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 1.8370778898102458e-08,
+      "normalError": 8.26323305336274e-08
+    },
+    {
+      "material": 31,
+      "build": 1,
+      "neckLength": 0,
+      "hairVolume": 0,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 1.711594421749396e-08,
+      "normalError": 3.368479021992332e-06
+    },
+    {
+      "material": 31,
+      "build": 1,
+      "neckLength": 0,
+      "hairVolume": 0,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 6.705522526129215e-10,
+      "normalError": 1.6585223860943188e-08
+    },
+    {
+      "material": 31,
+      "build": 1,
+      "neckLength": 0,
+      "hairVolume": 0,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 4.2915344167226976e-08,
+      "normalError": 1.6585207096575516e-08
+    },
+    {
+      "material": 31,
+      "build": 1,
+      "neckLength": 0,
+      "hairVolume": 1,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 1.8370778898102458e-08,
+      "normalError": 8.26323305336274e-08
+    },
+    {
+      "material": 31,
+      "build": 1,
+      "neckLength": 0,
+      "hairVolume": 1,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 1.711594421749396e-08,
+      "normalError": 3.368479021992332e-06
+    },
+    {
+      "material": 31,
+      "build": 1,
+      "neckLength": 0,
+      "hairVolume": 1,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 6.705522526129215e-10,
+      "normalError": 1.6585223860943188e-08
+    },
+    {
+      "material": 31,
+      "build": 1,
+      "neckLength": 0,
+      "hairVolume": 1,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 4.2915344167226976e-08,
+      "normalError": 1.6585207096575516e-08
+    },
+    {
+      "material": 31,
+      "build": 1,
+      "neckLength": 1,
+      "hairVolume": -1,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 1.4184650565240986e-08,
+      "normalError": 4.5952786797975875e-08
+    },
+    {
+      "material": 31,
+      "build": 1,
+      "neckLength": 1,
+      "hairVolume": -1,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 4.147981336188877e-08,
+      "normalError": 2.984914816928086e-06
+    },
+    {
+      "material": 31,
+      "build": 1,
+      "neckLength": 1,
+      "hairVolume": -1,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 3.528594971768939e-08,
+      "normalError": 1.6585223860943188e-08
+    },
+    {
+      "material": 31,
+      "build": 1,
+      "neckLength": 1,
+      "hairVolume": -1,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 7.629394449537585e-09,
+      "normalError": 1.6585207096575516e-08
+    },
+    {
+      "material": 31,
+      "build": 1,
+      "neckLength": 1,
+      "hairVolume": 0,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 1.4184650565240986e-08,
+      "normalError": 4.5952786797975875e-08
+    },
+    {
+      "material": 31,
+      "build": 1,
+      "neckLength": 1,
+      "hairVolume": 0,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 4.147981336188877e-08,
+      "normalError": 2.984914816928086e-06
+    },
+    {
+      "material": 31,
+      "build": 1,
+      "neckLength": 1,
+      "hairVolume": 0,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 3.528594971768939e-08,
+      "normalError": 1.6585223860943188e-08
+    },
+    {
+      "material": 31,
+      "build": 1,
+      "neckLength": 1,
+      "hairVolume": 0,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 7.629394449537585e-09,
+      "normalError": 1.6585207096575516e-08
+    },
+    {
+      "material": 31,
+      "build": 1,
+      "neckLength": 1,
+      "hairVolume": 1,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 1.4184650565240986e-08,
+      "normalError": 4.5952786797975875e-08
+    },
+    {
+      "material": 31,
+      "build": 1,
+      "neckLength": 1,
+      "hairVolume": 1,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 4.147981336188877e-08,
+      "normalError": 2.984914816928086e-06
+    },
+    {
+      "material": 31,
+      "build": 1,
+      "neckLength": 1,
+      "hairVolume": 1,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 3.528594971768939e-08,
+      "normalError": 1.6585223860943188e-08
+    },
+    {
+      "material": 31,
+      "build": 1,
+      "neckLength": 1,
+      "hairVolume": 1,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 7.629394449537585e-09,
+      "normalError": 1.6585207096575516e-08
+    },
+    {
+      "material": 46,
+      "build": -1,
+      "neckLength": -1,
+      "hairVolume": -1,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 5.5313110314259006e-08,
+      "normalError": 5.55308475869154e-08
+    },
+    {
+      "material": 46,
+      "build": -1,
+      "neckLength": -1,
+      "hairVolume": -1,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 2.1934509319976314e-08,
+      "normalError": 5.553084447829093e-08
+    },
+    {
+      "material": 46,
+      "build": -1,
+      "neckLength": -1,
+      "hairVolume": -1,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 8.392333983309186e-08,
+      "normalError": 5.553085480336506e-08
+    },
+    {
+      "material": 46,
+      "build": -1,
+      "neckLength": -1,
+      "hairVolume": -1,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 8.030879650178235e-08,
+      "normalError": 4.98620548045059e-07
+    },
+    {
+      "material": 46,
+      "build": -1,
+      "neckLength": -1,
+      "hairVolume": 0,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 5.5313110314259006e-08,
+      "normalError": 1.6585215312225898e-08
+    },
+    {
+      "material": 46,
+      "build": -1,
+      "neckLength": -1,
+      "hairVolume": 0,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 2.1934509319976314e-08,
+      "normalError": 1.6585209317021565e-08
+    },
+    {
+      "material": 46,
+      "build": -1,
+      "neckLength": -1,
+      "hairVolume": 0,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 8.392333983309186e-08,
+      "normalError": 1.6585223860943188e-08
+    },
+    {
+      "material": 46,
+      "build": -1,
+      "neckLength": -1,
+      "hairVolume": 0,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 4.100799566586488e-08,
+      "normalError": 1.6585207096575516e-08
+    },
+    {
+      "material": 46,
+      "build": -1,
+      "neckLength": -1,
+      "hairVolume": 1,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 5.5313110314259006e-08,
+      "normalError": 4.1245426407598984e-08
+    },
+    {
+      "material": 46,
+      "build": -1,
+      "neckLength": -1,
+      "hairVolume": 1,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 2.1934509319976314e-08,
+      "normalError": 4.1245411530610454e-08
+    },
+    {
+      "material": 46,
+      "build": -1,
+      "neckLength": -1,
+      "hairVolume": 1,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 8.392333983309186e-08,
+      "normalError": 4.124542807293352e-08
+    },
+    {
+      "material": 46,
+      "build": -1,
+      "neckLength": -1,
+      "hairVolume": 1,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 1.7071948299474116e-09,
+      "normalError": 3.3677273539312047e-07
+    },
+    {
+      "material": 46,
+      "build": -1,
+      "neckLength": 0,
+      "hairVolume": -1,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 2.8610229518832853e-08,
+      "normalError": 5.55308475869154e-08
+    },
+    {
+      "material": 46,
+      "build": -1,
+      "neckLength": 0,
+      "hairVolume": -1,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 6.198883051311554e-08,
+      "normalError": 5.553084447829093e-08
+    },
+    {
+      "material": 46,
+      "build": -1,
+      "neckLength": 0,
+      "hairVolume": -1,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 3.7765503224651553e-10,
+      "normalError": 5.553085480336506e-08
+    },
+    {
+      "material": 46,
+      "build": -1,
+      "neckLength": 0,
+      "hairVolume": -1,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 4.308223722215843e-09,
+      "normalError": 4.98620548045059e-07
+    },
+    {
+      "material": 46,
+      "build": -1,
+      "neckLength": 0,
+      "hairVolume": 0,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 2.8610229518832853e-08,
+      "normalError": 1.6585215312225898e-08
+    },
+    {
+      "material": 46,
+      "build": -1,
+      "neckLength": 0,
+      "hairVolume": 0,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 6.198883051311554e-08,
+      "normalError": 1.6585209317021565e-08
+    },
+    {
+      "material": 46,
+      "build": -1,
+      "neckLength": 0,
+      "hairVolume": 0,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 6.705522526129215e-10,
+      "normalError": 1.6585223860943188e-08
+    },
+    {
+      "material": 46,
+      "build": -1,
+      "neckLength": 0,
+      "hairVolume": 0,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 4.2915344167226976e-08,
+      "normalError": 1.6585207096575516e-08
+    },
+    {
+      "material": 46,
+      "build": -1,
+      "neckLength": 0,
+      "hairVolume": 1,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 2.8610229518832853e-08,
+      "normalError": 4.1245426407598984e-08
+    },
+    {
+      "material": 46,
+      "build": -1,
+      "neckLength": 0,
+      "hairVolume": 1,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 6.198883051311554e-08,
+      "normalError": 4.1245411530610454e-08
+    },
+    {
+      "material": 46,
+      "build": -1,
+      "neckLength": 0,
+      "hairVolume": 1,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 1.569747928864551e-09,
+      "normalError": 4.124542807293352e-08
+    },
+    {
+      "material": 46,
+      "build": -1,
+      "neckLength": 0,
+      "hairVolume": 1,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 8.221614500314445e-08,
+      "normalError": 3.3677273539312047e-07
+    },
+    {
+      "material": 46,
+      "build": -1,
+      "neckLength": 1,
+      "hairVolume": -1,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 6.6757201988565384e-09,
+      "normalError": 5.55308475869154e-08
+    },
+    {
+      "material": 46,
+      "build": -1,
+      "neckLength": 1,
+      "hairVolume": -1,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 2.6702880795426154e-08,
+      "normalError": 5.553084447829093e-08
+    },
+    {
+      "material": 46,
+      "build": -1,
+      "neckLength": 1,
+      "hairVolume": -1,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 3.528594971768939e-08,
+      "normalError": 5.553085480336506e-08
+    },
+    {
+      "material": 46,
+      "build": -1,
+      "neckLength": 1,
+      "hairVolume": -1,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 3.1671406386379886e-08,
+      "normalError": 4.98620548045059e-07
+    },
+    {
+      "material": 46,
+      "build": -1,
+      "neckLength": 1,
+      "hairVolume": 0,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 6.6757201988565384e-09,
+      "normalError": 1.6585215312225898e-08
+    },
+    {
+      "material": 46,
+      "build": -1,
+      "neckLength": 1,
+      "hairVolume": 0,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 2.6702880795426154e-08,
+      "normalError": 1.6585209317021565e-08
+    },
+    {
+      "material": 46,
+      "build": -1,
+      "neckLength": 1,
+      "hairVolume": 0,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 3.528594971768939e-08,
+      "normalError": 1.6585223860943188e-08
+    },
+    {
+      "material": 46,
+      "build": -1,
+      "neckLength": 1,
+      "hairVolume": 0,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 7.629394449537585e-09,
+      "normalError": 1.6585207096575516e-08
+    },
+    {
+      "material": 46,
+      "build": -1,
+      "neckLength": 1,
+      "hairVolume": 1,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 6.6757201988565384e-09,
+      "normalError": 4.1245426407598984e-08
+    },
+    {
+      "material": 46,
+      "build": -1,
+      "neckLength": 1,
+      "hairVolume": 1,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 2.6702880795426154e-08,
+      "normalError": 4.1245411530610454e-08
+    },
+    {
+      "material": 46,
+      "build": -1,
+      "neckLength": 1,
+      "hairVolume": 1,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 3.528594971768939e-08,
+      "normalError": 4.124542807293352e-08
+    },
+    {
+      "material": 46,
+      "build": -1,
+      "neckLength": 1,
+      "hairVolume": 1,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 4.6930195285455056e-08,
+      "normalError": 3.3677273539312047e-07
+    },
+    {
+      "material": 46,
+      "build": 0,
+      "neckLength": -1,
+      "hairVolume": -1,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 5.5313110314259006e-08,
+      "normalError": 5.55308475869154e-08
+    },
+    {
+      "material": 46,
+      "build": 0,
+      "neckLength": -1,
+      "hairVolume": -1,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 2.1934509319976314e-08,
+      "normalError": 5.553084447829093e-08
+    },
+    {
+      "material": 46,
+      "build": 0,
+      "neckLength": -1,
+      "hairVolume": -1,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 8.392333983309186e-08,
+      "normalError": 5.553085480336506e-08
+    },
+    {
+      "material": 46,
+      "build": 0,
+      "neckLength": -1,
+      "hairVolume": -1,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 8.030879650178235e-08,
+      "normalError": 4.98620548045059e-07
+    },
+    {
+      "material": 46,
+      "build": 0,
+      "neckLength": -1,
+      "hairVolume": 0,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 5.5313110314259006e-08,
+      "normalError": 1.6585215312225898e-08
+    },
+    {
+      "material": 46,
+      "build": 0,
+      "neckLength": -1,
+      "hairVolume": 0,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 2.1934509319976314e-08,
+      "normalError": 1.6585209317021565e-08
+    },
+    {
+      "material": 46,
+      "build": 0,
+      "neckLength": -1,
+      "hairVolume": 0,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 8.392333983309186e-08,
+      "normalError": 1.6585223860943188e-08
+    },
+    {
+      "material": 46,
+      "build": 0,
+      "neckLength": -1,
+      "hairVolume": 0,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 4.100799566586488e-08,
+      "normalError": 1.6585207096575516e-08
+    },
+    {
+      "material": 46,
+      "build": 0,
+      "neckLength": -1,
+      "hairVolume": 1,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 5.5313110314259006e-08,
+      "normalError": 4.1245426407598984e-08
+    },
+    {
+      "material": 46,
+      "build": 0,
+      "neckLength": -1,
+      "hairVolume": 1,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 2.1934509319976314e-08,
+      "normalError": 4.1245411530610454e-08
+    },
+    {
+      "material": 46,
+      "build": 0,
+      "neckLength": -1,
+      "hairVolume": 1,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 8.392333983309186e-08,
+      "normalError": 4.124542807293352e-08
+    },
+    {
+      "material": 46,
+      "build": 0,
+      "neckLength": -1,
+      "hairVolume": 1,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 1.7071948299474116e-09,
+      "normalError": 3.3677273539312047e-07
+    },
+    {
+      "material": 46,
+      "build": 0,
+      "neckLength": 0,
+      "hairVolume": -1,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 2.8610229518832853e-08,
+      "normalError": 5.55308475869154e-08
+    },
+    {
+      "material": 46,
+      "build": 0,
+      "neckLength": 0,
+      "hairVolume": -1,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 6.198883051311554e-08,
+      "normalError": 5.553084447829093e-08
+    },
+    {
+      "material": 46,
+      "build": 0,
+      "neckLength": 0,
+      "hairVolume": -1,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 3.7765503224651553e-10,
+      "normalError": 5.553085480336506e-08
+    },
+    {
+      "material": 46,
+      "build": 0,
+      "neckLength": 0,
+      "hairVolume": -1,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 4.308223722215843e-09,
+      "normalError": 4.98620548045059e-07
+    },
+    {
+      "material": 46,
+      "build": 0,
+      "neckLength": 0,
+      "hairVolume": 0,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 2.8610229518832853e-08,
+      "normalError": 1.6585215312225898e-08
+    },
+    {
+      "material": 46,
+      "build": 0,
+      "neckLength": 0,
+      "hairVolume": 0,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 6.198883051311554e-08,
+      "normalError": 1.6585209317021565e-08
+    },
+    {
+      "material": 46,
+      "build": 0,
+      "neckLength": 0,
+      "hairVolume": 0,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 6.705522526129215e-10,
+      "normalError": 1.6585223860943188e-08
+    },
+    {
+      "material": 46,
+      "build": 0,
+      "neckLength": 0,
+      "hairVolume": 0,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 4.2915344167226976e-08,
+      "normalError": 1.6585207096575516e-08
+    },
+    {
+      "material": 46,
+      "build": 0,
+      "neckLength": 0,
+      "hairVolume": 1,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 2.8610229518832853e-08,
+      "normalError": 4.1245426407598984e-08
+    },
+    {
+      "material": 46,
+      "build": 0,
+      "neckLength": 0,
+      "hairVolume": 1,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 6.198883051311554e-08,
+      "normalError": 4.1245411530610454e-08
+    },
+    {
+      "material": 46,
+      "build": 0,
+      "neckLength": 0,
+      "hairVolume": 1,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 1.569747928864551e-09,
+      "normalError": 4.124542807293352e-08
+    },
+    {
+      "material": 46,
+      "build": 0,
+      "neckLength": 0,
+      "hairVolume": 1,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 8.221614500314445e-08,
+      "normalError": 3.3677273539312047e-07
+    },
+    {
+      "material": 46,
+      "build": 0,
+      "neckLength": 1,
+      "hairVolume": -1,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 6.6757201988565384e-09,
+      "normalError": 5.55308475869154e-08
+    },
+    {
+      "material": 46,
+      "build": 0,
+      "neckLength": 1,
+      "hairVolume": -1,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 2.6702880795426154e-08,
+      "normalError": 5.553084447829093e-08
+    },
+    {
+      "material": 46,
+      "build": 0,
+      "neckLength": 1,
+      "hairVolume": -1,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 3.528594971768939e-08,
+      "normalError": 5.553085480336506e-08
+    },
+    {
+      "material": 46,
+      "build": 0,
+      "neckLength": 1,
+      "hairVolume": -1,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 3.1671406386379886e-08,
+      "normalError": 4.98620548045059e-07
+    },
+    {
+      "material": 46,
+      "build": 0,
+      "neckLength": 1,
+      "hairVolume": 0,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 6.6757201988565384e-09,
+      "normalError": 1.6585215312225898e-08
+    },
+    {
+      "material": 46,
+      "build": 0,
+      "neckLength": 1,
+      "hairVolume": 0,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 2.6702880795426154e-08,
+      "normalError": 1.6585209317021565e-08
+    },
+    {
+      "material": 46,
+      "build": 0,
+      "neckLength": 1,
+      "hairVolume": 0,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 3.528594971768939e-08,
+      "normalError": 1.6585223860943188e-08
+    },
+    {
+      "material": 46,
+      "build": 0,
+      "neckLength": 1,
+      "hairVolume": 0,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 7.629394449537585e-09,
+      "normalError": 1.6585207096575516e-08
+    },
+    {
+      "material": 46,
+      "build": 0,
+      "neckLength": 1,
+      "hairVolume": 1,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 6.6757201988565384e-09,
+      "normalError": 4.1245426407598984e-08
+    },
+    {
+      "material": 46,
+      "build": 0,
+      "neckLength": 1,
+      "hairVolume": 1,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 2.6702880795426154e-08,
+      "normalError": 4.1245411530610454e-08
+    },
+    {
+      "material": 46,
+      "build": 0,
+      "neckLength": 1,
+      "hairVolume": 1,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 3.528594971768939e-08,
+      "normalError": 4.124542807293352e-08
+    },
+    {
+      "material": 46,
+      "build": 0,
+      "neckLength": 1,
+      "hairVolume": 1,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 4.6930195285455056e-08,
+      "normalError": 3.3677273539312047e-07
+    },
+    {
+      "material": 46,
+      "build": 1,
+      "neckLength": -1,
+      "hairVolume": -1,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 5.5313110314259006e-08,
+      "normalError": 5.55308475869154e-08
+    },
+    {
+      "material": 46,
+      "build": 1,
+      "neckLength": -1,
+      "hairVolume": -1,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 2.1934509319976314e-08,
+      "normalError": 5.553084447829093e-08
+    },
+    {
+      "material": 46,
+      "build": 1,
+      "neckLength": -1,
+      "hairVolume": -1,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 8.392333983309186e-08,
+      "normalError": 5.553085480336506e-08
+    },
+    {
+      "material": 46,
+      "build": 1,
+      "neckLength": -1,
+      "hairVolume": -1,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 8.030879650178235e-08,
+      "normalError": 4.98620548045059e-07
+    },
+    {
+      "material": 46,
+      "build": 1,
+      "neckLength": -1,
+      "hairVolume": 0,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 5.5313110314259006e-08,
+      "normalError": 1.6585215312225898e-08
+    },
+    {
+      "material": 46,
+      "build": 1,
+      "neckLength": -1,
+      "hairVolume": 0,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 2.1934509319976314e-08,
+      "normalError": 1.6585209317021565e-08
+    },
+    {
+      "material": 46,
+      "build": 1,
+      "neckLength": -1,
+      "hairVolume": 0,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 8.392333983309186e-08,
+      "normalError": 1.6585223860943188e-08
+    },
+    {
+      "material": 46,
+      "build": 1,
+      "neckLength": -1,
+      "hairVolume": 0,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 4.100799566586488e-08,
+      "normalError": 1.6585207096575516e-08
+    },
+    {
+      "material": 46,
+      "build": 1,
+      "neckLength": -1,
+      "hairVolume": 1,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 5.5313110314259006e-08,
+      "normalError": 4.1245426407598984e-08
+    },
+    {
+      "material": 46,
+      "build": 1,
+      "neckLength": -1,
+      "hairVolume": 1,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 2.1934509319976314e-08,
+      "normalError": 4.1245411530610454e-08
+    },
+    {
+      "material": 46,
+      "build": 1,
+      "neckLength": -1,
+      "hairVolume": 1,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 8.392333983309186e-08,
+      "normalError": 4.124542807293352e-08
+    },
+    {
+      "material": 46,
+      "build": 1,
+      "neckLength": -1,
+      "hairVolume": 1,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 1.7071948299474116e-09,
+      "normalError": 3.3677273539312047e-07
+    },
+    {
+      "material": 46,
+      "build": 1,
+      "neckLength": 0,
+      "hairVolume": -1,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 2.8610229518832853e-08,
+      "normalError": 5.55308475869154e-08
+    },
+    {
+      "material": 46,
+      "build": 1,
+      "neckLength": 0,
+      "hairVolume": -1,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 6.198883051311554e-08,
+      "normalError": 5.553084447829093e-08
+    },
+    {
+      "material": 46,
+      "build": 1,
+      "neckLength": 0,
+      "hairVolume": -1,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 3.7765503224651553e-10,
+      "normalError": 5.553085480336506e-08
+    },
+    {
+      "material": 46,
+      "build": 1,
+      "neckLength": 0,
+      "hairVolume": -1,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 4.308223722215843e-09,
+      "normalError": 4.98620548045059e-07
+    },
+    {
+      "material": 46,
+      "build": 1,
+      "neckLength": 0,
+      "hairVolume": 0,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 2.8610229518832853e-08,
+      "normalError": 1.6585215312225898e-08
+    },
+    {
+      "material": 46,
+      "build": 1,
+      "neckLength": 0,
+      "hairVolume": 0,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 6.198883051311554e-08,
+      "normalError": 1.6585209317021565e-08
+    },
+    {
+      "material": 46,
+      "build": 1,
+      "neckLength": 0,
+      "hairVolume": 0,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 6.705522526129215e-10,
+      "normalError": 1.6585223860943188e-08
+    },
+    {
+      "material": 46,
+      "build": 1,
+      "neckLength": 0,
+      "hairVolume": 0,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 4.2915344167226976e-08,
+      "normalError": 1.6585207096575516e-08
+    },
+    {
+      "material": 46,
+      "build": 1,
+      "neckLength": 0,
+      "hairVolume": 1,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 2.8610229518832853e-08,
+      "normalError": 4.1245426407598984e-08
+    },
+    {
+      "material": 46,
+      "build": 1,
+      "neckLength": 0,
+      "hairVolume": 1,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 6.198883051311554e-08,
+      "normalError": 4.1245411530610454e-08
+    },
+    {
+      "material": 46,
+      "build": 1,
+      "neckLength": 0,
+      "hairVolume": 1,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 1.569747928864551e-09,
+      "normalError": 4.124542807293352e-08
+    },
+    {
+      "material": 46,
+      "build": 1,
+      "neckLength": 0,
+      "hairVolume": 1,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 8.221614500314445e-08,
+      "normalError": 3.3677273539312047e-07
+    },
+    {
+      "material": 46,
+      "build": 1,
+      "neckLength": 1,
+      "hairVolume": -1,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 6.6757201988565384e-09,
+      "normalError": 5.55308475869154e-08
+    },
+    {
+      "material": 46,
+      "build": 1,
+      "neckLength": 1,
+      "hairVolume": -1,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 2.6702880795426154e-08,
+      "normalError": 5.553084447829093e-08
+    },
+    {
+      "material": 46,
+      "build": 1,
+      "neckLength": 1,
+      "hairVolume": -1,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 3.528594971768939e-08,
+      "normalError": 5.553085480336506e-08
+    },
+    {
+      "material": 46,
+      "build": 1,
+      "neckLength": 1,
+      "hairVolume": -1,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 3.1671406386379886e-08,
+      "normalError": 4.98620548045059e-07
+    },
+    {
+      "material": 46,
+      "build": 1,
+      "neckLength": 1,
+      "hairVolume": 0,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 6.6757201988565384e-09,
+      "normalError": 1.6585215312225898e-08
+    },
+    {
+      "material": 46,
+      "build": 1,
+      "neckLength": 1,
+      "hairVolume": 0,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 2.6702880795426154e-08,
+      "normalError": 1.6585209317021565e-08
+    },
+    {
+      "material": 46,
+      "build": 1,
+      "neckLength": 1,
+      "hairVolume": 0,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 3.528594971768939e-08,
+      "normalError": 1.6585223860943188e-08
+    },
+    {
+      "material": 46,
+      "build": 1,
+      "neckLength": 1,
+      "hairVolume": 0,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 7.629394449537585e-09,
+      "normalError": 1.6585207096575516e-08
+    },
+    {
+      "material": 46,
+      "build": 1,
+      "neckLength": 1,
+      "hairVolume": 1,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 6.6757201988565384e-09,
+      "normalError": 4.1245426407598984e-08
+    },
+    {
+      "material": 46,
+      "build": 1,
+      "neckLength": 1,
+      "hairVolume": 1,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 2.6702880795426154e-08,
+      "normalError": 4.1245411530610454e-08
+    },
+    {
+      "material": 46,
+      "build": 1,
+      "neckLength": 1,
+      "hairVolume": 1,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 3.528594971768939e-08,
+      "normalError": 4.124542807293352e-08
+    },
+    {
+      "material": 46,
+      "build": 1,
+      "neckLength": 1,
+      "hairVolume": 1,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 4.6930195285455056e-08,
+      "normalError": 3.3677273539312047e-07
+    },
+    {
+      "material": 47,
+      "build": -1,
+      "neckLength": -1,
+      "hairVolume": -1,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 5.5313110314259006e-08,
+      "normalError": 5.55308475869154e-08
+    },
+    {
+      "material": 47,
+      "build": -1,
+      "neckLength": -1,
+      "hairVolume": -1,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 2.1934509319976314e-08,
+      "normalError": 5.553084447829093e-08
+    },
+    {
+      "material": 47,
+      "build": -1,
+      "neckLength": -1,
+      "hairVolume": -1,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 8.392333983309186e-08,
+      "normalError": 5.553085480336506e-08
+    },
+    {
+      "material": 47,
+      "build": -1,
+      "neckLength": -1,
+      "hairVolume": -1,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 8.030879650178235e-08,
+      "normalError": 4.98620548045059e-07
+    },
+    {
+      "material": 47,
+      "build": -1,
+      "neckLength": -1,
+      "hairVolume": 0,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 5.5313110314259006e-08,
+      "normalError": 1.6585215312225898e-08
+    },
+    {
+      "material": 47,
+      "build": -1,
+      "neckLength": -1,
+      "hairVolume": 0,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 2.1934509319976314e-08,
+      "normalError": 1.6585209317021565e-08
+    },
+    {
+      "material": 47,
+      "build": -1,
+      "neckLength": -1,
+      "hairVolume": 0,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 8.392333983309186e-08,
+      "normalError": 1.6585223860943188e-08
+    },
+    {
+      "material": 47,
+      "build": -1,
+      "neckLength": -1,
+      "hairVolume": 0,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 4.100799566586488e-08,
+      "normalError": 1.6585207096575516e-08
+    },
+    {
+      "material": 47,
+      "build": -1,
+      "neckLength": -1,
+      "hairVolume": 1,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 5.5313110314259006e-08,
+      "normalError": 4.1245426407598984e-08
+    },
+    {
+      "material": 47,
+      "build": -1,
+      "neckLength": -1,
+      "hairVolume": 1,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 2.1934509319976314e-08,
+      "normalError": 4.1245411530610454e-08
+    },
+    {
+      "material": 47,
+      "build": -1,
+      "neckLength": -1,
+      "hairVolume": 1,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 8.392333983309186e-08,
+      "normalError": 4.124542807293352e-08
+    },
+    {
+      "material": 47,
+      "build": -1,
+      "neckLength": -1,
+      "hairVolume": 1,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 1.7071948299474116e-09,
+      "normalError": 3.3677273539312047e-07
+    },
+    {
+      "material": 47,
+      "build": -1,
+      "neckLength": 0,
+      "hairVolume": -1,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 2.8610229518832853e-08,
+      "normalError": 5.55308475869154e-08
+    },
+    {
+      "material": 47,
+      "build": -1,
+      "neckLength": 0,
+      "hairVolume": -1,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 6.198883051311554e-08,
+      "normalError": 5.553084447829093e-08
+    },
+    {
+      "material": 47,
+      "build": -1,
+      "neckLength": 0,
+      "hairVolume": -1,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 3.7765503224651553e-10,
+      "normalError": 5.553085480336506e-08
+    },
+    {
+      "material": 47,
+      "build": -1,
+      "neckLength": 0,
+      "hairVolume": -1,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 4.308223722215843e-09,
+      "normalError": 4.98620548045059e-07
+    },
+    {
+      "material": 47,
+      "build": -1,
+      "neckLength": 0,
+      "hairVolume": 0,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 2.8610229518832853e-08,
+      "normalError": 1.6585215312225898e-08
+    },
+    {
+      "material": 47,
+      "build": -1,
+      "neckLength": 0,
+      "hairVolume": 0,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 6.198883051311554e-08,
+      "normalError": 1.6585209317021565e-08
+    },
+    {
+      "material": 47,
+      "build": -1,
+      "neckLength": 0,
+      "hairVolume": 0,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 6.705522526129215e-10,
+      "normalError": 1.6585223860943188e-08
+    },
+    {
+      "material": 47,
+      "build": -1,
+      "neckLength": 0,
+      "hairVolume": 0,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 4.2915344167226976e-08,
+      "normalError": 1.6585207096575516e-08
+    },
+    {
+      "material": 47,
+      "build": -1,
+      "neckLength": 0,
+      "hairVolume": 1,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 2.8610229518832853e-08,
+      "normalError": 4.1245426407598984e-08
+    },
+    {
+      "material": 47,
+      "build": -1,
+      "neckLength": 0,
+      "hairVolume": 1,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 6.198883051311554e-08,
+      "normalError": 4.1245411530610454e-08
+    },
+    {
+      "material": 47,
+      "build": -1,
+      "neckLength": 0,
+      "hairVolume": 1,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 1.569747928864551e-09,
+      "normalError": 4.124542807293352e-08
+    },
+    {
+      "material": 47,
+      "build": -1,
+      "neckLength": 0,
+      "hairVolume": 1,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 8.221614500314445e-08,
+      "normalError": 3.3677273539312047e-07
+    },
+    {
+      "material": 47,
+      "build": -1,
+      "neckLength": 1,
+      "hairVolume": -1,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 6.6757201988565384e-09,
+      "normalError": 5.55308475869154e-08
+    },
+    {
+      "material": 47,
+      "build": -1,
+      "neckLength": 1,
+      "hairVolume": -1,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 2.6702880795426154e-08,
+      "normalError": 5.553084447829093e-08
+    },
+    {
+      "material": 47,
+      "build": -1,
+      "neckLength": 1,
+      "hairVolume": -1,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 3.528594971768939e-08,
+      "normalError": 5.553085480336506e-08
+    },
+    {
+      "material": 47,
+      "build": -1,
+      "neckLength": 1,
+      "hairVolume": -1,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 3.1671406386379886e-08,
+      "normalError": 4.98620548045059e-07
+    },
+    {
+      "material": 47,
+      "build": -1,
+      "neckLength": 1,
+      "hairVolume": 0,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 6.6757201988565384e-09,
+      "normalError": 1.6585215312225898e-08
+    },
+    {
+      "material": 47,
+      "build": -1,
+      "neckLength": 1,
+      "hairVolume": 0,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 2.6702880795426154e-08,
+      "normalError": 1.6585209317021565e-08
+    },
+    {
+      "material": 47,
+      "build": -1,
+      "neckLength": 1,
+      "hairVolume": 0,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 3.528594971768939e-08,
+      "normalError": 1.6585223860943188e-08
+    },
+    {
+      "material": 47,
+      "build": -1,
+      "neckLength": 1,
+      "hairVolume": 0,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 7.629394449537585e-09,
+      "normalError": 1.6585207096575516e-08
+    },
+    {
+      "material": 47,
+      "build": -1,
+      "neckLength": 1,
+      "hairVolume": 1,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 6.6757201988565384e-09,
+      "normalError": 4.1245426407598984e-08
+    },
+    {
+      "material": 47,
+      "build": -1,
+      "neckLength": 1,
+      "hairVolume": 1,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 2.6702880795426154e-08,
+      "normalError": 4.1245411530610454e-08
+    },
+    {
+      "material": 47,
+      "build": -1,
+      "neckLength": 1,
+      "hairVolume": 1,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 3.528594971768939e-08,
+      "normalError": 4.124542807293352e-08
+    },
+    {
+      "material": 47,
+      "build": -1,
+      "neckLength": 1,
+      "hairVolume": 1,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 4.6930195285455056e-08,
+      "normalError": 3.3677273539312047e-07
+    },
+    {
+      "material": 47,
+      "build": 0,
+      "neckLength": -1,
+      "hairVolume": -1,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 5.5313110314259006e-08,
+      "normalError": 5.55308475869154e-08
+    },
+    {
+      "material": 47,
+      "build": 0,
+      "neckLength": -1,
+      "hairVolume": -1,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 2.1934509319976314e-08,
+      "normalError": 5.553084447829093e-08
+    },
+    {
+      "material": 47,
+      "build": 0,
+      "neckLength": -1,
+      "hairVolume": -1,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 8.392333983309186e-08,
+      "normalError": 5.553085480336506e-08
+    },
+    {
+      "material": 47,
+      "build": 0,
+      "neckLength": -1,
+      "hairVolume": -1,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 8.030879650178235e-08,
+      "normalError": 4.98620548045059e-07
+    },
+    {
+      "material": 47,
+      "build": 0,
+      "neckLength": -1,
+      "hairVolume": 0,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 5.5313110314259006e-08,
+      "normalError": 1.6585215312225898e-08
+    },
+    {
+      "material": 47,
+      "build": 0,
+      "neckLength": -1,
+      "hairVolume": 0,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 2.1934509319976314e-08,
+      "normalError": 1.6585209317021565e-08
+    },
+    {
+      "material": 47,
+      "build": 0,
+      "neckLength": -1,
+      "hairVolume": 0,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 8.392333983309186e-08,
+      "normalError": 1.6585223860943188e-08
+    },
+    {
+      "material": 47,
+      "build": 0,
+      "neckLength": -1,
+      "hairVolume": 0,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 4.100799566586488e-08,
+      "normalError": 1.6585207096575516e-08
+    },
+    {
+      "material": 47,
+      "build": 0,
+      "neckLength": -1,
+      "hairVolume": 1,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 5.5313110314259006e-08,
+      "normalError": 4.1245426407598984e-08
+    },
+    {
+      "material": 47,
+      "build": 0,
+      "neckLength": -1,
+      "hairVolume": 1,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 2.1934509319976314e-08,
+      "normalError": 4.1245411530610454e-08
+    },
+    {
+      "material": 47,
+      "build": 0,
+      "neckLength": -1,
+      "hairVolume": 1,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 8.392333983309186e-08,
+      "normalError": 4.124542807293352e-08
+    },
+    {
+      "material": 47,
+      "build": 0,
+      "neckLength": -1,
+      "hairVolume": 1,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 1.7071948299474116e-09,
+      "normalError": 3.3677273539312047e-07
+    },
+    {
+      "material": 47,
+      "build": 0,
+      "neckLength": 0,
+      "hairVolume": -1,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 2.8610229518832853e-08,
+      "normalError": 5.55308475869154e-08
+    },
+    {
+      "material": 47,
+      "build": 0,
+      "neckLength": 0,
+      "hairVolume": -1,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 6.198883051311554e-08,
+      "normalError": 5.553084447829093e-08
+    },
+    {
+      "material": 47,
+      "build": 0,
+      "neckLength": 0,
+      "hairVolume": -1,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 3.7765503224651553e-10,
+      "normalError": 5.553085480336506e-08
+    },
+    {
+      "material": 47,
+      "build": 0,
+      "neckLength": 0,
+      "hairVolume": -1,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 4.308223722215843e-09,
+      "normalError": 4.98620548045059e-07
+    },
+    {
+      "material": 47,
+      "build": 0,
+      "neckLength": 0,
+      "hairVolume": 0,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 2.8610229518832853e-08,
+      "normalError": 1.6585215312225898e-08
+    },
+    {
+      "material": 47,
+      "build": 0,
+      "neckLength": 0,
+      "hairVolume": 0,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 6.198883051311554e-08,
+      "normalError": 1.6585209317021565e-08
+    },
+    {
+      "material": 47,
+      "build": 0,
+      "neckLength": 0,
+      "hairVolume": 0,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 6.705522526129215e-10,
+      "normalError": 1.6585223860943188e-08
+    },
+    {
+      "material": 47,
+      "build": 0,
+      "neckLength": 0,
+      "hairVolume": 0,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 4.2915344167226976e-08,
+      "normalError": 1.6585207096575516e-08
+    },
+    {
+      "material": 47,
+      "build": 0,
+      "neckLength": 0,
+      "hairVolume": 1,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 2.8610229518832853e-08,
+      "normalError": 4.1245426407598984e-08
+    },
+    {
+      "material": 47,
+      "build": 0,
+      "neckLength": 0,
+      "hairVolume": 1,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 6.198883051311554e-08,
+      "normalError": 4.1245411530610454e-08
+    },
+    {
+      "material": 47,
+      "build": 0,
+      "neckLength": 0,
+      "hairVolume": 1,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 1.569747928864551e-09,
+      "normalError": 4.124542807293352e-08
+    },
+    {
+      "material": 47,
+      "build": 0,
+      "neckLength": 0,
+      "hairVolume": 1,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 8.221614500314445e-08,
+      "normalError": 3.3677273539312047e-07
+    },
+    {
+      "material": 47,
+      "build": 0,
+      "neckLength": 1,
+      "hairVolume": -1,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 6.6757201988565384e-09,
+      "normalError": 5.55308475869154e-08
+    },
+    {
+      "material": 47,
+      "build": 0,
+      "neckLength": 1,
+      "hairVolume": -1,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 2.6702880795426154e-08,
+      "normalError": 5.553084447829093e-08
+    },
+    {
+      "material": 47,
+      "build": 0,
+      "neckLength": 1,
+      "hairVolume": -1,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 3.528594971768939e-08,
+      "normalError": 5.553085480336506e-08
+    },
+    {
+      "material": 47,
+      "build": 0,
+      "neckLength": 1,
+      "hairVolume": -1,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 3.1671406386379886e-08,
+      "normalError": 4.98620548045059e-07
+    },
+    {
+      "material": 47,
+      "build": 0,
+      "neckLength": 1,
+      "hairVolume": 0,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 6.6757201988565384e-09,
+      "normalError": 1.6585215312225898e-08
+    },
+    {
+      "material": 47,
+      "build": 0,
+      "neckLength": 1,
+      "hairVolume": 0,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 2.6702880795426154e-08,
+      "normalError": 1.6585209317021565e-08
+    },
+    {
+      "material": 47,
+      "build": 0,
+      "neckLength": 1,
+      "hairVolume": 0,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 3.528594971768939e-08,
+      "normalError": 1.6585223860943188e-08
+    },
+    {
+      "material": 47,
+      "build": 0,
+      "neckLength": 1,
+      "hairVolume": 0,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 7.629394449537585e-09,
+      "normalError": 1.6585207096575516e-08
+    },
+    {
+      "material": 47,
+      "build": 0,
+      "neckLength": 1,
+      "hairVolume": 1,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 6.6757201988565384e-09,
+      "normalError": 4.1245426407598984e-08
+    },
+    {
+      "material": 47,
+      "build": 0,
+      "neckLength": 1,
+      "hairVolume": 1,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 2.6702880795426154e-08,
+      "normalError": 4.1245411530610454e-08
+    },
+    {
+      "material": 47,
+      "build": 0,
+      "neckLength": 1,
+      "hairVolume": 1,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 3.528594971768939e-08,
+      "normalError": 4.124542807293352e-08
+    },
+    {
+      "material": 47,
+      "build": 0,
+      "neckLength": 1,
+      "hairVolume": 1,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 4.6930195285455056e-08,
+      "normalError": 3.3677273539312047e-07
+    },
+    {
+      "material": 47,
+      "build": 1,
+      "neckLength": -1,
+      "hairVolume": -1,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 5.5313110314259006e-08,
+      "normalError": 5.55308475869154e-08
+    },
+    {
+      "material": 47,
+      "build": 1,
+      "neckLength": -1,
+      "hairVolume": -1,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 2.1934509319976314e-08,
+      "normalError": 5.553084447829093e-08
+    },
+    {
+      "material": 47,
+      "build": 1,
+      "neckLength": -1,
+      "hairVolume": -1,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 8.392333983309186e-08,
+      "normalError": 5.553085480336506e-08
+    },
+    {
+      "material": 47,
+      "build": 1,
+      "neckLength": -1,
+      "hairVolume": -1,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 8.030879650178235e-08,
+      "normalError": 4.98620548045059e-07
+    },
+    {
+      "material": 47,
+      "build": 1,
+      "neckLength": -1,
+      "hairVolume": 0,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 5.5313110314259006e-08,
+      "normalError": 1.6585215312225898e-08
+    },
+    {
+      "material": 47,
+      "build": 1,
+      "neckLength": -1,
+      "hairVolume": 0,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 2.1934509319976314e-08,
+      "normalError": 1.6585209317021565e-08
+    },
+    {
+      "material": 47,
+      "build": 1,
+      "neckLength": -1,
+      "hairVolume": 0,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 8.392333983309186e-08,
+      "normalError": 1.6585223860943188e-08
+    },
+    {
+      "material": 47,
+      "build": 1,
+      "neckLength": -1,
+      "hairVolume": 0,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 4.100799566586488e-08,
+      "normalError": 1.6585207096575516e-08
+    },
+    {
+      "material": 47,
+      "build": 1,
+      "neckLength": -1,
+      "hairVolume": 1,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 5.5313110314259006e-08,
+      "normalError": 4.1245426407598984e-08
+    },
+    {
+      "material": 47,
+      "build": 1,
+      "neckLength": -1,
+      "hairVolume": 1,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 2.1934509319976314e-08,
+      "normalError": 4.1245411530610454e-08
+    },
+    {
+      "material": 47,
+      "build": 1,
+      "neckLength": -1,
+      "hairVolume": 1,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 8.392333983309186e-08,
+      "normalError": 4.124542807293352e-08
+    },
+    {
+      "material": 47,
+      "build": 1,
+      "neckLength": -1,
+      "hairVolume": 1,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 1.7071948299474116e-09,
+      "normalError": 3.3677273539312047e-07
+    },
+    {
+      "material": 47,
+      "build": 1,
+      "neckLength": 0,
+      "hairVolume": -1,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 2.8610229518832853e-08,
+      "normalError": 5.55308475869154e-08
+    },
+    {
+      "material": 47,
+      "build": 1,
+      "neckLength": 0,
+      "hairVolume": -1,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 6.198883051311554e-08,
+      "normalError": 5.553084447829093e-08
+    },
+    {
+      "material": 47,
+      "build": 1,
+      "neckLength": 0,
+      "hairVolume": -1,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 3.7765503224651553e-10,
+      "normalError": 5.553085480336506e-08
+    },
+    {
+      "material": 47,
+      "build": 1,
+      "neckLength": 0,
+      "hairVolume": -1,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 4.308223722215843e-09,
+      "normalError": 4.98620548045059e-07
+    },
+    {
+      "material": 47,
+      "build": 1,
+      "neckLength": 0,
+      "hairVolume": 0,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 2.8610229518832853e-08,
+      "normalError": 1.6585215312225898e-08
+    },
+    {
+      "material": 47,
+      "build": 1,
+      "neckLength": 0,
+      "hairVolume": 0,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 6.198883051311554e-08,
+      "normalError": 1.6585209317021565e-08
+    },
+    {
+      "material": 47,
+      "build": 1,
+      "neckLength": 0,
+      "hairVolume": 0,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 6.705522526129215e-10,
+      "normalError": 1.6585223860943188e-08
+    },
+    {
+      "material": 47,
+      "build": 1,
+      "neckLength": 0,
+      "hairVolume": 0,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 4.2915344167226976e-08,
+      "normalError": 1.6585207096575516e-08
+    },
+    {
+      "material": 47,
+      "build": 1,
+      "neckLength": 0,
+      "hairVolume": 1,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 2.8610229518832853e-08,
+      "normalError": 4.1245426407598984e-08
+    },
+    {
+      "material": 47,
+      "build": 1,
+      "neckLength": 0,
+      "hairVolume": 1,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 6.198883051311554e-08,
+      "normalError": 4.1245411530610454e-08
+    },
+    {
+      "material": 47,
+      "build": 1,
+      "neckLength": 0,
+      "hairVolume": 1,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 1.569747928864551e-09,
+      "normalError": 4.124542807293352e-08
+    },
+    {
+      "material": 47,
+      "build": 1,
+      "neckLength": 0,
+      "hairVolume": 1,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 8.221614500314445e-08,
+      "normalError": 3.3677273539312047e-07
+    },
+    {
+      "material": 47,
+      "build": 1,
+      "neckLength": 1,
+      "hairVolume": -1,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 6.6757201988565384e-09,
+      "normalError": 5.55308475869154e-08
+    },
+    {
+      "material": 47,
+      "build": 1,
+      "neckLength": 1,
+      "hairVolume": -1,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 2.6702880795426154e-08,
+      "normalError": 5.553084447829093e-08
+    },
+    {
+      "material": 47,
+      "build": 1,
+      "neckLength": 1,
+      "hairVolume": -1,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 3.528594971768939e-08,
+      "normalError": 5.553085480336506e-08
+    },
+    {
+      "material": 47,
+      "build": 1,
+      "neckLength": 1,
+      "hairVolume": -1,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 3.1671406386379886e-08,
+      "normalError": 4.98620548045059e-07
+    },
+    {
+      "material": 47,
+      "build": 1,
+      "neckLength": 1,
+      "hairVolume": 0,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 6.6757201988565384e-09,
+      "normalError": 1.6585215312225898e-08
+    },
+    {
+      "material": 47,
+      "build": 1,
+      "neckLength": 1,
+      "hairVolume": 0,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 2.6702880795426154e-08,
+      "normalError": 1.6585209317021565e-08
+    },
+    {
+      "material": 47,
+      "build": 1,
+      "neckLength": 1,
+      "hairVolume": 0,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 3.528594971768939e-08,
+      "normalError": 1.6585223860943188e-08
+    },
+    {
+      "material": 47,
+      "build": 1,
+      "neckLength": 1,
+      "hairVolume": 0,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 7.629394449537585e-09,
+      "normalError": 1.6585207096575516e-08
+    },
+    {
+      "material": 47,
+      "build": 1,
+      "neckLength": 1,
+      "hairVolume": 1,
+      "point": [
+        0.062,
+        1.515,
+        0.019
+      ],
+      "positionError": 6.6757201988565384e-09,
+      "normalError": 4.1245426407598984e-08
+    },
+    {
+      "material": 47,
+      "build": 1,
+      "neckLength": 1,
+      "hairVolume": 1,
+      "point": [
+        0.086,
+        1.48,
+        -0.01
+      ],
+      "positionError": 2.6702880795426154e-08,
+      "normalError": 4.1245411530610454e-08
+    },
+    {
+      "material": 47,
+      "build": 1,
+      "neckLength": 1,
+      "hairVolume": 1,
+      "point": [
+        0.03,
+        1.67,
+        0.11
+      ],
+      "positionError": 3.528594971768939e-08,
+      "normalError": 4.124542807293352e-08
+    },
+    {
+      "material": 47,
+      "build": 1,
+      "neckLength": 1,
+      "hairVolume": 1,
+      "point": [
+        0.065,
+        1.75,
+        0.02
+      ],
+      "positionError": 4.6930195285455056e-08,
+      "normalError": 3.3677273539312047e-07
+    }
+  ],
+  "gl": 0,
+  "maxPositionError": 8.392333983309186e-08,
+  "maxNormalError": 8.97143068651074e-06
+}

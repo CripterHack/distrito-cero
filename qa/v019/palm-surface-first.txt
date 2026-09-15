@@ -1,0 +1,110 @@
+TAP version 13
+# palmAnchorMaxError 6.4812846508058e-8
+# articulationMaxReachError 9.89904906816763e-8
+# locomotionPalmError 8.131335827335385e-8
+# Subtest: contacts describe a palm surface distinct from the wrist
+ok 1 - contacts describe a palm surface distinct from the wrist
+  ---
+  duration_ms: 242.962868
+  type: 'test'
+  ...
+# Subtest: posed anatomical palm landmarks coincide with their prop anchors
+ok 2 - posed anatomical palm landmarks coincide with their prop anchors
+  ---
+  duration_ms: 694.966343
+  type: 'test'
+  ...
+# Subtest: long-arm support palms are authored on the underside rather than to the side of the foregrip
+ok 3 - long-arm support palms are authored on the underside rather than to the side of the foregrip
+  ---
+  duration_ms: 12.44726
+  type: 'test'
+  ...
+# Subtest: stock brace uses the articulated shoulder at neutral aim
+ok 4 - stock brace uses the articulated shoulder at neutral aim
+  ---
+  duration_ms: 11.937126
+  type: 'test'
+  ...
+# Subtest: aiming alone does not close the trigger index
+ok 5 - aiming alone does not close the trigger index
+  ---
+  duration_ms: 12.093627
+  type: 'test'
+  ...
+# Subtest: reload lets the support fingers open in free travel and close on the magazine
+ok 6 - reload lets the support fingers open in free travel and close on the magazine
+  ---
+  duration_ms: 13.413946
+  type: 'test'
+  ...
+# Subtest: magazine motion includes cant and the palm follows its transformed surface
+ok 7 - magazine motion includes cant and the palm follows its transformed surface
+  ---
+  duration_ms: 11.602783
+  type: 'test'
+  ...
+# Subtest: translating and rotating a part agrees with its render transform
+ok 8 - translating and rotating a part agrees with its render transform
+  ---
+  duration_ms: 12.10863
+  type: 'test'
+  ...
+# Subtest: reload choreography is continuous for wrists and moving pieces
+ok 9 - reload choreography is continuous for wrists and moving pieces
+  ---
+  duration_ms: 221.97484
+  type: 'test'
+  ...
+# Subtest: all grip bases and targets remain finite over sampled actions and appearances
+ok 10 - all grip bases and targets remain finite over sampled actions and appearances
+  ---
+  duration_ms: 5132.010804
+  type: 'test'
+  ...
+# Subtest: angular handling inertia is bounded and recovers without mutating snapshots
+ok 11 - angular handling inertia is bounded and recovers without mutating snapshots
+  ---
+  duration_ms: 10.97561
+  type: 'test'
+  ...
+# Subtest: reload and aim changes keep an orthonormal contact orientation
+ok 12 - reload and aim changes keep an orthonormal contact orientation
+  ---
+  duration_ms: 104.906307
+  type: 'test'
+  ...
+# Subtest: firearm handles have a shared rounded grip mesh
+ok 13 - firearm handles have a shared rounded grip mesh
+  ---
+  duration_ms: 3.228215
+  type: 'test'
+  ...
+# Subtest: render mount and skeleton consume the same sampled locomotion state
+ok 14 - render mount and skeleton consume the same sampled locomotion state
+  ---
+  duration_ms: 55.354491
+  type: 'test'
+  ...
+# realSkinPalmMaxError 0.003173760700996088
+# Subtest: neutral palm reference lies within two millimetres of real quantized skin
+ok 15 - neutral palm reference lies within two millimetres of real quantized skin
+  ---
+  duration_ms: 0.854211
+  type: 'test'
+  ...
+# Subtest: actual DQ-deformed palmar triangles stay close to object contact anchors
+ok 16 - actual DQ-deformed palmar triangles stay close to object contact anchors
+  ---
+  duration_ms: 72.138564
+  type: 'test'
+  ...
+1..16
+# tests 16
+# suites 0
+# pass 16
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 6603.659545

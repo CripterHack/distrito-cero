@@ -1,0 +1,267 @@
+{
+  "passed": 64,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "Landing offers creator and named library",
+      "pass": true
+    },
+    {
+      "name": "New story enters creator before gameplay",
+      "pass": true
+    },
+    {
+      "name": "Draft uses a separate simulation and world",
+      "pass": true
+    },
+    {
+      "name": "Four selectable presets",
+      "pass": true
+    },
+    {
+      "name": "Pose pause supported",
+      "pass": true
+    },
+    {
+      "name": "Controls update distinct whitelisted appearance",
+      "pass": true
+    },
+    {
+      "name": "Orbit button changes preview yaw",
+      "pass": true
+    },
+    {
+      "name": "WebGL keyframe 01-editor",
+      "pass": true
+    },
+    {
+      "name": "Actor appearance reaches GPU",
+      "pass": true
+    },
+    {
+      "name": "WebGL keyframe 02-editor-face",
+      "pass": true
+    },
+    {
+      "name": "Blank character name blocks creation",
+      "pass": true
+    },
+    {
+      "name": "Blank save name blocks creation",
+      "pass": true
+    },
+    {
+      "name": "New slot contains selected identity",
+      "pass": true
+    },
+    {
+      "name": "Renderer leaves studio and canvas fills viewport",
+      "pass": true
+    },
+    {
+      "name": "Editing does not alter current session before apply",
+      "pass": true
+    },
+    {
+      "name": "Escape cancels draft even in text field",
+      "pass": true
+    },
+    {
+      "name": "Cancel keeps exact appearance",
+      "pass": true
+    },
+    {
+      "name": "Apply updates active save identity",
+      "pass": true
+    },
+    {
+      "name": "Second creation preserves first slot",
+      "pass": true
+    },
+    {
+      "name": "First slot keeps its own mission and money",
+      "pass": true
+    },
+    {
+      "name": "Loading A restores its appearance and progress",
+      "pass": true
+    },
+    {
+      "name": "Loading B restores its independent progress",
+      "pass": true
+    },
+    {
+      "name": "Rename retains identity and snapshot",
+      "pass": true
+    },
+    {
+      "name": "Duplicate has its own id without switching live game",
+      "pass": true
+    },
+    {
+      "name": "Save as copy creates and activates independent branch",
+      "pass": true
+    },
+    {
+      "name": "WebGL keyframe 03-library",
+      "pass": true
+    },
+    {
+      "name": "Deletion cancelled leaves slot intact",
+      "pass": true
+    },
+    {
+      "name": "Delete active detaches current session, no resurrection",
+      "pass": true
+    },
+    {
+      "name": "Detached autosave does not recreate deleted slot",
+      "pass": true
+    },
+    {
+      "name": "Per-slot JSON has name and appearance",
+      "pass": true
+    },
+    {
+      "name": "Bulk backup contains all saved slots",
+      "pass": true
+    },
+    {
+      "name": "Invalid import does not write any slot",
+      "pass": true
+    },
+    {
+      "name": "Bulk import all-or-nothing validation",
+      "pass": true
+    },
+    {
+      "name": "Import appends instead of overwriting",
+      "pass": true
+    },
+    {
+      "name": "Legacy JSON import receives default identity",
+      "pass": true
+    },
+    {
+      "name": "Quota warning replaces success message",
+      "pass": true
+    },
+    {
+      "name": "Quota leaves saved bytes intact",
+      "pass": true
+    },
+    {
+      "name": "Edit rolls back if persistence fails",
+      "pass": true
+    },
+    {
+      "name": "Stale live revision refuses overwrite",
+      "pass": true
+    },
+    {
+      "name": "Conflict is explained in library",
+      "pass": true
+    },
+    {
+      "name": "Reload after conflict restores newer state",
+      "pass": true
+    },
+    {
+      "name": "Names rendered as text not HTML",
+      "pass": true
+    },
+    {
+      "name": "Catalogue rehydrates on a recreated page",
+      "pass": true
+    },
+    {
+      "name": "Continue restores stored identity and newer progress",
+      "pass": true
+    },
+    {
+      "name": "390: creator footer and return reachable",
+      "pass": true
+    },
+    {
+      "name": "390: preview fits viewport",
+      "pass": true
+    },
+    {
+      "name": "390: scroll reaches palette swatch",
+      "pass": true
+    },
+    {
+      "name": "WebGL keyframe 04-creator-390",
+      "pass": true
+    },
+    {
+      "name": "390: tactile commit creates slot",
+      "pass": true
+    },
+    {
+      "name": "390: library close reachable",
+      "pass": true
+    },
+    {
+      "name": "390: card actions operable",
+      "pass": true
+    },
+    {
+      "name": "WebGL keyframe 05-library-390",
+      "pass": true
+    },
+    {
+      "name": "844: creator footer and return reachable",
+      "pass": true
+    },
+    {
+      "name": "844: preview fits viewport",
+      "pass": true
+    },
+    {
+      "name": "844: scroll reaches palette swatch",
+      "pass": true
+    },
+    {
+      "name": "WebGL keyframe 04-creator-844",
+      "pass": true
+    },
+    {
+      "name": "844: tactile commit creates slot",
+      "pass": true
+    },
+    {
+      "name": "844: library close reachable",
+      "pass": true
+    },
+    {
+      "name": "844: card actions operable",
+      "pass": true
+    },
+    {
+      "name": "WebGL keyframe 05-library-844",
+      "pass": true
+    },
+    {
+      "name": "Storage denied offers explicit volatile session",
+      "pass": true
+    },
+    {
+      "name": "Volatile session is playable and marked unsaved",
+      "pass": true
+    },
+    {
+      "name": "No JavaScript or WebGL console errors",
+      "pass": true
+    },
+    {
+      "name": "No external requests during game",
+      "pass": true
+    }
+  ],
+  "errors": [],
+  "requests": [],
+  "pages": 5,
+  "sha256": "7c5a3e017869843da5af6c4ae8383038d8a1be69f386c4aa0ae660a996e15a9b",
+  "environment": "Chromium Xvfb SwiftShader. Real DOM inputs; keyframe WebGL, renderer parked between captures. Memory localStorage fixture. No native persistence or hardware FPS claim."
+}

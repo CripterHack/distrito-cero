@@ -1,0 +1,26 @@
+PASS Boot uses actual v0.17 simulation and renderer
+PASS Character creator and library still available
+PASS New named story begins with hands free
+PASS Tab opens accessible selector and pauses simulation
+PASS All fourteen catalogue entries present
+PASS Pending choice does not equip or spend resources
+PASS Closing cancels choice
+PASS Technology filter exposes Gauss and EMP
+PASS Selection equips the real Gauss model
+PASS Selecting from UI cannot discharge a weapon
+PASS Gauss charges while held without consuming cell
+PASS Gauss release consumes exactly one cell and emits trail
+PASS Pause cancels stored charge
+PASS Resuming does not release the cancelled charge
+PASS Window focus loss clears charge and pauses
+PASS Focus return cannot fire the old press
+FAIL Fast native mouse click is captured once
+RESULT 16 1
+Traceback (most recent call last):
+  File "/mnt/data/dc-v017-work/distrito-cero/tests/arsenal_browser.py", line 48, in <module>
+    ck('Fast native mouse click is captured once',p.evaluate('DC_APP.sim.equipment.ammo.pistol.loaded===11'))
+    ~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/data/dc-v017-work/distrito-cero/tests/arsenal_browser.py", line 11, in ck
+    checks.append({'name':n,'pass':bool(v)});print(('PASS 'if v else'FAIL ')+n,flush=True);assert v,n
+                                                                                                  ^
+AssertionError: Fast native mouse click is captured once

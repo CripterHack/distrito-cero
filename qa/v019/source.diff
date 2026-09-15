@@ -1,0 +1,412 @@
+diff --git a/src/equipment-geometry.js b/src/equipment-geometry.js
+index 53bbb0e..6269b13 100644
+--- a/src/equipment-geometry.js
++++ b/src/equipment-geometry.js
+@@ -16,7 +16,7 @@
+   }else{
+    const sidearm=['pistol','revolver'].includes(w.id),tech=['emp','gauss'].includes(w.id),len=w.length;
+    box([0,0,.08],[sidearm?.061:tech?.15:.10,sidearm?.07:.115,sidearm?.23:.31],tech?dark:steel);
+-   box([0,-.11,-.016],[.060,.17,.08],grip,4);box([0,-.055,.052],[.026,.065,.024],silver);box([0,-.086,.066],[.059,.019,.11],dark);
++   parts.push({kind:'grip',p:[0,-.11,-.016],s:[.060,.17,.080],c:grip,m:4,role:'grip'});box([0,-.055,.052],[.026,.065,.024],silver);box([0,-.086,.066],[.059,.019,.11],dark);
+    if(w.id==='pistol')box([0,-.18,-.016],[.056,.08,.072],dark,3,'magazine');
+    if(!sidearm){box([0,-.135,.12],[.058,.18,.095],dark,3,['smg','rifle','sniper','gauss','emp'].includes(w.id)?'magazine':'body');box([0,-.012,-.14],[.064,.097,.14],grip,4);box([0,-.012,-.222],[.068,.14,.033],dark);}
+    const barrelStart=sidearm?.21:.26,barrelLength=len-barrelStart;
+@@ -45,6 +45,13 @@
+   for(const p of specs[id]||[]){const key=(p.role||'body')+':'+p.m+':'+p.c.join(),v=buckets.get(key)||{name:'part'+buckets.size,role:p.role||'body',material:p.m,color:p.c,data:[]};buckets.set(key,v);
+    const tri=(a,b,c,na,nb,nc)=>{const n=na||D.normalize(D.cross(b.map((v,i)=>v-a[i]),c.map((v,i)=>v-a[i])));for(const [q,norm]of[[a,n],[b,nb||n],[c,nc||n]])v.data.push(...q,...norm,q[2],q[1]);};
+    if(p.kind==='box'){const [x,y,z]=p.p,[a,b,c]=p.s.map(v=>v*.5),pts=[[-a,-b,-c],[a,-b,-c],[a,b,-c],[-a,b,-c],[-a,-b,c],[a,-b,c],[a,b,c],[-a,b,c]].map(q=>[q[0]+x,q[1]+y,q[2]+z]);for(const f of[[0,3,2,1],[4,5,6,7],[0,4,7,3],[1,2,6,5],[3,7,6,2],[0,1,5,4]]){tri(pts[f[0]],pts[f[1]],pts[f[2]]);tri(pts[f[0]],pts[f[2]],pts[f[3]]);}}
++   if(p.kind==='grip'){
++    const N=20,[x,y,z]=p.p,[rx,h,rz]=[p.s[0]/2,p.s[1],p.s[2]/2],ring=[[-.5,.78],[-.44,.96],[0,1],[.44,.96],[.5,.78]];
++    const pt=(j,i)=>{const a=i*2*Math.PI/N,[v,r]=ring[j];return[x+rx*r*Math.cos(a),y+v*h,z+rz*r*Math.sin(a)];};
++    const normal=(j,i)=>{const a=i*2*Math.PI/N,lo=Math.max(0,j-1),hi=Math.min(ring.length-1,j+1),slope=(ring[hi][1]-ring[lo][1])/((ring[hi][0]-ring[lo][0])*h);return D.normalize([Math.cos(a)/rx,-slope,Math.sin(a)/rz]);};
++    for(let j=0;j<ring.length-1;j++)for(let i=0;i<N;i++){const A=pt(j,i),B=pt(j,i+1),C=pt(j+1,i+1),F=pt(j+1,i),na=normal(j,i),nb=normal(j,i+1),nc=normal(j+1,i+1),nf=normal(j+1,i);tri(A,F,C,na,nf,nc);tri(A,C,B,na,nc,nb);}
++    for(let i=0;i<N;i++){tri([x,y-h/2,z],pt(0,i),pt(0,i+1),[0,-1,0],[0,-1,0],[0,-1,0]);tri([x,y+h/2,z],pt(ring.length-1,i+1),pt(ring.length-1,i),[0,1,0],[0,1,0],[0,1,0]);}
++   }
+    if(p.kind==='blade'){const a=[-.026,0,.015],b=[.026,0,.015],c=[.016,0,.22],tip=[-.017,0,.32],t=[0,.006,.15],u=[0,-.006,.15];for(const [s,e]of[[a,b],[b,c],[c,tip],[tip,a]]){tri(s,e,t);tri(e,s,u);}}
+    if(p.kind==='tube'){const [x,y,z]=p.p,lo=z-p.len*.5,hi=z+p.len*.5,N=16,r=p.r,ri=p.inner||0;for(let i=0;i<N;i++){const a=i*2*Math.PI/N,b=(i+1)*2*Math.PI/N,pt=(ang,rad,zz)=>[x+Math.cos(ang)*rad,y+Math.sin(ang)*rad,zz],A=pt(a,r,lo),B=pt(b,r,lo),C=pt(b,r,hi),F=pt(a,r,hi),na=[Math.cos(a),Math.sin(a),0],nb=[Math.cos(b),Math.sin(b),0];tri(A,B,C,na,nb,nb);tri(A,C,F,na,nb,na);
+      if(ri){const aa=pt(a,ri,lo),bb=pt(b,ri,lo),cc=pt(b,ri,hi),ff=pt(a,ri,hi);tri(bb,aa,ff);tri(bb,ff,cc);tri(F,C,cc);tri(F,cc,ff);tri(B,A,aa);tri(B,aa,bb);}else{tri([x,y,hi],F,C);tri([x,y,lo],B,A);}}}
+@@ -53,8 +60,8 @@
+  }
+  function icon(id){if(id==='unarmed')return'<svg viewBox="0 0 160 64" aria-hidden="true"><path d="M57 51V28c0-6 7-6 7 0V14c0-5 7-5 7 0v13V10c0-5 7-5 7 0v17V13c0-5 7-5 7 0v20l7-7c5-4 10 1 6 6L83 51Z" fill="currentColor"/></svg>';
+   if(id==='binoculars')return'<svg viewBox="0 0 160 64" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="4"><circle cx="57" cy="37" r="19"/><circle cx="103" cy="37" r="19"/><circle cx="57" cy="37" r="12"/><circle cx="103" cy="37" r="12"/><path d="m39 31 6-20h22l6 20m12 0 7-20h22l7 20M74 25h12"/></g></svg>';
+-  const p=specs[id]||[],pts=p.flatMap(s=>s.kind==='box'?[s.p[2]-s.s[2]/2,s.p[2]+s.s[2]/2]:s.kind==='tube'?[s.p[2]-s.len/2,s.p[2]+s.len/2]:[0,.32]),min=Math.min(...pts),max=Math.max(...pts),scale=130/Math.max(.5,max-min),x=z=>15+(z-min)*scale,y=h=>28-h*scale;
+-  const shapes=p.map(s=>s.kind==='box'?`<rect x="${x(s.p[2]-s.s[2]/2)}" y="${y(s.p[1]+s.s[1]/2)}" width="${s.s[2]*scale}" height="${s.s[1]*scale}" rx="1"/>`:s.kind==='tube'?`<rect x="${x(s.p[2]-s.len/2)}" y="${y(s.p[1]+s.r)}" width="${s.len*scale}" height="${s.r*2*scale}" rx="2"/>`:`<path d="M${x(.01)} 27 L${x(.25)} 27 L${x(.32)} 31 L${x(.01)} 34Z"/>`).join('');return`<svg viewBox="0 0 160 64" aria-hidden="true"><g fill="currentColor">${shapes}</g></svg>`;
++  const p=specs[id]||[],pts=p.flatMap(s=>(s.kind==='box'||s.kind==='grip')?[s.p[2]-s.s[2]/2,s.p[2]+s.s[2]/2]:s.kind==='tube'?[s.p[2]-s.len/2,s.p[2]+s.len/2]:[0,.32]),min=Math.min(...pts),max=Math.max(...pts),scale=130/Math.max(.5,max-min),x=z=>15+(z-min)*scale,y=h=>28-h*scale;
++  const shapes=p.map(s=>(s.kind==='box'||s.kind==='grip')?`<rect x="${x(s.p[2]-s.s[2]/2)}" y="${y(s.p[1]+s.s[1]/2)}" width="${s.s[2]*scale}" height="${s.s[1]*scale}" rx="1"/>`:s.kind==='tube'?`<rect x="${x(s.p[2]-s.len/2)}" y="${y(s.p[1]+s.r)}" width="${s.len*scale}" height="${s.r*2*scale}" rx="2"/>`:`<path d="M${x(.01)} 27 L${x(.25)} 27 L${x(.32)} 31 L${x(.01)} 34Z"/>`).join('');return`<svg viewBox="0 0 160 64" aria-hidden="true"><g fill="currentColor">${shapes}</g></svg>`;
+  }
+  D.EquipmentGeometry=Object.freeze({build,icon});
+ })(DC);
+diff --git a/src/equipment-renderer.js b/src/equipment-renderer.js
+index 8a54cee..68e9fd2 100644
+--- a/src/equipment-renderer.js
++++ b/src/equipment-renderer.js
+@@ -8,14 +8,14 @@
+   }
+   freezeHandling(sim){
+    if(sim.equipmentAvailable?.()&&sim.equipment.selected!=='unarmed'){
+-    const m=E.mount(sim);this.frozenHandling={mount:m,equipment:{...sim.equipment},actor:D.WeaponHandling.actor(sim.player,m,sim.equipment)};
++    const tracked=this.motionTracker?.update('player',sim.player,sim.time,false)||sim.player;const m=E.mount(sim,tracked);this.frozenHandling={mount:m,equipment:{...sim.equipment},actor:D.WeaponHandling.actor(tracked,m,sim.equipment)};
+    }else this.frozenHandling=null;
+   }
+   renderPerson(n,isPlayer=false){
+    if(!this.previewStudio&&isPlayer&&(this.frozenHandling||this.currentSim.equipmentAvailable?.()&&this.currentSim.equipment.selected!=='unarmed')){
+-    const frozen=this.frozenHandling,e=frozen?.equipment||this.currentSim.equipment,w=E.get(e.selected),m=frozen?.mount||E.mount(this.currentSim);
++    const frozen=this.frozenHandling,e=frozen?.equipment||this.currentSim.equipment,w=E.get(e.selected),tracked=frozen?.actor||this.motionTracker?.update('player',n,this.currentTime||0,false)||n,m=frozen?.mount||E.mount(this.currentSim,tracked);
+     if(!(w.kind==='optics'&&this.equipmentView&&e.aiming)){
+-     super.renderPerson(frozen?.actor||D.WeaponHandling.actor(n,m,e),true);
++     super.renderPerson(frozen?.actor||D.WeaponHandling.actor(tracked,m,e),true);
+      this.drawEquipment(this.currentSim,m,e);
+     }
+     return;
+@@ -28,10 +28,10 @@
+    const w=E.get(e.selected),parts=this.equipmentMeshes.get(w.id)||[];
+    for(const p of parts){
+     const emission=p.material===0?(w.kind==='gauss'?.2+e.charge*3.5:w.kind==='emp'?1.1:.1):0;
+-    const offset=p.role==='magazine'?m.magazine.offset:[0,0,0];
+-    this.add(this.dynamic,p.key,...m.point(...offset),1,1,1,p.color,p.material,emission,m.yaw,0,0,-m.pitch,m.roll);
++    const transform=m.partTransform(p.role);
++    this.add(this.dynamic,p.key,...transform.origin,1,1,1,p.color,p.material,emission,transform.yaw,0,0,transform.rx,transform.roll);
+    }
+-   this.equipmentStats={selected:w.id,parts:parts.length,triangles:parts.reduce((v,p)=>v+p.count,0),hands:m.hands,phase:m.phase,magazine:m.magazine,contacts:this.motionDebug?.contacts||null};
++   this.equipmentStats={selected:w.id,parts:parts.length,triangles:parts.reduce((v,p)=>v+p.count,0),hands:m.hands,phase:m.phase,reloadStage:m.reloadStage,magazine:m.magazine,palms:m.palmContacts,brace:m.brace,fitDistance:m.fitDistance,inertia:m.inertia,grips:m.grips,contacts:this.motionDebug?.contacts||null};
+    if(e.recoil>.55&&['hitscan','rocket','gauss'].includes(w.kind)){const size=w.kind==='gauss'?.09:.055;this.add(this.dynamic,'sphere',...m.muzzle,size,size,size,w.kind==='gauss'?[.25,.75,1]:[1,.63,.23],0,2.0);}
+   }
+   segment(a,b,width,color,emission=0){const v=b.map((n,i)=>n-a[i]),len=Math.hypot(...v);if(len<.001)return;this.add(this.dynamic,'body',...(a.map((v,i)=>(v+b[i])*.5)),width,width,len,color,0,emission,Math.atan2(v[0],v[2]),0,0,-Math.asin(D.clamp(v[1]/len,-1,1)),0);}
+diff --git a/src/equipment-simulation.js b/src/equipment-simulation.js
+index 95a2df6..c9d243d 100644
+--- a/src/equipment-simulation.js
++++ b/src/equipment-simulation.js
+@@ -7,7 +7,7 @@
+   setLightLookup(){super.setLightLookup();const base=this.dynamics.lightActive;this.dynamics.lightActive=i=>{const p=this.dynamics.byId.get(this.world.lights[i]?.id||'lamp:'+i);return base(i)&&!(p?.empUntil>this.time);};}
+   equipmentAvailable(){const p=this.player;return p.car===null&&!this.access&&!p.carry&&!(p.dodge>0)&&!(this.repairProgress>0)&&!(this.policeState?.surrender>0)&&p.health>0;}
+   cancelEquipment(){if(!this.equipment)return;Object.assign(this.equipment,{charge:0,trigger:false,blockedTrigger:true,aiming:false,aimWeight:0});}
+-  equipWeapon(id){if(!E.get(id))return false;const e=this.equipment;if(e.selected===id)return true;this.cancelEquipment();Object.assign(e,{selected:id,reloading:0,reloadId:null,recoil:0,cooldown:e.cooldown});this.emit('sound','equip');return true;}
++  equipWeapon(id){if(!E.get(id))return false;const e=this.equipment;if(e.selected===id)return true;this.cancelEquipment();Object.assign(e,{selected:id,reloading:0,reloadId:null,recoil:0,cooldown:e.cooldown});D.WeaponHandling.beginEquip(this);this.emit('sound','equip');return true;}
+   cycleOptics(delta){this.equipment.zoom=clamp(this.equipment.zoom+Math.sign(delta),0,3);return E.zoom[this.equipment.zoom];}
+   reloadWeapon(){const e=this.equipment,w=E.get(e.selected),ammo=e.ammo[w.id];if(!this.equipmentAvailable()||!w.mag||!ammo||e.reloading>0||ammo.loaded>=w.mag||ammo.reserve<=0)return false;e.charge=0;e.reloading=w.reload;e.reloadId=w.id;e.blockedTrigger=true;this.emit('sound','reload');return true;}
+   addWeaponEffect(f){if(this.weaponEffects.length>=96)this.weaponEffects.shift();this.weaponEffects.push(f);}
+@@ -109,7 +109,7 @@
+   respawn(reason){super.respawn(reason);this.cancelEquipment();if(this.equipment){this.equipment.reloading=0;this.equipment.cooldown=.25;}}
+   step(dt,input={}){if(!Number.isFinite(dt)||dt<=0)return;const h=Math.min(.25,dt)/Math.ceil(Math.min(.25,dt)*60),count=Math.ceil(Math.min(.25,dt)*60);for(let i=0;i<count;i++){this.equipmentStep(h,i===0?input:{...input,firePressed:false});super.step(h,input);this.projectileStep(h);for(const f of this.weaponEffects)f.life-=h;this.weaponEffects=this.weaponEffects.filter(f=>f.life>0);for(const m of this.weaponMarks)m.life-=h;this.weaponMarks=this.weaponMarks.filter(m=>m.life>0);if(this.empActive){const any=this.cars.some(c=>c.empUntil>this.time)||this.dynamics.props.some(o=>o.empUntil>this.time);if(!any){this.empActive=false;this.dynamics.lightRevision++;}}}}
+   serialize(){const data=super.serialize();data.equipment=E.snapshot(this.equipment||E.initial());return data;}
+-  restore(data){if(!E.valid(data?.equipment))return false;if(!super.restore(data))return false;this.equipment=E.restore(data.equipment);this.weaponEffects=[];this.weaponProjectiles=[];this.weaponMarks=[];this.empActive=false;this.shotHeatUntil=0;this.weaponId=0;for(const c of this.cars)c.empUntil=0;for(const o of this.dynamics.props)o.empUntil=0;this.setLightLookup();return true;}
++  restore(data){if(!E.valid(data?.equipment))return false;if(!super.restore(data))return false;this.equipment=E.restore(data.equipment);D.WeaponHandling.beginEquip(this);this.weaponEffects=[];this.weaponProjectiles=[];this.weaponMarks=[];this.empActive=false;this.shotHeatUntil=0;this.weaponId=0;for(const c of this.cars)c.empUntil=0;for(const o of this.dynamics.props)o.empUntil=0;this.setLightLookup();return true;}
+  }
+  D.EquipmentSimulation=EquipmentSimulation;D.Simulation=EquipmentSimulation;
+ })(DC);
+diff --git a/src/equipment-ui.js b/src/equipment-ui.js
+index b5f326f..5903b7e 100644
+--- a/src/equipment-ui.js
++++ b/src/equipment-ui.js
+@@ -26,8 +26,8 @@
+    if(mode!=='play'){for(const id of ['equipmentHUD','weaponReticle','opticsOverlay'])if($(id))$(id).hidden=true;document.body.classList.remove('equipped','optic-view');this.renderer.fovOverride=null;}
+   }
+   openArsenal(){if(!this.started||!['play','pause'].includes(this.mode))return;this.arsenalReturn=this.mode;this.pendingWeapon=this.sim.equipment.selected;this.weaponFilter='Todas';const fov=this.renderer.fovOverride;this.renderer.freezeHandling(this.sim);this.setMode('arsenal');this.renderer.fovOverride=fov;this.paintArsenal();$('closeArsenal').focus();}
+-  closeArsenal(){this.setMode(this.arsenalReturn==='pause'?'pause':'play');}
+-  selectEquipment(id,close=false){if(!E.get(id))return;this.clearWeaponInput();this.sim.equipWeapon(id);this.renderer.camera.weaponPitch=0;this.renderDirty=true;this.pendingWeapon=id;if(close)this.closeArsenal();this.toast(E.get(id).name+(id==='gauss'?' · mantén y suelta para disparar':id==='binoculars'?' · Z para observar, rueda para zoom':''));this.updateEquipmentHUD(performance.now());}
++  closeArsenal(){const frozen=this.renderer.frozenHandling?.equipment,mode=this.arsenalReturn==='pause'?'pause':'play';this.setMode(mode);if(mode==='play'&&frozen?.selected===this.sim.equipment.selected)this.sim.equipment.aimWeight=D.clamp(frozen.aimWeight||0,0,1);}
++  selectEquipment(id,close=false){if(!E.get(id))return;const changed=id!==this.sim.equipment.selected;this.clearWeaponInput();this.sim.equipWeapon(id);if(changed)this.renderer.camera.weaponPitch=0;this.renderDirty=true;this.pendingWeapon=id;if(close)this.closeArsenal();this.toast(E.get(id).name+(id==='gauss'?' · mantén y suelta para disparar':id==='binoculars'?' · Z para observar, rueda para zoom':''));this.updateEquipmentHUD(performance.now());}
+   paintArsenal(){
+    const host=$('weaponCards');host.replaceChildren();for(const b of $('weaponFilters').children)b.setAttribute('aria-pressed',String(b.dataset.group===this.weaponFilter));
+    for(const w of E.catalog){if(this.weaponFilter!=='Todas'&&w.group!==this.weaponFilter)continue;const b=document.createElement('button');b.type='button';b.className='weapon-card';b.dataset.weapon=w.id;b.setAttribute('aria-pressed',String(this.pendingWeapon===w.id));
+diff --git a/src/equipment.js b/src/equipment.js
+index b9659a9..8770582 100644
+--- a/src/equipment.js
++++ b/src/equipment.js
+@@ -40,7 +40,7 @@
+   }
+   hits.sort((a,b)=>a.distance-b.distance);return hits;
+  }
+- function mount(sim){return D.WeaponHandling.mount(sim);}
++ function mount(sim,actorOverride=null){return D.WeaponHandling.mount(sim,actorOverride);}
+ 
+  D.Equipment=Object.freeze({catalog:Object.freeze(catalog),zoom:Object.freeze(zoom),get:id=>byId.get(id)||null,initial,snapshot,valid,restore,rayBox,trace,endpoint,mount});
+ })(DC);
+diff --git a/src/page.html b/src/page.html
+index b236e30..e4d37e7 100644
+--- a/src/page.html
++++ b/src/page.html
+@@ -2,7 +2,7 @@
+ <html lang="es">
+ <head>
+ <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover"><meta name="theme-color" content="#091314"><meta name="description" content="Distrito Cero. Una aventura criminal 3D original, sin dependencias externas.">
+-<title>Distrito Cero v0.18 · Arsenal</title>
++<title>Distrito Cero v0.19 · Contacto articulado</title>
+ <style>/*__CSS__*/</style>
+ </head>
+ <body>
+@@ -14,7 +14,7 @@
+  <div class="landing-top"><div class="brand"><div class="brand-mark">DC.</div><div class="brand-name">DISTRITO CERO<br><span class="muted" style="font-size:8px;letter-spacing:1.6px">UNA CIUDAD. TUS REGLAS.</span></div></div><div class="right"><span class="mono muted">HORIZONTE / MUNDO PROCEDURAL</span><button id="landingAudio" class="icon-btn" aria-label="Activar o silenciar el sonido" title="Sonido">♫</button><button id="landingSettings" class="icon-btn" aria-label="Abrir ajustes" title="Ajustes">⚙</button></div></div>
+  <div class="landing-content"><div class="live-label">AVENTURA CRIMINAL · UN HORIZONTE ABIERTO</div><h1>DISTRITO<br><span>CERO</span></h1><p class="landing-description">La ciudad tiene un precio.<br><strong>Esta noche, tú decides quién lo paga.</strong></p><div class="start-buttons"><button id="start" class="primary">Entrar a la ciudad <span class="arrow">↗</span></button><button id="continue" class="secondary" hidden>Continuar</button></div><div class="landing-links"><button id="freeRoam" class="text-btn">Explorar sin historia ↗</button><button id="exploreHorizon" class="text-btn">Atlas de regiones ↗</button><button id="landingSaves" class="text-btn">Mis partidas ↗</button><button id="landingControls" class="text-btn">Controles y ajustes</button></div></div>
+  <div class="district-tag mono">UN TERRITORIO. MUCHAS FORMAS DE VIVIR.</div><div class="chapter-preview"><div class="number">CAPÍTULO 01 / 06</div><h3>La llamada</h3><p>Un coche prestado.<br>Un encargo sencillo.<br>Demasiados nombres.</p></div>
+- <div class="landing-bottom"><div class="landing-footer-left mono"><span>CIUDAD FICTICIA<br><span class="accent">NINGÚN CAMINO ES INOCENTE</span></span><span class="platform">EXPLORA / CONDUCE / DECIDE<br>EXPERIENCIA 3D EN TU NAVEGADOR</span></div><div class="landing-footer-right mono">AURICULARES RECOMENDADOS<br><span style="opacity:.65">PROTOTIPO JUGABLE · v0.18 · ARSENAL</span></div></div>
++ <div class="landing-bottom"><div class="landing-footer-left mono"><span>CIUDAD FICTICIA<br><span class="accent">NINGÚN CAMINO ES INOCENTE</span></span><span class="platform">EXPLORA / CONDUCE / DECIDE<br>EXPERIENCIA 3D EN TU NAVEGADOR</span></div><div class="landing-footer-right mono">AURICULARES RECOMENDADOS<br><span style="opacity:.65">PROTOTIPO JUGABLE · v0.19 · CONTACTO</span></div></div>
+ </section>
+ <section id="hud" hidden aria-label="Interfaz del juego">
+  <div class="hud-top"><div class="hud-wordmark"><span></span>DISTRITO CERO</div><div class="objective"><h2 id="objectiveTitle">LA LLAMADA</h2><p id="objectiveText">Contesta el teléfono de Lía.</p><span class="meta" id="objectiveMeta">CAPÍTULO 01 / 06</span></div></div>
+@@ -25,7 +25,7 @@
+  <aside id="equipmentHUD" hidden aria-label="Equipamiento activo"><div class="equipment-line"><button id="openArsenal" title="Selector de equipo (Tab)" aria-label="Abrir selector de armas y equipo"><span aria-hidden="true">▦</span><small>TAB</small></button><div><strong id="weaponName">Manos libres</strong><small id="weaponMode">TAB · EQUIPAMIENTO</small></div><b id="weaponAmmo">—</b></div><div id="weaponGauge" hidden><i id="weaponGaugeFill"></i></div><div class="equipment-actions"><button id="weaponAim" hidden aria-pressed="false">Z · Apuntar</button><button id="weaponReload" hidden>L · Recargar</button><button id="opticDown" hidden aria-label="Reducir zoom de binoculares">−</button><button id="opticUp" hidden aria-label="Aumentar zoom de binoculares">+</button><button id="opticMark" hidden>H · GPS</button></div></aside>
+ <div id="weaponReticle" hidden aria-hidden="true"><i></i><b id="chargeText"></b></div>
+ <div id="opticsOverlay" hidden aria-label="Vista de binoculares"><div class="optic-lenses"></div><div class="optic-top mono">ÓPTICA DE CAMPO <span id="opticMagnification">2×</span></div><div class="optic-compass mono" id="opticHeading">000°</div><div class="optic-center"><i></i></div><div class="optic-readout mono"><b id="opticRange">SIN RETORNO</b><span id="opticTarget">OBSERVANDO</span><small>RUEDA / + − · ZOOM &nbsp; H · MARCAR GPS</small></div></div>
+-<div id="impactRibbon" hidden role="status"></div><aside id="interactionDrawer" hidden aria-label="Guía de interacciones"><button id="closeInteractions" aria-label="Cerrar interacciones">×</button><small>INTERACCIONES / v0.18</small><h3>Una ciudad con ocupantes.</h3><p><kbd>F</kbd> Entrar, salir o cancelar</p><p class="note">Detén el coche y deja espacio junto a la puerta. Espera al cierre para conducir. Moverte cancela la secuencia.</p><p><kbd>E</kbd> Recoger, soltar o restaurar</p><p><kbd>G</kbd> Lanzar o empujar</p><p><kbd>X</kbd> Agacharse</p><p><kbd>Q</kbd> Esquivar a pie / bocina al conducir</p><p><kbd>V</kbd> Mantener junto al auto para reparar</p><p><kbd>ESPACIO</kbd> Saltar / freno de mano</p><button id="crouchButton" aria-pressed="false">AGACHARSE / LEVANTARSE</button><p class="note">Prueba las cajas junto al cruce inicial. Los golpes dañan zonas distintas del auto. Un poste roto deja de alumbrar. Restaurar el entorno cuesta $60.</p></aside><div id="marker" hidden><div class="marker-icon"></div><span id="markerDistance"></span></div><aside id="policePanel" hidden aria-label="Estado de la persecución">
++<div id="impactRibbon" hidden role="status"></div><aside id="interactionDrawer" hidden aria-label="Guía de interacciones"><button id="closeInteractions" aria-label="Cerrar interacciones">×</button><small>INTERACCIONES / v0.19</small><h3>Una ciudad con ocupantes.</h3><p><kbd>F</kbd> Entrar, salir o cancelar</p><p class="note">Detén el coche y deja espacio junto a la puerta. Espera al cierre para conducir. Moverte cancela la secuencia.</p><p><kbd>E</kbd> Recoger, soltar o restaurar</p><p><kbd>G</kbd> Lanzar o empujar</p><p><kbd>X</kbd> Agacharse</p><p><kbd>Q</kbd> Esquivar a pie / bocina al conducir</p><p><kbd>V</kbd> Mantener junto al auto para reparar</p><p><kbd>ESPACIO</kbd> Saltar / freno de mano</p><button id="crouchButton" aria-pressed="false">AGACHARSE / LEVANTARSE</button><p class="note">Prueba las cajas junto al cruce inicial. Los golpes dañan zonas distintas del auto. Un poste roto deja de alumbrar. Restaurar el entorno cuesta $60.</p></aside><div id="marker" hidden><div class="marker-icon"></div><span id="markerDistance"></span></div><aside id="policePanel" hidden aria-label="Estado de la persecución">
+  <div class="police-head"><span class="police-dot"></span><strong id="policePhase">PERSECUCIÓN ACTIVA</strong></div>
+  <p id="policeHint"></p>
+  <div id="bustWrap" hidden><div class="police-meter-label"><span>CAPTURA</span><b id="capturePercent">0%</b></div><div class="progress" role="progressbar" aria-label="Progreso de captura" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="captureProgress"><i id="bustFill"></i></div></div>
+diff --git a/src/skin-rig.js b/src/skin-rig.js
+index a9768d7..6c88d23 100644
+--- a/src/skin-rig.js
++++ b/src/skin-rig.js
+@@ -106,7 +106,7 @@
+   }
+   for(const [b,tgt] of [['spine',[.05,0,0]],['chest',[.025,0,0]],['pelvis',[0,0,0]]])rot[b]=rot[b].map((v,i)=>D.lerp(v,tgt[i],seated));
+   rot.spine[0]+=(n.bodyLean||0)*.45;rot.chest[0]+=(n.bodyLean||0)*.4;
+-  if(n.weaponPose){const w=n.weaponPose;rot.chest[1]-=.055*w.aim*(1-w.reload);rot['clavicleR'][2]-=.025*w.aim;rot['clavicleL'][1]+=.035*w.aim;}
++  if(n.weaponPose){const w=n.weaponPose;const brace=w.brace||0;rot.spine[1]+=.075*brace;rot.chest[1]+=.185*brace-.025*w.aim*(1-w.reload);rot['clavicleR'][2]-=.020*w.aim;rot['clavicleL'][1]+=.045*w.aim;rot.spine[0]+=.006*brace;rot.chest[0]-=.008*w.kick;}
+   // A compact neck cannot absorb the same twist in a tiny tissue span. Let the
+   // upper torso share deliberate large head turns; the final facing is retained.
+   const assist=(n.neckDrop>0&&Number.isFinite(n.lookYaw))?D.clamp(n.lookYaw,-.85,.85)*.34*D.clamp(n.neckDrop/.045,0,1.15)*(1-seated*.45):0;
+@@ -178,6 +178,11 @@
+   const origin=transformed(wrist,hb);for(let i=0;i<3;i++)wrist[12+i]+=hand[i]-origin[i];q.matrices.set(wrist,hi*16);
+  }
+  function handPoint(q,n,k){const p=transformed(q.matrices.subarray(ids['hand'+k]*16,ids['hand'+k]*16+16),bones[ids['hand'+k]][2]).map(v=>v*q.scale),c=Math.cos(n.yaw||0),s=Math.sin(n.yaw||0);return{x:(n.x||0)+p[0]*c+p[2]*s,y:q.rootY+p[1],z:(n.z||0)-p[0]*s+p[2]*c};}
++ function palmPoint(q,n,k){
++  const bind=bones[ids['hand'+k]][2],offset=D.WeaponHandling?.palmLandmark(k)||[k==='L'?.013:-.013,-.049,0];
++  const local=bind.map((v,i)=>v+offset[i]),m=q.matrices.subarray(ids['hand'+k]*16,ids['hand'+k]*16+16),p=transformed(m,local).map(v=>v*q.scale),c=Math.cos(n.yaw||0),s=Math.sin(n.yaw||0);
++  return{x:(n.x||0)+p[0]*c+p[2]*s,y:q.rootY+p[1],z:(n.z||0)-p[0]*s+p[2]*c};
++ }
+  function validate(data){
+   if(!(data instanceof Float32Array)||data.length===0||data.length%16)throw new Error('Invalid weighted vertex layout');
+   for(let i=0;i<data.length;i+=16){
+@@ -188,5 +193,5 @@
+   }return true;
+  }
+  function blink(time,seed=0){const period=3.7+seed*.8,t=((time+seed*7.31)%period+period)%period;if(t>.17)return 0;const f=1-Math.abs(t-.085)/.085;return f*f*(3-2*f);}
+- D.SkinRig={bones,ids,fingers,paletteWidth:bones.length*4,paletteStride:bones.length*16,blink,gripProfile,cervicalAngles,rest:()=>evaluate(),evaluate,transform:transformed,pose,validate,matrix,multiply,handPoint};
++ D.SkinRig={bones,ids,fingers,paletteWidth:bones.length*4,paletteStride:bones.length*16,blink,gripProfile,cervicalAngles,rest:()=>evaluate(),evaluate,transform:transformed,pose,validate,matrix,multiply,handPoint,palmPoint};
+ })(DC);
+diff --git a/src/weapon-handling.js b/src/weapon-handling.js
+index 31f2803..f89b6e3 100644
+--- a/src/weapon-handling.js
++++ b/src/weapon-handling.js
+@@ -1,90 +1,157 @@
+-/* Coordinated game-prop handling. All sockets are artistic, not mechanical specifications.
+- * One rigid mount drives the visible item, contact targets, moving magazine and muzzle.
+- * No DOM, random state, clocks, inventory writes or external dependencies in mount(). */
++/* Coordinated fictional game-prop contacts, v0.19.
++ * Surface anchors, wrist landmarks and visible pieces use the same rigid frame.
++ * Pure mounting reads. Animation springs are transient and never enter saves.
++ * These are artistic animation fixtures, not weapon engineering data. */
+ 'use strict';
+ (function(D){
+  const clamp=D.clamp,lerp=D.lerp;
+  const sm=(a,b,x)=>{const t=clamp((x-a)/(b-a),0,1);return t*t*(3-2*t);};
+  const mix=(a,b,t)=>a.map((v,i)=>lerp(v,b[i],t));
+  const vec=p=>({x:p[0],y:p[1],z:p[2]});
+- const PRIMARY={p:[.050,-.106,-.095],palm:[-1,0,0],fingers:[0,.16,.987117]};
+- const SUPPORT={p:[-.104,-.077,.225],palm:[0,1,0],fingers:[1,0,0]};
++ const add=(a,b)=>a.map((v,i)=>v+b[i]);
++ const sub=(a,b)=>a.map((v,i)=>v-b[i]);
++ // Palm-side contact reference relative to the existing neutral wrist joint.
++ // Mirrored X is the palm thickness. Negative Y runs from wrist into palm.
++ const palmLandmark=k=>[k==='L'?.013:-.013,-.049,0];
++ const PRIMARY={p:[.031,-.107,-.030],palm:[-1,0,0],fingers:[0,-.10,.994987]};
++ const SUPPORT={p:[-.003,-.047,.224],palm:[0,1,0],fingers:[.84,0,.542586]};
+  const profiles={
+   unarmed:{family:'none'},
+-  pistol:{family:'sidearm',support:{p:[-.043,-.111,-.101],palm:[1,0,0],fingers:[0,.16,.987117]},reload:'magazine'},
+-  revolver:{family:'sidearm',support:{p:[-.046,-.114,-.099],palm:[1,0,0],fingers:[0,.16,.987117]},reload:'cylinder'},
+-  smg:{family:'long',support:{...SUPPORT,p:[-.100,-.077,.207]},reload:'magazine'},
++  pistol:{family:'sidearm',support:{p:[-.040,-.113,-.037],palm:[1,0,0],fingers:[0,-.10,.994987]},reload:'magazine'},
++  revolver:{family:'sidearm',support:{p:[-.040,-.116,-.036],palm:[1,0,0],fingers:[0,-.10,.994987]},reload:'cylinder'},
++  smg:{family:'long',support:SUPPORT,reload:'magazine'},
+   rifle:{family:'long',support:SUPPORT,reload:'magazine'},
+-  shotgun:{family:'long',support:{...SUPPORT,p:[-.090,-.090,.218]},reload:'port'},
++  shotgun:{family:'long',support:{...SUPPORT,p:[-.003,-.080,.223]},reload:'port'},
+   sniper:{family:'long',support:SUPPORT,reload:'magazine'},
+-  gauss:{family:'heavy',support:{...SUPPORT,p:[-.115,-.139,.213]},reload:'magazine'},
+-  emp:{family:'heavy',support:{...SUPPORT,p:[-.100,-.128,.215]},reload:'magazine'},
+-  launcher:{family:'heavy',support:{...SUPPORT,p:[-.115,-.104,.222]},reload:'port'},
+-  baton:{family:'melee',primary:{p:[.032,.050,-.155],palm:[-1,0,0],fingers:[0,0,1]}},
+-  blade:{family:'melee',primary:{p:[.034,.050,-.150],palm:[-1,0,0],fingers:[0,0,1]}},
+-  grenade:{family:'throw',primary:{p:[.065,.075,-.010],palm:[-1,0,0],fingers:[0,-1,0]}},
+-  binoculars:{family:'optics',primary:{p:[.142,-.049,-.045],palm:[-1,0,0],fingers:[0,.20,.979796]},support:{p:[-.142,-.049,-.045],palm:[1,0,0],fingers:[0,.20,.979796]}}
++  gauss:{family:'heavy',support:{...SUPPORT,p:[-.006,-.092,.240]},reload:'magazine'},
++  emp:{family:'heavy',support:{...SUPPORT,p:[-.006,-.090,.230]},reload:'magazine'},
++  launcher:{family:'heavy',support:{...SUPPORT,p:[-.006,-.062,.240]},reload:'port'},
++  baton:{family:'melee',primary:{p:[.031,0,-.080],palm:[-1,0,0],fingers:[0,0,1]}},
++  blade:{family:'melee',primary:{p:[.025,0,-.080],palm:[-1,0,0],fingers:[0,0,1]}},
++  grenade:{family:'throw',primary:{p:[.056,.020,.015],palm:[-1,0,0],fingers:[0,-1,0]}},
++  binoculars:{family:'optics',primary:{p:[.113,-.020,.018],palm:[-1,0,0],fingers:[0,.20,.979796]},support:{p:[-.113,-.020,.018],palm:[1,0,0],fingers:[0,.20,.979796]}}
+  };
+- // All authored values remain immutable even when several actors use one weapon family.
+  function freeze(o){Object.values(o).forEach(v=>{if(v&&typeof v==='object'&&!Object.isFrozen(v))freeze(v);});return Object.freeze(o);}
+  freeze(profiles);
+- function profile(id){return profiles[id]||profiles.unarmed;}
++ const profile=id=>profiles[id]||profiles.unarmed;
++ function frame(palm,fingers){
++  const p=D.normalize(palm),dot=D.dot(p,fingers);
++  let f=sub(fingers,p.map(v=>v*dot));
++  if(Math.hypot(...f)<1e-6)f=D.cross(p,Math.abs(p[1])<.8?[0,1,0]:[0,0,1]);
++  return{palm:p,fingers:D.normalize(f)};
++ }
++ function palmOffset(k,orientation){
++  const side=k==='R'?1:-1,x=orientation.palm.map(v=>-side*v),y=orientation.fingers.map(v=>-v),z=D.cross(x,y),a=palmLandmark(k);
++  return x.map((v,i)=>v*a[0]+y[i]*a[1]+z[i]*a[2]);
++ }
++ function spring(x,v,omega,dt){const b=v+omega*x,d=Math.exp(-omega*dt);return[(x+b*dt)*d,(v-omega*b*dt)*d];}
++ function beginEquip(sim){const e=sim.equipment;return e.handling={item:e.selected,serial:e.shotSerial||0,kick:0,velocity:0,ready:0,triggerWeight:0,lagYaw:0,lagPitch:0,velYaw:0,velPitch:0,lastYaw:sim.player.yaw||0,lastPitch:e.pitch||0};}
+  function step(sim,dt){
+   if(!Number.isFinite(dt)||dt<=0)return;
+   const e=sim.equipment;if(!e)return;dt=Math.min(dt,.25);
++  const fam=profile(e.selected).family,omega=fam==='heavy'?19:fam==='sidearm'?25:22;
+   let h=e.handling;
+-  if(!h||h.item!==e.selected){h=e.handling={item:e.selected,serial:e.shotSerial||0,kick:0,velocity:0,ready:0};}
+-  if(h.serial!==(e.shotSerial||0)){h.serial=e.shotSerial||0;h.velocity=Math.min(65,h.velocity+42);}
+-  // Analytic critically damped spring, stable even on low frame rates.
+-  const omega=21,b=h.velocity+omega*h.kick,decay=Math.exp(-omega*dt);
+-  h.kick=(h.kick+b*dt)*decay;h.velocity=(h.velocity-omega*b*dt)*decay;
+-  h.ready=D.damp(h.ready,1,13,dt);
++  if(!h||h.item!==e.selected)h=beginEquip(sim);
++  if(h.serial!==(e.shotSerial||0)){h.serial=e.shotSerial||0;h.velocity=Math.min(65,h.velocity+(fam==='heavy'?40:fam==='sidearm'?37:31));}
++  [h.kick,h.velocity]=spring(h.kick,h.velocity,omega,dt);
++  h.ready=D.damp(h.ready,1,11,dt);
++  const trigger=!e.reloading&&(e.trigger||e.recoil>.72)?1:0;h.triggerWeight=D.damp(h.triggerWeight||0,trigger,trigger?40:22,dt);
++  const yaw=sim.player.yaw||0,pitch=e.pitch||0,dy=D.wrap(yaw-(h.lastYaw??yaw)),dp=pitch-(h.lastPitch??pitch);
++  if(Math.abs(dy)>1.2||Math.abs(dp)>1){h.lagYaw=h.lagPitch=h.velYaw=h.velPitch=0;}
++  else{
++   h.lagYaw=clamp((h.lagYaw||0)-dy*.10,-.045,.045);h.lagPitch=clamp((h.lagPitch||0)-dp*.09,-.035,.035);
++   [h.lagYaw,h.velYaw]=spring(h.lagYaw,h.velYaw||0,17,dt);[h.lagPitch,h.velPitch]=spring(h.lagPitch,h.velPitch||0,18,dt);
++  }
++  h.lastYaw=yaw;h.lastPitch=pitch;
+  }
+- function mount(sim){
+-  const p=sim.player,e=sim.equipment,w=D.Equipment.get(e.selected)||D.Equipment.get('unarmed'),spec=profile(w.id),family=spec.family;
+-  const aim=clamp(e.aimWeight||0,0,1),time=sim.time||0,speed=clamp(p.moveSpeed||0,0,6),phase=p.walk||0;
+-  const kick=clamp(e.handling?.kick??(e.recoil||0)*.45,0,1.3),ready=clamp(e.handling?.ready??1,0,1);
++ function actor(n,m,e){return{...n,neckDrop:m.neckDrop??n.neckDrop??0,handTargets:m.hands,handGrips:m.grips,
++  weaponPose:{aim:m.aim,reload:m.reload,family:m.family,kick:m.kick,brace:m.braceWeight||0},reach:.72,
++  bodyLean:m.aim*.020-m.kick*.022,lookYaw:-(m.braceWeight||0)*.235,lookPitch:-(e.pitch||0)*.50+m.aim*.025};}
++ function mount(sim,actorOverride=null){
++  const p=actorOverride||sim.player,e=sim.equipment,w=D.Equipment.get(e.selected)||D.Equipment.get('unarmed'),spec=profile(w.id),family=spec.family;
++  const aim=clamp(e.aimWeight||0,0,1),time=sim.time||0,speed=clamp(p.motion?.speed??p.moveSpeed??0,0,6),phase=p.motion?.phase??p.walk??0;
++  const state=e.handling?.item&&e.handling.item!==w.id?null:e.handling;
++  const kick=clamp(state?.kick??(e.recoil||0)*.45,0,1.3),ready=clamp(state?.ready??1,0,1);
+   const t=e.reloading>0&&w.reload?clamp(1-e.reloading/w.reload,0,1):0;
+-  const reload=sm(0,.16,t)*(1-sm(.82,1,t)),contact=sm(.05,.22,t)*(1-sm(.82,1,t));
+-  const heavy=family==='heavy',optic=family==='optics',sidearm=family==='sidearm',melee=family==='melee',thrown=family==='throw';
+-  const gait=clamp(speed/4,0,1)*(1-aim*.86)*(1-reload),sway=Math.sin(phase)*.010*gait;
++  const reload=sm(0,.16,t)*(1-sm(.82,1,t)),contact=sm(.045,.24,t)*(1-sm(.84,1,t));
++  const heavy=family==='heavy',optic=family==='optics',sidearm=family==='sidearm',melee=family==='melee',thrown=family==='throw',long=family==='long'||heavy;
++  const braceWeight=long?aim*(1-reload*.82)*ready:0;
++  const gait=clamp(speed/4,0,1)*(1-aim*.90)*(1-reload),sway=Math.sin(phase)*.007*gait;
++  const inertia={yaw:(state?.lagYaw||0)*(1-aim*.7),pitch:(state?.lagPitch||0)*(1-aim*.7)};
+   const eye=1.670-(D.CharacterFit?.drop(sim.appearance?.neckLength)||.045);
+-  const pos=[optic?0:sidearm?.075:melee||thrown?.22:.12,
+-   (p.y||0)+(optic?lerp(1.27,eye-.012,aim):melee||thrown?1.06:lerp(1.285,1.370,aim))-(p.crouch||0)*.22,
+-   optic?lerp(.22,.132,aim):sidearm?lerp(.23,.285,aim):melee||thrown?.22:lerp(.145,.235,aim)];
+-  pos[0]+=sway;pos[1]+=Math.sin(time*1.47)*.0018+Math.cos(phase*2)*.004*gait-(1-ready)*.065-reload*.04;
+-  pos[2]-=kick*(heavy?.026:.016)+reload*.10+(1-ready)*.055;
+-  const yaw=(p.yaw||0)+sway*.4;
+-  const pitch=(optic?(e.pitch||0)*aim:melee?-.30+kick*.9:thrown?-.26+kick*1.2:lerp(-.33,e.pitch||0,aim))+kick*(heavy?.07:.045)-reload*.30-(1-ready)*.20;
+-  const roll=reload*(sidearm?-.25:-.17)+Math.sin(phase+.35)*.020*gait;
++  const pos=[optic?0:sidearm?.045:melee||thrown?.22:.12,
++   (p.y||0)+(optic?lerp(1.27,eye-.012,aim):melee||thrown?1.06:lerp(1.285,sidearm?1.505:1.37,aim))-(p.crouch||0)*.22,
++   optic?lerp(.22,.135,aim):sidearm?lerp(.24,.515,aim):melee||thrown?.22:lerp(.145,.235,aim)];
++  pos[0]+=sway;pos[1]+=Math.sin(time*1.47)*.0014+Math.cos(phase*2)*.003*gait-(1-ready)*.06-reload*(sidearm?.11:.035);
++  pos[2]-=kick*(heavy?.023:.012)+reload*(sidearm?.11:.075)+(1-ready)*.05;
++  const yaw=(p.yaw||0)+sway*.3+inertia.yaw;
++  const pitch=(optic?(e.pitch||0)*aim:melee?-.30+kick*.9:thrown?-.26+kick*1.2:lerp(-.34,e.pitch||0,aim))+kick*(heavy?.050:.035)-reload*.25-(1-ready)*.18+inertia.pitch;
++  const roll=reload*(sidearm?-.22:-.14)+Math.sin(phase+.35)*.014*gait;
+   const cy=Math.cos(yaw),sy=Math.sin(yaw),cx=Math.cos(-pitch),sx=Math.sin(-pitch),cz=Math.cos(roll),sz=Math.sin(roll);
+-  // Same RY * RZ * RX convention as the production renderer's instance transform.
+   function direction(q){const x=q[0],y=q[1]*cx-q[2]*sx,z=q[1]*sx+q[2]*cx,xx=x*cz-y*sz,yy=x*sz+y*cz;return[xx*cy+z*sy,yy,-xx*sy+z*cy];}
+-  const origin=[(p.x||0)+pos[0]*Math.cos(p.yaw||0)+pos[2]*Math.sin(p.yaw||0),pos[1],(p.z||0)-pos[0]*Math.sin(p.yaw||0)+pos[2]*Math.cos(p.yaw||0)];
+-  const point=(x,y,z)=>direction([x,y,z]).map((v,i)=>v+origin[i]);
+-  function socket(s,k){const palm=direction(D.normalize(s.palm)),raw=direction(s.fingers),dot=D.dot(palm,raw),fingers=D.normalize(raw.map((v,i)=>v-dot*palm[i]));return{...vec(point(...s.p)),orientation:{palm,fingers},pole:k==='L'?[-.75,-1,-.22]:[.65,-1,-.16]};}
+-  const hands={},grips={};
+-  const primary=spec.primary||PRIMARY;
+-  if(family!=='none')hands.R=socket(primary,'R');
+-  let support=spec.support;
+-  const magazine={offset:[0,0,0],contact:[-.043,-.020,sidearm?-.016:.12]};
+-  if(reload){
+-   const pull=sm(.22,.44,t)*(1-sm(.62,.81,t));
+-   if(spec.reload==='magazine')magazine.offset=[-.024*pull,-.215*pull,.025*pull];
+-   const z=spec.reload==='cylinder'?.078:spec.reload==='port'?.24:sidearm?-.016:.12;
+-   const port={p:[-.046+magazine.offset[0],-.135+magazine.offset[1],z-.079+magazine.offset[2]],palm:[1,0,0],fingers:[0,.16,.987117]};
+-   if(spec.reload==='port')port.p[1]-=.055*Math.sin(Math.PI*sm(.2,.82,t));
+-   if(support)support={p:mix(support.p,port.p,contact),palm:D.normalize(mix(support.palm,port.palm,contact)),fingers:D.normalize(mix(support.fingers,port.fingers,contact))};
++  const c=Math.cos(p.yaw||0),s=Math.sin(p.yaw||0);
++  let origin=[(p.x||0)+pos[0]*c+pos[2]*s,pos[1],(p.z||0)-pos[0]*s+pos[2]*c];
++  // Derive the brace from the same procedural torso before its arm IK is solved.
++  const neckDrop=D.CharacterFit?.drop(sim.appearance?.neckLength)||.045;
++  const poseInfo={aim,reload,kick,family,braceWeight,neckDrop},posed=D.SkinRig&&D.NaturalMotion?D.SkinRig.pose(actor(p,poseInfo,e),time):null;
++  const shoulders={};
++  for(const k of['L','R']){
++   const bind=D.SkinRig?.bones[D.SkinRig.ids['upperArm'+k]]?.[2]||[k==='L'?-.2115:.2115,1.435,0];
++   const q=posed?D.SkinRig.transform(posed.matrices.subarray(D.SkinRig.ids['upperArm'+k]*16,D.SkinRig.ids['upperArm'+k]*16+16),bind):bind;
++   shoulders[k]=[(p.x||0)+q[0]*c+q[2]*s,q[1]+(posed?.rootY??((p.y||0)-(p.crouch||0)*.22)),(p.z||0)-q[0]*s+q[2]*c];
++  }
++  const stock=[0,-.012,-.238],shoulderTarget=add(shoulders.R,[.010*c+.024*s,-.040,-.010*s+.024*c]);
++  if(long){const planted=sub(shoulderTarget,direction(stock));origin=mix(origin,planted,braceWeight);origin=add(origin,direction([0,0,-kick*.007*braceWeight]));}
++  const pull=sm(.27,.46,t)*(1-sm(.62,.80,t));
++  const detached=spec.reload==='magazine'&&reload>0;
++  const magazine={offset:detached?[-.025*pull,-.211*pull,.025*pull]:[0,0,0],rotation:[0,0,detached?-.23*pull:0],
++   pivot:sidearm?[0,-.18,-.016]:[0,-.135,.12],surface:sidearm?[-.030,-.180,-.018]:[-.031,-.145,.12],attachedToHand:detached&&t>=.24&&t<=.84};
++  function partLocal(role,q){if(role!=='magazine')return q.slice();const z=magazine.rotation[2],co=Math.cos(z),si=Math.sin(z),v=sub(q,magazine.pivot);return add(add([v[0]*co-v[1]*si,v[0]*si+v[1]*co,v[2]],magazine.pivot),magazine.offset);}
++  const localRotate=(role,q)=>{if(role!=='magazine')return q.slice();const z=magazine.rotation[2],c=Math.cos(z),s=Math.sin(z);return[q[0]*c-q[1]*s,q[0]*s+q[1]*c,q[2]];};
++  const contacts={R:spec.primary||PRIMARY};let support=spec.support;
++  if(reload&&support){
++   const z=spec.reload==='cylinder'?.078:spec.reload==='port'?.22:sidearm?-.018:.12;
++   const surface=spec.reload==='magazine'?partLocal('magazine',magazine.surface):[-.051,-.105,z];
++   if(spec.reload==='port')surface[1]-=.045*Math.sin(Math.PI*sm(.2,.82,t));
++   const orientation=frame(localRotate('magazine',[1,0,0]),localRotate('magazine',[0,-.10,.994987]));
++   support={p:mix(support.p,surface,contact),...frame(mix(support.palm,orientation.palm,contact),mix(support.fingers,orientation.fingers,contact))};
++  }
++  if(support)contacts.L=support;
++  const localHands={},orientations={};
++  for(const [k,v]of Object.entries(contacts))if(family!=='none'){const f=frame(v.palm,v.fingers);orientations[k]=f;localHands[k]=sub(v.p,palmOffset(k,f));}
++  // Project a rigid mount into both reach spheres. No limb is scaled to reach a prop.
++  // The constraint takes precedence over a rigid shoulder brace at extreme angles.
++  let fitDistance=0;
++  if(posed&&family!=='none')for(let pass=0;pass<5;pass++)for(const k of Object.keys(localHands)){
++   const hand=add(origin,direction(localHands[k])),delta=sub(hand,shoulders[k]),len=Math.hypot(...delta),limit=.547;
++   if(len>limit){const d=(len-limit);const correction=delta.map(v=>-v/len*d);origin=add(origin,correction);fitDistance+=d;}
++  }
++  const point=(x,y,z)=>add(origin,direction([x,y,z]));
++  function socket(k){const local=localHands[k],o=orientations[k];return{...vec(point(...local)),orientation:frame(direction(o.palm),direction(o.fingers)),pole:k==='L'?[-.72,-1,-.18]:[.60,-1,-.30]};}
++  const hands={},palmContacts={},grips={};
++  for(const k of Object.keys(localHands)){hands[k]=socket(k);palmContacts[k]={...vec(point(...contacts[k].p)),local:contacts[k].p.slice()};}
++  const trigger=Number.isFinite(state?.triggerWeight)?clamp(state.triggerWeight,0,1):(!e.reloading&&(e.trigger||e.recoil>.72))?1:0;
++  function grip(amount,style){
++   const f={};for(const name of['index','middle','ring','little','thumb']){
++    const v=clamp(amount*(name==='little'?1.05:name==='ring'?1.025:1),0,.94);
++    f[name]=name==='thumb'?[v*.86,v*.34,v*.23]:[v*.97,v*1.36,v*.86];
++   }
++   if(style==='primary')f.index=mix([.10,.12,.08],[.43,.67,.30],trigger);
++   return{amount,style,fingers:f,indexLift:style==='primary'?lerp(-.10,.035,trigger):0};
++  }
++  grips.R=grip(optic?.38:melee?.78:thrown?.63:.76,optic?'optics':melee?'melee':thrown?'throw':'primary');
++  if(hands.L){const freeTravel=sm(.035,.13,t)*(1-sm(.20,.29,t))+sm(.84,.89,t)*(1-sm(.94,1,t));const holding=lerp(optic?.38:sidearm?.61:heavy?.53:.52,.70,contact);grips.L=grip(lerp(holding,.16,clamp(freeTravel,0,1)),reload?'reload':optic?'optics':sidearm?'wrap':'support');}
++  function partPoint(role,q){return point(...partLocal(role,q));}
++  function partTransform(role){
++   if(role!=='magazine'||!magazine.rotation[2])return{origin:partPoint(role,[0,0,0]),rx:-pitch,yaw,roll};
++   const x=direction(localRotate(role,[1,0,0])),y=direction(localRotate(role,[0,1,0])),z=direction(localRotate(role,[0,0,1]));
++   return{origin:partPoint(role,[0,0,0]),roll:Math.asin(clamp(x[1],-1,1)),rx:Math.atan2(-z[1],y[1]),yaw:Math.atan2(-x[2],x[0])};
+   }
+-  if(support)hands.L=socket(support,'L');
+-  const trigger=clamp(aim*.8+kick*.4,0,1);
+-  function grip(amount,style,indexLift=0){const f={};for(const name of['index','middle','ring','little','thumb']){const strength=name==='index'?(style==='primary'?lerp(.12,.43,trigger):.67):name==='thumb'?.63:name==='middle'?.95:name==='ring'?1:1.06;const v=clamp(amount*strength,0,.88);f[name]=name==='thumb'?[v*.91,v*.28,v*.18]:[v*.82,v*1.12,v*.66];}return{amount,style,fingers:f,indexLift};}
+-  grips.R=grip(optic?.40:melee?.82:thrown?.64:.80,optic?'optics':melee?'melee':thrown?'throw':'primary',optic||melee||thrown?0:lerp(-.05,.15,trigger));
+-  if(hands.L)grips.L=grip(lerp(optic?.40:sidearm?.72:heavy?.38:.52,.68,contact),reload?'reload':optic?'optics':sidearm?'wrap':'support');
+-  return{point,direction,yaw,pitch,roll,origin,hands,grips,magazine,reloadContact:contact,reload,aim,kick,ready,family,
++  const brace=long?{weight:braceWeight,target:shoulderTarget,stock:point(...stock),error:Math.hypot(...sub(point(...stock),shoulderTarget))}:null;
++  const reloadStage=!reload?'':t<.24?'Buscar agarre':t<.57?'Extraer':t<.82?'Insertar':t<.90?'Asentar':'Recuperar apoyo';
++  return{point,direction,partPoint,partTransform,yaw,pitch,roll,origin,hands,palmContacts,grips,magazine,reloadContact:contact,reload,reloadStage,aim,kick,ready,family,inertia,brace,braceWeight,fitDistance,neckDrop,
+    phase:reload?'Recargar':optic?(aim>.5?'Observar':'Transportar'):kick>.12?(melee?'Golpear':thrown?'Lanzar':'Recuperar'):aim>.5?'Apuntar':'Guardia baja',
+    muzzle:point(0,.012,w.length||.3),supportLocal:support?.p.slice()||null};
+  }
+- function actor(n,m,e){return{...n,handTargets:m.hands,handGrips:m.grips,weaponPose:{aim:m.aim,reload:m.reload,family:m.family,kick:m.kick},reach:.72,bodyLean:m.aim*.035-m.kick*.036,lookPitch:-(e.pitch||0)*.50};}
+- D.WeaponHandling=Object.freeze({profile,step,mount,actor});
++ D.WeaponHandling=Object.freeze({profile,step,beginEquip,mount,actor,palmLandmark});
+ })(DC);

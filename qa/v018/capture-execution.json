@@ -1,0 +1,32 @@
+[
+  {
+    "args": [
+      "rifle"
+    ],
+    "code": 0
+  },
+  {
+    "args": [
+      "gauss"
+    ],
+    "code": 0
+  },
+  {
+    "args": [
+      "reload"
+    ],
+    "code": 0
+  },
+  {
+    "args": [
+      "pistol"
+    ],
+    "code": 0
+  },
+  {
+    "args": [
+      "binoculars"
+    ],
+    "code": 0
+  }
+]

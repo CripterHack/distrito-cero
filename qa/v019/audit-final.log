@@ -1,0 +1,10 @@
+{
+  "logic": 328,
+  "browser": 271,
+  "export": 1,
+  "html": {
+    "bytes": 8839156,
+    "sha256": "3aa9a27f4941ea1c701069c61db133ab3c93087e35d833d4921ba25b8a4b059f"
+  },
+  "rebuild": true
+}

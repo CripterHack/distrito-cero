@@ -1,0 +1,83 @@
+{
+  "html": "7c5a3e017869843da5af6c4ae8383038d8a1be69f386c4aa0ae660a996e15a9b",
+  "errors": [],
+  "mode": "binoculars",
+  "gl": 0,
+  "stats": {
+    "selected": "binoculars",
+    "parts": 5,
+    "triangles": 588,
+    "hands": {
+      "R": {
+        "x": 4.142,
+        "y": 1.5635488853440966,
+        "z": 36.08569356224221,
+        "orientation": {
+          "palm": [
+            -1,
+            0,
+            0
+          ],
+          "fingers": [
+            0,
+            0.1734758090444406,
+            0.9848381306978202
+          ]
+        },
+        "pole": [
+          0.65,
+          -1,
+          -0.16
+        ]
+      },
+      "L": {
+        "x": 3.858,
+        "y": 1.5635488853440966,
+        "z": 36.08569356224221,
+        "orientation": {
+          "palm": [
+            1,
+            0,
+            0
+          ],
+          "fingers": [
+            0,
+            0.1734758090444406,
+            0.9848381306978202
+          ]
+        },
+        "pole": [
+          -0.75,
+          -1,
+          -0.22
+        ]
+      }
+    },
+    "phase": "Observar",
+    "magazine": {
+      "offset": [
+        0,
+        0,
+        0
+      ],
+      "contact": [
+        -0.043,
+        -0.02,
+        0.12
+      ]
+    },
+    "contacts": {
+      "L": {
+        "reachError": 0,
+        "twist": 0.5967534910405267,
+        "orientationError": 0
+      },
+      "R": {
+        "reachError": 0,
+        "twist": -0.46823750715081475,
+        "orientationError": 0
+      }
+    }
+  },
+  "geometryKeys": 71
+}

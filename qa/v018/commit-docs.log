@@ -1,0 +1,11 @@
+[feature/v018-handling 971238d] docs: document and reproduce v0.18 handling verification
+ 10 files changed, 308 insertions(+), 20 deletions(-)
+ create mode 100644 docs/v018/GUIA.md
+ create mode 100644 docs/v018/PLAN.md
+ create mode 100644 docs/v018/VERIFICACION.md
+ create mode 100644 tools/audit_handling_release.py
+ create mode 100644 tools/capture_handling_release.py
+ create mode 100644 tools/compose_handling_evidence.py
+ create mode 100644 tools/export_handling.py
+ create mode 100644 tools/package_handling.py
+ create mode 100644 tools/run_handling_browser.py

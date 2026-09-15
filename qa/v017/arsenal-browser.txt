@@ -1,0 +1,79 @@
+PASS Boot uses actual v0.17 simulation and renderer
+PASS Character creator and library still available
+PASS New named story begins with hands free
+PASS Tab opens accessible selector and pauses simulation
+PASS All fourteen catalogue entries present
+PASS Pending choice does not equip or spend resources
+PASS Closing cancels choice
+PASS Technology filter exposes Gauss and EMP
+PASS Selection equips the real Gauss model
+PASS Selecting from UI cannot discharge a weapon
+PASS Gauss charges while held without consuming cell
+PASS Gauss release consumes exactly one cell and emits trail
+PASS Pause cancels stored charge
+PASS Resuming does not release the cancelled charge
+PASS Window focus loss clears charge and pauses
+PASS Focus return cannot fire the old press
+PASS Fast native mouse click is captured once
+PASS Aimed shot damages the visible vehicle zone
+PASS Holding semiautomatic trigger does not repeat shots
+PASS Reload completes and preserves total ammunition
+PASS Right drag aims and adjusts camera yaw and pitch
+PASS Right release ends held aim
+PASS Automatic weapon repeats at a bounded cadence
+PASS EMP pulse disables nearby car without health damage
+PASS Distant car remains unaffected
+PASS Nearby lamp interruption does not destroy it
+PASS EMP does not clear the police alert
+PASS Disabled engine cannot accelerate from rest
+PASS Disabled headlight source is absent in production shader
+PASS Weapons are visually holstered while driving
+PASS EMP timer expires instead of becoming permanent damage
+PASS Launcher creates a moving projectile
+PASS Rocket travels instead of a hitscan only
+PASS Grenade survives before its fuse expires
+PASS Grenade detonates after fuse with bounded blast effect
+PASS Optics activate without weapon fire or ammo consumption
+PASS Mouse wheel changes real FOV to 8×
+PASS Ground measurement does not dereference an absent object
+PASS Observed surface creates GPS pin
+PASS Leaving optics restores nonzoom view
+PASS Hands-free returns original camera and interaction controls
+PASS Loading first slot restores its own Gauss ammunition
+PASS Loading second slot restores its own EMP
+PASS Downloaded catalogue contains both equipment inventories
+PASS Shared weapon model renders baton
+PASS Shared weapon model renders blade
+PASS Shared weapon model renders pistol
+PASS Shared weapon model renders revolver
+PASS Shared weapon model renders smg
+PASS Shared weapon model renders shotgun
+PASS Shared weapon model renders rifle
+PASS Shared weapon model renders sniper
+PASS Shared weapon model renders launcher
+PASS Shared weapon model renders grenade
+PASS Shared weapon model renders gauss
+PASS Shared weapon model renders emp
+PASS Shared weapon model renders binoculars
+PASS Geometry allocation remains bounded
+PASS Touch target reachable 390 openArsenal
+PASS Touch target reachable 390 touchFire
+PASS Touch target reachable 390 touchAim
+PASS Touch target reachable 390 touchCar
+PASS Touch target reachable 390 joystick
+PASS Touch target reachable 390 pauseButton
+PASS Touch hold charges Gauss 390
+PASS Touch cancellation cannot release Gauss 390
+PASS Mobile selector confirm is reachable 390
+PASS Touch target reachable 844 openArsenal
+PASS Touch target reachable 844 touchFire
+PASS Touch target reachable 844 touchAim
+PASS Touch target reachable 844 touchCar
+PASS Touch target reachable 844 joystick
+PASS Touch target reachable 844 pauseButton
+PASS Touch hold charges Gauss 844
+PASS Touch cancellation cannot release Gauss 844
+PASS Mobile selector confirm is reachable 844
+PASS No JavaScript or shader exceptions
+PASS No external network requests
+RESULT 78 0

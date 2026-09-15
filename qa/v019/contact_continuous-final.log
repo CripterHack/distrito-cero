@@ -1,0 +1,27 @@
+04:20:12 PASS All three embedded maps load during native loop
+04:20:13 PASS Live game boot
+04:20:14 PASS Native numeric selection draws Gauss
+04:20:21 PASS Gauss charges in untouched simulation loop
+04:20:21 PASS Native release fires and damages target
+04:20:28 PASS EMP pulse works through a short real key press
+04:20:28 PASS EMP produces a finite electronic timer
+04:20:29 PASS Binocular zoom changes live camera projection
+04:20:30 PASS Live optical observation marks a visible location
+04:20:30 PASS Selector pauses and disarms held inputs
+04:20:30 PASS Returning to hands free restores original view
+04:20:30 PASS Native loop continues across all equipment modes
+04:20:30 PASS Actual key begins extraction, not instant car access
+04:20:34 PASS Renderer uses independent actor palettes during extraction
+04:20:55 PASS Paired action completes in untouched loop
+04:20:55 PASS Real simulation time and frames advanced
+04:20:57 PASS No GL error after seat transfer
+04:21:15 PASS Newly occupied vehicle accelerates
+04:21:29 PASS Live exit restores on-foot control
+04:21:31 PASS Natural locomotion continues after exit
+04:21:39 PASS Continuous drive crosses streamed sector seam
+04:21:39 PASS World and crowd GPU allocations remain bounded
+04:21:45 PASS Atlas works with native loop
+04:21:51 PASS Final rendering without GL errors
+04:21:51 PASS No JavaScript or shader exceptions
+04:21:51 PASS No external requests
+RESULT 26 0

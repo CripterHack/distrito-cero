@@ -1,0 +1,22 @@
+[
+  {
+    "suite": "arsenal_browser.py",
+    "exit": 0,
+    "sha256": "fc2679da41268f6be0264c96f54a83ed77886157d67a27e87dbd125aa06d6f93"
+  },
+  {
+    "suite": "arsenal_library.py",
+    "exit": 0,
+    "sha256": "fc2679da41268f6be0264c96f54a83ed77886157d67a27e87dbd125aa06d6f93"
+  },
+  {
+    "suite": "arsenal_legacy.py",
+    "exit": 0,
+    "sha256": "fc2679da41268f6be0264c96f54a83ed77886157d67a27e87dbd125aa06d6f93"
+  },
+  {
+    "suite": "arsenal_continuous.py",
+    "exit": 0,
+    "sha256": "fc2679da41268f6be0264c96f54a83ed77886157d67a27e87dbd125aa06d6f93"
+  }
+]

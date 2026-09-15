@@ -1,0 +1,191 @@
+{
+  "version": "0.16",
+  "base": "0.15 Integración cervical",
+  "html": {
+    "bytes": 8757362,
+    "sha256": "7ccaff6042669755fdb18e920099519cda5af785113be9807bc952f3ee4f320c"
+  },
+  "glb": {
+    "bytes": 4360272,
+    "sha256": "2154216a0e1246c7d9e7ffe4a326e92b7240c84555102bb36714221dd73ed5d2"
+  },
+  "logic": 251,
+  "geometry": 47,
+  "browserChecks": 171,
+  "browsers": [
+    {
+      "file": "traits-browser.json",
+      "passed": 39,
+      "sha256": "7ccaff6042669755fdb18e920099519cda5af785113be9807bc952f3ee4f320c"
+    },
+    {
+      "file": "library-regression.json",
+      "passed": 64,
+      "sha256": "7ccaff6042669755fdb18e920099519cda5af785113be9807bc952f3ee4f320c"
+    },
+    {
+      "file": "legacy/browser-report.json",
+      "passed": 52,
+      "sha256": "7ccaff6042669755fdb18e920099519cda5af785113be9807bc952f3ee4f320c"
+    },
+    {
+      "file": "integration-continuous.json",
+      "passed": 16,
+      "sha256": "7ccaff6042669755fdb18e920099519cda5af785113be9807bc952f3ee4f320c"
+    }
+  ],
+  "gpuSamples": 432,
+  "fittedPoseSamples": 297,
+  "rebuildIdentical": true,
+  "images": [
+    {
+      "file": "review-before-neck.png",
+      "sha256": "1403e5c26f1a3a4141b61eb14e69cc2188a1cbc8374e6f5fca6b225e5f9b7c04",
+      "source_sha256": "c421ef6da3790652e7ad2642e9a87e0b816b71cd3174982179f86421f87b7d11",
+      "baseline": true
+    },
+    {
+      "file": "review-before-profile.png",
+      "sha256": "ea7e50c6459b3a8431ce25da7784f0c42829394c294124ecfc90d682419c3c3a",
+      "source_sha256": "c421ef6da3790652e7ad2642e9a87e0b816b71cd3174982179f86421f87b7d11",
+      "baseline": true
+    },
+    {
+      "file": "review-cast.png",
+      "sha256": "d41506408d32e4a704405a9143778490c8a8d3af7260d593a78acef3a2ae965f",
+      "source_sha256": "7ccaff6042669755fdb18e920099519cda5af785113be9807bc952f3ee4f320c",
+      "baseline": false
+    },
+    {
+      "file": "review-driver.png",
+      "sha256": "340ae47607672dd1cb21b280d7081437766058cb1878d49dc60cfac27f903fa8",
+      "source_sha256": "7ccaff6042669755fdb18e920099519cda5af785113be9807bc952f3ee4f320c",
+      "baseline": false
+    },
+    {
+      "file": "review-full.png",
+      "sha256": "198e1c2c05c6990497ffc708061ea155e9592528948ff2f8031e321939296bc5",
+      "source_sha256": "7ccaff6042669755fdb18e920099519cda5af785113be9807bc952f3ee4f320c",
+      "baseline": false
+    },
+    {
+      "file": "review-lookleft.png",
+      "sha256": "169e8d3acaf3c2a0eabe445503caf4f218bd9e57f4eda7b9f6c4e918c47f384f",
+      "source_sha256": "7ccaff6042669755fdb18e920099519cda5af785113be9807bc952f3ee4f320c",
+      "baseline": false
+    },
+    {
+      "file": "review-neck.png",
+      "sha256": "e374949c250c8066da9349cad9e36e90faf32f8749e6455329544d37b16825e6",
+      "source_sha256": "7ccaff6042669755fdb18e920099519cda5af785113be9807bc952f3ee4f320c",
+      "baseline": false
+    },
+    {
+      "file": "review-noddown.png",
+      "sha256": "0bb5a2b9afcdca0e1c897043551f90ded46125574672aa1b11e8cdce300e020a",
+      "source_sha256": "7ccaff6042669755fdb18e920099519cda5af785113be9807bc952f3ee4f320c",
+      "baseline": false
+    },
+    {
+      "file": "review-nodup.png",
+      "sha256": "eb8f5686b8ecc3a796a4b8df056b58a94714f75b2d0f48f784b76b0a515573f4",
+      "source_sha256": "7ccaff6042669755fdb18e920099519cda5af785113be9807bc952f3ee4f320c",
+      "baseline": false
+    },
+    {
+      "file": "review-police.png",
+      "sha256": "c05699eb37ecd66aa9f67035de8e3a90f683a8b0bddc1bcd90903c1daef236de",
+      "source_sha256": "7ccaff6042669755fdb18e920099519cda5af785113be9807bc952f3ee4f320c",
+      "baseline": false
+    },
+    {
+      "file": "review-profile.png",
+      "sha256": "6919b2ef2a90e63a278b5b36ee63a9ec187c90cc9580793a04031d38d5ba7290",
+      "source_sha256": "7ccaff6042669755fdb18e920099519cda5af785113be9807bc952f3ee4f320c",
+      "baseline": false
+    },
+    {
+      "file": "review-pull.png",
+      "sha256": "2069e905a5260fd347dcff3009ef010c521823be4c42289a92aefb5c5ff19e80",
+      "source_sha256": "7ccaff6042669755fdb18e920099519cda5af785113be9807bc952f3ee4f320c",
+      "baseline": false
+    },
+    {
+      "file": "review-run.png",
+      "sha256": "6881e8625e851db658fc8c250a8c96b27b8042b31e16b1ef3780a97b227b0cfe",
+      "source_sha256": "7ccaff6042669755fdb18e920099519cda5af785113be9807bc952f3ee4f320c",
+      "baseline": false
+    },
+    {
+      "file": "review-thick.png",
+      "sha256": "8c16ebbfd4f55e6610f2c20411fbc2ae34f7d88cfeb623a649109c2ecb629b0b",
+      "source_sha256": "7ccaff6042669755fdb18e920099519cda5af785113be9807bc952f3ee4f320c",
+      "baseline": false
+    },
+    {
+      "file": "review-thin.png",
+      "sha256": "0c035f58e08a5922d957bd47f1714bb9eef32b1850de9c640cc97c5ce2da6040",
+      "source_sha256": "7ccaff6042669755fdb18e920099519cda5af785113be9807bc952f3ee4f320c",
+      "baseline": false
+    }
+  ],
+  "sourceHashes": {
+    "build.py": "e170d4ee014d64c3aa9919bae3efcf2f1563d96e7bab42429f1c4991c40587a1",
+    "src/app.js": "b9ed33cbdda9ff6403120e8f86a5dadf8cb4bc8bd2dd36fc0bc0dffb7d4f13df",
+    "src/appearance.js": "f63382e887310320cc566e63ceaac77f049e310350fe3284c9e675f8bd9f3a31",
+    "src/audio.js": "b5542175cda159c3868b3d5c4c7250b4c8d5cd84615836ff8bf3e9eaccad9315",
+    "src/cast-renderer.js": "78f136ffce65dc69144b39ed1d232fefcbdccb1ac6ebbe885fb31bc73425390f",
+    "src/character-fit.js": "efdf174324622f53f2be64763bb47c1e6401e9ea637d72cd403dd93caa2223e7",
+    "src/character-motion.js": "9e87594e74732c1eb590a6ad46b6e90882584bb53575699cce6e8463846e984a",
+    "src/core.js": "b1d0f35f9a6351c4db4a9648c20b161ce8bb5037d1b6eb3cec103d4e91be9ce9",
+    "src/crowd-geometry.js": "f010b0a8e1ab91cd2f03e6397dc940732ba63cec76ac9645bebe0300a8f6cb81",
+    "src/dual-quaternion.js": "cf2d72966dec06f5a4e53265a4ec6b3ed983749534027885930fd93cb3516ca4",
+    "src/dynamics.js": "23fb55d52982200881b0f2648fbd2b2e1e90a973367bf7cb77bf666ba1364e34",
+    "src/frontier-renderer.js": "e8c136da8329cbab78381655aeac2a99fda7d2ec7fc643c8d75f7ccf7b6c625f",
+    "src/frontier-simulation.js": "8d05a4390cc06d53eaa6fbf716c1900052343b5f87185affd90acad5c54d5a85",
+    "src/frontier-ui.js": "f2cb10a787c7b3aa3fc70d642bb27a573a76fbbd8a766c3f3f95e03dea8cf6fd",
+    "src/frontier-world.js": "f89bcb30acc1b03b4ea0350cd55f2df960d560c83881f7f794b34b640556ac0d",
+    "src/hair-geometry.js": "240b745e08b42ab84f3ffaaceecec9ed1da92a887044543bcd6a3c6c9bdfcc7a",
+    "src/hero-asset.js": "7dedf527bfe9e257c3067a4db063521e09a72d680ed2f8323fedd69a202ee5f4",
+    "src/human-materials.js": "48effe6fbf4aa9bea65b7369cdb78a907e58b7d6dcb90b52155aae220b54dde8",
+    "src/identity-ui.js": "7dd32b0bf158714d0bedf892ad197ec814667b6d8c2a3aafdcda790b22b0e3b5",
+    "src/interactions.js": "1dfb8b5475577131af50442cd2278a4b52af256d063d986a7c220c780d0318be",
+    "src/occupancy.js": "3ed6dc23d56b485e9a7c18d447ac2acf74b922b524911b2910fb8025d516ba00",
+    "src/page.html": "c478ced6553bc24cfe1ad0781501f8df29b6ecd1e5fafc8760d729bf89653c57",
+    "src/police.js": "797ac841a39442aa317004710a6a85f467e7a945cee6b14dfa1eba0c47440322",
+    "src/reactive-renderer.js": "cc09c2d9f019888c59b5ec0c0f1429aca55b1cbf1329815cae03364302deb1e7",
+    "src/realism-renderer.js": "177da4335a9dfe040b14e789365609ee70fd877f4c174a616ec50fb4e1f32970",
+    "src/renderer.js": "1cb9f58a14b6b673223823f9b5afb07593c49a603230a5ad9e1e6490aaeabb57",
+    "src/save-store.js": "48d9a547dedf79e60610bd535e882cb4c762eca92171461a71b99c4d7b886a5e",
+    "src/simulation.js": "49955078fb7649441af6c49488f7e60ebd0f4ebd424a3688e3b0621715037039",
+    "src/skin-rig.js": "00b0fb80e130637c9df6fc4bae64bcd0e4cc748320cd402eb4ba06f7756fac31",
+    "src/style.css": "147d0276f45f00cb57693063c3ead5124121f8678b5c846a9c33395818dbaf5e",
+    "src/vehicle-asset.js": "8170c4ba4debe5133c75d5629c8c774dfd1609188675499cec6d90bd5da3f6ac",
+    "src/visual-geometry.js": "94f2eeaceff571f79be60e9796c84096217fbc41ff125c3361134aadfc176ad2",
+    "src/world.js": "0792973473b56dcf97bd5c296d379bc3db1738e8b6f6543a8e954a1ca3830c7c",
+    "docs/v016/GUIA.md": "9a604f0efcb9fd07a795ac199c86601763b2bdad297b82bb6d8e47465e4bdaa7",
+    "docs/v016/PLAN.md": "f6041edc71ad2aef866ecc6b3c1c611f7e8b61ec3999d3cc216d61aa90476b48",
+    "docs/v016/VERIFICACION.md": "09f7b9fff51b4bda5e87449ef72a1c431194c6deb04d3bf218d22d41a77a7e6b",
+    "tests/traits.test.cjs": "a2318cb07538cf97257be9715dedc372a6a6809c8d1f91d31ffef6768efa3629",
+    "tests/traits_browser.py": "b4d979e574aa780d47fa1ba763b480d42909790d383c5994537bf77629dcc5a7",
+    "tests/traits_capture.py": "b86caa4682cdaab1b61175744d9711e66bc87e2e4a599eaf55f728f2da50c0be",
+    "tests/traits_clip.py": "f2b2cb5840d0176217ef75fa5c4802856983d3ab8542c1e6a35e6a6929946b32",
+    "tests/traits_continuous.py": "ba0dc365602baba91e836e940bb3ff8ae14dbcdb793d408345e3557d213d78b8",
+    "tests/traits_creator_capture.py": "3ceb737b12a2f801c43aad5441f46917d303a89f8e8c082b52db7d1fc5d38e43",
+    "tests/traits_export.test.py": "30f87c2460aff1db4992ae431b2ad2f7c5af9347fdcfea1429beda6e7a9f395f",
+    "tests/traits_gallery.py": "8da8a6cc3a8ed9213fb78da76f3819dc9a8003b65082dc2675e6294550628e5c",
+    "tests/traits_gpu.js": "9f871695e45b30fc8d615d7e57df1c0a79139c9d099ff269ad00e294c7ad2239",
+    "tests/traits_legacy.py": "5156391a9e16543b70d45cc84e8a820aad56307923ba0130ebc2c861d90be354",
+    "tests/traits_library.py": "2e791b470d33e556749f5b4376aff3b04c1bac6ce37b407f1e630ff00e88ef9c",
+    "tests/traits_pose.test.py": "7fb902617164d1f3e019e2870a16649e76c5d8f7b1e7de77b35504f12c247835",
+    "tests/traits_scene_capture.py": "5774e1afc9c01b7251bcd38dc0cbccac7d5ce41cddd666ee45bbc31a327a1219",
+    "tools/audit_traits_release.py": "70fb0e58a56073b95dd8d3b3babc6b5da8fdf99fef2dbb157f878f00bc4b2a99",
+    "tools/capture_traits_release.py": "fd921f4cb1a45d708c671b4a4d825e23e043191d97c054023e173e4991cd8abb",
+    "tools/compose_traits_comparison.py": "e624c12a813841a39a8ada814c0297bc53256381b015d178b65fc046511e9f34",
+    "tools/compose_traits_gallery.py": "1ca265e7a789014a8315e51708b172f9119f69b701d32b4155c94464d53770f3",
+    "tools/export_traits_glb.py": "da97163fc47b9ec51ff1677c9b7cd6af670a54212a9e56734ba1860a419c4750",
+    "tools/run_traits_browser.py": "ac611ed96cd0c95c15cb7fab7cd87fb8c8c5cea20e46b88e28d62c9cc21eb6d0",
+    "tools/run_traits_geometry.py": "2dea5da53c73b2df3ea42b5a21364fd0bfb617449b973ab7dc42cede482d04d5"
+  },
+  "limitations": "Stylized, not AAA/photorealistic. Chromium/SwiftShader, memory storage fixture, prepared scene positions. No physical GPU FPS, native file reopen persistence, physical phone or general collision guarantee."
+}

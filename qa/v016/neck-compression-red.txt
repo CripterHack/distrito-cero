@@ -1,0 +1,14 @@
+..F.
+======================================================================
+FAIL: test_fitted_neck_edges_not_degenerate_in_study_poses (__main__.FittedPoses.test_fitted_neck_edges_not_degenerate_in_study_poses)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/data/dc-v016-work/distrito-cero/tests/traits_pose.test.py", line 59, in test_fitted_neck_edges_not_degenerate_in_study_poses
+    self.assertGreater(minimum,.20);self.assertLess(maximum,2.2)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+AssertionError: np.float64(0.19013335742160611) not greater than 0.2
+
+----------------------------------------------------------------------
+Ran 4 tests in 2.050s
+
+FAILED (failures=1)

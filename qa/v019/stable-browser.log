@@ -1,0 +1,91 @@
+2026-09-15T04:06:37.968Z pw:browser <launching> /usr/bin/chromium --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=AcceptCHFrame,AvoidUnnecessaryBeforeUnloadCheckSync,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument,OptimizationHints --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --enable-automation --disable-infobars --disable-search-engine-choice-screen --disable-sync --no-sandbox --no-sandbox --use-angle=swiftshader --enable-unsafe-swiftshader --disable-dev-shm-usage --user-data-dir=/tmp/playwright_chromiumdev_profile-WXk3Qt --remote-debugging-pipe --no-startup-window
+2026-09-15T04:06:37.972Z pw:browser <launched> pid=4981
+2026-09-15T04:06:38.061Z pw:browser [pid=4981][err] [4981:5009:0915/040638.059919:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
+2026-09-15T04:06:38.143Z pw:browser [pid=4981][err] [4981:5009:0915/040638.143507:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-09-15T04:06:38.143Z pw:browser [pid=4981][err] [4981:5009:0915/040638.143567:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
+2026-09-15T04:06:38.143Z pw:browser [pid=4981][err] [4981:5009:0915/040638.143580:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
+2026-09-15T04:06:38.165Z pw:browser [pid=4981][err] [4981:5009:0915/040638.163323:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-09-15T04:06:38.190Z pw:browser [pid=4981][err] [4981:4981:0915/040638.190453:ERROR:dbus/object_proxy.cc:573] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-09-15T04:06:38.190Z pw:browser [pid=4981][err] [4981:5009:0915/040638.190547:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-09-15T04:06:38.194Z pw:browser [pid=4981][err] [4981:4981:0915/040638.194083:ERROR:dbus/object_proxy.cc:573] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-09-15T04:06:38.197Z pw:browser [pid=4981][err] [4981:4981:0915/040638.196806:ERROR:dbus/object_proxy.cc:573] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-09-15T04:06:38.197Z pw:browser [pid=4981][err] [4981:5009:0915/040638.197070:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
+2026-09-15T04:06:38.197Z pw:browser [pid=4981][err] [4981:5009:0915/040638.197087:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
+2026-09-15T04:06:38.198Z pw:browser [pid=4981][err] [4981:4981:0915/040638.198219:ERROR:dbus/object_proxy.cc:573] Failed to call method: org.freedesktop.DBus.Properties.GetAll: object_path= /org/freedesktop/UPower/devices/DisplayDevice: unknown error type: 
+2026-09-15T04:06:38.232Z pw:browser [pid=4981][err] [4981:5009:0915/040638.232629:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-09-15T04:06:38.232Z pw:browser [pid=4981][err] [4981:5009:0915/040638.232662:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+PASS Actual renderer uses oriented contacts for both hands
+PASS Palmar anchors are exposed independently of wrists
+PASS Skin-rig palm references coincide with actual renderer contacts
+PASS Selector is a modal layered above the world canvas
+PASS World time stays paused while selector is open
+PASS Camera and projection do not jump when opening
+PASS Weapon pose is frozen before cancelling aim and trigger
+PASS Ammunition is not changed by open or cancellation
+PASS Overlay alpha leaves the game readable beneath
+PASS Main panel itself is translucent
+PASS Transparency is not applied to text or entire dialog
+PASS Cards and detail no longer have opaque backgrounds
+2026-09-15T04:06:44.269Z pw:browser [pid=4981][err] [4981:5009:0915/040644.269393:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-09-15T04:06:44.273Z pw:browser [pid=4981][err] [4981:4981:0915/040644.273371:ERROR:dbus/object_proxy.cc:573] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-09-15T04:06:44.297Z pw:browser [pid=4981][err] [4981:5009:0915/040644.297697:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-09-15T04:06:44.298Z pw:browser [pid=4981][err] [4981:5009:0915/040644.297744:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-09-15T04:06:44.298Z pw:browser [pid=4981][err] [4981:4981:0915/040644.297889:ERROR:dbus/object_proxy.cc:573] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-09-15T04:06:44.298Z pw:browser [pid=4981][err] [4981:4981:0915/040644.297907:ERROR:dbus/object_proxy.cc:573] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+PASS Reverse Tab stays inside selector
+PASS Tab cycles back to the close button
+PASS Gameplay keys cannot shoot or access vehicles behind the modal
+PASS Preview selection does not change equipped model
+PASS Confirm equips and releases the frozen pose
+PASS Equip click does not leak through to fire
+PASS Focus returns to game after confirmation
+PASS Reload detaches the single visible magazine
+PASS Reload has a reachable supporting wrist orientation
+PASS Opening selector pauses the current reload
+PASS Reload resumes and fills once after closing
+PASS Animated/crouched renderer maintains palmar contacts
+PASS Sidearm aiming extends the dominant hand forward
+PASS Aimed primary index remains relaxed without fire input
+PASS Aimed stock and articulated shoulder share a close brace
+PASS Magazine has a visible cant during handling
+PASS Recarga has a distinct extraction phase
+PASS Shared model and reachable contact: pistol
+PASS Shared model and reachable contact: revolver
+PASS Shared model and reachable contact: smg
+PASS Shared model and reachable contact: shotgun
+PASS Shared model and reachable contact: sniper
+PASS Shared model and reachable contact: launcher
+PASS Shared model and reachable contact: grenade
+PASS Shared model and reachable contact: baton
+PASS Shared model and reachable contact: blade
+PASS Shared model and reachable contact: emp
+PASS Shared model and reachable contact: binoculars
+PASS Closing selector preserves the visible aim blend
+PASS Returning from selector lowers smoothly with no revived aim or trigger
+PASS New equipment is initialized in its lowered presentation before rendering
+PASS Cancelling a held Gauss charge never fires
+PASS Touch close and confirm reachable 390
+2026-09-15T04:07:22.531Z pw:browser [pid=4981][err] [4981:5009:0915/040722.531408:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-09-15T04:07:22.531Z pw:browser [pid=4981][err] [4981:4981:0915/040722.531541:ERROR:dbus/object_proxy.cc:573] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-09-15T04:07:22.531Z pw:browser [pid=4981][err] [4981:5009:0915/040722.531576:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-09-15T04:07:22.531Z pw:browser [pid=4981][err] [4981:5009:0915/040722.531583:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-09-15T04:07:22.531Z pw:browser [pid=4981][err] [4981:4981:0915/040722.531741:ERROR:dbus/object_proxy.cc:573] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-09-15T04:07:22.531Z pw:browser [pid=4981][err] [4981:4981:0915/040722.531756:ERROR:dbus/object_proxy.cc:573] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+PASS Touch selection retains playability 390
+PASS Touch close and confirm reachable 844
+2026-09-15T04:07:25.109Z pw:browser [pid=4981][err] [4981:5009:0915/040725.109059:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-09-15T04:07:25.109Z pw:browser [pid=4981][err] [4981:4981:0915/040725.109386:ERROR:dbus/object_proxy.cc:573] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-09-15T04:07:25.109Z pw:browser [pid=4981][err] [4981:5009:0915/040725.109431:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-09-15T04:07:25.109Z pw:browser [pid=4981][err] [4981:5009:0915/040725.109457:ERROR:dbus/bus.cc:406] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+2026-09-15T04:07:25.109Z pw:browser [pid=4981][err] [4981:4981:0915/040725.109486:ERROR:dbus/object_proxy.cc:573] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-09-15T04:07:25.109Z pw:browser [pid=4981][err] [4981:4981:0915/040725.109491:ERROR:dbus/object_proxy.cc:573] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+PASS Touch selection retains playability 844
+PASS No JS or shader error
+PASS No external resource requests
+PASS No final GL error
+2026-09-15T04:07:25.437Z pw:browser [pid=4981] <gracefully close start>
+2026-09-15T04:07:26.084Z pw:browser [pid=4981] <process did exit: exitCode=0, signal=null>
+2026-09-15T04:07:26.084Z pw:browser [pid=4981] starting temporary directories cleanup
+2026-09-15T04:07:26.090Z pw:browser [pid=4981] finished temporary directories cleanup
+2026-09-15T04:07:26.090Z pw:browser [pid=4981] <gracefully close end>
+RESULT 51 0

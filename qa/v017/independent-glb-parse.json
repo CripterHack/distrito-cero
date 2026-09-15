@@ -1,0 +1,18 @@
+{
+  "geometries": 65,
+  "triangles": 8184,
+  "bounds": [
+    [
+      -0.11599999666213989,
+      -0.22499999403953552,
+      -0.16500000655651093
+    ],
+    [
+      4.19749999344349,
+      0.18000000715255737,
+      4.479999995231628
+    ]
+  ],
+  "finite": true,
+  "interpretation": "Independent parsing only, not an external-editor visual test or Khronos certification."
+}

@@ -1,0 +1,12 @@
+[feature/v018-handling 1c481d3] feat: oriented equipment handling and translucent arsenal overlay
+ 22 files changed, 838 insertions(+), 74 deletions(-)
+ create mode 100644 src/weapon-handling.js
+ create mode 100644 tests/handling.test.cjs
+ create mode 100644 tests/handling_arsenal.py
+ create mode 100644 tests/handling_browser.py
+ create mode 100644 tests/handling_capture.py
+ create mode 100644 tests/handling_clip.py
+ create mode 100644 tests/handling_continuous.py
+ create mode 100644 tests/handling_exports.test.py
+ create mode 100644 tests/handling_legacy.py
+ create mode 100644 tests/handling_library.py

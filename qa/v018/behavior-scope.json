@@ -1,0 +1,47 @@
+{
+  "baseCommit": "a3a8b84b0a4a53421a0e03c4fbf07c23e22da0f2",
+  "modified": [
+    "src/cast-renderer.js",
+    "src/equipment-geometry.js",
+    "src/equipment-renderer.js",
+    "src/equipment-simulation.js",
+    "src/equipment-ui.js",
+    "src/equipment.js",
+    "src/page.html",
+    "src/skin-rig.js",
+    "src/style.css"
+  ],
+  "unchanged": [
+    "src/app.js",
+    "src/appearance.js",
+    "src/audio.js",
+    "src/character-fit.js",
+    "src/character-motion.js",
+    "src/core.js",
+    "src/crowd-geometry.js",
+    "src/dual-quaternion.js",
+    "src/dynamics.js",
+    "src/frontier-renderer.js",
+    "src/frontier-simulation.js",
+    "src/frontier-ui.js",
+    "src/frontier-world.js",
+    "src/hair-geometry.js",
+    "src/hero-asset.js",
+    "src/human-materials.js",
+    "src/identity-ui.js",
+    "src/interactions.js",
+    "src/occupancy.js",
+    "src/police.js",
+    "src/reactive-renderer.js",
+    "src/realism-renderer.js",
+    "src/renderer.js",
+    "src/save-store.js",
+    "src/simulation.js",
+    "src/vehicle-asset.js",
+    "src/visual-geometry.js",
+    "src/world.js"
+  ],
+  "new": [
+    "src/weapon-handling.js"
+  ]
+}

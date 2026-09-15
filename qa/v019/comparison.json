@@ -1,0 +1,27 @@
+{
+  "pairs": [
+    {
+      "mode": "rifle",
+      "beforeHtml": "7c5a3e017869843da5af6c4ae8383038d8a1be69f386c4aa0ae660a996e15a9b",
+      "afterHtml": "3aa9a27f4941ea1c701069c61db133ab3c93087e35d833d4921ba25b8a4b059f",
+      "crop": [
+        225,
+        110,
+        910,
+        640
+      ]
+    },
+    {
+      "mode": "pistol",
+      "beforeHtml": "7c5a3e017869843da5af6c4ae8383038d8a1be69f386c4aa0ae660a996e15a9b",
+      "afterHtml": "3aa9a27f4941ea1c701069c61db133ab3c93087e35d833d4921ba25b8a4b059f",
+      "crop": [
+        225,
+        110,
+        910,
+        640
+      ]
+    }
+  ],
+  "retouch": false
+}

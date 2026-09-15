@@ -1,0 +1,40 @@
+TAP version 13
+# Subtest: switching equipment initializes its lowered pose before the first frame
+ok 1 - switching equipment initializes its lowered pose before the first frame
+  ---
+  duration_ms: 46.628159
+  type: 'test'
+  ...
+# Subtest: closing a selector preserves only the visible aim blend, never trigger state
+ok 2 - closing a selector preserves only the visible aim blend, never trigger state
+  ---
+  duration_ms: 19.944685
+  type: 'test'
+  ...
+# Subtest: closing after a different selection does not inherit the old pose
+ok 3 - closing after a different selection does not inherit the old pose
+  ---
+  duration_ms: 21.115121
+  type: 'test'
+  ...
+# Subtest: pause-return does not retain an armed input or visual aiming request
+ok 4 - pause-return does not retain an armed input or visual aiming request
+  ---
+  duration_ms: 14.966242
+  type: 'test'
+  ...
+# Subtest: restoring an equipped save initializes presentation before the first rendered frame
+ok 5 - restoring an equipped save initializes presentation before the first rendered frame
+  ---
+  duration_ms: 27.731569
+  type: 'test'
+  ...
+1..5
+# tests 5
+# suites 0
+# pass 5
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 216.410728

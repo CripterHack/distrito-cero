@@ -1,0 +1,2539 @@
+{
+  "triangles": 85209,
+  "parts": [
+    {
+      "name": "jacket",
+      "color": [
+        0.105,
+        0.165,
+        0.155
+      ],
+      "material": 31,
+      "vertices": 48078
+    },
+    {
+      "name": "pants",
+      "color": [
+        0.048,
+        0.065,
+        0.081
+      ],
+      "material": 32,
+      "vertices": 53817
+    },
+    {
+      "name": "skin",
+      "color": [
+        0.48,
+        0.3,
+        0.205
+      ],
+      "material": 30,
+      "vertices": 53310
+    },
+    {
+      "name": "face",
+      "color": [
+        1,
+        1,
+        1
+      ],
+      "material": 40,
+      "vertices": 29016
+    },
+    {
+      "name": "hair",
+      "color": [
+        0.047,
+        0.031,
+        0.02
+      ],
+      "material": 33,
+      "vertices": 9690
+    },
+    {
+      "name": "scalp",
+      "color": [
+        0.037,
+        0.023,
+        0.015
+      ],
+      "material": 42,
+      "vertices": 13824
+    },
+    {
+      "name": "rubber",
+      "color": [
+        0.022,
+        0.027,
+        0.032
+      ],
+      "material": 4,
+      "vertices": 9480
+    },
+    {
+      "name": "sole",
+      "color": [
+        0.14,
+        0.155,
+        0.15
+      ],
+      "material": 0,
+      "vertices": 11640
+    },
+    {
+      "name": "metal",
+      "color": [
+        0.4,
+        0.43,
+        0.42
+      ],
+      "material": 3,
+      "vertices": 6060
+    },
+    {
+      "name": "eye",
+      "color": [
+        0.54,
+        0.5,
+        0.43
+      ],
+      "material": 34,
+      "vertices": 6528
+    },
+    {
+      "name": "iris",
+      "color": [
+        0.11,
+        0.066,
+        0.029
+      ],
+      "material": 41,
+      "vertices": 4992
+    },
+    {
+      "name": "nails",
+      "color": [
+        0.405,
+        0.29,
+        0.236
+      ],
+      "material": 44,
+      "vertices": 1800
+    },
+    {
+      "name": "pupil",
+      "color": [
+        0.009,
+        0.009,
+        0.008
+      ],
+      "material": 34,
+      "vertices": 7392
+    }
+  ],
+  "components": {
+    "Tailored torso, scapula and sleeves": {
+      "vertices": 7824,
+      "triangles": 15642,
+      "category": "jacket"
+    },
+    "Anatomical hip, thigh and calf clothing": {
+      "vertices": 7592,
+      "triangles": 15179,
+      "category": "pants"
+    },
+    "MakeHuman HM08 adult head": {
+      "vertices": 29016,
+      "triangles": 9672,
+      "category": "anatomical"
+    },
+    "Sclera-1": {
+      "vertices": 608,
+      "triangles": 1088,
+      "category": "anatomical"
+    },
+    "Limbal ring-1": {
+      "vertices": 416,
+      "triangles": 704,
+      "category": "anatomical"
+    },
+    "Iris-1": {
+      "vertices": 480,
+      "triangles": 832,
+      "category": "anatomical"
+    },
+    "Pupil-1": {
+      "vertices": 312,
+      "triangles": 528,
+      "category": "anatomical"
+    },
+    "Sclera1": {
+      "vertices": 608,
+      "triangles": 1088,
+      "category": "anatomical"
+    },
+    "Limbal ring1": {
+      "vertices": 416,
+      "triangles": 704,
+      "category": "anatomical"
+    },
+    "Iris1": {
+      "vertices": 480,
+      "triangles": 832,
+      "category": "anatomical"
+    },
+    "Pupil1": {
+      "vertices": 312,
+      "triangles": 528,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke -1 0": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke -1 1": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke -1 2": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke -1 3": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke -1 4": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke -1 5": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke -1 6": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke -1 7": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke -1 8": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke -1 9": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke -1 10": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke -1 11": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke -1 12": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke -1 13": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke -1 14": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke -1 15": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke -1 16": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke -1 17": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke -1 18": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke -1 19": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke -1 20": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke -1 21": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke -1 22": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke -1 23": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke -1 24": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke -1 25": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke -1 26": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke -1 27": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke -1 28": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke -1 29": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke -1 30": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke -1 31": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke -1 32": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke -1 33": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke -1 34": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke -1 35": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke -1 36": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke -1 37": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke -1 38": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke -1 39": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke -1 40": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke -1 41": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke -1 42": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke -1 43": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke -1 44": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke -1 45": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke -1 46": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke -1 47": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke -1 48": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke -1 49": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke -1 50": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke -1 51": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke -1 52": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke -1 53": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke -1 54": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke 1 0": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke 1 1": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke 1 2": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke 1 3": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke 1 4": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke 1 5": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke 1 6": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke 1 7": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke 1 8": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke 1 9": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke 1 10": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke 1 11": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke 1 12": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke 1 13": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke 1 14": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke 1 15": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke 1 16": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke 1 17": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke 1 18": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke 1 19": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke 1 20": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke 1 21": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke 1 22": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke 1 23": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke 1 24": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke 1 25": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke 1 26": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke 1 27": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke 1 28": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke 1 29": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke 1 30": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke 1 31": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke 1 32": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke 1 33": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke 1 34": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke 1 35": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke 1 36": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke 1 37": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke 1 38": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke 1 39": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke 1 40": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke 1 41": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke 1 42": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke 1 43": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke 1 44": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke 1 45": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke 1 46": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke 1 47": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke 1 48": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke 1 49": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke 1 50": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke 1 51": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke 1 52": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke 1 53": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Eyebrow stroke 1 54": {
+      "vertices": 3,
+      "triangles": 1,
+      "category": "anatomical"
+    },
+    "Scalp fitted to HM08": {
+      "vertices": 2400,
+      "triangles": 4608,
+      "category": "anatomical"
+    },
+    "Groom 0": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 1": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 2": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 3": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 4": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 5": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 6": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 7": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 8": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 9": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 10": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 11": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 12": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 13": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 14": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 15": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 16": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 17": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 18": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 19": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 20": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 21": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 22": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 23": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 24": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 25": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 26": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 27": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 28": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 29": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 30": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 31": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 32": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 33": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 34": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 35": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 36": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 37": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 38": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 39": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 40": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 41": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 42": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 43": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 44": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 45": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 46": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 47": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 48": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 49": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 50": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 51": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 52": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 53": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 54": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 55": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 56": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 57": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 58": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 59": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 60": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 61": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 62": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 63": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 64": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 65": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 66": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 67": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 68": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 69": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 70": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 71": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 72": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 73": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 74": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 75": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 76": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 77": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 78": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 79": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 80": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 81": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 82": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 83": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 84": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 85": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 86": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 87": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 88": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 89": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 90": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 91": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 92": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 93": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 94": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 95": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 96": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 97": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 98": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 99": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 100": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 101": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 102": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 103": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 104": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 105": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 106": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 107": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 108": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 109": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 110": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 111": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 112": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 113": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 114": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 115": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 116": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 117": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 118": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 119": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 120": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 121": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 122": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 123": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 124": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 125": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 126": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 127": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 128": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 129": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 130": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 131": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 132": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 133": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 134": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 135": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 136": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 137": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 138": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 139": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 140": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 141": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 142": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 143": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 144": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 145": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 146": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 147": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 148": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 149": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 150": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 151": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 152": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 153": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 154": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 155": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 156": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 157": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 158": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 159": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 160": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 161": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 162": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 163": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 164": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 165": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 166": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 167": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 168": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 169": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 170": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 171": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 172": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 173": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 174": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 175": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 176": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 177": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 178": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 179": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 180": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 181": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 182": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 183": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 184": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 185": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 186": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 187": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 188": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 189": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 190": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 191": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 192": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 193": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 194": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 195": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 196": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 197": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 198": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 199": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 200": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 201": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 202": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 203": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 204": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 205": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 206": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 207": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 208": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 209": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 210": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 211": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 212": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 213": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 214": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 215": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 216": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 217": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 218": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 219": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 220": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 221": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 222": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 223": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 224": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 225": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 226": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 227": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 228": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 229": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 230": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 231": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 232": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 233": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 234": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 235": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 236": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 237": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 238": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 239": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 240": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 241": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 242": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 243": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 244": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 245": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 246": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 247": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 248": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 249": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 250": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 251": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 252": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 253": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 254": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 255": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 256": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 257": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 258": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Groom 259": {
+      "vertices": 14,
+      "triangles": 12,
+      "category": "anatomical"
+    },
+    "Continuous palm, webbing and five digits R": {
+      "vertices": 4436,
+      "triangles": 8865,
+      "category": "handR"
+    },
+    "Fitted nail Rindex": {
+      "vertices": 42,
+      "triangles": 60,
+      "category": "handR"
+    },
+    "Fitted nail Rmiddle": {
+      "vertices": 42,
+      "triangles": 60,
+      "category": "handR"
+    },
+    "Fitted nail Rring": {
+      "vertices": 42,
+      "triangles": 60,
+      "category": "handR"
+    },
+    "Fitted nail Rlittle": {
+      "vertices": 42,
+      "triangles": 60,
+      "category": "handR"
+    },
+    "Fitted nail Rthumb": {
+      "vertices": 42,
+      "triangles": 60,
+      "category": "handR"
+    },
+    "Continuous palm, webbing and five digits L": {
+      "vertices": 4456,
+      "triangles": 8905,
+      "category": "handL"
+    },
+    "Fitted nail Lindex": {
+      "vertices": 42,
+      "triangles": 60,
+      "category": "handL"
+    },
+    "Fitted nail Lmiddle": {
+      "vertices": 42,
+      "triangles": 60,
+      "category": "handL"
+    },
+    "Fitted nail Lring": {
+      "vertices": 42,
+      "triangles": 60,
+      "category": "handL"
+    },
+    "Fitted nail Llittle": {
+      "vertices": 42,
+      "triangles": 60,
+      "category": "handL"
+    },
+    "Fitted nail Lthumb": {
+      "vertices": 42,
+      "triangles": 60,
+      "category": "handL"
+    },
+    "Shaped shoe rubberL": {
+      "vertices": 792,
+      "triangles": 1580,
+      "category": "footL"
+    },
+    "Shaped shoe soleL": {
+      "vertices": 792,
+      "triangles": 1580,
+      "category": "footL"
+    },
+    "Textile laceL0": {
+      "vertices": 60,
+      "triangles": 72,
+      "category": "footL"
+    },
+    "Textile laceL1": {
+      "vertices": 60,
+      "triangles": 72,
+      "category": "footL"
+    },
+    "Textile laceL2": {
+      "vertices": 60,
+      "triangles": 72,
+      "category": "footL"
+    },
+    "Textile laceL3": {
+      "vertices": 60,
+      "triangles": 72,
+      "category": "footL"
+    },
+    "Textile laceL4": {
+      "vertices": 60,
+      "triangles": 72,
+      "category": "footL"
+    },
+    "Tongue L": {
+      "vertices": 80,
+      "triangles": 156,
+      "category": "footL"
+    },
+    "Shaped shoe rubberR": {
+      "vertices": 792,
+      "triangles": 1580,
+      "category": "footR"
+    },
+    "Shaped shoe soleR": {
+      "vertices": 792,
+      "triangles": 1580,
+      "category": "footR"
+    },
+    "Textile laceR0": {
+      "vertices": 60,
+      "triangles": 72,
+      "category": "footR"
+    },
+    "Textile laceR1": {
+      "vertices": 60,
+      "triangles": 72,
+      "category": "footR"
+    },
+    "Textile laceR2": {
+      "vertices": 60,
+      "triangles": 72,
+      "category": "footR"
+    },
+    "Textile laceR3": {
+      "vertices": 60,
+      "triangles": 72,
+      "category": "footR"
+    },
+    "Textile laceR4": {
+      "vertices": 60,
+      "triangles": 72,
+      "category": "footR"
+    },
+    "Tongue R": {
+      "vertices": 80,
+      "triangles": 156,
+      "category": "footR"
+    },
+    "Open anatomical neckline": {
+      "vertices": 256,
+      "triangles": 384,
+      "category": "neck"
+    },
+    "Zip tape-1": {
+      "vertices": 208,
+      "triangles": 412,
+      "category": "jacket"
+    },
+    "Zip tape1": {
+      "vertices": 208,
+      "triangles": 412,
+      "category": "jacket"
+    },
+    "zip0": {
+      "vertices": 40,
+      "triangles": 48,
+      "category": "jacket"
+    },
+    "zip1": {
+      "vertices": 40,
+      "triangles": 48,
+      "category": "jacket"
+    },
+    "zip2": {
+      "vertices": 40,
+      "triangles": 48,
+      "category": "jacket"
+    },
+    "zip3": {
+      "vertices": 40,
+      "triangles": 48,
+      "category": "jacket"
+    },
+    "zip4": {
+      "vertices": 40,
+      "triangles": 48,
+      "category": "jacket"
+    },
+    "zip5": {
+      "vertices": 40,
+      "triangles": 48,
+      "category": "jacket"
+    },
+    "zip6": {
+      "vertices": 40,
+      "triangles": 48,
+      "category": "jacket"
+    },
+    "zip7": {
+      "vertices": 40,
+      "triangles": 48,
+      "category": "jacket"
+    },
+    "zip8": {
+      "vertices": 40,
+      "triangles": 48,
+      "category": "jacket"
+    },
+    "zip9": {
+      "vertices": 40,
+      "triangles": 48,
+      "category": "jacket"
+    },
+    "zip10": {
+      "vertices": 40,
+      "triangles": 48,
+      "category": "jacket"
+    },
+    "zip11": {
+      "vertices": 40,
+      "triangles": 48,
+      "category": "jacket"
+    },
+    "zip12": {
+      "vertices": 40,
+      "triangles": 48,
+      "category": "jacket"
+    },
+    "zip13": {
+      "vertices": 40,
+      "triangles": 48,
+      "category": "jacket"
+    },
+    "zip14": {
+      "vertices": 40,
+      "triangles": 48,
+      "category": "jacket"
+    },
+    "zip15": {
+      "vertices": 40,
+      "triangles": 48,
+      "category": "jacket"
+    },
+    "zip16": {
+      "vertices": 40,
+      "triangles": 48,
+      "category": "jacket"
+    },
+    "zip17": {
+      "vertices": 40,
+      "triangles": 48,
+      "category": "jacket"
+    },
+    "zip18": {
+      "vertices": 40,
+      "triangles": 48,
+      "category": "jacket"
+    },
+    "zip19": {
+      "vertices": 40,
+      "triangles": 48,
+      "category": "jacket"
+    },
+    "zip20": {
+      "vertices": 40,
+      "triangles": 48,
+      "category": "jacket"
+    },
+    "zip21": {
+      "vertices": 40,
+      "triangles": 48,
+      "category": "jacket"
+    },
+    "zip22": {
+      "vertices": 40,
+      "triangles": 48,
+      "category": "jacket"
+    },
+    "zip23": {
+      "vertices": 40,
+      "triangles": 48,
+      "category": "jacket"
+    },
+    "zip24": {
+      "vertices": 40,
+      "triangles": 48,
+      "category": "jacket"
+    },
+    "zip25": {
+      "vertices": 40,
+      "triangles": 48,
+      "category": "jacket"
+    },
+    "zip26": {
+      "vertices": 40,
+      "triangles": 48,
+      "category": "jacket"
+    },
+    "zip27": {
+      "vertices": 40,
+      "triangles": 48,
+      "category": "jacket"
+    },
+    "zip28": {
+      "vertices": 40,
+      "triangles": 48,
+      "category": "jacket"
+    },
+    "zip29": {
+      "vertices": 40,
+      "triangles": 48,
+      "category": "jacket"
+    },
+    "zip30": {
+      "vertices": 40,
+      "triangles": 48,
+      "category": "jacket"
+    },
+    "zip31": {
+      "vertices": 40,
+      "triangles": 48,
+      "category": "jacket"
+    },
+    "zip32": {
+      "vertices": 40,
+      "triangles": 48,
+      "category": "jacket"
+    },
+    "zip33": {
+      "vertices": 40,
+      "triangles": 48,
+      "category": "jacket"
+    },
+    "zip34": {
+      "vertices": 40,
+      "triangles": 48,
+      "category": "jacket"
+    },
+    "zip35": {
+      "vertices": 40,
+      "triangles": 48,
+      "category": "jacket"
+    },
+    "zip36": {
+      "vertices": 40,
+      "triangles": 48,
+      "category": "jacket"
+    },
+    "zip37": {
+      "vertices": 40,
+      "triangles": 48,
+      "category": "jacket"
+    },
+    "zip38": {
+      "vertices": 40,
+      "triangles": 48,
+      "category": "jacket"
+    },
+    "zip39": {
+      "vertices": 40,
+      "triangles": 48,
+      "category": "jacket"
+    },
+    "Zipper pull": {
+      "vertices": 70,
+      "triangles": 100,
+      "category": "jacket"
+    },
+    "Rib cuff L": {
+      "vertices": 120,
+      "triangles": 236,
+      "category": "jacket"
+    },
+    "Pocket piping L0": {
+      "vertices": 40,
+      "triangles": 48,
+      "category": "jacket"
+    },
+    "Pocket piping L1": {
+      "vertices": 40,
+      "triangles": 48,
+      "category": "jacket"
+    },
+    "Pocket piping L2": {
+      "vertices": 40,
+      "triangles": 48,
+      "category": "jacket"
+    },
+    "Pocket piping L3": {
+      "vertices": 40,
+      "triangles": 48,
+      "category": "jacket"
+    },
+    "Pocket piping L4": {
+      "vertices": 40,
+      "triangles": 48,
+      "category": "jacket"
+    },
+    "Pocket piping L5": {
+      "vertices": 40,
+      "triangles": 48,
+      "category": "jacket"
+    },
+    "Pocket piping L6": {
+      "vertices": 40,
+      "triangles": 48,
+      "category": "jacket"
+    },
+    "Pocket piping L7": {
+      "vertices": 40,
+      "triangles": 48,
+      "category": "jacket"
+    },
+    "Pocket piping L8": {
+      "vertices": 40,
+      "triangles": 48,
+      "category": "jacket"
+    },
+    "Pocket piping L9": {
+      "vertices": 40,
+      "triangles": 48,
+      "category": "jacket"
+    },
+    "Pocket piping L10": {
+      "vertices": 40,
+      "triangles": 48,
+      "category": "jacket"
+    },
+    "Pocket piping L11": {
+      "vertices": 40,
+      "triangles": 48,
+      "category": "jacket"
+    },
+    "Rib cuff R": {
+      "vertices": 120,
+      "triangles": 236,
+      "category": "jacket"
+    },
+    "Pocket piping R0": {
+      "vertices": 40,
+      "triangles": 48,
+      "category": "jacket"
+    },
+    "Pocket piping R1": {
+      "vertices": 40,
+      "triangles": 48,
+      "category": "jacket"
+    },
+    "Pocket piping R2": {
+      "vertices": 40,
+      "triangles": 48,
+      "category": "jacket"
+    },
+    "Pocket piping R3": {
+      "vertices": 40,
+      "triangles": 48,
+      "category": "jacket"
+    },
+    "Pocket piping R4": {
+      "vertices": 40,
+      "triangles": 48,
+      "category": "jacket"
+    },
+    "Pocket piping R5": {
+      "vertices": 40,
+      "triangles": 48,
+      "category": "jacket"
+    },
+    "Pocket piping R6": {
+      "vertices": 40,
+      "triangles": 48,
+      "category": "jacket"
+    },
+    "Pocket piping R7": {
+      "vertices": 40,
+      "triangles": 48,
+      "category": "jacket"
+    },
+    "Pocket piping R8": {
+      "vertices": 40,
+      "triangles": 48,
+      "category": "jacket"
+    },
+    "Pocket piping R9": {
+      "vertices": 40,
+      "triangles": 48,
+      "category": "jacket"
+    },
+    "Pocket piping R10": {
+      "vertices": 40,
+      "triangles": 48,
+      "category": "jacket"
+    },
+    "Pocket piping R11": {
+      "vertices": 40,
+      "triangles": 48,
+      "category": "jacket"
+    }
+  },
+  "historical_recipe_project": "bea56607-3eea-4526-abc9-b546a4717f10",
+  "integration": "v0.12 (head preserved from v0.9): actual CC0 HM08 head subset integrated in native rig. Skin bake prepared through Higgsfield sandbox, not an AI scan."
+}

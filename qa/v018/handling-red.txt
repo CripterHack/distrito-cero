@@ -1,0 +1,285 @@
+TAP version 13
+# Subtest: every usable item defines dedicated oriented contact sockets
+not ok 1 - every usable item defines dedicated oriented contact sockets
+  ---
+  duration_ms: 9.261876
+  type: 'test'
+  location: '/mnt/data/dc-v018-work/distrito-cero/tests/handling.test.cjs:7:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+    
+      a.ok(D.WeaponHandling)
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/mnt/data/dc-v018-work/distrito-cero/tests/handling.test.cjs:7:76)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.start (node:internal/test_runner/test:944:17)
+    startSubtestAfterBootstrap (node:internal/test_runner/harness:296:17)
+  ...
+# Subtest: oriented wrist reaches the socket without stretching forearm or moving fingers away
+not ok 2 - oriented wrist reaches the socket without stretching forearm or moving fingers away
+  ---
+  duration_ms: 33.067486
+  type: 'test'
+  location: '/mnt/data/dc-v018-work/distrito-cero/tests/handling.test.cjs:8:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+    
+      a.ok(m.hands.R.orientation)
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/mnt/data/dc-v018-work/distrito-cero/tests/handling.test.cjs:8:168)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+# Subtest: all equipment sockets stay attainable in pitch/crouch/aim/reload states
+not ok 3 - all equipment sockets stay attainable in pitch/crouch/aim/reload states
+  ---
+  duration_ms: 1.918561
+  type: 'test'
+  location: '/mnt/data/dc-v018-work/distrito-cero/tests/handling.test.cjs:9:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+    
+      a.ok(D.WeaponHandling)
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/mnt/data/dc-v018-work/distrito-cero/tests/handling.test.cjs:9:87)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: primary grip fingers and support fingers do not use identical profiles
+not ok 4 - primary grip fingers and support fingers do not use identical profiles
+  ---
+  duration_ms: 0.520995
+  type: 'test'
+  location: '/mnt/data/dc-v018-work/distrito-cero/tests/handling.test.cjs:10:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+    
+      a.ok(D.WeaponHandling)
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/mnt/data/dc-v018-work/distrito-cero/tests/handling.test.cjs:10:86)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: support hand follows the moving magazine and returns without teleporting
+not ok 5 - support hand follows the moving magazine and returns without teleporting
+  ---
+  duration_ms: 1.578458
+  type: 'test'
+  location: '/mnt/data/dc-v018-work/distrito-cero/tests/handling.test.cjs:11:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+    
+      a.ok(D.WeaponHandling)
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/mnt/data/dc-v018-work/distrito-cero/tests/handling.test.cjs:11:88)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: magazine is a separate mesh, avoiding a static duplicate behind the moving one
+not ok 6 - magazine is a separate mesh, avoiding a static duplicate behind the moving one
+  ---
+  duration_ms: 3.501697
+  type: 'test'
+  location: '/mnt/data/dc-v018-work/distrito-cero/tests/handling.test.cjs:12:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    0 !== 1
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 1
+  actual: 0
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/mnt/data/dc-v018-work/distrito-cero/tests/handling.test.cjs:12:141)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: shared recoil spring is finite and frame-rate stable
+not ok 7 - shared recoil spring is finite and frame-rate stable
+  ---
+  duration_ms: 0.942901
+  type: 'test'
+  location: '/mnt/data/dc-v018-work/distrito-cero/tests/handling.test.cjs:13:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+    
+      a.ok(D.WeaponHandling)
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/mnt/data/dc-v018-work/distrito-cero/tests/handling.test.cjs:13:68)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: handling state is transient and cannot leak to inventory snapshot
+not ok 8 - handling state is transient and cannot leak to inventory snapshot
+  ---
+  duration_ms: 0.585722
+  type: 'test'
+  location: '/mnt/data/dc-v018-work/distrito-cero/tests/handling.test.cjs:14:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+    
+      a.ok(D.WeaponHandling)
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/mnt/data/dc-v018-work/distrito-cero/tests/handling.test.cjs:14:81)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: different actors never share spring or hand pose state
+not ok 9 - different actors never share spring or hand pose state
+  ---
+  duration_ms: 0.745574
+  type: 'test'
+  location: '/mnt/data/dc-v018-work/distrito-cero/tests/handling.test.cjs:15:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+    
+      a.ok(D.WeaponHandling)
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/mnt/data/dc-v018-work/distrito-cero/tests/handling.test.cjs:15:70)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: mount is a pure read and preserves ray/muzzle equivalence
+not ok 10 - mount is a pure read and preserves ray/muzzle equivalence
+  ---
+  duration_ms: 1.091314
+  type: 'test'
+  location: '/mnt/data/dc-v018-work/distrito-cero/tests/handling.test.cjs:16:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+    
+      a.ok(D.WeaponHandling)
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/mnt/data/dc-v018-work/distrito-cero/tests/handling.test.cjs:16:73)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: selector uses alpha surfaces rather than opacity on text
+not ok 11 - selector uses alpha surfaces rather than opacity on text
+  ---
+  duration_ms: 0.733175
+  type: 'test'
+  location: '/mnt/data/dc-v018-work/distrito-cero/tests/handling.test.cjs:17:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+    
+      a.ok(css.includes('/* v0.18 translucent arsenal */'))
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/mnt/data/dc-v018-work/distrito-cero/tests/handling.test.cjs:17:122)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+1..11
+# tests 11
+# suites 0
+# pass 0
+# fail 11
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 118.592423

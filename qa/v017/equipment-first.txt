@@ -1,0 +1,214 @@
+TAP version 13
+# Subtest: arsenal has fourteen unique options and required Gauss EMP optics
+ok 1 - arsenal has fourteen unique options and required Gauss EMP optics
+  ---
+  duration_ms: 0.902588
+  type: 'test'
+  ...
+# Subtest: new game is unarmed and inventory is independent
+ok 2 - new game is unarmed and inventory is independent
+  ---
+  duration_ms: 57.277785
+  type: 'test'
+  ...
+# Subtest: ray box intersects at nearest positive distance and parallel misses
+ok 3 - ray box intersects at nearest positive distance and parallel misses
+  ---
+  duration_ms: 0.328948
+  type: 'test'
+  ...
+# Subtest: closest building blocks target behind it
+ok 4 - closest building blocks target behind it
+  ---
+  duration_ms: 17.598497
+  type: 'test'
+  ...
+# Subtest: car collision proxy rotates with vehicle
+ok 5 - car collision proxy rotates with vehicle
+  ---
+  duration_ms: 11.951794
+  type: 'test'
+  ...
+# Subtest: single semiautomatic press consumes one round even while held
+not ok 6 - single semiautomatic press consumes one round even while held
+  ---
+  duration_ms: 13.175419
+  type: 'test'
+  location: '/mnt/data/dc-v017-work/distrito-cero/tests/equipment.test.cjs:12:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    12 !== 11
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 11
+  actual: 12
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/mnt/data/dc-v017-work/distrito-cero/tests/equipment.test.cjs:12:136)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: automatic fire respects interval rather than frame count
+ok 7 - automatic fire respects interval rather than frame count
+  ---
+  duration_ms: 18.466104
+  type: 'test'
+  ...
+# Subtest: reload transfers only missing rounds once at completion
+ok 8 - reload transfers only missing rounds once at completion
+  ---
+  duration_ms: 17.743813
+  type: 'test'
+  ...
+# Subtest: switching cancels reload without gaining rounds
+ok 9 - switching cancels reload without gaining rounds
+  ---
+  duration_ms: 12.166943
+  type: 'test'
+  ...
+# Subtest: Gauss must charge and release, then spends exactly one cell
+ok 10 - Gauss must charge and release, then spends exactly one cell
+  ---
+  duration_ms: 10.829389
+  type: 'test'
+  ...
+# Subtest: short Gauss charge and cancelled charge do not fire
+ok 11 - short Gauss charge and cancelled charge do not fire
+  ---
+  duration_ms: 10.455354
+  type: 'test'
+  ...
+# Subtest: Gauss penetrates cars but not an opaque building
+ok 12 - Gauss penetrates cars but not an opaque building
+  ---
+  duration_ms: 11.434256
+  type: 'test'
+  ...
+# Subtest: damage uses vehicle zones and never goes below valid save health
+not ok 13 - damage uses vehicle zones and never goes below valid save health
+  ---
+  duration_ms: 17.669082
+  type: 'test'
+  location: '/mnt/data/dc-v017-work/distrito-cero/tests/equipment.test.cjs:19:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+    
+      a.ok(c.health<100)
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/mnt/data/dc-v017-work/distrito-cero/tests/equipment.test.cjs:19:168)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: prop hit calls existing breakage and persistence rules
+ok 14 - prop hit calls existing breakage and persistence rules
+  ---
+  duration_ms: 11.519032
+  type: 'test'
+  ...
+# Subtest: EMP disables car propulsion but does not deal biological or vehicle health damage
+not ok 15 - EMP disables car propulsion but does not deal biological or vehicle health damage
+  ---
+  duration_ms: 12.653965
+  type: 'test'
+  location: '/mnt/data/dc-v017-work/distrito-cero/tests/equipment.test.cjs:21:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+    
+      a.ok(c.empUntil>s.time)
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/mnt/data/dc-v017-work/distrito-cero/tests/equipment.test.cjs:21:286)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: EMP respects walls and its radial limit
+ok 16 - EMP respects walls and its radial limit
+  ---
+  duration_ms: 12.188766
+  type: 'test'
+  ...
+# Subtest: EMP-equipped player cannot accelerate disabled vehicle, which coasts instead of teleporting
+ok 17 - EMP-equipped player cannot accelerate disabled vehicle, which coasts instead of teleporting
+  ---
+  duration_ms: 13.270219
+  type: 'test'
+  ...
+# Subtest: binoculars are non-damaging and zoom index is bounded
+ok 18 - binoculars are non-damaging and zoom index is bounded
+  ---
+  duration_ms: 10.27021
+  type: 'test'
+  ...
+# Subtest: no weapon use during vehicle access or carrying object
+ok 19 - no weapon use during vehicle access or carrying object
+  ---
+  duration_ms: 11.233339
+  type: 'test'
+  ...
+# Subtest: projectile fleet and visual effects have bounded capacity
+ok 20 - projectile fleet and visual effects have bounded capacity
+  ---
+  duration_ms: 10.259174
+  type: 'test'
+  ...
+# Subtest: explosion does not damage a car through an opaque building
+ok 21 - explosion does not damage a car through an opaque building
+  ---
+  duration_ms: 11.65936
+  type: 'test'
+  ...
+# Subtest: equipment saves independently and old snapshots get defaults
+ok 22 - equipment saves independently and old snapshots get defaults
+  ---
+  duration_ms: 33.317918
+  type: 'test'
+  ...
+# Subtest: malformed equipment rejects before mutating progress
+ok 23 - malformed equipment rejects before mutating progress
+  ---
+  duration_ms: 13.161328
+  type: 'test'
+  ...
+# Subtest: old multiple-slot catalogue roundtrip preserves equipment independently
+ok 24 - old multiple-slot catalogue roundtrip preserves equipment independently
+  ---
+  duration_ms: 57.49417
+  type: 'test'
+  ...
+1..24
+# tests 24
+# suites 0
+# pass 21
+# fail 3
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 467.048553

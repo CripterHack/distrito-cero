@@ -1,0 +1,101 @@
+{
+  "version": "0.17",
+  "baseHtmlSha256": "7ccaff6042669755fdb18e920099519cda5af785113be9807bc952f3ee4f320c",
+  "artifacts": {
+    "index.html": {
+      "bytes": 8820950,
+      "sha256": "fc2679da41268f6be0264c96f54a83ed77886157d67a27e87dbd125aa06d6f93"
+    },
+    "assets/dc017-equipment.glb": {
+      "bytes": 829940,
+      "sha256": "733eab087d1c1df4fc6a88f201040d6fe2080f33d89c894aed841798de9fddd7"
+    }
+  },
+  "logic": {
+    "tests": 288,
+    "pass": 288,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0
+  },
+  "browser": {
+    "arsenal-browser.json": {
+      "passed": 78,
+      "failed": 0,
+      "reportSha256": "ec784ae1e58c8025d9a52c4ecdf22aa0c73daa89baabdb595b9065fcd881856f"
+    },
+    "library-regression.json": {
+      "passed": 64,
+      "failed": 0,
+      "reportSha256": "9a1623b86af15d2401653e993cdb5e34b938f9fd91c259011c859ee0108897e3"
+    },
+    "legacy/browser-report.json": {
+      "passed": 52,
+      "failed": 0,
+      "reportSha256": "05f66b197797938536aaee0aeec4de8b7d6b02b365416a9fae27e2aec5b1b285"
+    },
+    "arsenal-continuous.json": {
+      "passed": 26,
+      "failed": 0,
+      "reportSha256": "9dd57294b6e56564908a99293242ef97450af8356b18e9a57fa9c96cb85b2696"
+    }
+  },
+  "browserTotal": 220,
+  "portableEquipmentExportTests": 1,
+  "rebuildIdentical": true,
+  "captures": {
+    "review-gauss.png": "36d6170a1217ee70cbcdf1a4dbf3153cb168c4c0a56be607bd2e84f53012a3a3",
+    "review-emp.png": "4aa35f7d8e4c623d93183c4e79cf3f7a68d13e23f0f4a0e6c8015ce01425807b",
+    "review-optics.png": "56ebd636906e979b5166e1f44a57bb41644d7cdf275c9ad90b0e91917934d3e9",
+    "review-reload.png": "89db8016d5180fff599b3a8c769355791dc7f6a58c12284eba32232dd0539518",
+    "01-selector.png": "bb1c4236215c15303f54b66d199c33771850f246aebd8fcb099d121496e7817a",
+    "05-selector-390.png": "93c40ce535f9d77d019ced0b3f8298930089102b9b3b5e712685478846b86912",
+    "05-selector-844.png": "c035419d6137a37a739f95590d4c3dd9e3f2dbfb7f9d61bf121d1de8bb3e0027"
+  },
+  "sourceHashes": {
+    "src/app.js": "b9ed33cbdda9ff6403120e8f86a5dadf8cb4bc8bd2dd36fc0bc0dffb7d4f13df",
+    "src/appearance.js": "f63382e887310320cc566e63ceaac77f049e310350fe3284c9e675f8bd9f3a31",
+    "src/audio.js": "b5542175cda159c3868b3d5c4c7250b4c8d5cd84615836ff8bf3e9eaccad9315",
+    "src/cast-renderer.js": "78f136ffce65dc69144b39ed1d232fefcbdccb1ac6ebbe885fb31bc73425390f",
+    "src/character-fit.js": "efdf174324622f53f2be64763bb47c1e6401e9ea637d72cd403dd93caa2223e7",
+    "src/character-motion.js": "9e87594e74732c1eb590a6ad46b6e90882584bb53575699cce6e8463846e984a",
+    "src/core.js": "b1d0f35f9a6351c4db4a9648c20b161ce8bb5037d1b6eb3cec103d4e91be9ce9",
+    "src/crowd-geometry.js": "f010b0a8e1ab91cd2f03e6397dc940732ba63cec76ac9645bebe0300a8f6cb81",
+    "src/dual-quaternion.js": "cf2d72966dec06f5a4e53265a4ec6b3ed983749534027885930fd93cb3516ca4",
+    "src/dynamics.js": "23fb55d52982200881b0f2648fbd2b2e1e90a973367bf7cb77bf666ba1364e34",
+    "src/equipment-geometry.js": "35f182eb1367a0284db50cf13a2f0952e9d5831650d6952b84b54c4c0b9a8b2d",
+    "src/equipment-renderer.js": "a511c97e9437735a26158acb9a1454be8ee2ef8623325f1a748507408d3ba391",
+    "src/equipment-simulation.js": "00dd806b4dfecd6d9bb96c8054a2b1c8b8aec4591057cdb78075593e5182518b",
+    "src/equipment-ui.js": "622b3062b3906b233634aee02a0f36adfe3235518eb779fa57bc2d370bc22931",
+    "src/equipment.js": "fa287551d1361b884416607f79fbcb07d5822aa2dd46f0b676adba8e25c2a1ca",
+    "src/frontier-renderer.js": "e8c136da8329cbab78381655aeac2a99fda7d2ec7fc643c8d75f7ccf7b6c625f",
+    "src/frontier-simulation.js": "8d05a4390cc06d53eaa6fbf716c1900052343b5f87185affd90acad5c54d5a85",
+    "src/frontier-ui.js": "f2cb10a787c7b3aa3fc70d642bb27a573a76fbbd8a766c3f3f95e03dea8cf6fd",
+    "src/frontier-world.js": "f89bcb30acc1b03b4ea0350cd55f2df960d560c83881f7f794b34b640556ac0d",
+    "src/hair-geometry.js": "240b745e08b42ab84f3ffaaceecec9ed1da92a887044543bcd6a3c6c9bdfcc7a",
+    "src/hero-asset.js": "7dedf527bfe9e257c3067a4db063521e09a72d680ed2f8323fedd69a202ee5f4",
+    "src/human-materials.js": "48effe6fbf4aa9bea65b7369cdb78a907e58b7d6dcb90b52155aae220b54dde8",
+    "src/identity-ui.js": "7dd32b0bf158714d0bedf892ad197ec814667b6d8c2a3aafdcda790b22b0e3b5",
+    "src/interactions.js": "1dfb8b5475577131af50442cd2278a4b52af256d063d986a7c220c780d0318be",
+    "src/occupancy.js": "3ed6dc23d56b485e9a7c18d447ac2acf74b922b524911b2910fb8025d516ba00",
+    "src/page.html": "f76063f3137858134b056bf7ff6dc5947fd832c8a8df9c27b71bde8e06bb893a",
+    "src/police.js": "797ac841a39442aa317004710a6a85f467e7a945cee6b14dfa1eba0c47440322",
+    "src/reactive-renderer.js": "3ebe5f836c3768bbdf5cf4dd9712beb2d69a01a8bedaf6729fdf4371890cb7f7",
+    "src/realism-renderer.js": "177da4335a9dfe040b14e789365609ee70fd877f4c174a616ec50fb4e1f32970",
+    "src/renderer.js": "a1d988f32b70b9f736b811ee1fdebabe6de802adc4f5a046ff14d7da326e9646",
+    "src/save-store.js": "48d9a547dedf79e60610bd535e882cb4c762eca92171461a71b99c4d7b886a5e",
+    "src/simulation.js": "49955078fb7649441af6c49488f7e60ebd0f4ebd424a3688e3b0621715037039",
+    "src/skin-rig.js": "00b0fb80e130637c9df6fc4bae64bcd0e4cc748320cd402eb4ba06f7756fac31",
+    "src/style.css": "a240e336d2985c313c089fe59de5e5c36d5f088ac95ba530864b832a3ccab378",
+    "src/vehicle-asset.js": "8170c4ba4debe5133c75d5629c8c774dfd1609188675499cec6d90bd5da3f6ac",
+    "src/visual-geometry.js": "94f2eeaceff571f79be60e9796c84096217fbc41ff125c3361134aadfc176ad2",
+    "src/world.js": "0792973473b56dcf97bd5c296d379bc3db1738e8b6f6543a8e954a1ca3830c7c"
+  },
+  "geometry": {
+    "bytes": 829940,
+    "equipment": 13,
+    "meshes": 65,
+    "triangles": 8184
+  },
+  "limits": "Browser reports are from the separately executed final suites, not rerun by this audit. Software WebGL and isolated storage. No hardware FPS, native persistent storage, Safari or physical mobile certification."
+}

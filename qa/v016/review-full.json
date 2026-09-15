@@ -1,0 +1,51 @@
+{
+  "gl": 0,
+  "visual": {
+    "heroTriangles": 85209,
+    "heroParts": 13,
+    "bones": 49,
+    "nativeRecipe": true,
+    "hairstyles": 11,
+    "neckShortening": 0.045,
+    "lodTriangles": [
+      77481,
+      15838,
+      5957
+    ],
+    "crowdPaletteBytes": 401408,
+    "crowdCapacity": 128,
+    "sharedInstancing": true,
+    "skinning": "dual-quaternion",
+    "dualPaletteBytes": 200704
+  },
+  "cast": {
+    "actors": 1,
+    "drivers": 0,
+    "evicted": 0,
+    "lod": [
+      1,
+      0,
+      0
+    ],
+    "triangles": 89433,
+    "paletteRows": 1,
+    "drawBatches": 14,
+    "hairGeometries": 2
+  },
+  "errors": [],
+  "sha256": "7ccaff6042669755fdb18e920099519cda5af785113be9807bc952f3ee4f320c",
+  "quality": "balanced",
+  "deviceScale": 1.5,
+  "camera": {
+    "eye": [
+      0.36,
+      1.28,
+      2.95
+    ],
+    "target": [
+      0,
+      0.98,
+      0
+    ]
+  }
+}

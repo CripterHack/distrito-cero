@@ -1,0 +1,287 @@
+TAP version 13
+# articulationMaxReachError 1.1258392139071583e-7
+# Subtest: contacts describe a palm surface distinct from the wrist
+not ok 1 - contacts describe a palm surface distinct from the wrist
+  ---
+  duration_ms: 35.450289
+  type: 'test'
+  location: '/mnt/data/dc-v019-work/distrito-cero/tests/contact-articulation.test.cjs:7:1'
+  failureType: 'testCodeFailure'
+  error: 'baton R'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/mnt/data/dc-v019-work/distrito-cero/tests/contact-articulation.test.cjs:7:215)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.start (node:internal/test_runner/test:944:17)
+    startSubtestAfterBootstrap (node:internal/test_runner/harness:296:17)
+  ...
+# Subtest: posed anatomical palm landmarks coincide with their prop anchors
+not ok 2 - posed anatomical palm landmarks coincide with their prop anchors
+  ---
+  duration_ms: 0.624281
+  type: 'test'
+  location: '/mnt/data/dc-v019-work/distrito-cero/tests/contact-articulation.test.cjs:8:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + 'undefined'
+    - 'function'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'function'
+  actual: 'undefined'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/mnt/data/dc-v019-work/distrito-cero/tests/contact-articulation.test.cjs:8:80)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+# Subtest: long-arm support palms are authored on the underside rather than to the side of the foregrip
+not ok 3 - long-arm support palms are authored on the underside rather than to the side of the foregrip
+  ---
+  duration_ms: 25.46951
+  type: 'test'
+  location: '/mnt/data/dc-v019-work/distrito-cero/tests/contact-articulation.test.cjs:9:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+    
+      a.ok(m.palmContacts)
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/mnt/data/dc-v019-work/distrito-cero/tests/contact-articulation.test.cjs:9:143)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: stock brace uses the articulated shoulder at neutral aim
+not ok 4 - stock brace uses the articulated shoulder at neutral aim
+  ---
+  duration_ms: 15.439201
+  type: 'test'
+  location: '/mnt/data/dc-v019-work/distrito-cero/tests/contact-articulation.test.cjs:10:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+    
+      a.ok(m.brace)
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/mnt/data/dc-v019-work/distrito-cero/tests/contact-articulation.test.cjs:10:141)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: aiming alone does not close the trigger index
+not ok 5 - aiming alone does not close the trigger index
+  ---
+  duration_ms: 13.028815
+  type: 'test'
+  location: '/mnt/data/dc-v019-work/distrito-cero/tests/contact-articulation.test.cjs:11:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+    
+      a.ok(m.grips.R.fingers.index.reduce((a,b)=>a+b,0)<.5)
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/mnt/data/dc-v019-work/distrito-cero/tests/contact-articulation.test.cjs:11:128)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: reload lets the support fingers open in free travel and close on the magazine
+not ok 6 - reload lets the support fingers open in free travel and close on the magazine
+  ---
+  duration_ms: 16.371658
+  type: 'test'
+  location: '/mnt/data/dc-v019-work/distrito-cero/tests/contact-articulation.test.cjs:12:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+    
+      a.ok(transit.grips.L.amount<contact.grips.L.amount-.18)
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/mnt/data/dc-v019-work/distrito-cero/tests/contact-articulation.test.cjs:12:285)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: magazine motion includes cant and the palm follows its transformed surface
+not ok 7 - magazine motion includes cant and the palm follows its transformed surface
+  ---
+  duration_ms: 18.807161
+  type: 'test'
+  location: '/mnt/data/dc-v019-work/distrito-cero/tests/contact-articulation.test.cjs:13:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+    
+      a.ok(Math.abs(m.magazine.rotation?.[2])>.1)
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/mnt/data/dc-v019-work/distrito-cero/tests/contact-articulation.test.cjs:13:193)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: translating and rotating a part agrees with its render transform
+not ok 8 - translating and rotating a part agrees with its render transform
+  ---
+  duration_ms: 11.457646
+  type: 'test'
+  location: '/mnt/data/dc-v019-work/distrito-cero/tests/contact-articulation.test.cjs:14:1'
+  failureType: 'testCodeFailure'
+  error: 'm.partTransform is not a function'
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    TestContext.<anonymous> (/mnt/data/dc-v019-work/distrito-cero/tests/contact-articulation.test.cjs:14:227)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: reload choreography is continuous for wrists and moving pieces
+not ok 9 - reload choreography is continuous for wrists and moving pieces
+  ---
+  duration_ms: 12.724375
+  type: 'test'
+  location: '/mnt/data/dc-v019-work/distrito-cero/tests/contact-articulation.test.cjs:15:1'
+  failureType: 'testCodeFailure'
+  error: 'm.partPoint is not a function'
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    TestContext.<anonymous> (/mnt/data/dc-v019-work/distrito-cero/tests/contact-articulation.test.cjs:15:380)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: all grip bases and targets remain finite over sampled actions and appearances
+ok 10 - all grip bases and targets remain finite over sampled actions and appearances
+  ---
+  duration_ms: 4639.961758
+  type: 'test'
+  ...
+# Subtest: angular handling inertia is bounded and recovers without mutating snapshots
+not ok 11 - angular handling inertia is bounded and recovers without mutating snapshots
+  ---
+  duration_ms: 11.651663
+  type: 'test'
+  location: '/mnt/data/dc-v019-work/distrito-cero/tests/contact-articulation.test.cjs:17:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+    
+      a.ok(m.inertia&&Math.abs(m.inertia.yaw)>1e-5)
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/mnt/data/dc-v019-work/distrito-cero/tests/contact-articulation.test.cjs:17:307)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: reload and aim changes keep an orthonormal contact orientation
+ok 12 - reload and aim changes keep an orthonormal contact orientation
+  ---
+  duration_ms: 51.716046
+  type: 'test'
+  ...
+# Subtest: firearm handles have a shared rounded grip mesh
+not ok 13 - firearm handles have a shared rounded grip mesh
+  ---
+  duration_ms: 3.014709
+  type: 'test'
+  location: '/mnt/data/dc-v019-work/distrito-cero/tests/contact-articulation.test.cjs:19:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+    
+      a.ok(p.some(p=>p.role==='grip'))
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/mnt/data/dc-v019-work/distrito-cero/tests/contact-articulation.test.cjs:19:106)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+1..13
+# tests 13
+# suites 0
+# pass 2
+# fail 11
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 4931.448775

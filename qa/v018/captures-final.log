@@ -1,0 +1,10 @@
+START ['rifle']
+FINISH ['rifle'] 0
+START ['gauss']
+FINISH ['gauss'] 0
+START ['reload']
+FINISH ['reload'] 0
+START ['pistol']
+FINISH ['pistol'] 0
+START ['binoculars']
+FINISH ['binoculars'] 0

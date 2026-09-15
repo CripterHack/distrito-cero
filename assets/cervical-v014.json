@@ -1,0 +1,19 @@
+{
+  "base": "v0.13",
+  "topology": "unchanged",
+  "units": "metres",
+  "parts": {
+    "jacket": {
+      "changed_corners": 2544,
+      "max_displacement_m": 0.0072,
+      "normal_changes": 6362,
+      "weight_changes": 0
+    },
+    "face": {
+      "changed_corners": 6393,
+      "max_displacement_m": 0.028884944175123484,
+      "normal_changes": 7153,
+      "weight_changes": 7638
+    }
+  }
+}

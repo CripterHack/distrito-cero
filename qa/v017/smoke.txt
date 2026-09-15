@@ -1,0 +1,5 @@
+BOOT {'mode': 'menu', 'gl': 0}
+ARSENAL 14
+GUN {'mode': 'play', 'eq': {'version': 1, 'selected': 'gauss', 'zoom': 0, 'ammo': {'pistol': {'loaded': 12, 'reserve': 96}, 'revolver': {'loaded': 6, 'reserve': 48}, 'smg': {'loaded': 30, 'reserve': 180}, 'shotgun': {'loaded': 8, 'reserve': 56}, 'rifle': {'loaded': 30, 'reserve': 150}, 'sniper': {'loaded': 5, 'reserve': 30}, 'launcher': {'loaded': 1, 'reserve': 6}, 'grenade': {'loaded': 1, 'reserve': 8}, 'gauss': {'loaded': 3, 'reserve': 21}, 'emp': {'loaded': 1, 'reserve': 8}}, 'shots': 0, 'hits': 0, 'charge': 0, 'cooldown': 0, 'reloading': 0, 'reloadId': None, 'trigger': False, 'blockedTrigger': False, 'aiming': False, 'aimWeight': 0, 'recoil': 0, 'pitch': 0, 'shotSerial': 0, 'lastHitAge': 0.9500000000000013, 'ray': {'origin': [4.4799999999999995, 1.66, 33.399999999999984], 'direction': [0, 0, 1]}}, 'parts': {'selected': 'gauss', 'parts': 6, 'triangles': 2148, 'hands': {'R': {'x': 4.15, 'y': 1.1295178993116803, 'z': 36.24971732464096}, 'L': {'x': 4.065, 'y': 1.1493180825815332, 'z': 36.55321024505671}}}, 'gl': 0}
+SHOT {'shots': 1, 'ammo': {'loaded': 2, 'reserve': 21}}
+OPTIC {'fov': 0.6145211856571299, 'gl': 0}

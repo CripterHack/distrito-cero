@@ -1,0 +1,166 @@
+{
+  "sha256": "7ccaff6042669755fdb18e920099519cda5af785113be9807bc952f3ee4f320c",
+  "passed": 39,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "WebGL boots with fitted rig and modular hairstyles",
+      "pass": true
+    },
+    {
+      "name": "Eleven real hair choices in the creator",
+      "pass": true
+    },
+    {
+      "name": "Style 0 reaches shader and selected geometry",
+      "pass": true
+    },
+    {
+      "name": "Style 1 reaches shader and selected geometry",
+      "pass": true
+    },
+    {
+      "name": "Style 2 reaches shader and selected geometry",
+      "pass": true
+    },
+    {
+      "name": "Style 3 reaches shader and selected geometry",
+      "pass": true
+    },
+    {
+      "name": "Style 4 reaches shader and selected geometry",
+      "pass": true
+    },
+    {
+      "name": "Style 5 reaches shader and selected geometry",
+      "pass": true
+    },
+    {
+      "name": "Style 6 reaches shader and selected geometry",
+      "pass": true
+    },
+    {
+      "name": "Style 7 reaches shader and selected geometry",
+      "pass": true
+    },
+    {
+      "name": "Style 8 reaches shader and selected geometry",
+      "pass": true
+    },
+    {
+      "name": "Style 9 reaches shader and selected geometry",
+      "pass": true
+    },
+    {
+      "name": "Style 10 reaches shader and selected geometry",
+      "pass": true
+    },
+    {
+      "name": "Hair cache is bounded by style/LOD",
+      "pass": true
+    },
+    {
+      "name": "Bald selection does not remove eyebrows",
+      "pass": true
+    },
+    {
+      "name": "New independent traits reach per-actor GPU row",
+      "pass": true
+    },
+    {
+      "name": "Shorter bind rig is used by the real renderer",
+      "pass": true
+    },
+    {
+      "name": "Editor does not mutate active gameplay",
+      "pass": true
+    },
+    {
+      "name": "432 production GPU transforms agree with fitted CPU coordinates",
+      "pass": true
+    },
+    {
+      "name": "Production normal transform agrees with numeric derivatives",
+      "pass": true
+    },
+    {
+      "name": "Transform feedback has no GL error",
+      "pass": true
+    },
+    {
+      "name": "Named slot serializes style, volume, brows and neck length",
+      "pass": true
+    },
+    {
+      "name": "Apply from comparison commits draft instead of comparison image",
+      "pass": true
+    },
+    {
+      "name": "Cancel leaves previous hairstyle intact",
+      "pass": true
+    },
+    {
+      "name": "Loading first named slot restores its own appearance",
+      "pass": true
+    },
+    {
+      "name": "Loading second slot restores a different hairstyle",
+      "pass": true
+    },
+    {
+      "name": "Real downloaded backup contains both hairstyles",
+      "pass": true
+    },
+    {
+      "name": "Control characterHairStyle reachable at 390",
+      "pass": true
+    },
+    {
+      "name": "Control characterNeckLength reachable at 390",
+      "pass": true
+    },
+    {
+      "name": "Control characterHairVolume reachable at 390",
+      "pass": true
+    },
+    {
+      "name": "Control characterBrowMatch reachable at 390",
+      "pass": true
+    },
+    {
+      "name": "Responsive creator renders selected style 390",
+      "pass": true
+    },
+    {
+      "name": "Control characterHairStyle reachable at 844",
+      "pass": true
+    },
+    {
+      "name": "Control characterNeckLength reachable at 844",
+      "pass": true
+    },
+    {
+      "name": "Control characterHairVolume reachable at 844",
+      "pass": true
+    },
+    {
+      "name": "Control characterBrowMatch reachable at 844",
+      "pass": true
+    },
+    {
+      "name": "Responsive creator renders selected style 844",
+      "pass": true
+    },
+    {
+      "name": "No JavaScript or shader exceptions",
+      "pass": true
+    },
+    {
+      "name": "No external network requests",
+      "pass": true
+    }
+  ],
+  "errors": [],
+  "requests": [],
+  "fixture": "DOM interactions with isolated memory storage and real WebGL keyframes; continuous suite run separately."
+}

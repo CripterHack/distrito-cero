@@ -1,0 +1,92 @@
+TAP version 13
+# Subtest: every usable item defines dedicated oriented contact sockets
+ok 1 - every usable item defines dedicated oriented contact sockets
+  ---
+  duration_ms: 184.633395
+  type: 'test'
+  ...
+# Subtest: oriented wrist reaches the socket without stretching forearm or moving fingers away
+ok 2 - oriented wrist reaches the socket without stretching forearm or moving fingers away
+  ---
+  duration_ms: 15.213934
+  type: 'test'
+  ...
+# Subtest: all equipment sockets stay attainable in pitch/crouch/aim/reload states
+not ok 3 - all equipment sockets stay attainable in pitch/crouch/aim/reload states
+  ---
+  duration_ms: 2682.739983
+  type: 'test'
+  location: '/mnt/data/dc-v018-work/distrito-cero/tests/handling.test.cjs:9:1'
+  failureType: 'testCodeFailure'
+  error: 'shotgun L c0 a0 p-0.55 r0: 0.012404213062449087'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/mnt/data/dc-v018-work/distrito-cero/tests/handling.test.cjs:9:707)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: primary grip fingers and support fingers do not use identical profiles
+ok 4 - primary grip fingers and support fingers do not use identical profiles
+  ---
+  duration_ms: 11.624335
+  type: 'test'
+  ...
+# Subtest: support hand follows the moving magazine and returns without teleporting
+ok 5 - support hand follows the moving magazine and returns without teleporting
+  ---
+  duration_ms: 12.438993
+  type: 'test'
+  ...
+# Subtest: magazine is a separate mesh, avoiding a static duplicate behind the moving one
+ok 6 - magazine is a separate mesh, avoiding a static duplicate behind the moving one
+  ---
+  duration_ms: 2.171812
+  type: 'test'
+  ...
+# Subtest: shared recoil spring is finite and frame-rate stable
+ok 7 - shared recoil spring is finite and frame-rate stable
+  ---
+  duration_ms: 19.002321
+  type: 'test'
+  ...
+# Subtest: handling state is transient and cannot leak to inventory snapshot
+ok 8 - handling state is transient and cannot leak to inventory snapshot
+  ---
+  duration_ms: 10.109322
+  type: 'test'
+  ...
+# Subtest: different actors never share spring or hand pose state
+ok 9 - different actors never share spring or hand pose state
+  ---
+  duration_ms: 19.258077
+  type: 'test'
+  ...
+# Subtest: mount is a pure read and preserves ray/muzzle equivalence
+ok 10 - mount is a pure read and preserves ray/muzzle equivalence
+  ---
+  duration_ms: 9.188044
+  type: 'test'
+  ...
+# Subtest: selector uses alpha surfaces rather than opacity on text
+ok 11 - selector uses alpha surfaces rather than opacity on text
+  ---
+  duration_ms: 1.740722
+  type: 'test'
+  ...
+1..11
+# tests 11
+# suites 0
+# pass 10
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 3044.074856

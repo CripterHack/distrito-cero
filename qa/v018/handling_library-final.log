@@ -1,0 +1,65 @@
+02:41:18 PASS Landing offers creator and named library
+02:41:21 PASS New story enters creator before gameplay
+02:41:21 PASS Draft uses a separate simulation and world
+02:41:21 PASS Four selectable presets
+02:41:21 PASS Pose pause supported
+02:41:21 PASS Controls update distinct whitelisted appearance
+02:41:21 PASS Orbit button changes preview yaw
+02:41:22 PASS WebGL keyframe 01-editor
+02:41:22 PASS Actor appearance reaches GPU
+02:41:22 PASS WebGL keyframe 02-editor-face
+02:41:23 PASS Blank character name blocks creation
+02:41:23 PASS Blank save name blocks creation
+02:41:23 PASS New slot contains selected identity
+02:41:23 PASS Renderer leaves studio and canvas fills viewport
+02:41:24 PASS Editing does not alter current session before apply
+02:41:24 PASS Escape cancels draft even in text field
+02:41:24 PASS Cancel keeps exact appearance
+02:41:24 PASS Apply updates active save identity
+02:41:25 PASS Second creation preserves first slot
+02:41:25 PASS First slot keeps its own mission and money
+02:41:25 PASS Loading A restores its appearance and progress
+02:41:25 PASS Loading B restores its independent progress
+02:41:26 PASS Rename retains identity and snapshot
+02:41:26 PASS Duplicate has its own id without switching live game
+02:41:26 PASS Save as copy creates and activates independent branch
+02:41:27 PASS WebGL keyframe 03-library
+02:41:27 PASS Deletion cancelled leaves slot intact
+02:41:27 PASS Delete active detaches current session, no resurrection
+02:41:27 PASS Detached autosave does not recreate deleted slot
+02:41:27 PASS Per-slot JSON has name and appearance
+02:41:27 PASS Bulk backup contains all saved slots
+02:41:28 PASS Invalid import does not write any slot
+02:41:28 PASS Bulk import all-or-nothing validation
+02:41:28 PASS Import appends instead of overwriting
+02:41:29 PASS Legacy JSON import receives default identity
+02:41:29 PASS Quota warning replaces success message
+02:41:29 PASS Quota leaves saved bytes intact
+02:41:29 PASS Edit rolls back if persistence fails
+02:41:29 PASS Stale live revision refuses overwrite
+02:41:29 PASS Conflict is explained in library
+02:41:30 PASS Reload after conflict restores newer state
+02:41:30 PASS Names rendered as text not HTML
+02:41:32 PASS Catalogue rehydrates on a recreated page
+02:41:35 PASS Continue restores stored identity and newer progress
+02:41:40 PASS 390: creator footer and return reachable
+02:41:40 PASS 390: preview fits viewport
+02:41:40 PASS 390: scroll reaches palette swatch
+02:41:40 PASS WebGL keyframe 04-creator-390
+02:41:40 PASS 390: tactile commit creates slot
+02:41:40 PASS 390: library close reachable
+02:41:41 PASS 390: card actions operable
+02:41:41 PASS WebGL keyframe 05-library-390
+02:41:46 PASS 844: creator footer and return reachable
+02:41:46 PASS 844: preview fits viewport
+02:41:46 PASS 844: scroll reaches palette swatch
+02:41:46 PASS WebGL keyframe 04-creator-844
+02:41:46 PASS 844: tactile commit creates slot
+02:41:47 PASS 844: library close reachable
+02:41:47 PASS 844: card actions operable
+02:41:47 PASS WebGL keyframe 05-library-844
+02:41:52 PASS Storage denied offers explicit volatile session
+02:41:52 PASS Volatile session is playable and marked unsaved
+02:41:52 PASS No JavaScript or WebGL console errors
+02:41:52 PASS No external requests during game
+RESULT 64 0

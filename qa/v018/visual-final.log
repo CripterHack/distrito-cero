@@ -1,0 +1,17 @@
+START ['rifle']
+FINISH ['rifle'] 0
+START ['gauss']
+FINISH ['gauss'] 0
+START ['reload']
+FINISH ['reload'] 0
+START ['pistol']
+FINISH ['pistol'] 0
+START ['binoculars']
+FINISH ['binoculars'] 0
+frame 0 Guardia baja
+frame 20 Apuntar
+frame 40 Recargar
+frame 60 Recargar
+frame 80 Apuntar
+frame 100 Apuntar
+OK 120 frames, 6 s

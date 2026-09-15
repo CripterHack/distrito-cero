@@ -1,0 +1,338 @@
+{
+  "version": "0.9",
+  "html_sha256": "ae268d154df28868f07e69e0adfd60d024b39eac38e41abc14f45df2100f1f26",
+  "files": {
+    "src/skin-rig.js": {
+      "bytes": 7352,
+      "sha256": "a9dd9eb5ff2d661073ee874efaedd1edd12b705594b0eaf7048fe6a9b312e55e"
+    },
+    "src/visual-geometry.js": {
+      "bytes": 7048,
+      "sha256": "94f2eeaceff571f79be60e9796c84096217fbc41ff125c3361134aadfc176ad2"
+    },
+    "src/frontier-renderer.js": {
+      "bytes": 10009,
+      "sha256": "9cc8d987c0a0b2f08632116319ac20c731c756366f1f2cf5574b927e981b0c8f"
+    },
+    "src/human-materials.js": {
+      "bytes": 45817,
+      "sha256": "48effe6fbf4aa9bea65b7369cdb78a907e58b7d6dcb90b52155aae220b54dde8"
+    },
+    "src/cast-renderer.js": {
+      "bytes": 7384,
+      "sha256": "3eb39374d188d8294ce5c1c992afab6c52d910c007b657e8265ac81a9807d0b6"
+    },
+    "src/interactions.js": {
+      "bytes": 13431,
+      "sha256": "5acca97d6f97c63041e311189ff033ad0b7911dc71a642248cc8c01d8c052cf6"
+    },
+    "src/reactive-renderer.js": {
+      "bytes": 10477,
+      "sha256": "b040080705e78ad8dbd306415c217aed6d76e0a5a8555a226ef1eba3261a1b41"
+    },
+    "src/police.js": {
+      "bytes": 1892,
+      "sha256": "797ac841a39442aa317004710a6a85f467e7a945cee6b14dfa1eba0c47440322"
+    },
+    "src/character-motion.js": {
+      "bytes": 1594,
+      "sha256": "7f985dda0d4bc52f74e1655c4952a66971425bf66e47c0a47317798f30e34126"
+    },
+    "src/frontier-simulation.js": {
+      "bytes": 7606,
+      "sha256": "8d05a4390cc06d53eaa6fbf716c1900052343b5f87185affd90acad5c54d5a85"
+    },
+    "src/renderer.js": {
+      "bytes": 48658,
+      "sha256": "a710589ea13d758a5649fe7ea94c1ca1d17017a20a637c4f2ce0946726c658d2"
+    },
+    "src/hero-asset.js": {
+      "bytes": 5196930,
+      "sha256": "1fed231a3c0dadc70f740d50a99fb1846dd240bf9918a2bea44ca83b505539c3"
+    },
+    "src/realism-renderer.js": {
+      "bytes": 5702,
+      "sha256": "177da4335a9dfe040b14e789365609ee70fd877f4c174a616ec50fb4e1f32970"
+    },
+    "src/app.js": {
+      "bytes": 32161,
+      "sha256": "b9ed33cbdda9ff6403120e8f86a5dadf8cb4bc8bd2dd36fc0bc0dffb7d4f13df"
+    },
+    "src/core.js": {
+      "bytes": 5282,
+      "sha256": "b1d0f35f9a6351c4db4a9648c20b161ce8bb5037d1b6eb3cec103d4e91be9ce9"
+    },
+    "src/audio.js": {
+      "bytes": 4068,
+      "sha256": "b5542175cda159c3868b3d5c4c7250b4c8d5cd84615836ff8bf3e9eaccad9315"
+    },
+    "src/frontier-world.js": {
+      "bytes": 11257,
+      "sha256": "f89bcb30acc1b03b4ea0350cd55f2df960d560c83881f7f794b34b640556ac0d"
+    },
+    "src/simulation.js": {
+      "bytes": 28811,
+      "sha256": "40bd3276a48785666b36dfd730159e0068ca912e1bb95bc987b0a15e0323cff4"
+    },
+    "src/page.html": {
+      "bytes": 15555,
+      "sha256": "042208b5b18a679f7fd267091d10d3ba7d8b7636b7aab6ed2c42d909314a0ea2"
+    },
+    "src/frontier-ui.js": {
+      "bytes": 10594,
+      "sha256": "f2cb10a787c7b3aa3fc70d642bb27a573a76fbbd8a766c3f3f95e03dea8cf6fd"
+    },
+    "src/crowd-geometry.js": {
+      "bytes": 1834,
+      "sha256": "f010b0a8e1ab91cd2f03e6397dc940732ba63cec76ac9645bebe0300a8f6cb81"
+    },
+    "src/vehicle-asset.js": {
+      "bytes": 105493,
+      "sha256": "8170c4ba4debe5133c75d5629c8c774dfd1609188675499cec6d90bd5da3f6ac"
+    },
+    "src/occupancy.js": {
+      "bytes": 16247,
+      "sha256": "741b22f205824ccc90dcce4a9081e10b8894abf86f54dbfdcfa18accb4d67088"
+    },
+    "src/dynamics.js": {
+      "bytes": 11420,
+      "sha256": "23fb55d52982200881b0f2648fbd2b2e1e90a973367bf7cb77bf666ba1364e34"
+    },
+    "src/style.css": {
+      "bytes": 33518,
+      "sha256": "709449d3d56c84d8a1924c9a9195c5d1605ebc2ceab5cc2f875b20a5feb99e9c"
+    },
+    "src/world.js": {
+      "bytes": 2754,
+      "sha256": "0792973473b56dcf97bd5c296d379bc3db1738e8b6f6543a8e954a1ca3830c7c"
+    },
+    "tools/refine_human_maps.py": {
+      "bytes": 1532,
+      "sha256": "30e6cb264d01387410cea449ca54a030ec917390bf3cb8e13df9fdbad14dc832"
+    },
+    "tools/build_hero.py": {
+      "bytes": 12728,
+      "sha256": "0fadcd4988d7f5be2d8e4b7459a448d23f84fbc5f4d802313877be6f822f45e9"
+    },
+    "tools/export_native_glb.py": {
+      "bytes": 8445,
+      "sha256": "e3bfe0eec25bbcb456a92b56161f8bfe2f24b769effc5ac68aa63d37f6f5ae04"
+    },
+    "tools/export_human_glb.py": {
+      "bytes": 9249,
+      "sha256": "085137fba1d3aebb12a8dbb3b8647429d821257593d88450142a90c6949c7be7"
+    },
+    "tools/export_presence_glb.py": {
+      "bytes": 8545,
+      "sha256": "770f705b9beecd81241e53f6d54f48be66b255e74ef65263190bf0d590edebd0"
+    },
+    "tools/package_presence.py": {
+      "bytes": 4150,
+      "sha256": "0ba5f3cb75ad305616ceac2f052d68c1d26e49e7501a05e71b5ea47ff5fb10f3"
+    },
+    "tools/embed_human_maps.py": {
+      "bytes": 1088,
+      "sha256": "25d287b7800fad35111e2780e865e41eebc562aaf283d4e8aeb5a310bc118b00"
+    },
+    "tools/build_hero_v08.py": {
+      "bytes": 14844,
+      "sha256": "e61c88fe87be05cf4fdb05e621ed9f98812049a4f7adbefd73a52464fb0a9d23"
+    },
+    "tools/audit_presence_release.py": {
+      "bytes": 3929,
+      "sha256": "4f178fa2f24a13302772ede154709750f740c7b1d9b3012590d6451933d9ff26"
+    },
+    "tools/convert_vehicle.py": {
+      "bytes": 1952,
+      "sha256": "5bb24fe241958bf6de25de9528467ca07f5133236368f88de4f8e21050ddf752"
+    },
+    "tools/build_hero_v09.py": {
+      "bytes": 17064,
+      "sha256": "122baec31897f49e7f9beae2bbe92ff4fc3086abb027f64bb1304f7e33a2fa4e"
+    },
+    "tests/v08_head.py": {
+      "bytes": 1844,
+      "sha256": "16ce70bfd9ca9e0d58c6249fd0d41d44198000ae267cb006b1364877b5d11539"
+    },
+    "tests/browser_qa.py": {
+      "bytes": 10446,
+      "sha256": "3abd198a089650866804f9d0400c2a0449ed5d0e09d54a760bba0d5b7e113341"
+    },
+    "tests/police.test.cjs": {
+      "bytes": 10363,
+      "sha256": "48bccbb0c73c70765233429e2adda4032866604f4e38de7809064e7a00fdb8d3"
+    },
+    "tests/legacy_horizon.py": {
+      "bytes": 10772,
+      "sha256": "f4218cd4efc14d4be98cbf64b725c9b9266bcb2f28625903e8af7cbcb8b46599"
+    },
+    "tests/horizon_browser.py": {
+      "bytes": 9929,
+      "sha256": "5ba9b54dff57820586a6dbe831f156c4c883f6e26ef312ce90436c4aa99a08c0"
+    },
+    "tests/presence_capture.py": {
+      "bytes": 3782,
+      "sha256": "b9d4a73a4d2572c0152860d90885595361c121657ef47b1e8dbf1bd0c690a72e"
+    },
+    "tests/continuous_reactive.py": {
+      "bytes": 6029,
+      "sha256": "768b24e80484d8d5a81f089ae4b2ca4dd08a26fa6e76cec2372b6ded5ade8b1a"
+    },
+    "tests/human-fidelity.test.cjs": {
+      "bytes": 1755,
+      "sha256": "089104ae39860cca8610231d865f4177cc7c9dec8e967daf46fb7819e8286b7f"
+    },
+    "tests/realism_browser.py": {
+      "bytes": 9211,
+      "sha256": "62bee6b06f7fa3bd3cc3ea86ad3b211048cd995efce146d4fd06e4dd4cf20470"
+    },
+    "tests/continuous_render.py": {
+      "bytes": 2201,
+      "sha256": "03165ad3b1cfb3bcffc17197194550ef03ce08fa4bda92c743f48b1c51e23864"
+    },
+    "tests/occupancy.test.cjs": {
+      "bytes": 9469,
+      "sha256": "f9d21a92a9af5da26faad42bafad6c983e47887159409ea522f5243737636e8e"
+    },
+    "tests/horizon_continuous.py": {
+      "bytes": 4666,
+      "sha256": "982fa45c650980f78ad5f7b633add390c385fd952b0d72e92324555fe2dff549"
+    },
+    "tests/horizon_capture.py": {
+      "bytes": 2663,
+      "sha256": "e9533da471ba50cf532fa396817f271d2814daa76a1b44415a077e5fd4718f00"
+    },
+    "tests/dynamics.test.cjs": {
+      "bytes": 8177,
+      "sha256": "9df15e01feb267f4326c8e43e00ef2bf78035134c442e261e3872cef6bc698f7"
+    },
+    "tests/legacy_v05.py": {
+      "bytes": 10456,
+      "sha256": "3670320a8d14d2302e86defe0a0287b823efdf8672e4ad0bc8f9cc4e05bf0266"
+    },
+    "tests/README.md": {
+      "bytes": 948,
+      "sha256": "7b1d98183bedd3b180b6fbcfcfe9b7df3d60e443266712008793374005411abf"
+    },
+    "tests/continuous_realism.py": {
+      "bytes": 7461,
+      "sha256": "183c3ffa8f4feb7645bd6fb1ec10a5c1d1723e53b9ec0ab01648e78edcd4d7ca"
+    },
+    "tests/presence_clip.py": {
+      "bytes": 3933,
+      "sha256": "09f43f53d5dbad1a80fbe9bf67175368893827cf13ae1573a137eb7d06c163cf"
+    },
+    "tests/presence_continuous.py": {
+      "bytes": 6054,
+      "sha256": "f10f481b201b23f35dada559a4db75a0bf9be9bd9d0611fa7deccd65997095d8"
+    },
+    "tests/legacy_human.py": {
+      "bytes": 11345,
+      "sha256": "6db112105150662fa438d7107a2d59edbdedcd8a9b29f5127a47554ae8bb9be1"
+    },
+    "tests/v08_boot.py": {
+      "bytes": 1839,
+      "sha256": "d3023a27339593d6f1573c84c5de1db51c72b791a71abdf60e90b0656ce2ce74"
+    },
+    "tests/horizon_presence.py": {
+      "bytes": 9950,
+      "sha256": "066a83e4712f1c24db17aa36785485fe9b91896068994ad71dacd80e10d51b13"
+    },
+    "tests/presence_browser.py": {
+      "bytes": 11342,
+      "sha256": "c14fde96ed3de03611e9b89604f59e2b4cb132f8dd316197eb7ecc25d683a743"
+    },
+    "tests/human_continuous.py": {
+      "bytes": 6304,
+      "sha256": "8373b8b774e3672ea2bde6c941ed9f665c471393b70d39156ff488b578e1287e"
+    },
+    "tests/native_exports.test.py": {
+      "bytes": 3391,
+      "sha256": "e795ceb88e476730941f344bceef4d1566bcd8d1b13502a3bb7035564ab745cc"
+    },
+    "tests/human_browser.py": {
+      "bytes": 12581,
+      "sha256": "a9fcbc18b1d2e3ee2f383734e899e03cbc96515da9c5d384d75895cde94a5d97"
+    },
+    "tests/legacy_presence.py": {
+      "bytes": 11247,
+      "sha256": "3debbe47b56214dc0fd3314e2fccef215c8d3604062ed237d1fb3796f943c5e9"
+    },
+    "tests/frontier.test.cjs": {
+      "bytes": 6755,
+      "sha256": "62b1a1fa4d7a9406c96aa421c23b1d0c80c9fbf1323fa7c189ecfe9791030db4"
+    },
+    "tests/realism.test.cjs": {
+      "bytes": 2930,
+      "sha256": "a00af9c8b68ad3e0b205b8520d52b8e4a2ec0bb1f02feb869bcc543d7431a126"
+    },
+    "tests/reactive_browser.py": {
+      "bytes": 14412,
+      "sha256": "d53dea94fd5afb6e21721f32034a29c736d0a135de8cd44e2b8cd9137c50715f"
+    },
+    "tests/presence_exports.test.py": {
+      "bytes": 3391,
+      "sha256": "3cd7559667d2ef5720a525e26ec6c97feda3586054a92aeab66dd5e363534528"
+    },
+    "tests/police_browser.py": {
+      "bytes": 10435,
+      "sha256": "509bc37459d63a2fa9598b1eb190586cc27175bd5014308f300f5b14990f24e0"
+    },
+    "tests/police_continuous.py": {
+      "bytes": 2862,
+      "sha256": "26a9bafb4aec0f17787c3e3e7a46d9c75183bc298fd8907e6a1c7a680bfc5de4"
+    },
+    "tests/human_export.test.py": {
+      "bytes": 2739,
+      "sha256": "1a0d2d71081e946e2e35da654f34fff8e031759cdad6f3df7983771eeba0e8b4"
+    },
+    "tests/presence_mesh.test.py": {
+      "bytes": 1262,
+      "sha256": "21173a2bebb3d0d41fbd6b7e4b29222f96b10db8b312da97e69b6e15c61e0236"
+    },
+    "tests/human_capture.py": {
+      "bytes": 4683,
+      "sha256": "d80dbf3901217c9c6a91cdba2fe74c032356e16ff62e98653b5a439930520a89"
+    },
+    "tests/human_geometry.test.py": {
+      "bytes": 3434,
+      "sha256": "c509db75e5bd4dec3ac962c3ea089e3df469d26c2e5067f293dec55b0a4709c9"
+    },
+    "tests/cast.test.cjs": {
+      "bytes": 2275,
+      "sha256": "aeca728dfacce10fac917b47cd0b9d21d72362f8de0aedf50b5fa53e2d22fd3d"
+    },
+    "tests/core.test.cjs": {
+      "bytes": 10377,
+      "sha256": "6fddde39c27fade2d420be08cd6ca9071cecbed47db16210ed8aed95b31e8d2e"
+    },
+    "assets/anatomy-source/compact.bin": {
+      "bytes": 40130,
+      "sha256": "4bdcd196342f4ec13e3f616deffa7176ca59cee8fabc891d7339f9161c6ecccf"
+    },
+    "assets/anatomy-source/map-repair.json": {
+      "bytes": 217,
+      "sha256": "fe4d3c1b76f2b3099ff5f2fe597244b2024d3a00458ea72758e107388707b0d2"
+    },
+    "assets/anatomy-source/head.xz": {
+      "bytes": 16768,
+      "sha256": "efef6b1f1fe41e7b1e48c05913343adc0f536e7290bb707fe2fff506666295df"
+    },
+    "assets/anatomy-source/roughness.webp": {
+      "bytes": 160,
+      "sha256": "8bb6aaebcf8fa9f28c586d73a96c6163a3ea4c63dbceb841e2ce276be8104972"
+    },
+    "assets/anatomy-source/skin-repaired.webp": {
+      "bytes": 29924,
+      "sha256": "121a5a8bc5c30a431519290b2f1b0417f9fae099dfb0975eb7b7b2475ad83ec4"
+    },
+    "assets/anatomy-source/skin.webp": {
+      "bytes": 19442,
+      "sha256": "a1f88b7c9550c3270896d060f224a5f23b00b0fc2b1c1448e196f3f5bd29af92"
+    },
+    "assets/anatomy-source/normal.webp": {
+      "bytes": 3744,
+      "sha256": "83b0c666ecc499e7d545841a1724782e18790a717e3fa8ada0e5d5673dcaf978"
+    }
+  }
+}

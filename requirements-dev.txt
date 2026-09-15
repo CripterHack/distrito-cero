@@ -1,0 +1,7 @@
+# Build and QA only. Not used by the standalone HTML.
+numpy==2.3.5
+scipy==1.17.0
+scikit-image==0.26.0
+Pillow==12.3.0
+playwright==1.57.0
+trimesh==4.11.1

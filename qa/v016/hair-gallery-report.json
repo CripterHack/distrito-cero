@@ -1,0 +1,349 @@
+{
+  "sha256": "7ccaff6042669755fdb18e920099519cda5af785113be9807bc952f3ee4f320c",
+  "screens": [
+    {
+      "style": 0,
+      "label": "Corto clásico",
+      "gl": 0,
+      "camera": {
+        "eye": [
+          0.2,
+          1.67,
+          0.76
+        ],
+        "target": [
+          0,
+          1.59,
+          -0.005
+        ]
+      },
+      "stats": {
+        "actors": 1,
+        "drivers": 0,
+        "evicted": 0,
+        "lod": [
+          1,
+          0,
+          0
+        ],
+        "triangles": 89433,
+        "paletteRows": 1,
+        "drawBatches": 14,
+        "hairGeometries": 2
+      }
+    },
+    {
+      "style": 1,
+      "label": "Rapado",
+      "gl": 0,
+      "camera": {
+        "eye": [
+          0.2,
+          1.67,
+          0.76
+        ],
+        "target": [
+          0,
+          1.59,
+          -0.005
+        ]
+      },
+      "stats": {
+        "actors": 1,
+        "drivers": 0,
+        "evicted": 0,
+        "lod": [
+          1,
+          0,
+          0
+        ],
+        "triangles": 80793,
+        "paletteRows": 1,
+        "drawBatches": 13,
+        "hairGeometries": 3
+      }
+    },
+    {
+      "style": 2,
+      "label": "Peinado hacia atrás",
+      "gl": 0,
+      "camera": {
+        "eye": [
+          0.2,
+          1.67,
+          0.76
+        ],
+        "target": [
+          0,
+          1.59,
+          -0.005
+        ]
+      },
+      "stats": {
+        "actors": 1,
+        "drivers": 0,
+        "evicted": 0,
+        "lod": [
+          1,
+          0,
+          0
+        ],
+        "triangles": 89433,
+        "paletteRows": 1,
+        "drawBatches": 14,
+        "hairGeometries": 4
+      }
+    },
+    {
+      "style": 3,
+      "label": "Sin cabello",
+      "gl": 0,
+      "camera": {
+        "eye": [
+          0.2,
+          1.67,
+          0.76
+        ],
+        "target": [
+          0,
+          1.59,
+          -0.005
+        ]
+      },
+      "stats": {
+        "actors": 1,
+        "drivers": 0,
+        "evicted": 0,
+        "lod": [
+          1,
+          0,
+          0
+        ],
+        "triangles": 77481,
+        "paletteRows": 1,
+        "drawBatches": 12,
+        "hairGeometries": 5
+      }
+    },
+    {
+      "style": 4,
+      "label": "Corto texturizado",
+      "gl": 0,
+      "camera": {
+        "eye": [
+          0.2,
+          1.67,
+          0.76
+        ],
+        "target": [
+          0,
+          1.59,
+          -0.005
+        ]
+      },
+      "stats": {
+        "actors": 1,
+        "drivers": 0,
+        "evicted": 0,
+        "lod": [
+          1,
+          0,
+          0
+        ],
+        "triangles": 89433,
+        "paletteRows": 1,
+        "drawBatches": 14,
+        "hairGeometries": 6
+      }
+    },
+    {
+      "style": 5,
+      "label": "Degradado alto",
+      "gl": 0,
+      "camera": {
+        "eye": [
+          0.2,
+          1.67,
+          0.76
+        ],
+        "target": [
+          0,
+          1.59,
+          -0.005
+        ]
+      },
+      "stats": {
+        "actors": 1,
+        "drivers": 0,
+        "evicted": 0,
+        "lod": [
+          1,
+          0,
+          0
+        ],
+        "triangles": 89433,
+        "paletteRows": 1,
+        "drawBatches": 14,
+        "hairGeometries": 7
+      }
+    },
+    {
+      "style": 6,
+      "label": "Media melena",
+      "gl": 0,
+      "camera": {
+        "eye": [
+          0.2,
+          1.67,
+          0.76
+        ],
+        "target": [
+          0,
+          1.59,
+          -0.005
+        ]
+      },
+      "stats": {
+        "actors": 1,
+        "drivers": 0,
+        "evicted": 0,
+        "lod": [
+          1,
+          0,
+          0
+        ],
+        "triangles": 93033,
+        "paletteRows": 1,
+        "drawBatches": 14,
+        "hairGeometries": 8
+      }
+    },
+    {
+      "style": 7,
+      "label": "Flequillo lateral",
+      "gl": 0,
+      "camera": {
+        "eye": [
+          0.2,
+          1.67,
+          0.76
+        ],
+        "target": [
+          0,
+          1.59,
+          -0.005
+        ]
+      },
+      "stats": {
+        "actors": 1,
+        "drivers": 0,
+        "evicted": 0,
+        "lod": [
+          1,
+          0,
+          0
+        ],
+        "triangles": 91953,
+        "paletteRows": 1,
+        "drawBatches": 14,
+        "hairGeometries": 9
+      }
+    },
+    {
+      "style": 8,
+      "label": "Undercut asimétrico",
+      "gl": 0,
+      "camera": {
+        "eye": [
+          0.2,
+          1.67,
+          0.76
+        ],
+        "target": [
+          0,
+          1.59,
+          -0.005
+        ]
+      },
+      "stats": {
+        "actors": 1,
+        "drivers": 0,
+        "evicted": 0,
+        "lod": [
+          1,
+          0,
+          0
+        ],
+        "triangles": 91953,
+        "paletteRows": 1,
+        "drawBatches": 14,
+        "hairGeometries": 10
+      }
+    },
+    {
+      "style": 9,
+      "label": "Recogido corto",
+      "gl": 0,
+      "camera": {
+        "eye": [
+          0.2,
+          1.67,
+          0.76
+        ],
+        "target": [
+          0,
+          1.59,
+          -0.005
+        ]
+      },
+      "stats": {
+        "actors": 1,
+        "drivers": 0,
+        "evicted": 0,
+        "lod": [
+          1,
+          0,
+          0
+        ],
+        "triangles": 92889,
+        "paletteRows": 1,
+        "drawBatches": 14,
+        "hairGeometries": 11
+      }
+    },
+    {
+      "style": 10,
+      "label": "Melena recta",
+      "gl": 0,
+      "camera": {
+        "eye": [
+          0.2,
+          1.67,
+          0.76
+        ],
+        "target": [
+          0,
+          1.59,
+          -0.005
+        ]
+      },
+      "stats": {
+        "actors": 1,
+        "drivers": 0,
+        "evicted": 0,
+        "lod": [
+          1,
+          0,
+          0
+        ],
+        "triangles": 93393,
+        "paletteRows": 1,
+        "drawBatches": 14,
+        "hairGeometries": 12
+      }
+    }
+  ],
+  "errors": [],
+  "requests": [],
+  "scope": "Actual production WebGL. Identical prepared camera and light. Static pose, not a benchmark."
+}

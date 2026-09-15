@@ -1,0 +1,53 @@
+test_all_quantized_vertices_are_valid_with_bounded_budget (acceptance_0.Constitution.test_all_quantized_vertices_are_valid_with_bounded_budget) ... ok
+test_each_hand_is_a_single_connected_surface (acceptance_0.Constitution.test_each_hand_is_a_single_connected_surface) ... ok
+test_fitted_flat_outsoles_and_distinct_nails (acceptance_0.Constitution.test_fitted_flat_outsoles_and_distinct_nails) ... ok
+test_hand_vertices_use_all_thirty_digit_bones (acceptance_0.Constitution.test_hand_vertices_use_all_thirty_digit_bones) ... ok
+test_hands_have_wrist_overlap_and_adult_length (acceptance_0.Constitution.test_hands_have_wrist_overlap_and_adult_length) ... ok
+test_rig_and_asset_share_the_full_definition (acceptance_0.Constitution.test_rig_and_asset_share_the_full_definition) ... ok
+test_shoulder_silhouette_is_fitted_not_padded (acceptance_0.Constitution.test_shoulder_silhouette_is_fitted_not_padded) ... ok
+test_anatomical_dimensions_and_neck_connection (acceptance_1.Anatomy.test_anatomical_dimensions_and_neck_connection) ... ok
+test_authoring_export_uses_expected_family (acceptance_1.Anatomy.test_authoring_export_uses_expected_family) ... ok
+test_embedded_texture_budget_and_validity (acceptance_1.Anatomy.test_embedded_texture_budget_and_validity) ... ok
+test_immutable_cc0_transport_and_indices (acceptance_1.Anatomy.test_immutable_cc0_transport_and_indices) ... ok
+test_scalp_has_positive_clearance_against_actual_anatomy (acceptance_1.Anatomy.test_scalp_has_positive_clearance_against_actual_anatomy) ... ok
+test_uv_seam_and_normal_integrity (acceptance_1.Anatomy.test_uv_seam_and_normal_integrity) ... ok
+test_hands_and_neck_normals_and_weights_are_unit (acceptance_2.Continuity.test_hands_and_neck_normals_and_weights_are_unit) ... ok
+test_nails_follow_actual_dorsal_skin_not_nominal_finger_radius (acceptance_2.Continuity.test_nails_follow_actual_dorsal_skin_not_nominal_finger_radius) ... ok
+test_neck_reaches_torso_and_flares_into_base (acceptance_2.Continuity.test_neck_reaches_torso_and_flares_into_base) ... ok
+test_neck_root_is_anchored_to_chest_and_not_just_to_head (acceptance_2.Continuity.test_neck_root_is_anchored_to_chest_and_not_just_to_head) ... ok
+test_no_neck_uv_stretch_across_cylindrical_seam (acceptance_2.Continuity.test_no_neck_uv_stretch_across_cylindrical_seam) ... ok
+test_runtime_geometry_budget (acceptance_2.Continuity.test_runtime_geometry_budget) ... ok
+test_hands_keep_shape_and_weights_with_no_split_normals (acceptance_3.Polish.test_hands_keep_shape_and_weights_with_no_split_normals) ... ok
+test_no_topology_inflation_or_bone_contract_change (acceptance_3.Polish.test_no_topology_inflation_or_bone_contract_change) ... ok
+test_polished_normals_weights_and_winding (acceptance_3.Polish.test_polished_normals_weights_and_winding) ... ok
+test_chin_moves_with_head_not_spine (acceptance_4.Cervical.test_chin_moves_with_head_not_spine) ... ok
+test_jaw_chin_and_facial_landmarks_preserved (acceptance_4.Cervical.test_jaw_chin_and_facial_landmarks_preserved) ... ok
+test_low_neck_is_still_welded_with_the_head (acceptance_4.Cervical.test_low_neck_is_still_welded_with_the_head) ... ok
+test_normals_continuous_at_cervical_shared_positions (acceptance_4.Cervical.test_normals_continuous_at_cervical_shared_positions) ... ok
+test_valid_weights_and_no_degenerate_cervical_triangles (acceptance_4.Cervical.test_valid_weights_and_no_degenerate_cervical_triangles) ... ok
+test_cervical_edges_do_not_collapse_or_explode_in_sampled_motion (acceptance_5.CervicalDeformation.test_cervical_edges_do_not_collapse_or_explode_in_sampled_motion) ... ok
+test_cervical_normals_point_outward_instead_of_turning_inside (acceptance_5.CervicalDeformation.test_cervical_normals_point_outward_instead_of_turning_inside) ... ok
+test_chin_retains_its_distance_to_forehead_when_head_turns (acceptance_5.CervicalDeformation.test_chin_retains_its_distance_to_forehead_when_head_turns) ... ok
+test_low_cervical_attachment_does_not_follow_head_turn (acceptance_5.CervicalDeformation.test_low_cervical_attachment_does_not_follow_head_turn) ... ok
+test_eyes_mouth_ears_hair_hands_lower_body_preserved (acceptance_6.Integration.test_eyes_mouth_ears_hair_hands_lower_body_preserved) ... ok
+test_lower_lateral_neck_is_not_a_stalk (acceptance_6.Integration.test_lower_lateral_neck_is_not_a_stalk) ... ok
+test_mid_neck_has_mass_relative_to_existing_head (acceptance_6.Integration.test_mid_neck_has_mass_relative_to_existing_head) ... ok
+test_neck_surface_weld_and_facial_weights (acceptance_6.Integration.test_neck_surface_weld_and_facial_weights) ... ok
+test_no_lateral_bulge_below_ear_after_increasing_mass (acceptance_6.Integration.test_no_lateral_bulge_below_ear_after_increasing_mass) ... ok
+test_no_ring_nodule_from_base_to_upper_neck (acceptance_6.Integration.test_no_ring_nodule_from_base_to_upper_neck) ... ok
+test_posterior_contour_recedes_toward_skull_without_a_new_hump (acceptance_6.Integration.test_posterior_contour_recedes_toward_skull_without_a_new_hump) ... ok
+test_same_topology_and_valid_skinned_data (acceptance_6.Integration.test_same_topology_and_valid_skinned_data) ... ok
+test_body_root_stays_on_chest_and_jaw_on_head_with_all_proportions (acceptance_7.Poses.test_body_root_stays_on_chest_and_jaw_on_head_with_all_proportions) ... ok
+test_midneck_diameter_is_retained_during_99_pose_constitution_pairs (acceptance_7.Poses.test_midneck_diameter_is_retained_during_99_pose_constitution_pairs) ... ok
+test_no_extra_edge_collapse_for_all_proportions_and_neck_poses (acceptance_7.Poses.test_no_extra_edge_collapse_for_all_proportions_and_neck_poses) ... ok
+test_base_stays_anchored_to_chest_in_head_motion (acceptance_8.FittedPoses.test_base_stays_anchored_to_chest_in_head_motion) ... ok
+test_face_landmark_distances_preserved_by_length (acceptance_8.FittedPoses.test_face_landmark_distances_preserved_by_length) ... ok
+test_fitted_neck_edges_not_degenerate_in_study_poses (acceptance_8.FittedPoses.test_fitted_neck_edges_not_degenerate_in_study_poses) ... WORST {"length": -1, "build": 1, "neck": 1, "state": {"lookYaw": -0.85}, "ratio": 0.5061516187056977, "point": [[0.0552, 1.4785, -0.0612], [0.0582, 1.4744, -0.0601], [0.061, 1.4675, -0.0611]]} MAX {"length": -1, "build": 1, "neck": 1, "state": {"lookYaw": 0.7, "lookPitch": 0.2, "lookRoll": 0.12}, "ratio": 1.9887524079494328, "point": [[0.0486, 1.4704, -0.0714], [0.036, 1.4704, -0.0795], [0.0338, 1.4782, -0.0779]]}
+ok
+test_neck_diameter_stays_finite_in_297_combinations (acceptance_8.FittedPoses.test_neck_diameter_stays_finite_in_297_combinations) ... ok
+test_textured_rigged_export (acceptance_9.HumanExport.test_textured_rigged_export) ... ok
+
+----------------------------------------------------------------------
+Ran 47 tests in 3.497s
+
+OK

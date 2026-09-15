@@ -1,0 +1,11 @@
+{
+  "before": {
+    "index.html": "fc2679da41268f6be0264c96f54a83ed77886157d67a27e87dbd125aa06d6f93",
+    "assets/dc017-equipment.glb": "733eab087d1c1df4fc6a88f201040d6fe2080f33d89c894aed841798de9fddd7"
+  },
+  "after": {
+    "index.html": "fc2679da41268f6be0264c96f54a83ed77886157d67a27e87dbd125aa06d6f93",
+    "assets/dc017-equipment.glb": "733eab087d1c1df4fc6a88f201040d6fe2080f33d89c894aed841798de9fddd7"
+  },
+  "identical": true
+}

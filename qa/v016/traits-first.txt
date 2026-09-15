@@ -1,0 +1,102 @@
+TAP version 13
+# Subtest: v016 supports eleven stable hair styles, retaining previous IDs
+ok 1 - v016 supports eleven stable hair styles, retaining previous IDs
+  ---
+  duration_ms: 0.924291
+  type: 'test'
+  ...
+# Subtest: legacy appearance fills the new traits without overwriting prior style
+ok 2 - legacy appearance fills the new traits without overwriting prior style
+  ---
+  duration_ms: 1.287278
+  type: 'test'
+  ...
+# Subtest: new fields reject nonfinite out of range or nonboolean values
+ok 3 - new fields reject nonfinite out of range or nonboolean values
+  ---
+  duration_ms: 0.204668
+  type: 'test'
+  ...
+# Subtest: cervical fit reduces head separation without flattening head features
+ok 4 - cervical fit reduces head separation without flattening head features
+  ---
+  duration_ms: 0.808176
+  type: 'test'
+  ...
+# Subtest: length changes do not invert cervical surface along its height
+ok 5 - length changes do not invert cervical surface along its height
+  ---
+  duration_ms: 1.118204
+  type: 'test'
+  ...
+# Subtest: rest skin palette is identity in the fitted bind space
+ok 6 - rest skin palette is identity in the fitted bind space
+  ---
+  duration_ms: 3.479388
+  type: 'test'
+  ...
+# Subtest: fitted head pivot is lower in every animated cervical pose
+ok 7 - fitted head pivot is lower in every animated cervical pose
+  ---
+  duration_ms: 4.930553
+  type: 'test'
+  ...
+# Subtest: fitted cervical animation preserves arm and leg matrices
+ok 8 - fitted cervical animation preserves arm and leg matrices
+  ---
+  duration_ms: 0.772443
+  type: 'test'
+  ...
+# Subtest: hair geometries are distinct, finite, deterministic and bounded
+not ok 9 - hair geometries are distinct, finite, deterministic and bounded
+  ---
+  duration_ms: 403.006303
+  type: 'test'
+  location: '/mnt/data/dc-v016-work/distrito-cero/tests/traits.test.cjs:13:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+    
+      a.ok(count<16000)
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/mnt/data/dc-v016-work/distrito-cero/tests/traits.test.cjs:13:446)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: hair selection and volume survive full save and slot roundtrip
+ok 10 - hair selection and volume survive full save and slot roundtrip
+  ---
+  duration_ms: 447.80585
+  type: 'test'
+  ...
+# Subtest: invalid new trait cannot alter prior saved bytes or session
+ok 11 - invalid new trait cannot alter prior saved bytes or session
+  ---
+  duration_ms: 11.773765
+  type: 'test'
+  ...
+# Subtest: NPCs use new styles and valid per-actor traits deterministically
+ok 12 - NPCs use new styles and valid per-actor traits deterministically
+  ---
+  duration_ms: 0.542707
+  type: 'test'
+  ...
+1..12
+# tests 12
+# suites 0
+# pass 11
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 977.44692

@@ -1,0 +1,40 @@
+PASS WebGL boots with fitted rig and modular hairstyles
+PASS Eleven real hair choices in the creator
+PASS Style 0 reaches shader and selected geometry
+PASS Style 1 reaches shader and selected geometry
+PASS Style 2 reaches shader and selected geometry
+PASS Style 3 reaches shader and selected geometry
+PASS Style 4 reaches shader and selected geometry
+PASS Style 5 reaches shader and selected geometry
+PASS Style 6 reaches shader and selected geometry
+PASS Style 7 reaches shader and selected geometry
+PASS Style 8 reaches shader and selected geometry
+PASS Style 9 reaches shader and selected geometry
+PASS Style 10 reaches shader and selected geometry
+PASS Hair cache is bounded by style/LOD
+PASS Bald selection does not remove eyebrows
+PASS New independent traits reach per-actor GPU row
+PASS Shorter bind rig is used by the real renderer
+PASS Editor does not mutate active gameplay
+PASS 432 production GPU transforms agree with fitted CPU coordinates
+PASS Production normal transform agrees with numeric derivatives
+PASS Transform feedback has no GL error
+PASS Named slot serializes style, volume, brows and neck length
+PASS Apply from comparison commits draft instead of comparison image
+PASS Cancel leaves previous hairstyle intact
+PASS Loading first named slot restores its own appearance
+PASS Loading second slot restores a different hairstyle
+PASS Real downloaded backup contains both hairstyles
+PASS Control characterHairStyle reachable at 390
+PASS Control characterNeckLength reachable at 390
+PASS Control characterHairVolume reachable at 390
+PASS Control characterBrowMatch reachable at 390
+PASS Responsive creator renders selected style 390
+PASS Control characterHairStyle reachable at 844
+PASS Control characterNeckLength reachable at 844
+PASS Control characterHairVolume reachable at 844
+PASS Control characterBrowMatch reachable at 844
+PASS Responsive creator renders selected style 844
+PASS No JavaScript or shader exceptions
+PASS No external network requests
+RESULT 39 0

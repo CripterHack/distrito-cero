@@ -1,0 +1,17 @@
+00:34:22 PASS All three embedded maps load during native loop
+00:34:23 PASS Live game boot
+00:34:23 PASS Actual key begins extraction, not instant car access
+00:34:28 PASS Renderer uses independent actor palettes during extraction
+00:34:48 PASS Paired action completes in untouched loop
+00:34:48 PASS Real simulation time and frames advanced
+00:34:49 PASS No GL error after seat transfer
+00:34:54 PASS Newly occupied vehicle accelerates
+00:35:08 PASS Live exit restores on-foot control
+00:35:10 PASS Natural locomotion continues after exit
+00:35:19 PASS Continuous drive crosses streamed sector seam
+00:35:19 PASS World and crowd GPU allocations remain bounded
+00:35:25 PASS Atlas works with native loop
+00:35:30 PASS Final rendering without GL errors
+00:35:30 PASS No JavaScript or shader exceptions
+00:35:30 PASS No external requests
+RESULT 16 0

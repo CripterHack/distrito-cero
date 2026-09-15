@@ -1,0 +1,101 @@
+TAP version 13
+# socketMaxError 0.001816071212429473
+# Subtest: every usable item defines dedicated oriented contact sockets
+ok 1 - every usable item defines dedicated oriented contact sockets
+  ---
+  duration_ms: 192.98567
+  type: 'test'
+  ...
+# Subtest: oriented wrist reaches the socket without stretching forearm or moving fingers away
+ok 2 - oriented wrist reaches the socket without stretching forearm or moving fingers away
+  ---
+  duration_ms: 13.828947
+  type: 'test'
+  ...
+# Subtest: all equipment sockets stay attainable in pitch/crouch/aim/reload states
+ok 3 - all equipment sockets stay attainable in pitch/crouch/aim/reload states
+  ---
+  duration_ms: 6178.382357
+  type: 'test'
+  ...
+# Subtest: primary grip fingers and support fingers do not use identical profiles
+ok 4 - primary grip fingers and support fingers do not use identical profiles
+  ---
+  duration_ms: 9.756351
+  type: 'test'
+  ...
+# Subtest: support hand follows the moving magazine and returns without teleporting
+ok 5 - support hand follows the moving magazine and returns without teleporting
+  ---
+  duration_ms: 11.750775
+  type: 'test'
+  ...
+# Subtest: magazine is a separate mesh, avoiding a static duplicate behind the moving one
+ok 6 - magazine is a separate mesh, avoiding a static duplicate behind the moving one
+  ---
+  duration_ms: 1.925952
+  type: 'test'
+  ...
+# Subtest: shared recoil spring is finite and frame-rate stable
+ok 7 - shared recoil spring is finite and frame-rate stable
+  ---
+  duration_ms: 18.178991
+  type: 'test'
+  ...
+# Subtest: handling state is transient and cannot leak to inventory snapshot
+ok 8 - handling state is transient and cannot leak to inventory snapshot
+  ---
+  duration_ms: 9.23151
+  type: 'test'
+  ...
+# Subtest: different actors never share spring or hand pose state
+ok 9 - different actors never share spring or hand pose state
+  ---
+  duration_ms: 18.602409
+  type: 'test'
+  ...
+# Subtest: mount is a pure read and preserves ray/muzzle equivalence
+ok 10 - mount is a pure read and preserves ray/muzzle equivalence
+  ---
+  duration_ms: 9.344719
+  type: 'test'
+  ...
+# Subtest: selector uses alpha surfaces rather than opacity on text
+ok 11 - selector uses alpha surfaces rather than opacity on text
+  ---
+  duration_ms: 0.667186
+  type: 'test'
+  ...
+# Subtest: contact frames remain perpendicular throughout all reload transitions
+ok 12 - contact frames remain perpendicular throughout all reload transitions
+  ---
+  duration_ms: 14.489192
+  type: 'test'
+  ...
+# Subtest: forearm retains its length after contact roll and each finger stays with wrist
+ok 13 - forearm retains its length after contact roll and each finger stays with wrist
+  ---
+  duration_ms: 15.109216
+  type: 'test'
+  ...
+# Subtest: equipping animation contacts remain reachable during the raise
+ok 14 - equipping animation contacts remain reachable during the raise
+  ---
+  duration_ms: 18.083507
+  type: 'test'
+  ...
+# Subtest: binocular wrists cradle the barrels from below eye level instead of hanging over them
+ok 15 - binocular wrists cradle the barrels from below eye level instead of hanging over them
+  ---
+  duration_ms: 9.923001
+  type: 'test'
+  ...
+1..15
+# tests 15
+# suites 0
+# pass 15
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 6590.761905

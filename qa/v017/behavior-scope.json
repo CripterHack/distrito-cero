@@ -1,0 +1,47 @@
+{
+  "unchanged": [
+    "src/hero-asset.js",
+    "src/appearance.js",
+    "src/human-materials.js",
+    "src/app.js",
+    "src/visual-geometry.js",
+    "src/crowd-geometry.js",
+    "src/occupancy.js",
+    "src/vehicle-asset.js",
+    "src/frontier-ui.js",
+    "src/character-motion.js",
+    "src/frontier-world.js",
+    "src/frontier-renderer.js",
+    "src/realism-renderer.js",
+    "src/hair-geometry.js",
+    "src/save-store.js",
+    "src/frontier-simulation.js",
+    "src/world.js",
+    "src/police.js",
+    "src/identity-ui.js",
+    "src/dynamics.js",
+    "src/cast-renderer.js",
+    "src/character-fit.js",
+    "src/audio.js",
+    "src/simulation.js",
+    "src/interactions.js",
+    "src/skin-rig.js",
+    "src/core.js",
+    "src/dual-quaternion.js"
+  ],
+  "modified": [
+    "src/renderer.js",
+    "src/page.html",
+    "src/reactive-renderer.js",
+    "src/style.css",
+    "index.html",
+    "build.py"
+  ],
+  "new": [
+    "src/equipment-ui.js",
+    "src/equipment.js",
+    "src/equipment-geometry.js",
+    "src/equipment-renderer.js",
+    "src/equipment-simulation.js"
+  ]
+}

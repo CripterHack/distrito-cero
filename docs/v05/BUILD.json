@@ -1,0 +1,10 @@
+{
+  "version": "0.5",
+  "date": "2026-09-09",
+  "local_commit": "7892faa3dccd6a4e08f260b2cb7af65ca066c572",
+  "remote_push": false,
+  "html_bytes": 3796022,
+  "logic_tests": 104,
+  "browser_checks": 138,
+  "native_export_tests": 2
+}

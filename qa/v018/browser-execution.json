@@ -1,0 +1,25 @@
+{
+  "html": "7c5a3e017869843da5af6c4ae8383038d8a1be69f386c4aa0ae660a996e15a9b",
+  "suites": [
+    {
+      "suite": "handling_browser",
+      "code": 0
+    },
+    {
+      "suite": "handling_arsenal",
+      "code": 0
+    },
+    {
+      "suite": "handling_library",
+      "code": 0
+    },
+    {
+      "suite": "handling_legacy",
+      "code": 0
+    },
+    {
+      "suite": "handling_continuous",
+      "code": 0
+    }
+  ]
+}

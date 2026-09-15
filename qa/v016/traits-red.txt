@@ -1,0 +1,283 @@
+TAP version 13
+# Subtest: v016 supports eleven stable hair styles, retaining previous IDs
+not ok 1 - v016 supports eleven stable hair styles, retaining previous IDs
+  ---
+  duration_ms: 1.43549
+  type: 'test'
+  location: '/mnt/data/dc-v016-work/distrito-cero/tests/traits.test.cjs:5:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    4 !== 11
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 11
+  actual: 4
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/mnt/data/dc-v016-work/distrito-cero/tests/traits.test.cjs:5:79)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.start (node:internal/test_runner/test:944:17)
+    startSubtestAfterBootstrap (node:internal/test_runner/harness:296:17)
+  ...
+# Subtest: legacy appearance fills the new traits without overwriting prior style
+not ok 2 - legacy appearance fills the new traits without overwriting prior style
+  ---
+  duration_ms: 0.379361
+  type: 'test'
+  location: '/mnt/data/dc-v016-work/distrito-cero/tests/traits.test.cjs:6:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    undefined !== 0
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 0
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/mnt/data/dc-v016-work/distrito-cero/tests/traits.test.cjs:6:197)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+# Subtest: new fields reject nonfinite out of range or nonboolean values
+not ok 3 - new fields reject nonfinite out of range or nonboolean values
+  ---
+  duration_ms: 0.22642
+  type: 'test'
+  location: '/mnt/data/dc-v016-work/distrito-cero/tests/traits.test.cjs:7:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    neckLength
+    
+    true !== false
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: false
+  actual: true
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/mnt/data/dc-v016-work/distrito-cero/tests/traits.test.cjs:7:208)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: cervical fit reduces head separation without flattening head features
+not ok 4 - cervical fit reduces head separation without flattening head features
+  ---
+  duration_ms: 8.889064
+  type: 'test'
+  location: '/mnt/data/dc-v016-work/distrito-cero/tests/traits.test.cjs:8:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+    
+      a.ok(F)
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/mnt/data/dc-v016-work/distrito-cero/tests/traits.test.cjs:8:109)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: length changes do not invert cervical surface along its height
+not ok 5 - length changes do not invert cervical surface along its height
+  ---
+  duration_ms: 0.517149
+  type: 'test'
+  location: '/mnt/data/dc-v016-work/distrito-cero/tests/traits.test.cjs:9:1'
+  failureType: 'testCodeFailure'
+  error: "Cannot read properties of undefined (reading 'drop')"
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    TestContext.<anonymous> (/mnt/data/dc-v016-work/distrito-cero/tests/traits.test.cjs:9:137)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: rest skin palette is identity in the fitted bind space
+not ok 6 - rest skin palette is identity in the fitted bind space
+  ---
+  duration_ms: 0.141673
+  type: 'test'
+  location: '/mnt/data/dc-v016-work/distrito-cero/tests/traits.test.cjs:10:1'
+  failureType: 'testCodeFailure'
+  error: "Cannot read properties of undefined (reading 'drop')"
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    TestContext.<anonymous> (/mnt/data/dc-v016-work/distrito-cero/tests/traits.test.cjs:10:154)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: fitted head pivot is lower in every animated cervical pose
+not ok 7 - fitted head pivot is lower in every animated cervical pose
+  ---
+  duration_ms: 0.193862
+  type: 'test'
+  location: '/mnt/data/dc-v016-work/distrito-cero/tests/traits.test.cjs:11:1'
+  failureType: 'testCodeFailure'
+  error: "Cannot read properties of undefined (reading 'drop')"
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    TestContext.<anonymous> (/mnt/data/dc-v016-work/distrito-cero/tests/traits.test.cjs:11:208)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: fitted cervical animation preserves arm and leg matrices
+not ok 8 - fitted cervical animation preserves arm and leg matrices
+  ---
+  duration_ms: 2.840233
+  type: 'test'
+  location: '/mnt/data/dc-v016-work/distrito-cero/tests/traits.test.cjs:12:1'
+  failureType: 'testCodeFailure'
+  error: "Cannot read properties of undefined (reading 'drop')"
+  code: 'ERR_TEST_FAILURE'
+  name: 'TypeError'
+  stack: |-
+    TestContext.<anonymous> (/mnt/data/dc-v016-work/distrito-cero/tests/traits.test.cjs:12:196)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: hair geometries are distinct, finite, deterministic and bounded
+not ok 9 - hair geometries are distinct, finite, deterministic and bounded
+  ---
+  duration_ms: 1.907179
+  type: 'test'
+  location: '/mnt/data/dc-v016-work/distrito-cero/tests/traits.test.cjs:13:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+    
+      a.ok(DC.HairGeometry)
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/mnt/data/dc-v016-work/distrito-cero/tests/traits.test.cjs:13:79)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: hair selection and volume survive full save and slot roundtrip
+not ok 10 - hair selection and volume survive full save and slot roundtrip
+  ---
+  duration_ms: 213.948013
+  type: 'test'
+  location: '/mnt/data/dc-v016-work/distrito-cero/tests/traits.test.cjs:14:1'
+  failureType: 'testCodeFailure'
+  error: 'La apariencia no es válida o pertenece a otra versión.'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    copy (evalmachine.<anonymous>:14:38)
+    IdentitySimulation.setIdentity (evalmachine.<anonymous>:47:43)
+    TestContext.<anonymous> (/mnt/data/dc-v016-work/distrito-cero/tests/traits.test.cjs:14:234)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: invalid new trait cannot alter prior saved bytes or session
+not ok 11 - invalid new trait cannot alter prior saved bytes or session
+  ---
+  duration_ms: 14.255958
+  type: 'test'
+  location: '/mnt/data/dc-v016-work/distrito-cero/tests/traits.test.cjs:15:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    true !== false
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: false
+  actual: true
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/mnt/data/dc-v016-work/distrito-cero/tests/traits.test.cjs:15:220)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: NPCs use new styles and valid per-actor traits deterministically
+not ok 12 - NPCs use new styles and valid per-actor traits deterministically
+  ---
+  duration_ms: 1.941782
+  type: 'test'
+  location: '/mnt/data/dc-v016-work/distrito-cero/tests/traits.test.cjs:16:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+    
+      a.ok(choices.size>=9)
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/mnt/data/dc-v016-work/distrito-cero/tests/traits.test.cjs:16:242)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+1..12
+# tests 12
+# suites 0
+# pass 0
+# fail 12
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 340.370474

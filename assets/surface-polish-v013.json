@@ -1,0 +1,18 @@
+{
+  "jacket": {
+    "unique_vertices": 8057,
+    "changed_vertices": 2389,
+    "max_delta_metres": 0.0045497252664309295
+  },
+  "pants": {
+    "unique_vertices": 9005,
+    "changed_vertices": 635,
+    "max_delta_metres": 0.001330413469564994
+  },
+  "hands": {
+    "position_changes": 0,
+    "weight_changes": 0,
+    "normal_corner_changes": 53302,
+    "method": "angle-continuous area-weighted normals on shared quantized positions"
+  }
+}

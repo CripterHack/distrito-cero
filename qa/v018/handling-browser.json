@@ -1,0 +1,202 @@
+{
+  "passed": 40,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "Actual renderer uses oriented contacts for both hands",
+      "pass": true
+    },
+    {
+      "name": "Selector is a modal layered above the world canvas",
+      "pass": true
+    },
+    {
+      "name": "World time stays paused while selector is open",
+      "pass": true
+    },
+    {
+      "name": "Camera and projection do not jump when opening",
+      "pass": true
+    },
+    {
+      "name": "Weapon pose is frozen before cancelling aim and trigger",
+      "pass": true
+    },
+    {
+      "name": "Ammunition is not changed by open or cancellation",
+      "pass": true
+    },
+    {
+      "name": "Overlay alpha leaves the game readable beneath",
+      "pass": true
+    },
+    {
+      "name": "Main panel itself is translucent",
+      "pass": true
+    },
+    {
+      "name": "Transparency is not applied to text or entire dialog",
+      "pass": true
+    },
+    {
+      "name": "Cards and detail no longer have opaque backgrounds",
+      "pass": true
+    },
+    {
+      "name": "Reverse Tab stays inside selector",
+      "pass": true
+    },
+    {
+      "name": "Tab cycles back to the close button",
+      "pass": true
+    },
+    {
+      "name": "Gameplay keys cannot shoot or access vehicles behind the modal",
+      "pass": true
+    },
+    {
+      "name": "Preview selection does not change equipped model",
+      "pass": true
+    },
+    {
+      "name": "Confirm equips and releases the frozen pose",
+      "pass": true
+    },
+    {
+      "name": "Equip click does not leak through to fire",
+      "pass": true
+    },
+    {
+      "name": "Focus returns to game after confirmation",
+      "pass": true
+    },
+    {
+      "name": "Reload detaches the single visible magazine",
+      "pass": true
+    },
+    {
+      "name": "Reload has a reachable supporting wrist orientation",
+      "pass": true
+    },
+    {
+      "name": "Opening selector pauses the current reload",
+      "pass": true
+    },
+    {
+      "name": "Reload resumes and fills once after closing",
+      "pass": true
+    },
+    {
+      "name": "Shared model and reachable contact: pistol",
+      "pass": true
+    },
+    {
+      "name": "Shared model and reachable contact: revolver",
+      "pass": true
+    },
+    {
+      "name": "Shared model and reachable contact: smg",
+      "pass": true
+    },
+    {
+      "name": "Shared model and reachable contact: shotgun",
+      "pass": true
+    },
+    {
+      "name": "Shared model and reachable contact: sniper",
+      "pass": true
+    },
+    {
+      "name": "Shared model and reachable contact: launcher",
+      "pass": true
+    },
+    {
+      "name": "Shared model and reachable contact: grenade",
+      "pass": true
+    },
+    {
+      "name": "Shared model and reachable contact: baton",
+      "pass": true
+    },
+    {
+      "name": "Shared model and reachable contact: blade",
+      "pass": true
+    },
+    {
+      "name": "Shared model and reachable contact: emp",
+      "pass": true
+    },
+    {
+      "name": "Shared model and reachable contact: binoculars",
+      "pass": true
+    },
+    {
+      "name": "Cancelling a held Gauss charge never fires",
+      "pass": true
+    },
+    {
+      "name": "Touch close and confirm reachable 390",
+      "pass": true
+    },
+    {
+      "name": "Touch selection retains playability 390",
+      "pass": true
+    },
+    {
+      "name": "Touch close and confirm reachable 844",
+      "pass": true
+    },
+    {
+      "name": "Touch selection retains playability 844",
+      "pass": true
+    },
+    {
+      "name": "No JS or shader error",
+      "pass": true
+    },
+    {
+      "name": "No external resource requests",
+      "pass": true
+    },
+    {
+      "name": "No final GL error",
+      "pass": true
+    }
+  ],
+  "errors": [],
+  "requests": [],
+  "styles": {
+    "arsenal": {
+      "background": "rgba(3, 10, 13, 0.18)",
+      "image": "none",
+      "opacity": "1",
+      "blur": "blur(1.5px)"
+    },
+    "panel": {
+      "background": "rgba(7, 19, 22, 0.38)",
+      "image": "none",
+      "opacity": "1",
+      "blur": "blur(5px)"
+    },
+    "card": {
+      "background": "rgba(0, 0, 0, 0)",
+      "image": "linear-gradient(135deg, rgba(30, 49, 45, 0.44), rgba(7, 21, 24, 0.25))",
+      "opacity": "1",
+      "blur": "none"
+    },
+    "detail": {
+      "background": "rgba(0, 0, 0, 0)",
+      "image": "linear-gradient(135deg, rgba(15, 32, 34, 0.51), rgba(7, 20, 23, 0.47))",
+      "opacity": "1",
+      "blur": "none"
+    },
+    "footer": {
+      "background": "rgba(6, 18, 21, 0.63)",
+      "image": "none",
+      "opacity": "1",
+      "blur": "none"
+    }
+  },
+  "sha256": "7c5a3e017869843da5af6c4ae8383038d8a1be69f386c4aa0ae660a996e15a9b",
+  "environment": "Chromium Xvfb SwiftShader. Explicit simulation ticks, real WebGL frames. In-memory storage fixture, mobile emulation. No physical GPU or persistence claim."
+}

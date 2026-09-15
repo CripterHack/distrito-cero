@@ -1,0 +1,69 @@
+{
+  "base": "v0.14",
+  "topology": "unchanged",
+  "units": "metres",
+  "profile_y": [
+    1.447,
+    1.473,
+    1.498,
+    1.521,
+    1.543,
+    1.56,
+    1.577,
+    1.595,
+    1.62
+  ],
+  "profile_radius_x": [
+    0.089,
+    0.075,
+    0.066,
+    0.064,
+    0.0635,
+    0.063,
+    0.0635,
+    0.067,
+    0.065
+  ],
+  "profile_radius_z": [
+    0.073,
+    0.065,
+    0.06,
+    0.059,
+    0.06,
+    0.061,
+    0.063,
+    0.064,
+    0.065
+  ],
+  "profile_back_radius": [
+    0.079,
+    0.067,
+    0.061,
+    0.056,
+    0.051,
+    0.048,
+    0.05,
+    0.057,
+    0.065
+  ],
+  "parts": {
+    "jacket": {
+      "changed_corners": 7448,
+      "max_displacement_m": 0.023574774654278246,
+      "weights_preserved": true,
+      "uv_preserved": true
+    },
+    "face": {
+      "changed_corners": 6204,
+      "max_displacement_m": 0.020141995928904366,
+      "weights_preserved": false,
+      "uv_preserved": true
+    },
+    "metal": {
+      "changed_corners": 588,
+      "max_displacement_m": 0.0123,
+      "weights_preserved": true,
+      "uv_preserved": true
+    }
+  }
+}

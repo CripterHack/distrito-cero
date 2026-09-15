@@ -1,0 +1,21 @@
+01:40:50 PASS All three embedded maps load during native loop
+01:40:50 PASS Live game boot
+01:40:51 PASS Native numeric selection draws Gauss
+01:40:58 PASS Gauss charges in untouched simulation loop
+01:40:58 PASS Native release fires and damages target
+01:41:04 PASS EMP pulse works through a short real key press
+01:41:04 PASS EMP produces a finite electronic timer
+01:41:05 PASS Binocular zoom changes live camera projection
+01:41:06 PASS Live optical observation marks a visible location
+01:41:06 PASS Selector pauses and disarms held inputs
+01:41:07 PASS Returning to hands free restores original view
+01:41:07 FAIL Native loop continues across all equipment modes
+RESULT 11 1
+Traceback (most recent call last):
+  File "/mnt/data/dc-v017-work/distrito-cero/tests/arsenal_continuous.py", line 34, in <module>
+    ck('Native loop continues across all equipment modes',p.evaluate('DC_APP.frameCount>nativeFrames+50'))
+    ~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/data/dc-v017-work/distrito-cero/tests/arsenal_continuous.py", line 11, in ck
+    checks.append({'name':n,'pass':bool(v)});print(time.strftime('%H:%M:%S'),('PASS 'if v else'FAIL ')+n,flush=True);assert v,n
+                                                                                                                            ^
+AssertionError: Native loop continues across all equipment modes

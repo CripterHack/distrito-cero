@@ -1,0 +1,218 @@
+{
+  "sha256": "7ccaff6042669755fdb18e920099519cda5af785113be9807bc952f3ee4f320c",
+  "environment": "Chromium / software WebGL2 / Xvfb / injected HTML / isolated test-storage fixture",
+  "native_safari_tested": false,
+  "native_persistence_tested": false,
+  "errors": [],
+  "requests": [],
+  "checks": [
+    {
+      "check": "WebGL2 boot 960",
+      "passed": true
+    },
+    {
+      "check": "Rendered frame 01-menu.png",
+      "passed": true
+    },
+    {
+      "check": "W moves the on-foot player",
+      "passed": true
+    },
+    {
+      "check": "F enters the nearby vehicle",
+      "passed": true
+    },
+    {
+      "check": "W accelerates the actual simulation",
+      "passed": true
+    },
+    {
+      "check": "D steers right",
+      "passed": true
+    },
+    {
+      "check": "Rendered frame 02-driving.png",
+      "passed": true
+    },
+    {
+      "check": "Brake then F exits safely",
+      "passed": true
+    },
+    {
+      "check": "Pause stops simulation time",
+      "passed": true
+    },
+    {
+      "check": "Rendered frame 03-pause.png",
+      "passed": true
+    },
+    {
+      "check": "M opens the map",
+      "passed": true
+    },
+    {
+      "check": "Map click sets a GPS point",
+      "passed": true
+    },
+    {
+      "check": "Rendered frame 04-map.png",
+      "passed": true
+    },
+    {
+      "check": "GPS clear works",
+      "passed": true
+    },
+    {
+      "check": "Phone opens the actual story dialogue",
+      "passed": true
+    },
+    {
+      "check": "Rendered frame 05-dialogue.png",
+      "passed": true
+    },
+    {
+      "check": "Story confirmation advances the chapter",
+      "passed": true
+    },
+    {
+      "check": "Entering a car advances the vehicle chapter",
+      "passed": true
+    },
+    {
+      "check": "Picking up the file triggers police heat",
+      "passed": true
+    },
+    {
+      "check": "Wanted refuge is blocked",
+      "passed": true
+    },
+    {
+      "check": "Unwanted refuge advances to transmission",
+      "passed": true
+    },
+    {
+      "check": "Terminal transmission advances with game time",
+      "passed": true
+    },
+    {
+      "check": "Transmission activates the final escape",
+      "passed": true
+    },
+    {
+      "check": "Public ending completes the story",
+      "passed": true
+    },
+    {
+      "check": "Repeatable delivery can be accepted",
+      "passed": true
+    },
+    {
+      "check": "Delivery arrival pays the reward",
+      "passed": true
+    },
+    {
+      "check": "Save writes a validated snapshot",
+      "passed": true
+    },
+    {
+      "check": "Continue restores the snapshot",
+      "passed": true
+    },
+    {
+      "check": "P opens photo mode",
+      "passed": true
+    },
+    {
+      "check": "Rendered frame 06-photo.png",
+      "passed": true
+    },
+    {
+      "check": "WebGL2 boot 390",
+      "passed": true
+    },
+    {
+      "check": "Touch controls automatically enabled",
+      "passed": true
+    },
+    {
+      "check": "Portrait control reachable: touchCar",
+      "passed": true
+    },
+    {
+      "check": "Portrait control reachable: touchAction",
+      "passed": true
+    },
+    {
+      "check": "Portrait control reachable: touchBrake",
+      "passed": true
+    },
+    {
+      "check": "Portrait control reachable: joystick",
+      "passed": true
+    },
+    {
+      "check": "Portrait control reachable: pauseButton",
+      "passed": true
+    },
+    {
+      "check": "Portrait control reachable: mapButton",
+      "passed": true
+    },
+    {
+      "check": "Touch joystick moves the player",
+      "passed": true
+    },
+    {
+      "check": "Touch end clears joystick state",
+      "passed": true
+    },
+    {
+      "check": "Touch SUBIR enters a car",
+      "passed": true
+    },
+    {
+      "check": "Rendered frame 07-mobile-portrait.png",
+      "passed": true
+    },
+    {
+      "check": "Landscape control reachable: touchCar",
+      "passed": true
+    },
+    {
+      "check": "Landscape control reachable: touchAction",
+      "passed": true
+    },
+    {
+      "check": "Landscape control reachable: touchBrake",
+      "passed": true
+    },
+    {
+      "check": "Landscape control reachable: joystick",
+      "passed": true
+    },
+    {
+      "check": "Landscape control reachable: pauseButton",
+      "passed": true
+    },
+    {
+      "check": "Landscape control reachable: mapButton",
+      "passed": true
+    },
+    {
+      "check": "Rendered frame 08-mobile-landscape.png",
+      "passed": true
+    },
+    {
+      "check": "Touch pause reachable and functional",
+      "passed": true
+    },
+    {
+      "check": "No uncaught JS or WebGL console errors",
+      "passed": true
+    },
+    {
+      "check": "No external requests from the game",
+      "passed": true
+    }
+  ]
+}

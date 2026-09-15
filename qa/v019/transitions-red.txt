@@ -1,0 +1,72 @@
+TAP version 13
+# Subtest: switching equipment initializes its lowered pose before the first frame
+not ok 1 - switching equipment initializes its lowered pose before the first frame
+  ---
+  duration_ms: 37.362107
+  type: 'test'
+  location: '/mnt/data/dc-v019-work/distrito-cero/tests/contact-transitions.test.cjs:7:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    1 !== 0
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 0
+  actual: 1
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/mnt/data/dc-v019-work/distrito-cero/tests/contact-transitions.test.cjs:7:200)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.start (node:internal/test_runner/test:944:17)
+    startSubtestAfterBootstrap (node:internal/test_runner/harness:296:17)
+  ...
+# Subtest: closing a selector preserves only the visible aim blend, never trigger state
+not ok 2 - closing a selector preserves only the visible aim blend, never trigger state
+  ---
+  duration_ms: 18.05093
+  type: 'test'
+  location: '/mnt/data/dc-v019-work/distrito-cero/tests/contact-transitions.test.cjs:8:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    0 !== 0.85
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 0.85
+  actual: 0
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/mnt/data/dc-v019-work/distrito-cero/tests/contact-transitions.test.cjs:8:417)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+# Subtest: closing after a different selection does not inherit the old pose
+ok 3 - closing after a different selection does not inherit the old pose
+  ---
+  duration_ms: 15.331866
+  type: 'test'
+  ...
+# Subtest: pause-return does not retain an armed input or visual aiming request
+ok 4 - pause-return does not retain an armed input or visual aiming request
+  ---
+  duration_ms: 12.632732
+  type: 'test'
+  ...
+1..4
+# tests 4
+# suites 0
+# pass 2
+# fail 2
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 147.765538

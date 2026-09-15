@@ -1,0 +1,18 @@
+{
+  "before": {
+    "src/hero-asset.js": "7dedf527bfe9e257c3067a4db063521e09a72d680ed2f8323fedd69a202ee5f4",
+    "src/hair-geometry.js": "240b745e08b42ab84f3ffaaceecec9ed1da92a887044543bcd6a3c6c9bdfcc7a",
+    "src/character-fit.js": "efdf174324622f53f2be64763bb47c1e6401e9ea637d72cd403dd93caa2223e7",
+    "index.html": "7ccaff6042669755fdb18e920099519cda5af785113be9807bc952f3ee4f320c",
+    "assets/dc016-human-traits.glb": "2154216a0e1246c7d9e7ffe4a326e92b7240c84555102bb36714221dd73ed5d2"
+  },
+  "after": {
+    "src/hero-asset.js": "7dedf527bfe9e257c3067a4db063521e09a72d680ed2f8323fedd69a202ee5f4",
+    "src/hair-geometry.js": "240b745e08b42ab84f3ffaaceecec9ed1da92a887044543bcd6a3c6c9bdfcc7a",
+    "src/character-fit.js": "efdf174324622f53f2be64763bb47c1e6401e9ea637d72cd403dd93caa2223e7",
+    "index.html": "7ccaff6042669755fdb18e920099519cda5af785113be9807bc952f3ee4f320c",
+    "assets/dc016-human-traits.glb": "2154216a0e1246c7d9e7ffe4a326e92b7240c84555102bb36714221dd73ed5d2"
+  },
+  "identical": true,
+  "scope": "HTML and neutral GLB rebuilt offline from distributed canonical mesh and native source generators. This does not regenerate or re-download historical source scans."
+}

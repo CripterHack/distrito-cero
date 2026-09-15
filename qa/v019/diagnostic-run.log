@@ -1,0 +1,68 @@
+PASS Actual renderer uses oriented contacts for both hands
+PASS Palmar anchors are exposed independently of wrists
+PASS Skin-rig palm references coincide with actual renderer contacts
+PASS Selector is a modal layered above the world canvas
+PASS World time stays paused while selector is open
+PASS Camera and projection do not jump when opening
+PASS Weapon pose is frozen before cancelling aim and trigger
+PASS Ammunition is not changed by open or cancellation
+PASS Overlay alpha leaves the game readable beneath
+PASS Main panel itself is translucent
+PASS Transparency is not applied to text or entire dialog
+PASS Cards and detail no longer have opaque backgrounds
+PASS Reverse Tab stays inside selector
+PASS Tab cycles back to the close button
+PASS Gameplay keys cannot shoot or access vehicles behind the modal
+PASS Preview selection does not change equipped model
+PASS Confirm equips and releases the frozen pose
+PASS Equip click does not leak through to fire
+PASS Focus returns to game after confirmation
+PASS Reload detaches the single visible magazine
+PASS Reload has a reachable supporting wrist orientation
+PASS Opening selector pauses the current reload
+PASS Reload resumes and fills once after closing
+PASS Animated/crouched renderer maintains palmar contacts
+PASS Sidearm aiming extends the dominant hand forward
+PASS Aimed primary index remains relaxed without fire input
+DIAGNOSTIC True 37442 False
+RESULT 26 0
+Traceback (most recent call last):
+  File "/mnt/data/dc-v019-work/distrito-cero/tests/contact_browser.py", line 71, in <module>
+    p.evaluate('DC_APP.selectEquipment("rifle")');tick(p,45,True);p.keyboard.press('z');tick(p,50,True)
+                                                                                        ~~~~^^^^^^^^^^^
+  File "/mnt/data/dc-v019-work/distrito-cero/tests/contact_browser.py", line 15, in tick
+    p.evaluate('''({n,draw})=>{const a=DC_APP,s=a.sim;for(let i=0;i<n;i++)if(a.mode==='play'){s.step(1/60,a.input());a.renderer.updateCamera(s,1/60);}a.updateUI(performance.now());if(draw)a.renderer.render(s);}''',{'n':n,'draw':draw})
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/pyvenv/lib/python3.13/site-packages/playwright/sync_api/_generated.py", line 8562, in evaluate
+    self._sync(
+    ~~~~~~~~~~^
+        self._impl_obj.evaluate(expression=expression, arg=mapping.to_impl(arg))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/opt/pyvenv/lib/python3.13/site-packages/playwright/_impl/_sync_base.py", line 115, in _sync
+    return task.result()
+           ~~~~~~~~~~~^^
+  File "/opt/pyvenv/lib/python3.13/site-packages/playwright/_impl/_page.py", line 464, in evaluate
+    return await self._main_frame.evaluate(expression, arg)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/pyvenv/lib/python3.13/site-packages/playwright/_impl/_frame.py", line 320, in evaluate
+    await self._channel.send(
+    ...<6 lines>...
+    )
+  File "/opt/pyvenv/lib/python3.13/site-packages/playwright/_impl/_connection.py", line 69, in send
+    return await self._connection.wrap_api_call(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "/opt/pyvenv/lib/python3.13/site-packages/playwright/_impl/_connection.py", line 559, in wrap_api_call
+    raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+playwright._impl._errors.Error: Page.evaluate: TypeError: Failed to execute 'getUniformLocation' on 'WebGL2RenderingContext': parameter 1 is not of type 'WebGLProgram'.
+    at EquipmentRenderer.uniform (<anonymous>:2631:133)
+    at EquipmentRenderer.drawMeshes (<anonymous>:2816:22)
+    at EquipmentRenderer.render (<anonymous>:2837:233)
+    at EquipmentRenderer.render (<anonymous>:3146:254)
+    at eval (eval at evaluate (:290:30), <anonymous>:1:182)
+    at UtilityScript.evaluate (<anonymous>:297:18)
+    at UtilityScript.<anonymous> (<anonymous>:1:44)

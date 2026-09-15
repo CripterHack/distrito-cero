@@ -1,0 +1,52 @@
+# v0.17 · Arsenal
+
+Catálogo de catorce opciones, celdas y munición por partida, armas originales compartidas, poses de uso/recarga, Gauss cargable, EMP temporal y binoculares con zoom real y GPS. Pruebas actuales y límites en `docs/v017/VERIFICACION.md`. Se conservan personajes y perfiles de Rasgos v0.16.
+
+# v0.16 · Rasgos
+
+- Ajuste cervical corto con pivotes coherentes, sin comprimir el rostro.
+- Giro deliberado distribuido parcialmente hacia el tórax para reducir torsión localizada.
+- Once opciones de cabello con geometría/LOD compartidos y cejas separadas.
+- Longitud cervical, volumen de pelo y vinculación de cejas editables y persistentes.
+- Compatibilidad de perfiles anteriores y biblioteca de partidas preservada.
+- Pruebas de CPU/GPU, geometría real, editor, catálogo, campaña y bucle continuo.
+
+# v0.15 · Integración cervical
+
+Nueva masa cervical en ancho y profundidad, perfiles distintos de nuca/garganta y transición submandibular gradual. Complexión vinculada al cuello sin alterar huesos o colisionadores, grosor independiente acotado y abertura de chaqueta/cierre sincronizados. Revisión de pesos para reducir compresión bajo el mentón en giro combinado. Normales del morph de cuerpo calculadas con Jacobiano completo. Misma topología, rig de 49 huesos, juego, creador y catálogo. Detalle y límites en `docs/v015/`.
+
+# v0.14 · Equilibrio cervical
+
+Corrección dirigida del abultamiento cervical inferior a la mandíbula, nuevas influencias regionales que mantienen rígido el mentón, normales continuas y transición de pigmento/rugosidad. Grosor de cuello y abertura de prenda sincronizados, con normal corregida por el Jacobiano del morph. Cuello y cabeza coordinados sin alterar objetivos de muñeca, pies ni reglas físicas. Dos estudios de revisión cervical en el creador. Caída del borde exterior del hombro moderada. Se conservan la topología y las otras partes, catálogo, campaña y mundo. Detalle, pruebas y limitaciones en `docs/v014/`.
+
+# v0.13 · Movimiento orgánico
+
+Apoyos posteriores a pose del torso, contacto talón/punta continuo, memoria visual acotada de pies, cadencia compartida por distancia real, brazos de carrera y respiración. Objetivos de volante alcanzables y perfiles de dedos por contexto. Superficies de prendas suavizadas sin inflación geométrica y normales de manos continuas. Microdetalle ligado al modelo con filtrado, ojos esféricos y mirada intermitente. Estudio con poses de conducción/alcance, enfoque de pies y cámara lenta exclusiva del editor. Se preservan creador, biblioteca de 12 historias y mundo. Detalle de límites y pruebas en docs/v013.
+
+## Historial anterior
+
+# v0.12 · Continuidad anatómica
+
+* Cuello con base torácica y contorno cervical corregido. Abertura de la chaqueta y unión torso/mangas suavizadas.
+* Muñecas/palmas más contenidas, uñas ajustadas al dorso real, detalle procedural de piel.
+* Skinning por cuaterniones duales sobre el mismo rig de 49 huesos para todo el reparto.
+* Grosor de cuello, inspección cercana, iluminación de estudio y comparación no destructiva en el creador.
+* Búsqueda de partidas/personajes y orden por nombre, actividad o progreso. Catálogo y respaldo anteriores conservados.
+* HTML y modelo GLB reproducibles, pruebas actualizadas y comparaciones del renderer.
+
+# Cambios
+
+## 0.11 · Identidad
+
+- Editor inicial y edición desde Pausa con simulación de vista previa aislada y render WebGL real.
+- Cuatro estilos base, nombres, complexión acotada, contorno facial, colores y cuatro variantes de pelo.
+- Suavizado de perfil de prendas, volumen torácico/abdominal y collar. Rig y manos de v0.10 conservados.
+- Aplicación de apariencia por actor mediante textura compartida, con sombras coherentes y LOD.
+- Doce partidas con IDs únicos, nombres y revisiones, guardado activo y copias independientes.
+- Importación no destructiva de JSON individual, grupo y versiones anteriores.
+- Renombrado, exportación, respaldo completo y borrado confirmado.
+- Detección de almacenamiento denegado/cuota/datos corruptos/revisiones obsoletas, sin borrado automático.
+- Recarga confirmada tras conflicto, cancelación de borrador y reversión si falla el guardado de apariencia.
+- Se conservan campaña, policía, territorio, daño e interacciones con conductores.
+
+Los cambios anteriores están documentados en `docs/` y `assets/`. No se renombra un recurso histórico como si fuera nuevo.

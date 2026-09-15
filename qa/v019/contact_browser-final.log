@@ -1,0 +1,52 @@
+PASS Actual renderer uses oriented contacts for both hands
+PASS Palmar anchors are exposed independently of wrists
+PASS Skin-rig palm references coincide with actual renderer contacts
+PASS Selector is a modal layered above the world canvas
+PASS World time stays paused while selector is open
+PASS Camera and projection do not jump when opening
+PASS Weapon pose is frozen before cancelling aim and trigger
+PASS Ammunition is not changed by open or cancellation
+PASS Overlay alpha leaves the game readable beneath
+PASS Main panel itself is translucent
+PASS Transparency is not applied to text or entire dialog
+PASS Cards and detail no longer have opaque backgrounds
+PASS Reverse Tab stays inside selector
+PASS Tab cycles back to the close button
+PASS Gameplay keys cannot shoot or access vehicles behind the modal
+PASS Preview selection does not change equipped model
+PASS Confirm equips and releases the frozen pose
+PASS Equip click does not leak through to fire
+PASS Focus returns to game after confirmation
+PASS Reload detaches the single visible magazine
+PASS Reload has a reachable supporting wrist orientation
+PASS Opening selector pauses the current reload
+PASS Reload resumes and fills once after closing
+PASS Animated/crouched renderer maintains palmar contacts
+PASS Sidearm aiming extends the dominant hand forward
+PASS Aimed primary index remains relaxed without fire input
+PASS Aimed stock and articulated shoulder share a close brace
+PASS Magazine has a visible cant during handling
+PASS Recarga has a distinct extraction phase
+PASS Shared model and reachable contact: pistol
+PASS Shared model and reachable contact: revolver
+PASS Shared model and reachable contact: smg
+PASS Shared model and reachable contact: shotgun
+PASS Shared model and reachable contact: sniper
+PASS Shared model and reachable contact: launcher
+PASS Shared model and reachable contact: grenade
+PASS Shared model and reachable contact: baton
+PASS Shared model and reachable contact: blade
+PASS Shared model and reachable contact: emp
+PASS Shared model and reachable contact: binoculars
+PASS Closing selector preserves the visible aim blend
+PASS Returning from selector lowers smoothly with no revived aim or trigger
+PASS New equipment is initialized in its lowered presentation before rendering
+PASS Cancelling a held Gauss charge never fires
+PASS Touch close and confirm reachable 390
+PASS Touch selection retains playability 390
+PASS Touch close and confirm reachable 844
+PASS Touch selection retains playability 844
+PASS No JS or shader error
+PASS No external resource requests
+PASS No final GL error
+RESULT 51 0

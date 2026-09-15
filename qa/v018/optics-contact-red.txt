@@ -1,0 +1,30 @@
+TAP version 13
+# Subtest: binocular wrists cradle the barrels from below eye level instead of hanging over them
+not ok 1 - binocular wrists cradle the barrels from below eye level instead of hanging over them
+  ---
+  duration_ms: 112.330861
+  type: 'test'
+  location: '/mnt/data/dc-v018-work/distrito-cero/tests/handling.test.cjs:21:1'
+  failureType: 'testCodeFailure'
+  error: 'L wrist below eyepiece'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (/mnt/data/dc-v018-work/distrito-cero/tests/handling.test.cjs:21:228)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.start (node:internal/test_runner/test:944:17)
+    startSubtestAfterBootstrap (node:internal/test_runner/harness:296:17)
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 0
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 199.834881

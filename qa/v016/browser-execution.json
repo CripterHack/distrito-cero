@@ -1,0 +1,22 @@
+[
+  {
+    "suite": "traits_browser",
+    "exit_code": 0,
+    "elapsed_s": 16.33
+  },
+  {
+    "suite": "traits_library",
+    "exit_code": 0,
+    "elapsed_s": 41.48
+  },
+  {
+    "suite": "traits_legacy",
+    "exit_code": 0,
+    "elapsed_s": 41.74
+  },
+  {
+    "suite": "traits_continuous",
+    "exit_code": 0,
+    "elapsed_s": 77.51
+  }
+]
