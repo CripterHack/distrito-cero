@@ -1,0 +1,95 @@
+name: Import verified v0.19 source
+on:
+  push:
+    branches: [master]
+    paths: [.github/workflows/import-v019.yml]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: initial-source-import
+  cancel-in-progress: false
+jobs:
+  import:
+    if: github.repository == 'CripterHack/distrito-cero'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions:
+      contents: write
+    steps:
+      - name: Check out the exact triggering revision
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 1
+      - name: Refuse to replace an existing source tree
+        id: guard
+        shell: bash
+        run: |
+          if test -e src/core.js || test -e SOURCE-MANIFEST.json; then
+            echo 'Source already exists. No files will be replaced.'
+            echo 'skip=true' >> "$GITHUB_OUTPUT"
+          else
+            echo 'skip=false' >> "$GITHUB_OUTPUT"
+          fi
+      - name: Download and verify the authorized source snapshot
+        if: steps.guard.outputs.skip != 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --fail --location --retry 3 --max-time 180 \
+            'https://d2ol7oe51mr4n9.cloudfront.net/user_3Icvp3WfrHKY6QGnlXqcYgbAGfb/938fd530-acfe-45ca-b576-069b7a8ebf78.zip' \
+            --output "$RUNNER_TEMP/distrito-cero-v019.zip"
+          echo '307c8fd0d3093eb7d16a3468470a2dfd20ffa12a654ecbe306f07f8aea8a1241  '"$RUNNER_TEMP/distrito-cero-v019.zip" | sha256sum --check --strict
+          python3 - <<'PY'
+          import hashlib, json, os, pathlib, stat, zipfile
+          root = pathlib.Path.cwd()
+          archive = pathlib.Path(os.environ['RUNNER_TEMP']) / 'distrito-cero-v019.zip'
+          with zipfile.ZipFile(archive) as z:
+              records = [i for i in z.infolist() if not i.is_dir()]
+              assert len(records) == 730, 'Unexpected archive file count'
+              planned = {}
+              for item in records:
+                  rel = pathlib.PurePosixPath(item.filename)
+                  assert rel.parts[0] == 'distrito-cero' and len(rel.parts) > 1
+                  rel = pathlib.PurePosixPath(*rel.parts[1:])
+                  assert not rel.is_absolute() and '..' not in rel.parts
+                  assert '.git' not in rel.parts and '.github' not in rel.parts
+                  assert not stat.S_ISLNK(item.external_attr >> 16)
+                  assert rel.as_posix() not in planned, 'Duplicate archive path'
+                  dest = root.joinpath(*rel.parts)
+                  assert not dest.exists(), 'Refusing overwrite: ' + str(rel)
+                  planned[rel.as_posix()] = z.read(item)
+              manifest = json.loads(planned['SOURCE-MANIFEST.json'])
+              assert len(manifest['files']) == 729
+              assert set(planned) == set(manifest['files']) | {'SOURCE-MANIFEST.json'}
+              for name, digest in manifest['files'].items():
+                  assert hashlib.sha256(planned[name]).hexdigest() == digest, name
+              assert hashlib.sha256(planned['index.html']).hexdigest() == '3aa9a27f4941ea1c701069c61db133ab3c93087e35d833d4921ba25b8a4b059f'
+              for name, data in planned.items():
+                  dest = root / name
+                  dest.parent.mkdir(parents=True, exist_ok=True)
+                  dest.write_bytes(data)
+          print('Verified and extracted all 730 original files.')
+          PY
+      - name: Rebuild without changing the delivered game
+        if: steps.guard.outputs.skip != 'true'
+        run: |
+          python3 build.py
+          echo '3aa9a27f4941ea1c701069c61db133ab3c93087e35d833d4921ba25b8a4b059f  index.html' | sha256sum --check --strict
+          node --version
+          node --test tests/*.test.cjs
+      - name: Publish full source as a fast-forward commit
+        if: steps.guard.outputs.skip != 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add --all
+          test "$(git diff --cached --name-only | wc -l)" -eq 730
+          git commit -m 'chore: import complete verified v0.19 source, assets, tests and evidence'
+          git push origin HEAD:refs/heads/master
+          echo '### Source import completed' >> "$GITHUB_STEP_SUMMARY"
+          echo '730 original files, 729 checked SHA-256 entries, reproducible HTML and Node tests.' >> "$GITHUB_STEP_SUMMARY"
+          git rev-parse HEAD >> "$GITHUB_STEP_SUMMARY"
