@@ -23,12 +23,19 @@ class Suite:
     origin: str = 'fixture'
 
 SUITES={
+ 'native': Suite('native',('tests/native_saves.py',),'qa/v019/native-saves.json',35,'http'),
  'handling': Suite('handling',('tests/contact_browser.py',),'qa/v019/handling-browser.json',51),
  'arsenal': Suite('arsenal',('tests/contact_arsenal.py',),'qa/v019/arsenal-browser.json',78),
  'library': Suite('library',('tests/contact_library.py',),'qa/v019/library-regression.json',64),
  'campaign': Suite('campaign',('tests/contact_legacy.py',),'qa/v019/legacy/browser-report.json',52),
  'continuous': Suite('continuous',('tests/contact_continuous.py',),'qa/v019/arsenal-continuous.json',26),
 }
+
+def select_suites(names, origin):
+    selected = [s for s in SUITES.values() if s.origin == origin] if 'all' in names else [SUITES[n] for n in dict.fromkeys(names)]
+    if not selected or any(s.origin != origin for s in selected):
+        raise ValueError('Choose suites with the requested storage/origin contract.')
+    return selected
 
 def execute_suite(config, suite, stage, html_sha, run_id):
     """A report is accepted only after its producer completed successfully THIS run."""
@@ -113,9 +120,8 @@ def main():
     p.add_argument('--browser');p.add_argument('--headed',action='store_true');p.add_argument('--display');p.add_argument('--timeout',type=float,default=600)
     p.add_argument('--origin',choices=['fixture','http'],default='fixture');a=p.parse_args()
     root=a.root.resolve();out=a.output or root/'artifacts'/('qa-'+datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')+'-'+uuid.uuid4().hex[:8])
-    names=list(SUITES) if 'all' in a.suite else list(dict.fromkeys(a.suite))
     try:
-        result=run_suites(Config(root,out.resolve(),a.browser,a.timeout,a.origin,a.headed,a.display),[SUITES[n] for n in names])
+        result=run_suites(Config(root,out.resolve(),a.browser,a.timeout,a.origin,a.headed,a.display),select_suites(a.suite,a.origin))
         print('ARTIFACTS:',out);return 0 if result['status']=='passed' else 1
     except (ValueError,OSError) as error: p.error(str(error))
 
