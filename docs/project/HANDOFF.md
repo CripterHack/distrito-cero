@@ -1,23 +1,23 @@
-# Handoff · continuidad después de recuperación gráfica
+# Handoff · benchmark y siguiente corrección visual
 
-## Estado verificado antes de esta unidad
+## Estado integrado
 
-Master al retomar: `e23835a24e792248c95ad08520e2e6068d4757bc`. #2 y #3 quedaron cerrados mediante #8 y #9: runner portable y 35 comprobaciones de guardado HTTP nativo con reapertura/conflictos. GitHub Pages está activado por el usuario desde master y no se modifica su configuración.
+#2 y #3 cerrados mediante PRs #8 y #9: runner portable y persistencia HTTP nativa con 35 checks. #4 cerrado mediante PR #10, commit `a752e9ecdbc5ef6f077cbcdca75cb09c77b55ce9`: recuperación WebGL, conservación de sesión/borrador y reanudación explícita. CI de ese PR: `34940253023`, todos los jobs aprobados.
 
-## Unidad #4
+HTML con recuperación: `3f1f5ac6a6d3aa7a74b8046a89f0a5f13b06d9982899131a8351a9909df67318`. Master publica Pages según configuración del usuario. No cambiar permisos, origen ni formato de partidas.
 
-Implementados ledger de recursos, restauración por generaciones, programación RAF única, bloqueo de entradas y exportación mientras el contexto está perdido. El diálogo conserva la sesión y el borrador y requiere reanudación explícita. Leer `GRAPHICS-RECOVERY.md` y consultar el PR/CI para resultados del commit exacto. No considerar las capturas de la ejecución interrumpida como evidencia de esta implementación.
+## Unidad actual #5
 
-## Siguiente trabajo
+Primera fase técnica: matriz versionada, 30 capturas smoke / 586 full, medidas canónicas y por LOD, galería y aprobación artística separada. Leer [CHARACTER-BENCHMARK.md](CHARACTER-BENCHMARK.md). No modifica el runtime. Revisar su PR/CI antes de atribuir resultados al HEAD actual. #5 sigue abierto por el gate artístico y los demás criterios pendientes.
 
-#5: preparar benchmark reproducible de personajes con cámaras/luces/perfiles/poses declarados. La captura de referencia no significa que la anatomía actual esté aprobada como hiperrealista. Registrar aprobación visual por separado.
+## Siguiente unidad #6
 
-#6: depende de referencias del rig y superficies. Extender el montaje de v0.19, no crear uno paralelo. Primero medir contactos completos de palma/falanges y cancelaciones, después corregir los defectos reproducidos.
+Usar los casos fijos de apuntado/recarga para analizar deformación de chaqueta y brazos, además de contactos palmares. La primera referencia del HTML original mostró un pliegue amplio en el tórax bajo el brazo de apoyo aunque pasaran las tolerancias de muñecas. Reproducir sobre el HEAD aceptado, escribir una regresión de superficie/pose y localizar la causa antes de cambiar pesos o anclas. No reemplazar el montaje único ni tocar munición para corregir una captura.
 
-#7: depende de los gates de escena, mundo, personajes y datos. Diseñar la muestra de 10–15 minutos y validar recorrido íntegro y playtests físicos cuando estén disponibles. No cerrar por añadir otra propuesta o por teletransportar objetivos.
+## #7
 
-## Comandos
+Sigue pendiente la vertical slice y sus gates de mundo, escena, rendimiento y playtest. No cerrar por añadir una propuesta ni por mover automáticamente al jugador junto a los objetivos.
 
-`python3 build.py`, `node --test tests/*.test.cjs`, `python3 tests/qa_runner.test.py`, exportación GLB, `python3 -m tools.qa.run --suite handling --suite recovery`, y `python3 -m tools.qa.run --suite native --origin http`.
+## Entrada para el siguiente agente
 
-No eliminar evidencia histórica. Antes de escribir, leer HEAD remoto y AGENTS. Integrar sólo tras checks y revisar Pages después del merge. No quedan operaciones de recuperación corriendo por una promesa en el chat: revisar los procesos y acciones existentes antes de repetirlos.
+Leer HEAD remoto, AGENTS, STATE, spec002/003 y resultados actuales. Crear rama por unidad. Ejecutar build/Node, tests de matriz, suite characters, manejo, recuperación y guardados nativos según alcance. Mantener informes nuevos en artifacts, nunca encima de qa histórico. Comparar el mismo hash, cámara, luz y caso. Actualizar decisión artística y handoff sólo con evidencia real.

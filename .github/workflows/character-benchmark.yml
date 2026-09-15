@@ -1,0 +1,72 @@
+name: Character reference benchmark
+on:
+  pull_request:
+    branches: [master]
+    paths: ['src/**', 'build.py', 'tools/qa/**', 'tests/character*', 'tests/benchmarks/**', 'tests/qa_stage_assets.test.py', '.github/workflows/character-benchmark.yml']
+  push:
+    branches: [master]
+    paths: ['src/**', 'build.py', 'tools/qa/**', 'tests/character*', 'tests/benchmarks/**', 'tests/qa_stage_assets.test.py', '.github/workflows/character-benchmark.yml']
+  workflow_dispatch:
+    inputs:
+      matrix:
+        description: Coverage; full is 586 controlled frames, not an artistic approval
+        type: choice
+        options: [smoke, full]
+        default: smoke
+permissions:
+  contents: read
+concurrency:
+  group: characters-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  characters:
+    name: Reproducible character reference
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22'
+      - name: Verify contracts and unchanged runtime
+        run: |
+          python3 tests/character_matrix.test.py
+          python3 tests/qa_stage_assets.test.py
+          python3 tests/qa_selection.test.py
+          node --test tests/character-stage.test.cjs
+          python3 build.py
+          git diff --exit-code -- index.html
+      - name: Install development browser
+        run: |
+          python3 -m pip install playwright==1.57.0
+          python3 -m playwright install --with-deps chromium
+      - name: Capture the production renderer
+        env:
+          MATRIX: ${{ inputs.matrix || 'smoke' }}
+          DC_QA_HEADLESS: '0'
+        run: |
+          if [ "$MATRIX" = full ]; then
+            xvfb-run -a python3 tests/character_benchmark.py --matrix full --output artifacts/ci-characters
+          else
+            xvfb-run -a python3 -m tools.qa.run --suite characters --headed --timeout 900 --output artifacts/ci-characters
+          fi
+          echo '### Character reference generated' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Read report.html and art-review.json in the artifact. Numerical checks do not approve anatomy or claim FPS.' >> "$GITHUB_STEP_SUMMARY"
+      - name: Show failure diagnostics
+        if: failure()
+        run: |
+          if test -f artifacts/ci-characters/characters.log; then tail -100 artifacts/ci-characters/characters.log; fi
+          if test -f artifacts/ci-characters/characters.json; then python3 -c 'import json; d=json.load(open("artifacts/ci-characters/characters.json")); print(d.get("failure"), d.get("errors"))'; fi
+      - name: Upload only fresh gallery and measurements
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: characters-${{ github.run_id }}-${{ github.run_attempt }}
+          path: artifacts/ci-characters/
+          if-no-files-found: warn
+          retention-days: 14
