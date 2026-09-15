@@ -37,6 +37,8 @@ jobs:
           python3 build.py
           node --test tests/*.test.cjs
           python3 tests/qa_runner.test.py
+          python3 tests/qa_selection.test.py
+          python3 tests/native_support.test.py
           python3 tools/export_contact.py
           python3 tests/contact_exports.test.py
           git diff --exit-code -- index.html assets/dc019-equipment.glb
@@ -84,5 +86,29 @@ jobs:
         with:
           name: webgl-${{ github.run_id }}-${{ github.run_attempt }}
           path: artifacts/ci-fixture/
+          if-no-files-found: warn
+          retention-days: 14
+  native:
+    name: Native saved games and tabs
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12'
+      - run: |
+          python3 -m pip install playwright==1.57.0
+          python3 -m playwright install --with-deps chromium
+      - name: Reopen a real isolated browser profile at a local HTTP origin
+        run: xvfb-run -a python3 -m tools.qa.run --suite native --origin http --headed --timeout 900 --output artifacts/ci-native
+      - name: Upload fresh native persistence evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: native-${{ github.run_id }}-${{ github.run_attempt }}
+          path: artifacts/ci-native/
           if-no-files-found: warn
           retention-days: 14
