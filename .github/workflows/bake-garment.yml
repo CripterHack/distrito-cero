@@ -1,0 +1,48 @@
+name: Bake verified garment binding once
+on:
+  push:
+    branches: [fix/006-sleeve-deformation]
+    paths: [.github/workflows/bake-garment.yml]
+permissions:
+  contents: read
+jobs:
+  bake:
+    if: github.repository == 'CripterHack/distrito-cero'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 1
+      - name: Reproduce failure, author weights and verify the resulting asset
+        run: |
+          set -euo pipefail
+          test ! -e assets/garment-binding-source.json
+          echo '7dedf527bfe9e257c3067a4db063521e09a72d680ed2f8323fedd69a202ee5f4  src/hero-asset.js' | sha256sum --check --strict
+          python3 - <<'PY'
+          import subprocess
+          p=subprocess.run(['node','--test','tests/garment-binding.test.cjs'],capture_output=True,text=True)
+          print(p.stdout)
+          assert p.returncode != 0 and '# fail 3' in p.stdout, 'The three original surface defects must reproduce'
+          PY
+          python3 tools/capture_garment_binding_source.py
+          python3 tools/rebind_garment.py
+          echo 'a4f5a6522f0012290bd2fca8d573ca5243388474f72fb026cf5766924e3c8b7d  src/hero-asset.js' | sha256sum --check --strict
+          python3 tools/rebind_garment.py --check
+          python3 tests/garment_binding.test.py
+          node --test tests/*.test.cjs
+          python3 build.py
+      - name: Commit only generated asset data to the feature branch
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          test -z "$(git diff --name-only -- .github/workflows)"
+          git add src/hero-asset.js assets/garment-binding-source.json index.html
+          git commit -m 'fix: bind sleeves to their arms and preserve trunk motion (#6)'
+          git push origin HEAD:refs/heads/fix/006-sleeve-deformation
+          sha256sum index.html >> "$GITHUB_STEP_SUMMARY"
+          echo 'Generated source only. Await normal PR browser checks before merging to Pages.' >> "$GITHUB_STEP_SUMMARY"
