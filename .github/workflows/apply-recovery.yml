@@ -24,7 +24,6 @@ jobs:
           root = pathlib.Path.cwd()
           parts = [root / ('.ci/recovery-' + str(i) + '.b64') for i in range(4)]
           text = ''.join(p.read_text().strip() for p in parts)
-          # Correct the single identified transport character before hash verification.
           text = text.replace('BLoeirbUyUoDN', 'BLoeirUyUoDN')
           raw = base64.b64decode(text, validate=True)
           assert hashlib.sha256(raw).hexdigest() == 'd34643454c7163581a3db77aaaff7f7bcd1656b414461e48a6a94a8b50cb484b'
@@ -48,24 +47,23 @@ jobs:
               p.write_text(s.replace(old, new), encoding='utf-8')
           replace('tools/qa/run.py', 'SUITES={\n', "SUITES={\n 'recovery': Suite('recovery',('tests/graphics_recovery.py',),'qa/v019/graphics-recovery.json',22),\n")
           replace('tests/qa_selection.test.py', "len(select_suites(['all'],'fixture')),5", "len(select_suites(['all'],'fixture')),6")
-          replace('.github/workflows/ci.yml', '          xvfb-run -a python3 -m tools.qa.run --suite "$SUITE" --headed --output artifacts/ci-fixture', '          if [ "$SUITE" = all ]; then\n            xvfb-run -a python3 -m tools.qa.run --suite all --headed --output artifacts/ci-fixture\n          else\n            xvfb-run -a python3 -m tools.qa.run --suite handling --suite recovery --headed --output artifacts/ci-fixture\n          fi')
           subprocess.run(['python3', 'build.py'], check=True)
           assert hashlib.sha256((root/'index.html').read_bytes()).hexdigest() == payload['htmlSha256']
           for p in parts: p.unlink()
-          (root/'.github/workflows/apply-recovery.yml').unlink()
           print('Verified patched HTML:', payload['htmlSha256'])
           PY
           node --test tests/*.test.cjs
           python3 tests/qa_runner.test.py
           python3 tests/qa_selection.test.py
           python3 tests/native_support.test.py
-      - name: Commit only to the feature branch
+      - name: Commit source only, not workflow configuration
         run: |
           set -euo pipefail
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          test -z "$(git diff --name-only -- .github/workflows)"
           git add --all
           git commit -m 'fix: recover WebGL resources and preserve live sessions with explicit resume (#4)'
           git push origin HEAD:refs/heads/feat/004-graphics-recovery
-          echo 'Source applied and rebuilt. Await normal PR browser CI before merging.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Source applied and rebuilt. Remove bootstrap through authorized workflow editor, then run PR CI.' >> "$GITHUB_STEP_SUMMARY"
           git rev-parse HEAD >> "$GITHUB_STEP_SUMMARY"
