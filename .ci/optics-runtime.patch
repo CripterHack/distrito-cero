@@ -1,0 +1,38 @@
+diff --git a/src/equipment-simulation.js b/src/equipment-simulation.js
+index c9d243d..cfb6413 100644
+--- a/src/equipment-simulation.js
++++ b/src/equipment-simulation.js
+@@ -18,7 +18,8 @@
+    if(!Number.isFinite(dt)||dt<=0)return;dt=Math.min(dt,.25);const e=this.equipment,w=E.get(e.selected),ok=this.equipmentAvailable(),fire=!!input.fire;
+    e.cooldown=Math.max(0,e.cooldown-dt);e.recoil=D.damp(e.recoil,0,14,dt);e.lastHitAge=(e.lastHitAge||0)+dt;
+    if(input.aimRay&&Array.isArray(input.aimRay.origin)&&Array.isArray(input.aimRay.direction)&&input.aimRay.origin.length===3&&input.aimRay.direction.length===3&&[...input.aimRay.origin,...input.aimRay.direction].every(Number.isFinite)&&Math.hypot(input.aimRay.origin[0]-this.player.x,input.aimRay.origin[2]-this.player.z)<10&&Math.hypot(...input.aimRay.direction)>.1){e.ray={origin:input.aimRay.origin.slice(),direction:D.normalize(input.aimRay.direction)};e.pitch=clamp(Math.asin(clamp(e.ray.direction[1],-1,1)),-.75,.75);}
+-   e.aiming=ok&&!!input.aim;e.aimWeight=D.damp(e.aimWeight,(e.aiming||fire)?1:0,12,dt);
++   e.aiming=ok&&!!input.aim;// Near-face optics raise/lower more gradually, without changing zoom or fire rules.
++   e.aimWeight=D.damp(e.aimWeight,(e.aiming||fire)?1:0,w.kind==='optics'?6:12,dt);
+    if(e.reloading>0){e.reloading=Math.max(0,e.reloading-dt);if(e.reloading===0&&e.reloadId){const def=E.get(e.reloadId),ammo=e.ammo[def.id],n=Math.min(def.mag-ammo.loaded,ammo.reserve);ammo.loaded+=n;ammo.reserve-=n;e.reloadId=null;this.emit('sound','reloadDone');}}
+    if(!ok){e.charge=0;e.blockedTrigger=fire;e.trigger=fire;return;}
+    if(!fire||input.firePressed)e.blockedTrigger=false;
+diff --git a/src/weapon-handling.js b/src/weapon-handling.js
+index f89b6e3..0a4c528 100644
+--- a/src/weapon-handling.js
++++ b/src/weapon-handling.js
+@@ -29,7 +29,9 @@
+   baton:{family:'melee',primary:{p:[.031,0,-.080],palm:[-1,0,0],fingers:[0,0,1]}},
+   blade:{family:'melee',primary:{p:[.025,0,-.080],palm:[-1,0,0],fingers:[0,0,1]}},
+   grenade:{family:'throw',primary:{p:[.056,.020,.015],palm:[-1,0,0],fingers:[0,-1,0]}},
+-  binoculars:{family:'optics',primary:{p:[.113,-.020,.018],palm:[-1,0,0],fingers:[0,.20,.979796]},support:{p:[-.113,-.020,.018],palm:[1,0,0],fingers:[0,.20,.979796]}}
++  // Compact near-face optics need forward/downward elbows. The generic rear pole
++  // nearly opposes the raised wrist direction when crouching and flips the IK plane.
++  binoculars:{family:'optics',elbows:{L:[-.5,-.25,1],R:[.5,-.25,1]},primary:{p:[.113,-.020,.018],palm:[-1,0,0],fingers:[0,.20,.979796]},support:{p:[-.113,-.020,.018],palm:[1,0,0],fingers:[0,.20,.979796]}}
+  };
+  function freeze(o){Object.values(o).forEach(v=>{if(v&&typeof v==='object'&&!Object.isFrozen(v))freeze(v);});return Object.freeze(o);}
+  freeze(profiles);
+@@ -127,7 +129,7 @@
+    if(len>limit){const d=(len-limit);const correction=delta.map(v=>-v/len*d);origin=add(origin,correction);fitDistance+=d;}
+   }
+   const point=(x,y,z)=>add(origin,direction([x,y,z]));
+-  function socket(k){const local=localHands[k],o=orientations[k];return{...vec(point(...local)),orientation:frame(direction(o.palm),direction(o.fingers)),pole:k==='L'?[-.72,-1,-.18]:[.60,-1,-.30]};}
++  function socket(k){const local=localHands[k],o=orientations[k];return{...vec(point(...local)),orientation:frame(direction(o.palm),direction(o.fingers)),pole:spec.elbows?.[k]||(k==='L'?[-.72,-1,-.18]:[.60,-1,-.30])};}
+   const hands={},palmContacts={},grips={};
+   for(const k of Object.keys(localHands)){hands[k]=socket(k);palmContacts[k]={...vec(point(...contacts[k].p)),local:contacts[k].p.slice()};}
+   const trigger=Number.isFinite(state?.triggerWeight)?clamp(state.triggerWeight,0,1):(!e.reloading&&(e.trigger||e.recoil>.72))?1:0;
