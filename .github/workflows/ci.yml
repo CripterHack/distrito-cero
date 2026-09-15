@@ -61,7 +61,7 @@ jobs:
           assert not bad,bad
           PY
   browser:
-    name: WebGL handling and recovery
+    name: WebGL handling, optics and recovery
     runs-on: ubuntu-24.04
     timeout-minutes: 40
     steps:
@@ -82,7 +82,7 @@ jobs:
           if [ "$FULL_BROWSER" = true ]; then
             xvfb-run -a python3 -m tools.qa.run --suite all --headed --output artifacts/ci-fixture
           else
-            xvfb-run -a python3 -m tools.qa.run --suite handling --suite recovery --headed --output artifacts/ci-fixture
+            xvfb-run -a python3 -m tools.qa.run --suite handling --suite optical --suite recovery --headed --output artifacts/ci-fixture
           fi
       - name: Upload fresh evidence
         if: always()
