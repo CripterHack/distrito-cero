@@ -18,7 +18,8 @@
    if(!Number.isFinite(dt)||dt<=0)return;dt=Math.min(dt,.25);const e=this.equipment,w=E.get(e.selected),ok=this.equipmentAvailable(),fire=!!input.fire;
    e.cooldown=Math.max(0,e.cooldown-dt);e.recoil=D.damp(e.recoil,0,14,dt);e.lastHitAge=(e.lastHitAge||0)+dt;
    if(input.aimRay&&Array.isArray(input.aimRay.origin)&&Array.isArray(input.aimRay.direction)&&input.aimRay.origin.length===3&&input.aimRay.direction.length===3&&[...input.aimRay.origin,...input.aimRay.direction].every(Number.isFinite)&&Math.hypot(input.aimRay.origin[0]-this.player.x,input.aimRay.origin[2]-this.player.z)<10&&Math.hypot(...input.aimRay.direction)>.1){e.ray={origin:input.aimRay.origin.slice(),direction:D.normalize(input.aimRay.direction)};e.pitch=clamp(Math.asin(clamp(e.ray.direction[1],-1,1)),-.75,.75);}
-   e.aiming=ok&&!!input.aim;e.aimWeight=D.damp(e.aimWeight,(e.aiming||fire)?1:0,12,dt);
+   e.aiming=ok&&!!input.aim;// Near-face optics raise/lower more gradually, without changing zoom or fire rules.
+   e.aimWeight=D.damp(e.aimWeight,(e.aiming||fire)?1:0,w.kind==='optics'?6:12,dt);
    if(e.reloading>0){e.reloading=Math.max(0,e.reloading-dt);if(e.reloading===0&&e.reloadId){const def=E.get(e.reloadId),ammo=e.ammo[def.id],n=Math.min(def.mag-ammo.loaded,ammo.reserve);ammo.loaded+=n;ammo.reserve-=n;e.reloadId=null;this.emit('sound','reloadDone');}}
    if(!ok){e.charge=0;e.blockedTrigger=fire;e.trigger=fire;return;}
    if(!fire||input.firePressed)e.blockedTrigger=false;

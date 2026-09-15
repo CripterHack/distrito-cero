@@ -29,7 +29,9 @@
   baton:{family:'melee',primary:{p:[.031,0,-.080],palm:[-1,0,0],fingers:[0,0,1]}},
   blade:{family:'melee',primary:{p:[.025,0,-.080],palm:[-1,0,0],fingers:[0,0,1]}},
   grenade:{family:'throw',primary:{p:[.056,.020,.015],palm:[-1,0,0],fingers:[0,-1,0]}},
-  binoculars:{family:'optics',primary:{p:[.113,-.020,.018],palm:[-1,0,0],fingers:[0,.20,.979796]},support:{p:[-.113,-.020,.018],palm:[1,0,0],fingers:[0,.20,.979796]}}
+  // Compact near-face optics need forward/downward elbows. The generic rear pole
+  // nearly opposes the raised wrist direction when crouching and flips the IK plane.
+  binoculars:{family:'optics',elbows:{L:[-.5,-.25,1],R:[.5,-.25,1]},primary:{p:[.113,-.020,.018],palm:[-1,0,0],fingers:[0,.20,.979796]},support:{p:[-.113,-.020,.018],palm:[1,0,0],fingers:[0,.20,.979796]}}
  };
  function freeze(o){Object.values(o).forEach(v=>{if(v&&typeof v==='object'&&!Object.isFrozen(v))freeze(v);});return Object.freeze(o);}
  freeze(profiles);
@@ -127,7 +129,7 @@
    if(len>limit){const d=(len-limit);const correction=delta.map(v=>-v/len*d);origin=add(origin,correction);fitDistance+=d;}
   }
   const point=(x,y,z)=>add(origin,direction([x,y,z]));
-  function socket(k){const local=localHands[k],o=orientations[k];return{...vec(point(...local)),orientation:frame(direction(o.palm),direction(o.fingers)),pole:k==='L'?[-.72,-1,-.18]:[.60,-1,-.30]};}
+  function socket(k){const local=localHands[k],o=orientations[k];return{...vec(point(...local)),orientation:frame(direction(o.palm),direction(o.fingers)),pole:spec.elbows?.[k]||(k==='L'?[-.72,-1,-.18]:[.60,-1,-.30])};}
   const hands={},palmContacts={},grips={};
   for(const k of Object.keys(localHands)){hands[k]=socket(k);palmContacts[k]={...vec(point(...contacts[k].p)),local:contacts[k].p.slice()};}
   const trigger=Number.isFinite(state?.triggerWeight)?clamp(state.triggerWeight,0,1):(!e.reloading&&(e.trigger||e.recoil>.72))?1:0;
