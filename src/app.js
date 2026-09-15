@@ -9,7 +9,7 @@
    if(!['eco','balanced','high'].includes(this.settings.quality))this.settings.quality='balanced';
    this.world=new D.World(1337);this.sim=new D.Simulation(this.world);this.renderer=new D.Renderer($('world'),this.world,this.settings.quality);this.audio=new D.Audio();this.audio.enabled=!!this.settings.sound;this.audio.volume=D.clamp(Number(this.settings.volume)/100,0,1);this.renderer.rain=this.settings.rain?1:0;this.renderer.bloom=this.settings.bloom?1:0;
    this.touchAuto=matchMedia('(pointer: coarse)').matches||navigator.maxTouchPoints>0;this.setTouch(this.settings.touch??this.touchAuto);this.bind();this.syncSettings();this.refreshContinue();this.renderer.updateCamera(this.sim,0,{menu:true});this.renderer.render(this.sim);
-   $('loading').hidden=true;this.setMode('menu');this.loop=this.loop.bind(this);requestAnimationFrame(this.loop);
+   $('loading').hidden=true;this.setMode('menu');this.loop=this.loop.bind(this);this.scheduleFrame();
    globalThis.render_game_to_text=()=>JSON.stringify({mode:this.mode,player:this.sim.player,wanted:this.sim.wanted,heat:this.sim.heat,cash:this.sim.cash,story:this.sim.story,target:this.sim.target(),job:this.sim.job,police:this.sim.getPoliceStatus()});
    if(new URLSearchParams(location.search).has('debug')){globalThis.__DC_DEBUG=this;$('fps').hidden=false;}
   }
@@ -83,7 +83,8 @@
    surrender.addEventListener('keyup',e=>{if(['Space','Enter'].includes(e.code)){e.preventDefault();this.surrenderHeld=false;}});
    surrender.addEventListener('blur',()=>{this.surrenderHeld=false;});
    $('citymap').addEventListener('click',e=>this.mapClick?.(e));
-   canvas.addEventListener('webglcontextlost',e=>{e.preventDefault();this.mode='error';$('error').hidden=false;$('errorText').textContent='La GPU interrumpió la sesión. Tu último guardado sigue disponible. Cierra otras pestañas con gráficos y vuelve a intentar.';});
+   canvas.addEventListener('webglcontextlost',e=>{e.preventDefault();this.graphics?.lose();});
+   canvas.addEventListener('webglcontextrestored',()=>this.graphics?.restore());
   }
   resetInput(){this.repairHeld=false;this.jumpHeld=false;this.keys.clear();this.stick={x:0,y:0};this.drag=null;this.touchBrake=false;this.surrenderHeld=false;$('surrenderButton').classList.remove('pressed');this.sim.policeState.surrender=0;$('joystickKnob').style.transform='';$('touchBrake').classList.remove('pressed');}
   setMode(mode){
@@ -129,7 +130,7 @@
    if(!this.started){if(feedback)this.toast('Todavía no hay una partida iniciada.');return false;}
    try{localStorage.setItem(SAVE_KEY,JSON.stringify(this.sim.serialize()));if(feedback)this.toast('Partida guardada en este navegador.');return true;}catch(e){if(feedback||!this.storageWarning){this.toast('El navegador bloqueó el guardado local. Usa «Exportar partida» para conservar tu progreso.');this.storageWarning=true;}return false;}
   }
-  download(blob,name){const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),10000);}
+  download(blob,name,parent=document.body){const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;parent.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),10000);}
   exportSave(){if(!this.started){this.toast('Inicia una partida antes de exportarla.');return;}this.download(new Blob([JSON.stringify(this.sim.serialize(),null,2)],{type:'application/json'}),'distrito-cero-partida.json');this.toast('Copia de la partida exportada.');}
   async importSave(file){if(!file)return;try{if(file.size>2500000)throw new Error('El archivo es demasiado grande.');const data=JSON.parse(await file.text()),sim=new D.Simulation(this.world);if(!sim.restore(data))throw new Error('Formato de partida no válido.');this.sim=sim;this.crouched=false;this.started=true;this.renderer.camera.initialized=false;this.renderer.camera.yaw=sim.player.yaw;this.setMode('play');this.save(false);this.toast('Partida importada.');}catch(e){this.toast(`No se pudo importar: ${e.message}`);}finally{$('saveFile').value='';}}
   capture(){this.renderer.render(this.sim);try{$('world').toBlob(blob=>{if(blob){this.download(blob,'distrito-cero-captura.png');this.toast('Captura guardada.');}else this.toast('No se pudo crear la captura.');},'image/png');}catch(e){this.toast('El navegador no permitió guardar la imagen.');}}
@@ -193,6 +194,8 @@
     $('marker').hidden=!visible;if(visible){$('marker').style.left=x+'px';$('marker').style.top=y+'px';$('markerDistance').textContent=Math.round(D.distance(p,target))+' m';}
    }else $('marker').hidden=true;
   }
+  scheduleFrame(){if(this.frameRequest!=null||this.graphics&&this.graphics.state!=='ready')return;this.frameRequest=requestAnimationFrame(now=>{this.frameRequest=null;this.loop(now);});}
+  stopFrame(){if(this.frameRequest!=null)cancelAnimationFrame(this.frameRequest);this.frameRequest=null;}
   loop(now){
    if(this.mode==='error')return;
    const raw=(now-this.last)/1000,dt=Math.min(.12,Math.max(0,raw));this.last=now;this.frameCount++;this.fps=D.damp(this.fps,1/Math.max(.001,raw),1,dt);
@@ -206,7 +209,7 @@
    try{if(['play','menu','photo'].includes(this.mode)||this.renderDirty){this.renderer.render(this.sim);this.renderDirty=false;}}catch(e){console.error(e);this.mode='error';$('error').hidden=false;$('errorText').textContent=e.message;return;}
    this.audio.update(this.sim,this.mode!=='play',this.renderer.rain);
    if(now-this.lastUI>90){this.updateUI(now);this.lastUI=now;$('fps').textContent=`${this.fps.toFixed(0)} FPS · ${this.renderer.canvas.width}×${this.renderer.canvas.height}`;}
-   requestAnimationFrame(this.loop);
+   this.scheduleFrame();
   }
  }
  D.App=App;

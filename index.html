@@ -118,6 +118,15 @@ body:not(.equipped) #equipmentHUD{bottom:170px;min-width:0;width:250px;padding:7
 body.arsenal-open #toast,body.arsenal-open #chapter{visibility:hidden}
 @media(max-width:700px){.arsenal{padding:max(12px,env(safe-area-inset-top)) 12px max(12px,env(safe-area-inset-bottom))}.arsenal-panel{height:calc(100dvh - 32px)}.weapon-card{min-height:124px}.arsenal-head h2{font-size:19px}.arsenal-pause-tag{font-size:8px;letter-spacing:.7px}}
 @media(max-height:550px) and (min-width:701px){.arsenal{padding:12px 18px}.arsenal-panel{height:calc(100dvh - 24px)}.arsenal-pause-tag{display:none}}
+
+/* Graphics recovery remains usable without WebGL or third-party resources. */
+.graphics-recovery{position:fixed;inset:0;z-index:500;display:grid;place-items:center;padding:max(18px,env(safe-area-inset-top)) 18px;background:rgba(6,15,20,.9);color:#e5edea;overflow:auto}
+.graphics-recovery[hidden]{display:none}
+.recovery-card{width:min(100%,620px);padding:clamp(20px,4vw,38px);border:1px solid #49636b;background:#111e24;border-radius:12px;box-shadow:0 20px 70px #0008}
+.recovery-card h2{font-size:clamp(24px,5vw,34px);line-height:1.2;margin:14px 0}
+.recovery-card p{line-height:1.6}.recovery-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
+.recovery-actions button{min-height:48px;padding:12px 18px;border:1px solid #72968b;border-radius:6px;color:#edf8f3;background:#294139;cursor:pointer}
+.recovery-actions button:focus-visible{outline:3px solid #bcecdc;outline-offset:3px}.recovery-actions button:disabled{opacity:.5;cursor:default}
 </style>
 </head>
 <body>
@@ -2444,6 +2453,55 @@ DC.HeroAsset={"version":2,"stride":24,"positionScale":10000,"bones":["pelvis","s
 })(DC);
 
 
+/* GPU allocations belong to one renderer generation. No simulation or save ownership. */
+'use strict';
+(function(D){
+ const active=new WeakMap(),kinds=['Buffer','Texture','Framebuffer','Renderbuffer','VertexArray','Program','Shader'];
+ class GLResources{
+  constructor(gl){
+   active.get(gl)?.dispose();this.gl=gl;this.disposed=false;this.handles=new Map();this.original=new Map();
+   for(const kind of kinds){
+    const make='create'+kind,remove='delete'+kind,create=gl[make],drop=gl[remove],set=new Set();
+    this.handles.set(kind,set);this.original.set(kind,{create,drop});
+    gl[make]=(...args)=>{const value=create.apply(gl,args);if(value&&!this.disposed)set.add(value);return value;};
+    gl[remove]=(value)=>{set.delete(value);return drop.call(gl,value);};
+   }
+   active.set(gl,this);
+  }
+  static current(gl){return active.get(gl);}
+  stats(){const counts={};let total=0;for(const[k,v]of this.handles){counts[k]=v.size;total+=v.size;}return{total,counts,disposed:this.disposed};}
+  dispose(){
+   if(this.disposed)return;this.disposed=true;const gl=this.gl;
+   for(const[k,set]of this.handles){const{create,drop}=this.original.get(k);if(!gl.isContextLost())for(const v of set)drop.call(gl,v);set.clear();
+    if(active.get(gl)===this){gl['create'+k]=create;gl['delete'+k]=drop;}
+   }
+   if(active.get(gl)===this)active.delete(gl);
+  }
+ }
+ // State machine is independent of DOM/WebGL, so failures and stale callbacks are testable.
+ class RecoveryController{
+  constructor(hooks){this.hooks=hooks;this.state='ready';this.epoch=0;this.attempts=0;this.promise=null;this.error=null;}
+  lose(){
+   if(this.state==='lost')return;
+   const first=this.state==='ready';if(first)this.attempts=0;
+   this.state='lost';this.epoch++;this.promise=null;this.hooks.lost(first);
+  }
+  async restore(){
+   if(this.state==='restoring')return this.promise;
+   if(!['lost','failed'].includes(this.state)||this.attempts>=3)return false;
+   this.state='restoring';this.attempts++;const epoch=this.epoch;
+   this.promise=(async()=>{let value;try{
+    value=await this.hooks.build();if(epoch!==this.epoch){this.hooks.dispose(value);return false;}
+    this.hooks.ready(value);this.state='recovered';this.error=null;return true;
+   }catch(e){if(value)this.hooks.dispose(value);if(epoch===this.epoch){this.error=e;this.state='failed';this.hooks.failed(e);}return false;}
+   finally{if(epoch===this.epoch)this.promise=null;}})();return this.promise;
+  }
+  resume(){if(this.state!=='recovered')return false;this.state='ready';return true;}
+ }
+ D.GLResources=GLResources;D.RecoveryController=RecoveryController;
+})(DC);
+
+
 'use strict';
 (function(D){
  const VS=`#version 300 es
@@ -2824,6 +2882,7 @@ DC.HeroAsset={"version":2,"stride":24,"positionScale":10000,"bones":["pelvis","s
   constructor(canvas,world,quality='balanced'){
    this.canvas=canvas;this.world=world;this.quality=quality;this.gl=canvas.getContext('webgl2',{antialias:false,alpha:false,powerPreference:'high-performance',preserveDrawingBuffer:true});
    if(!this.gl)throw new Error('WebGL 2 no está disponible. Activa la aceleración gráfica o abre el juego en otro navegador.');
+   this.resources=new D.GLResources(this.gl);this.disposed=false;
    const gl=this.gl;this.sceneProgram=compile(gl,VS,FS);this.shadowProgram=compile(gl,VS,SHADOW_FS);this.skyProgram=compile(gl,SCREEN_VS,SKY_FS);this.postProgram=compile(gl,SCREEN_VS,POST_FS);this.uniforms=new Map();
    this.meshes={};this.static={};this.dynamic={};this.camera={eye:[-8,4,0],target:[5,1,13],yaw:0,pitch:.22,mode:0,initialized:false};this.frame=0;this.rain=1;this.bloom=1;this.shadowSize=1024;
    for(const[name,data]of Object.entries(geometry())){this.meshes[name]=this.createMesh(data);this.static[name]=[];this.dynamic[name]=[];}
@@ -2831,6 +2890,7 @@ DC.HeroAsset={"version":2,"stride":24,"positionScale":10000,"bones":["pelvis","s
    for(const name of Object.keys(this.meshes)){this.meshes[name].chunks=this.chunkInstances(this.static[name]);this.meshes[name].dynamicBuffer=gl.createBuffer();}
    this.lights=new Float32Array(48);this.lightTime=-1;this.resize();
   }
+  dispose(){if(this.disposed)return;this.disposed=true;this.resources?.dispose();this.uniforms?.clear();for(const key of ['sectorGPU','hairParts','equipmentMeshes','lodHistory'])this[key]?.clear();this.motionTracker?.clear();this.meshes={};this.static={};this.dynamic={};this.humanTextures={};}
   uniform(program,name){let m=this.uniforms.get(program);if(!m){m={};this.uniforms.set(program,m);}return m[name]??(m[name]=this.gl.getUniformLocation(program,name));}
   createMesh(data){const gl=this.gl,vao=gl.createVertexArray(),vbo=gl.createBuffer();gl.bindVertexArray(vao);gl.bindBuffer(gl.ARRAY_BUFFER,vbo);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(data),gl.STATIC_DRAW);for(const [i,size,offset]of [[0,3,0],[1,3,12],[2,2,24]]){gl.enableVertexAttribArray(i);gl.vertexAttribPointer(i,size,gl.FLOAT,false,32,offset);}return{vao,vbo,count:data.length/8};}
   add(list,mesh,x,y,z,sx,sy,sz,color,mat=0,emission=0,yaw=0,seed=0,detail=0,pitch=0,roll=0){list[mesh].push(x,y,z,yaw,sx,sy,sz,mat,color[0],color[1],color[2],emission,pitch,roll,seed,detail);}
@@ -2848,7 +2908,7 @@ DC.HeroAsset={"version":2,"stride":24,"positionScale":10000,"bones":["pelvis","s
   }
   deleteTarget(t){if(!t)return;const g=this.gl;g.deleteFramebuffer(t.fb);g.deleteTexture(t.tex);if(t.db)g.deleteRenderbuffer(t.db);}
   makeShadow(){const gl=this.gl;this.shadowTex=gl.createTexture();gl.bindTexture(gl.TEXTURE_2D,this.shadowTex);gl.texImage2D(gl.TEXTURE_2D,0,gl.DEPTH_COMPONENT24,this.shadowSize,this.shadowSize,0,gl.DEPTH_COMPONENT,gl.UNSIGNED_INT,null);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.NEAREST);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.NEAREST);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);this.shadowFB=gl.createFramebuffer();gl.bindFramebuffer(gl.FRAMEBUFFER,this.shadowFB);gl.framebufferTexture2D(gl.FRAMEBUFFER,gl.DEPTH_ATTACHMENT,gl.TEXTURE_2D,this.shadowTex,0);gl.drawBuffers([gl.NONE]);gl.readBuffer(gl.NONE);if(gl.checkFramebufferStatus(gl.FRAMEBUFFER)!==gl.FRAMEBUFFER_COMPLETE)throw new Error('El dispositivo no permite crear sombras WebGL.');}
-  resize(){const gl=this.gl;let q=this.quality==='eco'?.65:this.quality==='high'?1.2:.88,dpr=Math.min(window.devicePixelRatio||1,1.5),w=Math.max(320,Math.round((this.previewSize?.width||innerWidth)*dpr*q)),h=Math.max(240,Math.round((this.previewSize?.height||innerHeight)*dpr*q));if(this.canvas.width===w&&this.canvas.height===h&&this.scene)return;this.canvas.width=w;this.canvas.height=h;this.deleteTarget(this.scene);this.deleteTarget(this.reflection);this.scene=this.targetBuffer(w,h);this.reflection=this.targetBuffer(Math.max(256,Math.round(w*.5)),Math.max(180,Math.round(h*.5)));gl.bindFramebuffer(gl.FRAMEBUFFER,null);}
+  resize(){const gl=this.gl;if(this.disposed||gl.isContextLost())return;let q=this.quality==='eco'?.65:this.quality==='high'?1.2:.88,dpr=Math.min(window.devicePixelRatio||1,1.5),w=Math.max(320,Math.round((this.previewSize?.width||innerWidth)*dpr*q)),h=Math.max(240,Math.round((this.previewSize?.height||innerHeight)*dpr*q));if(this.canvas.width===w&&this.canvas.height===h&&this.scene)return;this.canvas.width=w;this.canvas.height=h;this.deleteTarget(this.scene);this.deleteTarget(this.reflection);this.scene=this.targetBuffer(w,h);this.reflection=this.targetBuffer(Math.max(256,Math.round(w*.5)),Math.max(180,Math.round(h*.5)));gl.bindFramebuffer(gl.FRAMEBUFFER,null);}
   buildCity(){
    const S=this.static,add=(...args)=>this.add(S,...args),r=D.rng(226);const asphalt=[.035,.045,.049],curb=[.29,.31,.30],concrete=[.21,.235,.25];
    add('box',0,-.30,0,872,.5,872,asphalt,2);add('box',0,-1.1,0,2000,.2,2000,[.02,.07,.08],7);
@@ -3201,11 +3261,12 @@ DC.HeroAsset={"version":2,"stride":24,"positionScale":10000,"bones":["pelvis","s
     g.texParameteri(g.TEXTURE_2D,g.TEXTURE_MIN_FILTER,g.LINEAR);g.texParameteri(g.TEXTURE_2D,g.TEXTURE_MAG_FILTER,g.LINEAR);
     g.texParameteri(g.TEXTURE_2D,g.TEXTURE_WRAP_S,g.REPEAT);g.texParameteri(g.TEXTURE_2D,g.TEXTURE_WRAP_T,g.CLAMP_TO_EDGE);g.activeTexture(active);
     const image=new Image();image.onload=()=>{
+     if(this.disposed||this.resources.disposed||g.isContextLost()){resolve(false);return;}
      const previous=g.getParameter(g.ACTIVE_TEXTURE),flip=g.getParameter(g.UNPACK_FLIP_Y_WEBGL);g.activeTexture(g.TEXTURE4+i);g.bindTexture(g.TEXTURE_2D,texture);g.pixelStorei(g.UNPACK_FLIP_Y_WEBGL,true);
      g.texImage2D(g.TEXTURE_2D,0,g.RGBA,g.RGBA,g.UNSIGNED_BYTE,image);g.generateMipmap(g.TEXTURE_2D);g.texParameteri(g.TEXTURE_2D,g.TEXTURE_MIN_FILTER,g.LINEAR_MIPMAP_LINEAR);
      g.pixelStorei(g.UNPACK_FLIP_Y_WEBGL,flip);g.activeTexture(previous);this.humanTextureStatus.loaded++;this.humanTextureStatus.bytes+=image.width*image.height*4*4/3;resolve(true);
     };
-    image.onerror=()=>{this.humanTextureStatus.failed++;console.warn('Embedded human map could not be decoded:',key);resolve(false);};image.src=source.uri;
+    image.onerror=()=>{if(this.disposed||this.resources.disposed||g.isContextLost()){resolve(false);return;}this.humanTextureStatus.failed++;console.warn('Embedded human map could not be decoded:',key);resolve(false);};image.src=source.uri;
    })));
   }
   sceneUniforms(...args){
@@ -3643,7 +3704,7 @@ DC.HeroAsset={"version":2,"stride":24,"positionScale":10000,"bones":["pelvis","s
    if(!['eco','balanced','high'].includes(this.settings.quality))this.settings.quality='balanced';
    this.world=new D.World(1337);this.sim=new D.Simulation(this.world);this.renderer=new D.Renderer($('world'),this.world,this.settings.quality);this.audio=new D.Audio();this.audio.enabled=!!this.settings.sound;this.audio.volume=D.clamp(Number(this.settings.volume)/100,0,1);this.renderer.rain=this.settings.rain?1:0;this.renderer.bloom=this.settings.bloom?1:0;
    this.touchAuto=matchMedia('(pointer: coarse)').matches||navigator.maxTouchPoints>0;this.setTouch(this.settings.touch??this.touchAuto);this.bind();this.syncSettings();this.refreshContinue();this.renderer.updateCamera(this.sim,0,{menu:true});this.renderer.render(this.sim);
-   $('loading').hidden=true;this.setMode('menu');this.loop=this.loop.bind(this);requestAnimationFrame(this.loop);
+   $('loading').hidden=true;this.setMode('menu');this.loop=this.loop.bind(this);this.scheduleFrame();
    globalThis.render_game_to_text=()=>JSON.stringify({mode:this.mode,player:this.sim.player,wanted:this.sim.wanted,heat:this.sim.heat,cash:this.sim.cash,story:this.sim.story,target:this.sim.target(),job:this.sim.job,police:this.sim.getPoliceStatus()});
    if(new URLSearchParams(location.search).has('debug')){globalThis.__DC_DEBUG=this;$('fps').hidden=false;}
   }
@@ -3717,7 +3778,8 @@ DC.HeroAsset={"version":2,"stride":24,"positionScale":10000,"bones":["pelvis","s
    surrender.addEventListener('keyup',e=>{if(['Space','Enter'].includes(e.code)){e.preventDefault();this.surrenderHeld=false;}});
    surrender.addEventListener('blur',()=>{this.surrenderHeld=false;});
    $('citymap').addEventListener('click',e=>this.mapClick?.(e));
-   canvas.addEventListener('webglcontextlost',e=>{e.preventDefault();this.mode='error';$('error').hidden=false;$('errorText').textContent='La GPU interrumpió la sesión. Tu último guardado sigue disponible. Cierra otras pestañas con gráficos y vuelve a intentar.';});
+   canvas.addEventListener('webglcontextlost',e=>{e.preventDefault();this.graphics?.lose();});
+   canvas.addEventListener('webglcontextrestored',()=>this.graphics?.restore());
   }
   resetInput(){this.repairHeld=false;this.jumpHeld=false;this.keys.clear();this.stick={x:0,y:0};this.drag=null;this.touchBrake=false;this.surrenderHeld=false;$('surrenderButton').classList.remove('pressed');this.sim.policeState.surrender=0;$('joystickKnob').style.transform='';$('touchBrake').classList.remove('pressed');}
   setMode(mode){
@@ -3763,7 +3825,7 @@ DC.HeroAsset={"version":2,"stride":24,"positionScale":10000,"bones":["pelvis","s
    if(!this.started){if(feedback)this.toast('Todavía no hay una partida iniciada.');return false;}
    try{localStorage.setItem(SAVE_KEY,JSON.stringify(this.sim.serialize()));if(feedback)this.toast('Partida guardada en este navegador.');return true;}catch(e){if(feedback||!this.storageWarning){this.toast('El navegador bloqueó el guardado local. Usa «Exportar partida» para conservar tu progreso.');this.storageWarning=true;}return false;}
   }
-  download(blob,name){const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),10000);}
+  download(blob,name,parent=document.body){const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;parent.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),10000);}
   exportSave(){if(!this.started){this.toast('Inicia una partida antes de exportarla.');return;}this.download(new Blob([JSON.stringify(this.sim.serialize(),null,2)],{type:'application/json'}),'distrito-cero-partida.json');this.toast('Copia de la partida exportada.');}
   async importSave(file){if(!file)return;try{if(file.size>2500000)throw new Error('El archivo es demasiado grande.');const data=JSON.parse(await file.text()),sim=new D.Simulation(this.world);if(!sim.restore(data))throw new Error('Formato de partida no válido.');this.sim=sim;this.crouched=false;this.started=true;this.renderer.camera.initialized=false;this.renderer.camera.yaw=sim.player.yaw;this.setMode('play');this.save(false);this.toast('Partida importada.');}catch(e){this.toast(`No se pudo importar: ${e.message}`);}finally{$('saveFile').value='';}}
   capture(){this.renderer.render(this.sim);try{$('world').toBlob(blob=>{if(blob){this.download(blob,'distrito-cero-captura.png');this.toast('Captura guardada.');}else this.toast('No se pudo crear la captura.');},'image/png');}catch(e){this.toast('El navegador no permitió guardar la imagen.');}}
@@ -3827,6 +3889,8 @@ DC.HeroAsset={"version":2,"stride":24,"positionScale":10000,"bones":["pelvis","s
     $('marker').hidden=!visible;if(visible){$('marker').style.left=x+'px';$('marker').style.top=y+'px';$('markerDistance').textContent=Math.round(D.distance(p,target))+' m';}
    }else $('marker').hidden=true;
   }
+  scheduleFrame(){if(this.frameRequest!=null||this.graphics&&this.graphics.state!=='ready')return;this.frameRequest=requestAnimationFrame(now=>{this.frameRequest=null;this.loop(now);});}
+  stopFrame(){if(this.frameRequest!=null)cancelAnimationFrame(this.frameRequest);this.frameRequest=null;}
   loop(now){
    if(this.mode==='error')return;
    const raw=(now-this.last)/1000,dt=Math.min(.12,Math.max(0,raw));this.last=now;this.frameCount++;this.fps=D.damp(this.fps,1/Math.max(.001,raw),1,dt);
@@ -3840,7 +3904,7 @@ DC.HeroAsset={"version":2,"stride":24,"positionScale":10000,"bones":["pelvis","s
    try{if(['play','menu','photo'].includes(this.mode)||this.renderDirty){this.renderer.render(this.sim);this.renderDirty=false;}}catch(e){console.error(e);this.mode='error';$('error').hidden=false;$('errorText').textContent=e.message;return;}
    this.audio.update(this.sim,this.mode!=='play',this.renderer.rain);
    if(now-this.lastUI>90){this.updateUI(now);this.lastUI=now;$('fps').textContent=`${this.fps.toFixed(0)} FPS · ${this.renderer.canvas.width}×${this.renderer.canvas.height}`;}
-   requestAnimationFrame(this.loop);
+   this.scheduleFrame();
   }
  }
  D.App=App;
@@ -4137,7 +4201,7 @@ DC.HeroAsset={"version":2,"stride":24,"positionScale":10000,"bones":["pelvis","s
    if(c.focus==='hands'){const q=D.SkinRig.pose(p,c.preview.time),h=D.SkinRig.handPoint(q,p,'R');target=[h.x-.004,h.y-.082,h.z+.004];rise=.038;}
    r.camera.eye=[target[0]+Math.sin(c.yaw)*d,target[1]+rise,target[2]+Math.cos(c.yaw)*d];r.camera.target=target;
    try{r.render(c.preview);}catch(e){this.creatorMessage('No se pudo dibujar la vista previa: '+e.message,true);console.error(e);this.cancelCreator();}
-   requestAnimationFrame(this.loop);
+   this.scheduleFrame();
   }
  }
  D.IdentityApp=IdentityApp;D.App=IdentityApp;
@@ -4235,6 +4299,111 @@ DC.HeroAsset={"version":2,"stride":24,"positionScale":10000,"bones":["pelvis","s
   }
  }
  D.EquipmentApp=EquipmentApp;D.App=EquipmentApp;
+})(DC);
+
+
+/* Recover the graphics generation, never replace the live simulation or creator draft. */
+'use strict';
+(function(D){
+ const $=id=>document.getElementById(id),Base=D.App;
+ const viewKeys=['quality','rain','bloom','daylight','previewStudio','previewSize','fovOverride','frozenHandling'];
+ class RecoverableApp extends Base{
+  constructor(){
+   super();this.recoveryExtension=this.renderer.gl.getExtension('WEBGL_lose_context');this.recoverySnapshot=null;this.recoveryCandidate=null;this.recoveryStats={losses:0,restores:0};
+   this.installRecoveryPanel();
+   this.graphics=new D.RecoveryController({lost:first=>this.graphicsLost(first),build:()=>this.rebuildGraphics(),ready:r=>this.graphicsReady(r),failed:e=>this.graphicsFailed(e),dispose:r=>r?.dispose()});
+  }
+  loop(now){
+   if(this.graphics&&this.graphics.state!=='ready')return;
+   if(this.renderer.gl.isContextLost()){this.graphics?.lose();return;}
+   super.loop(now);
+  }
+  installRecoveryPanel(){
+   const panel=document.createElement('section');panel.id='graphicsRecovery';panel.hidden=true;panel.className='graphics-recovery';panel.setAttribute('role','dialog');panel.setAttribute('aria-modal','true');panel.setAttribute('aria-labelledby','recoveryTitle');
+   const card=document.createElement('div');card.className='recovery-card';
+   const label=document.createElement('p');label.className='eyebrow';label.textContent='DISTRITO CERO · RECUPERACIÓN GRÁFICA';
+   const title=document.createElement('h2');title.id='recoveryTitle';title.textContent='La sesión está a salvo en memoria.';
+   const status=document.createElement('p');status.id='recoveryStatus';status.setAttribute('aria-live','polite');
+   const note=document.createElement('p');note.textContent='No se ha reiniciado la partida. Puedes exportarla antes de recargar la página. El guardado local anterior no se reemplaza automáticamente.';
+   const actions=document.createElement('div');actions.className='recovery-actions';
+   const button=(id,text,fn)=>{const b=document.createElement('button');b.id=id;b.type='button';b.textContent=text;b.onclick=fn;actions.append(b);return b;};
+   button('recoveryRetry','Reintentar gráficos',()=>this.retryGraphics());
+   button('recoveryResume','Reanudar sesión',()=>this.resumeGraphics());
+   button('recoveryExport','Exportar sesión JSON',()=>this.exportRecovery());
+   button('recoveryDraft','Exportar borrador del personaje',()=>this.exportRecovery(true));
+   card.append(label,title,status,note,actions);panel.append(card);document.body.append(panel);
+   this.recoveryPanel=panel;
+   // Capture before legacy controls. Only recovery controls receive inputs while blocked.
+   const gate=e=>{
+    if(!this.graphics||this.graphics.state==='ready')return;
+    if(e.type==='keydown'&&e.code==='Tab'){
+     const items=[...panel.querySelectorAll('button')].filter(b=>!b.disabled&&!b.hidden),i=items.indexOf(document.activeElement);
+     e.preventDefault();e.stopImmediatePropagation();items[(i+(e.shiftKey?-1:1)+items.length)%items.length]?.focus();return;
+    }
+    if(panel.contains(e.target)){if(e.type.startsWith('key')&&!['Enter','Space'].includes(e.code)){e.preventDefault();e.stopImmediatePropagation();}return;}
+    e.preventDefault();e.stopImmediatePropagation();
+   };
+   for(const name of ['keydown','keyup','pointerdown','pointermove','pointerup','click','wheel'])window.addEventListener(name,gate,{capture:true,passive:false});
+  }
+  graphicsLost(first){
+   this.stopFrame();this.recoveryStats.losses++;
+   const r=this.renderer;
+   if(first){this.recoverySnapshot={mode:this.mode,world:r.world,camera:{...r.camera,eye:r.camera.eye?.slice(),target:r.camera.target?.slice()},view:Object.fromEntries(viewKeys.map(k=>[k,r[k]])),focus:document.activeElement};}
+   this.mode='recovering';this.resetInput();if(this.creator)this.creator.pointer=null;
+   this.audio.update(this.sim,true,r.rain);this.recoveryCandidate?.dispose();r.dispose();
+   this.renderDirty=false;this.last=performance.now();this.accumulator=0;
+   this.recoveryPanel.hidden=false;$('recoveryStatus').textContent='Se interrumpió el contexto WebGL. Esperando la recuperación del navegador.';
+   $('recoveryResume').hidden=true;$('recoveryRetry').disabled=false;$('recoveryExport').hidden=!this.started;$('recoveryDraft').hidden=!this.creator;$('recoveryRetry').focus();
+  }
+  async rebuildGraphics(){
+   const previous=this.renderer,gl=previous.gl,s=this.recoverySnapshot;
+   if(gl.isContextLost())throw new Error('El navegador todavía no ha restablecido el contexto gráfico.');
+   $('recoveryRetry').disabled=true;$('recoveryStatus').textContent='Reconstruyendo geometría, texturas y sectores…';
+   let r;
+   try{
+    r=new D.Renderer(previous.canvas,s.world,s.view.quality);this.recoveryCandidate=r;
+    Object.assign(r,s.view);r.camera={...s.camera,eye:s.camera.eye?.slice(),target:s.camera.target?.slice()};r.resize();
+    await r.humanReady;
+    if(r.disposed||gl.isContextLost())throw new Error('Se interrumpió la reconstrucción gráfica.');
+    if(r.humanTextureStatus.failed||r.humanTextureStatus.loaded!==3)throw new Error('No se pudieron recuperar los mapas del personaje.');
+    return r;
+   }catch(e){if(r)r.dispose();else D.GLResources.current(gl)?.dispose();throw e;}
+  }
+  graphicsReady(r){
+   // Draw first. A failed draw does not publish a half-initialized renderer.
+   const sim=this.creator?.preview||this.sim;r.render(sim);r.gl.finish();
+   if(r.gl.isContextLost()||r.gl.getError()!==r.gl.NO_ERROR)throw new Error('La verificación del dibujo recuperado falló.');
+   this.renderer=r;this.recoveryCandidate=null;this.recoveryStats.restores++;this.recoveryStats.resources=r.resources.stats();
+   $('recoveryStatus').textContent='Gráficos recuperados. La partida y el borrador permanecen en su estado anterior.';
+   $('recoveryResume').hidden=false;$('recoveryRetry').disabled=true;$('recoveryResume').focus();
+  }
+  graphicsFailed(e){
+   this.recoveryCandidate=null;$('recoveryStatus').textContent='No se pudo recuperar la imagen: '+e.message+' Exporta tu sesión antes de recargar.';
+   $('recoveryRetry').disabled=this.graphics.attempts>=3;$('recoveryResume').hidden=true;
+  }
+  retryGraphics(){
+   if(this.graphics.attempts>=3)return;
+   if(this.renderer.gl.isContextLost()){
+    const ext=this.recoveryExtension;
+    // getExtension may return null during a real loss; restoration is browser-controlled.
+    if(ext)ext.restoreContext();else $('recoveryStatus').textContent='El navegador controla la restauración. Puedes conservar la sesión con Exportar JSON.';
+   }else this.graphics.restore();
+  }
+  resumeGraphics(){
+   if(!this.graphics.resume())return;
+   this.recoveryPanel.hidden=true;const s=this.recoverySnapshot;this.mode=s.mode;this.last=performance.now();this.accumulator=0;this.renderDirty=true;
+   this.recoverySnapshot=null;if(s.focus?.isConnected)s.focus.focus({preventScroll:true});else this.renderer.canvas.focus({preventScroll:true});
+   if(this.creator)this.fitCreator();this.scheduleFrame();
+  }
+  exportRecovery(draft=false){
+   try{const c=this.creator;
+    const data=draft?{format:'distrito-cero-appearance-draft',version:1,name:$('characterName').value,appearance:D.Appearance.copy(c.look)}:{format:'distrito-cero-slot',version:1,name:(this.sim.characterName||'Partida')+' · recuperada',data:this.sim.serialize()};
+    this.download(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),draft?'distrito-cero-borrador.json':'distrito-cero-recuperada.json',this.recoveryPanel);
+    $('recoveryStatus').textContent=draft?'Borrador JSON preparado. Conserva los valores de personalización para recuperación manual.':'Copia de la sesión preparada. Puede importarse desde Mis partidas.';
+   }catch(e){$('recoveryStatus').textContent='No se pudo exportar: '+e.message;}
+  }
+ }
+ D.RecoverableApp=RecoverableApp;D.App=RecoverableApp;
 })(DC);
 </script>
 </body>

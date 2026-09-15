@@ -208,7 +208,7 @@
    if(c.focus==='hands'){const q=D.SkinRig.pose(p,c.preview.time),h=D.SkinRig.handPoint(q,p,'R');target=[h.x-.004,h.y-.082,h.z+.004];rise=.038;}
    r.camera.eye=[target[0]+Math.sin(c.yaw)*d,target[1]+rise,target[2]+Math.cos(c.yaw)*d];r.camera.target=target;
    try{r.render(c.preview);}catch(e){this.creatorMessage('No se pudo dibujar la vista previa: '+e.message,true);console.error(e);this.cancelCreator();}
-   requestAnimationFrame(this.loop);
+   this.scheduleFrame();
   }
  }
  D.IdentityApp=IdentityApp;D.App=IdentityApp;

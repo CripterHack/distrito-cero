@@ -40,11 +40,12 @@
     g.texParameteri(g.TEXTURE_2D,g.TEXTURE_MIN_FILTER,g.LINEAR);g.texParameteri(g.TEXTURE_2D,g.TEXTURE_MAG_FILTER,g.LINEAR);
     g.texParameteri(g.TEXTURE_2D,g.TEXTURE_WRAP_S,g.REPEAT);g.texParameteri(g.TEXTURE_2D,g.TEXTURE_WRAP_T,g.CLAMP_TO_EDGE);g.activeTexture(active);
     const image=new Image();image.onload=()=>{
+     if(this.disposed||this.resources.disposed||g.isContextLost()){resolve(false);return;}
      const previous=g.getParameter(g.ACTIVE_TEXTURE),flip=g.getParameter(g.UNPACK_FLIP_Y_WEBGL);g.activeTexture(g.TEXTURE4+i);g.bindTexture(g.TEXTURE_2D,texture);g.pixelStorei(g.UNPACK_FLIP_Y_WEBGL,true);
      g.texImage2D(g.TEXTURE_2D,0,g.RGBA,g.RGBA,g.UNSIGNED_BYTE,image);g.generateMipmap(g.TEXTURE_2D);g.texParameteri(g.TEXTURE_2D,g.TEXTURE_MIN_FILTER,g.LINEAR_MIPMAP_LINEAR);
      g.pixelStorei(g.UNPACK_FLIP_Y_WEBGL,flip);g.activeTexture(previous);this.humanTextureStatus.loaded++;this.humanTextureStatus.bytes+=image.width*image.height*4*4/3;resolve(true);
     };
-    image.onerror=()=>{this.humanTextureStatus.failed++;console.warn('Embedded human map could not be decoded:',key);resolve(false);};image.src=source.uri;
+    image.onerror=()=>{if(this.disposed||this.resources.disposed||g.isContextLost()){resolve(false);return;}this.humanTextureStatus.failed++;console.warn('Embedded human map could not be decoded:',key);resolve(false);};image.src=source.uri;
    })));
   }
   sceneUniforms(...args){

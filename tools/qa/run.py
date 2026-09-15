@@ -23,6 +23,7 @@ class Suite:
     origin: str = 'fixture'
 
 SUITES={
+ 'recovery': Suite('recovery',('tests/graphics_recovery.py',),'qa/v019/graphics-recovery.json',22),
  'native': Suite('native',('tests/native_saves.py',),'qa/v019/native-saves.json',35,'http'),
  'handling': Suite('handling',('tests/contact_browser.py',),'qa/v019/handling-browser.json',51),
  'arsenal': Suite('arsenal',('tests/contact_arsenal.py',),'qa/v019/arsenal-browser.json',78),
