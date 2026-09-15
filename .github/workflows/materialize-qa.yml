@@ -1,0 +1,63 @@
+name: Materialize verified QA change
+on:
+  push:
+    branches: [feat/001-native-qa]
+    paths: [.github/workflows/materialize-qa.yml]
+permissions:
+  contents: read
+jobs:
+  apply:
+    if: github.repository == 'CripterHack/distrito-cero'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 2
+      - name: Verify and apply the locally tested source changes
+        run: |
+          python3 - <<'PY'
+          import gzip, hashlib, json, pathlib, subprocess, tempfile
+          root = pathlib.Path.cwd()
+          data = gzip.decompress(pathlib.Path('.github/qa-change.gz').read_bytes())
+          assert hashlib.sha256(data).hexdigest() == '68c511c20b24e59c736bbb09a378e8b30c9cd99544df6f9f675d53346f7df59e'
+          p = json.loads(data)
+          assert subprocess.check_output(['git','rev-parse','HEAD^'],text=True).strip() == p['base']
+          for name in p['after']:
+              path = pathlib.PurePosixPath(name)
+              assert not path.is_absolute() and '..' not in path.parts and '.git' not in path.parts
+              assert path.parts[0] in ('tests','tools','docs','.github')
+          with tempfile.NamedTemporaryFile(mode='w',suffix='.patch') as f:
+              f.write(p['patch']); f.flush()
+              subprocess.run(['git','apply','--check','--unidiff-zero',f.name],check=True)
+              subprocess.run(['git','apply','--unidiff-zero',f.name],check=True)
+          for name, content in p['replace'].items():
+              assert name in p['after']
+              dest = root / name
+              dest.parent.mkdir(parents=True,exist_ok=True)
+              dest.write_text(content)
+          for name, expected in p['after'].items():
+              assert hashlib.sha256((root/name).read_bytes()).hexdigest() == expected, name
+          print('Verified', len(p['after']), 'files against the locally tested change.')
+          PY
+      - name: Rebuild and test without changing the live game
+        run: |
+          python3 build.py
+          echo '3aa9a27f4941ea1c701069c61db133ab3c93087e35d833d4921ba25b8a4b059f  index.html' | sha256sum --check --strict
+          node --test tests/*.test.cjs
+          python3 tests/qa_runner.test.py
+          python3 tools/export_contact.py
+          python3 tests/contact_exports.test.py
+          git diff --exit-code -- index.html assets/dc019-equipment.glb
+      - name: Commit readable source and remove the one-time adapter
+        run: |
+          set -euo pipefail
+          rm .github/qa-change.gz .github/workflows/materialize-qa.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add --all
+          git commit -m 'test: portable QA runner, fresh reports and configurable browser (#2)'
+          git push origin HEAD:refs/heads/feat/001-native-qa
