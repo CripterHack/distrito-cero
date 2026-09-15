@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
     inputs:
       full_browser:
-        description: Run all five legacy browser suites
+        description: Run all gameplay suites plus graphics recovery
         type: boolean
         default: false
 permissions:
@@ -59,7 +59,7 @@ jobs:
           assert not bad,bad
           PY
   browser:
-    name: WebGL handling smoke
+    name: WebGL handling and recovery
     runs-on: ubuntu-24.04
     timeout-minutes: 40
     steps:
@@ -77,9 +77,11 @@ jobs:
         env:
           FULL_BROWSER: ${{ inputs.full_browser == true && 'true' || 'false' }}
         run: |
-          SUITE=handling
-          if [ "$FULL_BROWSER" = true ]; then SUITE=all; fi
-          xvfb-run -a python3 -m tools.qa.run --suite "$SUITE" --headed --output artifacts/ci-fixture
+          if [ "$FULL_BROWSER" = true ]; then
+            xvfb-run -a python3 -m tools.qa.run --suite all --headed --output artifacts/ci-fixture
+          else
+            xvfb-run -a python3 -m tools.qa.run --suite handling --suite recovery --headed --output artifacts/ci-fixture
+          fi
       - name: Upload fresh evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02

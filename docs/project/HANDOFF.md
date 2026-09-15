@@ -1,23 +1,23 @@
-# Handoff · ejecución de los issues iniciales
+# Handoff · continuidad después de recuperación gráfica
 
-## Base y publicación
+## Estado verificado antes de esta unidad
 
-Base remota al iniciar: `d34751c22eccf519efc5386a6c8f87e5407d99df` en master. El usuario confirmó GitHub Pages publicado desde master. No se cambia esa configuración. Los cambios se proponen y verifican en ramas antes de integrar.
+Master al retomar: `e23835a24e792248c95ad08520e2e6068d4757bc`. #2 y #3 quedaron cerrados mediante #8 y #9: runner portable y 35 comprobaciones de guardado HTTP nativo con reapertura/conflictos. GitHub Pages está activado por el usuario desde master y no se modifica su configuración.
 
-## Unidad actual: #2 / DC-001
+## Unidad #4
 
-Implementado el runner portable de `tools/qa/`, sus tests y el adaptador de navegador compartido por las cinco suites vigentes. Las aserciones se conservan. La evidencia nueva queda bajo `artifacts/`, con copia aislada, timeouts y rechazo de informes viejos. Consultar el PR y Actions para los resultados exactos de su commit.
+Implementados ledger de recursos, restauración por generaciones, programación RAF única, bloqueo de entradas y exportación mientras el contexto está perdido. El diálogo conserva la sesión y el borrador y requiere reanudación explícita. Leer `GRAPHICS-RECOVERY.md` y consultar el PR/CI para resultados del commit exacto. No considerar las capturas de la ejecución interrumpida como evidencia de esta implementación.
 
-## Siguiente unidad: #3 / DC-002 y DC-003
+## Siguiente trabajo
 
-Añadir origen HTTP local real y perfil de navegador temporal persistente, sin sustituir localStorage. Crear dos partidas con identidades/inventarios distintos, cerrar y reabrir, renombrar/borrar, comprobar importación y conflicto entre dos páginas reales. Los tests de fixtures se conservan como evidencia separada.
+#5: preparar benchmark reproducible de personajes con cámaras/luces/perfiles/poses declarados. La captura de referencia no significa que la anatomía actual esté aprobada como hiperrealista. Registrar aprobación visual por separado.
 
-Después abordar #4: recuperación WebGL sin reiniciar simulación, duplicar RAF/listeners o perder el borrador del creador. Primero inventariar constructor, recursos e imágenes pendientes.
+#6: depende de referencias del rig y superficies. Extender el montaje de v0.19, no crear uno paralelo. Primero medir contactos completos de palma/falanges y cancelaciones, después corregir los defectos reproducidos.
 
-## Frente de presentación
+#7: depende de los gates de escena, mundo, personajes y datos. Diseñar la muestra de 10–15 minutos y validar recorrido íntegro y playtests físicos cuando estén disponibles. No cerrar por añadir otra propuesta o por teletransportar objetivos.
 
-#5 prepara benchmark de anatomía, cámaras, luces y poses. #6 depende de referencias estables para las mejoras de contactos. #7 depende de los gates del roadmap y requiere una partida íntegra y playtest humano; no se cierra por redactar una propuesta.
+## Comandos
 
-## Verificación mínima
+`python3 build.py`, `node --test tests/*.test.cjs`, `python3 tests/qa_runner.test.py`, exportación GLB, `python3 -m tools.qa.run --suite handling --suite recovery`, y `python3 -m tools.qa.run --suite native --origin http`.
 
-`python3 build.py`, `node --test tests/*.test.cjs`, `python3 tests/qa_runner.test.py`, exportación GLB y `python3 -m tools.qa.run --suite handling`. Leer QA.md para navegador/display. No modificar evidencias históricas ni inferir resultados de otro commit.
+No eliminar evidencia histórica. Antes de escribir, leer HEAD remoto y AGENTS. Integrar sólo tras checks y revisar Pages después del merge. No quedan operaciones de recuperación corriendo por una promesa en el chat: revisar los procesos y acciones existentes antes de repetirlos.

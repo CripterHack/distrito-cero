@@ -378,6 +378,7 @@
   constructor(canvas,world,quality='balanced'){
    this.canvas=canvas;this.world=world;this.quality=quality;this.gl=canvas.getContext('webgl2',{antialias:false,alpha:false,powerPreference:'high-performance',preserveDrawingBuffer:true});
    if(!this.gl)throw new Error('WebGL 2 no está disponible. Activa la aceleración gráfica o abre el juego en otro navegador.');
+   this.resources=new D.GLResources(this.gl);this.disposed=false;
    const gl=this.gl;this.sceneProgram=compile(gl,VS,FS);this.shadowProgram=compile(gl,VS,SHADOW_FS);this.skyProgram=compile(gl,SCREEN_VS,SKY_FS);this.postProgram=compile(gl,SCREEN_VS,POST_FS);this.uniforms=new Map();
    this.meshes={};this.static={};this.dynamic={};this.camera={eye:[-8,4,0],target:[5,1,13],yaw:0,pitch:.22,mode:0,initialized:false};this.frame=0;this.rain=1;this.bloom=1;this.shadowSize=1024;
    for(const[name,data]of Object.entries(geometry())){this.meshes[name]=this.createMesh(data);this.static[name]=[];this.dynamic[name]=[];}
@@ -385,6 +386,7 @@
    for(const name of Object.keys(this.meshes)){this.meshes[name].chunks=this.chunkInstances(this.static[name]);this.meshes[name].dynamicBuffer=gl.createBuffer();}
    this.lights=new Float32Array(48);this.lightTime=-1;this.resize();
   }
+  dispose(){if(this.disposed)return;this.disposed=true;this.resources?.dispose();this.uniforms?.clear();for(const key of ['sectorGPU','hairParts','equipmentMeshes','lodHistory'])this[key]?.clear();this.motionTracker?.clear();this.meshes={};this.static={};this.dynamic={};this.humanTextures={};}
   uniform(program,name){let m=this.uniforms.get(program);if(!m){m={};this.uniforms.set(program,m);}return m[name]??(m[name]=this.gl.getUniformLocation(program,name));}
   createMesh(data){const gl=this.gl,vao=gl.createVertexArray(),vbo=gl.createBuffer();gl.bindVertexArray(vao);gl.bindBuffer(gl.ARRAY_BUFFER,vbo);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(data),gl.STATIC_DRAW);for(const [i,size,offset]of [[0,3,0],[1,3,12],[2,2,24]]){gl.enableVertexAttribArray(i);gl.vertexAttribPointer(i,size,gl.FLOAT,false,32,offset);}return{vao,vbo,count:data.length/8};}
   add(list,mesh,x,y,z,sx,sy,sz,color,mat=0,emission=0,yaw=0,seed=0,detail=0,pitch=0,roll=0){list[mesh].push(x,y,z,yaw,sx,sy,sz,mat,color[0],color[1],color[2],emission,pitch,roll,seed,detail);}
@@ -402,7 +404,7 @@
   }
   deleteTarget(t){if(!t)return;const g=this.gl;g.deleteFramebuffer(t.fb);g.deleteTexture(t.tex);if(t.db)g.deleteRenderbuffer(t.db);}
   makeShadow(){const gl=this.gl;this.shadowTex=gl.createTexture();gl.bindTexture(gl.TEXTURE_2D,this.shadowTex);gl.texImage2D(gl.TEXTURE_2D,0,gl.DEPTH_COMPONENT24,this.shadowSize,this.shadowSize,0,gl.DEPTH_COMPONENT,gl.UNSIGNED_INT,null);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.NEAREST);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.NEAREST);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);this.shadowFB=gl.createFramebuffer();gl.bindFramebuffer(gl.FRAMEBUFFER,this.shadowFB);gl.framebufferTexture2D(gl.FRAMEBUFFER,gl.DEPTH_ATTACHMENT,gl.TEXTURE_2D,this.shadowTex,0);gl.drawBuffers([gl.NONE]);gl.readBuffer(gl.NONE);if(gl.checkFramebufferStatus(gl.FRAMEBUFFER)!==gl.FRAMEBUFFER_COMPLETE)throw new Error('El dispositivo no permite crear sombras WebGL.');}
-  resize(){const gl=this.gl;let q=this.quality==='eco'?.65:this.quality==='high'?1.2:.88,dpr=Math.min(window.devicePixelRatio||1,1.5),w=Math.max(320,Math.round((this.previewSize?.width||innerWidth)*dpr*q)),h=Math.max(240,Math.round((this.previewSize?.height||innerHeight)*dpr*q));if(this.canvas.width===w&&this.canvas.height===h&&this.scene)return;this.canvas.width=w;this.canvas.height=h;this.deleteTarget(this.scene);this.deleteTarget(this.reflection);this.scene=this.targetBuffer(w,h);this.reflection=this.targetBuffer(Math.max(256,Math.round(w*.5)),Math.max(180,Math.round(h*.5)));gl.bindFramebuffer(gl.FRAMEBUFFER,null);}
+  resize(){const gl=this.gl;if(this.disposed||gl.isContextLost())return;let q=this.quality==='eco'?.65:this.quality==='high'?1.2:.88,dpr=Math.min(window.devicePixelRatio||1,1.5),w=Math.max(320,Math.round((this.previewSize?.width||innerWidth)*dpr*q)),h=Math.max(240,Math.round((this.previewSize?.height||innerHeight)*dpr*q));if(this.canvas.width===w&&this.canvas.height===h&&this.scene)return;this.canvas.width=w;this.canvas.height=h;this.deleteTarget(this.scene);this.deleteTarget(this.reflection);this.scene=this.targetBuffer(w,h);this.reflection=this.targetBuffer(Math.max(256,Math.round(w*.5)),Math.max(180,Math.round(h*.5)));gl.bindFramebuffer(gl.FRAMEBUFFER,null);}
   buildCity(){
    const S=this.static,add=(...args)=>this.add(S,...args),r=D.rng(226);const asphalt=[.035,.045,.049],curb=[.29,.31,.30],concrete=[.21,.235,.25];
    add('box',0,-.30,0,872,.5,872,asphalt,2);add('box',0,-1.1,0,2000,.2,2000,[.02,.07,.08],7);
