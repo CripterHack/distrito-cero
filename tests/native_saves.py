@@ -21,7 +21,7 @@ def ck(name,value):
     assert value,name
 
 def boot(context,origin):
-    p=context.new_page();p.set_default_timeout(30000)
+    p=next((page for page in context.pages if page.url=='about:blank'),None) or context.new_page();p.set_default_timeout(30000)
     p.on('pageerror',lambda e:errors.append(str(e)))
     p.on('console',lambda m:errors.append(m.text) if m.type=='error' else None)
     p.on('request',lambda r:requests.append(r.url) if r.url.startswith(('http:','https:')) and urlsplit(r.url).netloc!=urlsplit(origin).netloc else None)
@@ -39,6 +39,7 @@ def pause(p):
     if p.locator('#tutorial').is_visible():p.click('#dismissTutorial')
     p.evaluate('DC_APP.setMode("pause")')
 def create(p,name,slot,style,cash,story,weapon,reserve):
+    p.evaluate('seed=>DC_APP.creator.seed=seed',1337 if style==4 else 2027)
     p.fill('#characterName',name);p.fill('#newSaveName',slot)
     p.select_option('#characterHairStyle',str(style));p.click('#commitCreator')
     p.wait_for_function('DC_APP.mode==="play"');pause(p)
@@ -57,7 +58,6 @@ try:
         def reopen():
             c=pw.chromium.launch_persistent_context(profile,viewport={'width':900,'height':640},accept_downloads=True,**launch_options())
             c.add_init_script(SETTINGS)
-            for page in list(c.pages):page.close()
             return c
         context=reopen();p=boot(context,origin)
         ck('Browser uses native Web Storage at a real HTTP origin',p.evaluate(NATIVE) and p.url.startswith(origin))
@@ -67,7 +67,7 @@ try:
         p.click('#pauseSaves');p.click('#libraryNew');b=create(p,'Luz','Ruta nativa B',8,2345,3,'emp',5)
         ck('Second character has a separate stable save ID',a!=b and p.evaluate('DC_APP.getStore().list().length===2'))
         ck('A retains its mission and inventory after creating B',sample(p,a)['data']['cash']==1299 and sample(p,a)['data']['equipment']['ammo']['gauss']['reserve']==11)
-        ck('B retains its own equipment and hairstyle',sample(p,b)['data']['equipment']['selected']=='emp' and sample(p,b)['data']['identity']['look']['hairStyle']==8)
+        ck('B retains its own equipment and hairstyle',sample(p,b)['data']['equipment']['selected']=='emp' and sample(p,b)['data']['identity']['look']['hairStyle']==8 and sample(p,b)['data']['horizon']['seed']==2027 and sample(p,a)['data']['horizon']['seed']==1337)
         saved={id:sample(p,id) for id in (a,b)}
         raw=p.evaluate('DC_APP.getStore().raw()')
         context.close();context=reopen();p=boot(context,origin)
@@ -134,5 +134,5 @@ finally:
     if context:
         try:context.close()
         except Exception:pass
-    report={'sha256':hashlib.sha256((R/'index.html').read_bytes()).hexdigest(),'runId':os.environ.get('DC_QA_RUN_ID'),'nativeStorage':True,'physicalGpu':False,'renderMode':'parked after actual WebGL boot','originMode':'HTTP loopback','profileMode':'temporary persistent Chromium profile; no personal data','boots':boots,'checks':checks,'errors':errors,'requests':requests,'finishedUtc':datetime.now(timezone.utc).isoformat()}
+    report={'sha256':hashlib.sha256((R/'index.html').read_bytes()).hexdigest(),'runId':os.environ.get('DC_QA_RUN_ID'),'nativeStorage':bool(boots) and all(b['nativeStorage'] for b in boots),'physicalGpu':False,'renderMode':'parked after actual WebGL boot','originMode':'HTTP loopback','profileMode':'temporary persistent Chromium profile; no personal data','boots':boots,'checks':checks,'errors':errors,'requests':requests,'finishedUtc':datetime.now(timezone.utc).isoformat()}
     (O/'native-saves.json').write_text(json.dumps(report,indent=2,ensure_ascii=False)+'\n')
