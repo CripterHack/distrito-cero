@@ -1,0 +1,71 @@
+name: Import verified thenar authoring unit
+on:
+  push:
+    branches: [fix/006-palm-webbing]
+    paths: [.github/workflows/import-thenar-unit.yml]
+permissions:
+  contents: read
+jobs:
+  import:
+    if: github.repository == 'CripterHack/distrito-cero'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 1
+      - name: Verify and materialize authorized authoring sources
+        run: |
+          set -euo pipefail
+          curl --fail --location --retry 2 --max-time 120 'https://d2ol7oe51mr4n9.cloudfront.net/user_3Icvp3WfrHKY6QGnlXqcYgbAGfb/0b9025f9-7fc5-4a4a-8ab8-b32bfb6fc78f.zip' -o "$RUNNER_TEMP/thenar.zip"
+          echo 'cb80c26fb15611e7f4e91acd61059cfa1f688e896c42a132595c4105a56c7692  '"$RUNNER_TEMP/thenar.zip" | sha256sum --check --strict
+          python3 - <<'PY'
+          from pathlib import Path, PurePosixPath
+          import hashlib,json,os,stat,subprocess,zipfile
+          root=Path.cwd();sha=lambda b:hashlib.sha256(b).hexdigest()
+          with zipfile.ZipFile(Path(os.environ['RUNNER_TEMP'])/'thenar.zip') as z:
+              entries=z.infolist();assert len(entries)==23 and len({i.filename for i in entries})==23
+              assert sum(i.file_size for i in entries)<2000000
+              manifest=json.loads(z.read('UNIT-MANIFEST.json'))
+              assert manifest['baseCommit']=='ef905ece47bc8901c28c381ef081486e72fa8730'
+              assert len(manifest['files'])==22
+              assert set(z.namelist())==set(manifest['files'])|{'UNIT-MANIFEST.json'}
+              assert sha((root/'index.html').read_bytes())==manifest['htmlBefore']
+              planned={}
+              for name,record in manifest['files'].items():
+                  path=PurePosixPath(name);info=z.getinfo(name)
+                  assert not path.is_absolute() and '..' not in path.parts and '.git' not in path.parts
+                  assert path.parts[0] in {'assets','docs','qa','specs','tests','tools'}
+                  assert not stat.S_ISLNK(info.external_attr>>16)
+                  dest=root.joinpath(*path.parts);assert dest.resolve().is_relative_to(root)
+                  assert not dest.is_symlink()
+                  before=sha(dest.read_bytes()) if dest.is_file() else None
+                  assert before==record['beforeSha256'],'Source changed: '+name
+                  data=z.read(name);assert sha(data)==record['sha256'];planned[name]=data
+              for name,data in planned.items():
+                  dest=root/name;dest.parent.mkdir(parents=True,exist_ok=True);dest.write_bytes(data)
+          subprocess.run(['python3','tools/refine_thenar.py'],check=True)
+          assert sha((root/'src/hero-asset.js').read_bytes())==manifest['assetAfter']
+          subprocess.run(['python3','build.py'],check=True)
+          assert sha((root/'index.html').read_bytes())==manifest['htmlAfter']
+          print('Verified generated HTML:',manifest['htmlAfter'])
+          PY
+          python3 tools/refine_thenar.py --check
+          python3 tests/thenar_contour.test.py
+          python3 tools/rebind_garment.py --check
+          python3 tests/garment_binding.test.py
+          node --test tests/*.test.cjs
+      - name: Commit only source changes to the feature branch
+        run: |
+          set -euo pipefail
+          test -z "$(git diff --name-only -- .github/workflows)"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add --all
+          git commit -m 'fix: refine thenar pad while preserving measured palm contact (#6)'
+          git push origin HEAD:refs/heads/fix/006-palm-webbing
+          git rev-parse HEAD >> "$GITHUB_STEP_SUMMARY"
+          echo 'Source only. Remove one-time importer and run normal PR CI before merging.' >> "$GITHUB_STEP_SUMMARY"
