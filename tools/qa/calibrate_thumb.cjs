@@ -6,7 +6,7 @@ function prepare(side,key,rel=0,item='rifle'){
  Object.assign(s.equipment,{selected:item,aimWeight:1,reloading:rel*(D.Equipment.get(item).reload||0)});
  const m=D.Equipment.mount(s),n=D.WeaponHandling.actor(s.player,m,s.equipment),q=R.pose(n,s.time),original=q.matrices.slice(),f=R.fingers[side].find(f=>f.name==='thumb'),shape=shapes[key];
  const toLocal=p=>{p=p.map((v,i)=>v+(i===1?q.rootY:0)-m.origin[i]);p=[[1,0,0],[0,1,0],[0,0,1]].map(x=>D.dot(p,m.direction(x)));if(key.includes('Magazine')||key==='magazine'){const o=m.magazine.offset,t=m.magazine.rotation[2],pi=m.magazine.pivot;p=p.map((v,i)=>v-o[i]-pi[i]);p=[p[0]*Math.cos(t)+p[1]*Math.sin(t),-p[0]*Math.sin(t)+p[1]*Math.cos(t),p[2]].map((v,i)=>v+pi[i]);}return p;};
- const base=toLocal(R.transform(q.matrices.subarray(R.ids[f.bones[0]]*16,R.ids[f.bones[0]]*16+16),f.joints[0]));
+ const initialRootBeforeTrial=toLocal(R.transform(q.matrices.subarray(R.ids[f.bones[0]]*16,R.ids[f.bones[0]]*16+16),f.joints[0]));
  const others=[];
  for(const other of R.fingers[side].filter(f=>f.name!=='thumb'))for(let j=0;j<3;j++)for(const t of[0,.25,.5,.75,1]){const a=other.joints[j],b=j<2?other.joints[j+1]:other.tip,mat=original.subarray(R.ids[other.bones[j]]*16,R.ids[other.bones[j]]*16+16);others.push({p:toLocal(R.transform(mat,a.map((v,i)=>v+(b[i]-v)*t))),radius:other.radius*.9});}
  function evaluate(params,detail=false){
@@ -15,7 +15,7 @@ function prepare(side,key,rel=0,item='rifle'){
   for(let j=0;j<3;j++){
    const id=R.ids[f.bones[j]],[,parentName,bind]=R.bones[id],pi=R.ids[parentName],pb=R.bones[pi][2];
    let parent=R.multiply(q.matrices.subarray(pi*16,pi*16+16),R.matrix(pb));
-   if(j===0){const pivot=[pb[0]-.002*sign,pb[1]-.018,.012];parent=R.multiply(parent,R.multiply(R.multiply(R.matrix(sub(pivot,pb)),R.matrix([0,0,0],params[0],sign*params[1],sign*params[2])),R.matrix(sub(bind,pivot))));}else parent=R.multiply(parent,R.matrix(sub(bind,pb)));
+   if(j===0){const pivot=[pb[0]-.002*sign,pb[1]-.018,pb[2]+.012];parent=R.multiply(parent,R.multiply(R.multiply(R.matrix(sub(pivot,pb)),R.matrix([0,0,0],params[0],sign*params[1],sign*params[2])),R.matrix(sub(bind,pivot))));}else parent=R.multiply(parent,R.matrix(sub(bind,pb)));
    const world=R.multiply(parent,R.matrix([0,0,0],...rotations[j]));
    q.matrices.set(R.multiply(world,R.matrix(bind.map(v=>-v))),id*16);
   }
@@ -25,13 +25,14 @@ function prepare(side,key,rel=0,item='rifle'){
    if(v.j[0]===R.ids[f.bones[2]]&&v.w[0]>.9&&v.p[1]<.791&&Math.abs(dist)<Math.abs(padGap)){padGap=dist;padPoint=p;}
   }
   const tip=toLocal(R.transform(q.matrices.subarray(R.ids[f.bones[2]]*16,R.ids[f.bones[2]]*16+16),f.tip));
+  const fittedRoot=toLocal(R.transform(q.matrices.subarray(R.ids[f.bones[0]]*16,R.ids[f.bones[0]]*16+16),f.joints[0]));
   // Minimise intersection first, then keep the tip pad near the prop with a modest rotation cost.
   let collisionMin=1,selfEnergy=0;
   for(let j=1;j<3;j++)for(const t of[0,.25,.5,.75,1]){const a=f.joints[j],b=j<2?f.joints[j+1]:f.tip,mat=q.matrices.subarray(R.ids[f.bones[j]]*16,R.ids[f.bones[j]]*16+16),p=toLocal(R.transform(mat,a.map((v,i)=>v+(b[i]-v)*t)));
    for(const other of others){const d=Math.hypot(...p.map((v,i)=>v-other.p[i]))-f.radius*.8-other.radius;collisionMin=Math.min(collisionMin,d);selfEnergy+=Math.pow(Math.min(0,d-.001)*100,2);}
   }
   const objective=energy+selfEnergy+Math.pow(padGap*80,2)+params.reduce((n,v,i)=>n+.002*v*v,0);
-  return detail?{key,side,params,base,tip,worst,inside,padGap,padPoint,objective,collisionMin}:objective;
+  return detail?{key,side,params,initialRootBeforeTrial,fittedRoot,tip,worst,inside,padGap,padPoint,objective,collisionMin}:objective;
  }
  return evaluate;
 }
