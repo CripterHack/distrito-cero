@@ -1,0 +1,64 @@
+name: Import verified context-loss correction
+on:
+  push:
+    branches: [fix/ci-context-loss]
+    paths: [.github/workflows/import-context-guard.yml]
+permissions:
+  contents: read
+jobs:
+  apply:
+    if: github.repository == 'CripterHack/distrito-cero'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 2
+      - name: Verify source unit and original baseline
+        run: |
+          set -euo pipefail
+          curl --fail --location --retry 2 --max-time 90 'https://d2ol7oe51mr4n9.cloudfront.net/user_3Icvp3WfrHKY6QGnlXqcYgbAGfb/358437cb-0771-45fb-bf8f-ae6e875218f0.zip' --output "$RUNNER_TEMP/source.zip"
+          echo 'e2e4234eb6d68afb6fe30fc61cf2fd8f000c172af27a76bbaa72b59e34620c02  '"$RUNNER_TEMP/source.zip" | sha256sum --check --strict
+          python3 - <<'PY'
+          from pathlib import Path
+          import hashlib,json,os,stat,subprocess,zipfile
+          root=Path.cwd()
+          assert subprocess.check_output(['git','rev-parse','HEAD^'],text=True).strip()=='bbc26848ee0dd26a8193aa6dbfe4dfafc3a9e734'
+          assert hashlib.sha256((root/'index.html').read_bytes()).hexdigest()=='e538ababf8776ace42a3df88fdc105da20131fe9cbebc937f1df77d22932a521'
+          allowed={'specs/001-reliability/plan-actions-context-loss.md','src/frontier-renderer.js','src/renderer.js','tests/contact_browser.py','tests/graphics_recovery.py','tests/manual-frames.test.cjs','tests/qa_reporting.test.py','tests/render-lifecycle.test.cjs','tools/qa/manual_frames.js','tools/qa/reporting.py','tools/qa/run.py'}
+          with zipfile.ZipFile(Path(os.environ['RUNNER_TEMP'])/'source.zip') as archive:
+              assert len(archive.infolist())==12
+              assert set(archive.namelist())==allowed|{'manifest.json'}
+              manifest=json.loads(archive.read('manifest.json'))
+              assert set(manifest['files'])==allowed
+              assert manifest['base']=='bbc26848ee0dd26a8193aa6dbfe4dfafc3a9e734'
+              for name in sorted(allowed):
+                  info=archive.getinfo(name)
+                  assert not stat.S_ISLNK(info.external_attr>>16)
+                  data=archive.read(name)
+                  assert hashlib.sha256(data).hexdigest()==manifest['files'][name]
+                  target=root/name
+                  assert target.resolve().is_relative_to(root)
+                  target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes(data)
+          subprocess.run(['python3','build.py'],check=True)
+          assert hashlib.sha256((root/'index.html').read_bytes()).hexdigest()=='a640437cde77a8fbba0af5f40d3e17013ecc027b0bbc29ee52f8e92db63baa68'
+          PY
+      - name: Test the source before publishing it
+        run: |
+          node --test tests/*.test.cjs
+          python3 tests/qa_runner.test.py
+          python3 tests/qa_reporting.test.py
+          python3 tests/qa_selection.test.py
+          python3 tests/native_support.test.py
+      - name: Commit source only to this feature branch
+        run: |
+          set -euo pipefail
+          test -z "$(git diff --name-only -- .github/workflows)"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add src tests tools specs index.html
+          git commit -m 'fix: refuse retired WebGL generations and diagnose failed capture runs'
+          git push origin HEAD:refs/heads/fix/ci-context-loss
