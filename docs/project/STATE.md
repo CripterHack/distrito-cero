@@ -56,3 +56,7 @@ Avance parcial de #6 mediante cuatro perfiles no pulgares compartidos, sin cambi
 ## Oposición del pulgar posterior a PR #15
 
 Unidad parcial de #6: pivote virtual metacarpal y cuatro referencias de contacto, preservando rig, mallas, falanges no pulgares y reglas de juego. Once regresiones Node y suite gráfica de quince checks. Ver [THUMB-CONTACTS.md](THUMB-CONTACTS.md) para alcance, fallos reproducidos y limitaciones. La integración y sus runs deben comprobarse en GitHub, no inferirse del documento. #5/#6/#7 siguen abiertos.
+
+## Correctivo de Actions y apoyo entre manos
+
+El PR #17 está integrado como `e614ff9`. CI de master 35051259999, benchmark 35051260032 y Pages aprobaron, sin borrar el historial rojo. El siguiente avance parcial calibra la mano de apoyo de pistola/revólver contra la mano dominante, conservando las correcciones anteriores. Ver [SIDEARM-SUPPORT.md](SIDEARM-SUPPORT.md) para cobertura y límites. #5/#6/#7 siguen abiertos; consultar los checks del commit nuevo antes de considerarlo integrado.

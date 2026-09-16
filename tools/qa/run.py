@@ -25,6 +25,7 @@ class Suite:
     origin: str = 'fixture'
 
 SUITES={
+ 'sidearms': Suite('sidearms',('tests/sidearm_support_browser.py',),'qa/v019/sidearm-support.json',20),
  'thumbs': Suite('thumbs',('tests/thumb_contact_browser.py',),'qa/v019/thumb-contact.json',15),
  'fingers': Suite('fingers',('tests/finger_contact_browser.py',),'qa/v019/finger-contact.json',15),
  'optical': Suite('optical',('tests/optical_shoulder.py',),'qa/v019/optical-shoulder.json',14),

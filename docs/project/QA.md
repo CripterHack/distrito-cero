@@ -60,3 +60,7 @@ Referencias: documentación oficial de Playwright sobre BrowserType y persistent
 ## Regresión de oposición del pulgar
 
 `--suite thumbs` produce quince checks y capturas en su directorio aislado. Utiliza proxies de arte y piel DQ del renderizador, con tiempo/cámara preparados y almacenamiento fixture. `tests/thumb-contact.test.cjs` añade once pruebas de contacto, envolvente digital, longitud, fases y no mutación. La CI ejecuta esta unidad junto a las falanges de PR #15, óptica y recuperación. No sustituye la suite `native --origin http`.
+
+## Contacto entre manos
+
+La suite `sidearms` añade veinte comprobaciones del renderer con seis poses de pistola/revólver, fases de recarga, selector y óptica. `tests/sidearm-support.test.cjs` contiene nueve pruebas. El helper usa piel real y envolventes segmentadas de la mano opuesta; no representa autocolisión completa. Al capturar comparaciones locales se mantiene un `report.json` por directorio, y sólo el harness escribe el informe canónico aislado.
