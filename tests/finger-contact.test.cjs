@@ -5,8 +5,8 @@ function scene(id,reload=0){const s=new D.Simulation(new D.World());Object.assig
 test('actual middle ring and little skin stay outside the primary grip interior',()=>{const s=scene('rifle');for(const name of['middle','ring','little']){const v=stats(s,'R',name,'grip');assert.ok(v.min>-.003,`${name} skin penetrates grip proxy by ${(-v.min*1000).toFixed(1)} mm`);}});
 test('support fingers wrap the rifle foregrip without burying the index pad',()=>{const s=scene('rifle');for(const name of['index','middle','ring','little']){const v=stats(s,'L',name,'fore');assert.ok(v.min>-.003,`${name}: ${v.min}`);}});
 test('detached magazine remains outside the support fingertips in the held phase',()=>{const s=scene('rifle',.5);for(const name of['index','middle','ring','little']){const v=stats(s,'L',name,'magazine');assert.ok(v.min>-.003,`${name}: ${v.min}`);}});
-// Known separate issue: thumb base/opposition still intersects some props. It is
-// deliberately NOT classified as solved by the non-thumb flexion envelope here.
+// These assertions cover the original non-thumb subset. Thumb base opposition
+// has its own surface, self-contact and transition gates in thumb-contact.test.cjs.
 test('all nine primary handles retain skin clearance through aim, pitch and crouch',()=>{
  for(const id of ['pistol','revolver','smg','rifle','shotgun','sniper','gauss','emp','launcher'])for(const [aim,pitch,crouch]of[[0,-.4,0],[1,.35,1],[.45,0,.5]]){
   const s=scene(id);Object.assign(s.equipment,{aimWeight:aim,pitch});s.player.crouch=crouch;
@@ -59,10 +59,10 @@ test('reloading finger poses approach and release the object without discrete po
   if(prev)assert.ok(Math.max(...vals.map((v,j)=>Math.abs(v-prev[j])))<.09,`${id} reload frame ${i}`);prev=vals;
  }}
 });
-test('the primary index retains its independent trigger transition and the thumb remains authored',()=>{
+test('the primary index retains its independent trigger transition while the thumb stays independent of firing',()=>{
  const s=scene('rifle'),a=D.Equipment.mount(s);s.equipment.trigger=true;const b=D.Equipment.mount(s);
  assert.notDeepEqual(a.grips.R.fingers.index,b.grips.R.fingers.index);assert.deepEqual(a.grips.R.fingers.thumb,b.grips.R.fingers.thumb);
- assert.deepEqual(a.grips.R.fingers.thumb,[.76*.86,.76*.34,.76*.23]);
+ assert.deepEqual(a.grips.R.thumbOpposition,b.grips.R.thumbOpposition);assert.ok(a.grips.R.fingers.thumb.every(Number.isFinite));
 });
 test('native reload timing releases the fingers without a one-frame opening jolt',()=>{
  for(const id of['pistol','smg','rifle','sniper','gauss','emp']){const s=scene(id);s.free=true;s.equipment.reloading=0;s.equipment.ammo[id].loaded=2;s.reloadWeapon();let previous=null;

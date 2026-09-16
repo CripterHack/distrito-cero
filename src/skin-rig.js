@@ -38,11 +38,19 @@
   bones.forEach((_,i)=>visit(i));return out;
  }
  // Re-evaluate descendants after a wrist is replaced by the analytic contact solver.
- function refreshFingers(q,rot,k){
+ function refreshFingers(q,rot,k,opposition=null){
   for(const finger of fingers[k])for(const name of finger.bones){
    const i=ids[name],[,parent,bind]=bones[i],pi=ids[parent],pb=bones[pi][2];
    const worldParent=multiply(q.matrices.subarray(pi*16,pi*16+16),matrix(pb));
-   const world=multiply(worldParent,matrix(bind.map((v,j)=>v-pb[j]),...(rot[name]||[0,0,0])));
+   let local=matrix(bind.map((v,j)=>v-pb[j]),...(rot[name]||[0,0,0]));
+   if(finger.name==='thumb'&&name===finger.bones[0]&&opposition){
+    // Virtual metacarpal base: move the thumb root by rotation about the palm,
+    // not by scaling segments or moving the wrist/contact target. Artist values.
+    const side=k==='R'?1:-1,pivot=[pb[0]-.002*side,pb[1]-.018,pb[2]+.012];
+    const a=opposition.map(v=>D.clamp(v,-1.2,1.2));
+    local=multiply(multiply(matrix(pivot.map((v,j)=>v-pb[j])),matrix([0,0,0],a[0],side*a[1],side*a[2])),matrix(bind.map((v,j)=>v-pivot[j]),...(rot[name]||[0,0,0])));
+   }
+   const world=multiply(worldParent,local);
    q.matrices.set(multiply(world,matrix(bind.map(v=>-v))),i*16);
   }
  }
@@ -120,7 +128,11 @@
   const neckDrop=D.clamp(n.neckDrop||0,0,.06);
   const matrices=evaluate(rot,{chest:[0,breath*(1-seated*.75),breath*.35]},neckDrop),q={neckDrop,matrices,rootY,scale:1,pose:p,cervical,grip:profiles.R.amount,gripStyle:profiles.R.style,feet:{L:null,R:null}};
   if(!air&&seated<.98){for(const k of ['L','R']){if(seated>.01)continue;applyLegTarget(q,k,feet[k]);q.feet[k]=feet[k];}}
-  for(const k of ['L','R'])if(n.handTargets?.[k]){applyArmTarget(q,n,k,n.handTargets[k]);refreshFingers(q,rot,k);}
+  for(const k of ['L','R']){
+   const v=profiles[k].thumbOpposition,opposition=Array.isArray(v)&&v.length===3&&v.every(Number.isFinite)?v:null;
+   if(n.handTargets?.[k])applyArmTarget(q,n,k,n.handTargets[k]);
+   if(n.handTargets?.[k]||opposition)refreshFingers(q,rot,k,opposition);
+  }
   return q;
  }
  function applyLegTarget(q,k,f){
