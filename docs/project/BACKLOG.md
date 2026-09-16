@@ -39,3 +39,7 @@ Reproducir `neutral--aim--neutral--front` del benchmark: deformación amplia de 
 ## Prioridad
 
 Primero pérdida de datos/crashes, luego acciones bloqueadas y defectos visibles repetidos, después coste y variedad. No introducir más armas, biomas masivos, multijugador o física completa de pelo/tela antes de esos gates. No mezclar una migración de guardados con remodelado en el mismo PR.
+
+## Avance parcial DC-009/DC-010
+
+Cuatro perfiles no pulgares y apertura visual de recarga documentados en [FINGER-CONTACTS.md](FINGER-CONTACTS.md). No cierra #6. Próxima regresión: oposición/base del pulgar, preservando las correcciones de falanges, mangas y codos.

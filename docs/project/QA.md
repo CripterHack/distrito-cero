@@ -52,3 +52,7 @@ La CI usa el mismo runner del desarrollador y publica sólo su directorio de art
 Persistencia nativa HTTP con cierre/reapertura, dos pestañas, lifecycle WebGL, recursos bajo recorridos largos y dispositivos físicos. Cada una debe tener su propio informe y modo explícito. Un bloqueo de navegación del laboratorio se registra como bloqueo, no se elude ni se reemplaza con un fixture anunciado como nativo.
 
 Referencias: documentación oficial de Playwright sobre BrowserType y persistent contexts, y MDN WebGL context lost/restored. Las pruebas de navegador pueden requerir herramientas de desarrollo instaladas; el juego no las requiere.
+
+## Regresión de falanges
+
+`python3 -m tools.qa.run --suite fingers` ejecuta 15 comprobaciones del renderer y produce 12 imágenes. El helper `tools/qa/finger_surfaces.js` no se incorpora al HTML. El modo fixture no demuestra persistencia nativa ni aprobación artística. Véase [alcance y límites](FINGER-CONTACTS.md).
