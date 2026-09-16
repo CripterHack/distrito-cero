@@ -15,6 +15,7 @@
   releaseSector(key){const entry=this.sectorGPU.get(key);if(!entry)return;for(const b of Object.values(entry))this.gl.deleteBuffer(b.buffer);this.sectorGPU.delete(key);}
   resetSectors(){for(const key of [...this.sectorGPU.keys()])this.releaseSector(key);for(const m of Object.values(this.meshes))m.chunks=[];this.streamSeed=this.world.seed;this.lightTime=-1;}
   syncSectors(budget=2){
+   if(!this.canRender())return false;
    if(this.previewStudio){for(const m of Object.values(this.meshes))m.chunks=[];return;}
    if(this.streamSeed!==this.world.seed)this.resetSectors();const active=this.world.activeChunks||[];const desired=new Set(active.map(c=>c.key));
    for(const key of this.sectorGPU.keys())if(!desired.has(key))this.releaseSector(key);
@@ -107,6 +108,7 @@
    }
   }
   render(sim){
+   if(!this.canRender())return false;
    const next=[Math.floor(this.camera.target[0]/336)*336,Math.floor(this.camera.target[2]/336)*336];if(next[0]!==this.renderOrigin[0]||next[1]!==this.renderOrigin[1]){this.lightTime=-1;this.lightVP=null;}this.renderOrigin=next;this.syncSectors(2);super.render(sim);
   }
  }

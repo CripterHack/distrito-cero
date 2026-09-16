@@ -8,6 +8,7 @@ from datetime import datetime, timezone
 import argparse, hashlib, json, os, shutil, signal, subprocess, sys, tempfile, time, uuid
 from .config import Config
 from .workspace import stage_workspace
+from .reporting import failure_summary
 
 def digest(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
@@ -28,7 +29,7 @@ SUITES={
  'fingers': Suite('fingers',('tests/finger_contact_browser.py',),'qa/v019/finger-contact.json',15),
  'optical': Suite('optical',('tests/optical_shoulder.py',),'qa/v019/optical-shoulder.json',14),
  'characters': Suite('characters',('tests/character_benchmark.py',),'qa/v019/character-benchmark.json',36),
- 'recovery': Suite('recovery',('tests/graphics_recovery.py',),'qa/v019/graphics-recovery.json',22),
+ 'recovery': Suite('recovery',('tests/graphics_recovery.py',),'qa/v019/graphics-recovery.json',25),
  'native': Suite('native',('tests/native_saves.py',),'qa/v019/native-saves.json',35,'http'),
  'handling': Suite('handling',('tests/contact_browser.py',),'qa/v019/handling-browser.json',51),
  'arsenal': Suite('arsenal',('tests/contact_arsenal.py',),'qa/v019/arsenal-browser.json',78),
@@ -109,7 +110,9 @@ def run_suites(config,suites):
                 entry=execute_suite(config,suite,stage,sha,run_id);manifest['suites'].append(entry)
                 print(json.dumps(entry,ensure_ascii=False),flush=True)
                 write_json(config.output/'run.json',manifest)
-                if entry['status']!='passed': break
+                if entry['status']!='passed':
+                    print(failure_summary(entry,config.output/(suite.name+'.log')),flush=True)
+                    break
             if (stage/'qa').exists(): shutil.copytree(stage/'qa',config.output/'evidence')
         manifest['status']='passed' if len(manifest['suites'])==len(suites) and all(s['status']=='passed' for s in manifest['suites']) else 'failed'
     except Exception as error:

@@ -13,10 +13,10 @@ def ck(n,v):
 
 def tick(p,n=1,draw=False):
  try:
-  p.evaluate('''({n,draw})=>{const a=DC_APP,s=a.sim;for(let i=0;i<n;i++)if(a.mode==='play'){s.step(1/60,a.input());a.renderer.updateCamera(s,1/60);}a.updateUI(performance.now());if(draw){a.renderer.render(s);a.renderer.gl.finish();}}''',{'n':n,'draw':draw})
+  p.evaluate('''({n,draw})=>{const a=DC_APP,s=a.sim;DC_MANUAL_FRAMES.assertReady(a);for(let i=0;i<n;i++)if(a.mode==='play'){s.step(1/60,a.input());a.renderer.updateCamera(s,1/60);}a.updateUI(performance.now());if(draw){DC_MANUAL_FRAMES.draw(a,s);}}''',{'n':n,'draw':draw})
  except Exception:
-  state=p.evaluate('''()=>{const r=DC_APP.renderer,g=r.gl;return {contextLost:g.isContextLost(),error:g.getError(),current:!!g.getParameter(g.CURRENT_PROGRAM),scene:g.isProgram(r.sceneProgram),frame:r.frame,equipment:r.equipmentStats,mode:DC_APP.mode}}''')
-  (O/'context-diagnostic.json').write_text(json.dumps(state,indent=2)); print('DIAGNOSTIC',state['contextLost'],state['error'],state['current'],flush=True)
+  state=p.evaluate('DC_MANUAL_FRAMES.snapshot(DC_APP)')
+  (O/'context-diagnostic.json').write_text(json.dumps(state,indent=2)); print('DIAGNOSTIC',json.dumps(state),flush=True)
   raise
 
 def visible_hit(p,id):
@@ -26,7 +26,7 @@ try:
  with sync_playwright() as pw:
   b=pw.chromium.launch(**launch_options());p=b.new_page(viewport={'width':900,'height':640});p.set_default_timeout(30000)
   p.on('pageerror',lambda e:errors.append(str(e)));p.on('console',lambda e:errors.append(e.text) if e.type=='error' else None);p.on('request',lambda r:requests.append(r.url) if r.url.startswith(('http:','https:')) else None)
-  p.set_content(HTML.replace('<script>','<script>'+FIX,1),timeout=90000);p.wait_for_function('!!window.DC_APP',timeout=90000);p.evaluate('DC_APP.renderer.humanReady');p.evaluate('window.requestAnimationFrame=()=>0;DC_APP.renderer.canvas.addEventListener("webglcontextlost",()=>console.error("contextlost: software GPU"))');p.wait_for_timeout(100)
+  p.set_content(HTML.replace('<script>','<script>'+FIX,1),timeout=90000);p.wait_for_function('!!window.DC_APP',timeout=90000);p.evaluate('DC_APP.renderer.humanReady');p.add_script_tag(content=(R/'tools/qa/manual_frames.js').read_text());p.evaluate('DC_MANUAL_FRAMES.start(DC_APP);DC_APP.renderer.canvas.addEventListener("webglcontextlost",()=>console.error("Unexpected context loss during handling test"))')
   p.click('#start');p.fill('#characterName','Vega');p.fill('#newSaveName','Manejo y contacto');p.click('#commitCreator');p.click('#dismissTutorial')
   p.evaluate('''()=>{const a=DC_APP,s=a.sim;s.free=true;s.heat=s.wanted=0;s.peds.forEach(n=>n.hidden=true);s.cars.forEach((c,i)=>Object.assign(c,{x:-270,z:-300-i*6,parked:true,speed:0}));Object.assign(s.player,{x:4,z:36,yaw:0,car:null,walk:0,moveSpeed:0,health:100,y:0});a.renderer.camera.yaw=0;a.renderer.camera.weaponPitch=-.025;a.renderer.daylight=.67;a.renderer.rain=0;}''')
   p.keyboard.press('9');tick(p,45,True)
@@ -66,7 +66,7 @@ try:
   # Sample anatomy/weapon surfaces in moving and crouched poses, not only pivots at rest.
   contact_check=0
   for i in range(18):
-   error=p.evaluate('''i=>{const a=DC_APP,s=a.sim,r=a.renderer;s.player.moveSpeed=i<9?3:0;s.player.walk+=.2;s.player.crouch=i>=9?1:0;s.equipment.pitch=Math.sin(i)*.35;s.time+=1/60;r.render(s);r.gl.finish();const q={matrices:r.heroPalette,scale:1,rootY:r.motionDebug.rootY};let max=0;for(const k of['L','R']){const p=DC.SkinRig.palmPoint(q,s.player,k),t=r.equipmentStats.palms[k];max=Math.max(max,Math.hypot(p.x-t.x,p.y-t.y,p.z-t.z));}return max;}''',i)
+   error=p.evaluate('''i=>{const a=DC_APP,s=a.sim,r=a.renderer;s.player.moveSpeed=i<9?3:0;s.player.walk+=.2;s.player.crouch=i>=9?1:0;s.equipment.pitch=Math.sin(i)*.35;s.time+=1/60;DC_MANUAL_FRAMES.draw(a,s);const q={matrices:r.heroPalette,scale:1,rootY:r.motionDebug.rootY};let max=0;for(const k of['L','R']){const p=DC.SkinRig.palmPoint(q,s.player,k),t=r.equipmentStats.palms[k];max=Math.max(max,Math.hypot(p.x-t.x,p.y-t.y,p.z-t.z));}return max;}''',i)
    contact_check=max(contact_check,error);p.wait_for_timeout(20)
   p.evaluate('Object.assign(DC_APP.sim.player,{moveSpeed:0,crouch:0,walk:0});DC_APP.sim.equipment.pitch=0')
   ck('Animated/crouched renderer maintains palmar contacts',contact_check<.012)
@@ -75,7 +75,7 @@ try:
   ck('Aimed primary index remains relaxed without fire input',p.evaluate('DC_APP.renderer.equipmentStats.grips.R.fingers.index.reduce((s,v)=>s+v,0)<.5'))
   p.evaluate('DC_APP.selectEquipment("rifle")');tick(p,45,True);p.keyboard.press('z');tick(p,50,True)
   ck('Aimed stock and articulated shoulder share a close brace',p.evaluate('DC_APP.renderer.equipmentStats.brace.error<.035'))
-  p.evaluate('DC_APP.sim.equipment.ammo.rifle.loaded=8;DC_APP.sim.reloadWeapon();DC_APP.sim.equipment.reloading=DC.Equipment.get("rifle").reload*.48;DC_APP.renderer.render(DC_APP.sim)')
+  p.evaluate('DC_APP.sim.equipment.ammo.rifle.loaded=8;DC_APP.sim.reloadWeapon();DC_APP.sim.equipment.reloading=DC.Equipment.get("rifle").reload*.48;DC_MANUAL_FRAMES.draw(DC_APP)')
   ck('Magazine has a visible cant during handling',p.evaluate('Math.abs(DC_APP.renderer.equipmentStats.magazine.rotation[2])>.1'))
   ck('Recarga has a distinct extraction phase',p.evaluate('DC_APP.renderer.equipmentStats.reloadStage==="Extraer"'))
   p.evaluate('DC_APP.sim.equipment.reloading=0;DC_APP.sim.equipment.reloadId=null')

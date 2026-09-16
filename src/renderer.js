@@ -386,6 +386,8 @@
    for(const name of Object.keys(this.meshes)){this.meshes[name].chunks=this.chunkInstances(this.static[name]);this.meshes[name].dynamicBuffer=gl.createBuffer();}
    this.lights=new Float32Array(48);this.lightTime=-1;this.resize();
   }
+  // Refuse stale generations and context loss before its DOM event.
+  canRender(){return !this.disposed&&!this.resources?.disposed&&!this.gl.isContextLost();}
   dispose(){if(this.disposed)return;this.disposed=true;this.resources?.dispose();this.uniforms?.clear();for(const key of ['sectorGPU','hairParts','equipmentMeshes','lodHistory'])this[key]?.clear();this.motionTracker?.clear();this.meshes={};this.static={};this.dynamic={};this.humanTextures={};}
   uniform(program,name){let m=this.uniforms.get(program);if(!m){m={};this.uniforms.set(program,m);}return m[name]??(m[name]=this.gl.getUniformLocation(program,name));}
   createMesh(data){const gl=this.gl,vao=gl.createVertexArray(),vbo=gl.createBuffer();gl.bindVertexArray(vao);gl.bindBuffer(gl.ARRAY_BUFFER,vbo);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(data),gl.STATIC_DRAW);for(const [i,size,offset]of [[0,3,0],[1,3,12],[2,2,24]]){gl.enableVertexAttribArray(i);gl.vertexAttribPointer(i,size,gl.FLOAT,false,32,offset);}return{vao,vbo,count:data.length/8};}
@@ -584,6 +586,7 @@
    for(const [i,n,tex]of [[0,'uShadow',this.shadowTex],[1,'uReflection',pass===1?this.white:this.reflection.tex],[2,'uSigns',this.signs]]){gl.activeTexture(gl.TEXTURE0+i);gl.bindTexture(gl.TEXTURE_2D,tex);gl.uniform1i(this.uniform(p,n),i);}
   }
   render(sim){
+   if(!this.canRender())return false;
    const gl=this.gl;this.frame++;this.updateDynamic(sim);const c=this.camera,aspect=this.canvas.width/this.canvas.height,fov=this.fovOverride||Math.PI*.36;this.sun=D.normalize([-.55,.8,.42]);
    const o=this.renderOrigin||[0,0],eyeLocal=[c.eye[0]-o[0],c.eye[1],c.eye[2]-o[1]],targetLocal=[c.target[0]-o[0],c.target[1],c.target[2]-o[1]];const projection=D.M4.perspective(fov,aspect,.15,1000);this.vp=D.M4.multiply(projection,D.M4.lookAt(eyeLocal,targetLocal));
    const re=[eyeLocal[0],-eyeLocal[1],eyeLocal[2]],rt=[targetLocal[0],-targetLocal[1],targetLocal[2]];this.reflectVP=D.M4.multiply(projection,D.M4.lookAt(re,rt,[0,-1,0]));
