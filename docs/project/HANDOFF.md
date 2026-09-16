@@ -1,14 +1,12 @@
-# Handoff · contorno palma/pulgar y regresión de Actions
+# Handoff · v0.20 Coherencia y superficie palma/pulgar
 
-Base de esta unidad: master `ef905ece47bc8901c28c381ef081486e72fa8730`. #2/#3/#4 conservan su alcance resuelto. #5/#6/#7 continúan abiertos. Pages publica master, sin cambios de configuración.
+Base publicada previa: `ef905ec`. Trabajo recuperado: `91ba765` de `fix/006-palm-webbing`, que había quedado sin PR. Versión activa del árbol: **v0.20 / 0.20.0**. Leer [STATE](STATE.md), [RELEASES](RELEASES.md) y [THENAR-SURFACE](THENAR-SURFACE.md).
 
-## Unidad implementada
+## Unidad actual
 
-Leer [THENAR-SURFACE.md](THENAR-SURFACE.md) y el [plan](../../specs/003-weapon-contact/plan-thenar-surface.md). Dos tests reprodujeron penetración de la zona mixta que el filtro de influencias no medía. Se descartó un ajuste de pesos por pliegues nuevos. La corrección seleccionada reduce suavemente el volumen volar hasta 4 mm, manteniendo pesos, UV, topología, rig, anclas y reglas.
+Correctivo de contorno recuperado: máximo 4 mm en una zona de piel, sin cambiar pesos, rig, contactos o reglas. Las regresiones originales fallan sobre ef905ec y pasan con el recurso corregido. No repetir una modificación de pivotes para ocultar la superficie. Mantener apoyo palmar, dedos, pulgar y ambas manos.
 
-La semilla dispersa permite reproducir el recurso sin duplicarlo íntegro. Las normales reciben el mismo correctivo. `thenarContour` identifica la versión de autoría. Los GLB humanos anteriores siguen históricos, no se presentan como exportaciones nuevas.
-
-Nueve tests Node, ocho Python de autoría y la suite gráfica `thenar` (15 checks/11 capturas). Los resultados actuales deben leerse en el PR y Actions, no deducirse del número de pruebas escritas. Mantener guardados HTTP nativos separados de fixtures gráficos.
+`version.json` define número, nombre, canal y fecha. El build genera etiquetas, `DC.BuildInfo` y `build-info.json`. No cambiar esquemas de guardados al aumentar versión de producto. `--check` no repara archivos. README, STATE, changelog y guía vigente deben mantenerse coherentes sin reescribir informes históricos.
 
 ## Verificación
 
@@ -17,16 +15,19 @@ python3 tools/refine_thenar.py --check
 python3 tests/thenar_contour.test.py
 python3 tools/rebind_garment.py --check
 python3 tests/garment_binding.test.py
-python3 build.py
+python3 build.py --check
+python3 tests/release_build.test.py
 node --test tests/*.test.cjs
 python3 -m tools.qa.run --suite all
-python3 -m tools.qa.run --suite native --origin http
+python3 -m tools.qa.run --suite release --suite native --origin http
 ```
 
-Revisar HEAD, diff y CI del PR antes de integrar. Después comprobar la CI del push a master y la huella del HTML servido por Pages. Las ejecuciones fallidas históricas no se borran ni se reinterpretan como un fallo actual. El correctivo de generaciones WebGL retiradas de #17 permanece intacto.
+Revisar HEAD, CI y PR. Después comprobar la CI del push y Pages contra el hash del sidecar y las etiquetas de inicio/pausa. No borrar runs históricos ni atribuir un resultado viejo a una ejecución nueva. Leer cifras vigentes del run exacto.
 
-## Siguiente unidad
+## Issues y siguiente unidad
 
-#6: revisar alineación visual ojo/mira con el montaje único y restricciones de alcance. Localizar primero un caso y crear una referencia fija; no deformar la cara o mover la palma para forzar una mira. Continuar observando zonas mixtas y fases de recarga/liberación sin afirmar autocolisión completa. Preservar las regresiones de superficie, falanges, pulgar, ambas manos, mangas y codos.
+#2/#3/#4 mantienen su alcance cerrado. #5/#6/#7 están abiertos. #19 sólo se cierra tras comprobar identidad y publicación. El cambio de versión no acredita anatomía o contactos completos.
 
-#5 conserva revisión artística de proporciones, materiales y cabello con el benchmark. #7 mantiene escena, mundo, recorrido íntegro y playtests. No cerrar por cifras de QA ni recorridos con posiciones preparadas. No hay medición de FPS físicos en esta entrega.
+#6: fijar caso visual de ojo/mira y fases intermedias de liberación/retorno, con el montaje único y límites de alcance. Examinar superficies, no sólo pivotes. No deformar cara, alargar huesos o trasladar manos arbitrariamente. Conservar regresiones de contorno, falanges, mangas, codos, recargas y recuperación.
+
+#5: revisión artística completa contra la matriz existente. #7: escena y recorrido íntegro sin posiciones preparadas. Hardware físico y playtest humano no se deducen del renderer por software.

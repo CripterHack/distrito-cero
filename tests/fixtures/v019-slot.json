@@ -1,0 +1,1446 @@
+{
+  "format": "distrito-cero-slot",
+  "version": 1,
+  "name": "Historia previa 0.19",
+  "data": {
+    "version": 1,
+    "seed": 2027,
+    "cash": 2345,
+    "story": 2,
+    "free": false,
+    "ending": null,
+    "heat": 0,
+    "time": 0,
+    "player": {
+      "x": 5,
+      "z": 8,
+      "yaw": 0,
+      "health": 100
+    },
+    "vehicle": null,
+    "collected": [],
+    "stats": {
+      "distance": 0,
+      "jobs": 0,
+      "escapes": 0
+    },
+    "dynamics": {
+      "props": [],
+      "vehicles": []
+    },
+    "horizon": {
+      "version": 1,
+      "seed": 2027,
+      "changes": [],
+      "visits": [
+        "0:0"
+      ]
+    },
+    "occupancy": {
+      "version": 1,
+      "playerCarId": null,
+      "cars": [
+        {
+          "id": 0,
+          "x": 5,
+          "z": 11,
+          "yaw": 0,
+          "health": 100,
+          "damage": {
+            "front": 0,
+            "rear": 0,
+            "left": 0,
+            "right": 0
+          },
+          "color": [
+            0.11,
+            0.2,
+            0.23
+          ],
+          "police": false,
+          "parked": true,
+          "stolen": false,
+          "owned": true,
+          "driver": null
+        },
+        {
+          "id": 1,
+          "x": 332,
+          "z": -141,
+          "yaw": 3.141592653589793,
+          "health": 100,
+          "damage": {
+            "front": 0,
+            "rear": 0,
+            "left": 0,
+            "right": 0
+          },
+          "color": [
+            0.38,
+            0.06,
+            0.045
+          ],
+          "police": false,
+          "parked": true,
+          "stolen": false,
+          "owned": false,
+          "driver": null
+        },
+        {
+          "id": 2,
+          "x": 25,
+          "z": 248,
+          "yaw": 1.5707963267948966,
+          "health": 100,
+          "damage": {
+            "front": 0,
+            "rear": 0,
+            "left": 0,
+            "right": 0
+          },
+          "color": [
+            0.045,
+            0.055,
+            0.063
+          ],
+          "police": false,
+          "parked": false,
+          "stolen": false,
+          "owned": false,
+          "driver": {
+            "id": "driver:2",
+            "police": false,
+            "skin": [
+              0.61,
+              0.42,
+              0.295
+            ],
+            "coat": [
+              0.18,
+              0.19,
+              0.26
+            ],
+            "variant": 2
+          }
+        },
+        {
+          "id": 3,
+          "x": 88,
+          "z": -225,
+          "yaw": 0,
+          "health": 100,
+          "damage": {
+            "front": 0,
+            "rear": 0,
+            "left": 0,
+            "right": 0
+          },
+          "color": [
+            0.62,
+            0.63,
+            0.56
+          ],
+          "police": false,
+          "parked": false,
+          "stolen": false,
+          "owned": false,
+          "driver": {
+            "id": "driver:3",
+            "police": false,
+            "skin": [
+              0.39,
+              0.23,
+              0.16
+            ],
+            "coat": [
+              0.2,
+              0.23,
+              0.27
+            ],
+            "variant": 3
+          }
+        },
+        {
+          "id": 4,
+          "x": -59,
+          "z": 172,
+          "yaw": -1.5707963267948966,
+          "health": 100,
+          "damage": {
+            "front": 0,
+            "rear": 0,
+            "left": 0,
+            "right": 0
+          },
+          "color": [
+            0.1,
+            0.16,
+            0.29
+          ],
+          "police": false,
+          "parked": false,
+          "stolen": false,
+          "owned": false,
+          "driver": {
+            "id": "driver:4",
+            "police": false,
+            "skin": [
+              0.68,
+              0.49,
+              0.36
+            ],
+            "coat": [
+              0.29,
+              0.25,
+              0.17
+            ],
+            "variant": 4
+          }
+        },
+        {
+          "id": 5,
+          "x": -332,
+          "z": -141,
+          "yaw": 0,
+          "health": 100,
+          "damage": {
+            "front": 0,
+            "rear": 0,
+            "left": 0,
+            "right": 0
+          },
+          "color": [
+            0.29,
+            0.25,
+            0.19
+          ],
+          "police": false,
+          "parked": false,
+          "stolen": false,
+          "owned": false,
+          "driver": {
+            "id": "driver:5",
+            "police": false,
+            "skin": [
+              0.46,
+              0.28,
+              0.185
+            ],
+            "coat": [
+              0.16,
+              0.23,
+              0.21
+            ],
+            "variant": 5
+          }
+        },
+        {
+          "id": 6,
+          "x": 361,
+          "z": -256,
+          "yaw": 1.5707963267948966,
+          "health": 100,
+          "damage": {
+            "front": 0,
+            "rear": 0,
+            "left": 0,
+            "right": 0
+          },
+          "color": [
+            0.09,
+            0.24,
+            0.17
+          ],
+          "police": false,
+          "parked": true,
+          "stolen": false,
+          "owned": false,
+          "driver": null
+        },
+        {
+          "id": 7,
+          "x": -172,
+          "z": -309,
+          "yaw": 3.141592653589793,
+          "health": 100,
+          "damage": {
+            "front": 0,
+            "rear": 0,
+            "left": 0,
+            "right": 0
+          },
+          "color": [
+            0.11,
+            0.2,
+            0.23
+          ],
+          "police": false,
+          "parked": false,
+          "stolen": false,
+          "owned": false,
+          "driver": {
+            "id": "driver:7",
+            "police": false,
+            "skin": [
+              0.61,
+              0.42,
+              0.295
+            ],
+            "coat": [
+              0.18,
+              0.19,
+              0.26
+            ],
+            "variant": 7
+          }
+        },
+        {
+          "id": 8,
+          "x": 25,
+          "z": 332,
+          "yaw": 1.5707963267948966,
+          "health": 100,
+          "damage": {
+            "front": 0,
+            "rear": 0,
+            "left": 0,
+            "right": 0
+          },
+          "color": [
+            0.38,
+            0.06,
+            0.045
+          ],
+          "police": false,
+          "parked": false,
+          "stolen": false,
+          "owned": false,
+          "driver": {
+            "id": "driver:8",
+            "police": false,
+            "skin": [
+              0.39,
+              0.23,
+              0.16
+            ],
+            "coat": [
+              0.2,
+              0.23,
+              0.27
+            ],
+            "variant": 8
+          }
+        },
+        {
+          "id": 9,
+          "x": 256,
+          "z": -141,
+          "yaw": 0,
+          "health": 100,
+          "damage": {
+            "front": 0,
+            "rear": 0,
+            "left": 0,
+            "right": 0
+          },
+          "color": [
+            0.045,
+            0.055,
+            0.063
+          ],
+          "police": false,
+          "parked": false,
+          "stolen": false,
+          "owned": false,
+          "driver": {
+            "id": "driver:9",
+            "police": false,
+            "skin": [
+              0.68,
+              0.49,
+              0.36
+            ],
+            "coat": [
+              0.29,
+              0.25,
+              0.17
+            ],
+            "variant": 0
+          }
+        },
+        {
+          "id": 10,
+          "x": -143,
+          "z": -248,
+          "yaw": -1.5707963267948966,
+          "health": 100,
+          "damage": {
+            "front": 0,
+            "rear": 0,
+            "left": 0,
+            "right": 0
+          },
+          "color": [
+            0.62,
+            0.63,
+            0.56
+          ],
+          "police": false,
+          "parked": false,
+          "stolen": false,
+          "owned": false,
+          "driver": {
+            "id": "driver:10",
+            "police": false,
+            "skin": [
+              0.46,
+              0.28,
+              0.185
+            ],
+            "coat": [
+              0.16,
+              0.23,
+              0.21
+            ],
+            "variant": 1
+          }
+        },
+        {
+          "id": 11,
+          "x": -248,
+          "z": -57,
+          "yaw": 0,
+          "health": 100,
+          "damage": {
+            "front": 0,
+            "rear": 0,
+            "left": 0,
+            "right": 0
+          },
+          "color": [
+            0.1,
+            0.16,
+            0.29
+          ],
+          "police": false,
+          "parked": true,
+          "stolen": false,
+          "owned": false,
+          "driver": null
+        },
+        {
+          "id": 12,
+          "x": -311,
+          "z": -340,
+          "yaw": 1.5707963267948966,
+          "health": 100,
+          "damage": {
+            "front": 0,
+            "rear": 0,
+            "left": 0,
+            "right": 0
+          },
+          "color": [
+            0.29,
+            0.25,
+            0.19
+          ],
+          "police": false,
+          "parked": false,
+          "stolen": false,
+          "owned": false,
+          "driver": {
+            "id": "driver:12",
+            "police": false,
+            "skin": [
+              0.61,
+              0.42,
+              0.295
+            ],
+            "coat": [
+              0.18,
+              0.19,
+              0.26
+            ],
+            "variant": 3
+          }
+        },
+        {
+          "id": 13,
+          "x": 248,
+          "z": -225,
+          "yaw": 3.141592653589793,
+          "health": 100,
+          "damage": {
+            "front": 0,
+            "rear": 0,
+            "left": 0,
+            "right": 0
+          },
+          "color": [
+            0.09,
+            0.24,
+            0.17
+          ],
+          "police": false,
+          "parked": false,
+          "stolen": false,
+          "owned": false,
+          "driver": {
+            "id": "driver:13",
+            "police": false,
+            "skin": [
+              0.39,
+              0.23,
+              0.16
+            ],
+            "coat": [
+              0.2,
+              0.23,
+              0.27
+            ],
+            "variant": 4
+          }
+        },
+        {
+          "id": 14,
+          "x": -227,
+          "z": -172,
+          "yaw": 1.5707963267948966,
+          "health": 100,
+          "damage": {
+            "front": 0,
+            "rear": 0,
+            "left": 0,
+            "right": 0
+          },
+          "color": [
+            0.11,
+            0.2,
+            0.23
+          ],
+          "police": false,
+          "parked": false,
+          "stolen": false,
+          "owned": false,
+          "driver": {
+            "id": "driver:14",
+            "police": false,
+            "skin": [
+              0.68,
+              0.49,
+              0.36
+            ],
+            "coat": [
+              0.29,
+              0.25,
+              0.17
+            ],
+            "variant": 5
+          }
+        },
+        {
+          "id": 15,
+          "x": 172,
+          "z": 195,
+          "yaw": 0,
+          "health": 100,
+          "damage": {
+            "front": 0,
+            "rear": 0,
+            "left": 0,
+            "right": 0
+          },
+          "color": [
+            0.38,
+            0.06,
+            0.045
+          ],
+          "police": false,
+          "parked": false,
+          "stolen": false,
+          "owned": false,
+          "driver": {
+            "id": "driver:15",
+            "police": false,
+            "skin": [
+              0.46,
+              0.28,
+              0.185
+            ],
+            "coat": [
+              0.16,
+              0.23,
+              0.21
+            ],
+            "variant": 6
+          }
+        },
+        {
+          "id": 16,
+          "x": 361,
+          "z": -80,
+          "yaw": -1.5707963267948966,
+          "health": 100,
+          "damage": {
+            "front": 0,
+            "rear": 0,
+            "left": 0,
+            "right": 0
+          },
+          "color": [
+            0.045,
+            0.055,
+            0.063
+          ],
+          "police": false,
+          "parked": true,
+          "stolen": false,
+          "owned": false,
+          "driver": null
+        },
+        {
+          "id": 17,
+          "x": 172,
+          "z": 27,
+          "yaw": 0,
+          "health": 100,
+          "damage": {
+            "front": 0,
+            "rear": 0,
+            "left": 0,
+            "right": 0
+          },
+          "color": [
+            0.62,
+            0.63,
+            0.56
+          ],
+          "police": false,
+          "parked": false,
+          "stolen": false,
+          "owned": false,
+          "driver": {
+            "id": "driver:17",
+            "police": false,
+            "skin": [
+              0.61,
+              0.42,
+              0.295
+            ],
+            "coat": [
+              0.18,
+              0.19,
+              0.26
+            ],
+            "variant": 8
+          }
+        },
+        {
+          "id": 18,
+          "x": 361,
+          "z": 332,
+          "yaw": 1.5707963267948966,
+          "health": 100,
+          "damage": {
+            "front": 0,
+            "rear": 0,
+            "left": 0,
+            "right": 0
+          },
+          "color": [
+            0.1,
+            0.16,
+            0.29
+          ],
+          "police": false,
+          "parked": false,
+          "stolen": false,
+          "owned": false,
+          "driver": {
+            "id": "driver:18",
+            "police": false,
+            "skin": [
+              0.39,
+              0.23,
+              0.16
+            ],
+            "coat": [
+              0.2,
+              0.23,
+              0.27
+            ],
+            "variant": 0
+          }
+        },
+        {
+          "id": 19,
+          "x": 80,
+          "z": 111,
+          "yaw": 3.141592653589793,
+          "health": 100,
+          "damage": {
+            "front": 0,
+            "rear": 0,
+            "left": 0,
+            "right": 0
+          },
+          "color": [
+            0.29,
+            0.25,
+            0.19
+          ],
+          "police": false,
+          "parked": false,
+          "stolen": false,
+          "owned": false,
+          "driver": {
+            "id": "driver:19",
+            "police": false,
+            "skin": [
+              0.68,
+              0.49,
+              0.36
+            ],
+            "coat": [
+              0.29,
+              0.25,
+              0.17
+            ],
+            "variant": 1
+          }
+        },
+        {
+          "id": 20,
+          "x": 109,
+          "z": 248,
+          "yaw": 1.5707963267948966,
+          "health": 100,
+          "damage": {
+            "front": 0,
+            "rear": 0,
+            "left": 0,
+            "right": 0
+          },
+          "color": [
+            0.09,
+            0.24,
+            0.17
+          ],
+          "police": false,
+          "parked": false,
+          "stolen": false,
+          "owned": false,
+          "driver": {
+            "id": "driver:20",
+            "police": false,
+            "skin": [
+              0.46,
+              0.28,
+              0.185
+            ],
+            "coat": [
+              0.16,
+              0.23,
+              0.21
+            ],
+            "variant": 2
+          }
+        },
+        {
+          "id": 21,
+          "x": 256,
+          "z": 27,
+          "yaw": 0,
+          "health": 100,
+          "damage": {
+            "front": 0,
+            "rear": 0,
+            "left": 0,
+            "right": 0
+          },
+          "color": [
+            0.11,
+            0.2,
+            0.23
+          ],
+          "police": false,
+          "parked": true,
+          "stolen": false,
+          "owned": false,
+          "driver": null
+        },
+        {
+          "id": 22,
+          "x": 109,
+          "z": 172,
+          "yaw": -1.5707963267948966,
+          "health": 100,
+          "damage": {
+            "front": 0,
+            "rear": 0,
+            "left": 0,
+            "right": 0
+          },
+          "color": [
+            0.38,
+            0.06,
+            0.045
+          ],
+          "police": false,
+          "parked": false,
+          "stolen": false,
+          "owned": false,
+          "driver": {
+            "id": "driver:22",
+            "police": false,
+            "skin": [
+              0.61,
+              0.42,
+              0.295
+            ],
+            "coat": [
+              0.18,
+              0.19,
+              0.26
+            ],
+            "variant": 4
+          }
+        },
+        {
+          "id": 23,
+          "x": -164,
+          "z": -225,
+          "yaw": 0,
+          "health": 100,
+          "damage": {
+            "front": 0,
+            "rear": 0,
+            "left": 0,
+            "right": 0
+          },
+          "color": [
+            0.045,
+            0.055,
+            0.063
+          ],
+          "police": false,
+          "parked": false,
+          "stolen": false,
+          "owned": false,
+          "driver": {
+            "id": "driver:23",
+            "police": false,
+            "skin": [
+              0.39,
+              0.23,
+              0.16
+            ],
+            "coat": [
+              0.2,
+              0.23,
+              0.27
+            ],
+            "variant": 5
+          }
+        },
+        {
+          "id": 24,
+          "x": 109,
+          "z": 80,
+          "yaw": 1.5707963267948966,
+          "health": 100,
+          "damage": {
+            "front": 0,
+            "rear": 0,
+            "left": 0,
+            "right": 0
+          },
+          "color": [
+            0.62,
+            0.63,
+            0.56
+          ],
+          "police": false,
+          "parked": false,
+          "stolen": false,
+          "owned": false,
+          "driver": {
+            "id": "driver:24",
+            "police": false,
+            "skin": [
+              0.68,
+              0.49,
+              0.36
+            ],
+            "coat": [
+              0.29,
+              0.25,
+              0.17
+            ],
+            "variant": 6
+          }
+        },
+        {
+          "id": 25,
+          "x": -256,
+          "z": -141,
+          "yaw": 3.141592653589793,
+          "health": 100,
+          "damage": {
+            "front": 0,
+            "rear": 0,
+            "left": 0,
+            "right": 0
+          },
+          "color": [
+            0.1,
+            0.16,
+            0.29
+          ],
+          "police": false,
+          "parked": false,
+          "stolen": false,
+          "owned": false,
+          "driver": {
+            "id": "driver:25",
+            "police": false,
+            "skin": [
+              0.46,
+              0.28,
+              0.185
+            ],
+            "coat": [
+              0.16,
+              0.23,
+              0.21
+            ],
+            "variant": 7
+          }
+        },
+        {
+          "id": 26,
+          "x": 361,
+          "z": 164,
+          "yaw": 1.5707963267948966,
+          "health": 100,
+          "damage": {
+            "front": 0,
+            "rear": 0,
+            "left": 0,
+            "right": 0
+          },
+          "color": [
+            0.29,
+            0.25,
+            0.19
+          ],
+          "police": false,
+          "parked": true,
+          "stolen": false,
+          "owned": false,
+          "driver": null
+        },
+        {
+          "id": 27,
+          "x": 4,
+          "z": -309,
+          "yaw": 0,
+          "health": 100,
+          "damage": {
+            "front": 0,
+            "rear": 0,
+            "left": 0,
+            "right": 0
+          },
+          "color": [
+            0.09,
+            0.24,
+            0.17
+          ],
+          "police": false,
+          "parked": false,
+          "stolen": false,
+          "owned": false,
+          "driver": {
+            "id": "driver:27",
+            "police": false,
+            "skin": [
+              0.61,
+              0.42,
+              0.295
+            ],
+            "coat": [
+              0.18,
+              0.19,
+              0.26
+            ],
+            "variant": 0
+          }
+        },
+        {
+          "id": 28,
+          "x": -143,
+          "z": -332,
+          "yaw": -1.5707963267948966,
+          "health": 100,
+          "damage": {
+            "front": 0,
+            "rear": 0,
+            "left": 0,
+            "right": 0
+          },
+          "color": [
+            0.11,
+            0.2,
+            0.23
+          ],
+          "police": false,
+          "parked": false,
+          "stolen": false,
+          "owned": false,
+          "driver": {
+            "id": "driver:28",
+            "police": false,
+            "skin": [
+              0.39,
+              0.23,
+              0.16
+            ],
+            "coat": [
+              0.2,
+              0.23,
+              0.27
+            ],
+            "variant": 1
+          }
+        },
+        {
+          "id": 29,
+          "x": -248,
+          "z": 195,
+          "yaw": 0,
+          "health": 100,
+          "damage": {
+            "front": 0,
+            "rear": 0,
+            "left": 0,
+            "right": 0
+          },
+          "color": [
+            0.38,
+            0.06,
+            0.045
+          ],
+          "police": false,
+          "parked": false,
+          "stolen": false,
+          "owned": false,
+          "driver": {
+            "id": "driver:29",
+            "police": false,
+            "skin": [
+              0.68,
+              0.49,
+              0.36
+            ],
+            "coat": [
+              0.29,
+              0.25,
+              0.17
+            ],
+            "variant": 2
+          }
+        },
+        {
+          "id": 30,
+          "x": 277,
+          "z": 80,
+          "yaw": 1.5707963267948966,
+          "health": 100,
+          "damage": {
+            "front": 0,
+            "rear": 0,
+            "left": 0,
+            "right": 0
+          },
+          "color": [
+            0.045,
+            0.055,
+            0.063
+          ],
+          "police": false,
+          "parked": false,
+          "stolen": false,
+          "owned": false,
+          "driver": {
+            "id": "driver:30",
+            "police": false,
+            "skin": [
+              0.46,
+              0.28,
+              0.185
+            ],
+            "coat": [
+              0.16,
+              0.23,
+              0.21
+            ],
+            "variant": 3
+          }
+        },
+        {
+          "id": 31,
+          "x": 164,
+          "z": 27,
+          "yaw": 3.141592653589793,
+          "health": 100,
+          "damage": {
+            "front": 0,
+            "rear": 0,
+            "left": 0,
+            "right": 0
+          },
+          "color": [
+            0.62,
+            0.63,
+            0.56
+          ],
+          "police": false,
+          "parked": true,
+          "stolen": false,
+          "owned": false,
+          "driver": null
+        },
+        {
+          "id": 32,
+          "x": -143,
+          "z": -256,
+          "yaw": 1.5707963267948966,
+          "health": 100,
+          "damage": {
+            "front": 0,
+            "rear": 0,
+            "left": 0,
+            "right": 0
+          },
+          "color": [
+            0.1,
+            0.16,
+            0.29
+          ],
+          "police": false,
+          "parked": false,
+          "stolen": false,
+          "owned": false,
+          "driver": {
+            "id": "driver:32",
+            "police": false,
+            "skin": [
+              0.61,
+              0.42,
+              0.295
+            ],
+            "coat": [
+              0.18,
+              0.19,
+              0.26
+            ],
+            "variant": 5
+          }
+        },
+        {
+          "id": 40,
+          "x": -248,
+          "z": -168,
+          "yaw": 0,
+          "health": 100,
+          "damage": {
+            "front": 0,
+            "rear": 0,
+            "left": 0,
+            "right": 0
+          },
+          "color": [
+            0.075,
+            0.09,
+            0.115
+          ],
+          "police": true,
+          "parked": false,
+          "stolen": false,
+          "owned": false,
+          "driver": {
+            "id": "driver:40",
+            "police": true,
+            "skin": [
+              0.46,
+              0.28,
+              0.185
+            ],
+            "coat": [
+              0.026,
+              0.048,
+              0.094
+            ],
+            "variant": 4
+          }
+        },
+        {
+          "id": 41,
+          "x": -164,
+          "z": 168,
+          "yaw": 0,
+          "health": 100,
+          "damage": {
+            "front": 0,
+            "rear": 0,
+            "left": 0,
+            "right": 0
+          },
+          "color": [
+            0.075,
+            0.09,
+            0.115
+          ],
+          "police": true,
+          "parked": false,
+          "stolen": false,
+          "owned": false,
+          "driver": {
+            "id": "driver:41",
+            "police": true,
+            "skin": [
+              0.29,
+              0.16,
+              0.105
+            ],
+            "coat": [
+              0.026,
+              0.048,
+              0.094
+            ],
+            "variant": 5
+          }
+        },
+        {
+          "id": 42,
+          "x": -80,
+          "z": -168,
+          "yaw": 0,
+          "health": 100,
+          "damage": {
+            "front": 0,
+            "rear": 0,
+            "left": 0,
+            "right": 0
+          },
+          "color": [
+            0.075,
+            0.09,
+            0.115
+          ],
+          "police": true,
+          "parked": false,
+          "stolen": false,
+          "owned": false,
+          "driver": {
+            "id": "driver:42",
+            "police": true,
+            "skin": [
+              0.61,
+              0.42,
+              0.295
+            ],
+            "coat": [
+              0.026,
+              0.048,
+              0.094
+            ],
+            "variant": 6
+          }
+        },
+        {
+          "id": 43,
+          "x": 4,
+          "z": 168,
+          "yaw": 0,
+          "health": 100,
+          "damage": {
+            "front": 0,
+            "rear": 0,
+            "left": 0,
+            "right": 0
+          },
+          "color": [
+            0.075,
+            0.09,
+            0.115
+          ],
+          "police": true,
+          "parked": false,
+          "stolen": false,
+          "owned": false,
+          "driver": {
+            "id": "driver:43",
+            "police": true,
+            "skin": [
+              0.39,
+              0.23,
+              0.16
+            ],
+            "coat": [
+              0.026,
+              0.048,
+              0.094
+            ],
+            "variant": 7
+          }
+        },
+        {
+          "id": 44,
+          "x": 88,
+          "z": -168,
+          "yaw": 0,
+          "health": 100,
+          "damage": {
+            "front": 0,
+            "rear": 0,
+            "left": 0,
+            "right": 0
+          },
+          "color": [
+            0.075,
+            0.09,
+            0.115
+          ],
+          "police": true,
+          "parked": false,
+          "stolen": false,
+          "owned": false,
+          "driver": {
+            "id": "driver:44",
+            "police": true,
+            "skin": [
+              0.68,
+              0.49,
+              0.36
+            ],
+            "coat": [
+              0.026,
+              0.048,
+              0.094
+            ],
+            "variant": 8
+          }
+        },
+        {
+          "id": 45,
+          "x": 172,
+          "z": 168,
+          "yaw": 0,
+          "health": 100,
+          "damage": {
+            "front": 0,
+            "rear": 0,
+            "left": 0,
+            "right": 0
+          },
+          "color": [
+            0.075,
+            0.09,
+            0.115
+          ],
+          "police": true,
+          "parked": false,
+          "stolen": false,
+          "owned": false,
+          "driver": {
+            "id": "driver:45",
+            "police": true,
+            "skin": [
+              0.46,
+              0.28,
+              0.185
+            ],
+            "coat": [
+              0.026,
+              0.048,
+              0.094
+            ],
+            "variant": 0
+          }
+        }
+      ],
+      "evicted": []
+    },
+    "identity": {
+      "version": 1,
+      "name": "Noa v019",
+      "look": {
+        "version": 1,
+        "skin": 1,
+        "hair": 1,
+        "coat": 0,
+        "pants": 0,
+        "eyes": 1,
+        "hairStyle": 8,
+        "build": 0,
+        "face": 0,
+        "neck": 0,
+        "neckLength": 0,
+        "hairVolume": 0,
+        "browMatch": true
+      }
+    },
+    "equipment": {
+      "version": 1,
+      "selected": "emp",
+      "zoom": 0,
+      "shots": 0,
+      "hits": 0,
+      "ammo": {
+        "pistol": {
+          "loaded": 12,
+          "reserve": 96
+        },
+        "revolver": {
+          "loaded": 6,
+          "reserve": 48
+        },
+        "smg": {
+          "loaded": 30,
+          "reserve": 180
+        },
+        "shotgun": {
+          "loaded": 8,
+          "reserve": 56
+        },
+        "rifle": {
+          "loaded": 30,
+          "reserve": 150
+        },
+        "sniper": {
+          "loaded": 5,
+          "reserve": 30
+        },
+        "launcher": {
+          "loaded": 1,
+          "reserve": 6
+        },
+        "grenade": {
+          "loaded": 1,
+          "reserve": 8
+        },
+        "gauss": {
+          "loaded": 3,
+          "reserve": 21
+        },
+        "emp": {
+          "loaded": 1,
+          "reserve": 5
+        }
+      }
+    }
+  }
+}

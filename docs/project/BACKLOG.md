@@ -12,8 +12,8 @@ Estado actualizado tras los PRs #8, #9 y #10. Los resultados históricos no se s
 | DC-006 | P1 | proposed | Receta editable y correctivos de anatomía/topología/UV | DC-005 |
 | DC-007 | P1 | proposed | Materiales de manos/ojos/piel y costuras | DC-006 |
 | DC-008 | P1 | proposed | Peinados, silueta, LOD y overdraw medidos | DC-005 |
-| DC-009 | P1 | proposed | Contactos de falanges e índice, sin deformación de ropa ignorada | DC-006 |
-| DC-010 | P1 | proposed | Recarga/cancelación por familia sin saltos | DC-009 |
+| DC-009 | P1 | in-progress · #6 | Contactos de falanges e índice, sin deformación de ropa ignorada | DC-006 |
+| DC-010 | P1 | in-progress · #6 | Recarga/cancelación por familia sin saltos | DC-009 |
 | DC-011 | P1 | proposed | Arranque, frenado, giro en sitio y asiento | DC-006 |
 | DC-012 | P1 | proposed | Calle patrón y coherencia de materiales/luz | DC-005 |
 | DC-013 | P1 | proposed | Streaming por trabajos acotados y memoria | DC-001 |
@@ -49,3 +49,7 @@ Avance de DC-009: oposición del pulgar integrada en la unidad descrita en [THUM
 Actualización posterior a PR #17: la CI de master y Pages aprobaron la corrección de generaciones WebGL liberadas. DC-009/010 incorpora una unidad parcial de apoyo entre manos en armas cortas, con regresiones de contacto, disparo y recarga. Las zonas mixtas y coordinación ojo/mira siguen pendientes. No cerrar #6 ni adelantar la vertical slice por este cambio.
 
 Actualización parcial DC-009: correctivo de contorno palma/pulgar sobre PR #18, con cohorte fija, receta idempotente y pruebas. No reemplaza el contacto físico completo ni cierra la revisión artística. Ojo/mira y otras fases de interacción mantienen prioridad después de verificar la superficie.
+
+## Unidad de publicación v0.20
+
+#19 controla versión canónica, construcción verificable y publicación. Integra el contorno recuperado de `91ba765` como avance de #6. #5/#6/#7 mantienen sus criterios pendientes. La identidad activa se consulta en `version.json`, no se infiere de evidencia histórica.

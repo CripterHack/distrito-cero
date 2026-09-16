@@ -6,7 +6,7 @@ from tools.qa.run import select_suites
 class SelectionTests(unittest.TestCase):
     def test_all_filters_by_storage_contract(self):
         self.assertEqual(len(select_suites(['all'],'fixture')),12)
-        self.assertEqual([s.name for s in select_suites(['all'],'http')],['native'])
+        self.assertEqual([s.name for s in select_suites(['all'],'http')],['release','native'])
     def test_explicit_native_does_not_mislabel_fixture(self):
         with self.assertRaises(ValueError):select_suites(['handling'],'http')
         self.assertEqual(len(select_suites(['native','native'],'http')),1)
@@ -29,4 +29,7 @@ class SelectionTests(unittest.TestCase):
     def test_thenar_surface_cannot_masquerade_as_native_persistence(self):
         self.assertEqual(select_suites(['thenar'],'fixture')[0].expected_checks,15)
         with self.assertRaises(ValueError):select_suites(['thenar'],'http')
+    def test_release_identity_has_a_native_http_contract(self):
+        self.assertEqual(select_suites(['release'],'http')[0].expected_checks,14)
+        with self.assertRaises(ValueError):select_suites(['release'],'fixture')
 if __name__=='__main__':unittest.main()

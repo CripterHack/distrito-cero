@@ -1,6 +1,6 @@
 # SPEC-001 · QA portable, datos nativos y recuperación gráfica
 
-Estado: **ready por etapas**. Prioridad P0. Requisitos QG-001/002/003/012. Dependencia: importación de v0.19. Los archivos nuevos citados a continuación son objetivos por implementar, no funciones ya presentes.
+Estado: **implementada parcialmente, con recursos prolongados pendientes**. REL-01–04 y REL-06 cuentan con implementación y regresión; REL-05 conserva fallos inyectados y REL-07 necesita la evaluación completa. Prioridad P0. Requisitos QG-001/002/003/012. Dependencia: importación de v0.19. Los archivos nuevos citados a continuación son objetivos por implementar, no funciones ya presentes.
 
 ## Problema
 

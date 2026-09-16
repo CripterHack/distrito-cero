@@ -1,66 +1,41 @@
 # Estado real del proyecto
 
-## Estado actual, 15 de septiembre de 2026
+## Versión activa del árbol: v0.20 · Coherencia
 
-El gameplay sigue basado en v0.19 con endurecimiento posterior y correcciones de presentación. El usuario activó GitHub Pages desde master. No se modifica su configuración ni se asigna una licencia global.
+Producto `0.20.0`, canal **prototype**, fecha declarada 2026-09-16. Identidad canónica en [version.json](../../version.json); hash y tamaño exactos del HTML en [build-info.json](../../build-info.json). Guía vigente en [v020](../v020/GUIA.md). La publicación de un commit se confirma en Actions y comparando Pages, no por la existencia de este documento.
 
-| Capacidad / issue | Estado y alcance |
+GitHub Pages sigue configurado sobre master. No se cambia esa configuración, la licencia ni los esquemas de datos. Una pestaña abierta necesita recarga para ejecutar código nuevo, sin borrar datos del sitio.
+
+| Issue | Estado y alcance |
 | :--- | :--- |
-| #2 · Runner de QA | Cerrado por PR #8. Copia aislada, configuración explícita y rechazo de informes antiguos. |
-| #3 · Guardados nativos | Cerrado por PR #9. 35 checks Chromium HTTP con perfil persistente, reapertura y dos páginas reales. |
-| #4 · Recuperación WebGL | Cerrado por PR #10 (`a752e9e`). Reconstrucción del renderer sin reiniciar la sesión y reanudación explícita. |
-| #5 · Personaje patrón | PR #11 (`072750b`) integró matriz, capturas, medidas y galería. Aprobación artística y otros gates pendientes. |
-| #6 · Contactos/recargas | PR #12 (`ac3cf5b`) corrigió pesos de mangas/tronco. La nueva unidad estabiliza codos y hombros en subida/bajada de binoculares. Falanges, alineación y otros gates pendientes. |
-| #7 · Vertical slice | Pendiente de implementación integral y validación de juego/hardware. |
+| #2 · QA portable | Cerrado por PR #8. Copias aisladas, informes frescos y diagnóstico. |
+| #3 · Guardados nativos | Cerrado por PR #9. Persistencia HTTP, reapertura y conflictos reales. |
+| #4 · Recuperación WebGL | Cerrado por PR #10. PR #17 protege generaciones retiradas. No garantiza que un driver no vuelva a reiniciarse. |
+| #5 · Personaje patrón | Benchmark #11 integrado. Aprobación artística y otros gates pendientes. |
+| #6 · Contactos/recargas | Mangas #12, óptica #13, falanges #15, oposición #16 y ambas manos #18. Esta entrega añade contorno palma/pulgar. Alineación ojo/mira y fases intermedias pendientes. |
+| #7 · Vertical slice | Pendiente de escena, recorrido íntegro y evaluación de juego/hardware. |
+| #19 · Publicación v0.20 | Verificar build, identidad visible, compatibilidad y publicación del commit exacto. No cierra #5/#6/#7. |
 
-HTML con la corrección óptica: **8,851,747 bytes**, SHA-256 `fe47dfa3ef9b2bff6d415b6f6fb0b64e0d0b0c0df7193b135c59e4fc3fe7b93b`. El asset humano sigue siendo `a4f5a6522f0012290bd2fca8d573ca5243388474f72fb026cf5766924e3c8b7d`. Consultar el PR y Actions del commit exacto antes de atribuir una publicación o un pase a una rama.
+## Cambio de esta entrega
 
-## Presentación y contratos
+Se recuperó el trabajo sin PR de `fix/006-palm-webbing` (`91ba765`) sobre `ef905ec`. La zona compartida entre palma y pulgar penetraba apoyos que las pruebas digitales no cubrían. El correctivo reduce suavemente hasta 4 mm de profundidad en 1,166 posiciones de piel. Mantiene el parche palmar medido, pesos, UV, topología, 49 huesos, uñas y otros buffers. [Detalle](THENAR-SURFACE.md).
 
-La corrección anterior de chaqueta identificó superficies por conectividad y conservó una transición gradual del hombro. Sólo cambiaron los pesos de la prenda/puños, sin alterar posiciones, UVs, normales o huesos. Ver [GARMENT-BINDING.md](GARMENT-BINDING.md).
+El build genera la identidad de inicio, pestaña, pausa e interacciones, y `DC.BuildInfo`. `build-info.json` identifica las fuentes y el HTML. `python3 build.py --check` detecta salidas ausentes o diferentes sin modificarlas. [Publicación](RELEASES.md).
 
-La nueva corrección no vuelve a tocar ese asset. Utiliza referencias propias de flexión del codo para los binoculares, evitando una inversión del plano durante la elevación. Su presentación alcanza aproximadamente el 95% de la pose en 0.5 segundos. Las armas de fuego conservan el ritmo anterior. No cambian anclas palmares, zoom, munición, tiempos de recarga o formato de partidas. Ver [OPTICAL-SHOULDERS.md](OPTICAL-SHOULDERS.md).
+## Sistemas conservados
 
-Se mantienen el montaje único, los recursos compartidos y los LOD existentes. No hay nueva física de tela, escaneo, rig ni solver de dedos. Los GLB humanos previos siguen siendo exportaciones históricas.
+Campaña, creador, once estilos de cabello, catálogo de hasta doce partidas con nombres, equipamiento, selector translúcido, vehículos/ocupantes, policía, daños y regiones procedurales. No se añade combate autónomo nuevo, simulación de tejidos, terreno avanzado o una vertical slice completa.
 
-## Madurez
+El recurso humano tiene SHA-256 `522a9a24e2cc70857a3ec5c18bf9c2126c7b59d9ce8e4c5601c3b8be2c911b54`. El kit GLB de equipamiento conserva sus bytes. Los GLB humanos anteriores son exportaciones históricas, no modelos nuevos de v0.20.
 
-**Prototipo integrado, no calidad AAA demostrada.** Se conservan 49 huesos/DQ/LOD/once peinados, creador, doce slots por ID, catálogo de equipo, conductores, acceso ocupado/vacío, objetos, daño, policía, campaña y regiones procedurales.
+## Evidencia y límites
 
-Persisten brechas de anatomía, materiales, pelo, dedos y expresiones. No existe combate armado autónomo de NPCs, terreno transitable avanzado ni una vertical slice nueva completa. El benchmark detecta problemas que los tests de pivotes no aprueban artísticamente.
+Los proxies gráficos no son autocolisión completa. Tiempo/cámara preparados no demuestran FPS. El benchmark smoke tiene 30 capturas/36 comprobaciones; la matriz completa requiere su propio informe. La prueba de versión importa por HTTP nativo un JSON sintético producido por el serializador de v0.19. Los guardados nativos se verifican por separado de los fixtures gráficos.
 
-## Evidencia y modalidades
+Antes de esta unidad, la CI de master `35057506852` sobre `ef905ec`, el benchmark y Pages terminaron en success. Los cinco fallos históricos permanecen documentados en [ACTIONS-RECOVERY.md](ACTIONS-RECOVERY.md). Cada commit nuevo exige sus propias ejecuciones.
 
-La unidad óptica añade ocho tests Node y 14 checks de navegador con 13 capturas. La suite Node local completa pasa 354 pruebas. Seis tests nuevos reproducen fallos con las fuentes anteriores. Una regresión muestrea 284 posiciones del hombro/axila durante subida y bajada, no sólo muñecas. La prueba remota usa el renderer y controlador actuales, tiempo preparado y almacenamiento fixture.
+## Historia preservada
 
-El benchmark tiene smoke de 30 capturas/36 checks; la matriz full de 586 casos no se declara ejecutada sin su informe. Manejo y recuperación también usan almacenamiento fixture. El job nativo separado prueba HTTP y reapertura sin sustituir localStorage. Ninguno mide FPS de GPU física.
+Base importada v0.19: `23f9e9d`, 730 archivos y 729 huellas. HTML original `3aa9a27f4941ea1c701069c61db133ab3c93087e35d833d4921ba25b8a4b059f`. `SOURCE-MANIFEST.json`, `docs/v019/` y `qa/v019/` conservan su función histórica. No se actualizan para simular resultados actuales.
 
-Cada ejecución CI tiene sus propios hashes y artefactos. Los runs de PR #10 (`34940253023`), #11 (`34992345086` / `34992345168`) y #12 (`35002270205` / `35002270043`) son evidencia histórica de esos commits, no una aprobación de todos los cambios posteriores. La decisión artística permanece separada.
-
-## Origen preservado
-
-Importación: `23f9e9d031c7a0ad270cd74ce0805ea0dfc385da`. ZIP original: 80,607,113 bytes, SHA-256 `307c8fd0d3093eb7d16a3468470a2dfd20ffa12a654ecbe306f07f8aea8a1241`. Se importaron 730 archivos y 729 huellas en SOURCE-MANIFEST, que permanece histórico.
-
-HTML original: `3aa9a27f4941ea1c701069c61db133ab3c93087e35d833d4921ba25b8a4b059f`. HTML con recuperación: `3f1f5ac6a6d3aa7a74b8046a89f0a5f13b06d9982899131a8351a9909df67318`. HTML PR #12: `47cbc618241b3419e300d76480176f77287ca80ee449edf14c78d1af4f32e875`. No reescribir el manifiesto inicial para ocultar cambios.
-
-## Arquitectura y límites
-
-El build concatena 38 JS en orden significativo. Las capas sustituyen referencias de DC; no reorganizar sin contratos. Los datos grandes de hero-asset se regeneran, no se editan como arrays manuales. Conservar bases y atribuciones para reconstrucción.
-
-No hay benchmark físico, cobertura universal de Safari/Firefox/file://, supervivencia al cierre del proceso, simulación completa de tejidos o manos, multijugador ni certificación fotorrealista. La recuperación síncrona puede causar una pausa. Consultar [handoff](HANDOFF.md), [QA](QA.md) y [benchmark](CHARACTER-BENCHMARK.md).
-
-## Contacto digital posterior a PR #13
-
-Avance parcial de #6 mediante cuatro perfiles no pulgares compartidos, sin cambiar malla humana, anclas o formato de partida. Ver [FINGER-CONTACTS.md](FINGER-CONTACTS.md) para cobertura y resultados. Pulgar/oposición, contacto entre manos y ojo/mira siguen pendientes. Consultar el PR/CI del commit exacto, no cifras heredadas.
-
-## Oposición del pulgar posterior a PR #15
-
-Unidad parcial de #6: pivote virtual metacarpal y cuatro referencias de contacto, preservando rig, mallas, falanges no pulgares y reglas de juego. Once regresiones Node y suite gráfica de quince checks. Ver [THUMB-CONTACTS.md](THUMB-CONTACTS.md) para alcance, fallos reproducidos y limitaciones. La integración y sus runs deben comprobarse en GitHub, no inferirse del documento. #5/#6/#7 siguen abiertos.
-
-## Correctivo de Actions y apoyo entre manos
-
-El PR #17 está integrado como `e614ff9`. CI de master 35051259999, benchmark 35051260032 y Pages aprobaron, sin borrar el historial rojo. El siguiente avance parcial calibra la mano de apoyo de pistola/revólver contra la mano dominante, conservando las correcciones anteriores. Ver [SIDEARM-SUPPORT.md](SIDEARM-SUPPORT.md) para cobertura y límites. #5/#6/#7 siguen abiertos; consultar los checks del commit nuevo antes de considerarlo integrado.
-
-## Correctivo de superficie de palma/pulgar, posterior a PR #18
-
-Sobre `ef905ec`, se implementa una reducción volar acotada de hasta 4 mm en las almohadillas de ambas manos. Sólo cambia el recurso humano canónico y su HTML generado; el controlador y los contactos de armas se mantienen. Se amplía la QA a una cohorte geométrica fija sin filtro de influencia, evitando omitir la zona mixta. Ver [THENAR-SURFACE.md](THENAR-SURFACE.md). Los estados y resultados CI efectivos se comprueban en el PR/commit, y la aceptación artística general sigue pendiente.
+Runtime nativo, 38 fuentes JS con orden significativo y un HTML autónomo. Sin validación universal de GPU física, Safari/Firefox, móviles, tejidos, multijugador o fotorrealismo. [Handoff](HANDOFF.md), [QA](QA.md), [recursos](ASSETS.md).
