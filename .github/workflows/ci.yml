@@ -39,6 +39,7 @@ jobs:
           python3 build.py
           node --test tests/*.test.cjs
           python3 tests/qa_runner.test.py
+          python3 tests/qa_reporting.test.py
           python3 tests/qa_selection.test.py
           python3 tests/native_support.test.py
           python3 tools/export_contact.py
