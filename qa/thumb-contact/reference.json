@@ -1,0 +1,381 @@
+{
+  "baseCommit": "71fd53aed765bdb1d450ecba274bd2fd5522026c",
+  "beforeHtmlSha256": "9fc46cc9e37110ba618b19f5591da15d414405e85d44b24e437b405322dca832",
+  "afterHtmlSha256": "e538ababf8776ace42a3df88fdc105da20131fe9cbebc937f1df77d22932a521",
+  "beforeDirectory": "artifacts/thumb-before",
+  "afterDirectory": "artifacts/thumbs-20260916T012609Z",
+  "cameraAndClock": "same prepared values in thumb_contact_browser.py",
+  "screenshotEdits": "identical resize only in previews; labels outside images in comparison",
+  "fit": [
+    {
+      "key": "grip",
+      "side": "R",
+      "params": [
+        -0.7,
+        0.2654614953789861,
+        0.347585015441291,
+        0.810589406279847,
+        0.8,
+        0.764
+      ],
+      "base": [
+        0.058951680371426146,
+        -0.10734414418165694,
+        -0.03982102422018058
+      ],
+      "tip": [
+        0.032280846892558196,
+        -0.07822194945638183,
+        0.00287074646006813
+      ],
+      "worst": 0.0003039943811251319,
+      "inside": 0,
+      "padGap": 0.0003039943811251319,
+      "padPoint": [
+        0.026936861927805228,
+        -0.07733826724427151,
+        0.0008929852414392703
+      ],
+      "objective": 0.006177911375009264,
+      "collisionMin": 0.000911560108239934
+    },
+    {
+      "key": "fore",
+      "side": "L",
+      "params": [
+        -0.7,
+        0.14649546300061045,
+        0.3815389664145186,
+        -0.4,
+        0.7684476489201189,
+        0.714
+      ],
+      "base": [
+        -0.03301421977553501,
+        -0.063621771304059,
+        0.24690707543294427
+      ],
+      "tip": [
+        -0.03819159251052881,
+        -0.05264720472519402,
+        0.3003801979551792
+      ],
+      "worst": 0.00023652667238353853,
+      "inside": 0,
+      "padGap": 0.0005582023387661755,
+      "padPoint": [
+        -0.044988080749621434,
+        -0.045558202338766174,
+        0.29776595415557877
+      ],
+      "objective": 0.006782713038788685,
+      "collisionMin": 0.05022252424113091
+    },
+    {
+      "key": "magazine",
+      "side": "L",
+      "params": [
+        -0.2888318364601582,
+        0.5242265677731484,
+        0.12915134597569702,
+        0.13034235847182568,
+        0.775,
+        0.2678431152040139
+      ],
+      "base": [
+        -0.05345350684707867,
+        -0.12031528834935248,
+        0.11667643222601995
+      ],
+      "tip": [
+        -0.03480681499081156,
+        -0.09771883791186409,
+        0.16871956516759443
+      ],
+      "worst": 9.65644899932408e-05,
+      "inside": 0,
+      "padGap": 0.0003239677960426325,
+      "padPoint": [
+        -0.029323967796042634,
+        -0.0966697270170786,
+        0.16727446611714683
+      ],
+      "objective": 0.004858852974787068,
+      "collisionMin": 0.014037157724366877
+    },
+    {
+      "key": "pistolMagazine",
+      "side": "L",
+      "params": [
+        0.8,
+        -0.3723078817594797,
+        0.34467428125813604,
+        1,
+        0.8,
+        0.8
+      ],
+      "base": [
+        -0.05293425213742301,
+        -0.15555263886310178,
+        -0.021451484845104403
+      ],
+      "tip": [
+        -0.033538079229108064,
+        -0.22194646948901076,
+        -0.03133042310934548
+      ],
+      "worst": 0.00026457120290131577,
+      "inside": 0,
+      "padGap": 0.00026457120290131577,
+      "padPoint": [
+        -0.02821840621695087,
+        -0.2201493206141223,
+        -0.03001819320293409
+      ],
+      "objective": 0.008431282232755057,
+      "collisionMin": 0.0006722498950770756
+    }
+  ],
+  "visualReview": "pending",
+  "baselineComparativeReport": {
+    "sha256": "9fc46cc9e37110ba618b19f5591da15d414405e85d44b24e437b405322dca832",
+    "checks": [
+      {
+        "name": "Production renderer decodes all three embedded skin maps",
+        "pass": true
+      },
+      {
+        "name": "rifle-R-grip rendered skin stays outside the contact volume",
+        "pass": false
+      },
+      {
+        "name": "rifle-L-fore rendered skin stays outside the contact volume",
+        "pass": false
+      },
+      {
+        "name": "rifle-L-magazine rendered skin stays outside the contact volume",
+        "pass": false
+      },
+      {
+        "name": "pistol-L-pistolMagazine rendered skin stays outside the contact volume",
+        "pass": false
+      },
+      {
+        "name": "gauss-R-grip rendered skin stays outside the contact volume",
+        "pass": false
+      },
+      {
+        "name": "emp-L-magazine rendered skin stays outside the contact volume",
+        "pass": false
+      },
+      {
+        "name": "All sampled draws retain finite oriented palm contacts and no WebGL errors",
+        "pass": true
+      },
+      {
+        "name": "Reload thumb tip follows a continuous trajectory at native time steps",
+        "pass": true
+      },
+      {
+        "name": "Reload still transfers ammunition once and returns to support",
+        "pass": true
+      },
+      {
+        "name": "Translucent selector remains above the real scene",
+        "pass": true
+      },
+      {
+        "name": "Binoculars preserve their previous contact and optical posture",
+        "pass": true
+      },
+      {
+        "name": "Presentation inspection never writes the saved catalogue",
+        "pass": true
+      },
+      {
+        "name": "Existing four finger contact profiles are preserved and reused",
+        "pass": true
+      },
+      {
+        "name": "No JavaScript errors or external runtime requests",
+        "pass": true
+      }
+    ],
+    "errors": [],
+    "requests": [],
+    "samples": [
+      {
+        "name": "rifle-R-grip",
+        "minimums": {
+          "thumb": {
+            "min": -0.016876,
+            "worst": [
+              0.00952,
+              -0.08507,
+              -0.00033
+            ],
+            "samples": 692
+          }
+        },
+        "gl": 0,
+        "contacts": {
+          "L": {
+            "reachError": 0,
+            "twist": 0.5494019579196359,
+            "orientationError": 0
+          },
+          "R": {
+            "reachError": 0,
+            "twist": 0.5061890327762052,
+            "orientationError": 0
+          }
+        },
+        "frame": 20
+      },
+      {
+        "name": "rifle-L-fore",
+        "minimums": {
+          "thumb": {
+            "min": -0.022763,
+            "worst": [
+              0.02211,
+              -0.02224,
+              0.27162
+            ],
+            "samples": 702
+          }
+        },
+        "gl": 0,
+        "contacts": {
+          "L": {
+            "reachError": 0,
+            "twist": 0.5494019579196359,
+            "orientationError": 0
+          },
+          "R": {
+            "reachError": 0,
+            "twist": 0.5061890327762052,
+            "orientationError": 0
+          }
+        },
+        "frame": 22
+      },
+      {
+        "name": "rifle-L-magazine",
+        "minimums": {
+          "thumb": {
+            "min": -0.018003,
+            "worst": [
+              -0.011,
+              -0.1189,
+              0.14871
+            ],
+            "samples": 702
+          }
+        },
+        "gl": 0,
+        "contacts": {
+          "L": {
+            "reachError": 0,
+            "twist": -0.5684172798099169,
+            "orientationError": 1.1188630228279524e-16
+          },
+          "R": {
+            "reachError": 0,
+            "twist": 0.8039583084065616,
+            "orientationError": 5.594315114139762e-17
+          }
+        },
+        "frame": 24
+      },
+      {
+        "name": "pistol-L-pistolMagazine",
+        "minimums": {
+          "thumb": {
+            "min": -0.014981,
+            "worst": [
+              -0.01302,
+              -0.15561,
+              0.00449
+            ],
+            "samples": 702
+          }
+        },
+        "gl": 0,
+        "contacts": {
+          "L": {
+            "reachError": 0,
+            "twist": -0.7705530249457003,
+            "orientationError": 7.850462293418876e-17
+          },
+          "R": {
+            "reachError": 0,
+            "twist": 0.7971715608982572,
+            "orientationError": 1.249000902703301e-16
+          }
+        },
+        "frame": 26
+      },
+      {
+        "name": "gauss-R-grip",
+        "minimums": {
+          "thumb": {
+            "min": -0.016876,
+            "worst": [
+              0.00952,
+              -0.08507,
+              -0.00033
+            ],
+            "samples": 692
+          }
+        },
+        "gl": 0,
+        "contacts": {
+          "L": {
+            "reachError": 0,
+            "twist": 0.5652443516685512,
+            "orientationError": 0
+          },
+          "R": {
+            "reachError": 0,
+            "twist": 0.5905189467901509,
+            "orientationError": 0
+          }
+        },
+        "frame": 28
+      },
+      {
+        "name": "emp-L-magazine",
+        "minimums": {
+          "thumb": {
+            "min": -0.018003,
+            "worst": [
+              -0.011,
+              -0.1189,
+              0.14871
+            ],
+            "samples": 702
+          }
+        },
+        "gl": 0,
+        "contacts": {
+          "L": {
+            "reachError": 0,
+            "twist": -0.5684172798099179,
+            "orientationError": 1.1188630228279524e-16
+          },
+          "R": {
+            "reachError": 0,
+            "twist": 0.8039583084065616,
+            "orientationError": 5.594315114139762e-17
+          }
+        },
+        "frame": 30
+      }
+    ],
+    "nativeStorage": false,
+    "physicalGpu": false,
+    "comparisonOnly": true,
+    "note": "Prepared time/camera; DQ skin samples use the actual palette and mount passed to the production renderer. Thumb surfaces and existing DQ palette. Prepared scene/time, not gameplay FPS or full hand self-collision."
+  }
+}

@@ -43,3 +43,5 @@ Primero pérdida de datos/crashes, luego acciones bloqueadas y defectos visibles
 ## Avance parcial DC-009/DC-010
 
 Cuatro perfiles no pulgares y apertura visual de recarga documentados en [FINGER-CONTACTS.md](FINGER-CONTACTS.md). No cierra #6. Próxima regresión: oposición/base del pulgar, preservando las correcciones de falanges, mangas y codos.
+
+Avance de DC-009: oposición del pulgar integrada en la unidad descrita en [THUMB-CONTACTS](THUMB-CONTACTS.md), con cobertura limitada a referencias de empuñadura, apoyo delantero y pieza extraíble. No implica cierre de DC-009/010: mano-mano, zonas mixtas, ojo/mira y fases por familia siguen pendientes. Consultar PR/CI para estado efectivo de integración.

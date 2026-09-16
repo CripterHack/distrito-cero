@@ -52,3 +52,7 @@ No hay benchmark físico, cobertura universal de Safari/Firefox/file://, supervi
 ## Contacto digital posterior a PR #13
 
 Avance parcial de #6 mediante cuatro perfiles no pulgares compartidos, sin cambiar malla humana, anclas o formato de partida. Ver [FINGER-CONTACTS.md](FINGER-CONTACTS.md) para cobertura y resultados. Pulgar/oposición, contacto entre manos y ojo/mira siguen pendientes. Consultar el PR/CI del commit exacto, no cifras heredadas.
+
+## Oposición del pulgar posterior a PR #15
+
+Unidad parcial de #6: pivote virtual metacarpal y cuatro referencias de contacto, preservando rig, mallas, falanges no pulgares y reglas de juego. Once regresiones Node y suite gráfica de quince checks. Ver [THUMB-CONTACTS.md](THUMB-CONTACTS.md) para alcance, fallos reproducidos y limitaciones. La integración y sus runs deben comprobarse en GitHub, no inferirse del documento. #5/#6/#7 siguen abiertos.

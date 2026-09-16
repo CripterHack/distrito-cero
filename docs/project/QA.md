@@ -56,3 +56,7 @@ Referencias: documentación oficial de Playwright sobre BrowserType y persistent
 ## Regresión de falanges
 
 `python3 -m tools.qa.run --suite fingers` ejecuta 15 comprobaciones del renderer y produce 12 imágenes. El helper `tools/qa/finger_surfaces.js` no se incorpora al HTML. El modo fixture no demuestra persistencia nativa ni aprobación artística. Véase [alcance y límites](FINGER-CONTACTS.md).
+
+## Regresión de oposición del pulgar
+
+`--suite thumbs` produce quince checks y capturas en su directorio aislado. Utiliza proxies de arte y piel DQ del renderizador, con tiempo/cámara preparados y almacenamiento fixture. `tests/thumb-contact.test.cjs` añade once pruebas de contacto, envolvente digital, longitud, fases y no mutación. La CI ejecuta esta unidad junto a las falanges de PR #15, óptica y recuperación. No sustituye la suite `native --origin http`.

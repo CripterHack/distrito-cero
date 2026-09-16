@@ -1,33 +1,32 @@
-# Handoff · contacto digital con equipo
+# Handoff · oposición del pulgar
 
-Base de esta unidad: master `f9998523492bf29ff276cf85c3f282d32163821a`. Preserva mangas de PR #12, codos ópticos de PR #13, benchmark, recuperación y guardados nativos. #2/#3/#4 cerrados; #5/#6/#7 permanecen abiertos. Pages publica master y no se modifica su configuración.
+Base: master `71fd53aed765bdb1d450ecba274bd2fd5522026c`. Conserva mangas PR #12, codos ópticos PR #13, falanges PR #15, benchmark, recuperación gráfica y guardados nativos. #2/#3/#4 cerrados; #5/#6/#7 abiertos. Pages sigue publicando master.
 
-## Unidad actual
+## Unidad de contacto actual
 
-Tres pruebas de superficie reprodujeron dedos dentro de los objetos, aunque la palma alcanzara su ancla. Se añadió un ajuste de cuatro perfiles compartidos de falanges no pulgares, sin cambiar malla, pesos, huesos, anclas, física o formato de guardados. La recarga abre y recupera las falanges gradualmente; una prueba nativa a 1/60 s descubrió y corrigió un tirón visual.
+Se incorpora oposición alrededor de una base metacarpal virtual, separada de la flexión de los tres segmentos existentes. No cambia malla, 49 huesos, pesos, anclas palmares o guardados. Sólo `skin-rig.js` y `weapon-handling.js` modifican el runtime, con HTML reconstruido. La búsqueda offline no se ejecuta durante la partida.
 
-Leer [FINGER-CONTACTS.md](FINGER-CONTACTS.md) y el [plan](../../specs/003-weapon-contact/plan-finger-contacts.md). La unidad añade 14 tests Node y una suite de 15 checks / 12 capturas. Consultar PR/Actions para el resultado del commit exacto; no atribuir capturas locales antiguas a la CI nueva.
+Leer [THUMB-CONTACTS.md](THUMB-CONTACTS.md) y [plan de unidad](../../specs/003-weapon-contact/plan-thumb-opposition.md). Hay once pruebas Node nuevas y una suite de quince checks con capturas. El benchmark de personajes y las regresiones de falanges, óptica, recuperación y datos nativos permanecen separados. Consultar el PR/CI para conocer los resultados efectivos, no deducirlos del documento.
 
-## Siguiente corrección
+## Próximo trabajo
 
-#6: oposición del pulgar y transición de su base a la palma. Una exploración de rotaciones no logró una solución convincente, así que el pulgar sigue sin modificarse. Reproducir mediante superficie/topología/pesos, conservando los cuatro dedos ya corregidos, los codos y la continuidad de recarga. Después revisar contacto mano-mano y ojo/mira.
+#6: revisar contacto entre ambas manos en armas cortas y zonas mixtas palma/pulgar (el muestreo principal usa >=75% de influencia digital). Mantener el caso de oposición y las pruebas de no cruzar otros dedos antes de ampliar superficies o parámetros. Revisar fases intermedias, cambio de equipo y cancelaciones por familia; no declarar autocolisión general.
 
-#5: registrar revisión artística de proporciones, materiales y cabello con la matriz existente y recursos de procedencia verificable. No convertir una única imagen en aprobación general.
+#5: usar la matriz para revisar proporciones, materiales, cabello y detalle visible de manos con decisión artística registrada. Esta corrección localizada no aprueba todo el humanoide.
 
-#7: recorrido completo, entorno/mundo y playtests conservan sus requisitos; no cerrar por un plan o por mover automáticamente al jugador entre objetivos.
+#7: conserva gates de escena, mundo, recorrido íntegro, hardware y playtest. No cerrar por pruebas que preparan posiciones automáticamente.
 
-## Verificación
+## Entrada y cierre
 
 ```sh
 python3 tools/rebind_garment.py --check
-python3 tests/garment_binding.test.py
 python3 build.py
 node --test tests/*.test.cjs
 python3 tools/export_contact.py
 python3 tests/contact_exports.test.py
-python3 -m tools.qa.run --suite fingers --suite handling --suite optical --suite recovery
+python3 -m tools.qa.run --suite thumbs --suite fingers --suite handling --suite optical --suite recovery
 python3 -m tools.qa.run --suite characters
 python3 -m tools.qa.run --suite native --origin http
 ```
 
-Confirmar HEAD remoto, AGENTS, hashes y checks antes de integrar. Verificar Pages después. No escribir sobre evidencia histórica. Las pruebas gráficas usan fixture de almacenamiento y no son FPS físicos. La prueba HTTP nativa es independiente.
+Confirmar master/AGENTS y no sobreescribir ramas de otros. Usar rama por unidad y checks aprobados antes de integrar. Comprobar Pages contra el HTML de master. No confundir almacenamiento fixture con persistencia HTTP real ni medidas CPU/software con FPS de GPU física.
