@@ -1,0 +1,392 @@
+{
+  "baseCommit": "f9998523492bf29ff276cf85c3f282d32163821a",
+  "baseHtmlSha256": "fe47dfa3ef9b2bff6d415b6f6fb0b64e0d0b0c0df7193b135c59e4fc3fe7b93b",
+  "htmlSha256": "9fc46cc9e37110ba618b19f5591da15d414405e85d44b24e437b405322dca832",
+  "sourceSha256": "139627a3de8bc22cb51346be5487a6d6f7e77a85025d745fb29b37b328c8014c",
+  "testReport": {
+    "sha256": "9fc46cc9e37110ba618b19f5591da15d414405e85d44b24e437b405322dca832",
+    "checks": [
+      {
+        "name": "Production renderer decodes all three embedded skin maps",
+        "pass": true
+      },
+      {
+        "name": "rifle-R-grip rendered skin stays outside the contact volume",
+        "pass": true
+      },
+      {
+        "name": "rifle-L-fore rendered skin stays outside the contact volume",
+        "pass": true
+      },
+      {
+        "name": "rifle-L-magazine rendered skin stays outside the contact volume",
+        "pass": true
+      },
+      {
+        "name": "pistol-L-pistolMagazine rendered skin stays outside the contact volume",
+        "pass": true
+      },
+      {
+        "name": "gauss-R-grip rendered skin stays outside the contact volume",
+        "pass": true
+      },
+      {
+        "name": "emp-L-magazine rendered skin stays outside the contact volume",
+        "pass": true
+      },
+      {
+        "name": "All sampled draws retain finite oriented palm contacts and no WebGL errors",
+        "pass": true
+      },
+      {
+        "name": "Reload interpolates finger flexion instead of snapping between grasp profiles",
+        "pass": true
+      },
+      {
+        "name": "Reload still transfers ammunition once and returns to support",
+        "pass": true
+      },
+      {
+        "name": "Translucent selector remains above the real scene",
+        "pass": true
+      },
+      {
+        "name": "Binoculars preserve their previous contact and optical posture",
+        "pass": true
+      },
+      {
+        "name": "Presentation inspection never writes the saved catalogue",
+        "pass": true
+      },
+      {
+        "name": "New fixture profiles are bounded and reused",
+        "pass": true
+      },
+      {
+        "name": "No JavaScript errors or external runtime requests",
+        "pass": true
+      }
+    ],
+    "errors": [],
+    "requests": [],
+    "samples": [
+      {
+        "name": "rifle-R-grip",
+        "minimums": {
+          "middle": {
+            "min": 0.001383,
+            "worst": [
+              -0.01229,
+              -0.10861,
+              0.02206
+            ],
+            "samples": 513
+          },
+          "ring": {
+            "min": 0.001559,
+            "worst": [
+              -0.00412,
+              -0.12819,
+              0.02481
+            ],
+            "samples": 426
+          },
+          "little": {
+            "min": 0.001546,
+            "worst": [
+              0.01484,
+              -0.14698,
+              0.01978
+            ],
+            "samples": 277
+          }
+        },
+        "gl": 0,
+        "contacts": {
+          "L": {
+            "reachError": 0,
+            "twist": 0.5494019579196359,
+            "orientationError": 0
+          },
+          "R": {
+            "reachError": 0,
+            "twist": 0.5061890327762052,
+            "orientationError": 0
+          }
+        },
+        "frame": 18
+      },
+      {
+        "name": "rifle-L-fore",
+        "minimums": {
+          "index": {
+            "min": 0.001374,
+            "worst": [
+              0.04579,
+              -0.04613,
+              0.28266
+            ],
+            "samples": 446
+          },
+          "middle": {
+            "min": 0.000816,
+            "worst": [
+              0.04495,
+              -0.04582,
+              0.25926
+            ],
+            "samples": 504
+          },
+          "ring": {
+            "min": 0.001504,
+            "worst": [
+              0.04613,
+              -0.046,
+              0.23716
+            ],
+            "samples": 413
+          },
+          "little": {
+            "min": 0.001356,
+            "worst": [
+              0.0457,
+              -0.04616,
+              0.21784
+            ],
+            "samples": 293
+          }
+        },
+        "gl": 0,
+        "contacts": {
+          "L": {
+            "reachError": 0,
+            "twist": 0.5494019579196359,
+            "orientationError": 0
+          },
+          "R": {
+            "reachError": 0,
+            "twist": 0.5061890327762052,
+            "orientationError": 0
+          }
+        },
+        "frame": 20
+      },
+      {
+        "name": "rifle-L-magazine",
+        "minimums": {
+          "index": {
+            "min": 0.001558,
+            "worst": [
+              -0.03056,
+              -0.1268,
+              0.16689
+            ],
+            "samples": 446
+          },
+          "middle": {
+            "min": 0.001339,
+            "worst": [
+              -0.03034,
+              -0.14606,
+              0.16658
+            ],
+            "samples": 504
+          },
+          "ring": {
+            "min": 0.001612,
+            "worst": [
+              -0.03061,
+              -0.16543,
+              0.16732
+            ],
+            "samples": 413
+          },
+          "little": {
+            "min": 0.001833,
+            "worst": [
+              -0.02995,
+              -0.18491,
+              0.16907
+            ],
+            "samples": 293
+          }
+        },
+        "gl": 0,
+        "contacts": {
+          "L": {
+            "reachError": 0,
+            "twist": -0.5684172798099169,
+            "orientationError": 1.1188630228279524e-16
+          },
+          "R": {
+            "reachError": 0,
+            "twist": 0.8039583084065616,
+            "orientationError": 5.594315114139762e-17
+          }
+        },
+        "frame": 22
+      },
+      {
+        "name": "pistol-L-pistolMagazine",
+        "minimums": {
+          "index": {
+            "min": 0.001853,
+            "worst": [
+              0.01162,
+              -0.16109,
+              0.02185
+            ],
+            "samples": 446
+          },
+          "middle": {
+            "min": 0.001817,
+            "worst": [
+              0.01486,
+              -0.18038,
+              0.02182
+            ],
+            "samples": 504
+          },
+          "ring": {
+            "min": 0.000996,
+            "worst": [
+              -0.02822,
+              -0.20281,
+              0.02097
+            ],
+            "samples": 413
+          },
+          "little": {
+            "min": 0.001533,
+            "worst": [
+              -0.02953,
+              -0.21881,
+              0.02012
+            ],
+            "samples": 293
+          }
+        },
+        "gl": 0,
+        "contacts": {
+          "L": {
+            "reachError": 0,
+            "twist": -0.7705530249457003,
+            "orientationError": 7.850462293418876e-17
+          },
+          "R": {
+            "reachError": 0,
+            "twist": 0.7971715608982572,
+            "orientationError": 1.249000902703301e-16
+          }
+        },
+        "frame": 24
+      },
+      {
+        "name": "gauss-R-grip",
+        "minimums": {
+          "middle": {
+            "min": 0.001383,
+            "worst": [
+              -0.01229,
+              -0.10861,
+              0.02206
+            ],
+            "samples": 513
+          },
+          "ring": {
+            "min": 0.001559,
+            "worst": [
+              -0.00412,
+              -0.12819,
+              0.02481
+            ],
+            "samples": 426
+          },
+          "little": {
+            "min": 0.001546,
+            "worst": [
+              0.01484,
+              -0.14698,
+              0.01978
+            ],
+            "samples": 277
+          }
+        },
+        "gl": 0,
+        "contacts": {
+          "L": {
+            "reachError": 0,
+            "twist": 0.5652443516685512,
+            "orientationError": 0
+          },
+          "R": {
+            "reachError": 0,
+            "twist": 0.5905189467901509,
+            "orientationError": 0
+          }
+        },
+        "frame": 26
+      },
+      {
+        "name": "emp-L-magazine",
+        "minimums": {
+          "index": {
+            "min": 0.001558,
+            "worst": [
+              -0.03056,
+              -0.1268,
+              0.16689
+            ],
+            "samples": 446
+          },
+          "middle": {
+            "min": 0.001339,
+            "worst": [
+              -0.03034,
+              -0.14606,
+              0.16658
+            ],
+            "samples": 504
+          },
+          "ring": {
+            "min": 0.001612,
+            "worst": [
+              -0.03061,
+              -0.16543,
+              0.16732
+            ],
+            "samples": 413
+          },
+          "little": {
+            "min": 0.001833,
+            "worst": [
+              -0.02995,
+              -0.18491,
+              0.16907
+            ],
+            "samples": 293
+          }
+        },
+        "gl": 0,
+        "contacts": {
+          "L": {
+            "reachError": 0,
+            "twist": -0.5684172798099179,
+            "orientationError": 1.1188630228279524e-16
+          },
+          "R": {
+            "reachError": 0,
+            "twist": 0.8039583084065616,
+            "orientationError": 5.594315114139762e-17
+          }
+        },
+        "frame": 28
+      }
+    ],
+    "nativeStorage": false,
+    "physicalGpu": false,
+    "comparisonOnly": false,
+    "note": "Prepared time/camera; DQ skin samples use the actual palette and mount passed to the production renderer. Thumb and trigger-index contacts are outside the corrected subset."
+  },
+  "comparison": "Same engine/camera/light/pose before and after; scaled pairs, no model retouch. Preview crops same rectangle in each image. Controlled clock and fixture storage; not a hardware benchmark. Thumb outside corrected subset."
+}

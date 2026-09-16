@@ -48,3 +48,7 @@ HTML original: `3aa9a27f4941ea1c701069c61db133ab3c93087e35d833d4921ba25b8a4b059f
 El build concatena 38 JS en orden significativo. Las capas sustituyen referencias de DC; no reorganizar sin contratos. Los datos grandes de hero-asset se regeneran, no se editan como arrays manuales. Conservar bases y atribuciones para reconstrucción.
 
 No hay benchmark físico, cobertura universal de Safari/Firefox/file://, supervivencia al cierre del proceso, simulación completa de tejidos o manos, multijugador ni certificación fotorrealista. La recuperación síncrona puede causar una pausa. Consultar [handoff](HANDOFF.md), [QA](QA.md) y [benchmark](CHARACTER-BENCHMARK.md).
+
+## Contacto digital posterior a PR #13
+
+Avance parcial de #6 mediante cuatro perfiles no pulgares compartidos, sin cambiar malla humana, anclas o formato de partida. Ver [FINGER-CONTACTS.md](FINGER-CONTACTS.md) para cobertura y resultados. Pulgar/oposición, contacto entre manos y ojo/mira siguen pendientes. Consultar el PR/CI del commit exacto, no cifras heredadas.

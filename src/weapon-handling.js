@@ -46,6 +46,69 @@
   const side=k==='R'?1:-1,x=orientation.palm.map(v=>-side*v),y=orientation.fingers.map(v=>-v),z=D.cross(x,y),a=palmLandmark(k);
   return x.map((v,i)=>v*a[0]+y[i]*a[1]+z[i]*a[2]);
  }
+ // Closed poses are fitted once in prop-local space. Only finger flexion changes:
+ // no hand/arm anchors, bone lengths, physics or save data are owned here.
+ // The volumes match authored cosmetic props; they are not fabrication dimensions.
+ const fingerFits=new Map(),CONTACT_SHAPES=freeze({
+  primary:{kind:'grip',p:[0,-.11,-.016],s:[.060,.17,.080]},
+  fore:{kind:'box',p:[0,-.005,.31],s:[.09,.08,.20]},
+  magazine:{kind:'box',p:[0,-.135,.12],s:[.058,.18,.095]},
+  pistolMagazine:{kind:'box',p:[0,-.18,-.016],s:[.056,.08,.072]}
+ });
+ function fingerDistance(p,shape){
+  const v=sub(p,shape.p);
+  if(shape.kind==='box'){const q=v.map((x,i)=>Math.abs(x)-shape.s[i]/2);return Math.hypot(...q.map(x=>Math.max(x,0)))+Math.min(Math.max(...q),0);}
+  const t=Math.abs(v[1]/shape.s[1]),taper=t>.44?.96-(Math.min(.5,t)-.44)/.06*.18:1-t/.44*.04;
+  const a=shape.s[0]*taper/2,b=shape.s[2]*taper/2,k0=Math.hypot(v[0]/a,v[2]/b),k1=Math.hypot(v[0]/a/a,v[2]/b/b);
+  const radial=k1>1e-8?k0*(k0-1)/k1:-Math.min(a,b),cap=Math.abs(v[1])-shape.s[1]/2;
+  return Math.hypot(Math.max(radial,0),Math.max(cap,0))+Math.min(Math.max(radial,cap),0);
+ }
+ function fitFingers(key,k,socket,shape,source,names){
+  if(fingerFits.has(key))return fingerFits.get(key);
+  const rig=D.SkinRig;if(!rig)return null; // Some authoring tools load no human rig.
+  const side=k==='R'?1:-1,o=frame(socket.palm,socket.fingers),x=o.palm.map(v=>-side*v),y=o.fingers.map(v=>-v),z=D.cross(x,y);
+  const wrist=sub(socket.p,palmOffset(k,o)),bind=rig.bones[rig.ids['hand'+k]][2];
+  const point=p=>wrist.map((v,i)=>v+x[i]*p[0]+y[i]*p[1]+z[i]*p[2]);
+  const result={fingers:{},scales:{},profile:key};
+  for(const f of rig.fingers[k])if(names.includes(f.name)){
+   const angles=source.fingers[f.name];
+   const clearance=values=>{
+    let p=sub(f.joints[0],bind),angle=0,min=Infinity;
+    for(let j=0;j<3;j++){
+     angle-=side*values[j];
+     const d=sub(j<2?f.joints[j+1]:f.tip,f.joints[j]),c=Math.cos(angle),s=Math.sin(angle),v=[d[0]*c-d[1]*s,d[0]*s+d[1]*c,d[2]];
+     for(const u of [0,.25,.5,.75,1]){
+      // Tapered phalanx envelope follows the hand's authoring recipe. A small
+      // margin accommodates quantization and DQ blending between finger joints.
+      const radius=f.radius*lerp([1.13,1,.87][j],[1,.87,.61][j],u)+.0007;
+      min=Math.min(min,fingerDistance(point(add(p,v.map(v=>v*u))),shape)-radius);
+     }
+     p=add(p,v);
+    }
+    return min;
+   };
+   let low=0,high=null;
+   const at=t=>clearance(angles.map(v=>v*t));
+   if(at(0)>.0005){
+    // Find the FIRST contact rather than allowing a finger to pass through and
+    // emerge on the other side. All iterations are bounded and cached.
+    for(let i=1;i<=24;i++){const t=i*1.25/24;if(at(t)<.0005){high=t;break;}low=t;}
+    if(high!==null)for(let i=0;i<12;i++){const t=(low+high)/2;if(at(t)>=.0005)low=t;else high=t;}
+   }
+   const scale=high===null?1:low;
+   const fitted=angles.map(v=>v*scale);
+   // Keep proximal contact and bend free distal joints around the virtual prop.
+   for(const joint of [2,1]){
+    const initial=fitted[joint],limit=Math.min(joint===2?1.15:1.45,initial+.75);let lo=initial,hi=null;
+    for(let i=1;i<=16;i++){const v=lerp(initial,limit,i/16),candidate=fitted.slice();candidate[joint]=v;if(clearance(candidate)<.0005){hi=v;break;}lo=v;}
+    if(hi!==null)for(let i=0;i<10;i++){const v=(lo+hi)/2,candidate=fitted.slice();candidate[joint]=v;if(clearance(candidate)>=.0005)lo=v;else hi=v;}
+    fitted[joint]=lo;
+   }
+   result.fingers[f.name]=fitted;result.scales[f.name]=scale;
+  }
+  freeze(result);fingerFits.set(key,result);return result;
+ }
+ function contactFitStats(){return{cached: fingerFits.size,profiles:[...fingerFits.values()].map(f=>({profile:f.profile,scales:{...f.scales}}))};}
  function spring(x,v,omega,dt){const b=v+omega*x,d=Math.exp(-omega*dt);return[(x+b*dt)*d,(v-omega*b*dt)*d];}
  function beginEquip(sim){const e=sim.equipment;return e.handling={item:e.selected,serial:e.shotSerial||0,kick:0,velocity:0,ready:0,triggerWeight:0,lagYaw:0,lagPitch:0,velYaw:0,velPitch:0,lastYaw:sim.player.yaw||0,lastPitch:e.pitch||0};}
  function step(sim,dt){
@@ -142,7 +205,31 @@
    return{amount,style,fingers:f,indexLift:style==='primary'?lerp(-.10,.035,trigger):0};
   }
   grips.R=grip(optic?.38:melee?.78:thrown?.63:.76,optic?'optics':melee?'melee':thrown?'throw':'primary');
-  if(hands.L){const freeTravel=sm(.035,.13,t)*(1-sm(.20,.29,t))+sm(.84,.89,t)*(1-sm(.94,1,t));const holding=lerp(optic?.38:sidearm?.61:heavy?.53:.52,.70,contact);grips.L=grip(lerp(holding,.16,clamp(freeTravel,0,1)),reload?'reload':optic?'optics':sidearm?'wrap':'support');}
+  const fingerContacts={};
+  if(sidearm||long){
+   const fit=fitFingers('primary-R','R',PRIMARY,CONTACT_SHAPES.primary,grips.R,['middle','ring','little']);
+   if(fit){Object.assign(grips.R.fingers,fit.fingers);fingerContacts.R={profile:fit.profile,weight:1};}
+  }
+  if(hands.L){
+   const freeTravel=clamp(sm(.035,.13,t)*(1-sm(.20,.29,t))+sm(.84,.89,t)*(1-sm(.94,1,t)),0,1);
+   const holding=lerp(optic?.38:sidearm?.61:heavy?.53:.52,.70,contact);
+   grips.L=grip(lerp(holding,.16,freeTravel),reload?'reload':optic?'optics':sidearm?'wrap':'support');
+   const base=grip(optic?.38:sidearm?.61:heavy?.53:.52,'support');
+   const fore=['smg','rifle','sniper'].includes(w.id)?fitFingers('fore-L','L',SUPPORT,CONTACT_SHAPES.fore,base,['index','middle','ring','little']):null;
+   const mag=spec.reload==='magazine'?fitFingers(sidearm?'magazine-pistol-L':'magazine-long-L','L',
+    {p:magazine.surface,palm:[1,0,0],fingers:[0,-.10,.994987]},sidearm?CONTACT_SHAPES.pistolMagazine:CONTACT_SHAPES.magazine,grip(.70,'reload'),['index','middle','ring','little']):null;
+   if(fore||mag){
+    // The larger fitted arcs need a wider release window at native frame times.
+    // Start opening after the piece is seated; close gradually on the foregrip.
+    const digitTravel=clamp(sm(.035,.13,t)*(1-sm(.20,.29,t))+sm(.80,.91,t)*(1-sm(.91,1,t)),0,1);
+    const loose=grip(.16,'reload');
+    for(const name of ['index','middle','ring','little']){
+     const carried=fore?.fingers[name]||base.fingers[name],held=mag?.fingers[name]||grip(.70,'reload').fingers[name];
+     grips.L.fingers[name]=mix(mix(carried,held,contact),loose.fingers[name],digitTravel);
+    }
+    fingerContacts.L={profile:contact>.5?mag?.profile:fore?.profile,weight:1-digitTravel};
+   }
+  }
   function partPoint(role,q){return point(...partLocal(role,q));}
   function partTransform(role){
    if(role!=='magazine'||!magazine.rotation[2])return{origin:partPoint(role,[0,0,0]),rx:-pitch,yaw,roll};
@@ -151,9 +238,9 @@
   }
   const brace=long?{weight:braceWeight,target:shoulderTarget,stock:point(...stock),error:Math.hypot(...sub(point(...stock),shoulderTarget))}:null;
   const reloadStage=!reload?'':t<.24?'Buscar agarre':t<.57?'Extraer':t<.82?'Insertar':t<.90?'Asentar':'Recuperar apoyo';
-  return{point,direction,partPoint,partTransform,yaw,pitch,roll,origin,hands,palmContacts,grips,magazine,reloadContact:contact,reload,reloadStage,aim,kick,ready,family,inertia,brace,braceWeight,fitDistance,neckDrop,
+  return{point,direction,partPoint,partTransform,yaw,pitch,roll,origin,hands,palmContacts,grips,fingerContacts,magazine,reloadContact:contact,reload,reloadStage,aim,kick,ready,family,inertia,brace,braceWeight,fitDistance,neckDrop,
    phase:reload?'Recargar':optic?(aim>.5?'Observar':'Transportar'):kick>.12?(melee?'Golpear':thrown?'Lanzar':'Recuperar'):aim>.5?'Apuntar':'Guardia baja',
    muzzle:point(0,.012,w.length||.3),supportLocal:support?.p.slice()||null};
  }
- D.WeaponHandling=Object.freeze({profile,step,beginEquip,mount,actor,palmLandmark});
+ D.WeaponHandling=Object.freeze({profile,step,beginEquip,mount,actor,palmLandmark,contactFitStats});
 })(DC);
