@@ -60,3 +60,7 @@ Unidad parcial de #6: pivote virtual metacarpal y cuatro referencias de contacto
 ## Correctivo de Actions y apoyo entre manos
 
 El PR #17 está integrado como `e614ff9`. CI de master 35051259999, benchmark 35051260032 y Pages aprobaron, sin borrar el historial rojo. El siguiente avance parcial calibra la mano de apoyo de pistola/revólver contra la mano dominante, conservando las correcciones anteriores. Ver [SIDEARM-SUPPORT.md](SIDEARM-SUPPORT.md) para cobertura y límites. #5/#6/#7 siguen abiertos; consultar los checks del commit nuevo antes de considerarlo integrado.
+
+## Correctivo de superficie de palma/pulgar, posterior a PR #18
+
+Sobre `ef905ec`, se implementa una reducción volar acotada de hasta 4 mm en las almohadillas de ambas manos. Sólo cambia el recurso humano canónico y su HTML generado; el controlador y los contactos de armas se mantienen. Se amplía la QA a una cohorte geométrica fija sin filtro de influencia, evitando omitir la zona mixta. Ver [THENAR-SURFACE.md](THENAR-SURFACE.md). Los estados y resultados CI efectivos se comprueban en el PR/commit, y la aceptación artística general sigue pendiente.

@@ -47,3 +47,5 @@ Cuatro perfiles no pulgares y apertura visual de recarga documentados en [FINGER
 Avance de DC-009: oposición del pulgar integrada en la unidad descrita en [THUMB-CONTACTS](THUMB-CONTACTS.md), con cobertura limitada a referencias de empuñadura, apoyo delantero y pieza extraíble. No implica cierre de DC-009/010: mano-mano, zonas mixtas, ojo/mira y fases por familia siguen pendientes. Consultar PR/CI para estado efectivo de integración.
 
 Actualización posterior a PR #17: la CI de master y Pages aprobaron la corrección de generaciones WebGL liberadas. DC-009/010 incorpora una unidad parcial de apoyo entre manos en armas cortas, con regresiones de contacto, disparo y recarga. Las zonas mixtas y coordinación ojo/mira siguen pendientes. No cerrar #6 ni adelantar la vertical slice por este cambio.
+
+Actualización parcial DC-009: correctivo de contorno palma/pulgar sobre PR #18, con cohorte fija, receta idempotente y pruebas. No reemplaza el contacto físico completo ni cierra la revisión artística. Ojo/mira y otras fases de interacción mantienen prioridad después de verificar la superficie.
