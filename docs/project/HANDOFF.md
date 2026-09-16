@@ -1,16 +1,18 @@
-# Handoff · correctivo de Actions y lifecycle gráfico
+# Handoff · Actions verificados y apoyo entre manos
 
-Base de esta unidad: master `bbc26848ee0dd26a8193aa6dbfe4dfafc3a9e734`. El usuario solicitó comprobar Actions failed antes de seguir. Leer [ACTIONS-RECOVERY.md](ACTIONS-RECOVERY.md) y el [plan](../../specs/001-reliability/plan-actions-context-loss.md).
+Base de esta unidad: master `e614ff98061b9454eb47680bea7875a745373f3b`. Conserva mangas PR #12, codos ópticos PR #13, falanges PR #15 y oposición PR #16. #2/#3/#4 conservan su alcance resuelto; #5/#6/#7 continúan abiertos. Pages publica master, sin cambios de configuración.
 
-## Cambio actual
+## Incidente de Actions
 
-El run de master 35045749864 perdió contexto gráfico durante manejo y un render directo accedió a listas ya liberadas. Se reprodujo la misma excepción con WEBGL_lose_context. Ahora render/syncSectors rechazan generaciones inactivas antes de mutar estado. El harness de manejo usa app.stopFrame y fotogramas explícitos completos, sin sustituir RAF global ni reintentar pérdidas inesperadas. Los logs fallidos se muestran de forma acotada en Actions.
+PR #17 ya integrado. La CI del push a master 35051259999 y el benchmark 35051260032 terminaron correctamente. El error era un render directo sobre listas de una generación WebGL ya liberada tras perder el contexto. No se conoce la causa exacta del reinicio del driver. Leer [ACTIONS-RECOVERY.md](ACTIONS-RECOVERY.md). Conservar guardas y diagnóstico, no borrar runs fallidos o relajar el gate.
 
-La unidad añade nueve tests Node de lifecycle, siete del helper de captura, cinco Python de diagnóstico y tres comprobaciones gráficas de recuperación. Mantener manejo en 51 y recuperación en 25. No interpretar un informe parcial con cero aserciones fallidas como una ejecución aprobada.
+## Unidad actual de #6
 
-## Verificar integración y publicación
+Leer [SIDEARM-SUPPORT.md](SIDEARM-SUPPORT.md) y el [plan](../../specs/003-weapon-contact/plan-sidearm-support.md). Se reproduce y reduce el cruce de los dedos entre ambas manos al usar pistola/revólver. La referencia incluye el gesto completo del índice dominante y continuidad de recarga. Sólo cambia `weapon-handling.js` y su HTML generado. Malla, pesos, anclas, longitudes, inventario y formatos permanecen iguales.
 
-Leer HEAD remoto y AGENTS. Antes del merge exigir los checks del commit exacto. Después revisar también la CI del push a master y comparar el SHA-256 del HTML publicado en Pages. Los checks verdes del PR no garantizan que un runner posterior no sufra otra pérdida gráfica. Conservar cualquier fallo nuevo y su diagnóstico, sin borrarlo ni reintentar hasta ocultarlo.
+Nueve tests Node nuevos y suite gráfica `sidearms` de veinte checks. El helper muestrea piel real frente a envolventes digitales, no toda la superficie mixta. Las capturas son preparadas. Guardados nativos HTTP se verifican por separado.
+
+## Verificar antes de integrar
 
 ```sh
 python3 tools/rebind_garment.py --check
@@ -18,18 +20,18 @@ python3 build.py
 node --test tests/*.test.cjs
 python3 tests/qa_runner.test.py
 python3 tests/qa_reporting.test.py
+python3 tests/qa_selection.test.py
+python3 tests/native_support.test.py
 python3 tools/export_contact.py
 python3 tests/contact_exports.test.py
-python3 -m tools.qa.run --suite all --headed
-python3 -m tools.qa.run --suite native --origin http --headed
+python3 -m tools.qa.run --suite all
+python3 -m tools.qa.run --suite native --origin http
 ```
 
-## Continuidad del juego
+Revisar el HEAD y su CI, integrar por PR y comprobar también el push a master y el HTML de Pages. No contar resultados locales de un hash como un run remoto diferente.
 
-Conservar mangas PR #12, codos ópticos PR #13, falanges PR #15 y oposición del pulgar PR #16. No se altera la malla humana, los 49 huesos, munición, física o formatos. #2/#3/#4 tienen sus alcances previos resueltos; esta unidad endurece #4. #5/#6/#7 conservan trabajo pendiente.
+## Próxima unidad
 
-#6: contacto entre ambas manos en armas cortas y zonas mixtas palma/pulgar. El muestreo digital principal usa >=75% de influencia, no toda la superficie. Mantener las pruebas de oposición, falanges y continuidad óptica. Después revisar ojo/mira y cancelaciones por familia.
+#6: revisar zonas mixtas de palma/pulgar y fases intermedias de contacto/liberación, no sólo poses asentadas. Después coordinar ojo/mira sin deformar cara o brazo para forzar un pivote. Mantener las regresiones de disparo, recarga, cambio de equipo, mangas, óptica y recuperación gráfica. No declarar autocolisión completa.
 
-#5: revisión artística de proporciones, materiales, cabello y manos con la matriz existente. No aprobar hiperrealismo por recuentos de pruebas.
-
-#7: escena, mundo, recorrido íntegro y playtests conservan sus requisitos. No cerrar por mover al jugador automáticamente entre objetivos. Las pruebas gráficas por software no acreditan FPS físicos; storage fixture y persistencia HTTP nativa son evidencias diferentes.
+#5: revisión artística del conjunto con la matriz de personajes, materiales y peinados. #7: escena, recorrido íntegro y playtests mantienen sus criterios propios. Ninguno se cierra por cifras de QA o recorridos que preparan posiciones.

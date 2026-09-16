@@ -1,0 +1,280 @@
+{
+  "baseCommit": "e614ff98061b9454eb47680bea7875a745373f3b",
+  "beforeHtmlSha256": "a640437cde77a8fbba0af5f40d3e17013ecc027b0bbc29ee52f8e92db63baa68",
+  "afterHtmlSha256": "60ec959537830481fc62f67caeb6d2fee7e3530aa43f76b42646e3b426086c92",
+  "before": [
+    {
+      "name": "pistol-aim",
+      "hands": {
+        "Lindex": -0.0009671,
+        "Lmiddle": -0.0057098,
+        "Lring": -0.0033193,
+        "Llittle": 0.0252341,
+        "Lthumb": -0.0015456,
+        "Rindex": 0.0250615,
+        "Rmiddle": -0.0057081,
+        "Rring": -0.0030619,
+        "Rlittle": 0.0084227,
+        "Rthumb": 0.0274368
+      },
+      "prop": {
+        "index": -0.006375,
+        "middle": -0.000763,
+        "ring": -0.011817,
+        "little": -0.02428,
+        "thumb": -0.008979
+      }
+    },
+    {
+      "name": "pistol-use",
+      "hands": {
+        "Lindex": -0.0009671,
+        "Lmiddle": -0.0057098,
+        "Lring": -0.0033193,
+        "Llittle": 0.0252341,
+        "Lthumb": -0.0015456,
+        "Rindex": 0.0075685,
+        "Rmiddle": -0.0057081,
+        "Rring": -0.0030619,
+        "Rlittle": 0.0084227,
+        "Rthumb": 0.0274368
+      },
+      "prop": {
+        "index": -0.006375,
+        "middle": -0.000763,
+        "ring": -0.011817,
+        "little": -0.02428,
+        "thumb": -0.008979
+      }
+    },
+    {
+      "name": "pistol-crouch",
+      "hands": {
+        "Lindex": -0.0009671,
+        "Lmiddle": -0.00571,
+        "Lring": -0.0033195,
+        "Llittle": 0.0252339,
+        "Lthumb": -0.0015455,
+        "Rindex": 0.0250615,
+        "Rmiddle": -0.0057079,
+        "Rring": -0.0030622,
+        "Rlittle": 0.0084228,
+        "Rthumb": 0.0274369
+      },
+      "prop": {
+        "index": -0.006375,
+        "middle": -0.000763,
+        "ring": -0.011817,
+        "little": -0.024279,
+        "thumb": -0.008979
+      }
+    },
+    {
+      "name": "revolver-aim",
+      "hands": {
+        "Lindex": -0.0035987,
+        "Lmiddle": -0.0041415,
+        "Lring": -0.0018723,
+        "Llittle": 0.0264255,
+        "Lthumb": -0.0046286,
+        "Rindex": 0.0255828,
+        "Rmiddle": -0.0047771,
+        "Rring": -0.0016283,
+        "Rlittle": 0.0058607,
+        "Rthumb": 0.0293949
+      },
+      "prop": {
+        "index": -0.005441,
+        "middle": 0.000282,
+        "ring": -0.010756,
+        "little": -0.0241,
+        "thumb": -0.008643
+      }
+    },
+    {
+      "name": "revolver-use",
+      "hands": {
+        "Lindex": -0.0035987,
+        "Lmiddle": -0.0041415,
+        "Lring": -0.0018723,
+        "Llittle": 0.0264255,
+        "Lthumb": -0.0046286,
+        "Rindex": 0.0076158,
+        "Rmiddle": -0.0047771,
+        "Rring": -0.0016283,
+        "Rlittle": 0.0058607,
+        "Rthumb": 0.0293949
+      },
+      "prop": {
+        "index": -0.005441,
+        "middle": 0.000282,
+        "ring": -0.010756,
+        "little": -0.0241,
+        "thumb": -0.008643
+      }
+    },
+    {
+      "name": "revolver-crouch",
+      "hands": {
+        "Lindex": -0.0035989,
+        "Lmiddle": -0.0041414,
+        "Lring": -0.0018724,
+        "Llittle": 0.0264256,
+        "Lthumb": -0.0046287,
+        "Rindex": 0.0255828,
+        "Rmiddle": -0.0047773,
+        "Rring": -0.0016283,
+        "Rlittle": 0.0058607,
+        "Rthumb": 0.0293952
+      },
+      "prop": {
+        "index": -0.005441,
+        "middle": 0.000281,
+        "ring": -0.010756,
+        "little": -0.0241,
+        "thumb": -0.008643
+      }
+    }
+  ],
+  "after": [
+    {
+      "name": "pistol-aim",
+      "hands": {
+        "Lindex": 0.0029053,
+        "Lmiddle": 0.0004995,
+        "Lring": 0.000535,
+        "Llittle": 0.0149751,
+        "Lthumb": 0.0468076,
+        "Rindex": 0.0326228,
+        "Rmiddle": -0.0008613,
+        "Rring": -0.0013005,
+        "Rlittle": 0.0101362,
+        "Rthumb": 0.0425905
+      },
+      "prop": {
+        "index": 0.008086,
+        "middle": 0.015499,
+        "ring": 0.011042,
+        "little": 0.001096,
+        "thumb": 0.000772
+      }
+    },
+    {
+      "name": "pistol-use",
+      "hands": {
+        "Lindex": 0.0007458,
+        "Lmiddle": 0.0004995,
+        "Lring": 0.000535,
+        "Llittle": 0.0149751,
+        "Lthumb": 0.0468076,
+        "Rindex": 0.0007472,
+        "Rmiddle": -0.0008613,
+        "Rring": -0.0013005,
+        "Rlittle": 0.0101362,
+        "Rthumb": 0.0425905
+      },
+      "prop": {
+        "index": 0.008086,
+        "middle": 0.015499,
+        "ring": 0.011042,
+        "little": 0.001096,
+        "thumb": 0.000772
+      }
+    },
+    {
+      "name": "pistol-crouch",
+      "hands": {
+        "Lindex": 0.0029052,
+        "Lmiddle": 0.0004997,
+        "Lring": 0.0005351,
+        "Llittle": 0.0149748,
+        "Lthumb": 0.0468075,
+        "Rindex": 0.0326228,
+        "Rmiddle": -0.0008613,
+        "Rring": -0.0013005,
+        "Rlittle": 0.0101363,
+        "Rthumb": 0.0425906
+      },
+      "prop": {
+        "index": 0.008086,
+        "middle": 0.015499,
+        "ring": 0.011043,
+        "little": 0.001096,
+        "thumb": 0.000772
+      }
+    },
+    {
+      "name": "revolver-aim",
+      "hands": {
+        "Lindex": 0.000557,
+        "Lmiddle": 0.0029239,
+        "Lring": 0.0028991,
+        "Llittle": 0.01756,
+        "Lthumb": 0.0449507,
+        "Rindex": 0.033104,
+        "Rmiddle": -0.0012363,
+        "Rring": 0.0009758,
+        "Rlittle": 0.0094826,
+        "Rthumb": 0.0443054
+      },
+      "prop": {
+        "index": 0.008995,
+        "middle": 0.015957,
+        "ring": 0.012094,
+        "little": 0.001943,
+        "thumb": 0.000859
+      }
+    },
+    {
+      "name": "revolver-use",
+      "hands": {
+        "Lindex": 0.000557,
+        "Lmiddle": 0.0029239,
+        "Lring": 0.0028991,
+        "Llittle": 0.01756,
+        "Lthumb": 0.0449507,
+        "Rindex": 0.0014164,
+        "Rmiddle": -0.0012363,
+        "Rring": 0.0009758,
+        "Rlittle": 0.0094826,
+        "Rthumb": 0.0443054
+      },
+      "prop": {
+        "index": 0.008995,
+        "middle": 0.015957,
+        "ring": 0.012094,
+        "little": 0.001943,
+        "thumb": 0.000859
+      }
+    },
+    {
+      "name": "revolver-crouch",
+      "hands": {
+        "Lindex": 0.0005568,
+        "Lmiddle": 0.0029242,
+        "Lring": 0.0028993,
+        "Llittle": 0.0175599,
+        "Lthumb": 0.0449505,
+        "Rindex": 0.0331039,
+        "Rmiddle": -0.0012364,
+        "Rring": 0.0009759,
+        "Rlittle": 0.0094828,
+        "Rthumb": 0.0443056
+      },
+      "prop": {
+        "index": 0.008996,
+        "middle": 0.015957,
+        "ring": 0.012094,
+        "little": 0.001943,
+        "thumb": 0.000859
+      }
+    }
+  ],
+  "artisticApproval": "pending; numeric acceptance is not a hyperrealism verdict",
+  "comparison": "Same production renderer, camera, light and prepared pose. Identical proportional resize. No model retouching.",
+  "dimensions": [
+    1280,
+    1212
+  ],
+  "previewSha256": "3b2b162b717bbc24f75d8add081665cdeaf4706a164f54ce92b818f1ab46beb5"
+}

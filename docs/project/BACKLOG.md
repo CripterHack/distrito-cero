@@ -45,3 +45,5 @@ Primero pérdida de datos/crashes, luego acciones bloqueadas y defectos visibles
 Cuatro perfiles no pulgares y apertura visual de recarga documentados en [FINGER-CONTACTS.md](FINGER-CONTACTS.md). No cierra #6. Próxima regresión: oposición/base del pulgar, preservando las correcciones de falanges, mangas y codos.
 
 Avance de DC-009: oposición del pulgar integrada en la unidad descrita en [THUMB-CONTACTS](THUMB-CONTACTS.md), con cobertura limitada a referencias de empuñadura, apoyo delantero y pieza extraíble. No implica cierre de DC-009/010: mano-mano, zonas mixtas, ojo/mira y fases por familia siguen pendientes. Consultar PR/CI para estado efectivo de integración.
+
+Actualización posterior a PR #17: la CI de master y Pages aprobaron la corrección de generaciones WebGL liberadas. DC-009/010 incorpora una unidad parcial de apoyo entre manos en armas cortas, con regresiones de contacto, disparo y recarga. Las zonas mixtas y coordinación ojo/mira siguen pendientes. No cerrar #6 ni adelantar la vertical slice por este cambio.

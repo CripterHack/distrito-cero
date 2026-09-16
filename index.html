@@ -1608,6 +1608,13 @@ var DC = globalThis.DC = globalThis.DC || {};
   magazine:{opposition:[-0.288832,0.524227,0.129151],flexion:[0.130342,0.775,0.267843]},
   pistolMagazine:{opposition:[0.8,-0.372308,0.344674],flexion:[1,0.8,0.8]}
  });
+ // The support hand wraps the dominant fingers on short props, not the same
+ // empty volume as the main grip. Calibrated offline against skin and opposing
+ // digit envelopes; no anchors, bone lengths or game-state rules are changed.
+ const SIDEARM_WRAP=freeze({
+  fingers:{index:[.225,.993773,.435519],middle:[.409582,.239548,1.28],ring:[.463377,.28,.856352],little:[.393728,.263935,.454081]},
+  thumb:{opposition:[-.335,0,.23],flexion:[0,0,0]}
+ });
  const thumbReference=g=>({opposition:[0,0,0],flexion:g.fingers.thumb});
  const mixThumb=(a,b,t)=>({opposition:mix(a.opposition,b.opposition,t),flexion:mix(a.flexion,b.flexion,t)});
  function applyThumb(g,p){g.thumbOpposition=p.opposition.slice();g.fingers.thumb=p.flexion.slice();}
@@ -1721,23 +1728,24 @@ var DC = globalThis.DC = globalThis.DC || {};
    const fore=['smg','rifle','sniper'].includes(w.id)?fitFingers('fore-L','L',SUPPORT,CONTACT_SHAPES.fore,base,['index','middle','ring','little']):null;
    const mag=spec.reload==='magazine'?fitFingers(sidearm?'magazine-pistol-L':'magazine-long-L','L',
     {p:magazine.surface,palm:[1,0,0],fingers:[0,-.10,.994987]},sidearm?CONTACT_SHAPES.pistolMagazine:CONTACT_SHAPES.magazine,grip(.70,'reload'),['index','middle','ring','little']):null;
-   if(fore||mag){
+   const wrap=sidearm?SIDEARM_WRAP:null;
+   if(fore||mag||wrap){
     // The larger fitted arcs need a wider release window at native frame times.
     // Start opening after the piece is seated; close gradually on the foregrip.
-    const digitTravel=clamp(sm(.035,.13,t)*(1-sm(.20,.29,t))+sm(.80,.91,t)*(1-sm(.91,1,t)),0,1);
+    const digitTravel=clamp(sm(.035,.13,t)*(1-sm(.20,.29,t))+sm(.80,.91,t)*(1-sm(sidearm?.87:.91,1,t)),0,1);
     const loose=grip(.16,'reload');
     for(const name of ['index','middle','ring','little']){
-     const carried=fore?.fingers[name]||base.fingers[name],held=mag?.fingers[name]||grip(.70,'reload').fingers[name];
+     const carried=wrap?.fingers[name]||fore?.fingers[name]||base.fingers[name],held=mag?.fingers[name]||grip(.70,'reload').fingers[name];
      grips.L.fingers[name]=mix(mix(carried,held,contact),loose.fingers[name],digitTravel);
     }
-    const carriedThumb=fore?THUMB_POSES.fore:thumbReference(base);
+    const carriedThumb=wrap?wrap.thumb:fore?THUMB_POSES.fore:thumbReference(base);
     const heldThumb=mag?(sidearm?THUMB_POSES.pistolMagazine:THUMB_POSES.magazine):thumbReference(grip(.70,'reload'));
     const thumb=mixThumb(carriedThumb,heldThumb,contact);
     // Keep base opposition while opening the segments, avoiding a sideways
     // sweep through a seated piece. The arm owns travel away from the object.
     thumb.flexion=mix(thumb.flexion,loose.fingers.thumb,digitTravel);
     applyThumb(grips.L,thumb);
-    fingerContacts.L={profile:contact>.5?mag?.profile:fore?.profile,weight:1-digitTravel};
+    fingerContacts.L={profile:contact>.5?mag?.profile:wrap?'sidearm-wrap-L':fore?.profile,weight:1-digitTravel};
    }
   }
   function partPoint(role,q){return point(...partLocal(role,q));}
