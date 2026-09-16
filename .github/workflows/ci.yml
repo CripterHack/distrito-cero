@@ -34,9 +34,12 @@ jobs:
         with:
           python-version: '3.12'
       - run: |
+          python3 tools/refine_thenar.py --check
+          python3 tests/thenar_contour.test.py
           python3 tools/rebind_garment.py --check
           python3 tests/garment_binding.test.py
-          python3 build.py
+          python3 build.py --check
+          python3 tests/release_build.test.py
           node --test tests/*.test.cjs
           python3 tests/qa_runner.test.py
           python3 tests/qa_reporting.test.py
@@ -83,7 +86,7 @@ jobs:
           if [ "$FULL_BROWSER" = true ]; then
             xvfb-run -a python3 -m tools.qa.run --suite all --headed --output artifacts/ci-fixture
           else
-            xvfb-run -a python3 -m tools.qa.run --suite sidearms --suite thumbs --suite fingers --suite handling --suite optical --suite recovery --headed --output artifacts/ci-fixture
+            xvfb-run -a python3 -m tools.qa.run --suite thenar --suite sidearms --suite thumbs --suite fingers --suite handling --suite optical --suite recovery --headed --output artifacts/ci-fixture
           fi
       - name: Upload fresh evidence
         if: always()
@@ -108,7 +111,7 @@ jobs:
           python3 -m pip install playwright==1.57.0
           python3 -m playwright install --with-deps chromium
       - name: Reopen a real isolated browser profile at a local HTTP origin
-        run: xvfb-run -a python3 -m tools.qa.run --suite native --origin http --headed --timeout 900 --output artifacts/ci-native
+        run: xvfb-run -a python3 -m tools.qa.run --suite release --suite native --origin http --headed --timeout 900 --output artifacts/ci-native
       - name: Upload fresh native persistence evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02

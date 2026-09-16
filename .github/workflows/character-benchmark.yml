@@ -2,10 +2,10 @@ name: Character reference benchmark
 on:
   pull_request:
     branches: [master]
-    paths: ['src/**', 'build.py', 'tools/qa/**', 'tests/character*', 'tests/benchmarks/**', 'tests/qa_stage_assets.test.py', '.github/workflows/character-benchmark.yml']
+    paths: ['src/**', 'build.py', 'version.json', 'tools/qa/**', 'tests/character*', 'tests/benchmarks/**', 'tests/qa_stage_assets.test.py', '.github/workflows/character-benchmark.yml']
   push:
     branches: [master]
-    paths: ['src/**', 'build.py', 'tools/qa/**', 'tests/character*', 'tests/benchmarks/**', 'tests/qa_stage_assets.test.py', '.github/workflows/character-benchmark.yml']
+    paths: ['src/**', 'build.py', 'version.json', 'tools/qa/**', 'tests/character*', 'tests/benchmarks/**', 'tests/qa_stage_assets.test.py', '.github/workflows/character-benchmark.yml']
   workflow_dispatch:
     inputs:
       matrix:
@@ -39,8 +39,7 @@ jobs:
           python3 tests/qa_stage_assets.test.py
           python3 tests/qa_selection.test.py
           node --test tests/character-stage.test.cjs
-          python3 build.py
-          git diff --exit-code -- index.html
+          python3 build.py --check
       - name: Install development browser
         run: |
           python3 -m pip install playwright==1.57.0
