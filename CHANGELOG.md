@@ -6,6 +6,10 @@ Consolida los cambios integrados desde la publicación de v0.19: QA portable, pe
 
 La última corrección modifica sólo posición/normal de una zona de piel, hasta 4 mm, preservando el apoyo palmar medido, pesos, UV, topología y 49 huesos. Mantiene las reglas y animaciones existentes. Alineación ojo/mira, aprobación artística y vertical slice siguen abiertas en #5/#6/#7. [Guía](docs/v020/GUIA.md).
 
+### Revisión de publicación de 0.20.0
+
+Se fijan los saltos de línea de texto mediante `.gitattributes` y se comprueba el checkout con las tres políticas de `core.autocrlf`. Evita diferencias de huella debidas sólo a CRLF; medios binarios, contenido del juego y formato de partidas no cambian.
+
 # v0.19 · Contacto articulado · resumen histórico
 
 Montaje palmar del equipo, posturas coordinadas, índice independiente, recargas y selector translúcido. Base original importada en `23f9e9d`. La evidencia de esa entrega permanece en `docs/v019/` y `qa/v019/`; no se atribuye a v0.20.

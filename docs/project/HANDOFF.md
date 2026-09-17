@@ -17,6 +17,7 @@ python3 tools/rebind_garment.py --check
 python3 tests/garment_binding.test.py
 python3 build.py --check
 python3 tests/release_build.test.py
+python3 tests/release_checkout.test.py
 node --test tests/*.test.cjs
 python3 -m tools.qa.run --suite all
 python3 -m tools.qa.run --suite release --suite native --origin http
@@ -31,3 +32,7 @@ Revisar HEAD, CI y PR. Después comprobar la CI del push y Pages contra el hash 
 #6: fijar caso visual de ojo/mira y fases intermedias de liberación/retorno, con el montaje único y límites de alcance. Examinar superficies, no sólo pivotes. No deformar cara, alargar huesos o trasladar manos arbitrariamente. Conservar regresiones de contorno, falanges, mangas, codos, recargas y recuperación.
 
 #5: revisión artística completa contra la matriz existente. #7: escena y recorrido íntegro sin posiciones preparadas. Hardware físico y playtest humano no se deducen del renderer por software.
+
+## Reanudación de la publicación, 17 de septiembre de 2026
+
+Se retomó el PR #20 existente sobre `23959fe`, sin duplicar la rama ni la corrección de contorno. Revisión adicional: una prueba de checkout Git con `core.autocrlf=true` falló por conversiones CRLF. `.gitattributes` fija LF para texto y preserva binarios. Las tres políticas se verifican con la prueba añadida, sin cambiar `build.py`, `version.json`, las fuentes del juego ni los hashes de esta entrega. Confirmar CI del HEAD ampliado y del push final antes de cerrar #19.

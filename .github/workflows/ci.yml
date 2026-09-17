@@ -40,6 +40,7 @@ jobs:
           python3 tests/garment_binding.test.py
           python3 build.py --check
           python3 tests/release_build.test.py
+          python3 tests/release_checkout.test.py
           node --test tests/*.test.cjs
           python3 tests/qa_runner.test.py
           python3 tests/qa_reporting.test.py
