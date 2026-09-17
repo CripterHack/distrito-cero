@@ -1,6 +1,6 @@
 # SPEC-003 · Contactos, animación de equipo y transiciones
 
-Estado: **proposed**. Prioridad P1. Dependencia: rig/referencias del benchmark CHAR. Relación QG-005/010. Todo el equipamiento es ficción del juego.
+Estado: **in-progress**. Hay mejoras y regresiones parciales de CONTACT-01/02/04/05; CONTACT-03 y la aprobación global de las familias siguen pendientes. Prioridad P1. Dependencia: rig/referencias del benchmark CHAR. Relación QG-005/010. Todo el equipamiento es ficción del juego.
 
 ## Objetivo
 

@@ -1,0 +1,15 @@
+# Product fingerprints must not depend on a contributor's core.autocrlf setting.
+# Auto-detect text, keep LF in both the index and the working tree.
+* text=auto eol=lf
+
+# Never perform end-of-line conversion on authored media or packed data.
+*.glb -text
+*.png -text
+*.jpg -text
+*.jpeg -text
+*.webp -text
+*.mp4 -text
+*.webm -text
+*.zip -text
+*.gz -text
+*.bin -text

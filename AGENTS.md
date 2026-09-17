@@ -7,6 +7,10 @@
 3. La especificación de la tarea y sus `plan.md` / `tasks.md`, cuando existan.
 4. Los módulos reales afectados y sus pruebas. No inferir implementación de una captura o de un resumen de chat.
 
+## Versión activa
+
+Consultar `version.json`, `build-info.json` y `docs/project/RELEASES.md`. Producto y esquemas de datos tienen versiones independientes. Antes de publicar ejecutar `python3 build.py --check` y `python3 tests/release_build.test.py`. No reescribir manifiestos históricos al actualizar la versión visual.
+
 ## Fuente de verdad
 
 La base importada es v0.19, commit `23f9e9d031c7a0ad270cd74ce0805ea0dfc385da`. El HTML debe ser reconstruible desde `src/` mediante `build.py`. La rama principal se llama **master**. Conservar el orden explícito de fuentes del empaquetador: varias capas extienden y reasignan las clases públicas del namespace `DC`.

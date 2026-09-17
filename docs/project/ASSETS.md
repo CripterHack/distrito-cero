@@ -33,3 +33,7 @@ No añadir decodificadores de compresión externos al HTML sin una decisión apr
 Se conserva íntegra la primera importación, incluidos recursos históricos. Ningún archivo individual del paquete supera 9 MB aproximadamente. No se activó Git LFS ni se contrataron servicios. Para crecimiento posterior, proponer LFS o releases para binarios pesados con una decisión de cuota, coste y reproducibilidad. No versionar secuencias de frames sin comprimir ni nuevas copias del juego completo en cada PR.
 
 Referencias técnicas: [glTF 2.0](https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html), [validador Khronos](https://github.com/KhronosGroup/glTF-Validator), [archivos grandes en GitHub](https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-large-files-on-github).
+
+## Correctivo canónico de la almohadilla de la mano
+
+`tools/refine_thenar.py` y `assets/thenar-contour-source.json` producen un correctivo local de posición/normal del recurso humano. No alteran sus pesos ni su rig. Ejecutar `--check` junto al rebinding de prendas para verificar autoría. Ver [THENAR-SURFACE.md](THENAR-SURFACE.md). Las exportaciones humanas antiguas permanecen históricas y no reciben silenciosamente esta modificación.

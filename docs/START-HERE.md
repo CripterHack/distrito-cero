@@ -2,7 +2,7 @@
 
 ## Para jugar
 
-Construir o abrir `index.html`. Leer [controles de v0.19](v019/GUIA.md). Exportar partidas antes de cambiar de origen o versión.
+Construir o abrir `index.html`. Leer [guía vigente de v0.20](v020/GUIA.md). Exportar partidas antes de cambiar de origen o versión.
 
 ## Para continuar el desarrollo
 
@@ -23,8 +23,10 @@ Leer en este orden: [estado](project/STATE.md), [handoff](project/HANDOFF.md), [
 | [HANDOFF](project/HANDOFF.md) | Primera tarea a retomar sin reconstruir contexto |
 | [LICENSING](project/LICENSING.md) | Procedencia y decisión de licencia aún no tomada |
 
-`specs/` contiene las especificaciones de evolución, no descripciones retrospectivas. `docs/v019/` explica la última entrega del juego. Las versiones anteriores permanecen para trazabilidad.
+`specs/` contiene las especificaciones de evolución, no descripciones retrospectivas. `docs/v020/` explica la entrega vigente; `docs/v019/` conserva la guía de los sistemas heredados. Las versiones anteriores permanecen para trazabilidad.
 
 ## Qué no hacer
 
 No empezar por reescribir el motor, añadir más mapas o cambiar el cuello a ojo en cada iteración. Primero fijar un benchmark repetible y una referencia anatómica aprobada, comprobar la cadena asset/rig/material/cámara y medir el coste. No repetir como actuales las cifras de pruebas de una entrega anterior.
+
+La identidad activa se lee en [version.json](../version.json), no se infiere de nombres de assets históricos. [Publicación](project/RELEASES.md).

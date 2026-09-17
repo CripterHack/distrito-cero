@@ -1,3 +1,23 @@
+# v0.20 · Coherencia · 2026-09-16
+
+Versión de producto 0.20.0, prototipo. Fuente canónica en `version.json` e identificación coherente en inicio, pestaña, pausa y `build-info.json`. Construcción determinista con `--check` no mutante. No se cambian esquemas ni claves de guardado.
+
+Consolida los cambios integrados desde la publicación de v0.19: QA portable, persistencia HTTP nativa, recuperación WebGL y protección de generaciones retiradas, benchmark de personajes, pesos de mangas, codos ópticos, contacto de falanges y pulgares y apoyo entre manos en armas cortas. Añade el correctivo de contorno de la unión palma/pulgar recuperado de la rama pendiente.
+
+La última corrección modifica sólo posición/normal de una zona de piel, hasta 4 mm, preservando el apoyo palmar medido, pesos, UV, topología y 49 huesos. Mantiene las reglas y animaciones existentes. Alineación ojo/mira, aprobación artística y vertical slice siguen abiertas en #5/#6/#7. [Guía](docs/v020/GUIA.md).
+
+### Revisión de publicación de 0.20.0
+
+Se fijan los saltos de línea de texto mediante `.gitattributes` y se comprueba el checkout con las tres políticas de `core.autocrlf`. Evita diferencias de huella debidas sólo a CRLF; medios binarios, contenido del juego y formato de partidas no cambian.
+
+# v0.19 · Contacto articulado · resumen histórico
+
+Montaje palmar del equipo, posturas coordinadas, índice independiente, recargas y selector translúcido. Base original importada en `23f9e9d`. La evidencia de esa entrega permanece en `docs/v019/` y `qa/v019/`; no se atribuye a v0.20.
+
+# v0.18 · Manejo y contacto · resumen histórico
+
+Orientación de muñecas, apoyos por familia, retroceso y manipulación de piezas visibles. Guía y límites originales en `docs/v018/`.
+
 # v0.17 · Arsenal
 
 Catálogo de catorce opciones, celdas y munición por partida, armas originales compartidas, poses de uso/recarga, Gauss cargable, EMP temporal y binoculares con zoom real y GPS. Pruebas actuales y límites en `docs/v017/VERIFICACION.md`. Se conservan personajes y perfiles de Rasgos v0.16.

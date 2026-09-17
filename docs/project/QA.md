@@ -64,3 +64,15 @@ Referencias: documentación oficial de Playwright sobre BrowserType y persistent
 ## Contacto entre manos
 
 La suite `sidearms` añade veinte comprobaciones del renderer con seis poses de pistola/revólver, fases de recarga, selector y óptica. `tests/sidearm-support.test.cjs` contiene nueve pruebas. El helper usa piel real y envolventes segmentadas de la mano opuesta; no representa autocolisión completa. Al capturar comparaciones locales se mantiene un `report.json` por directorio, y sólo el harness escribe el informe canónico aislado.
+
+## Superficie completa de la banda palma/pulgar
+
+La suite `thenar` añade 15 comprobaciones gráficas y 11 capturas. `tests/thenar-surface.test.cjs` aporta nueve tests Node y `tests/thenar_contour.test.py` ocho de autoría. La cohorte permanece fija (806/803 puntos), independiente de los pesos. Regenerar con `tools/refine_thenar.py`, luego `build.py`; exigir `--check` en CI. Es una prueba gráfica con almacenamiento fixture, no persistencia nativa. Ver [alcance y límites](THENAR-SURFACE.md).
+
+## Publicación vigente v0.20
+
+`python3 build.py --check` verifica HTML y `build-info.json` sin escribir. `python3 tests/release_build.test.py` prueba identidad, build reproducible, cambios de fuentes, metadatos, plantillas inválidas y comprobación no mutante.
+
+`python3 -m tools.qa.run --suite release --origin http` ejecuta 14 comprobaciones de versión visible/inmutable, huella, importación del JSON sintético v0.19, exportación y reapertura real. Usa almacenamiento nativo. `--suite all --origin http` incluye release y native. La evidencia nueva de versión se escribe en `qa/v020/` de una copia aislada. Las suites anteriores conservan sus rutas dentro de copias efímeras con hash actual.
+
+`thenar` aporta 15 comprobaciones gráficas/11 capturas, nueve tests Node y ocho Python de autoría. No elimina requisitos de palmas, falanges, oposición, ambas manos o recuperación. La procedencia del JSON antiguo está en `tests/fixtures/v019-slot-provenance.json`. No contiene datos personales.

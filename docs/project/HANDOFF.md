@@ -1,37 +1,38 @@
-# Handoff · Actions verificados y apoyo entre manos
+# Handoff · v0.20 Coherencia y superficie palma/pulgar
 
-Base de esta unidad: master `e614ff98061b9454eb47680bea7875a745373f3b`. Conserva mangas PR #12, codos ópticos PR #13, falanges PR #15 y oposición PR #16. #2/#3/#4 conservan su alcance resuelto; #5/#6/#7 continúan abiertos. Pages publica master, sin cambios de configuración.
+Base publicada previa: `ef905ec`. Trabajo recuperado: `91ba765` de `fix/006-palm-webbing`, que había quedado sin PR. Versión activa del árbol: **v0.20 / 0.20.0**. Leer [STATE](STATE.md), [RELEASES](RELEASES.md) y [THENAR-SURFACE](THENAR-SURFACE.md).
 
-## Incidente de Actions
+## Unidad actual
 
-PR #17 ya integrado. La CI del push a master 35051259999 y el benchmark 35051260032 terminaron correctamente. El error era un render directo sobre listas de una generación WebGL ya liberada tras perder el contexto. No se conoce la causa exacta del reinicio del driver. Leer [ACTIONS-RECOVERY.md](ACTIONS-RECOVERY.md). Conservar guardas y diagnóstico, no borrar runs fallidos o relajar el gate.
+Correctivo de contorno recuperado: máximo 4 mm en una zona de piel, sin cambiar pesos, rig, contactos o reglas. Las regresiones originales fallan sobre ef905ec y pasan con el recurso corregido. No repetir una modificación de pivotes para ocultar la superficie. Mantener apoyo palmar, dedos, pulgar y ambas manos.
 
-## Unidad actual de #6
+`version.json` define número, nombre, canal y fecha. El build genera etiquetas, `DC.BuildInfo` y `build-info.json`. No cambiar esquemas de guardados al aumentar versión de producto. `--check` no repara archivos. README, STATE, changelog y guía vigente deben mantenerse coherentes sin reescribir informes históricos.
 
-Leer [SIDEARM-SUPPORT.md](SIDEARM-SUPPORT.md) y el [plan](../../specs/003-weapon-contact/plan-sidearm-support.md). Se reproduce y reduce el cruce de los dedos entre ambas manos al usar pistola/revólver. La referencia incluye el gesto completo del índice dominante y continuidad de recarga. Sólo cambia `weapon-handling.js` y su HTML generado. Malla, pesos, anclas, longitudes, inventario y formatos permanecen iguales.
-
-Nueve tests Node nuevos y suite gráfica `sidearms` de veinte checks. El helper muestrea piel real frente a envolventes digitales, no toda la superficie mixta. Las capturas son preparadas. Guardados nativos HTTP se verifican por separado.
-
-## Verificar antes de integrar
+## Verificación
 
 ```sh
+python3 tools/refine_thenar.py --check
+python3 tests/thenar_contour.test.py
 python3 tools/rebind_garment.py --check
-python3 build.py
+python3 tests/garment_binding.test.py
+python3 build.py --check
+python3 tests/release_build.test.py
+python3 tests/release_checkout.test.py
 node --test tests/*.test.cjs
-python3 tests/qa_runner.test.py
-python3 tests/qa_reporting.test.py
-python3 tests/qa_selection.test.py
-python3 tests/native_support.test.py
-python3 tools/export_contact.py
-python3 tests/contact_exports.test.py
 python3 -m tools.qa.run --suite all
-python3 -m tools.qa.run --suite native --origin http
+python3 -m tools.qa.run --suite release --suite native --origin http
 ```
 
-Revisar el HEAD y su CI, integrar por PR y comprobar también el push a master y el HTML de Pages. No contar resultados locales de un hash como un run remoto diferente.
+Revisar HEAD, CI y PR. Después comprobar la CI del push y Pages contra el hash del sidecar y las etiquetas de inicio/pausa. No borrar runs históricos ni atribuir un resultado viejo a una ejecución nueva. Leer cifras vigentes del run exacto.
 
-## Próxima unidad
+## Issues y siguiente unidad
 
-#6: revisar zonas mixtas de palma/pulgar y fases intermedias de contacto/liberación, no sólo poses asentadas. Después coordinar ojo/mira sin deformar cara o brazo para forzar un pivote. Mantener las regresiones de disparo, recarga, cambio de equipo, mangas, óptica y recuperación gráfica. No declarar autocolisión completa.
+#2/#3/#4 mantienen su alcance cerrado. #5/#6/#7 están abiertos. #19 sólo se cierra tras comprobar identidad y publicación. El cambio de versión no acredita anatomía o contactos completos.
 
-#5: revisión artística del conjunto con la matriz de personajes, materiales y peinados. #7: escena, recorrido íntegro y playtests mantienen sus criterios propios. Ninguno se cierra por cifras de QA o recorridos que preparan posiciones.
+#6: fijar caso visual de ojo/mira y fases intermedias de liberación/retorno, con el montaje único y límites de alcance. Examinar superficies, no sólo pivotes. No deformar cara, alargar huesos o trasladar manos arbitrariamente. Conservar regresiones de contorno, falanges, mangas, codos, recargas y recuperación.
+
+#5: revisión artística completa contra la matriz existente. #7: escena y recorrido íntegro sin posiciones preparadas. Hardware físico y playtest humano no se deducen del renderer por software.
+
+## Reanudación de la publicación, 17 de septiembre de 2026
+
+Se retomó el PR #20 existente sobre `23959fe`, sin duplicar la rama ni la corrección de contorno. Revisión adicional: una prueba de checkout Git con `core.autocrlf=true` falló por conversiones CRLF. `.gitattributes` fija LF para texto y preserva binarios. Las tres políticas se verifican con la prueba añadida, sin cambiar `build.py`, `version.json`, las fuentes del juego ni los hashes de esta entrega. Confirmar CI del HEAD ampliado y del push final antes de cerrar #19.

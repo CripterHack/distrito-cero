@@ -1,6 +1,6 @@
 # Distrito Cero
 
-Aventura criminal original de navegador con exploración, conducción y una ciudad procedural. **Versión jugable: v0.19 · Contacto articulado.** JavaScript, WebGL2, Canvas 2D y Web Audio nativos. Un HTML autónomo, sin librerías externas, CDN, telemetría remota ni conexión obligatoria durante la partida.
+Aventura criminal original de navegador con exploración, conducción y una ciudad procedural. **Versión jugable: v0.20 · Coherencia (`0.20.0`, prototipo).** JavaScript, WebGL2, Canvas 2D y Web Audio nativos. Un HTML autónomo, sin librerías externas, CDN, telemetría remota ni conexión obligatoria durante la partida.
 
 El proyecto es un prototipo integrado en desarrollo. La dirección artística busca realismo, pero **no se presenta como un juego AAA terminado ni como fotorrealista**.
 
@@ -32,7 +32,11 @@ Campaña dirigida y exploración libre, tráfico y persecuciones, vehículos con
 | Gauss / EMP / binoculares | 9 / 0 / B |
 | Rendición / atlas / foto / pausa | Mantener R / M / P / Esc |
 
-Guía completa: [v0.19](docs/v019/GUIA.md). El arsenal y sus animaciones son ficción de videojuego, no instrucciones de uso o fabricación de equipamiento real.
+Guía vigente: [v0.20](docs/v020/GUIA.md). El arsenal y sus animaciones son ficción de videojuego, no instrucciones de uso o fabricación de equipamiento real.
+
+## Versión e integridad actual
+
+La versión visible se genera desde [version.json](version.json). [build-info.json](build-info.json) contiene el hash exacto del HTML y sus fuentes. Inicio, pestaña y Pausa comparten esa identidad; Pausa muestra el build corto. No cambia el esquema de partidas. [Proceso de publicación](docs/project/RELEASES.md).
 
 ## Documentación vigente
 
@@ -45,13 +49,14 @@ Los agentes deben leer [AGENTS.md](AGENTS.md) y la [constitución](.specify/memo
 ## Construir y comprobar
 
 ```sh
-python3 build.py
+python3 build.py --check
+python3 tests/release_build.test.py
 node --test tests/*.test.cjs
 python3 tools/export_contact.py
 python3 tests/contact_exports.test.py
 ```
 
-Desde un checkout limpio, `git diff --exit-code -- index.html assets/dc019-equipment.glb` comprueba que las salidas están sincronizadas. Después de modificar fuentes, una diferencia es esperable: revisar y versionar las salidas generadas correspondientes, no ignorarla.
+Desde un checkout limpio, `python3 build.py --check` y `git diff --exit-code -- assets/dc019-equipment.glb` comprueban que las salidas están sincronizadas. Después de modificar fuentes, una diferencia es esperable: revisar y versionar las salidas generadas correspondientes, no ignorarla.
 
 La CI ejecuta construcción reproducible, lógica y exportación. La verificación WebGL usa un entorno aislado y publica sus informes como artefactos. Los resultados actuales se consultan en [Actions](https://github.com/CripterHack/distrito-cero/actions), no se deducen de una cifra histórica. [Protocolo de QA](docs/project/QA.md).
 
@@ -65,6 +70,6 @@ HTML de esa base: `3aa9a27f4941ea1c701069c61db133ab3c93087e35d833d4921ba25b8a4b0
 
 ## Alcance y derechos
 
-No se han validado todas las combinaciones emergentes, rendimiento en GPU física, Safari/Firefox, almacenamiento nativo tras reapertura, ni recuperación completa de contexto WebGL. Los vídeos de inspección avanzan el tiempo de forma controlada: no prueban FPS reales.
+Se han comprobado persistencia HTTP nativa con reapertura y recuperación WebGL en Chromium. Siguen pendientes cobertura completa de situaciones emergentes, GPU física, Safari/Firefox, móviles y sesiones prolongadas. La recuperación no garantiza que el driver nunca pierda contexto. Los vídeos de inspección avanzan el tiempo de forma controlada: no prueban FPS reales.
 
 No se añadió una licencia global al proyecto sin decisión de su titular. Las atribuciones de recursos de terceros se preservan en `assets/ATTRIBUTION-*.md`. Ver [estado de licencias](docs/project/LICENSING.md). No se incluyen archivos de fuentes tipográficas, secretos, partidas personales ni credenciales de desarrollo.
