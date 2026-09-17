@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "version": "0.20.0",
+  "version": "0.20.1",
   "name": "Coherencia",
   "channel": "prototype",
-  "date": "2026-09-16",
-  "label": "v0.20",
+  "date": "2026-09-17",
+  "label": "v0.20.1",
   "product": "Distrito Cero",
-  "sourceSha256": "35f271603db9b79d6ab600b868f18371dfc6d521a7092508a72f51a23cb5e67b",
-  "htmlSha256": "0e921ed90b464c86d8a369020e5a9e512c4f0c6204491172c91787ef379705be",
-  "htmlBytes": 8860695
+  "sourceSha256": "c9c96a20082b4b26ea2559119ee7c49fc2ddfc14a493db8bb3f887396862096d",
+  "htmlSha256": "39a475fbeda4f620799bfda3aaec0994e55edd1dc2ad06c5f2426f992a58930c",
+  "htmlBytes": 8862704
 }

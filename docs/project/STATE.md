@@ -1,8 +1,8 @@
 # Estado real del proyecto
 
-## Versión activa del árbol: v0.20 · Coherencia
+## Versión activa del árbol: v0.20.1 · Coherencia
 
-Producto `0.20.0`, canal **prototype**, fecha declarada 2026-09-16. Identidad canónica en [version.json](../../version.json); hash y tamaño exactos del HTML en [build-info.json](../../build-info.json). Guía vigente en [v020](../v020/GUIA.md). La publicación de un commit se confirma en Actions y comparando Pages, no por la existencia de este documento.
+Producto `0.20.1`, canal **prototype**, fecha declarada 2026-09-17. Identidad canónica en [version.json](../../version.json); hash y tamaño exactos del HTML en [build-info.json](../../build-info.json). Guía vigente en [v020](../v020/GUIA.md). La publicación de un commit se confirma en Actions y comparando Pages, no por la existencia de este documento.
 
 GitHub Pages sigue configurado sobre master. No se cambia esa configuración, la licencia ni los esquemas de datos. Una pestaña abierta necesita recarga para ejecutar código nuevo, sin borrar datos del sitio.
 
@@ -14,9 +14,14 @@ GitHub Pages sigue configurado sobre master. No se cambia esa configuración, la
 | #5 · Personaje patrón | Benchmark #11 integrado. Aprobación artística y otros gates pendientes. |
 | #6 · Contactos/recargas | Mangas #12, óptica #13, falanges #15, oposición #16 y ambas manos #18. Esta entrega añade contorno palma/pulgar. Alineación ojo/mira y fases intermedias pendientes. |
 | #7 · Vertical slice | Pendiente de escena, recorrido íntegro y evaluación de juego/hardware. |
-| #19 · Publicación v0.20 | Verificar build, identidad visible, compatibilidad y publicación del commit exacto. No cierra #5/#6/#7. |
+| #19 · Publicación v0.20 | Cerrado tras PR #20, CI de master y comprobación de Pages y guardados. |
+| #21 · Mira de armas cortas | Unidad actual: ojo articulado y montaje de pistola/revólver. Validar PR, CI y publicación. |
 
-## Cambio de esta entrega
+## Parche 0.20.1
+
+Alineación de pistola/revólver con la referencia ocular del avatar y retroceso que no abandona bruscamente esa referencia. Sin cambios en malla, pesos, rig, equipo relativo a las manos ni formatos. [Detalle y límites](SIDEARM-SIGHT.md). Cierra sólo su unidad #21 después de verificación; #5/#6/#7 siguen pendientes.
+
+## Base consolidada 0.20.0
 
 Se recuperó el trabajo sin PR de `fix/006-palm-webbing` (`91ba765`) sobre `ef905ec`. La zona compartida entre palma y pulgar penetraba apoyos que las pruebas digitales no cubrían. El correctivo reduce suavemente hasta 4 mm de profundidad en 1,166 posiciones de piel. Mantiene el parche palmar medido, pesos, UV, topología, 49 huesos, uñas y otros buffers. [Detalle](THENAR-SURFACE.md).
 

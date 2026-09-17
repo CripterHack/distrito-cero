@@ -5,7 +5,7 @@ sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 from tools.qa.run import select_suites
 class SelectionTests(unittest.TestCase):
     def test_all_filters_by_storage_contract(self):
-        self.assertEqual(len(select_suites(['all'],'fixture')),12)
+        self.assertEqual(len(select_suites(['all'],'fixture')),13)
         self.assertEqual([s.name for s in select_suites(['all'],'http')],['release','native'])
     def test_explicit_native_does_not_mislabel_fixture(self):
         with self.assertRaises(ValueError):select_suites(['handling'],'http')
@@ -32,4 +32,7 @@ class SelectionTests(unittest.TestCase):
     def test_release_identity_has_a_native_http_contract(self):
         self.assertEqual(select_suites(['release'],'http')[0].expected_checks,14)
         with self.assertRaises(ValueError):select_suites(['release'],'fixture')
+    def test_sight_alignment_is_a_graphical_not_native_contract(self):
+        self.assertEqual(select_suites(['sight'],'fixture')[0].expected_checks,24)
+        with self.assertRaises(ValueError):select_suites(['sight'],'http')
 if __name__=='__main__':unittest.main()

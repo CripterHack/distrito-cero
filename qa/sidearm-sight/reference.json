@@ -1,0 +1,765 @@
+{
+  "before": {
+    "sha256": "0e921ed90b464c86d8a369020e5a9e512c4f0c6204491172c91787ef379705be",
+    "checks": [
+      {
+        "name": "Embedded skin maps decode in the production renderer",
+        "pass": true
+      },
+      {
+        "name": "pistol neutral posed eye aligns with visible sights",
+        "pass": false
+      },
+      {
+        "name": "pistol neutral has a forward sight and reachable palms",
+        "pass": true
+      },
+      {
+        "name": "pistol crouch posed eye aligns with visible sights",
+        "pass": false
+      },
+      {
+        "name": "pistol crouch has a forward sight and reachable palms",
+        "pass": true
+      },
+      {
+        "name": "pistol up posed eye aligns with visible sights",
+        "pass": false
+      },
+      {
+        "name": "pistol up has a forward sight and reachable palms",
+        "pass": true
+      },
+      {
+        "name": "pistol down posed eye aligns with visible sights",
+        "pass": false
+      },
+      {
+        "name": "pistol down has a forward sight and reachable palms",
+        "pass": true
+      },
+      {
+        "name": "revolver neutral posed eye aligns with visible sights",
+        "pass": false
+      },
+      {
+        "name": "revolver neutral has a forward sight and reachable palms",
+        "pass": true
+      },
+      {
+        "name": "revolver crouch posed eye aligns with visible sights",
+        "pass": false
+      },
+      {
+        "name": "revolver crouch has a forward sight and reachable palms",
+        "pass": true
+      },
+      {
+        "name": "revolver up posed eye aligns with visible sights",
+        "pass": false
+      },
+      {
+        "name": "revolver up has a forward sight and reachable palms",
+        "pass": true
+      },
+      {
+        "name": "revolver down posed eye aligns with visible sights",
+        "pass": false
+      },
+      {
+        "name": "revolver down has a forward sight and reachable palms",
+        "pass": true
+      },
+      {
+        "name": "Reload mount moves continuously at native simulation steps",
+        "pass": true
+      },
+      {
+        "name": "Reload transfers ammunition once and returns to the eye reference",
+        "pass": false
+      },
+      {
+        "name": "Recoil rises instead of dropping to the old unaligned pose",
+        "pass": true
+      },
+      {
+        "name": "Translucent selector remains paused and blocks game actions",
+        "pass": true
+      },
+      {
+        "name": "Closing selection does not restore a trigger or aiming request",
+        "pass": true
+      },
+      {
+        "name": "Visual inspection never overwrites the saved catalogue",
+        "pass": true
+      },
+      {
+        "name": "No JavaScript or graphics exceptions or external requests",
+        "pass": true
+      }
+    ],
+    "errors": [],
+    "requests": [],
+    "cases": [
+      {
+        "name": "pistol-neutral",
+        "eyeBind": [
+          0.0308,
+          1.6708,
+          0.0876
+        ],
+        "eye": [
+          4.0285128737090625,
+          1.6178980127601712,
+          36.09709401988164
+        ],
+        "rear": [
+          4.045,
+          1.5798505028497847,
+          36.505
+        ],
+        "front": [
+          4.045,
+          1.5858505028497847,
+          36.735
+        ],
+        "error": 0.05138858504366259,
+        "behind": 0.4067750487520692,
+        "origin": [
+          4.045,
+          1.5063505028497848,
+          36.515
+        ],
+        "contacts": {
+          "R": 4.7998624419577735e-08,
+          "L": 7.22167991349927e-08
+        }
+      },
+      {
+        "name": "pistol-crouch",
+        "eyeBind": [
+          0.0308,
+          1.6708,
+          0.0876
+        ],
+        "eye": [
+          4.0281187532872424,
+          1.3934599505588814,
+          36.179700219374894
+        ],
+        "rear": [
+          4.045,
+          1.3598505028497847,
+          36.505
+        ],
+        "front": [
+          4.045,
+          1.3658505028497847,
+          36.735
+        ],
+        "error": 0.04534098528814627,
+        "behind": 0.3243126790517625,
+        "origin": [
+          4.045,
+          1.2863505028497848,
+          36.515
+        ],
+        "contacts": {
+          "R": 4.559382445634521e-08,
+          "L": 6.18776215964292e-08
+        }
+      },
+      {
+        "name": "pistol-up",
+        "eyeBind": [
+          0.0308,
+          1.6708,
+          0.0876
+        ],
+        "eye": [
+          4.028828494969709,
+          1.642736602540204,
+          36.084694832871854
+        ],
+        "rear": [
+          4.045,
+          1.5736125327339034,
+          36.483725899919136
+        ],
+        "front": [
+          4.045,
+          1.6473141992007652,
+          36.701680171178054
+        ],
+        "error": 0.1939796745557752,
+        "behind": 0.3558613956720499,
+        "origin": [
+          4.045,
+          1.5063505028497848,
+          36.515
+        ],
+        "contacts": {
+          "R": 5.716218693036189e-08,
+          "L": 4.767874374151281e-08
+        }
+      },
+      {
+        "name": "pistol-down",
+        "eyeBind": [
+          0.0308,
+          1.6708,
+          0.0876
+        ],
+        "eye": [
+          4.0282623180574735,
+          1.5919254068895072,
+          36.10688080293238
+        ],
+        "rear": [
+          4.045,
+          1.5795229368671302,
+          36.52716737029835
+        ],
+        "front": [
+          4.045,
+          1.5172853082697757,
+          36.74866788403721
+        ],
+        "error": 0.10311757282201273,
+        "behind": 0.40797246983470853,
+        "origin": [
+          4.045,
+          1.5063505028497848,
+          36.515
+        ],
+        "contacts": {
+          "R": 1.7990498555568904e-08,
+          "L": 4.6503689303148494e-08
+        }
+      },
+      {
+        "name": "revolver-neutral",
+        "eyeBind": [
+          0.0308,
+          1.6708,
+          0.0876
+        ],
+        "eye": [
+          4.0285128737090625,
+          1.6178980127601712,
+          36.09709401988164
+        ],
+        "rear": [
+          4.045,
+          1.5798505028497847,
+          36.505
+        ],
+        "front": [
+          4.045,
+          1.5858505028497847,
+          36.735
+        ],
+        "error": 0.05138858504366259,
+        "behind": 0.4067750487520692,
+        "origin": [
+          4.045,
+          1.5063505028497848,
+          36.515
+        ],
+        "contacts": {
+          "R": 4.7998624419577735e-08,
+          "L": 4.206512206441087e-08
+        }
+      },
+      {
+        "name": "revolver-crouch",
+        "eyeBind": [
+          0.0308,
+          1.6708,
+          0.0876
+        ],
+        "eye": [
+          4.0281187532872424,
+          1.3934599505588814,
+          36.179700219374894
+        ],
+        "rear": [
+          4.045,
+          1.3598505028497847,
+          36.505
+        ],
+        "front": [
+          4.045,
+          1.3658505028497847,
+          36.735
+        ],
+        "error": 0.04534098528814627,
+        "behind": 0.3243126790517625,
+        "origin": [
+          4.045,
+          1.2863505028497848,
+          36.515
+        ],
+        "contacts": {
+          "R": 4.559382445634521e-08,
+          "L": 5.569268112060394e-08
+        }
+      },
+      {
+        "name": "revolver-up",
+        "eyeBind": [
+          0.0308,
+          1.6708,
+          0.0876
+        ],
+        "eye": [
+          4.028828494969709,
+          1.642736602540204,
+          36.084694832871854
+        ],
+        "rear": [
+          4.045,
+          1.5736125327339034,
+          36.483725899919136
+        ],
+        "front": [
+          4.045,
+          1.6473141992007652,
+          36.701680171178054
+        ],
+        "error": 0.1939796745557752,
+        "behind": 0.3558613956720499,
+        "origin": [
+          4.045,
+          1.5063505028497848,
+          36.515
+        ],
+        "contacts": {
+          "R": 5.716218693036189e-08,
+          "L": 5.186794027477544e-08
+        }
+      },
+      {
+        "name": "revolver-down",
+        "eyeBind": [
+          0.0308,
+          1.6708,
+          0.0876
+        ],
+        "eye": [
+          4.0282623180574735,
+          1.5919254068895072,
+          36.10688080293238
+        ],
+        "rear": [
+          4.045,
+          1.5795229368671302,
+          36.52716737029835
+        ],
+        "front": [
+          4.045,
+          1.5172853082697757,
+          36.74866788403721
+        ],
+        "error": 0.10311757282201273,
+        "behind": 0.40797246983470853,
+        "origin": [
+          4.045,
+          1.5063505028497848,
+          36.515
+        ],
+        "contacts": {
+          "R": 1.7990498555568904e-08,
+          "L": 5.8455079276370133e-08
+        }
+      }
+    ],
+    "nativeStorage": false,
+    "physicalGpu": false,
+    "comparisonOnly": true,
+    "note": "Actual eye-mesh bounds, production-renderer palette and visible sight top surfaces. Prepared camera/time; no optical physics, first-person aim or full anatomical acceptance."
+  },
+  "after": {
+    "sha256": "39a475fbeda4f620799bfda3aaec0994e55edd1dc2ad06c5f2426f992a58930c",
+    "checks": [
+      {
+        "name": "Embedded skin maps decode in the production renderer",
+        "pass": true
+      },
+      {
+        "name": "pistol neutral posed eye aligns with visible sights",
+        "pass": true
+      },
+      {
+        "name": "pistol neutral has a forward sight and reachable palms",
+        "pass": true
+      },
+      {
+        "name": "pistol crouch posed eye aligns with visible sights",
+        "pass": true
+      },
+      {
+        "name": "pistol crouch has a forward sight and reachable palms",
+        "pass": true
+      },
+      {
+        "name": "pistol up posed eye aligns with visible sights",
+        "pass": true
+      },
+      {
+        "name": "pistol up has a forward sight and reachable palms",
+        "pass": true
+      },
+      {
+        "name": "pistol down posed eye aligns with visible sights",
+        "pass": true
+      },
+      {
+        "name": "pistol down has a forward sight and reachable palms",
+        "pass": true
+      },
+      {
+        "name": "revolver neutral posed eye aligns with visible sights",
+        "pass": true
+      },
+      {
+        "name": "revolver neutral has a forward sight and reachable palms",
+        "pass": true
+      },
+      {
+        "name": "revolver crouch posed eye aligns with visible sights",
+        "pass": true
+      },
+      {
+        "name": "revolver crouch has a forward sight and reachable palms",
+        "pass": true
+      },
+      {
+        "name": "revolver up posed eye aligns with visible sights",
+        "pass": true
+      },
+      {
+        "name": "revolver up has a forward sight and reachable palms",
+        "pass": true
+      },
+      {
+        "name": "revolver down posed eye aligns with visible sights",
+        "pass": true
+      },
+      {
+        "name": "revolver down has a forward sight and reachable palms",
+        "pass": true
+      },
+      {
+        "name": "Reload mount moves continuously at native simulation steps",
+        "pass": true
+      },
+      {
+        "name": "Reload transfers ammunition once and returns to the eye reference",
+        "pass": true
+      },
+      {
+        "name": "Recoil rises instead of dropping to the old unaligned pose",
+        "pass": true
+      },
+      {
+        "name": "Translucent selector remains paused and blocks game actions",
+        "pass": true
+      },
+      {
+        "name": "Closing selection does not restore a trigger or aiming request",
+        "pass": true
+      },
+      {
+        "name": "Visual inspection never overwrites the saved catalogue",
+        "pass": true
+      },
+      {
+        "name": "No JavaScript or graphics exceptions or external requests",
+        "pass": true
+      }
+    ],
+    "errors": [],
+    "requests": [],
+    "cases": [
+      {
+        "name": "pistol-neutral",
+        "eyeBind": [
+          0.0308,
+          1.6708,
+          0.0876
+        ],
+        "eye": [
+          4.0285128737090625,
+          1.6178980127601712,
+          36.09709401988164
+        ],
+        "rear": [
+          4.0285128737090625,
+          1.6285059268867876,
+          36.503730728068604
+        ],
+        "front": [
+          4.0285128737090625,
+          1.6345059268867876,
+          36.7337307280686
+        ],
+        "error": 2.1684043449710089e-16,
+        "behind": 0.4067750487520703,
+        "origin": [
+          4.0285128737090625,
+          1.5550059268867877,
+          36.5137307280686
+        ],
+        "contacts": {
+          "R": 5.3809684353914633e-08,
+          "L": 2.98955746530908e-08
+        }
+      },
+      {
+        "name": "pistol-crouch",
+        "eyeBind": [
+          0.0308,
+          1.6708,
+          0.0876
+        ],
+        "eye": [
+          4.0281187532872424,
+          1.3934599505588814,
+          36.179700219374894
+        ],
+        "rear": [
+          4.0281187532872424,
+          1.40191740403374,
+          36.50390260257781
+        ],
+        "front": [
+          4.0281187532872424,
+          1.40791740403374,
+          36.73390260257781
+        ],
+        "error": 1.1038349588497084e-16,
+        "behind": 0.32431267905176003,
+        "origin": [
+          4.0281187532872424,
+          1.3284174040337402,
+          36.51390260257781
+        ],
+        "contacts": {
+          "R": 2.9488769783493647e-08,
+          "L": 3.48419977830222e-08
+        }
+      },
+      {
+        "name": "pistol-up",
+        "eyeBind": [
+          0.0308,
+          1.6708,
+          0.0876
+        ],
+        "eye": [
+          4.028828494969709,
+          1.642736602540204,
+          36.084694832871854
+        ],
+        "rear": [
+          4.028828494969709,
+          1.756730768309757,
+          36.42180410758877
+        ],
+        "front": [
+          4.028828494969709,
+          1.8304324347766188,
+          36.63975837884769
+        ],
+        "error": 2.222006751886933e-15,
+        "behind": 0.35586139567205277,
+        "origin": [
+          4.028828494969709,
+          1.6894687384256384,
+          36.453078207669634
+        ],
+        "contacts": {
+          "R": 6.55364519429833e-08,
+          "L": 4.238211126063446e-09
+        }
+      },
+      {
+        "name": "pistol-down",
+        "eyeBind": [
+          0.0308,
+          1.6708,
+          0.0876
+        ],
+        "eye": [
+          4.0282623180574735,
+          1.5919254068895072,
+          36.10688080293238
+        ],
+        "rear": [
+          4.0282623180574735,
+          1.4815662602736859,
+          36.499643320111986
+        ],
+        "front": [
+          4.0282623180574735,
+          1.4193286316763314,
+          36.721143833850846
+        ],
+        "error": 1.2685846686484803e-15,
+        "behind": 0.4079724698347083,
+        "origin": [
+          4.0282623180574735,
+          1.4083938262563405,
+          36.487475949813636
+        ],
+        "contacts": {
+          "R": 5.898900946679228e-08,
+          "L": 2.7620552166709153e-08
+        }
+      },
+      {
+        "name": "revolver-neutral",
+        "eyeBind": [
+          0.0308,
+          1.6708,
+          0.0876
+        ],
+        "eye": [
+          4.0285128737090625,
+          1.6178980127601712,
+          36.09709401988164
+        ],
+        "rear": [
+          4.0285128737090625,
+          1.6285059268867876,
+          36.503730728068604
+        ],
+        "front": [
+          4.0285128737090625,
+          1.6345059268867876,
+          36.7337307280686
+        ],
+        "error": 2.1684043449710089e-16,
+        "behind": 0.4067750487520703,
+        "origin": [
+          4.0285128737090625,
+          1.5550059268867877,
+          36.5137307280686
+        ],
+        "contacts": {
+          "R": 5.3809684353914633e-08,
+          "L": 5.439437373286752e-08
+        }
+      },
+      {
+        "name": "revolver-crouch",
+        "eyeBind": [
+          0.0308,
+          1.6708,
+          0.0876
+        ],
+        "eye": [
+          4.0281187532872424,
+          1.3934599505588814,
+          36.179700219374894
+        ],
+        "rear": [
+          4.0281187532872424,
+          1.40191740403374,
+          36.50390260257781
+        ],
+        "front": [
+          4.0281187532872424,
+          1.40791740403374,
+          36.73390260257781
+        ],
+        "error": 1.1038349588497084e-16,
+        "behind": 0.32431267905176003,
+        "origin": [
+          4.0281187532872424,
+          1.3284174040337402,
+          36.51390260257781
+        ],
+        "contacts": {
+          "R": 2.9488769783493647e-08,
+          "L": 5.2517663452502526e-08
+        }
+      },
+      {
+        "name": "revolver-up",
+        "eyeBind": [
+          0.0308,
+          1.6708,
+          0.0876
+        ],
+        "eye": [
+          4.028828494969709,
+          1.642736602540204,
+          36.084694832871854
+        ],
+        "rear": [
+          4.028828494969709,
+          1.756730768309757,
+          36.42180410758877
+        ],
+        "front": [
+          4.028828494969709,
+          1.8304324347766188,
+          36.63975837884769
+        ],
+        "error": 2.222006751886933e-15,
+        "behind": 0.35586139567205277,
+        "origin": [
+          4.028828494969709,
+          1.6894687384256384,
+          36.453078207669634
+        ],
+        "contacts": {
+          "R": 6.55364519429833e-08,
+          "L": 2.068336260637501e-08
+        }
+      },
+      {
+        "name": "revolver-down",
+        "eyeBind": [
+          0.0308,
+          1.6708,
+          0.0876
+        ],
+        "eye": [
+          4.0282623180574735,
+          1.5919254068895072,
+          36.10688080293238
+        ],
+        "rear": [
+          4.0282623180574735,
+          1.4815662602736859,
+          36.499643320111986
+        ],
+        "front": [
+          4.0282623180574735,
+          1.4193286316763314,
+          36.721143833850846
+        ],
+        "error": 1.2685846686484803e-15,
+        "behind": 0.4079724698347083,
+        "origin": [
+          4.0282623180574735,
+          1.4083938262563405,
+          36.487475949813636
+        ],
+        "contacts": {
+          "R": 5.898900946679228e-08,
+          "L": 4.121483125418215e-08
+        }
+      }
+    ],
+    "nativeStorage": false,
+    "physicalGpu": false,
+    "comparisonOnly": false,
+    "note": "Actual eye-mesh bounds, production-renderer palette and visible sight top surfaces. Prepared camera/time; no optical physics, first-person aim or full anatomical acceptance."
+  },
+  "note": "Identical full viewports, camera/light/time. No character retouching. Prepared simulation, not FPS."
+}
