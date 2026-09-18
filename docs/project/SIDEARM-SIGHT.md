@@ -24,7 +24,7 @@ El criterio visual de neutral es <3 mm de separación entre la línea y el ojo m
 
 `tests/sidearm-sight.test.cjs` añade doce pruebas: alineación, referencias, matriz, transformaciones, geometría rígida, datos intactos, continuidad, retroceso y locomoción con MotionTracker. `tools/qa/sidearm_sight.js` no se empaqueta en el juego.
 
-`tests/sidearm_sight_browser.py` utiliza el renderer real y su paleta DQ, con cámaras/tiempo preparados y almacenamiento de prueba. Produce quince capturas y 24 comprobaciones. Se ejecuta mediante `python3 -m tools.qa.run --suite sight`. No es la prueba nativa de persistencia ni un benchmark de GPU física.
+`tests/sidearm_sight_browser.py` utiliza el renderer real y su paleta DQ, con cámaras/tiempo preparados y almacenamiento de prueba. Produce veinte capturas y 26 comprobaciones. Se ejecuta mediante `python3 -m tools.qa.run --suite sight`. No es la prueba nativa de persistencia ni un benchmark de GPU física.
 
 Comparación y parámetros en [qa/sidearm-sight](../../qa/sidearm-sight/README.md). Los resultados efectivos de cada commit están en Actions y los artefactos nuevos del harness. No atribuir una ejecución antigua al parche final.
 
@@ -33,3 +33,13 @@ Comparación y parámetros en [qa/sidearm-sight](../../qa/sidearm-sight/README.m
 La referencia es el centro de la malla ocular, no la pupila móvil ni óptica física. No se añade seguimiento ocular, primera persona o inclinación nueva de cabeza. El modelo humano sigue estilizado, y su piel/prendas no se remodelan. No se certifica toda la autocolisión o los tránsitos de cada triángulo. Alineación de armas largas, superficies mixtas restantes y revisión artística conservan sus tareas en #5/#6.
 
 El punto de emisión dibujado cambia junto al objeto y el sistema de disparo existente lo consulta. Las comprobaciones de oclusión desde la cámara y desde el arma, consumo de munición y daño deben seguir pasando. La versión de producto no es la del esquema de datos. Sin cambios en claves de guardado, cámara de juego, permisos, Pages, licencia o librerías externas.
+
+## Revisión del primer intervalo al equipar (18 de septiembre)
+
+La prueba temporal anterior empezaba después del primer paso y no comparaba con el fotograma inicial. Una nueva regresión que conserva ese fotograma detectó 76.70 mm de desplazamiento en un único paso de 1/60 al equipar y apuntar simultáneamente. No era un fallo de anclas ni de malla: la elevación de apuntado avanzaba antes que la preparación visual del equipo.
+
+En armas cortas, el montaje mezcla la solicitud de apuntado con el cuadrado de su preparación. Esta preparación tiene una respuesta más gradual (coeficiente 6 en lugar de 11); no afecta las otras familias. No se añade estado persistente o una interpolación independiente para cada mano. El primer candidato, sin reducir la rapidez de preparación, sólo desplazaba el máximo a 43.04 mm en otro intervalo y se rechazó.
+
+El nuevo límite de revisión es <35 mm por paso de 1/60, incluyendo el primero. La versión corregida registra 26.21 mm en el caso neutral y cumple la matriz moderada de cuello/agachado/elevación. A un segundo la postura ya supera 99% de apuntado visual. Son medidas del montaje del avatar en escenas controladas, no velocidades biomecánicas prescritas o FPS reales.
+
+`tests/sidearm-draw-onset.test.cjs` añade cuatro casos de regresión, incluidos alcance, tiempo de preparación, disparo inmediato, contabilidad de munición, inmutabilidad de datos y familias no afectadas. La suite gráfica agrega dos comprobaciones y cinco capturas durante los primeros sesenta pasos. Mantiene las pruebas y tolerancias anteriores. La cámara y los inputs continúan respondiendo inmediatamente; el sistema de disparo sigue consultando la boca del modelo en su posición visual actual.

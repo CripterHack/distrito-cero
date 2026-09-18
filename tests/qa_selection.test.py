@@ -33,6 +33,6 @@ class SelectionTests(unittest.TestCase):
         self.assertEqual(select_suites(['release'],'http')[0].expected_checks,14)
         with self.assertRaises(ValueError):select_suites(['release'],'fixture')
     def test_sight_alignment_is_a_graphical_not_native_contract(self):
-        self.assertEqual(select_suites(['sight'],'fixture')[0].expected_checks,24)
+        self.assertEqual(select_suites(['sight'],'fixture')[0].expected_checks,26)
         with self.assertRaises(ValueError):select_suites(['sight'],'http')
 if __name__=='__main__':unittest.main()

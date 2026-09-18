@@ -22,3 +22,7 @@ Referencias exclusivamente visuales del juego. No óptica física, cambio de rig
 La primera mezcla desactivaba la alineación al disparar y hacía bajar 44.53 mm la boca del objeto. Se reemplazó por proyección sobre el marco sin retroceso y rotación del impulso alrededor del agarre, con test específico.
 
 La base de equipamiento ya movía el montaje 63.85 mm por paso de 1/60. El nuevo gate separa movimiento total heredado (<75 mm), corrección nueva (<15 mm) y recarga (<30 mm). No se alteran pruebas antiguas ni se oculta esa diferencia. El correctivo se aplica antes del límite de alcance.
+
+## Cierre de revisión: incluir el fotograma inicial
+
+Antes de integrar #22, comprobar la transición desde el montaje que ya está visible antes del primer paso. El caso añadido reprodujo 76.70 mm y exige <35 mm/intervalo a 1/60, junto a preparación >99% en un segundo, alcance de manos y disparo sin demora. La corrección sólo mezcla apuntado con preparación visual para armas cortas y ralentiza su preparación. Cuatro tests Node y dos comprobaciones del renderer complementan, sin reemplazar, la matriz anterior.

@@ -141,7 +141,7 @@
   if(!h||h.item!==e.selected)h=beginEquip(sim);
   if(h.serial!==(e.shotSerial||0)){h.serial=e.shotSerial||0;h.velocity=Math.min(65,h.velocity+(fam==='heavy'?40:fam==='sidearm'?37:31));}
   [h.kick,h.velocity]=spring(h.kick,h.velocity,omega,dt);
-  h.ready=D.damp(h.ready,1,11,dt);
+  h.ready=D.damp(h.ready,1,fam==='sidearm'?6:11,dt);
   const trigger=!e.reloading&&(e.trigger||e.recoil>.72)?1:0;h.triggerWeight=D.damp(h.triggerWeight||0,trigger,trigger?40:22,dt);
   const yaw=sim.player.yaw||0,pitch=e.pitch||0,dy=D.wrap(yaw-(h.lastYaw??yaw)),dp=pitch-(h.lastPitch??pitch);
   if(Math.abs(dy)>1.2||Math.abs(dp)>1){h.lagYaw=h.lagPitch=h.velYaw=h.velPitch=0;}
@@ -156,9 +156,12 @@
   bodyLean:m.aim*.020-m.kick*.022,lookYaw:-(m.braceWeight||0)*.235,lookPitch:-(e.pitch||0)*.50+m.aim*.025};}
  function mount(sim,actorOverride=null){
   const p=actorOverride||sim.player,e=sim.equipment,w=D.Equipment.get(e.selected)||D.Equipment.get('unarmed'),spec=profile(w.id),family=spec.family;
-  const aim=clamp(e.aimWeight||0,0,1),time=sim.time||0,speed=clamp(p.motion?.speed??p.moveSpeed??0,0,6),phase=p.motion?.phase??p.walk??0;
+  const requestedAim=clamp(e.aimWeight||0,0,1),time=sim.time||0,speed=clamp(p.motion?.speed??p.moveSpeed??0,0,6),phase=p.motion?.phase??p.walk??0;
   const state=e.handling?.item&&e.handling.item!==w.id?null:e.handling;
   const kick=clamp(state?.kick??(e.recoil||0)*.45,0,1.3),ready=clamp(state?.ready??1,0,1);
+  // A sidearm cannot reach its aim pose ahead of its draw presentation. The
+  // squared readiness starts gently without delaying input, firing or camera.
+  const aim=family==='sidearm'?requestedAim*ready*ready:requestedAim;
   const t=e.reloading>0&&w.reload?clamp(1-e.reloading/w.reload,0,1):0;
   const reload=sm(0,.16,t)*(1-sm(.82,1,t)),contact=sm(.045,.24,t)*(1-sm(.84,1,t));
   const heavy=family==='heavy',optic=family==='optics',sidearm=family==='sidearm',melee=family==='melee',thrown=family==='throw',long=family==='long'||heavy;

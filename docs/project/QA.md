@@ -80,3 +80,5 @@ La suite `thenar` añade 15 comprobaciones gráficas y 11 capturas. `tests/thena
 ## Parche 0.20.1: referencia ocular
 
 La suite `sight` añade 24 comprobaciones de renderer, referencias oculares, alcance y transiciones, con almacenamiento fixture. `--suite all` en modo fixture incluye trece suites; modo HTTP conserva `release` y `native` sin mezclarlas. Las cifras de resultados deben leerse del run, no de esta lista. Ver [SIDEARM-SIGHT](SIDEARM-SIGHT.md).
+
+Revisión PR #22: `tests/sidearm-draw-onset.test.cjs` incluye el fotograma inicial; `sight` suma 26 comprobaciones por los dos casos nuevos de inicio/fin de preparación visual. Los informes anteriores de 24 siguen siendo históricos.

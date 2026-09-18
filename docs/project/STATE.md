@@ -2,7 +2,7 @@
 
 ## Versión activa del árbol: v0.20.1 · Coherencia
 
-Producto `0.20.1`, canal **prototype**, fecha declarada 2026-09-17. Identidad canónica en [version.json](../../version.json); hash y tamaño exactos del HTML en [build-info.json](../../build-info.json). Guía vigente en [v020](../v020/GUIA.md). La publicación de un commit se confirma en Actions y comparando Pages, no por la existencia de este documento.
+Producto `0.20.1`, canal **prototype**, fecha declarada 2026-09-18. Identidad canónica en [version.json](../../version.json); hash y tamaño exactos del HTML en [build-info.json](../../build-info.json). Guía vigente en [v020](../v020/GUIA.md). La publicación de un commit se confirma en Actions y comparando Pages, no por la existencia de este documento.
 
 GitHub Pages sigue configurado sobre master. No se cambia esa configuración, la licencia ni los esquemas de datos. Una pestaña abierta necesita recarga para ejecutar código nuevo, sin borrar datos del sitio.
 
@@ -12,14 +12,14 @@ GitHub Pages sigue configurado sobre master. No se cambia esa configuración, la
 | #3 · Guardados nativos | Cerrado por PR #9. Persistencia HTTP, reapertura y conflictos reales. |
 | #4 · Recuperación WebGL | Cerrado por PR #10. PR #17 protege generaciones retiradas. No garantiza que un driver no vuelva a reiniciarse. |
 | #5 · Personaje patrón | Benchmark #11 integrado. Aprobación artística y otros gates pendientes. |
-| #6 · Contactos/recargas | Mangas #12, óptica #13, falanges #15, oposición #16 y ambas manos #18. Esta entrega añade contorno palma/pulgar. Alineación ojo/mira y fases intermedias pendientes. |
+| #6 · Contactos/recargas | Mangas #12, óptica #13, falanges #15, oposición #16 y ambas manos #18. Contorno palma/pulgar #20 y alineación de armas cortas en #22. Armas largas y otras fases intermedias pendientes. |
 | #7 · Vertical slice | Pendiente de escena, recorrido íntegro y evaluación de juego/hardware. |
 | #19 · Publicación v0.20 | Cerrado tras PR #20, CI de master y comprobación de Pages y guardados. |
 | #21 · Mira de armas cortas | Unidad actual: ojo articulado y montaje de pistola/revólver. Validar PR, CI y publicación. |
 
 ## Parche 0.20.1
 
-Alineación de pistola/revólver con la referencia ocular del avatar y retroceso que no abandona bruscamente esa referencia. Sin cambios en malla, pesos, rig, equipo relativo a las manos ni formatos. [Detalle y límites](SIDEARM-SIGHT.md). Cierra sólo su unidad #21 después de verificación; #5/#6/#7 siguen pendientes.
+Alineación de pistola/revólver con la referencia ocular del avatar y retroceso que no abandona bruscamente esa referencia. Preparación visual de equipamiento gradual, incluyendo el primer intervalo de la animación. Sin cambios en malla, pesos, rig, equipo relativo a las manos ni formatos. [Detalle y límites](SIDEARM-SIGHT.md). Cierra sólo su unidad #21 después de verificación; #5/#6/#7 siguen pendientes.
 
 ## Base consolidada 0.20.0
 

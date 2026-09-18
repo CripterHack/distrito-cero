@@ -26,6 +26,14 @@ try:
   p.evaluate('''()=>{const a=DC_APP,s=a.sim,r=a.renderer;DC_MANUAL_FRAMES.start(a);s.free=true;s.wanted=s.heat=0;s.peds.forEach(n=>n.hidden=true);s.cars.forEach(c=>Object.assign(c,{x:5000,z:5000,driver:null}));s.dynamics.props=[];Object.assign(s.player,{x:4,z:36,y:0,yaw:0,vy:0,vx:0,vz:0,car:null,moveSpeed:0,walk:0});r.rain=r.bloom=0;r.daylight=.67;r.previewStudio=false;r.fovOverride=.62;r.lightTime=-1;
    const draw=r.drawEquipment;r.drawEquipment=function(s,m,e){window.qaSightMount=m;return draw.call(this,s,m,e);};window.sightStoreBefore=JSON.stringify([...qaSightStore]);}''')
   css=p.add_style_tag(content='body>*:not(#world){visibility:hidden!important}#world{visibility:visible!important;position:fixed!important;inset:0!important;width:100vw!important;height:100vh!important}')
+  # Include frame zero: the previous temporal check began after the first step.
+  p.evaluate('''()=>{const a=DC_APP,s=a.sim,r=a.renderer;s.equipWeapon('pistol');DC.WeaponHandling.beginEquip(s);s.equipment.aimWeight=0;s.equipment.reloading=0;s.equipment.pitch=0;s.time=1.25;r.motionTracker.clear();r.motionScene=s;r.camera.target=[4.015,1.40,36.25];r.camera.eye=[5.6,1.54,36.9];DC_MANUAL_FRAMES.draw(a);window.drawPrevious=qaSightMount.origin;window.drawMaxStep=0;window.drawAmmo=s.equipment.ammo.pistol.loaded;}''')
+  p.screenshot(path=str(O/'draw-00.png'))
+  for frame in range(60):
+   p.evaluate('''()=>{const a=DC_APP,s=a.sim;s.time+=1/60;s.equipmentStep(1/60,{aim:true});DC_MANUAL_FRAMES.draw(a);const now=qaSightMount.origin;drawMaxStep=Math.max(drawMaxStep,Math.hypot(...now.map((v,i)=>v-drawPrevious[i])));drawPrevious=now;}''')
+   if frame in [5,17,35,59]:p.screenshot(path=str(O/f'draw-{frame+1:02}.png'))
+  ck('Drawing into aim bounds the first and every rendered 60 Hz interval',p.evaluate('drawMaxStep<.035'))
+  ck('Draw settles within one second without spending ammunition',p.evaluate('qaSightMount.aim>.99&&DC_SIDEARM_SIGHT_QA.inspect(DC_APP.sim).error<.003&&DC_APP.sim.equipment.ammo.pistol.loaded===drawAmmo'))
   for item in ['pistol','revolver']:
    for pose in ['neutral','crouch','up','down']:
     v=p.evaluate('''c=>{const a=DC_APP,s=a.sim,r=a.renderer;s.equipWeapon(c.item);DC.WeaponHandling.beginEquip(s);s.equipment.handling.ready=1;s.equipment.handling.kick=0;s.time=1.25;s.player.crouch=c.pose==='crouch'?1:0;s.appearance.neckLength=c.pose==='up'?1:c.pose==='down'?-1:0;s.equipment.aimWeight=1;s.equipment.pitch=c.pose==='up'?.3:c.pose==='down'?-.3:0;s.equipment.reloading=0;r.motionTracker.clear();r.motionScene=s;
