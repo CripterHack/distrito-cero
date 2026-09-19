@@ -1,10 +1,13 @@
 """Negative controls for the observations made by the real HTTP reload suite."""
 import copy
+import json
+import tempfile
 import sys
 import unittest
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from tools.qa.reload_contract import pause_errors, completion_errors
+from tools.qa.reload_progress import write_progress
 
 
 def sample():
@@ -90,5 +93,46 @@ class ReloadContractTests(unittest.TestCase):
     def test_nonfinite_clock_is_never_accepted(self):
         a=sample();b=finished();b['time']=float('nan')
         self.assertTrue(completion_errors(a,b,30))
+
+class ReloadProgressTests(unittest.TestCase):
+    def test_partial_journal_never_claims_a_completed_run(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path=Path(tmp)/'reload.progress.json'
+            write_progress(path, {'status':'passed','finishedUtc':'not-a-completed-run',
+                                  'checks':[{'pass':True}], 'expectedChecks':31,
+                                  'sha256':'canonical-html','nativeStorage':True})
+            saved=json.loads(path.read_text())
+            self.assertEqual(saved['status'],'in_progress')
+            self.assertEqual(saved['completedChecks'],1)
+            self.assertEqual(saved['expectedChecks'],31)
+            self.assertEqual(saved['sha256'],'canonical-html')
+            self.assertTrue(saved['nativeStorage'])
+            self.assertNotIn('finishedUtc',saved)
+
+    def test_progress_cannot_overwrite_the_canonical_runner_report(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path=Path(tmp)/'reload.json'
+            with self.assertRaises(ValueError):write_progress(path, {'checks':[]})
+            self.assertFalse(path.exists())
+
+    def test_checkpoint_keeps_the_latest_observations_without_duplicates(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path=Path(tmp)/'reload.progress.json'
+            write_progress(path, {'checks':[{'pass':True}], 'cases':[{'name':'one'}]})
+            write_progress(path, {'checks':[{'pass':True},{'pass':False}],
+                                  'cases':[{'name':'one'},{'name':'two'}], 'errors':['failure retained']})
+            saved=json.loads(path.read_text())
+            self.assertEqual(saved['completedChecks'],2)
+            self.assertEqual(len(saved['cases']),2)
+            self.assertFalse(saved['checks'][1]['pass'])
+            self.assertEqual(saved['errors'],['failure retained'])
+            self.assertFalse(list(Path(tmp).glob('*.tmp')))
+
+    def test_progress_writer_does_not_mutate_its_observations(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            source={'checks':[{'pass':True}], 'cases':[{'ammo':{'loaded':3}}]}
+            before=copy.deepcopy(source)
+            write_progress(Path(tmp)/'reload.progress.json',source)
+            self.assertEqual(source,before)
 
 if __name__=='__main__':unittest.main()

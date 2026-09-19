@@ -12,6 +12,7 @@ from native_support import game_origin
 R = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(R))
 from tools.qa.reload_contract import pause_errors, completion_errors
+from tools.qa.reload_progress import write_progress
 
 O = R / 'qa/v020/reload'
 O.mkdir(parents=True, exist_ok=True)
@@ -60,6 +61,15 @@ def ck(name, faults):
     """One fixed-contract check per scenario; retain detailed failure evidence."""
     checks.append({'name': name, 'pass': not faults, 'failures': faults})
     print(('FAIL ' if faults else 'PASS ') + name, flush=True)
+    # A killed producer cannot execute finally. Preserve its completed cases in
+    # a separate journal, never the canonical report required for acceptance.
+    write_progress(O.parent / 'reload.progress.json', {
+        'sha256': expected['htmlSha256'], 'runId': os.environ.get('DC_QA_RUN_ID'),
+        'expectedChecks': 31, 'checks': checks, 'cases': cases, 'captures': captures,
+        'errors': errors, 'requests': requests, 'physicalGpu': False,
+        'nativePersistence': False, 'preparedWorld': True, 'preparedTimers': True,
+        'clockMode': 'production RAF and simulation',
+        'observedUtc': datetime.now(timezone.utc).isoformat(), **info})
     assert not faults, name + ': ' + ', '.join(faults)
 
 
