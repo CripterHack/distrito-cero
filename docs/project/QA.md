@@ -73,12 +73,23 @@ La suite `thenar` añade 15 comprobaciones gráficas y 11 capturas. `tests/thena
 
 `python3 build.py --check` verifica HTML y `build-info.json` sin escribir. `python3 tests/release_build.test.py` prueba identidad, build reproducible, cambios de fuentes, metadatos, plantillas inválidas y comprobación no mutante.
 
-`python3 -m tools.qa.run --suite release --origin http` ejecuta 14 comprobaciones de versión visible/inmutable, huella, importación del JSON sintético v0.19, exportación y reapertura real. Usa almacenamiento nativo. `--suite all --origin http` incluye release y native. La evidencia nueva de versión se escribe en `qa/v020/` de una copia aislada. Las suites anteriores conservan sus rutas dentro de copias efímeras con hash actual.
+`python3 -m tools.qa.run --suite release --origin http` ejecuta 14 comprobaciones de versión visible/inmutable, huella, importación del JSON sintético v0.19, exportación y reapertura real. Usa almacenamiento nativo. `--suite all --origin http` incluye release, native y reload. La evidencia nueva de versión se escribe en `qa/v020/` de una copia aislada. Las suites anteriores conservan sus rutas dentro de copias efímeras con hash actual.
 
 `thenar` aporta 15 comprobaciones gráficas/11 capturas, nueve tests Node y ocho Python de autoría. No elimina requisitos de palmas, falanges, oposición, ambas manos o recuperación. La procedencia del JSON antiguo está en `tests/fixtures/v019-slot-provenance.json`. No contiene datos personales.
 
 ## Parche 0.20.1: referencia ocular
 
-La suite `sight` añade 24 comprobaciones de renderer, referencias oculares, alcance y transiciones, con almacenamiento fixture. `--suite all` en modo fixture incluye trece suites; modo HTTP conserva `release` y `native` sin mezclarlas. Las cifras de resultados deben leerse del run, no de esta lista. Ver [SIDEARM-SIGHT](SIDEARM-SIGHT.md).
+La suite `sight` añade 24 comprobaciones de renderer, referencias oculares, alcance y transiciones, con almacenamiento fixture. `--suite all` en modo fixture incluye trece suites; modo HTTP conserva `release`, `native` y `reload` sin mezclarlas. Las cifras de resultados deben leerse del run, no de esta lista. Ver [SIDEARM-SIGHT](SIDEARM-SIGHT.md).
 
 Revisión PR #22: `tests/sidearm-draw-onset.test.cjs` incluye el fotograma inicial; `sight` suma 26 comprobaciones por los dos casos nuevos de inicio/fin de preparación visual. Los informes anteriores de 24 siguen siendo históricos.
+
+
+## Recargas, pausa e inputs de navegador · #25
+
+`xvfb-run -a python3 -m tools.qa.run --suite reload --origin http --headed --timeout 900` ejecuta el [plan nativo](../../specs/003-weapon-contact/plan-native-reload.md). El contrato exige 31 checks: hash y Storage nativo, 21 checkpoints de rifle/revólver/escopeta, tres recargas por teclado con entrada retenida/nueva, dos cambios de equipo, cancelación Gauss, catálogo intacto y ausencia de errores/peticiones. Esta cifra describe cobertura requerida, no un resultado anticipado.
+
+Se preparan mundo y temporizadores estando en pausa. Durante la observación se mantienen el RAF, el contador de frames, la simulación, los handlers UI, el renderer y Web Storage de producción. Los observadores de piezas y eventos sólo registran y delegan. La congelación debe coexistir con frames vivos y la reanudación debe transferir munición exactamente una vez. Los snapshots incluyen munición de todos los equipos y multiplicidad de piezas dibujadas.
+
+`python3 tests/reload_contract.test.py` comprueba el validador con doce tests y controles negativos de reloj detenido, tiempo adelantado, inputs reactivados, piezas duplicadas, finalización repetida y munición incorrecta. `tests/qa_selection.test.py` impide ejecutar `reload` como fixture. La CI no retira las suites previas ni cambia permisos.
+
+El informe nuevo es `reload.json`, con capturas y datos en `evidence/v020/reload/` del directorio de artefactos. No certifica persistencia tras reinicio (esa función sigue en `native`/`release`), Pointer Lock, inputs físicos, recorrido completo, autocolisión, calidad artística o GPU física. La ejecución HTTP local de esta unidad fue bloqueada con `ERR_BLOCKED_BY_ADMINISTRATOR`, sin sustituirla por HTML inyectado. Exigir el resultado y artefacto de GitHub Actions del HEAD exacto antes de integrar.
