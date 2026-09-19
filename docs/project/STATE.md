@@ -17,7 +17,8 @@ GitHub Pages sigue configurado sobre master. No se cambia esa configuración, la
 | #19 · Publicación v0.20 | Cerrado tras PR #20, CI de master y comprobación de Pages y guardados. |
 | #21 · Mira de armas cortas | Cerrada. PR #22 integrado por squash en `3629d18`; verificación registrada en la issue. |
 | #23 · Cancelación por fases | Cerrada mediante PR #24, integrado en `61410a0`. CI del push y Pages aprobados. No cierra #6. |
-| #25 · Recargas en navegador | Nueva suite HTTP de reloj/selector/inputs de producción. Resultado y merge deben verificarse en su PR; no inferirlos de este documento. |
+| #25 · Recargas en navegador | Cerrada mediante PR #26, integrado en `fecf117`. CI, benchmark y Pages posteriores aprobados. No cierra #6. |
+| #27 · Auditor cooperativo | Mediciones conjuntas de ojo, culata, palmas y longitudes en cuatro familias. Auditor QA, no corrección visual. Ver su PR para CI e integración. |
 
 ## Parche 0.20.1
 
@@ -33,11 +34,19 @@ PR #24 se integró en `61410a029c73e0f1efc91dc76a4ccaddbca5c38e`. La CI posterio
 
 No cambia código de producción, versión, HTML, assets o reglas. Cancelar inputs conserva una recarga pendiente. Cambiar de equipo la descarta. La restauración descarta acciones transitorias y la UI es propietaria de cancelar inputs al reanudar. El setMode mínimo del test no certifica el reloj pausado del navegador ni sus eventos físicos.
 
-## Unidad de navegador #25
+## Unidad de navegador #25 · integrada
 
-[Plan y límites](../../specs/003-weapon-contact/plan-native-reload.md). Añade el contrato HTTP `reload` con 31 checks exigidos y doce tests Python del validador. Conserva los sistemas y bytes del producto 0.20.1. Prepara tres familias y siete checkpoints de recarga, pero no sustituye el bucle real ni el almacenamiento. La navegación local fue bloqueada por política del laboratorio; la aprobación nativa exige CI del HEAD exacto. Ver resultados en la issue #25 y su PR, no deducir que pasan por estar implementados.
+[Plan y límites](../../specs/003-weapon-contact/plan-native-reload.md). PR #26 integrado en `fecf117385941dabd4e22f13c04d45d4032fb042` tras la CI del HEAD revisado. Añade `reload` con 31 checks/27 escenarios y 16 tests Python de contrato/diario. Conserva el producto 0.20.1. Prepara escenas y temporizadores, pero no sustituye el bucle ni Storage. La evidencia HTTP procede de Actions, no del intento local bloqueado.
+
+La CI de master [35428128166](https://github.com/CripterHack/distrito-cero/actions/runs/35428128166), el benchmark [35428128169](https://github.com/CripterHack/distrito-cero/actions/runs/35428128169) y Pages [35428127755](https://github.com/CripterHack/distrito-cero/actions/runs/35428127755) terminaron `success`. Sus resultados se consultaron al iniciar #27, separados de la CI previa del PR.
 
 El primer run de #26 (`35425812835`, HEAD `7bf024e`) pasó `release`/`native` (49 checks), pero `reload` alcanzó el límite de 900 s después de 27/31 checks correctos. Ese resultado sigue fallido. La revisión amplía el presupuesto a 1,800 s, preserva un diario parcial separado y añade cuatro pruebas del diario. No cambia las aserciones de aceptación. [Diagnóstico y artefacto](QA.md#primer-run-http-de-26-presupuesto-insuficiente).
+
+## Unidad de diagnóstico #27
+
+[Auditor, resultados y límites](LONGARM-CONTACT.md), [plan](../../specs/003-weapon-contact/plan-longarm-audit.md). Se implementó un observador QA que consume la paleta y el montaje dibujados, comprueba las referencias geométricas por familia y registra ojos, culata, palmas y longitudes entre articulaciones independientes. Los 24 checks verifican la integridad del auditor, **no aprueban CONTACT-03**.
+
+La ejecución gráfica local produjo 48 capturas, una matriz numérica de 72 poses y 240 muestras del ciclo. El desajuste ocular neutral sigue en 205.53–238.64 mm. La traslación aislada al ojo separaría la culata de la referencia del hombro entre 209.63 y 242.56 mm. Es un cálculo contrafactual, no una corrección renderizada. No se cambian `src/`, HTML, assets, versión o guardados. La siguiente unidad debe corregir la coordinación de la pose usando este auditor, no construir otra matriz equivalente.
 
 ## Base consolidada 0.20.0
 
@@ -55,7 +64,7 @@ El recurso humano tiene SHA-256 `522a9a24e2cc70857a3ec5c18bf9c2126c7b59d9ce8e4c5
 
 Los proxies gráficos no son autocolisión completa. Tiempo/cámara preparados no demuestran FPS. El benchmark smoke tiene 30 capturas/36 comprobaciones, la matriz completa requiere su propio informe. La prueba de versión importa por HTTP nativo un JSON sintético producido por el serializador de v0.19. Los guardados nativos se verifican por separado de los fixtures gráficos y de roundtrips unitarios.
 
-Los fallos históricos permanecen documentados en [ACTIONS-RECOVERY.md](ACTIONS-RECOVERY.md). Cada commit nuevo exige sus propias ejecuciones. Registrar los resultados definitivos de #25 en su issue y PR, con SHAs y límites, sin declarar aprobada una suite no ejecutada.
+Los fallos históricos permanecen documentados en [ACTIONS-RECOVERY.md](ACTIONS-RECOVERY.md). Cada commit nuevo exige sus propias ejecuciones. El cierre de #25 está registrado en #26. Los resultados e integración de #27 deben comprobarse en su PR con el HEAD exacto, sin atribuirle los runs anteriores.
 
 ## Historia preservada
 

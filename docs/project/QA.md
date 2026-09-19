@@ -79,7 +79,7 @@ La suite `thenar` añade 15 comprobaciones gráficas y 11 capturas. `tests/thena
 
 ## Parche 0.20.1: referencia ocular
 
-La suite `sight` añade 24 comprobaciones de renderer, referencias oculares, alcance y transiciones, con almacenamiento fixture. `--suite all` en modo fixture incluye trece suites; modo HTTP conserva `release`, `native` y `reload` sin mezclarlas. Las cifras de resultados deben leerse del run, no de esta lista. Ver [SIDEARM-SIGHT](SIDEARM-SIGHT.md).
+La suite `sight` añade 24 comprobaciones de renderer, referencias oculares, alcance y transiciones, con almacenamiento fixture. `--suite all` en modo fixture incluye catorce suites; modo HTTP conserva `release`, `native` y `reload` sin mezclarlas. Las cifras de resultados deben leerse del run, no de esta lista. Ver [SIDEARM-SIGHT](SIDEARM-SIGHT.md).
 
 Revisión PR #22: `tests/sidearm-draw-onset.test.cjs` incluye el fotograma inicial; `sight` suma 26 comprobaciones por los dos casos nuevos de inicio/fin de preparación visual. Los informes anteriores de 24 siguen siendo históricos.
 
@@ -102,3 +102,20 @@ La CI [35425812835](https://github.com/CripterHack/distrito-cero/actions/runs/35
 Se amplía el presupuesto de la suite a 1,800 s y el trabajo HTTP a 35 minutos. No cambian los 31 checks, temporizadores del juego, reglas, tolerancias, renderer, RAF, inputs o almacenamiento. El ajuste responde al tiempo observado de estos escenarios preparados, no es una corrección de gameplay ni una medición de GPU física.
 
 Cada check guarda además `reload.progress.json` de forma atómica con snapshots y fecha de observación. Es un diario **in_progress**, nunca el informe final `reload.json` que exige el runner. Cuatro tests adicionales rechazan sobrescribir el informe canónico, borrar fallos, duplicar observaciones o modificar sus datos. `tests/reload_contract.test.py` suma 16 pruebas: doce del contrato y cuatro del diario. La aceptación exige una ejecución nueva completa del HEAD revisado.
+
+
+## Auditor cooperativo de armas largas · #27
+
+```sh
+node --test tests/longarm-contact.test.cjs
+python3 tests/longarm_gallery.test.py
+xvfb-run -a python3 -m tools.qa.run --suite longarms --headed --timeout 600
+```
+
+`longarms` utiliza exclusivamente `--origin fixture`. Sus **24 checks** validan la medición y la captura, no la postura del juego. Produce 48 imágenes: cuatro poses, vista frontal y siete muestras del ciclo por cada familia. Registra además 72 poses numéricas de cuello/agachado/elevación y 60 pasos de simulación por familia. Sólo uno de cada diez pasos del ciclo se dibuja para la galería. No afirmar continuidad visual de cada fotograma.
+
+`tools/qa/longarm_contact.js` consume la paleta dibujada, valida el ojo derivado de la malla, las miras de cada familia y la cara posterior de la culata. Los extremos de cada segmento del brazo se obtienen de matrices distintas. Trece pruebas Node incluyen controles negativos de paleta incompleta/no finita, geometría ausente o de otra familia, estiramiento, falsa alineación ocular, contactos no finitos y no mutación. Cuatro pruebas Python protegen etiquetas, rutas de imágenes y la separación entre una ejecución válida y la aceptación artística.
+
+El informe canónico es `longarm-contact.json`. Galería, parámetros e imágenes se conservan bajo `evidence/v020/longarms/`, con `report.html` como entrada. El campo `screening.status` puede indicar `needs-coordination` aunque el proceso y los 24 checks aprueben. Es intencional: se ha medido válidamente un defecto pendiente. `artisticAcceptance` siempre es `false`. No usar este job para cerrar #6 ni presentar el contrafactual de traslación como una pose corregida.
+
+El primer intento local sin ventana no pudo crear WebGL2 y terminó fallido sin checks. Se conservó su informe y se utilizó el modo headed/Xvfb ya existente en CI, sin variar umbrales o runtime. La primera ejecución headed aprobó los 24 checks en 116.661 s. Las repeticiones tienen su propio manifiesto y resultado. Esto no es persistencia nativa, rendimiento físico ni aceptación de la superficie del hombro. [Contrato, hallazgos y siguiente paso](LONGARM-CONTACT.md).

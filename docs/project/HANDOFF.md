@@ -1,46 +1,44 @@
-# Handoff · v0.20.1 / recargas nativas de navegador
+# Handoff · v0.20.1 / auditor cooperativo CONTACT-03
 
-Base remota de esta unidad: `61410a029c73e0f1efc91dc76a4ccaddbca5c38e`, merge del PR #24. Producto **0.20.1 · Coherencia**, prototype. Leer [STATE](STATE.md), [QA](QA.md), [SPEC-003](../../specs/003-weapon-contact/spec.md) y [plan nativo #25](../../specs/003-weapon-contact/plan-native-reload.md).
+**Base remota:** `fecf117385941dabd4e22f13c04d45d4032fb042`, PR #26 integrado y #25 cerrada. Producto **0.20.1 · Coherencia**, canal prototype. Leer [STATE](STATE.md), [QA](QA.md), [hallazgos de armas largas](LONGARM-CONTACT.md) y [plan #27](../../specs/003-weapon-contact/plan-longarm-audit.md).
 
-## Integraciones comprobadas
+## Reanudación de la unidad anterior
 
-PR #22 se integró en `3629d18` y #24 en `61410a0`. #21/#23 están cerradas. La CI de master posterior a #24 [35423304841](https://github.com/CripterHack/distrito-cero/actions/runs/35423304841) y Pages [35423304003](https://github.com/CripterHack/distrito-cero/actions/runs/35423304003) terminaron aprobados. No convertir estos runs en evidencia del nuevo PR.
+La CI de master [35428128166](https://github.com/CripterHack/distrito-cero/actions/runs/35428128166), el benchmark [35428128169](https://github.com/CripterHack/distrito-cero/actions/runs/35428128169) y Pages [35428127755](https://github.com/CripterHack/distrito-cero/actions/runs/35428127755) terminaron `success`. Sus resultados se consultaron al iniciar #27, separados de la CI previa del PR.
 
-El HTML conserva SHA-256 `4a78bcca34cd40b2c406b0642362f30a6b71303d8a4a6ace659e0ba4afc9918d`, 8,862,957 bytes. Fuente `dfb16e65c1a64d991f2bedfbecf0892d69c8b2110e4be1403e31d7af739c4fdb`. Sin nueva versión, cambios de runtime, malla, pesos, rig, formatos, permisos o publicación. No borrar datos del sitio.
+La suite HTTP `reload` conserva sus 31 checks y 27 escenarios con RAF/inputs/Storage de producción. No repetir #25 ni tratarla como pendiente. El primer timeout de 900 s y el bloqueo HTTP local siguen documentados en el [plan nativo](../../specs/003-weapon-contact/plan-native-reload.md). La revisión posterior utilizó 1,800 s y un diario parcial que nunca sustituye al informe final.
 
-## Unidad #25
+## Unidad actual #27
 
-`tests/reload_browser.py` añade una suite HTTP con escenarios y temporizadores preparados, pero con RAF, simulación, UI, renderer y Storage nativos durante la observación. El contrato `reload` exige 31 checks y capturas. `tools/qa/reload_contract.py` valida pausa, finalización y cancelación. Doce tests Python contienen controles negativos; el runner impide mezclar esta suite con fixtures. La CI la incorpora al trabajo nativo sin retirar pruebas previas.
+Nuevo auditor QA de `smg`, `rifle`, `shotgun` y `sniper`. `tools/qa/longarm_contact.js` mide el ojo, eje de mira verificado contra geometría, culata visible, referencia articulada del hombro, palmas y longitudes entre articulaciones distintas. No usa la mira de pistola para armas largas. La escena del navegador consume la paleta realmente dibujada.
 
-`cancelEquipment` cancela inputs y conserva una recarga. `equipWeapon` con otro ID descarta esa recarga sin transferir munición. Los siete checkpoints de las tres familias complementan, no reemplazan, las 490 combinaciones Node de #23. Los casos por teclado retienen J al atravesar el selector y exigen un nuevo input para disparar. Las piezas se cuentan en la salida real del renderer, no por llamadas inventadas a `mount`.
+Contrato `longarms`: 24 checks de integridad, 48 capturas, matriz numérica de 72 poses y 240 muestras del ciclo. **No cambia ni aprueba la postura del juego.** `screening.status=needs-coordination` permanece visible aunque el proceso de medición apruebe. El desajuste neutral observado sigue entre 205.53 y 238.64 mm. Una traslación al ojo aumenta la separación de culata a 209.63–242.56 mm. El contrafactual es algebraico, no una corrección implementada.
 
-La ejecución local confirmó 471 Node y el build canónico. El primer intento HTTP fue bloqueado con `ERR_BLOCKED_BY_ADMINISTRATOR`; no se anuló la política ni se presentó HTML inyectado como prueba nativa. La copia local procede del artefacto Pages de master, su historia Git es un snapshot de trabajo y no se publica. La rama remota usa el SHA real.
+Trece pruebas Node y cuatro Python de galería añaden controles negativos. `qa_selection.test.py` exige origen fixture, nunca HTTP. La CI incorpora la suite sin retirar los checks anteriores. La ejecución local headless no ofreció WebGL2 y quedó fallida. La ejecución headed/Xvfb produjo la galería con 24/24 checks; cada repetición y la CI deben consultarse por su propio manifiesto. El PR asociado a #27 determina el resultado de integración, no la existencia de este archivo.
 
-## Puertas antes del merge
+## Qué se conserva
+
+HTML SHA-256 `4a78bcca34cd40b2c406b0642362f30a6b71303d8a4a6ace659e0ba4afc9918d`, 8,862,957 bytes. Fuente `dfb16e65c1a64d991f2bedfbecf0892d69c8b2110e4be1403e31d7af739c4fdb`. No hay cambios de runtime, mallas, rig, inventario, guardados, permisos o versión. No borrar datos del sitio.
+
+La copia local es el artefacto Pages del SHA canónico. Su historia Git de ejecución es sintética y no se publica. Los commits remotos parten del SHA real. Los resultados de fixture no se etiquetan como persistencia HTTP o rendimiento físico.
+
+## Puertas de verificación
 
 ```sh
-python3 tests/reload_contract.test.py
-python3 tests/qa_selection.test.py
-node --test tests/*.test.cjs
-python3 tools/refine_thenar.py --check
-python3 tools/rebind_garment.py --check
 python3 build.py --check
-python3 tests/release_build.test.py
-python3 tests/release_checkout.test.py
+node --test tests/*.test.cjs
+python3 tests/longarm_gallery.test.py
+python3 tests/qa_selection.test.py
+python3 tests/reload_contract.test.py
 python3 tools/export_contact.py
 python3 tests/contact_exports.test.py
-xvfb-run -a python3 -m tools.qa.run --suite reload --origin http --headed --timeout 1800
+xvfb-run -a python3 -m tools.qa.run --suite longarms --suite sight --suite handling --suite characters --headed
 ```
 
-Exigir CI aplicable del HEAD exacto, revisar diff y capturas y conservar cualquier fallo encontrado. Registrar resultados, SHAs y artefactos en la issue #25 y su PR. No afirmar que el navegador aprobó por tener tests escritos. No relajar umbrales ni cambiar el runtime para satisfacer un fixture defectuoso. El merge está autorizado únicamente tras gates aprobados. Después consultar el push de master y distinguirlo de la CI del PR.
+Ejecutar también autoría, build, runner y suites vigentes según [QA](QA.md). Exigir CI del HEAD exacto, revisión del diff y capturas antes del merge autorizado. El push posterior a master y Pages son verificaciones independientes. No publicar un snapshot local ni declarar artística una aprobación de checks.
 
-## Límites y continuidad
+## Siguiente acción concreta
 
-Esta suite usa una partida sintética y checkpoints preparados. No demuestra cada fotograma, entrada de hardware/Pointer Lock, persistencia tras reinicio, rendimiento de GPU física o una partida íntegra. #5/#6/#7 conservan sus gates generales.
+Tras integrar #27, no añadir otra auditoría equivalente. Reutilizar las referencias para una corrección acotada de rifle neutral que coordine cabeza, hombro, culata y alcance sin deformar cara o alargar brazos. El detalle está en [LONGARM-CONTACT](LONGARM-CONTACT.md#siguiente-unidad-sin-repetir-este-diagnóstico). Preservar recargas, continuidad, dedos, palmas, óptica y todos los formatos. La referencia del hombro no sustituye la revisión de la superficie real de la prenda.
 
-Tras integrar #25, la siguiente unidad de #6 es reproducir un caso de coordinación culata/hombro/ojo en armas largas con el benchmark existente, manteniendo alcance, contactos y continuidad. #5 necesita aprobación artística, materiales, pelo y variantes. #7 exige escena, recorrido real y playtest. No alargar brazos, deformar cara o ampliar contenido para ocultar requisitos pendientes.
-
-
-## Diagnóstico de CI de esta unidad
-
-El primer run #26 (`35425812835`, HEAD `7bf024e`) pasó los 49 checks HTTP previos. La suite nueva completó 27/31 y alcanzó 900 s, sin una aserción fallida en los casos completados. **Resultado fallido, no apto para merge.** El nuevo límite es 1,800 s y 35 minutos para el trabajo HTTP, sin retirar o relajar pruebas. Ahora se preserva un diario separado `reload.progress.json` aunque el proceso sea terminado. Cuatro regresiones nuevas protegen esa separación. Ver [QA](QA.md) y el plan para artefacto, tiempos y límites. Exigir CI nueva del HEAD revisado, no reutilizar el primer run.
+#5 necesita aprobación artística/materiales/variantes. #6 sigue pendiente de coordinación y revisión de superficies/movimiento. #7 necesita escena y recorrido íntegro sin teletransportes, además de playtest y GPU física. No cerrar esos gates por el éxito de la suite diagnóstica.
