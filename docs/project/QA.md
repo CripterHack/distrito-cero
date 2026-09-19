@@ -86,10 +86,19 @@ Revisión PR #22: `tests/sidearm-draw-onset.test.cjs` incluye el fotograma inici
 
 ## Recargas, pausa e inputs de navegador · #25
 
-`xvfb-run -a python3 -m tools.qa.run --suite reload --origin http --headed --timeout 900` ejecuta el [plan nativo](../../specs/003-weapon-contact/plan-native-reload.md). El contrato exige 31 checks: hash y Storage nativo, 21 checkpoints de rifle/revólver/escopeta, tres recargas por teclado con entrada retenida/nueva, dos cambios de equipo, cancelación Gauss, catálogo intacto y ausencia de errores/peticiones. Esta cifra describe cobertura requerida, no un resultado anticipado.
+`xvfb-run -a python3 -m tools.qa.run --suite reload --origin http --headed --timeout 1800` ejecuta el [plan nativo](../../specs/003-weapon-contact/plan-native-reload.md). El contrato exige 31 checks: hash y Storage nativo, 21 checkpoints de rifle/revólver/escopeta, tres recargas por teclado con entrada retenida/nueva, dos cambios de equipo, cancelación Gauss, catálogo intacto y ausencia de errores/peticiones. Esta cifra describe cobertura requerida, no un resultado anticipado.
 
 Se preparan mundo y temporizadores estando en pausa. Durante la observación se mantienen el RAF, el contador de frames, la simulación, los handlers UI, el renderer y Web Storage de producción. Los observadores de piezas y eventos sólo registran y delegan. La congelación debe coexistir con frames vivos y la reanudación debe transferir munición exactamente una vez. Los snapshots incluyen munición de todos los equipos y multiplicidad de piezas dibujadas.
 
 `python3 tests/reload_contract.test.py` comprueba el validador con doce tests y controles negativos de reloj detenido, tiempo adelantado, inputs reactivados, piezas duplicadas, finalización repetida y munición incorrecta. `tests/qa_selection.test.py` impide ejecutar `reload` como fixture. La CI no retira las suites previas ni cambia permisos.
 
 El informe nuevo es `reload.json`, con capturas y datos en `evidence/v020/reload/` del directorio de artefactos. No certifica persistencia tras reinicio (esa función sigue en `native`/`release`), Pointer Lock, inputs físicos, recorrido completo, autocolisión, calidad artística o GPU física. La ejecución HTTP local de esta unidad fue bloqueada con `ERR_BLOCKED_BY_ADMINISTRATOR`, sin sustituirla por HTML inyectado. Exigir el resultado y artefacto de GitHub Actions del HEAD exacto antes de integrar.
+
+
+## Primer run HTTP de #26: presupuesto insuficiente
+
+La CI [35425812835](https://github.com/CripterHack/distrito-cero/actions/runs/35425812835), HEAD `7bf024e`, aprobó `release` (14) y `native` (35). `reload` completó 27 de sus 31 checks sin una aserción fallida, pero el runner terminó el productor a los 900 s (`exitCode=124`). Las 25 capturas conservadas muestran avance secuencial de casos entre 06:11 y 06:24 UTC. No se declara aprobada esa ejecución ni se elimina su [artefacto fallido](https://github.com/CripterHack/distrito-cero/actions/runs/35425812835/artifacts/10579311131).
+
+Se amplía el presupuesto de la suite a 1,800 s y el trabajo HTTP a 35 minutos. No cambian los 31 checks, temporizadores del juego, reglas, tolerancias, renderer, RAF, inputs o almacenamiento. El ajuste responde al tiempo observado de estos escenarios preparados, no es una corrección de gameplay ni una medición de GPU física.
+
+Cada check guarda además `reload.progress.json` de forma atómica con snapshots y fecha de observación. Es un diario **in_progress**, nunca el informe final `reload.json` que exige el runner. Cuatro tests adicionales rechazan sobrescribir el informe canónico, borrar fallos, duplicar observaciones o modificar sus datos. `tests/reload_contract.test.py` suma 16 pruebas: doce del contrato y cuatro del diario. La aceptación exige una ejecución nueva completa del HEAD revisado.

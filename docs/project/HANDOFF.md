@@ -29,7 +29,7 @@ python3 tests/release_build.test.py
 python3 tests/release_checkout.test.py
 python3 tools/export_contact.py
 python3 tests/contact_exports.test.py
-xvfb-run -a python3 -m tools.qa.run --suite reload --origin http --headed --timeout 900
+xvfb-run -a python3 -m tools.qa.run --suite reload --origin http --headed --timeout 1800
 ```
 
 Exigir CI aplicable del HEAD exacto, revisar diff y capturas y conservar cualquier fallo encontrado. Registrar resultados, SHAs y artefactos en la issue #25 y su PR. No afirmar que el navegador aprobó por tener tests escritos. No relajar umbrales ni cambiar el runtime para satisfacer un fixture defectuoso. El merge está autorizado únicamente tras gates aprobados. Después consultar el push de master y distinguirlo de la CI del PR.
@@ -39,3 +39,8 @@ Exigir CI aplicable del HEAD exacto, revisar diff y capturas y conservar cualqui
 Esta suite usa una partida sintética y checkpoints preparados. No demuestra cada fotograma, entrada de hardware/Pointer Lock, persistencia tras reinicio, rendimiento de GPU física o una partida íntegra. #5/#6/#7 conservan sus gates generales.
 
 Tras integrar #25, la siguiente unidad de #6 es reproducir un caso de coordinación culata/hombro/ojo en armas largas con el benchmark existente, manteniendo alcance, contactos y continuidad. #5 necesita aprobación artística, materiales, pelo y variantes. #7 exige escena, recorrido real y playtest. No alargar brazos, deformar cara o ampliar contenido para ocultar requisitos pendientes.
+
+
+## Diagnóstico de CI de esta unidad
+
+El primer run #26 (`35425812835`, HEAD `7bf024e`) pasó los 49 checks HTTP previos. La suite nueva completó 27/31 y alcanzó 900 s, sin una aserción fallida en los casos completados. **Resultado fallido, no apto para merge.** El nuevo límite es 1,800 s y 35 minutos para el trabajo HTTP, sin retirar o relajar pruebas. Ahora se preserva un diario separado `reload.progress.json` aunque el proceso sea terminado. Cuatro regresiones nuevas protegen esa separación. Ver [QA](QA.md) y el plan para artefacto, tiempos y límites. Exigir CI nueva del HEAD revisado, no reutilizar el primer run.

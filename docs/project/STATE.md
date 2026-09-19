@@ -37,6 +37,8 @@ No cambia código de producción, versión, HTML, assets o reglas. Cancelar inpu
 
 [Plan y límites](../../specs/003-weapon-contact/plan-native-reload.md). Añade el contrato HTTP `reload` con 31 checks exigidos y doce tests Python del validador. Conserva los sistemas y bytes del producto 0.20.1. Prepara tres familias y siete checkpoints de recarga, pero no sustituye el bucle real ni el almacenamiento. La navegación local fue bloqueada por política del laboratorio; la aprobación nativa exige CI del HEAD exacto. Ver resultados en la issue #25 y su PR, no deducir que pasan por estar implementados.
 
+El primer run de #26 (`35425812835`, HEAD `7bf024e`) pasó `release`/`native` (49 checks), pero `reload` alcanzó el límite de 900 s después de 27/31 checks correctos. Ese resultado sigue fallido. La revisión amplía el presupuesto a 1,800 s, preserva un diario parcial separado y añade cuatro pruebas del diario. No cambia las aserciones de aceptación. [Diagnóstico y artefacto](QA.md#primer-run-http-de-26-presupuesto-insuficiente).
+
 ## Base consolidada 0.20.0
 
 Se recuperó el trabajo sin PR de `fix/006-palm-webbing` (`91ba765`) sobre `ef905ec`. La zona compartida entre palma y pulgar penetraba apoyos que las pruebas digitales no cubrían. El correctivo reduce suavemente hasta 4 mm de profundidad en 1,166 posiciones de piel. Mantiene el parche palmar medido, pesos, UV, topología, 49 huesos, uñas y otros buffers. [Detalle](THENAR-SURFACE.md).

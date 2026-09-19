@@ -51,3 +51,12 @@ Revertir únicamente el PR de esta unidad. El HTML y las partidas permanecen id�
 ## Estado y evidencia
 
 Implementación añadida, pendiente de verificar en navegador autorizado y CI del HEAD exacto. Doce tests del validador y once de selección pasan tras observar sus fallos iniciales. El primer intento HTTP local fue bloqueado con `ERR_BLOCKED_BY_ADMINISTRATOR`, sin reemplazarlo por un fixture. Base local comprobada: build idéntico y 471 tests Node aprobados. Copia de ejecución obtenida del artefacto Pages de `61410a0`, no un clon Git remoto. Los commits locales del snapshot no se publican. La integración usa una rama remota creada desde el SHA canónico.
+
+
+## Primer run HTTP de #26: presupuesto insuficiente
+
+La CI [35425812835](https://github.com/CripterHack/distrito-cero/actions/runs/35425812835), HEAD `7bf024e`, aprobó `release` (14) y `native` (35). `reload` completó 27 de sus 31 checks sin una aserción fallida, pero el runner terminó el productor a los 900 s (`exitCode=124`). Las 25 capturas conservadas muestran avance secuencial de casos entre 06:11 y 06:24 UTC. No se declara aprobada esa ejecución ni se elimina su [artefacto fallido](https://github.com/CripterHack/distrito-cero/actions/runs/35425812835/artifacts/10579311131).
+
+Se amplía el presupuesto de la suite a 1,800 s y el trabajo HTTP a 35 minutos. No cambian los 31 checks, temporizadores del juego, reglas, tolerancias, renderer, RAF, inputs o almacenamiento. El ajuste responde al tiempo observado de estos escenarios preparados, no es una corrección de gameplay ni una medición de GPU física.
+
+Cada check guarda además `reload.progress.json` de forma atómica con snapshots y fecha de observación. Es un diario **in_progress**, nunca el informe final `reload.json` que exige el runner. Cuatro tests adicionales rechazan sobrescribir el informe canónico, borrar fallos, duplicar observaciones o modificar sus datos. `tests/reload_contract.test.py` suma 16 pruebas: doce del contrato y cuatro del diario. La aceptación exige una ejecución nueva completa del HEAD revisado.
