@@ -53,3 +53,7 @@ Actualización parcial DC-009: correctivo de contorno palma/pulgar sobre PR #18,
 ## Unidad de publicación v0.20
 
 #19 controla versión canónica, construcción verificable y publicación. Integra el contorno recuperado de `91ba765` como avance de #6. #5/#6/#7 mantienen sus criterios pendientes. La identidad activa se consulta en `version.json`, no se infiere de evidencia histórica.
+
+## Unidad #21 de DC-009/010
+
+0.20.1 prepara la alineación ocular de pistola/revólver con contactos conservados. El alcance se verifica por PR/CI antes de integrar. No marca completas las armas largas, revisión artística, transiciones generales o vertical slice.

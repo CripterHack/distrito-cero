@@ -1,3 +1,9 @@
+# Actualización 0.20.1
+
+El inicio y Pausa muestran **v0.20.1 · Coherencia** cuando se ejecuta el HTML de este parche. Pistola/revólver elevan y centran el objeto respecto del ojo durante el apuntado, sin alterar los controles. Usar Tab para equipar, Z para apuntar, J para disparar y L para recargar. La corrección no añade primera persona ni cambia las armas largas.
+
+Los guardados del mismo origen siguen usando la misma clave. Recargar el sitio, sin borrar datos, permite ejecutar código nuevo tras su publicación. Exportar un respaldo sigue siendo prudente antes de cambiar de navegador u origen.
+
 # Distrito Cero v0.20 · Coherencia
 
 Versión de producto `0.20.0`, canal prototipo. Esta entrega consolida fiabilidad, contactos y la corrección de superficie palma/pulgar posterior a v0.19. No se anuncia fotorrealismo ni una beta terminada.

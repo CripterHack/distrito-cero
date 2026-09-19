@@ -13,6 +13,9 @@
  // Palm-side contact reference relative to the existing neutral wrist joint.
  // Mirrored X is the palm thickness. Negative Y runs from wrist into palm.
  const palmLandmark=k=>[k==='L'?.013:-.013,-.049,0];
+ // Visual landmarks of this avatar and its fictional game prop. QA samples
+ // their geometry independently. These are not physical optical parameters.
+ const SIDEARM_SIGHT={eye:[.0308,1.6708,.0876],rear:[0,.0735,-.01],front:[0,.0795,.22]};
  const PRIMARY={p:[.031,-.107,-.030],palm:[-1,0,0],fingers:[0,-.10,.994987]};
  const SUPPORT={p:[-.003,-.047,.224],palm:[0,1,0],fingers:[.84,0,.542586]};
  const profiles={
@@ -138,7 +141,7 @@
   if(!h||h.item!==e.selected)h=beginEquip(sim);
   if(h.serial!==(e.shotSerial||0)){h.serial=e.shotSerial||0;h.velocity=Math.min(65,h.velocity+(fam==='heavy'?40:fam==='sidearm'?37:31));}
   [h.kick,h.velocity]=spring(h.kick,h.velocity,omega,dt);
-  h.ready=D.damp(h.ready,1,11,dt);
+  h.ready=D.damp(h.ready,1,fam==='sidearm'?6:11,dt);
   const trigger=!e.reloading&&(e.trigger||e.recoil>.72)?1:0;h.triggerWeight=D.damp(h.triggerWeight||0,trigger,trigger?40:22,dt);
   const yaw=sim.player.yaw||0,pitch=e.pitch||0,dy=D.wrap(yaw-(h.lastYaw??yaw)),dp=pitch-(h.lastPitch??pitch);
   if(Math.abs(dy)>1.2||Math.abs(dp)>1){h.lagYaw=h.lagPitch=h.velYaw=h.velPitch=0;}
@@ -153,9 +156,12 @@
   bodyLean:m.aim*.020-m.kick*.022,lookYaw:-(m.braceWeight||0)*.235,lookPitch:-(e.pitch||0)*.50+m.aim*.025};}
  function mount(sim,actorOverride=null){
   const p=actorOverride||sim.player,e=sim.equipment,w=D.Equipment.get(e.selected)||D.Equipment.get('unarmed'),spec=profile(w.id),family=spec.family;
-  const aim=clamp(e.aimWeight||0,0,1),time=sim.time||0,speed=clamp(p.motion?.speed??p.moveSpeed??0,0,6),phase=p.motion?.phase??p.walk??0;
+  const requestedAim=clamp(e.aimWeight||0,0,1),time=sim.time||0,speed=clamp(p.motion?.speed??p.moveSpeed??0,0,6),phase=p.motion?.phase??p.walk??0;
   const state=e.handling?.item&&e.handling.item!==w.id?null:e.handling;
   const kick=clamp(state?.kick??(e.recoil||0)*.45,0,1.3),ready=clamp(state?.ready??1,0,1);
+  // A sidearm cannot reach its aim pose ahead of its draw presentation. The
+  // squared readiness starts gently without delaying input, firing or camera.
+  const aim=family==='sidearm'?requestedAim*ready*ready:requestedAim;
   const t=e.reloading>0&&w.reload?clamp(1-e.reloading/w.reload,0,1):0;
   const reload=sm(0,.16,t)*(1-sm(.82,1,t)),contact=sm(.045,.24,t)*(1-sm(.84,1,t));
   const heavy=family==='heavy',optic=family==='optics',sidearm=family==='sidearm',melee=family==='melee',thrown=family==='throw',long=family==='long'||heavy;
@@ -172,7 +178,8 @@
   const pitch=(optic?(e.pitch||0)*aim:melee?-.30+kick*.9:thrown?-.26+kick*1.2:lerp(-.34,e.pitch||0,aim))+kick*(heavy?.050:.035)-reload*.25-(1-ready)*.18+inertia.pitch;
   const roll=reload*(sidearm?-.22:-.14)+Math.sin(phase+.35)*.014*gait;
   const cy=Math.cos(yaw),sy=Math.sin(yaw),cx=Math.cos(-pitch),sx=Math.sin(-pitch),cz=Math.cos(roll),sz=Math.sin(roll);
-  function direction(q){const x=q[0],y=q[1]*cx-q[2]*sx,z=q[1]*sx+q[2]*cx,xx=x*cz-y*sz,yy=x*sz+y*cz;return[xx*cy+z*sy,yy,-xx*sy+z*cy];}
+  function oriented(q,a,b){const x=q[0],y=q[1]*a-q[2]*b,z=q[1]*b+q[2]*a,xx=x*cz-y*sz,yy=x*sz+y*cz;return[xx*cy+z*sy,yy,-xx*sy+z*cy];}
+  function direction(q){return oriented(q,cx,sx);}
   const c=Math.cos(p.yaw||0),s=Math.sin(p.yaw||0);
   let origin=[(p.x||0)+pos[0]*c+pos[2]*s,pos[1],(p.z||0)-pos[0]*s+pos[2]*c];
   // Derive the brace from the same procedural torso before its arm IK is solved.
@@ -183,6 +190,25 @@
    const bind=D.SkinRig?.bones[D.SkinRig.ids['upperArm'+k]]?.[2]||[k==='L'?-.2115:.2115,1.435,0];
    const q=posed?D.SkinRig.transform(posed.matrices.subarray(D.SkinRig.ids['upperArm'+k]*16,D.SkinRig.ids['upperArm'+k]*16+16),bind):bind;
    shoulders[k]=[(p.x||0)+q[0]*c+q[2]*s,q[1]+(posed?.rootY??((p.y||0)-(p.crouch||0)*.22)),(p.z||0)-q[0]*s+q[2]*c];
+  }
+  let sighting=null;
+  if(sidearm&&posed){
+   // Reuse the torso/head palette already evaluated for arm reach. Later arm
+   // IK does not move the eye. No extra pose evaluation or skeleton deformation.
+   const ref=SIDEARM_SIGHT,eyeBind=D.CharacterFit.point(ref.eye,neckDrop);
+   const ep=D.SkinRig.transform(posed.matrices.subarray(D.SkinRig.ids.head*16,D.SkinRig.ids.head*16+16),eyeBind);
+   const eye=[(p.x||0)+ep[0]*c+ep[2]*s,posed.rootY+ep[1],(p.z||0)-ep[0]*s+ep[2]*c];
+   // Align the quiet pose, then let the existing impulse rotate about the
+   // dominant grip. Disabling alignment on firing would yank the prop downward.
+   const quietPitch=pitch-kick*.035,qa=Math.cos(-quietPitch),qb=Math.sin(-quietPitch),quiet=q=>oriented(q,qa,qb);
+   const localAxis=D.normalize(sub(ref.front,ref.rear)),axis=quiet(localAxis),rear=add(origin,quiet(ref.rear));
+   const delta=sub(eye,rear),along=D.dot(delta,axis),offset=sub(delta,axis.map(v=>v*along)),length=Math.hypot(...offset);
+   const weight=sm(.12,.95,aim)*sm(.15,1,ready)*(1-reload);
+   const scale=weight*Math.min(1,.22/Math.max(length,1e-9));
+   const pivotDelta=sub(quiet(PRIMARY.p),direction(PRIMARY.p));
+   const correction=add(offset.map(v=>v*scale),pivotDelta.map(v=>v*weight));
+   origin=add(origin,correction);
+   sighting={eye,axis:direction(localAxis),weight,requested:length,applied:length*scale,correction,recoilAngle:kick*.035};
   }
   const stock=[0,-.012,-.238],shoulderTarget=add(shoulders.R,[.010*c+.024*s,-.040,-.010*s+.024*c]);
   if(long){const planted=sub(shoulderTarget,direction(stock));origin=mix(origin,planted,braceWeight);origin=add(origin,direction([0,0,-kick*.007*braceWeight]));}
@@ -264,9 +290,15 @@
    const x=direction(localRotate(role,[1,0,0])),y=direction(localRotate(role,[0,1,0])),z=direction(localRotate(role,[0,0,1]));
    return{origin:partPoint(role,[0,0,0]),roll:Math.asin(clamp(x[1],-1,1)),rx:Math.atan2(-z[1],y[1]),yaw:Math.atan2(-x[2],x[0])};
   }
+  if(sighting){
+   sighting.rear=point(...SIDEARM_SIGHT.rear);sighting.front=point(...SIDEARM_SIGHT.front);
+   const delta=sub(sighting.eye,sighting.rear),along=D.dot(delta,sighting.axis);
+   sighting.error=Math.hypot(...sub(delta,sighting.axis.map(v=>v*along)));
+   sighting.behind=-along;
+  }
   const brace=long?{weight:braceWeight,target:shoulderTarget,stock:point(...stock),error:Math.hypot(...sub(point(...stock),shoulderTarget))}:null;
   const reloadStage=!reload?'':t<.24?'Buscar agarre':t<.57?'Extraer':t<.82?'Insertar':t<.90?'Asentar':'Recuperar apoyo';
-  return{point,direction,partPoint,partTransform,yaw,pitch,roll,origin,hands,palmContacts,grips,fingerContacts,magazine,reloadContact:contact,reload,reloadStage,aim,kick,ready,family,inertia,brace,braceWeight,fitDistance,neckDrop,
+  return{point,direction,partPoint,partTransform,yaw,pitch,roll,origin,hands,palmContacts,grips,fingerContacts,magazine,reloadContact:contact,reload,reloadStage,aim,kick,ready,family,inertia,brace,braceWeight,fitDistance,neckDrop,sighting,
    phase:reload?'Recargar':optic?(aim>.5?'Observar':'Transportar'):kick>.12?(melee?'Golpear':thrown?'Lanzar':'Recuperar'):aim>.5?'Apuntar':'Guardia baja',
    muzzle:point(0,.012,w.length||.3),supportLocal:support?.p.slice()||null};
  }

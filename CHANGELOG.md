@@ -1,3 +1,11 @@
+# v0.20.1 · Coherencia · 2026-09-18
+
+Parche parcial de #6 / #21: pistola y revólver colocan su montaje según el ojo articulado durante el apuntado, conservando las superficies relativas de manos y objeto. El retroceso se aplica alrededor de la empuñadura sobre la referencia estable. Recarga/equipamiento liberan la alineación gradualmente. Los límites de alcance tienen prioridad en poses extremas. Sin cambios de malla, pesos, esquemas o reglas de munición. Armas largas y ópticas mantienen su postura anterior.
+
+La revisión final incluye el primer intervalo al equipar y apuntar: preparación visual gradual de armas cortas, sin retrasar el disparo o la transferencia de munición. En neutral, el máximo medido a 60 pasos/s pasa de 76.70 a 26.21 mm. Se añaden cuatro regresiones y dos comprobaciones del renderer.
+
+[Plan y alcance](specs/003-weapon-contact/plan-sidearm-sight.md). La aceptación requiere pruebas y CI del commit exacto, no esta nota.
+
 # v0.20 · Coherencia · 2026-09-16
 
 Versión de producto 0.20.0, prototipo. Fuente canónica en `version.json` e identificación coherente en inicio, pestaña, pausa y `build-info.json`. Construcción determinista con `--check` no mutante. No se cambian esquemas ni claves de guardado.

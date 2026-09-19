@@ -76,3 +76,9 @@ La suite `thenar` añade 15 comprobaciones gráficas y 11 capturas. `tests/thena
 `python3 -m tools.qa.run --suite release --origin http` ejecuta 14 comprobaciones de versión visible/inmutable, huella, importación del JSON sintético v0.19, exportación y reapertura real. Usa almacenamiento nativo. `--suite all --origin http` incluye release y native. La evidencia nueva de versión se escribe en `qa/v020/` de una copia aislada. Las suites anteriores conservan sus rutas dentro de copias efímeras con hash actual.
 
 `thenar` aporta 15 comprobaciones gráficas/11 capturas, nueve tests Node y ocho Python de autoría. No elimina requisitos de palmas, falanges, oposición, ambas manos o recuperación. La procedencia del JSON antiguo está en `tests/fixtures/v019-slot-provenance.json`. No contiene datos personales.
+
+## Parche 0.20.1: referencia ocular
+
+La suite `sight` añade 24 comprobaciones de renderer, referencias oculares, alcance y transiciones, con almacenamiento fixture. `--suite all` en modo fixture incluye trece suites; modo HTTP conserva `release` y `native` sin mezclarlas. Las cifras de resultados deben leerse del run, no de esta lista. Ver [SIDEARM-SIGHT](SIDEARM-SIGHT.md).
+
+Revisión PR #22: `tests/sidearm-draw-onset.test.cjs` incluye el fotograma inicial; `sight` suma 26 comprobaciones por los dos casos nuevos de inicio/fin de preparación visual. Los informes anteriores de 24 siguen siendo históricos.

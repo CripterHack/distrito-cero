@@ -1,38 +1,34 @@
-# Handoff · v0.20 Coherencia y superficie palma/pulgar
+# Handoff · v0.20.1 / referencia ocular de armas cortas
 
-Base publicada previa: `ef905ec`. Trabajo recuperado: `91ba765` de `fix/006-palm-webbing`, que había quedado sin PR. Versión activa del árbol: **v0.20 / 0.20.0**. Leer [STATE](STATE.md), [RELEASES](RELEASES.md) y [THENAR-SURFACE](THENAR-SURFACE.md).
+Base: `687ead2` (v0.20.0). Unidad actual: #21, PR #22 en revisión. Producto del árbol: **0.20.1 · Coherencia**, prototype. Leer [SIDEARM-SIGHT](SIDEARM-SIGHT.md), [STATE](STATE.md) y [plan](../../specs/003-weapon-contact/plan-sidearm-sight.md).
 
-## Unidad actual
+## Cambio actual
 
-Correctivo de contorno recuperado: máximo 4 mm en una zona de piel, sin cambiar pesos, rig, contactos o reglas. Las regresiones originales fallan sobre ef905ec y pasan con el recurso corregido. No repetir una modificación de pivotes para ocultar la superficie. Mantener apoyo palmar, dedos, pulgar y ambas manos.
+Pistola/revólver colocan el montaje según el ojo articulado usando la paleta ya evaluada. Alineación progresiva y retroceso sobre referencia quieta alrededor de la empuñadura. El alcance tiene prioridad. Sin cambios de malla/pesos/huesos, reglas o claves de guardado. Preservar mangas, dedos, pulgares, apoyo entre manos y contorno de v0.20.
 
-`version.json` define número, nombre, canal y fecha. El build genera etiquetas, `DC.BuildInfo` y `build-info.json`. No cambiar esquemas de guardados al aumentar versión de producto. `--check` no repara archivos. README, STATE, changelog y guía vigente deben mantenerse coherentes sin reescribir informes históricos.
+Dos pruebas originales de mira fallaron en la base. Un candidato de retroceso hacía bajar el objeto y fue descartado con una regresión. Se añaden doce tests Node y suite `sight` de 26 checks, con pruebas gráficas separadas de las HTTP nativas. No confundir la postura heredada de equipar con el coste temporal del nuevo correctivo.
 
-## Verificación
+## Puertas antes de integrar
 
 ```sh
 python3 tools/refine_thenar.py --check
-python3 tests/thenar_contour.test.py
 python3 tools/rebind_garment.py --check
-python3 tests/garment_binding.test.py
 python3 build.py --check
 python3 tests/release_build.test.py
 python3 tests/release_checkout.test.py
 node --test tests/*.test.cjs
 python3 -m tools.qa.run --suite all
-python3 -m tools.qa.run --suite release --suite native --origin http
+python3 -m tools.qa.run --suite all --origin http
 ```
 
-Revisar HEAD, CI y PR. Después comprobar la CI del push y Pages contra el hash del sidecar y las etiquetas de inicio/pausa. No borrar runs históricos ni atribuir un resultado viejo a una ejecución nueva. Leer cifras vigentes del run exacto.
+Revisar diff y CI del HEAD exacto. El usuario autorizó merge si la revisión y pruebas aplicables aprueban. Después verificar CI del push y Pages contra build-info, versión visible y guardados. Cerrar #21 sólo tras validar su alcance. Documentar resultados en el issue para no inventar un commit autorreferencial.
 
-## Issues y siguiente unidad
+## Continuidad
 
-#2/#3/#4 mantienen su alcance cerrado. #5/#6/#7 están abiertos. #19 sólo se cierra tras comprobar identidad y publicación. El cambio de versión no acredita anatomía o contactos completos.
+#19 se cerró tras publicar v0.20 por #20. #2/#3/#4 conservan alcance cerrado; #5/#6/#7 siguen abiertos. El ajuste actual no resuelve armas largas: la culata a hombro y la mira necesitan un contrato conjunto de postura, no mover las manos hasta forzar el ojo. Preparar casos de cuello/torso/alcance y revisar sin deformar la cara.
 
-#6: fijar caso visual de ojo/mira y fases intermedias de liberación/retorno, con el montaje único y límites de alcance. Examinar superficies, no sólo pivotes. No deformar cara, alargar huesos o trasladar manos arbitrariamente. Conservar regresiones de contorno, falanges, mangas, codos, recargas y recuperación.
+#5 conserva aprobación artística completa, materiales, pelo y variantes. #7 conserva escena, recorrido íntegro y playtest. Las capturas preparadas no los satisfacen. Gráficos por software y perfiles de prueba no acreditan FPS físicos ni usan partidas del usuario. No borrar runs rojos históricos o relajar gates.
 
-#5: revisión artística completa contra la matriz existente. #7: escena y recorrido íntegro sin posiciones preparadas. Hardware físico y playtest humano no se deducen del renderer por software.
+## Hallazgo de revisión del 18 de septiembre
 
-## Reanudación de la publicación, 17 de septiembre de 2026
-
-Se retomó el PR #20 existente sobre `23959fe`, sin duplicar la rama ni la corrección de contorno. Revisión adicional: una prueba de checkout Git con `core.autocrlf=true` falló por conversiones CRLF. `.gitattributes` fija LF para texto y preserva binarios. Las tres políticas se verifican con la prueba añadida, sin cambiar `build.py`, `version.json`, las fuentes del juego ni los hashes de esta entrega. Confirmar CI del HEAD ampliado y del push final antes de cerrar #19.
+La transición de equipamiento se comprobó ahora contra el primer fotograma, no sólo desde el segundo. Pasó de 76.70 a 26.21 mm máximos por paso en neutral. Mantener `sidearm-draw-onset.test.cjs` (cuatro pruebas) y las dos comprobaciones añadidas al renderer. No cambiar munición, inputs o duración de recargas para simular un gesto más lento. El PR #22 debe aprobar con estas correcciones, no con los checks del HEAD anterior. Tras el merge registrar la publicación en #21 y dejar #5/#6/#7 abiertos para sus demás criterios.
