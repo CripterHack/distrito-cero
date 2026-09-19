@@ -15,8 +15,9 @@ GitHub Pages sigue configurado sobre master. No se cambia esa configuración, la
 | #6 · Contactos/recargas | Mangas #12, óptica #13, falanges #15, oposición #16, ambas manos #18, contorno palma/pulgar #20 y mira de armas cortas #22 integrados. Armas largas y revisión visual de transiciones pendientes. |
 | #7 · Vertical slice | Pendiente de escena, recorrido íntegro y evaluación de juego/hardware. |
 | #19 · Publicación v0.20 | Cerrado tras PR #20, CI de master y comprobación de Pages y guardados. |
-| #21 · Mira de armas cortas | PR #22 integrado por squash en `3629d18`. Cierre sujeto a verificación de master y publicación, registrada en la issue. |
-| #23 · Cancelación por fases | Matriz de simulación/selector añadida en esta rama. Comprobar CI del HEAD exacto y resultado del PR antes de considerarla integrada. No cierra #6. |
+| #21 · Mira de armas cortas | Cerrada. PR #22 integrado por squash en `3629d18`; verificación registrada en la issue. |
+| #23 · Cancelación por fases | Cerrada mediante PR #24, integrado en `61410a0`. CI del push y Pages aprobados. No cierra #6. |
+| #25 · Recargas en navegador | Nueva suite HTTP de reloj/selector/inputs de producción. Resultado y merge deben verificarse en su PR; no inferirlos de este documento. |
 
 ## Parche 0.20.1
 
@@ -24,11 +25,19 @@ Alineación de pistola/revólver con la referencia ocular del avatar y retroceso
 
 PR #22 se integró como `3629d1876e160bd32c9e94eec70ce947043e7c66` después de revisar `87e3dd39b94066ece9003e310e8291966c722e20`. La CI del PR `35388020900` aprobó 429 Node, 181 checks gráficos seleccionados, guardados nativos y build/exportación. El benchmark `35388020903` también aprobó. Estas cifras no se reutilizan como si fueran la CI del push posterior.
 
-## Unidad de verificación #23
+## Unidad de verificación #23 · integrada
 
 [Plan de cancelación](../../specs/003-weapon-contact/plan-reload-cancellation.md). Diez equipos, siete puntos del temporizador real y rutas de cancelación de inputs, cambio de equipo, restauración y cierre del selector. 490 combinaciones agrupadas en 40 tests, más catálogo y control negativo. Las cifras describen cobertura implementada, no sustituyen el resultado de ejecución del PR.
 
+PR #24 se integró en `61410a029c73e0f1efc91dc76a4ccaddbca5c38e`. La CI posterior de master [35423304841](https://github.com/CripterHack/distrito-cero/actions/runs/35423304841) y el despliegue [35423304003](https://github.com/CripterHack/distrito-cero/actions/runs/35423304003) terminaron aprobados. La ejecución local de esta base confirmó 471 tests Node y el hash canónico del build. Estos resultados no se reutilizan como evidencia del HEAD de #25.
+
 No cambia código de producción, versión, HTML, assets o reglas. Cancelar inputs conserva una recarga pendiente. Cambiar de equipo la descarta. La restauración descarta acciones transitorias y la UI es propietaria de cancelar inputs al reanudar. El setMode mínimo del test no certifica el reloj pausado del navegador ni sus eventos físicos.
+
+## Unidad de navegador #25
+
+[Plan y límites](../../specs/003-weapon-contact/plan-native-reload.md). Añade el contrato HTTP `reload` con 31 checks exigidos y doce tests Python del validador. Conserva los sistemas y bytes del producto 0.20.1. Prepara tres familias y siete checkpoints de recarga, pero no sustituye el bucle real ni el almacenamiento. La navegación local fue bloqueada por política del laboratorio; la aprobación nativa exige CI del HEAD exacto. Ver resultados en la issue #25 y su PR, no deducir que pasan por estar implementados.
+
+El primer run de #26 (`35425812835`, HEAD `7bf024e`) pasó `release`/`native` (49 checks), pero `reload` alcanzó el límite de 900 s después de 27/31 checks correctos. Ese resultado sigue fallido. La revisión amplía el presupuesto a 1,800 s, preserva un diario parcial separado y añade cuatro pruebas del diario. No cambia las aserciones de aceptación. [Diagnóstico y artefacto](QA.md#primer-run-http-de-26-presupuesto-insuficiente).
 
 ## Base consolidada 0.20.0
 
@@ -46,7 +55,7 @@ El recurso humano tiene SHA-256 `522a9a24e2cc70857a3ec5c18bf9c2126c7b59d9ce8e4c5
 
 Los proxies gráficos no son autocolisión completa. Tiempo/cámara preparados no demuestran FPS. El benchmark smoke tiene 30 capturas/36 comprobaciones, la matriz completa requiere su propio informe. La prueba de versión importa por HTTP nativo un JSON sintético producido por el serializador de v0.19. Los guardados nativos se verifican por separado de los fixtures gráficos y de roundtrips unitarios.
 
-Los fallos históricos permanecen documentados en [ACTIONS-RECOVERY.md](ACTIONS-RECOVERY.md). Cada commit nuevo exige sus propias ejecuciones. Registrar los resultados definitivos de #21 y #23 en sus issues y PRs, con SHAs y límites, sin declarar aprobada una suite no ejecutada.
+Los fallos históricos permanecen documentados en [ACTIONS-RECOVERY.md](ACTIONS-RECOVERY.md). Cada commit nuevo exige sus propias ejecuciones. Registrar los resultados definitivos de #25 en su issue y PR, con SHAs y límites, sin declarar aprobada una suite no ejecutada.
 
 ## Historia preservada
 

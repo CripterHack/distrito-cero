@@ -35,6 +35,7 @@ SUITES={
  'characters': Suite('characters',('tests/character_benchmark.py',),'qa/v019/character-benchmark.json',36),
  'recovery': Suite('recovery',('tests/graphics_recovery.py',),'qa/v019/graphics-recovery.json',25),
  'native': Suite('native',('tests/native_saves.py',),'qa/v019/native-saves.json',35,'http'),
+ 'reload': Suite('reload',('tests/reload_browser.py',),'qa/v020/reload.json',31,'http'),
  'handling': Suite('handling',('tests/contact_browser.py',),'qa/v019/handling-browser.json',51),
  'arsenal': Suite('arsenal',('tests/contact_arsenal.py',),'qa/v019/arsenal-browser.json',78),
  'library': Suite('library',('tests/contact_library.py',),'qa/v019/library-regression.json',64),
