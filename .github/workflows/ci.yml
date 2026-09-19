@@ -46,6 +46,7 @@ jobs:
           python3 tests/qa_reporting.test.py
           python3 tests/qa_selection.test.py
           python3 tests/native_support.test.py
+          python3 tests/reload_contract.test.py
           python3 tools/export_contact.py
           python3 tests/contact_exports.test.py
           git diff --exit-code -- index.html assets/dc019-equipment.glb
@@ -98,7 +99,7 @@ jobs:
           if-no-files-found: warn
           retention-days: 14
   native:
-    name: Native saved games and tabs
+    name: Native saved games, tabs and reload lifecycle
     runs-on: ubuntu-24.04
     timeout-minutes: 20
     steps:
@@ -111,9 +112,9 @@ jobs:
       - run: |
           python3 -m pip install playwright==1.57.0
           python3 -m playwright install --with-deps chromium
-      - name: Reopen a real isolated browser profile at a local HTTP origin
-        run: xvfb-run -a python3 -m tools.qa.run --suite release --suite native --origin http --headed --timeout 900 --output artifacts/ci-native
-      - name: Upload fresh native persistence evidence
+      - name: Run native HTTP persistence and live reload input checks
+        run: xvfb-run -a python3 -m tools.qa.run --suite release --suite native --suite reload --origin http --headed --timeout 900 --output artifacts/ci-native
+      - name: Upload fresh native evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
