@@ -1,34 +1,43 @@
-# Handoff · v0.20.1 / referencia ocular de armas cortas
+# Handoff · v0.20.1 / verificación de recargas
 
-Base: `687ead2` (v0.20.0). Unidad actual: #21, PR #22 en revisión. Producto del árbol: **0.20.1 · Coherencia**, prototype. Leer [SIDEARM-SIGHT](SIDEARM-SIGHT.md), [STATE](STATE.md) y [plan](../../specs/003-weapon-contact/plan-sidearm-sight.md).
+Base de esta unidad: `3629d1876e160bd32c9e94eec70ce947043e7c66`, merge del PR #22. Producto **0.20.1 · Coherencia**, prototype. Leer [STATE](STATE.md), [alineación de armas cortas](SIDEARM-SIGHT.md) y [plan de la matriz de recargas](../../specs/003-weapon-contact/plan-reload-cancellation.md).
 
-## Cambio actual
+## Integración realizada
 
-Pistola/revólver colocan el montaje según el ojo articulado usando la paleta ya evaluada. Alineación progresiva y retroceso sobre referencia quieta alrededor de la empuñadura. El alcance tiene prioridad. Sin cambios de malla/pesos/huesos, reglas o claves de guardado. Preservar mangas, dedos, pulgares, apoyo entre manos y contorno de v0.20.
+PR #22 quedó integrado por squash sobre master. HEAD revisado antes del merge: `87e3dd39b94066ece9003e310e8291966c722e20`. La CI `35388020900` aprobó 429 pruebas Node, 181 comprobaciones gráficas seleccionadas, guardados nativos y build/exportación. El benchmark `35388020903` también aprobó. No confundir la selección gráfica con `--suite all` ni estos resultados con una ejecución posterior de master.
 
-Dos pruebas originales de mira fallaron en la base. Un candidato de retroceso hacía bajar el objeto y fue descartado con una regresión. Se añaden doce tests Node y suite `sight` de 26 checks, con pruebas gráficas separadas de las HTTP nativas. No confundir la postura heredada de equipar con el coste temporal del nuevo correctivo.
+La alineación de pistola/revólver utiliza el ojo articulado. Se conserva la prioridad del alcance, contactos y retroceso sobre referencia quieta. La transición de equipamiento incluye el primer fotograma: la regresión de revisión pasó de 76.70 a 26.21 mm máximos por paso neutral de 1/60. Preservar los cuatro tests de inicio de equipamiento y los 26 checks de sight.
 
-## Puertas antes de integrar
+HTML canónico del producto: `4a78bcca34cd40b2c406b0642362f30a6b71303d8a4a6ace659e0ba4afc9918d`, 8,862,957 bytes. Fuente: `dfb16e65c1a64d991f2bedfbecf0892d69c8b2110e4be1403e31d7af739c4fdb`. Los resultados de publicación se registran en #21. No cerrarla sólo porque #22 esté merged: comprobar CI de master y Pages. No borrar datos del sitio al actualizar.
+
+## Unidad #23
+
+`tests/reload-cancellation.test.cjs` amplía la cobertura de cancelación, cambio de equipo, serialización y cierre del selector sobre diez equipos recargables y siete puntos del temporizador real. La matriz contiene 490 combinaciones, agrupadas en 40 tests, más catálogo y control negativo. No inferir que estas pruebas pasan por estar escritas: comprobar la CI del HEAD exacto del PR de #23.
+
+Contrato importante: `cancelEquipment` cancela inputs y conserva una recarga. `equipWeapon` con otro ID descarta esa recarga sin transferir munición. La restauración descarta acciones transitorias, mientras la UI cancela inputs al reanudar. El control negativo retira el bloqueo sólo en una instancia de test y exige detectar el disparo indebido. No modifica el runtime.
+
+La unidad sólo añade pruebas/documentación. No cambiar versión, bundle, malla, pesos, huesos o reglas para aparentar otra entrega. Si una prueba revela un defecto, conservar la reproducción, revisar la causa y abrir el cambio de comportamiento explícito. No aumentar umbrales para ocultarlo.
+
+## Puertas de integración
 
 ```sh
+node --test tests/reload-cancellation.test.cjs
+node --test tests/*.test.cjs
 python3 tools/refine_thenar.py --check
 python3 tools/rebind_garment.py --check
 python3 build.py --check
 python3 tests/release_build.test.py
 python3 tests/release_checkout.test.py
-node --test tests/*.test.cjs
 python3 -m tools.qa.run --suite all
 python3 -m tools.qa.run --suite all --origin http
 ```
 
-Revisar diff y CI del HEAD exacto. El usuario autorizó merge si la revisión y pruebas aplicables aprueban. Después verificar CI del push y Pages contra build-info, versión visible y guardados. Cerrar #21 sólo tras validar su alcance. Documentar resultados en el issue para no inventar un commit autorreferencial.
+Exigir la CI aplicable del HEAD exacto y revisar diff antes del merge autorizado. Documentar las suites realmente ejecutadas, los SHAs y las limitaciones. Después verificar el push de master. Conservar runs rojos históricos y fallos encontrados, no rebajar gates. Esta sesión utiliza GitHub Actions para la ejecución integral, no presenta una comprobación sintáctica local como prueba completa.
 
-## Continuidad
+## Límites y continuidad
 
-#19 se cerró tras publicar v0.20 por #20. #2/#3/#4 conservan alcance cerrado; #5/#6/#7 siguen abiertos. El ajuste actual no resuelve armas largas: la culata a hombro y la mira necesitan un contrato conjunto de postura, no mover las manos hasta forzar el ojo. Preparar casos de cuello/torso/alcance y revisar sin deformar la cara.
+El adaptador UI del test no demuestra el reloj pausado real, Pointer Lock o inputs físicos del navegador. El roundtrip del serializador no reemplaza persistencia HTTP. La matriz por fases no representa cada fotograma, una secuencia gráfica completa o rendimiento de GPU física.
 
-#5 conserva aprobación artística completa, materiales, pelo y variantes. #7 conserva escena, recorrido íntegro y playtest. Las capturas preparadas no los satisfacen. Gráficos por software y perfiles de prueba no acreditan FPS físicos ni usan partidas del usuario. No borrar runs rojos históricos o relajar gates.
+#5/#6/#7 permanecen abiertos por sus criterios generales. #5 conserva aprobación artística, materiales, pelo y variantes. #6 conserva coordinación de culata/hombro/mira en armas largas y revisión visual de transiciones/otras superficies. #7 requiere escena, recorrido íntegro y playtest. No deformar cara o alargar brazos para forzar contacto. Las capturas preparadas no completan la vertical slice ni acreditan FPS físicos.
 
-## Hallazgo de revisión del 18 de septiembre
-
-La transición de equipamiento se comprobó ahora contra el primer fotograma, no sólo desde el segundo. Pasó de 76.70 a 26.21 mm máximos por paso en neutral. Mantener `sidearm-draw-onset.test.cjs` (cuatro pruebas) y las dos comprobaciones añadidas al renderer. No cambiar munición, inputs o duración de recargas para simular un gesto más lento. El PR #22 debe aprobar con estas correcciones, no con los checks del HEAD anterior. Tras el merge registrar la publicación en #21 y dejar #5/#6/#7 abiertos para sus demás criterios.
+Registrar el resultado definitivo de #23 en su issue y PR para que cualquier agente distinga pruebas pendientes, aprobadas e integradas sin inventar hashes autorreferenciales.
