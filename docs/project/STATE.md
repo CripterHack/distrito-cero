@@ -2,7 +2,7 @@
 
 ## Versión activa del árbol: v0.20.1 · Coherencia
 
-Producto `0.20.1`, canal **prototype**, fecha declarada 2026-09-18. Identidad canónica en [version.json](../../version.json); hash y tamaño exactos del HTML en [build-info.json](../../build-info.json). Guía vigente en [v020](../v020/GUIA.md). La publicación de un commit se confirma en Actions y comparando Pages, no por la existencia de este documento.
+Producto `0.20.1`, canal **prototype**, fecha declarada 2026-09-18. Identidad canónica en [version.json](../../version.json), hash y tamaño exactos del HTML en [build-info.json](../../build-info.json). Guía vigente en [v020](../v020/GUIA.md). La publicación de un commit se confirma en Actions y comparando Pages, no por la existencia de este documento.
 
 GitHub Pages sigue configurado sobre master. No se cambia esa configuración, la licencia ni los esquemas de datos. Una pestaña abierta necesita recarga para ejecutar código nuevo, sin borrar datos del sitio.
 
@@ -12,14 +12,23 @@ GitHub Pages sigue configurado sobre master. No se cambia esa configuración, la
 | #3 · Guardados nativos | Cerrado por PR #9. Persistencia HTTP, reapertura y conflictos reales. |
 | #4 · Recuperación WebGL | Cerrado por PR #10. PR #17 protege generaciones retiradas. No garantiza que un driver no vuelva a reiniciarse. |
 | #5 · Personaje patrón | Benchmark #11 integrado. Aprobación artística y otros gates pendientes. |
-| #6 · Contactos/recargas | Mangas #12, óptica #13, falanges #15, oposición #16 y ambas manos #18. Contorno palma/pulgar #20 y alineación de armas cortas en #22. Armas largas y otras fases intermedias pendientes. |
+| #6 · Contactos/recargas | Mangas #12, óptica #13, falanges #15, oposición #16, ambas manos #18, contorno palma/pulgar #20 y mira de armas cortas #22 integrados. Armas largas y revisión visual de transiciones pendientes. |
 | #7 · Vertical slice | Pendiente de escena, recorrido íntegro y evaluación de juego/hardware. |
 | #19 · Publicación v0.20 | Cerrado tras PR #20, CI de master y comprobación de Pages y guardados. |
-| #21 · Mira de armas cortas | Unidad actual: ojo articulado y montaje de pistola/revólver. Validar PR, CI y publicación. |
+| #21 · Mira de armas cortas | PR #22 integrado por squash en `3629d18`. Cierre sujeto a verificación de master y publicación, registrada en la issue. |
+| #23 · Cancelación por fases | Matriz de simulación/selector añadida en esta rama. Comprobar CI del HEAD exacto y resultado del PR antes de considerarla integrada. No cierra #6. |
 
 ## Parche 0.20.1
 
-Alineación de pistola/revólver con la referencia ocular del avatar y retroceso que no abandona bruscamente esa referencia. Preparación visual de equipamiento gradual, incluyendo el primer intervalo de la animación. Sin cambios en malla, pesos, rig, equipo relativo a las manos ni formatos. [Detalle y límites](SIDEARM-SIGHT.md). Cierra sólo su unidad #21 después de verificación; #5/#6/#7 siguen pendientes.
+Alineación de pistola/revólver con la referencia ocular del avatar y retroceso que no abandona bruscamente esa referencia. Preparación visual gradual, incluyendo el primer intervalo. Sin cambios en malla, pesos, rig, equipo relativo a las manos ni formatos. [Detalle y límites](SIDEARM-SIGHT.md).
+
+PR #22 se integró como `3629d1876e160bd32c9e94eec70ce947043e7c66` después de revisar `87e3dd39b94066ece9003e310e8291966c722e20`. La CI del PR `35388020900` aprobó 429 Node, 181 checks gráficos seleccionados, guardados nativos y build/exportación. El benchmark `35388020903` también aprobó. Estas cifras no se reutilizan como si fueran la CI del push posterior.
+
+## Unidad de verificación #23
+
+[Plan de cancelación](../../specs/003-weapon-contact/plan-reload-cancellation.md). Diez equipos, siete puntos del temporizador real y rutas de cancelación de inputs, cambio de equipo, restauración y cierre del selector. 490 combinaciones agrupadas en 40 tests, más catálogo y control negativo. Las cifras describen cobertura implementada, no sustituyen el resultado de ejecución del PR.
+
+No cambia código de producción, versión, HTML, assets o reglas. Cancelar inputs conserva una recarga pendiente. Cambiar de equipo la descarta. La restauración descarta acciones transitorias y la UI es propietaria de cancelar inputs al reanudar. El setMode mínimo del test no certifica el reloj pausado del navegador ni sus eventos físicos.
 
 ## Base consolidada 0.20.0
 
@@ -35,9 +44,9 @@ El recurso humano tiene SHA-256 `522a9a24e2cc70857a3ec5c18bf9c2126c7b59d9ce8e4c5
 
 ## Evidencia y límites
 
-Los proxies gráficos no son autocolisión completa. Tiempo/cámara preparados no demuestran FPS. El benchmark smoke tiene 30 capturas/36 comprobaciones; la matriz completa requiere su propio informe. La prueba de versión importa por HTTP nativo un JSON sintético producido por el serializador de v0.19. Los guardados nativos se verifican por separado de los fixtures gráficos.
+Los proxies gráficos no son autocolisión completa. Tiempo/cámara preparados no demuestran FPS. El benchmark smoke tiene 30 capturas/36 comprobaciones, la matriz completa requiere su propio informe. La prueba de versión importa por HTTP nativo un JSON sintético producido por el serializador de v0.19. Los guardados nativos se verifican por separado de los fixtures gráficos y de roundtrips unitarios.
 
-Antes de esta unidad, la CI de master `35057506852` sobre `ef905ec`, el benchmark y Pages terminaron en success. Los cinco fallos históricos permanecen documentados en [ACTIONS-RECOVERY.md](ACTIONS-RECOVERY.md). Cada commit nuevo exige sus propias ejecuciones.
+Los fallos históricos permanecen documentados en [ACTIONS-RECOVERY.md](ACTIONS-RECOVERY.md). Cada commit nuevo exige sus propias ejecuciones. Registrar los resultados definitivos de #21 y #23 en sus issues y PRs, con SHAs y límites, sin declarar aprobada una suite no ejecutada.
 
 ## Historia preservada
 
