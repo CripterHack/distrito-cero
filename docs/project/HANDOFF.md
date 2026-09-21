@@ -1,3 +1,19 @@
+# Handoff · PR #30: CI explícita, requisito del rifle aún pendiente
+
+## Actualización de CI del 21 de septiembre de 2026
+
+Se incorpora a esta rama de trabajo el commit `fb44091e1fc75390fb2722c2da1c00019acc500b` de `fix/031-ci-gates`, PR #32, mediante un merge con padres remotos reales. El otro padre es `a1062639dd92769f3b7c8d678159d40359f46700`. Se conservan íntegros los controles de superficie y la prueba fallida. Esta integración en una rama de trabajo **no es un merge de #30 a master**.
+
+[CI-GATES](CI-GATES.md) explica los ocho pasos independientes. Node mantiene `node --test tests/*.test.cjs` sin filtros, skips o `continue-on-error`. Los checks independientes posteriores se ejecutan si checkout/herramientas están listos y el run no está cancelado. El fallo sigue produciendo un job fallido. No se cambian los jobs WebGL/HTTP ni sus permisos.
+
+La CI de `a106263` terminó failure: Verify `35637033697`, con WebGL/HTTP en success, y benchmark `35637033768` en success. La CI de #32 `35641790988` tenía core y HTTP aprobados al preparar este merge; WebGL seguía en ejecución. El resultado de cada nuevo HEAD se registra en el PR correspondiente. **No integrar #30 mientras falle el requisito de rifle**, aunque todos los demás pasos aprueben. El cierre de #31 exige comprobar que el fallo real aparece en Node y que los pasos independientes ya no quedan omitidos.
+
+La reanudación local volvió a reproducir `eye/sight: 0.238643317922643 m`. Una nueva variante temporal con la geometría original redujo el error a 8.8831 mm y la separación al punto heredado a 24.3368 mm, con penetración facial muestreada de 1.4210 mm y 1.1095 mm de holgura mínima en chaqueta. Se capturó el original y esa variante desde dos vistas. **Se rechazó visualmente por postura de cabeza/hombros forzada**, pese a cumplir esas distancias. Sustituye módulos sólo en memoria, no modifica el runtime ni constituye QA canónica. Otras pruebas temporales de geometría tampoco cumplieron los criterios y no se publican como assets o soluciones.
+
+No se añaden más auditores equivalentes ni perfiles de pose no aceptados. El siguiente cambio de producto necesita una postura natural con revisión de superficie y continuidad, o un contrato explícito de autoría cosmética con comparación conservada. Los ensayos no demuestran imposibilidad. Actualizar el plan de #29 sólo cuando haya una decisión implementable, no repetir el diagnóstico como una entrega de producto.
+
+## Handoff anterior de superficies, conservado como registro histórico
+
 # Handoff · v0.20.1 / rechazo de superficies, rifle todavía en RED
 
 **Base de master:** `32a8cca590b83a5b2a1b3efabad5723d3c9d6757`, PR #28 integrado y #27 cerrada. **Trabajo actual:** PR #30, `fix/029-rifle-coordination`, issue #29, requisito pendiente de #6. Producto **0.20.1 · Coherencia**, canal prototype. Leer [STATE](STATE.md), [QA](QA.md), [plan #29](../../specs/003-weapon-contact/plan-rifle-coordination.md) y [rechazo de superficies](../../specs/003-weapon-contact/stock-surface-rejection.md).
