@@ -21,13 +21,13 @@ test('surface inspection is finite, deterministic and does not alter the simulat
 });
 test('known interior placement rejects real face/neck vertices even with a zero brace error',()=>{
  const s=scene('rifle'),r=evidence(s),q=api(),first=q.inspect(s,r),point=first.minimum.face.world;
- const center=r.mount.point(0,-.012,-.14),bad=shifted(r,point.map((v,i)=>v-center[i]));
+ const center=r.mount.point(0,-.050,-.15),bad=shifted(r,point.map((v,i)=>v-center[i]));
  bad.mount.brace={error:0};const result=q.inspect(s,bad);
  assert.ok(result.minimum.face.distance<-.020);assert.ok(q.screen(result).failures.includes('face-penetration'));
 });
 test('known interior placement rejects real jacket vertices independently of the eye distance',()=>{
  const s=scene('rifle'),r=evidence(s),q=api(),point=q.inspect(s,r).minimum.jacket.world;
- const center=r.mount.point(0,-.012,-.14),bad=shifted(r,point.map((v,i)=>v-center[i]));
+ const center=r.mount.point(0,-.050,-.15),bad=shifted(r,point.map((v,i)=>v-center[i]));
  const result=q.inspect(s,bad);assert.ok(result.minimum.jacket.distance<-.020);assert.ok(q.screen(result).failures.includes('jacket-penetration'));
 });
 test('a distant object passes only the clearance screen, never contact or artistic acceptance',()=>{

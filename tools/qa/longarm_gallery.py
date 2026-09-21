@@ -33,6 +33,6 @@ def render_gallery(report):
             '<h1>Ojo, culata y alcance</h1><p><strong>CONTACT-03 pendiente de revisión cooperativa y artística.</strong> '
             'El éxito del auditor sólo confirma la integridad de las mediciones, no una corrección del juego.</p>'
             '<p>HTML: <code>'+esc(report['sha256'])+'</code></p><p>Metros en el JSON, milímetros en las fichas. '
-            'Hombro: referencia articulada heredada, no colisión con la superficie completa. '
+            'Rifle: triángulo de chaqueta y cara posterior de culata verificados. Otras familias: referencia articulada heredada. No es colisión completa. '
             'Escena, cámara y tiempo preparados. Storage fixture, no persistencia HTTP ni FPS de hardware. '
             'Los ciclos muestran muestras de movimiento, no todos sus fotogramas.</p></header><main>'+''.join(cards)+'</main></html>')

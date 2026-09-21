@@ -23,6 +23,8 @@
   s.setIdentity('Contacto largo',{...D.Appearance.default(),neckLength:config.neck||0});
   s.equipment=D.Equipment.initial();s.equipWeapon(config.item);s.equipment.handling.ready=1;
   s.equipment.aimWeight=config.aim??1;s.equipment.pitch=config.pitch||0;s.time=1.25;
+  // Prepared settled aim includes the presentation filter, not just simulation intent.
+  if(config.item==='rifle')s.equipment.handling.rifleAim=config.aim??1;
   r.motionTracker.clear();r.motionScene=s;r.frozenHandling=null;r.previewStudio=false;r.equipmentView=false;
   r.daylight=.67;r.lightTime=-1;r.fovOverride=.62;
   r.camera.target=[4.015,1.40-s.player.crouch*.22,36.25];

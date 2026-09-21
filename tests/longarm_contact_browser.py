@@ -87,7 +87,9 @@ try:
                 for name,config in poses.items():
                     record=page.evaluate('c=>DC_LONGARM_STAGE.sample(c)',{'item':item,**config})
                     capture(page,item+'-'+name,record)
-                    ck(item+' '+name+' measures the actual rendered frame (not pose approval)',valid(record))
+                    ck(item+' '+name+' measures the rendered frame and rifle contact criteria (not artistic approval)',
+                       valid(record) and (item!='rifle' or
+                       (not record['screening']['failures'] and not record['stockScreen']['failures'])))
                     if name=='neutral':
                         front=page.evaluate('c=>DC_LONGARM_STAGE.sample(c)',{'item':item,'front':True})
                         capture(page,item+'-front',front)

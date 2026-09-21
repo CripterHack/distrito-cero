@@ -18,7 +18,7 @@
    box([0,0,.08],[sidearm?.061:tech?.15:.10,sidearm?.07:.115,sidearm?.23:.31],tech?dark:steel);
    parts.push({kind:'grip',p:[0,-.11,-.016],s:[.060,.17,.080],c:grip,m:4,role:'grip'});box([0,-.055,.052],[.026,.065,.024],silver);box([0,-.086,.066],[.059,.019,.11],dark);
    if(w.id==='pistol')box([0,-.18,-.016],[.056,.08,.072],dark,3,'magazine');
-   if(!sidearm){box([0,-.135,.12],[.058,.18,.095],dark,3,['smg','rifle','sniper','gauss','emp'].includes(w.id)?'magazine':'body');box([0,-.012,-.14],[.064,.097,.14],grip,4);box([0,-.012,-.222],[.068,.14,.033],dark);}
+   if(!sidearm){box([0,-.135,.12],[.058,.18,.095],dark,3,['smg','rifle','sniper','gauss','emp'].includes(w.id)?'magazine':'body');if(w.id==='rifle'){box([0,-.050,-.15],[.048,.052,.15],grip,4);box([0,-.0745,-.2295],[.052,.079,.018],dark);}else{box([0,-.012,-.14],[.064,.097,.14],grip,4);box([0,-.012,-.222],[.068,.14,.033],dark);}}
    const barrelStart=sidearm?.21:.26,barrelLength=len-barrelStart;
    if(w.id==='launcher'){
     tube([0,.06,.16],.105,.98,dark,4,.067);tube([0,.06,.68],.11,.035,silver,3,.067);box([.11,.065,.07],[.04,.047,.15],[.07,.25,.20]);

@@ -37,7 +37,7 @@ test('visual draw does not delay a native trigger or change ammunition accountin
  }
 });
 test('ready-state and unrelated equipment retain the unmodified aiming contract',()=>{
- for(const id of ['pistol','revolver','rifle','smg','sniper','gauss','emp','launcher','shotgun','binoculars']){
+ for(const id of ['pistol','revolver','smg','sniper','gauss','emp','launcher','shotgun','binoculars']){
   const s=begin(id);s.equipment.aimWeight=.5;s.equipment.handling.ready=1;
   assert.equal(D.Equipment.mount(s).aim,.5);
   const state=JSON.stringify(s.equipment.handling);D.WeaponHandling.step(s,0);assert.equal(JSON.stringify(s.equipment.handling),state);

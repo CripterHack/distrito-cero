@@ -22,8 +22,8 @@
   }
   const requirePoint=p=>{if(!points.some(q=>distance(p,q)<.000002))throw new Error(item+' missing geometry landmark '+p.join(','));};
   // Existing buttplate rear face, independent of mount.brace.stock/target.
-  const stock=[0,-.012,-.2385];
-  for(const x of [-.034,.034])for(const y of [-.082,.058])requirePoint([x,y,stock[2]]);
+  const stock=[0,item==='rifle'?-.0745:-.012,-.2385];
+  for(const x of (item==='rifle'?[-.026,.026]:[-.034,.034]))for(const y of (item==='rifle'?[-.114,-.035]:[-.082,.058]))requirePoint([x,y,stock[2]]);
   let rear,front,kind;
   if(item==='sniper'){
    kind='scope';rear=[0,.133,-.02];front=[0,.133,.302];
@@ -56,10 +56,27 @@
   const transform=(name,p)=>world(R.transform(pose.matrices.subarray(R.ids[name]*16,R.ids[name]*16+16),p));
   const joint=name=>transform(name,R.bones[R.ids[name]][2]);
   const eye=transform('head',D.CharacterFit.point(eyeBind,mount.neckDrop));
-  const rear=mount.point(...ref.rear),front=mount.point(...ref.front),stock=mount.point(...ref.stock);
+  const rear=mount.point(...ref.rear),front=mount.point(...ref.front),stockCenter=mount.point(...ref.stock);let stock=stockCenter;
   const shoulder=joint('upperArmR');
   // Preserve the legacy rig-reference convention. This is NOT garment collision.
-  const shoulderTarget=add(shoulder,[.010*c+.024*s,-.040,-.010*s+.024*c]);
+  let shoulderTarget=add(shoulder,[.010*c+.024*s,-.040,-.010*s+.024*c]);
+  const legacyShoulderTarget=shoulderTarget,legacyStockError=distance(stockCenter,shoulderTarget);
+  let shoulderReference='legacy articulated rig anchor, not garment surface';
+  if(item==='rifle'){
+   const part=D.HeroAsset.parts.find(p=>p.name==='jacket');
+   if(!part||part.vertices<26697)throw new Error('Missing jacket reference triangle');
+   const bytes=Uint8Array.from(atob(part.data),c=>c.charCodeAt(0)),v=new DataView(bytes.buffer),dq=D.DualQuaternion.pack(pose.matrices),a=sim.appearance||D.Appearance.default();
+   const expected=[[.0561,1.455,.0867],[.0584,1.463,.0807],[.0434,1.4566,.0884]],patch=[];
+   for(let i=26694;i<26697;i++){
+    const b=i*24,p=[0,2,4].map(k=>v.getInt16(b+k,true)/1e4),j=[16,17,18,19].map(k=>bytes[b+k]),w=[20,21,22,23].map(k=>bytes[b+k]/255);
+    if(distance(p,expected[i-26694])>1e-6||j[0]!==R.ids.chest||w[0]!==1)throw new Error('Jacket reference triangle changed');
+    patch.push(world(D.DualQuaternion.transform(dq,D.CharacterFit.point(D.Appearance.shapePoint(p,part.material,a.build,a.face,a.neck||0),mount.neckDrop),j,w)));
+   }
+   shoulderTarget=[0,1,2].map(k=>patch.reduce((sum,p)=>sum+p[k],0)/3);
+   const origin=mount.point(0,0,0),local=[[1,0,0],[0,1,0]].map(p=>D.dot(sub(shoulderTarget,origin),mount.direction(p)));
+   stock=mount.point(D.clamp(local[0],-.026,.026),D.clamp(local[1],-.114,-.035),ref.stock[2]);
+   shoulderReference='rendered jacket triangle 8898';
+  }
   if(![eye,rear,front,stock,shoulderTarget].every(vector)||distance(front,rear)<1e-6)
    throw new Error('Nonfinite or degenerate rendered landmarks');
   const axis=D.normalize(sub(front,rear)),delta=sub(eye,rear),along=D.dot(delta,axis),eyeOffset=sub(delta,axis.map(v=>v*along));
@@ -75,7 +92,7 @@
   if(![...Object.values(palmErrors),...Object.values(segmentErrors)].every(Number.isFinite))
    throw new Error('Nonfinite contact or inter-joint measurement');
   return{item,source:rendered===undefined?'simulation':'renderer',units:'metres',reference:ref,
-   shoulderReference:'legacy articulated rig anchor, not garment surface',eye,axis,rear,front,stock,shoulderTarget,
+   shoulderReference,eye,axis,rear,front,stock,stockCenter,shoulderTarget,legacyShoulderTarget,legacyStockError,
    eyeError:Math.hypot(...eyeOffset),eyeOffset,behind:-along,stockError:distance(stock,shoulderTarget),palmErrors,segmentErrors};
  }
  function screen(v){

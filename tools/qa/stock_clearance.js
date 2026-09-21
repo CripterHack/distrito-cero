@@ -5,8 +5,8 @@
 (function(global){
  'use strict';
  const D=global.DC,R=D.SkinRig,parts=['face','jacket'];
- const boxes=[{center:[0,-.012,-.14],half:[.032,.0485,.07]},
-              {center:[0,-.012,-.222],half:[.034,.07,.0165]}];
+ const boxes=[{center:[0,-.050,-.15],half:[.024,.026,.075]},
+              {center:[0,-.0745,-.2295],half:[.026,.0395,.009]}];
  const sub=(a,b)=>a.map((v,i)=>v-b[i]);
  const vector=p=>Array.isArray(p)&&p.length===3&&p.every(Number.isFinite);
  const key=p=>p.map(v=>v.toFixed(6)).join(',');
