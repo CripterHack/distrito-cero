@@ -1,3 +1,13 @@
+# Continuación actual: benchmark de rifle · #33
+
+Base `d6da75a76201866fe7167fd0f8cbb46441c2c3c7`. PR #30 integrado, #29 cerrada y sus tres jobs posteriores de Verify `35653621273` aprobados. No hay un fallo pendiente de ese HEAD que deba reejecutarse.
+
+[Correctivo del benchmark](BENCHMARK-AIM.md): la captura de apuntado asentaba aimWeight pero no rifleAim. Se corrige sólo el fixture y se rechaza la incoherencia con la fase del renderer. RED observado, 502/502 Node y 9/9 tests de matriz aprobados. Benchmark local `20260921T221156Z-44c19248a241`: 36 checks y 30 PNG cotejados, captura de apuntado revisada. El HTML 0.20.2 permanece intacto.
+
+El PR de #33 determina su CI remota e integración. No confundir un resultado local con merge. Después de integrarlo, continuar #5/#6 desde la referencia corregida, sin repetir el diagnóstico de #29. #7 conserva sus gates. No cerrar aprobación artística, autocolisión, otras familias o GPU física por estas pruebas. Revisión propia, no independiente.
+
+## Registro anterior de la corrección del rifle
+
 # Handoff · v0.20.2 / rifle corregido, integración registrada en PR #30
 
 Leer [STATE](STATE.md), [RIFLE-COORDINATION](RIFLE-COORDINATION.md) y [ADR 0003](../adr/0003-rifle-surface-dock.md). Base del cambio: PR #30, `0f01f574ef23817afd407e0cf2ed90fc7bd49540`. Master previo `37ab6f0`, con #31/#32 integrados y su CI/Pages aprobados. El estado de cierre, SHA integrado y CI posterior de esta unidad se consultan en #30, no se inventan en el documento antes del merge.

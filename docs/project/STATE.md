@@ -4,6 +4,12 @@
 
 Canal **prototype**, fecha 2026-09-21. Identidad en [version.json](../../version.json), huellas y tamaño exactos en [build-info.json](../../build-info.json). El estado de integración y publicación se comprueba en el PR #30 y Actions, no se deduce de este documento. La configuración de Pages sobre master, permisos, licencia y esquemas de partidas no cambian.
 
+## Última continuación: coherencia del benchmark · #33
+
+PR #30 integrado como `d6da75a`, #29 cerrada. Los tres jobs del Verify posterior `35653621273` ya terminaron success. Se conserva ese resultado separado de cualquier nueva CI.
+
+Se corrige el fixture de personajes que etiquetaba guardia baja como apuntado al dejar rifleAim sin asentar. Dos regresiones reproducidas antes del cambio. Resultado local de esta unidad: 502/502 Node, 9/9 tests de matriz y benchmark de 36 checks/30 PNG cotejados. No cambia el HTML, runtime ni versión. [Contrato, evidencia y límites](BENCHMARK-AIM.md). El PR de #33 registra su aprobación remota e integración.
+
 ## Corrección acotada del rifle · #29 / PR #30
 
 Se implementa coordinación suave de torso, clavículas, cabeza y montaje único. La mira conserva sus vértices originales. Se ajustan únicamente dos cuboides cosméticos de la culata, conservando su extremo posterior, agarres, cargador y demás familias. El modelo humano, pesos y 49 huesos no cambian.
@@ -20,7 +26,8 @@ El nuevo HTML es `acf4f05ccbb4a1a68008bd57876b9e7839628b4127a686715802ec47c7130b
 
 | Unidad | Situación |
 | :--- | :--- |
-| #29 · Rifle neutral | Corrección implementada y probada. El PR #30 registra la aprobación remota, revisión e integración finales. |
+| #29 · Rifle neutral | Cerrada mediante PR #30, merge `d6da75a`, CI posterior aprobada. |
+| #33 · Benchmark de apuntado | Fixture corregido y probado localmente. Su PR registra CI e integración. |
 | #6 · Contactos y recargas | Continúa abierta. Las otras familias largas y la revisión amplia de superficies, transiciones y anatomías no se consideran resueltas por #29. |
 | #5 · Personaje patrón | Benchmark disponible. Aprobación artística, materiales y variantes pendientes. |
 | #7 · Vertical slice | Escena, recorrido íntegro, playtest y rendimiento sobre GPU física pendientes. |
