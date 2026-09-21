@@ -18,7 +18,8 @@ GitHub Pages sigue configurado sobre master. No se cambia esa configuración, la
 | #21 · Mira de armas cortas | Cerrada. PR #22 integrado por squash en `3629d18`; verificación registrada en la issue. |
 | #23 · Cancelación por fases | Cerrada mediante PR #24, integrado en `61410a0`. CI del push y Pages aprobados. No cierra #6. |
 | #25 · Recargas en navegador | Cerrada mediante PR #26, integrado en `fecf117`. CI, benchmark y Pages posteriores aprobados. No cierra #6. |
-| #27 · Auditor cooperativo | Mediciones conjuntas de ojo, culata, palmas y longitudes en cuatro familias. Auditor QA, no corrección visual. Ver su PR para CI e integración. |
+| #27 · Auditor cooperativo | Cerrada mediante PR #28, integrado en `32a8cca`. CI, benchmark y Pages posteriores aprobados. Auditor QA, no corrección visual. |
+| #29 · Rifle neutral | Rama de trabajo en RED: 484/485 Node, falla el requisito ocular nuevo. No hay corrección de producción aceptada. [Plan y variantes rechazadas](../../specs/003-weapon-contact/plan-rifle-coordination.md). |
 
 ## Parche 0.20.1
 
@@ -42,11 +43,19 @@ La CI de master [35428128166](https://github.com/CripterHack/distrito-cero/actio
 
 El primer run de #26 (`35425812835`, HEAD `7bf024e`) pasó `release`/`native` (49 checks), pero `reload` alcanzó el límite de 900 s después de 27/31 checks correctos. Ese resultado sigue fallido. La revisión amplía el presupuesto a 1,800 s, preserva un diario parcial separado y añade cuatro pruebas del diario. No cambia las aserciones de aceptación. [Diagnóstico y artefacto](QA.md#primer-run-http-de-26-presupuesto-insuficiente).
 
-## Unidad de diagnóstico #27
+## Unidad de diagnóstico #27 · integrada
 
 [Auditor, resultados y límites](LONGARM-CONTACT.md), [plan](../../specs/003-weapon-contact/plan-longarm-audit.md). Se implementó un observador QA que consume la paleta y el montaje dibujados, comprueba las referencias geométricas por familia y registra ojos, culata, palmas y longitudes entre articulaciones independientes. Los 24 checks verifican la integridad del auditor, **no aprueban CONTACT-03**.
 
 La ejecución gráfica local produjo 48 capturas, una matriz numérica de 72 poses y 240 muestras del ciclo. El desajuste ocular neutral sigue en 205.53–238.64 mm. La traslación aislada al ojo separaría la culata de la referencia del hombro entre 209.63 y 242.56 mm. Es un cálculo contrafactual, no una corrección renderizada. No se cambian `src/`, HTML, assets, versión o guardados. La siguiente unidad debe corregir la coordinación de la pose usando este auditor, no construir otra matriz equivalente.
+
+## Reanudación del 21 de septiembre de 2026
+
+PR #28 integrado por squash en `32a8cca590b83a5b2a1b3efabad5723d3c9d6757`. Se revisó el artefacto WebGL del HEAD exacto antes del merge: nueve suites, 205 checks, 133 PNG y cero errores/peticiones registrados. Se comprobaron los 48 hashes PNG del auditor y se revisaron sus poses/ciclos. Eso valida el observador, no corrige la postura.
+
+Después del merge terminaron `success` [Verify 35623114643](https://github.com/CripterHack/distrito-cero/actions/runs/35623114643), [benchmark 35623114699](https://github.com/CripterHack/distrito-cero/actions/runs/35623114699) y [Pages 35623112646](https://github.com/CripterHack/distrito-cero/actions/runs/35623112646). Se cotejó el HTML del artefacto Pages con el hash canónico. No se afirma una nueva consulta HTTP a la URL pública desde el laboratorio.
+
+La siguiente unidad #29 reutiliza el auditor. La base pasa build inmutable y 484 Node. El nuevo test de aceptación del rifle neutral falla por 0.238643317922643 m de separación ocular, dejando la rama en **484 aprobadas y una fallida**. Dos prototipos temporales acercaron ojo y mira pero se rechazaron visualmente por la postura de cabeza/hombro. No entran en `src/`, HTML o assets. Esta rama no debe integrarse hasta resolver el requisito sin perder naturalidad, contactos y continuidad. [Plan y evidencia del bloqueo](../../specs/003-weapon-contact/plan-rifle-coordination.md).
 
 ## Base consolidada 0.20.0
 
@@ -64,7 +73,7 @@ El recurso humano tiene SHA-256 `522a9a24e2cc70857a3ec5c18bf9c2126c7b59d9ce8e4c5
 
 Los proxies gráficos no son autocolisión completa. Tiempo/cámara preparados no demuestran FPS. El benchmark smoke tiene 30 capturas/36 comprobaciones, la matriz completa requiere su propio informe. La prueba de versión importa por HTTP nativo un JSON sintético producido por el serializador de v0.19. Los guardados nativos se verifican por separado de los fixtures gráficos y de roundtrips unitarios.
 
-Los fallos históricos permanecen documentados en [ACTIONS-RECOVERY.md](ACTIONS-RECOVERY.md). Cada commit nuevo exige sus propias ejecuciones. El cierre de #25 está registrado en #26. Los resultados e integración de #27 deben comprobarse en su PR con el HEAD exacto, sin atribuirle los runs anteriores.
+Los fallos históricos permanecen documentados en [ACTIONS-RECOVERY.md](ACTIONS-RECOVERY.md). Cada commit nuevo exige sus propias ejecuciones. El cierre de #25 está registrado en #26. El cierre de #27 y sus verificaciones posteriores están registrados en #28. La nueva rama de #29 sigue en RED y no hereda esos resultados como aprobación propia.
 
 ## Historia preservada
 
