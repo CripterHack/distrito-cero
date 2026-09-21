@@ -1,56 +1,23 @@
-# Reanudación · CI y rifle pendientes separados
+# Handoff · v0.20.2 / rifle corregido, integración registrada en PR #30
 
-Base de esta unidad: `32a8cca590b83a5b2a1b3efabad5723d3c9d6757`. PR #28 integrado, #27 cerrada. La verificación posterior de master, benchmark y Pages está registrada en #28.
+Leer [STATE](STATE.md), [RIFLE-COORDINATION](RIFLE-COORDINATION.md) y [ADR 0003](../adr/0003-rifle-surface-dock.md). Base del cambio: PR #30, `0f01f574ef23817afd407e0cf2ed90fc7bd49540`. Master previo `37ab6f0`, con #31/#32 integrados y su CI/Pages aprobados. El estado de cierre, SHA integrado y CI posterior de esta unidad se consultan en #30, no se inventan en el documento antes del merge.
 
-**Unidad #31:** [gates independientes de CI](CI-GATES.md). Se publica separadamente del rifle porque corrige el nombre engañoso del fallo y permite ejecutar validaciones independientes. No excluye ningún test. El PR determina la aprobación e integración real.
+## No repetir el diagnóstico resuelto
 
-**Continuación del producto:** PR #30, rama `fix/029-rifle-coordination`, último HEAD consultado `a1062639dd92769f3b7c8d678159d40359f46700`. Tiene un control de penetración de cara/cuello/chaqueta, pero el requisito ocular sigue fallando. Verify `35637033697` terminó failure, WebGL/HTTP y benchmark `35637033768` success. No integrar esa rama por resultados parciales. Su plan actualizado vive en la propia rama. No sobrescribir sus cambios con el plan anterior de master.
+El rifle ya no usa el desplazamiento de una articulación como superficie. La coordinación y dos cuboides cosméticos nuevos permiten la línea ocular sin forzar cabeza/hombros. El antiguo valor se conserva en `legacyStockError`. Las tolerancias no cambian. Los diez controles de superficies permanecen. Las cinco regresiones nuevas prueban referencias independientes, alcance, ciclo nativo y 18 poses. Localmente: 500/500 Node y 90 checks gráficos canónicos aprobados. El requisito que daba 238.64 mm ya pasa.
 
-No hay corrección de pose en la unidad de CI. #5/#6/#7/#29 conservan sus gates. Tras integrar #31, actualizar #30 mediante merge normal, comprobar su nuevo HEAD y resolver el espacio de cabeza/culata/chaqueta sin relajar umbrales. [QA vigente](QA.md).
+El HTML/GLB se regeneran, el recurso humano y partidas no cambian. No copiar perfiles A/B/C descartados. La decisión de autoría está documentada, no debe revertirse silenciosamente a referencias antiguas sólo para coincidir con un número histórico. No crear otro auditor equivalente.
 
-## Handoff histórico del auditor #27, conservado
+## Antes de cualquier integración
 
-# Handoff · v0.20.1 / auditor cooperativo CONTACT-03
+Comprobar CI del HEAD exacto, artefactos y diff. La prueba del rifle debe permanecer dentro de `tests/*.test.cjs`, sin skip. Los workflows normales conservan ocho gates independientes y `contents: read`. Un build auxiliar en rama temporal no sustituye la CI completa de PR ni mueve master. Después del merge verificar el push y Pages separadamente. Conservar fallos históricos aunque una repetición apruebe.
 
-**Base remota:** `fecf117385941dabd4e22f13c04d45d4032fb042`, PR #26 integrado y #25 cerrada. Producto **0.20.1 · Coherencia**, canal prototype. Leer [STATE](STATE.md), [QA](QA.md), [hallazgos de armas largas](LONGARM-CONTACT.md) y [plan #27](../../specs/003-weapon-contact/plan-longarm-audit.md).
+## Siguiente trabajo del producto
 
-## Reanudación de la unidad anterior
+#6 permanece abierta: extender una unidad equivalente a la siguiente familia larga reutilizando el observador, empezando por su evidencia de superficie, anatomía y ciclo. No aplicar automáticamente las medidas de rifle a SMG, escopeta o sniper. #5 requiere revisión artística/materiales/variantes. #7 requiere una escena y recorrido íntegro con playtest y hardware físico. El parche de rifle no cierra esos gates.
 
-La CI de master [35428128166](https://github.com/CripterHack/distrito-cero/actions/runs/35428128166), el benchmark [35428128169](https://github.com/CripterHack/distrito-cero/actions/runs/35428128169) y Pages [35428127755](https://github.com/CripterHack/distrito-cero/actions/runs/35428127755) terminaron `success`. Sus resultados se consultaron al iniciar #27, separados de la CI previa del PR.
+El ciclo actual está medido a 60 Hz y la matriz central cubre cuello/elevación/agachado. No deducir cobertura de todos los cuerpos, recoil extremo, colisiones emergentes, Safari/Firefox, móvil o FPS de GPU física. Evitar afirmaciones AAA/fotorrealistas.
 
-La suite HTTP `reload` conserva sus 31 checks y 27 escenarios con RAF/inputs/Storage de producción. No repetir #25 ni tratarla como pendiente. El primer timeout de 900 s y el bloqueo HTTP local siguen documentados en el [plan nativo](../../specs/003-weapon-contact/plan-native-reload.md). La revisión posterior utilizó 1,800 s y un diario parcial que nunca sustituye al informe final.
+## Historia preservada
 
-## Unidad actual #27
-
-Nuevo auditor QA de `smg`, `rifle`, `shotgun` y `sniper`. `tools/qa/longarm_contact.js` mide el ojo, eje de mira verificado contra geometría, culata visible, referencia articulada del hombro, palmas y longitudes entre articulaciones distintas. No usa la mira de pistola para armas largas. La escena del navegador consume la paleta realmente dibujada.
-
-Contrato `longarms`: 24 checks de integridad, 48 capturas, matriz numérica de 72 poses y 240 muestras del ciclo. **No cambia ni aprueba la postura del juego.** `screening.status=needs-coordination` permanece visible aunque el proceso de medición apruebe. El desajuste neutral observado sigue entre 205.53 y 238.64 mm. Una traslación al ojo aumenta la separación de culata a 209.63–242.56 mm. El contrafactual es algebraico, no una corrección implementada.
-
-Trece pruebas Node y cuatro Python de galería añaden controles negativos. `qa_selection.test.py` exige origen fixture, nunca HTTP. La CI incorpora la suite sin retirar los checks anteriores. La ejecución local headless no ofreció WebGL2 y quedó fallida. La ejecución headed/Xvfb produjo la galería con 24/24 checks; cada repetición y la CI deben consultarse por su propio manifiesto. El PR asociado a #27 determina el resultado de integración, no la existencia de este archivo.
-
-## Qué se conserva
-
-HTML SHA-256 `4a78bcca34cd40b2c406b0642362f30a6b71303d8a4a6ace659e0ba4afc9918d`, 8,862,957 bytes. Fuente `dfb16e65c1a64d991f2bedfbecf0892d69c8b2110e4be1403e31d7af739c4fdb`. No hay cambios de runtime, mallas, rig, inventario, guardados, permisos o versión. No borrar datos del sitio.
-
-La copia local es el artefacto Pages del SHA canónico. Su historia Git de ejecución es sintética y no se publica. Los commits remotos parten del SHA real. Los resultados de fixture no se etiquetan como persistencia HTTP o rendimiento físico.
-
-## Puertas de verificación
-
-```sh
-python3 build.py --check
-node --test tests/*.test.cjs
-python3 tests/longarm_gallery.test.py
-python3 tests/qa_selection.test.py
-python3 tests/reload_contract.test.py
-python3 tools/export_contact.py
-python3 tests/contact_exports.test.py
-xvfb-run -a python3 -m tools.qa.run --suite longarms --suite sight --suite handling --suite characters --headed
-```
-
-Ejecutar también autoría, build, runner y suites vigentes según [QA](QA.md). Exigir CI del HEAD exacto, revisión del diff y capturas antes del merge autorizado. El push posterior a master y Pages son verificaciones independientes. No publicar un snapshot local ni declarar artística una aprobación de checks.
-
-## Siguiente acción concreta
-
-Tras integrar #27, no añadir otra auditoría equivalente. Reutilizar las referencias para una corrección acotada de rifle neutral que coordine cabeza, hombro, culata y alcance sin deformar cara o alargar brazos. El detalle está en [LONGARM-CONTACT](LONGARM-CONTACT.md#siguiente-unidad-sin-repetir-este-diagnóstico). Preservar recargas, continuidad, dedos, palmas, óptica y todos los formatos. La referencia del hombro no sustituye la revisión de la superficie real de la prenda.
-
-#5 necesita aprobación artística/materiales/variantes. #6 sigue pendiente de coordinación y revisión de superficies/movimiento. #7 necesita escena y recorrido íntegro sin teletransportes, además de playtest y GPU física. No cerrar esos gates por el éxito de la suite diagnóstica.
+[Cancelación](../../specs/003-weapon-contact/plan-reload-cancellation.md), [HTTP nativo](../../specs/003-weapon-contact/plan-native-reload.md), [auditor #27](../../specs/003-weapon-contact/plan-longarm-audit.md), [rechazos de superficie](../../specs/003-weapon-contact/stock-surface-rejection.md) y [CI](CI-GATES.md). La investigación inicial y los SHA anteriores permanecen en esos documentos, PRs y Git. No reescribir manifiestos históricos ni borrar datos del sitio.

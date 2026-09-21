@@ -115,6 +115,11 @@
   for(const [b,tgt] of [['spine',[.05,0,0]],['chest',[.025,0,0]],['pelvis',[0,0,0]]])rot[b]=rot[b].map((v,i)=>D.lerp(v,tgt[i],seated));
   rot.spine[0]+=(n.bodyLean||0)*.45;rot.chest[0]+=(n.bodyLean||0)*.4;
   if(n.weaponPose){const w=n.weaponPose;const brace=w.brace||0;rot.spine[1]+=.075*brace;rot.chest[1]+=.185*brace-.025*w.aim*(1-w.reload);rot['clavicleR'][2]-=.020*w.aim;rot['clavicleL'][1]+=.045*w.aim;rot.spine[0]+=.006*brace;rot.chest[0]-=.008*w.kick;}
+  if(n.weaponPose?.rifle){
+   const weight=D.clamp(n.weaponPose.rifle,0,1);
+   rot.spine[2]-=.064*weight;rot.chest[2]-=.096*weight;
+   rot.clavicleR[2]+=.12*weight;rot.clavicleL[1]+=.08*weight;
+  }
   // A compact neck cannot absorb the same twist in a tiny tissue span. Let the
   // upper torso share deliberate large head turns; the final facing is retained.
   const assist=(n.neckDrop>0&&Number.isFinite(n.lookYaw))?D.clamp(n.lookYaw,-.85,.85)*.34*D.clamp(n.neckDrop/.045,0,1.15)*(1-seated*.45):0;

@@ -23,6 +23,8 @@
   s.setIdentity('Contacto largo',{...D.Appearance.default(),neckLength:config.neck||0});
   s.equipment=D.Equipment.initial();s.equipWeapon(config.item);s.equipment.handling.ready=1;
   s.equipment.aimWeight=config.aim??1;s.equipment.pitch=config.pitch||0;s.time=1.25;
+  // Prepared settled aim includes the presentation filter, not just simulation intent.
+  if(config.item==='rifle')s.equipment.handling.rifleAim=config.aim??1;
   r.motionTracker.clear();r.motionScene=s;r.frozenHandling=null;r.previewStudio=false;r.equipmentView=false;
   r.daylight=.67;r.lightTime=-1;r.fovOverride=.62;
   r.camera.target=[4.015,1.40-s.player.crouch*.22,36.25];
@@ -34,8 +36,10 @@
   DC_MANUAL_FRAMES.draw(a,s);
   if(state.draws!==count+1)throw new Error('Missing or repeated production equipment draw');
   const before=JSON.stringify(s.serialize()),measurement=Q.inspect(s,state.last);
+  const stockClearance=s.equipment.selected==='rifle'?DC_STOCK_CLEARANCE.inspect(s,state.last):null;
   if(before!==JSON.stringify(s.serialize()))throw new Error('Auditor mutated game state');
   return{measurement,screening:Q.screen(measurement),counterfactual:Q.translateToEye(measurement),
+   stockClearance,stockScreen:stockClearance?DC_STOCK_CLEARANCE.screen(stockClearance):null,
    frame:r.frame,draws:state.draws,seed:1337,time:s.time,appearance:structuredClone(s.appearance),
    actor:{x:s.player.x,y:s.player.y,z:s.player.z,yaw:s.player.yaw,crouch:s.player.crouch},
    pitch:s.equipment.pitch,aim:s.equipment.aimWeight,camera:structuredClone(r.camera),fov:r.fovOverride,

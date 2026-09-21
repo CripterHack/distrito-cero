@@ -38,9 +38,9 @@ Archivos: `tests/longarm_contact_browser.py`, `tools/qa/run.py`, `tests/qa_selec
 Archivos: `docs/project/STATE.md`, `HANDOFF.md`, `QA.md`, `LONGARM-CONTACT.md` y este plan.
 
 - [x] Registrar el cierre real de #25/#26 y CI posterior de master, conservando el timeout histórico.
-- [ ] Ejecutar build inmutable, Node completo, tests Python vigentes y suites gráficas afectadas.
-- [ ] Revisar capturas y diff. Publicar commits pequeños y PR con referencia al SHA revisado.
-- [ ] No integrar sin CI aprobada. Mantener #6 abierta y documentar el siguiente cambio de pose, no otra matriz redundante.
+- [x] Ejecutar build inmutable, Node completo, tests Python vigentes y suites gráficas afectadas.
+- [x] Revisar capturas y diff. Publicar commits pequeños y PR con referencia al SHA revisado.
+- [x] No integrar sin CI aprobada. Mantener #6 abierta y documentar el siguiente cambio de pose, no otra matriz redundante.
 
 ## Reversión
 
@@ -54,3 +54,11 @@ Clon por Git no disponible por resolución DNS del laboratorio. Copia obtenida d
 ## Decisiones de ejecución
 
 Se preservó el caso headless fallido y se usó headed/Xvfb, configuración ya presente en CI. No se modificó el runtime para acomodar el laboratorio. La galería escapa etiquetas y restringe rutas de imágenes locales. Un test de revisión reprodujo la falta de rechazo de contactos no finitos y aprobó tras añadir el guard. No se incluyó una falsa corrección de traslación ocular: el contrafactual mantiene explícito que rompe la referencia de culata. No se dispone de un revisor independiente, la revisión es propia.
+
+## Cierre verificado el 21 de septiembre de 2026
+
+PR #28 integrado por squash en `32a8cca590b83a5b2a1b3efabad5723d3c9d6757`, después de verificar HEAD `6d2effd65868a921422cbe9099c5c633f474f07d` y revisar el artefacto WebGL `10589016422`. Nueve suites, 205 checks, 133 PNG y cero errores/peticiones. Se cotejaron los 48 hashes PNG del auditor, sus 72 poses y 240 muestras. La revisión es propia, no independiente. Verify `35457549479` y benchmark `35457549514` terminaron success.
+
+La comprobación posterior es distinta: Verify de master `35623114643`, benchmark `35623114699` y Pages `35623112646`, todos success. El ZIP Pages `10649968865` coincide con SHA-256 `d14dbc643645e4121f757a6a958fd432510de98885efa3821deb41e22c0394c7` y contiene el HTML canónico sin cambios. No se afirma una comprobación HTTP pública nueva.
+
+#27 queda cerrada. La continuación real es [#29: rifle neutral](plan-rifle-coordination.md), con un nuevo requisito aún fallido. No repetir esta auditoría ni confundir el cierre del observador con una pose corregida.

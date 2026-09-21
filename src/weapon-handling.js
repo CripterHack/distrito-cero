@@ -16,6 +16,9 @@
  // Visual landmarks of this avatar and its fictional game prop. QA samples
  // their geometry independently. These are not physical optical parameters.
  const SIDEARM_SIGHT={eye:[.0308,1.6708,.0876],rear:[0,.0735,-.01],front:[0,.0795,.22]};
+ // Rifle art revision: sampled upper-jacket triangle, not the shoulder pivot.
+ // These three bind points are verified against the unchanged authored jacket.
+ const RIFLE_DOCK=[[.0561,1.455,.0867],[.0584,1.463,.0807],[.0434,1.4566,.0884]];
  const PRIMARY={p:[.031,-.107,-.030],palm:[-1,0,0],fingers:[0,-.10,.994987]};
  const SUPPORT={p:[-.003,-.047,.224],palm:[0,1,0],fingers:[.84,0,.542586]};
  const profiles={
@@ -132,7 +135,7 @@
  const mixThumb=(a,b,t)=>({opposition:mix(a.opposition,b.opposition,t),flexion:mix(a.flexion,b.flexion,t)});
  function applyThumb(g,p){g.thumbOpposition=p.opposition.slice();g.fingers.thumb=p.flexion.slice();}
  function spring(x,v,omega,dt){const b=v+omega*x,d=Math.exp(-omega*dt);return[(x+b*dt)*d,(v-omega*b*dt)*d];}
- function beginEquip(sim){const e=sim.equipment;return e.handling={item:e.selected,serial:e.shotSerial||0,kick:0,velocity:0,ready:0,triggerWeight:0,lagYaw:0,lagPitch:0,velYaw:0,velPitch:0,lastYaw:sim.player.yaw||0,lastPitch:e.pitch||0};}
+ function beginEquip(sim){const e=sim.equipment;return e.handling={item:e.selected,serial:e.shotSerial||0,kick:0,velocity:0,ready:0,rifleAim:0,triggerWeight:0,lagYaw:0,lagPitch:0,velYaw:0,velPitch:0,lastYaw:sim.player.yaw||0,lastPitch:e.pitch||0};}
  function step(sim,dt){
   if(!Number.isFinite(dt)||dt<=0)return;
   const e=sim.equipment;if(!e)return;dt=Math.min(dt,.25);
@@ -142,6 +145,7 @@
   if(h.serial!==(e.shotSerial||0)){h.serial=e.shotSerial||0;h.velocity=Math.min(65,h.velocity+(fam==='heavy'?40:fam==='sidearm'?37:31));}
   [h.kick,h.velocity]=spring(h.kick,h.velocity,omega,dt);
   h.ready=D.damp(h.ready,1,fam==='sidearm'?6:11,dt);
+  if(e.selected==='rifle')h.rifleAim=D.damp(h.rifleAim??e.aimWeight??0,clamp(e.aimWeight||0,0,1),5,dt);
   const trigger=!e.reloading&&(e.trigger||e.recoil>.72)?1:0;h.triggerWeight=D.damp(h.triggerWeight||0,trigger,trigger?40:22,dt);
   const yaw=sim.player.yaw||0,pitch=e.pitch||0,dy=D.wrap(yaw-(h.lastYaw??yaw)),dp=pitch-(h.lastPitch??pitch);
   if(Math.abs(dy)>1.2||Math.abs(dp)>1){h.lagYaw=h.lagPitch=h.velYaw=h.velPitch=0;}
@@ -151,9 +155,13 @@
   }
   h.lastYaw=yaw;h.lastPitch=pitch;
  }
- function actor(n,m,e){return{...n,neckDrop:m.neckDrop??n.neckDrop??0,handTargets:m.hands,handGrips:m.grips,
-  weaponPose:{aim:m.aim,reload:m.reload,family:m.family,kick:m.kick,brace:m.braceWeight||0},reach:.72,
-  bodyLean:m.aim*.020-m.kick*.022,lookYaw:-(m.braceWeight||0)*.235,lookPitch:-(e.pitch||0)*.50+m.aim*.025};}
+ function actor(n,m,e){
+  const a={...n,neckDrop:m.neckDrop??n.neckDrop??0,handTargets:m.hands,handGrips:m.grips,
+   weaponPose:{aim:m.aim,reload:m.reload,family:m.family,kick:m.kick,brace:m.braceWeight||0},reach:.72,
+   bodyLean:m.aim*.020-m.kick*.022,lookYaw:-(m.braceWeight||0)*.235,lookPitch:-(e.pitch||0)*.50+m.aim*.025};
+  if(e.selected==='rifle'){a.weaponPose.rifle=m.coordination||0;a.lookRoll=-.30*(m.coordination||0);}
+  return a;
+ }
  function mount(sim,actorOverride=null){
   const p=actorOverride||sim.player,e=sim.equipment,w=D.Equipment.get(e.selected)||D.Equipment.get('unarmed'),spec=profile(w.id),family=spec.family;
   const requestedAim=clamp(e.aimWeight||0,0,1),time=sim.time||0,speed=clamp(p.motion?.speed??p.moveSpeed??0,0,6),phase=p.motion?.phase??p.walk??0;
@@ -161,10 +169,13 @@
   const kick=clamp(state?.kick??(e.recoil||0)*.45,0,1.3),ready=clamp(state?.ready??1,0,1);
   // A sidearm cannot reach its aim pose ahead of its draw presentation. The
   // squared readiness starts gently without delaying input, firing or camera.
-  const aim=family==='sidearm'?requestedAim*ready*ready:requestedAim;
+  const visualAim=w.id==='rifle'&&Number.isFinite(state?.rifleAim)?clamp(state.rifleAim,0,1):requestedAim;
+  const aim=(family==='sidearm'||w.id==='rifle')?visualAim*ready*ready:visualAim;
   const t=e.reloading>0&&w.reload?clamp(1-e.reloading/w.reload,0,1):0;
   const reload=sm(0,.16,t)*(1-sm(.82,1,t)),contact=sm(.045,.24,t)*(1-sm(.84,1,t));
   const heavy=family==='heavy',optic=family==='optics',sidearm=family==='sidearm',melee=family==='melee',thrown=family==='throw',long=family==='long'||heavy;
+  const rifleRelease=sm(0,.32,t)*(1-sm(.68,1,t));
+  const coordination=w.id==='rifle'?sm(.12,.95,aim)*sm(.15,1,ready)*(1-rifleRelease):0;
   const braceWeight=long?aim*(1-reload*.82)*ready:0;
   const gait=clamp(speed/4,0,1)*(1-aim*.90)*(1-reload),sway=Math.sin(phase)*.007*gait;
   const inertia={yaw:(state?.lagYaw||0)*(1-aim*.7),pitch:(state?.lagPitch||0)*(1-aim*.7)};
@@ -184,7 +195,7 @@
   let origin=[(p.x||0)+pos[0]*c+pos[2]*s,pos[1],(p.z||0)-pos[0]*s+pos[2]*c];
   // Derive the brace from the same procedural torso before its arm IK is solved.
   const neckDrop=D.CharacterFit?.drop(sim.appearance?.neckLength)||.045;
-  const poseInfo={aim,reload,kick,family,braceWeight,neckDrop},posed=D.SkinRig&&D.NaturalMotion?D.SkinRig.pose(actor(p,poseInfo,e),time):null;
+  const poseInfo={aim,reload,kick,family,braceWeight,neckDrop,coordination},posed=D.SkinRig&&D.NaturalMotion?D.SkinRig.pose(actor(p,poseInfo,e),time):null;
   const shoulders={};
   for(const k of['L','R']){
    const bind=D.SkinRig?.bones[D.SkinRig.ids['upperArm'+k]]?.[2]||[k==='L'?-.2115:.2115,1.435,0];
@@ -212,6 +223,23 @@
   }
   const stock=[0,-.012,-.238],shoulderTarget=add(shoulders.R,[.010*c+.024*s,-.040,-.010*s+.024*c]);
   if(long){const planted=sub(shoulderTarget,direction(stock));origin=mix(origin,planted,braceWeight);origin=add(origin,direction([0,0,-kick*.007*braceWeight]));}
+  let rifleDock=null;
+  if(w.id==='rifle'&&posed){
+   const world=q=>[(p.x||0)+q[0]*c+q[2]*s,posed.rootY+q[1],(p.z||0)-q[0]*s+q[2]*c];
+   const transform=(bone,q)=>world(D.SkinRig.transform(posed.matrices.subarray(D.SkinRig.ids[bone]*16,D.SkinRig.ids[bone]*16+16),q));
+   const a=sim.appearance||D.Appearance.default();
+   const patch=RIFLE_DOCK.map(q=>transform('chest',D.CharacterFit.point(D.Appearance.shapePoint(q,31,a.build,a.face,a.neck||0),neckDrop)));
+   const target=[0,1,2].map(i=>patch.reduce((sum,q)=>sum+q[i],0)/3);
+   const eye=transform('head',D.CharacterFit.point(SIDEARM_SIGHT.eye,neckDrop));
+   const rear=[0,.0735,-.01],axis=direction(D.normalize([0,.006,.43])),forward=direction([0,0,1]);
+   // Solve the longitudinal degree of freedom against the actual cloth patch.
+   // The eye sets transverse placement; the existing two-arm projection wins
+   // if an extreme angle is unreachable. Neither bones nor face are stretched.
+   const distance=(D.dot(sub(add(target,direction(rear)),eye),forward)+.2385+.010+.018*sm(0,.3,-pitch))/D.dot(axis,forward);
+   const aligned=sub(add(eye,axis.map(v=>v*distance)),direction(rear));
+   origin=mix(origin,aligned,coordination);
+   rifleDock={target,eye,weight:coordination,reference:'jacket-triangle-8898'};
+  }
   const pull=sm(.27,.46,t)*(1-sm(.62,.80,t));
   const detached=spec.reload==='magazine'&&reload>0;
   const magazine={offset:detached?[-.025*pull,-.211*pull,.025*pull]:[0,0,0],rotation:[0,0,detached?-.23*pull:0],
@@ -296,9 +324,14 @@
    sighting.error=Math.hypot(...sub(delta,sighting.axis.map(v=>v*along)));
    sighting.behind=-along;
   }
-  const brace=long?{weight:braceWeight,target:shoulderTarget,stock:point(...stock),error:Math.hypot(...sub(point(...stock),shoulderTarget))}:null;
+  let brace=long?{weight:braceWeight,target:shoulderTarget,stock:point(...stock),error:Math.hypot(...sub(point(...stock),shoulderTarget))}:null;
+  if(rifleDock){
+   const local=[direction([1,0,0]),direction([0,1,0]),direction([0,0,1])].map(v=>D.dot(sub(rifleDock.target,origin),v));
+   const contact=point(clamp(local[0],-.026,.026),clamp(local[1],-.114,-.035),-.2385);
+   brace={weight:braceWeight,target:rifleDock.target,stock:contact,error:Math.hypot(...sub(contact,rifleDock.target)),reference:rifleDock.reference,legacy:brace};
+  }
   const reloadStage=!reload?'':t<.24?'Buscar agarre':t<.57?'Extraer':t<.82?'Insertar':t<.90?'Asentar':'Recuperar apoyo';
-  return{point,direction,partPoint,partTransform,yaw,pitch,roll,origin,hands,palmContacts,grips,fingerContacts,magazine,reloadContact:contact,reload,reloadStage,aim,kick,ready,family,inertia,brace,braceWeight,fitDistance,neckDrop,sighting,
+  return{point,direction,partPoint,partTransform,yaw,pitch,roll,origin,hands,palmContacts,grips,fingerContacts,magazine,reloadContact:contact,reload,reloadStage,aim,kick,ready,family,inertia,brace,braceWeight,fitDistance,neckDrop,sighting,coordination,rifleDock,
    phase:reload?'Recargar':optic?(aim>.5?'Observar':'Transportar'):kick>.12?(melee?'Golpear':thrown?'Lanzar':'Recuperar'):aim>.5?'Apuntar':'Guardia baja',
    muzzle:point(0,.012,w.length||.3),supportLocal:support?.p.slice()||null};
  }
