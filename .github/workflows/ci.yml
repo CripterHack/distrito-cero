@@ -25,33 +25,58 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        id: checkout
         with:
           persist-credentials: false
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        id: node
         with:
           node-version: '22'
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        id: python
         with:
           python-version: '3.12'
-      - run: |
+      - name: Verify thenar authoring
+        if: ${{ !cancelled() && steps.checkout.outcome == 'success' && steps.node.outcome == 'success' && steps.python.outcome == 'success' }}
+        run: |
           python3 tools/refine_thenar.py --check
           python3 tests/thenar_contour.test.py
+      - name: Verify garment binding
+        if: ${{ !cancelled() && steps.checkout.outcome == 'success' && steps.node.outcome == 'success' && steps.python.outcome == 'success' }}
+        run: |
           python3 tools/rebind_garment.py --check
           python3 tests/garment_binding.test.py
+      - name: Verify immutable build and checkout
+        if: ${{ !cancelled() && steps.checkout.outcome == 'success' && steps.node.outcome == 'success' && steps.python.outcome == 'success' }}
+        run: |
           python3 build.py --check
           python3 tests/release_build.test.py
           python3 tests/release_checkout.test.py
+      - name: Run all Node logic and pose tests
+        if: ${{ !cancelled() && steps.checkout.outcome == 'success' && steps.node.outcome == 'success' && steps.python.outcome == 'success' }}
+        run: |
           node --test tests/*.test.cjs
+      - name: Verify QA and workflow contracts
+        if: ${{ !cancelled() && steps.checkout.outcome == 'success' && steps.node.outcome == 'success' && steps.python.outcome == 'success' }}
+        run: |
           python3 tests/qa_runner.test.py
           python3 tests/qa_reporting.test.py
           python3 tests/qa_selection.test.py
           python3 tests/native_support.test.py
           python3 tests/reload_contract.test.py
           python3 tests/longarm_gallery.test.py
+          python3 tests/ci_workflow.test.py
+      - name: Verify contact exports
+        if: ${{ !cancelled() && steps.checkout.outcome == 'success' && steps.node.outcome == 'success' && steps.python.outcome == 'success' }}
+        run: |
           python3 tools/export_contact.py
           python3 tests/contact_exports.test.py
+      - name: Verify generated assets unchanged
+        if: ${{ !cancelled() && steps.checkout.outcome == 'success' && steps.node.outcome == 'success' && steps.python.outcome == 'success' }}
+        run: |
           git diff --exit-code -- index.html assets/dc019-equipment.glb
       - name: Check current documentation links
+        if: ${{ !cancelled() && steps.checkout.outcome == 'success' && steps.node.outcome == 'success' && steps.python.outcome == 'success' }}
         run: |
           python3 - <<'PY'
           from pathlib import Path

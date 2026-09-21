@@ -1,3 +1,15 @@
+# Reanudación · CI y rifle pendientes separados
+
+Base de esta unidad: `32a8cca590b83a5b2a1b3efabad5723d3c9d6757`. PR #28 integrado, #27 cerrada. La verificación posterior de master, benchmark y Pages está registrada en #28.
+
+**Unidad #31:** [gates independientes de CI](CI-GATES.md). Se publica separadamente del rifle porque corrige el nombre engañoso del fallo y permite ejecutar validaciones independientes. No excluye ningún test. El PR determina la aprobación e integración real.
+
+**Continuación del producto:** PR #30, rama `fix/029-rifle-coordination`, último HEAD consultado `a1062639dd92769f3b7c8d678159d40359f46700`. Tiene un control de penetración de cara/cuello/chaqueta, pero el requisito ocular sigue fallando. Verify `35637033697` terminó failure, WebGL/HTTP y benchmark `35637033768` success. No integrar esa rama por resultados parciales. Su plan actualizado vive en la propia rama. No sobrescribir sus cambios con el plan anterior de master.
+
+No hay corrección de pose en la unidad de CI. #5/#6/#7/#29 conservan sus gates. Tras integrar #31, actualizar #30 mediante merge normal, comprobar su nuevo HEAD y resolver el espacio de cabeza/culata/chaqueta sin relajar umbrales. [QA vigente](QA.md).
+
+## Handoff histórico del auditor #27, conservado
+
 # Handoff · v0.20.1 / auditor cooperativo CONTACT-03
 
 **Base remota:** `fecf117385941dabd4e22f13c04d45d4032fb042`, PR #26 integrado y #25 cerrada. Producto **0.20.1 · Coherencia**, canal prototype. Leer [STATE](STATE.md), [QA](QA.md), [hallazgos de armas largas](LONGARM-CONTACT.md) y [plan #27](../../specs/003-weapon-contact/plan-longarm-audit.md).
