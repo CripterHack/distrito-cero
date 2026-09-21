@@ -57,7 +57,7 @@
   for(const [i,car] of s.cars.entries())Object.assign(car,{x:5000+i*6,z:5000,parked:true,speed:0,driver:null,boarding:false,doorOpen:0});
   if(spec.weapon){
    s.equipWeapon(spec.weapon);const e=s.equipment;e.aimWeight=spec.aim||0;e.aiming=e.aimWeight>.5;e.pitch=0;
-   if(e.handling){e.handling.ready=1;e.handling.kick=0;}
+   if(e.handling){e.handling.ready=1;e.handling.kick=0;if(spec.weapon==='rifle')e.handling.rifleAim=e.aimWeight;}
    if(spec.reload){e.reloading=(1-spec.reload)*D.Equipment.get(spec.weapon).reload;e.reloadId=spec.weapon;}
   }
   if(c.pose==='seated'||c.pose==='entry'){
@@ -78,6 +78,7 @@
   r.render(s);r.gl.finish();
   const g=r.gl,glError=g.getError(),finitePalette=Array.from(r.heroPalette).every(Number.isFinite),equipment=r.equipmentStats;
   if(g.isContextLost()||glError!==g.NO_ERROR||!finitePalette||r.castStats.actors<1)throw new Error('Invalid production-renderer sample: '+JSON.stringify({glError,finitePalette,actors:r.castStats.actors}));
+  if(spec.weapon==='rifle'&&spec.aim===1&&!spec.reload&&equipment.phase!=='Apuntar')throw new Error('Prepared rifle aim does not match the rendered phase: '+equipment.phase);
   return {glError,finitePalette,actors:r.castStats.actors,triangles:r.castStats.triangles,
    characterLOD:r.castStats.lod,drawBatches:r.castStats.drawBatches,hairStyle:look.hairStyle,
    camera:{eye:[...r.camera.eye],target:[...r.camera.target],fov:r.fovOverride},

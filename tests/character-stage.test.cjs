@@ -33,3 +33,46 @@ test('bald option contributes zero hair geometry without changing body parts',()
  const q=B.geometryBudget([[{vertices:300}],[{vertices:150}],[{vertices:60}]],3);
  assert.ok(q.every(x=>x.hairTriangles===0&&x.totalTriangles===x.bodyTriangles));
 });
+
+// Exercise the real fixture, simulation, mount and rig. Only the DOM/GPU
+// boundary is stubbed here. Pixel validation stays in character_benchmark.py.
+function preparedRifleCase({stalePhase=false}={}){
+ const names=['DC_APP','document','innerWidth','innerHeight','qaCharacterStorage'];
+ const saved=new Map(names.map(name=>[name,Object.getOwnPropertyDescriptor(globalThis,name)]));
+ let drawn;
+ const renderer={
+  quality:'balanced',canvas:{removeAttribute(){}},resize(){},camera:{},
+  motionTracker:{clear(){},update(){}},lodParts:[[{vertices:3}],[{vertices:3}],[{vertices:3}]],
+  gl:{VERSION:'version',RENDERER:'renderer',NO_ERROR:0,drawingBufferWidth:720,drawingBufferHeight:720,
+      getExtension:()=>null,getParameter:()=> 'test-boundary',finish(){},getError:()=>0,isContextLost:()=>false},
+  render(sim){
+   const mount=DC.Equipment.mount(sim),actor=DC.WeaponHandling.actor(sim.player,mount,sim.equipment);
+   const pose=DC.SkinRig.pose(actor,sim.time);
+   drawn={aim:mount.aim,coordination:mount.coordination,simulation:sim};
+   this.heroPalette=pose.matrices;this.castStats={actors:1,triangles:1,lod:[1,0,0],drawBatches:1};
+   this.equipmentStats={selected:sim.equipment.selected,phase:stalePhase?'Guardia baja':mount.phase,
+     contacts:{},palms:mount.palmContacts,magazine:mount.magazine};
+  }
+ };
+ try{
+  globalThis.document={createElement:()=>({}),head:{append(){}}};
+  globalThis.innerWidth=globalThis.innerHeight=720;globalThis.qaCharacterStorage=new Map();
+  globalThis.DC_APP={sim:new DC.Simulation(new DC.World(42)),renderer,stopFrame(){}};
+  B.init();
+  const result=B.applyCase({pose:'aim',time:1.25,look:{hairStyle:3},yaw:0,light:'neutral',daylight:.5,
+    sample:{label:'Apuntado de fusil',scene:'game',actor:{},weapon:'rifle',aim:1}});
+  return {result,drawn};
+ }finally{
+  for(const [name,descriptor] of saved)if(descriptor)Object.defineProperty(globalThis,name,descriptor);else delete globalThis[name];
+ }
+}
+test('prepared rifle aiming capture settles the visual filter before its first draw',()=>{
+ const {result,drawn}=preparedRifleCase();
+ assert.equal(drawn.aim,1,'fixture left rifleAim at the lowered equip value');
+ assert.equal(drawn.coordination,1);
+ assert.equal(result.equipment.phase,'Apuntar');
+ assert.equal(result.liveSimulationUntouched,true);assert.equal(result.storageUntouched,true);
+});
+test('an aiming-labelled rifle capture rejects a renderer reporting the lowered phase',()=>{
+ assert.throws(()=>preparedRifleCase({stalePhase:true}),/rifle.*aim|aim.*rifle/i);
+});
