@@ -47,6 +47,7 @@ jobs:
           python3 tests/qa_selection.test.py
           python3 tests/native_support.test.py
           python3 tests/reload_contract.test.py
+          python3 tests/longarm_gallery.test.py
           python3 tools/export_contact.py
           python3 tests/contact_exports.test.py
           git diff --exit-code -- index.html assets/dc019-equipment.glb
@@ -88,7 +89,7 @@ jobs:
           if [ "$FULL_BROWSER" = true ]; then
             xvfb-run -a python3 -m tools.qa.run --suite all --headed --output artifacts/ci-fixture
           else
-            xvfb-run -a python3 -m tools.qa.run --suite sight --suite thenar --suite sidearms --suite thumbs --suite fingers --suite handling --suite optical --suite recovery --headed --output artifacts/ci-fixture
+            xvfb-run -a python3 -m tools.qa.run --suite longarms --suite sight --suite thenar --suite sidearms --suite thumbs --suite fingers --suite handling --suite optical --suite recovery --headed --output artifacts/ci-fixture
           fi
       - name: Upload fresh evidence
         if: always()

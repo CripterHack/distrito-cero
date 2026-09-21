@@ -25,6 +25,7 @@ class Suite:
     origin: str = 'fixture'
 
 SUITES={
+ 'longarms': Suite('longarms',('tests/longarm_contact_browser.py',),'qa/v020/longarm-contact.json',24),
  'sight': Suite('sight',('tests/sidearm_sight_browser.py',),'qa/v020/sidearm-sight.json',26),
  'release': Suite('release',('tests/release_browser.py',),'qa/v020/release.json',14,'http'),
  'thenar': Suite('thenar',('tests/thenar_surface_browser.py',),'qa/v019/thenar.json',15),

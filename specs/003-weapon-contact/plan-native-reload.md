@@ -60,3 +60,12 @@ La CI [35425812835](https://github.com/CripterHack/distrito-cero/actions/runs/35
 Se amplía el presupuesto de la suite a 1,800 s y el trabajo HTTP a 35 minutos. No cambian los 31 checks, temporizadores del juego, reglas, tolerancias, renderer, RAF, inputs o almacenamiento. El ajuste responde al tiempo observado de estos escenarios preparados, no es una corrección de gameplay ni una medición de GPU física.
 
 Cada check guarda además `reload.progress.json` de forma atómica con snapshots y fecha de observación. Es un diario **in_progress**, nunca el informe final `reload.json` que exige el runner. Cuatro tests adicionales rechazan sobrescribir el informe canónico, borrar fallos, duplicar observaciones o modificar sus datos. `tests/reload_contract.test.py` suma 16 pruebas: doce del contrato y cuatro del diario. La aceptación exige una ejecución nueva completa del HEAD revisado.
+
+
+## Estado posterior verificado, 19 de septiembre de 2026
+
+PR #26 integrado en `fecf117385941dabd4e22f13c04d45d4032fb042`, cerrando #25. Antes del merge, `35427112518` y `35427112595` aprobaron el HEAD revisado `0b60750b939e84370e4af9324434fbd74f617ccd`. La nueva suite terminó con 31/31 checks y 27 escenarios, no con un diario parcial.
+
+La CI de master [35428128166](https://github.com/CripterHack/distrito-cero/actions/runs/35428128166), el benchmark [35428128169](https://github.com/CripterHack/distrito-cero/actions/runs/35428128169) y Pages [35428127755](https://github.com/CripterHack/distrito-cero/actions/runs/35428127755) terminaron `success`. Sus resultados se consultaron al iniciar #27, separados de la CI previa del PR.
+
+El primer timeout y el bloqueo local siguen siendo fallos históricos conservados. Esta actualización sustituye el estado pendiente de las secciones de implementación anteriores, no sus evidencias ni límites. Continuidad de CONTACT-03 en el [plan de auditoría](plan-longarm-audit.md).
