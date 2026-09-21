@@ -19,7 +19,17 @@ GitHub Pages sigue configurado sobre master. No se cambia esa configuración, la
 | #23 · Cancelación por fases | Cerrada mediante PR #24, integrado en `61410a0`. CI del push y Pages aprobados. No cierra #6. |
 | #25 · Recargas en navegador | Cerrada mediante PR #26, integrado en `fecf117`. CI, benchmark y Pages posteriores aprobados. No cierra #6. |
 | #27 · Auditor cooperativo | Cerrada mediante PR #28, integrado en `32a8cca`. CI, benchmark y Pages posteriores aprobados. Auditor QA, no corrección visual. |
-| #29 · Rifle neutral | Rama de trabajo en RED: 484/485 Node, falla el requisito ocular nuevo. No hay corrección de producción aceptada. [Plan y variantes rechazadas](../../specs/003-weapon-contact/plan-rifle-coordination.md). |
+| #29 · Rifle neutral | PR #30 en RED: 494/495 Node. Control de rechazo de superficies añadido, pero ninguna pose aceptada. [Hallazgo y límites](../../specs/003-weapon-contact/stock-surface-rejection.md). |
+
+## Última continuación de #29 · 21 de septiembre de 2026
+
+Se descartó una tercera variante de superficie: error ocular de 1.8818 mm, pero penetración de 31.2559 mm en cara/cuello y 16.3883 mm en chaqueta. También rompía la continuidad del pulgar en el primer paso de recarga Node, con 41.55 mm de salto. Se restauraron las fuentes de producción y los umbrales originales. No se aprobó un nuevo contrato de apoyo.
+
+`stock_clearance.js` añade un control QA de las superficies reales y la geometría verificada de la culata, integrado en las capturas existentes de rifle. No es otra matriz o solver. La pose canónica ya muestra 15.53 mm de penetración en chaqueta. Se añadieron diez pruebas Node y dos Python de galería, sin ocultar la prueba ocular fallida.
+
+Resultado local actual: **495 Node, 494 aprobados y uno fallido**, 83 Python aprobados, autoría/build/export aprobados. Suite gráfica `20260921T175615Z-a8b5616788c5`: 24 checks de integridad, 48 PNG con hashes cotejados, cero errores/peticiones. El replay de la variante rechazada está separado de la ejecución canónica. La nueva CI se consulta por el HEAD del PR, no se infiere de este documento. [Evidencia, limitaciones y decisión pendiente](../../specs/003-weapon-contact/stock-surface-rejection.md).
+
+El HTML y todos los recursos de producción permanecen sin cambios. No hubo merge ni despliegue nuevo en esta continuación. #29 y #6 siguen abiertas.
 
 ## Parche 0.20.1
 
@@ -49,13 +59,13 @@ El primer run de #26 (`35425812835`, HEAD `7bf024e`) pasó `release`/`native` (4
 
 La ejecución gráfica local produjo 48 capturas, una matriz numérica de 72 poses y 240 muestras del ciclo. El desajuste ocular neutral sigue en 205.53–238.64 mm. La traslación aislada al ojo separaría la culata de la referencia del hombro entre 209.63 y 242.56 mm. Es un cálculo contrafactual, no una corrección renderizada. No se cambian `src/`, HTML, assets, versión o guardados. La siguiente unidad debe corregir la coordinación de la pose usando este auditor, no construir otra matriz equivalente.
 
-## Reanudación del 21 de septiembre de 2026
+## Primera reanudación del 21 de septiembre de 2026
 
 PR #28 integrado por squash en `32a8cca590b83a5b2a1b3efabad5723d3c9d6757`. Se revisó el artefacto WebGL del HEAD exacto antes del merge: nueve suites, 205 checks, 133 PNG y cero errores/peticiones registrados. Se comprobaron los 48 hashes PNG del auditor y se revisaron sus poses/ciclos. Eso valida el observador, no corrige la postura.
 
 Después del merge terminaron `success` [Verify 35623114643](https://github.com/CripterHack/distrito-cero/actions/runs/35623114643), [benchmark 35623114699](https://github.com/CripterHack/distrito-cero/actions/runs/35623114699) y [Pages 35623112646](https://github.com/CripterHack/distrito-cero/actions/runs/35623112646). Se cotejó el HTML del artefacto Pages con el hash canónico. No se afirma una nueva consulta HTTP a la URL pública desde el laboratorio.
 
-La siguiente unidad #29 reutiliza el auditor. La base pasa build inmutable y 484 Node. El nuevo test de aceptación del rifle neutral falla por 0.238643317922643 m de separación ocular, dejando la rama en **484 aprobadas y una fallida**. Dos prototipos temporales acercaron ojo y mira pero se rechazaron visualmente por la postura de cabeza/hombro. No entran en `src/`, HTML o assets. Esta rama no debe integrarse hasta resolver el requisito sin perder naturalidad, contactos y continuidad. [Plan y evidencia del bloqueo](../../specs/003-weapon-contact/plan-rifle-coordination.md).
+La siguiente unidad #29 reutiliza el auditor. La base pasa build inmutable y 484 Node. El nuevo test de aceptación del rifle neutral falla por 0.238643317922643 m de separación ocular, dejando inicialmente la rama en **484 aprobadas y una fallida**. Dos prototipos temporales acercaron ojo y mira pero se rechazaron visualmente por la postura de cabeza/hombro. No entran en `src/`, HTML o assets. Esta rama no debe integrarse hasta resolver el requisito sin perder naturalidad, contactos y continuidad. [Plan y evidencia del bloqueo](../../specs/003-weapon-contact/plan-rifle-coordination.md).
 
 ## Base consolidada 0.20.0
 

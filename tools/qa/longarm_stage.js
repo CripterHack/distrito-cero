@@ -34,8 +34,10 @@
   DC_MANUAL_FRAMES.draw(a,s);
   if(state.draws!==count+1)throw new Error('Missing or repeated production equipment draw');
   const before=JSON.stringify(s.serialize()),measurement=Q.inspect(s,state.last);
+  const stockClearance=s.equipment.selected==='rifle'?DC_STOCK_CLEARANCE.inspect(s,state.last):null;
   if(before!==JSON.stringify(s.serialize()))throw new Error('Auditor mutated game state');
   return{measurement,screening:Q.screen(measurement),counterfactual:Q.translateToEye(measurement),
+   stockClearance,stockScreen:stockClearance?DC_STOCK_CLEARANCE.screen(stockClearance):null,
    frame:r.frame,draws:state.draws,seed:1337,time:s.time,appearance:structuredClone(s.appearance),
    actor:{x:s.player.x,y:s.player.y,z:s.player.z,yaw:s.player.yaw,crouch:s.player.crouch},
    pitch:s.equipment.pitch,aim:s.equipment.aimWeight,camera:structuredClone(r.camera),fov:r.fovOverride,

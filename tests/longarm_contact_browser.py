@@ -45,7 +45,19 @@ def valid(record):
             and set(m['palmErrors'])=={'L','R'} and len(m['segmentErrors'])==4
             and all(math.isfinite(v) for v in [*m['palmErrors'].values(),*m['segmentErrors'].values()])
             and 'invalid' not in record['screening']['failures']
-            and record['screening']['artisticAcceptance'] is False)
+            and record['screening']['artisticAcceptance'] is False
+            and (m['item']!='rifle' or valid_clearance(record)))
+
+
+def valid_clearance(record):
+    value=record.get('stockClearance') or {}
+    decision=record.get('stockScreen') or {}
+    return (value.get('source')=='supplied-palette' and value.get('geometryVerified') is True
+            and all(isinstance(value.get('samples',{}).get(part),int) and value['samples'][part]>100
+                    and math.isfinite(value.get('minimum',{}).get(part,{}).get('distance',float('nan')))
+                    for part in ('face','jacket'))
+            and decision.get('artisticAcceptance') is False and decision.get('contactAcceptance') is False
+            and 'invalid' not in decision.get('failures',['invalid']))
 
 
 status='failed'
@@ -63,7 +75,7 @@ try:
             page.wait_for_function('!!window.DC_APP',timeout=120000);page.evaluate('DC_APP.renderer.humanReady')
             ck('Production renderer decodes all embedded skin maps',page.evaluate('DC_APP.renderer.humanTextureStatus.loaded===3'))
             page.add_style_tag(content='body>*:not(#world){visibility:hidden!important}#world{visibility:visible!important;position:fixed!important;inset:0!important;width:100vw!important;height:100vh!important}')
-            for helper in ('manual_frames.js','sidearm_sight.js','longarm_contact.js','longarm_stage.js'):
+            for helper in ('manual_frames.js','sidearm_sight.js','stock_clearance.js','longarm_contact.js','longarm_stage.js'):
                 page.add_script_tag(content=(R/'tools/qa'/helper).read_text())
             info={'browser':browser.version,**page.evaluate('DC_LONGARM_STAGE.init()')}
             matrix=page.evaluate('DC_LONGARM_STAGE.matrix()')

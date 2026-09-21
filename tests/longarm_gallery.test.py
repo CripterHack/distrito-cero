@@ -30,4 +30,19 @@ class GalleryTests(unittest.TestCase):
         text=render_gallery(record)
         self.assertNotIn('<script>',text);self.assertIn('&lt;script&gt;',text)
         self.assertEqual(record,before)
+    def test_stock_penetration_is_visible_before_collapsed_parameters(self):
+        record=self.record()
+        record['cases'][0]['stockClearance']={'minimum':{'face':{'distance':-.031},'jacket':{'distance':-.016}}}
+        record['cases'][0]['stockScreen']={'status':'needs-review'}
+        text=render_gallery(record).split('<details>')[0]
+        self.assertIn('-31.00 mm',text)
+        self.assertIn('-16.00 mm',text)
+        self.assertIn('penetración',text)
+    def test_clearance_does_not_claim_contact_and_escapes_its_status(self):
+        record=self.record()
+        record['cases'][0]['stockClearance']={'minimum':{'face':{'distance':.2},'jacket':{'distance':.1}}}
+        record['cases'][0]['stockScreen']={'status':'<script>bad()</script>'}
+        text=render_gallery(record)
+        self.assertIn('no acredita contacto',text)
+        self.assertNotIn('<script>',text)
 if __name__=='__main__':unittest.main()

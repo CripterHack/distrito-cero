@@ -12,9 +12,16 @@ def render_gallery(report):
         if not re.fullmatch(r'images/[A-Za-z0-9_-]+\.png',image):
             raise ValueError('Unsafe evidence image path')
         m=case['measurement'];screen=case['screening']
+        stock=''
+        if case.get('stockClearance'):
+            values=case['stockClearance']['minimum']
+            stock=('<p><strong>'+esc(case.get('stockScreen',{}).get('status','sin evaluación'))+'</strong> · '
+                   'Cara/cuello: '+esc(f"{values['face']['distance']*1000:.2f} mm")+
+                   ' · Chaqueta: '+esc(f"{values['jacket']['distance']*1000:.2f} mm")+
+                   '. Un valor negativo indica penetración. Este muestreo no acredita contacto ni anatomía.</p>')
         cards.append('<article><h2>'+esc(case['name'])+'</h2><img loading="lazy" src="'+esc(image)+'" alt="'+esc(case['name'])+'">'
                      '<p><strong>'+esc(screen['status'])+'</strong> · Ojo/eje: '+esc(f"{m['eyeError']*1000:.2f} mm")+
-                     ' · Culata/referencia: '+esc(f"{m['stockError']*1000:.2f} mm")+'</p>'
+                     ' · Culata/referencia: '+esc(f"{m['stockError']*1000:.2f} mm")+'</p>'+stock+
                      '<details><summary>Parámetros y mediciones completas</summary><pre>'+esc(json.dumps(case,ensure_ascii=False,indent=2))+'</pre></details></article>')
     return ('<!doctype html><html lang="es"><meta charset="utf-8"><meta name="viewport" content="width=device-width">'
             '<title>Distrito Cero · Auditoría CONTACT-03</title><style>'
