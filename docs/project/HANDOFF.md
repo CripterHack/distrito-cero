@@ -1,59 +1,66 @@
-# Continuación vigente · v0.20.5, PR #40 integrado
+# Continuación vigente · v0.20.6, guardia y recarga
 
-## Punto de partida
+## Base y unidad actual
 
-`master` integra el PR #40 en `86952732d7231312bf305c362d6b07af5257a08b`.
-La versión del producto es **0.20.5 · Coherencia**, canal prototype. Leer
-[STATE](STATE.md), [QA](QA.md) y la especificación de la siguiente unidad.
-No repetir los arreglos de los PRs #30/#32/#34–#40.
+Base remota `02e3a140baa8994a02fbcb5943b9a4c8258915df`, producto publicado 0.20.5.
+Su Verify 35903012951 terminó con los tres jobs aprobados. PRs #40/#41 integrados
+y limpieza completada: no repetirlos ni restaurar ramas antiguas.
 
-El HEAD de #40, `5f7cdc2586f51d9bdb21546323f2dd6a2e503a5d`, aprobó Verify
-35883392226, exportación humana 35883392094 y benchmark 35883392101 antes del merge.
-Se cotejaron los artefactos: 205 checks WebGL, 80 HTTP, 36 de benchmark y los dos
-informes GLB. Una repetición local sobre un checkout de historial real aprobó
-543 Node y build inmutable. [Apoyo dinámico](SUPPORT-RELEASE.md) conserva causa,
-criterios y vídeos anteriores. La CI posterior se consulta por el SHA de master
-en el PR, sin heredar el resultado de la rama revisada.
+El parche local 0.20.6 se aplica en esta continuación a una rama nueva desde esa
+base. El PR de esta unidad registra HEAD, CI, revisión, merge y publicación finales.
+La documentación por sí sola no acredita integración ni despliegue.
 
-## Siguiente trabajo de producto
+[STOCK-TRANSITIONS](STOCK-TRANSITIONS.md) define la corrección acotada de #6:
+culata delante de la misma superficie de chaqueta durante guardia y recarga,
+arco exterior hacia el apuntado, y preparación compartida de torso y objeto.
+No cambian mallas, longitudes, anclas palmares, cámara, física, munición o partidas.
+El origen y el recorrido visual del equipo sí cambian.
 
-Prioridad de #6: reproducir y corregir penetraciones de culata/prenda durante
-**guardia y recarga** con el montaje compartido. Partir de los vídeos y casos ya
-medidos, no de la prueba neutral resuelta. Usar `tools/qa/stock_clearance.js`,
-`longarm_contact.js` y las pruebas de familias existentes. Conservar superficies,
-anclas de manos, alcance, continuidad de pies, munición y datos. Primero regresión
-fallida, después corrección acotada y evidencia del renderer canónico.
+## Verificación y procedencia
 
-#5 mantiene decisión artística global, procedencia y revisión de materiales/UV.
-#7 mantiene escena y recorrido íntegro, playtests humanos y GPU física. No inventar
-aprobaciones, participantes o mediciones para cerrar esos criterios. La matriz
-completa previa y la exportación GLB ya existen: no recrearlas como nueva feature.
+Diez de once regresiones volvieron a fallar con el código original. Repetición
+local nueva: **554/554 Node**, sin omisiones, y seis archivos de producto idénticos
+al manifiesto del parche. Reconstrucción remota 35916388833: mismo build y
+554 Node, con objetos de contenido comprobados. No sustituye la CI del PR.
 
-## Ramas y contexto
+El bundle de esa reconstrucción contiene el historial Git auténtico del master
+actual. El parche completo se aplicó con su verificador, desde el commit exacto,
+y se cotejaron sus once archivos. No se fabrica historia a partir de Pages.
+La herramienta temporal y su permiso de almacenamiento de objetos no pertenecen
+al árbol ni al historial de la rama de producto y se retiran al terminar.
 
-La limpieza autorizada retiró 31 ramas antiguas con respaldo Git completo,
-comparación por contenido y borrado atómico condicionado a sus SHAs. Ver
-[BRANCH-CLEANUP](BRANCH-CLEANUP.md) para el manifiesto y recuperación. Las ramas
-auxiliares de esta operación no son líneas de desarrollo y se retiran al cerrar
-el PR documental. `master` es la única rama permanente; conservar sólo trabajo
-activo. El historial de PRs no es backlog pendiente.
+La evidencia gráfica previa del parche conserva 141 checks, 80 comparativas y
+las limitaciones de los escenarios preparados. No se etiqueta como ejecución
+nueva ni como hardware físico. Las suites HTTP y exportación humana del nuevo
+HEAD son controles separados, exigidos antes del merge.
 
-El bundle verificado permite un checkout auténtico incluso donde falla DNS.
-No volver a fabricar historia de un snapshot de Pages ni introducir helpers de
-reconstrucción en producción. Toda nueva rama debe basarse en el `master` remoto
-actual, no en el estado previo al respaldo.
+## Siguiente trabajo real
 
-## Verificación al retomar
+**Desenvainado inicial con ready < 1.** La nueva reproducción nativa confirma
+penetración de chaqueta de hasta 23.70 mm al equipar, alrededor del décimo paso
+a 60 Hz. El parche no la resuelve: la aceptación actual empieza con ready=1.
+Retomar el recorrido inicial con `stock_clearance.js`, `longarm_contact.js` y
+las pruebas existentes. Conservar contactos, continuidad, alcance y estado.
+No crear otra matriz o solver paralelo ni relajar el límite de 2 mm.
+
+#5 conserva arte, materiales/UV y procedencia global. #6 mantiene además revisión
+amplia de acciones/anatomías y coste por actor/LOD. #7 conserva recorrido íntegro,
+playtests humanos y hardware. No inventar aprobación ni cerrar por recuentos.
+
+## Comprobaciones y ramas
 
 ```sh
-python3 build.py --check
+node --test tests/stock-transition-clearance.test.cjs
 node --test tests/*.test.cjs
+python3 build.py --check
 python3 tests/release_build.test.py
 ```
 
-Ejecutar además los gates de [QA](QA.md) afectados, revisar diff/artefactos del HEAD
-exacto y comprobar publicación separadamente. No cambiar permisos, licencia,
-versión o datos por una limpieza documental. Revisión propia, no independiente.
+Añadir los controles de [QA](QA.md), artefactos del HEAD exacto y revisión gráfica.
+Verificar master/Pages por separado. [Política y respaldo](BRANCH-CLEANUP.md):
+master es la única rama permanente. Retirar las ramas de esta unidad sólo después
+de verificar su integración o de conservar su trabajo. No modificar permisos
+normales ni licencia. Reversión sin migraciones ni borrado de partidas.
 
-[Handoff anterior completo](https://github.com/CripterHack/distrito-cero/blob/86952732d7231312bf305c362d6b07af5257a08b/docs/project/HANDOFF.md)
-conserva la implementación, variantes rechazadas y fallos del helper de #40.
+[Handoff anterior](https://github.com/CripterHack/distrito-cero/blob/02e3a140baa8994a02fbcb5943b9a4c8258915df/docs/project/HANDOFF.md)
+conserva la limpieza y el apoyo dinámico. Revisión propia, no independiente.
