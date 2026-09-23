@@ -1,3 +1,12 @@
+# Parche vigente: v0.20.4 · Coherencia
+
+Inicio y Pausa muestran v0.20.4. El cuerpo ya no debe hundirse al terminar una
+marcha lenta. Controles, campaña y partidas no cambian. Desde v0.20.3 las cuatro
+familias largas usan el apoyo coordinado, con límites de revisión aún indicados
+en [STATE](../project/STATE.md). Recargar el sitio conserva las partidas.
+
+## Notas históricas de v0.20.1 y v0.20
+
 # Actualización 0.20.1
 
 El inicio y Pausa muestran **v0.20.1 · Coherencia** cuando se ejecuta el HTML de este parche. Pistola/revólver elevan y centran el objeto respecto del ojo durante el apuntado, sin alterar los controles. Usar Tab para equipar, Z para apuntar, J para disparar y L para recargar. La corrección no añade primera persona ni cambia las armas largas.

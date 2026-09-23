@@ -1,3 +1,28 @@
+# Continuación actual · frenado sin hundimiento, v0.20.4
+
+Base a7c13a82e27d1bd7728570de3eb6e0b6306163a6. PR #38 integrado tras CI y exportación
+aprobadas. Original y derivado GLB conservados, con 18 capturas portables revisadas.
+No repetir esa unidad. [Tangentes](PORTABLE-TANGENTS.md) y el PR registran sus límites.
+
+La grabación nativa de cuatro armas encontró dos pendientes distintos: penetración
+de culata durante transiciones y hundimiento al detener marcha lenta. Esta unidad
+corrige únicamente lo segundo, mediante atenuación de z del pie con el peso de
+marcha existente. [Causa y reproducción](GAIT-REST.md),
+[plan](../../specs/003-weapon-contact/plan-gait-rest.md).
+
+Tres tests RED y cinco regresiones finales, 536 Node aprobadas. Nuevo HTML 0.20.4
+reproducible. La CI y comparación gráfica del HEAD se verifican en el PR antes
+del merge. No confundir esta nota con integración o aprobación de #6 completo.
+El montaje, geometría, cámara, munición y formatos no se modifican. Las dos
+traslaciones exploratorias de culata no resolvieron el problema y se retiraron.
+
+Siguiente pendiente real: penetración de superficie en guardia/recarga, conservando
+los videos y casos medidos. #5 requiere revisión artística/procedencia global;
+#7 requiere recorrido, playtests humanos y GPU física. No cerrar esos criterios
+por el éxito de pruebas unitarias o del validador GLB.
+
+## Registro anterior, conservado
+
 # Continuación actual · tangentes del GLB portable
 
 Base `c49ed085fe3270c42b284867575c5abc2251fa69`, PR #37 integrado. Verify

@@ -1,3 +1,13 @@
+# v0.20.4 · Coherencia · 2026-09-23
+
+La excursión longitudinal de los pies se atenúa al acercarse al reposo, como su
+elevación e inclinación. Evita la caída brusca del cuerpo al frenar a velocidad
+baja, sin cambiar simulación, longitudes óseas, controles o datos persistentes.
+Pruebas de fase/velocidad, trayectoria normal sin cambios y parada nativa.
+La revisión de superficies de equipo sigue separada. [Detalle](docs/project/GAIT-REST.md).
+
+## Historial conservado
+
 # v0.20.1 · Coherencia · 2026-09-18
 
 ## 0.20.3 · Familias largas

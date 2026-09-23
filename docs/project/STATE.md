@@ -1,8 +1,18 @@
 # Estado real del proyecto
 
-## Versión activa del árbol: v0.20.3 · Coherencia
+## Versión activa del árbol: v0.20.4 · Coherencia
 
-### Actualización: tangentes portables
+### Unidad de movimiento: frenado a velocidad baja
+
+El PR #38 está integrado como a7c13a8. La continuación actual reproduce y corrige
+una caída de raíz de 0.5736 m al detener una marcha lenta. La excursión longitudinal
+del pie no recibía el peso de marcha que ya modulaba cadencia, elevación y giro.
+Se aplica esa misma envolvente, sin cambiar longitudes, límites de apoyo, inputs,
+velocidad física o partidas. Cinco regresiones y 536 Node completos aprobaron.
+La CI y revisión del HTML 0.20.4 se registran en su propio PR. Este cambio no
+corrige la penetración de culata durante recarga ni cierra globalmente #6.
+
+### Registro anterior: tangentes portables
 
 PR #37 integrado como `c49ed085`. Verify `35855788180`, exportación `35855788346` y Pages `35855786623` terminaron success. La corrección de raíces ya no está pendiente. Su salida original conserva cero errores y una advertencia de tangentes.
 
