@@ -83,6 +83,62 @@ def normalize_portable_structure(description, binary):
     return {'emptyLeafPropertiesRemoved': empty_leaves, 'zeroWeightJointIdsCleared': cleared}
 
 
+def normalize_skinned_roots(description):
+    """Promote leaf skin instances, preserving every joint's world transform.
+
+    glTF ignores the transform of a skinned mesh instance and its parents;
+    joint transforms still apply. Only scene membership and links to these
+    leaves change. Unsupported graphs fail before any mutation.
+    """
+    nodes, scenes = description['nodes'], description.get('scenes')
+    if not nodes or not scenes:
+        raise ValueError('Portable hierarchy requires nodes and scenes')
+    valid_id = lambda i: type(i) is int and 0 <= i < len(nodes)
+    parents = {}
+    for i, node in enumerate(nodes):
+        for child in node.get('children', []):
+            if not valid_id(child) or child in parents:
+                raise ValueError('Invalid node index or multiple parents')
+            parents[child] = i
+    roots = {}
+    for i in range(len(nodes)):
+        current, seen = i, set()
+        while current in parents:
+            if current in seen:
+                raise ValueError('Cycle in portable hierarchy')
+            seen.add(current)
+            current = parents[current]
+        roots[i] = current
+    for scene in scenes:
+        entries = scene.get('nodes', [])
+        if any(not valid_id(i) or i in parents for i in entries) or len(set(entries)) != len(entries):
+            raise ValueError('Scene must contain unique root node indices')
+    moving = [i for i, node in enumerate(nodes) if 'mesh' in node and 'skin' in node and i in parents]
+    joints = {i for skin in description.get('skins', []) for i in skin['joints']}
+    animated = {channel['target'].get('node') for clip in description.get('animations', [])
+                for channel in clip['channels']}
+    for i in moving:
+        node = nodes[i]
+        if (node.get('children') or i in joints or i in animated
+                or any(key in node for key in ('matrix', 'translation', 'rotation', 'scale'))):
+            raise ValueError('Only untransformed, unanimated, non-joint leaf instances can be promoted')
+        if not any(roots[i] in scene.get('nodes', []) for scene in scenes):
+            raise ValueError('Skinned instance is not reachable from a scene')
+    additions = [[i for i in moving if roots[i] in scene.get('nodes', [])] for scene in scenes]
+    moving_set = set(moving)
+    for node in nodes:
+        if moving_set.intersection(node.get('children', [])):
+            remaining = [i for i in node['children'] if i not in moving_set]
+            if remaining:
+                node['children'] = remaining
+            else:
+                del node['children']
+    for scene, added in zip(scenes, additions):
+        if added:
+            scene['nodes'] = scene.get('nodes', []) + added
+    return {'promotedMeshNodes': moving}
+
+
 def export_current(destination):
     destination = Path(destination).resolve()
     if destination.is_relative_to(ROOT) and not destination.is_relative_to(ROOT / 'artifacts'):
@@ -116,6 +172,7 @@ def export_current(destination):
         binary = bytearray(raw[binary_offset + 8:])
         description = json.loads(raw[20:20 + json_length])
         normalization = normalize_portable_structure(description, binary)
+        hierarchy = normalize_skinned_roots(description)
         description['asset']['generator'] = 'Distrito Cero current human exporter v' + version
         description['nodes'][0]['name'] = 'DC human ' + version + ' neutral fitted neck and classic groom'
         description['extras']['sourceManifest'] = sources
@@ -132,7 +189,7 @@ def export_current(destination):
     result.update({
         'schema': 1, 'assetId': 'human-neutral-authoring', 'productVersion': version,
         'sha256': hashlib.sha256((destination / filename).read_bytes()).hexdigest(),
-        'sources': sources, 'portableNormalization': normalization,
+        'sources': sources, 'portableNormalization': normalization, 'portableHierarchy': hierarchy,
         'toolchain': {'python': sys.version.split()[0],
                       'node': subprocess.check_output(['node', '--version'], text=True).strip(),
                       **{name: package_version(name) for name in ('numpy', 'scipy', 'Pillow')}},

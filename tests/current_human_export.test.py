@@ -105,6 +105,7 @@ class PortableSchema(unittest.TestCase):
 
     def test_real_recipe_buffers_change_only_for_zero_weight_joint_ids(self):
         prior, binary = self.before_normalization
+        prior = copy.deepcopy(prior)
         expected = bytearray(binary)
         for mesh in prior['meshes']:
             for primitive in mesh['primitives']:
@@ -118,12 +119,33 @@ class PortableSchema(unittest.TestCase):
                         if binary[wp] == 0:
                             expected[jp] = 0
         self.assertEqual(self.binary, bytes(expected))
-        for key in ('accessors', 'bufferViews', 'meshes', 'skins', 'materials', 'images', 'animations', 'scenes'):
+        for key in ('accessors', 'bufferViews', 'meshes', 'skins', 'materials', 'images', 'animations'):
             self.assertEqual(self.gltf[key], prior[key], key)
+        instances = {i for i, node in enumerate(prior['nodes']) if 'skin' in node and 'mesh' in node}
         for node in prior['nodes']:
-            if node.get('children') == []:
-                del node['children']
+            if 'children' in node:
+                children = [i for i in node['children'] if i not in instances]
+                if children: node['children'] = children
+                else: del node['children']
+        self.assertEqual(self.gltf['nodes'][0]['children'], prior['nodes'][0]['children'])
         self.assertEqual(self.gltf['nodes'][1:], prior['nodes'][1:])
+
+    def test_real_export_promotes_mesh_instances_without_reparenting_any_joint(self):
+        prior, _ = self.before_normalization
+        parent = {child: i for i, node in enumerate(self.gltf['nodes'])
+                  for child in node.get('children', [])}
+        meshes = [i for i, n in enumerate(self.gltf['nodes']) if 'skin' in n and 'mesh' in n]
+        self.assertEqual(len(meshes), 14)
+        self.assertEqual([i for i in meshes if i in parent], [], 'Khronos non-root skinned meshes')
+        before_parent = {child: i for i, node in enumerate(prior['nodes'])
+                         for child in node.get('children', [])}
+        for skin in self.gltf['skins']:
+            for joint in skin['joints']:
+                node = joint
+                while node in before_parent:
+                    self.assertEqual(parent.get(node), before_parent[node])
+                    node = before_parent[node]
+        self.assertEqual(self.gltf['scenes'][0]['nodes'], prior['scenes'][0]['nodes'] + meshes)
 
     def test_leaves_omit_empty_children_instead_of_emitting_invalid_entities(self):
         invalid = [i for i, node in enumerate(self.gltf['nodes']) if node.get('children') == []]
@@ -182,6 +204,73 @@ class PortableNormalization(unittest.TestCase):
             with self.assertRaises(ValueError):
                 M.normalize_portable_structure(description, binary)
             self.assertEqual(bytes(binary), before)
+
+
+class PortableHierarchy(unittest.TestCase):
+    def fixture(self):
+        return {'nodes': [{'name': 'animated-root', 'children': [1, 2]},
+                          {'name': 'joint', 'translation': [0, 1, 0]},
+                          {'name': 'mesh-instance', 'mesh': 0, 'skin': 0}],
+                'skins': [{'joints': [1], 'skeleton': 1}],
+                'scenes': [{'nodes': [0]}, {'nodes': [0]}],
+                'animations': [{'channels': [{'target': {'node': 0, 'path': 'translation'}}]}]}
+
+    def normalize(self, document):
+        self.assertTrue(callable(getattr(M, 'normalize_skinned_roots', None)), 'Missing portable hierarchy normalizer')
+        return M.normalize_skinned_roots(document)
+
+    def test_promotes_to_every_original_scene_preserving_joints_and_animation(self):
+        d = self.fixture()
+        before = copy.deepcopy(d)
+        self.assertEqual(self.normalize(d), {'promotedMeshNodes': [2]})
+        self.assertEqual(d['nodes'][0]['children'], [1])
+        self.assertEqual(d['nodes'][1:], before['nodes'][1:])
+        self.assertEqual(d['animations'], before['animations'])
+        self.assertEqual(d['skins'], before['skins'])
+        self.assertEqual(d['scenes'], [{'nodes': [0, 2]}, {'nodes': [0, 2]}])
+        after = copy.deepcopy(d)
+        self.assertEqual(self.normalize(d), {'promotedMeshNodes': []})
+        self.assertEqual(d, after)
+
+    def test_scene_membership_is_not_expanded_to_unrelated_scenes(self):
+        d = self.fixture()
+        d['nodes'].append({'name': 'unrelated'})
+        d['scenes'][1]['nodes'] = [3]
+        self.normalize(d)
+        self.assertEqual(d['scenes'], [{'nodes': [0, 2]}, {'nodes': [3]}])
+
+    def test_nested_instance_is_promoted_without_changing_joint_ancestors(self):
+        d = self.fixture()
+        d['nodes'][0]['children'] = [1, 3]
+        d['nodes'].append({'name': 'group', 'children': [2]})
+        self.normalize(d)
+        self.assertEqual(d['nodes'][0]['children'], [1, 3])
+        self.assertNotIn('children', d['nodes'][3])
+        self.assertEqual(d['scenes'][0]['nodes'], [0, 2])
+
+    def test_invalid_graphs_and_out_of_scope_instances_reject_without_mutation(self):
+        def change(kind):
+            d = self.fixture()
+            if kind == 'cycle': d['nodes'][1]['children'] = [0]
+            if kind == 'duplicate-parent': d['nodes'][1]['children'] = [2]
+            if kind == 'bad-index': d['nodes'][0]['children'].append(99)
+            if kind == 'bool-index': d['nodes'][0]['children'].append(True)
+            if kind == 'non-leaf': d['nodes'][2]['children'] = [3]; d['nodes'].append({})
+            if kind == 'mesh-is-joint': d['skins'][0]['joints'].append(2)
+            if kind == 'local-transform': d['nodes'][2]['translation'] = [0, 1, 0]
+            if kind == 'animated-instance': d['animations'][0]['channels'][0]['target']['node'] = 2
+            if kind == 'missing-scene': d['scenes'] = []
+            if kind == 'unreachable': d['scenes'] = [{'nodes': [3]}]; d['nodes'].append({})
+            if kind == 'non-root-scene': d['scenes'][0]['nodes'] = [1]
+            return d
+        for kind in ('cycle', 'duplicate-parent', 'bad-index', 'bool-index', 'non-leaf',
+                     'mesh-is-joint', 'local-transform', 'animated-instance',
+                     'missing-scene', 'unreachable', 'non-root-scene'):
+            with self.subTest(kind=kind):
+                d = change(kind); before = copy.deepcopy(d)
+                self.assertTrue(callable(getattr(M, 'normalize_skinned_roots', None)))
+                with self.assertRaises(ValueError): M.normalize_skinned_roots(d)
+                self.assertEqual(d, before)
 
 
 if __name__ == '__main__':
