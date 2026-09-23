@@ -38,6 +38,9 @@
   const m=n.motion||{},g=gait(m.speed??n.moveSpeed,n.sprintBlend,n.crouch),walk=finite(m.phase??n.walk),ph=((walk/TAU+(k==='R'?.5:0))%1+1)%1;
   const contact=ph<g.duty||g.weight<.025,t=contact?ph/g.duty:(ph-g.duty)/(1-g.duty),side=k==='L'?-1:1;
   let z=contact?g.span*(.5-t):g.span*(-.5+t*t*(3-2*t));
+  // Fade stride reach with the same gait envelope as pitch/lift. As cadence
+  // approaches zero, speed / hz alone can retain a full step at near rest.
+  z*=g.weight;
   const heel=-.10*(1-g.run*.5),toe=D.lerp(.28,.43,g.run);
   let pitch=contact?D.lerp(heel,0,smooth(0,.22,t))+toe*smooth(.62,1,t):D.lerp(toe,heel,smooth(0,1,t))-.22*Math.sin(Math.PI*t);
   pitch*=g.weight*(1-(n.crouch||0)*.6);
