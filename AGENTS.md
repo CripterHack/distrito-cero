@@ -23,6 +23,21 @@ Trabajar desde una rama nueva y actualizada, por ejemplo `feat/001-native-qa`, `
 
 Antes de una modificación de comportamiento: reproducir el problema, escribir una prueba que falle, implementar el mínimo y repetir la regresión afectada. La calidad visual exige capturas y movimiento en el renderer real, no sólo aserciones numéricas. No sustituir pruebas fallidas por umbrales más laxos sin justificar el cambio del requisito.
 
+## Ciclo de vida de ramas y contexto
+
+`master` es la única rama permanente. Mantener ramas sólo para trabajo activo y
+crear cada unidad desde el master remoto actualizado. Tras un merge verificado,
+retirar la rama con la autorización aplicable y comprobando el SHA exacto. Antes
+de retirar ramas sin ascendencia directa, cotejar árboles/patches, PRs y trabajo
+único; conservar respaldo recuperable. No borrar ramas protegidas o de PRs abiertos
+ni usar un force-push para ocultar divergencias. Los helpers temporales no se
+integran al producto y deben retirarse al terminar.
+
+[Registro de limpieza y restauración](docs/project/BRANCH-CLEANUP.md). Leer el
+HANDOFF vigente antes de explorar historia. Un plan o un PR antiguo ya integrado
+no es una tarea pendiente. No cerrar issues globales ni recrear matrices de QA
+para reducir el ruido documental.
+
 ## Invariantes
 
 - Runtime nativo sin librerías externas, descargas obligatorias ni telemetría remota. Herramientas de autoría/QA pueden tener dependencias documentadas.
