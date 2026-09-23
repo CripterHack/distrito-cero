@@ -1,86 +1,60 @@
 # Estado real del proyecto
 
-## Versión activa del árbol: v0.20.5 · Coherencia
+## Versión activa del árbol: v0.20.6 · Coherencia
 
 Canal **prototype**, fecha 2026-09-23. Identidad en [version.json](../../version.json)
-y [build-info.json](../../build-info.json). La publicación se verifica en Actions
-y Pages, nunca por la existencia de este documento. Configuración de Pages sobre
-master, licencia, permisos normales y esquemas de partidas sin cambios.
+y [build-info.json](../../build-info.json). La integración y publicación definitivas
+se consultan en el PR de esta unidad y en Actions. No se deducen de esta página.
 
-## Consolidación y limpieza de contexto
+## Guardia y recarga: parche aplicado para revisión
 
-PR #40 integrado por merge normal en `86952732d7231312bf305c362d6b07af5257a08b`.
-Su HEAD `5f7cdc2` aprobó Verify 35883392226, exportación 35883392094 y benchmark
-35883392101. Se revisaron diff y artefactos, y se repitieron 543 Node y build local
-sobre historial auténtico. El resultado del push y Pages se registra por separado
-en el PR. No hay una aceptación de producto fallida que heredar de los PRs antiguos.
+Base `02e3a140baa8994a02fbcb5943b9a4c8258915df`, publicada como 0.20.5 y con Verify
+35903012951 aprobado. La candidata 0.20.6 conserva la culata de rifle, SMG,
+escopeta y sniper delante de la referencia de chaqueta cuando disminuye la
+coordinación ocular. El arco exterior desaparece al alcanzar el apuntado estable.
+Torso y equipo comparten la envolvente de preparación existente.
 
-Se retiraron las 31 ramas originales ajenas a master después de cotejar integración,
-duplicados y payloads. [Respaldo, inventario y política de ramas](BRANCH-CLEANUP.md).
-Las ramas de mantenimiento/documentación de esta operación son temporales. Los
-tres issues globales siguen abiertos por sus criterios reales, no por tareas ya
-integradas. Esta consolidación no modifica runtime, versión, assets o partidas.
+Las once regresiones del parche cubren guardia, recarga, inclinación, cuello,
+agachado, pureza, transformaciones, contactos y transferencia real de munición.
+Diez reprodujeron el defecto al repetir contra la fuente original en esta sesión.
+Nueva repetición local: **554/554 Node**. Reconstrucción remota 35916388833:
+554 Node y seis objetos exactos comprobados. La CI propia del PR es independiente.
 
-## Unidad de producto integrada: continuidad del apoyo dinámico
+El parche completo se aplicó desde el master exacto en un checkout de historial
+real. [STOCK-TRANSITIONS](STOCK-TRANSITIONS.md) conserva implementación, evidencia
+anterior y límites. HTML: `ff8db64a6c9f10549fb346320725efc97539813f6da83852bcbc279d7680b86f`,
+8,870,022 bytes. Fuente: `08dc02e50fbdce141e2cbbc0d55c2b089b5d437c84c8f340383a4c3a2a54c493`.
+Geometría humana/equipo, huesos, cámara, física, munición y formatos intactos.
 
-Base `bfa26cd629afbc5a4295d8afdbbf833cddd587c2`, PR #39 integrado. Verify
-35870590860, exportación 35870591093, benchmark 35870591062 y Pages 35870589780
-terminaron success. Estos resultados no se heredan como CI del nuevo cambio.
-
-Se corrigen discontinuidades de presentación al pasar de pie plantado a balanceo
-y al volver a apoyar. La memoria visual conserva y disipa el desfase del último
-apoyo. Un muestreador compartido mantiene alcance durante el balanceo y anticipa
-el siguiente contacto. La recuperación sólo suaviza la subida y nunca supera el
-techo geométrico. No cambia posición física, velocidad, cámara o longitudes.
-
-Siete regresiones nuevas, con RED observado. Suite local completa: **543/543 Node**,
-sin skips, cancelaciones o todo, y **89 tests Python del core**. Autoría, build y
-exportación del equipo aprobaron. Cuatro vídeos canónicos contienen 282 frames
-verificados; 52 fueron revisados visualmente. Misma trayectoria física/cámara,
-Storage fixture y GPU software. [Diseño, medidas y límites](SUPPORT-RELEASE.md).
-El PR #40 registra la revisión, CI aprobada e integración de esta unidad.
-
-HTML nuevo: `4307c76139bc4f4b8178a16792ecb6c490bd1b0633d98a4a4a86336036cf3641`,
-8,869,123 bytes. Fuente: `c24ebe1d3d15e9fd80f649c7ec70e9d0f5b57ab2eab618d9259f7ba203dd2e92`.
-Malla humana y GLB de equipo permanecen intactos. La penetración de culata en
-transiciones sigue pendiente de #6 y no se oculta con esta corrección de pies.
-
-## Integraciones anteriores que no deben repetirse
-
-| Unidad | Estado y alcance |
-| :--- | :--- |
-| PR #40, 8695273 | v0.20.5 conserva el residual de apoyo y exige alcance durante balanceo. No corrige penetraciones de culata/prenda. |
-| PR #39, bfa26cd | v0.20.4 aplica la envolvente de marcha al alcance longitudinal del pie. Corrige el hundimiento cerca de reposo, no todos los bordes de apoyo. |
-| PR #38, a7c13a8 | Derivado portable con tangentes MikkTSpace y política explícita para 984 triángulos con UV degeneradas. Original conservado. No repara las UV ni acredita arte. |
-| PR #37, c49ed085 | Raíces de escena GLB corregidas y validadas. |
-| PR #36, b96371e | Exportación humana actual aislada, children vacío y pesos cero corregidos en la salida. |
-| PR #35, 4c61509 | Coordinación acotada de SMG, escopeta y sniper en 0.20.3. |
-| PR #34, 6d1b756 | Fixture de apuntado coherente con el estado renderizado. #33 cerrada. |
-| PR #30, d6da75a | Rifle neutral corregido. #29 cerrada. |
-| PR #32, 37ab6f0 | Gates CI separados sin ocultar fallos. #31 cerrada. |
-
-[Estado anterior completo](https://github.com/CripterHack/distrito-cero/blob/bfa26cd629afbc5a4295d8afdbbf833cddd587c2/docs/project/STATE.md)
-conserva ejecuciones, hashes y fallos históricos. [Tangentes](PORTABLE-TANGENTS.md),
-[exportación](CURRENT-HUMAN-EXPORT.md), [marcha lenta](GAIT-REST.md),
-[rifle](RIFLE-COORDINATION.md) y [benchmark](BENCHMARK-AIM.md) mantienen sus contratos.
-No convertir sus instrucciones históricas en trabajo sin implementar.
+La aceptación empieza con equipo preparado. El desenvainado inicial todavía
+muestra penetración muestreada de hasta 23.70 mm; no se declara corregido.
+Las pruebas de superficie no son colisión de toda la malla ni hardware físico.
 
 ## Backlog vigente
 
 | Issue | Pendiente real |
 | :--- | :--- |
-| #5 · Personaje patrón | Aprobación artística/procedencia global, materiales y UV degeneradas. La matriz técnica completa y las validaciones portables no sustituyen esa decisión. |
-| #6 · Contactos y recargas | Penetración de culata/prenda durante guardia y recarga, revisión global de acciones/anatomías y coste por actor/LOD. El apoyo dinámico se verifica en su unidad propia. |
-| #7 · Vertical slice | Escena, recorrido íntegro sin teletransportes, playtests y GPU física. Fixtures de campaña no acreditan estos criterios. |
+| #5 · Personaje patrón | Revisión artística/procedencia global, materiales y UV degeneradas. La matriz técnica y las exportaciones ya existen. |
+| #6 · Contactos y recargas | Integración del parche de guardia/recarga, después desenvainado inicial, revisión amplia de acciones/anatomías y coste por actor/LOD. |
+| #7 · Vertical slice | Escena, recorrido íntegro sin teletransportes, playtests humanos y equipo de referencia. |
 
-#2/#3/#4, #19/#21/#23/#25/#27, #29/#31/#33 permanecen resueltas dentro de sus alcances.
-No cerrar un issue global porque un subconjunto de tests apruebe.
+No cerrar un issue global por la aprobación de una unidad acotada ni inventar
+participantes, FPS físicos o aprobación artística.
 
-## Sistemas e historia conservados
+## Integraciones previas y contexto
 
-Campaña, creador, once peinados, doce partidas con nombres, arsenal, selector
-translúcido, vehículos/ocupantes, policía, daños y regiones procedurales se conservan.
-La memoria visual no entra al serializador. No se incorporan servicios remotos.
-SOURCE-MANIFEST.json, docs/v019 y qa/v019 siguen siendo históricos.
-[Handoff](HANDOFF.md), [QA](QA.md), [recursos](ASSETS.md) y
-[fallos históricos](ACTIONS-RECOVERY.md). Revisión propia, no independiente.
+PR #40 (`8695273`) conserva continuidad del apoyo dinámico en 0.20.5. PR #41
+(`02e3a14`) consolidó el handoff y retiró ramas obsoletas con respaldo verificable.
+PRs #30/#34–#39 ya están integrados: rifle, benchmark, familias, exportación
+portable, raíces, tangentes y marcha cerca de reposo no se vuelven a implementar.
+[Registro anterior completo](https://github.com/CripterHack/distrito-cero/blob/02e3a140baa8994a02fbcb5943b9a4c8258915df/docs/project/STATE.md)
+conserva SHAs, errores históricos, resultados y alcance de cada unidad.
+
+[BRANCH-CLEANUP](BRANCH-CLEANUP.md) conserva inventario y recuperación. Master es
+la única rama permanente; las ramas actuales son temporales de esta unidad.
+No se integran herramientas auxiliares, se cambian permisos normales o licencia,
+ni se reescriben galerías/manifiestos históricos.
+
+Campaña, creador, once peinados, doce partidas, equipamiento, selector translúcido,
+vehículos/ocupantes, policía, daños y regiones se conservan. No se incorporan
+servicios remotos. [Handoff](HANDOFF.md), [QA](QA.md), [recursos](ASSETS.md).
