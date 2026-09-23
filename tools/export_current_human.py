@@ -7,6 +7,7 @@ not equivalent to native DQ deformation or an artistic approval. No network use.
 from pathlib import Path
 import argparse
 import hashlib
+from importlib.metadata import version as package_version
 import shutil
 import struct
 import subprocess
@@ -31,6 +32,57 @@ def source_hashes():
     return {path: hashlib.sha256((ROOT / path).read_bytes()).hexdigest() for path in INPUTS}
 
 
+def normalize_portable_structure(description, binary):
+    """Fix only schema-empty leaves and mathematically unused influence IDs.
+
+    Positions, normals, UVs, weights, indices, matrices, clips and node parents
+    are untouched. This deliberately does not attempt a new material or rig.
+    The historical byte-weight layout is required, not guessed from bytes.
+    """
+    empty_leaves = 0
+    for node in description['nodes']:
+        if node.get('children') == []:
+            del node['children']
+            empty_leaves += 1
+    edits = {}
+    for mesh in description['meshes']:
+        for primitive in mesh['primitives']:
+            attrs = primitive['attributes']
+            if 'JOINTS_0' not in attrs and 'WEIGHTS_0' not in attrs:
+                continue
+            joints = description['accessors'][attrs['JOINTS_0']]
+            weights = description['accessors'][attrs['WEIGHTS_0']]
+            if any(a.get('componentType') != 5121 or a.get('type') != 'VEC4'
+                   or 'sparse' in a for a in (joints, weights)) or not weights.get('normalized'):
+                raise ValueError('Unsupported portable influence layout')
+            count = joints.get('count')
+            if not isinstance(count, int) or count < 1 or weights.get('count') != count:
+                raise ValueError('Mismatched portable influence counts')
+            layouts = []
+            for accessor in (joints, weights):
+                view = description['bufferViews'][accessor['bufferView']]
+                offset = view.get('byteOffset', 0) + accessor.get('byteOffset', 0)
+                stride = view.get('byteStride', 4)
+                end = offset + (count - 1) * stride + 4
+                if (view.get('buffer') != 0 or stride < 4 or offset < 0
+                        or end > len(binary)
+                        or end > view.get('byteOffset', 0) + view['byteLength']):
+                    raise ValueError('Portable influence range exceeds its buffer')
+                layouts.append((offset, stride))
+            (jo, js), (wo, ws) = layouts
+            for index in range(count):
+                for component in range(4):
+                    jp, wp = jo + index * js + component, wo + index * ws + component
+                    required = binary[jp] if binary[wp] else 0
+                    if jp in edits and edits[jp] != required:
+                        raise ValueError('Aliased joint accessor has contradictory influences')
+                    edits[jp] = required
+    cleared = sum(binary[offset] != value for offset, value in edits.items())
+    for offset, value in edits.items():
+        binary[offset] = value
+    return {'emptyLeafPropertiesRemoved': empty_leaves, 'zeroWeightJointIdsCleared': cleared}
+
+
 def export_current(destination):
     destination = Path(destination).resolve()
     if destination.is_relative_to(ROOT) and not destination.is_relative_to(ROOT / 'artifacts'):
@@ -39,8 +91,8 @@ def export_current(destination):
     sources = source_hashes()
     destination.mkdir(parents=True, exist_ok=False)
     # The historical command writes fixed v0.16 filenames. Run it only in a
-    # private copy of its exact inputs, then relabel JSON metadata. Mesh and
-    # animation buffers are not rewritten, and tracked historical files stay put.
+    # private copy of its exact inputs. Normalize only empty leaves and unused
+    # joint IDs in the portable result; tracked historical files stay put.
     filename = 'dc-human-' + version + '-neutral.glb'
     with tempfile.TemporaryDirectory(prefix='dc-current-human-') as scratch:
         staged = Path(scratch)
@@ -57,13 +109,19 @@ def export_current(destination):
         json_length, kind = struct.unpack_from('<II', raw, 12)
         if kind != 0x4e4f534a:
             raise ValueError('Missing GLB JSON chunk')
+        binary_offset = 20 + json_length
+        binary_length, binary_kind = struct.unpack_from('<II', raw, binary_offset)
+        if binary_kind != 0x004e4942 or binary_offset + 8 + binary_length != len(raw):
+            raise ValueError('Expected one complete embedded GLB binary chunk')
+        binary = bytearray(raw[binary_offset + 8:])
         description = json.loads(raw[20:20 + json_length])
+        normalization = normalize_portable_structure(description, binary)
         description['asset']['generator'] = 'Distrito Cero current human exporter v' + version
         description['nodes'][0]['name'] = 'DC human ' + version + ' neutral fitted neck and classic groom'
         description['extras']['sourceManifest'] = sources
         encoded = json.dumps(description, separators=(',', ':'), ensure_ascii=False).encode()
         encoded += b' ' * (-len(encoded) % 4)
-        tail = raw[20 + json_length:]
+        tail = struct.pack('<II', len(binary), 0x004e4942) + binary
         output = (struct.pack('<4sII', b'glTF', 2, 20 + len(encoded) + len(tail))
                   + struct.pack('<II', len(encoded), 0x4e4f534a) + encoded + tail)
         (destination / filename).write_bytes(output)
@@ -74,7 +132,11 @@ def export_current(destination):
     result.update({
         'schema': 1, 'assetId': 'human-neutral-authoring', 'productVersion': version,
         'sha256': hashlib.sha256((destination / filename).read_bytes()).hexdigest(),
-        'sources': sources, 'units': 'metres', 'upAxis': '+Y', 'forwardAxis': '+Z',
+        'sources': sources, 'portableNormalization': normalization,
+        'toolchain': {'python': sys.version.split()[0],
+                      'node': subprocess.check_output(['node', '--version'], text=True).strip(),
+                      **{name: package_version(name) for name in ('numpy', 'scipy', 'Pillow')}},
+        'units': 'metres', 'upAxis': '+Y', 'forwardAxis': '+Z',
         'profile': 'neutral, neckLength=0, classic groom, detailed mesh',
         'runtimeSkinningEquivalent': False, 'officialValidation': 'not-run',
         'artisticAcceptance': 'pending', 'ownContentLicense': 'owner-decision-pending',
