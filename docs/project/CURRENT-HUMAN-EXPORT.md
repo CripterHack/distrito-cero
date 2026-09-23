@@ -48,3 +48,13 @@ PR #36 integrado en `b96371e`. Su artefacto oficial `10744701650` tiene 0 errore
 La prueba real falló primero con los 14 índices 50–63. Después del correctivo pasan 14 tests Python y 522 Node completos, sin omitidos. El build sigue intacto. La primera llamada a Node fue interrumpida antes de su resumen y no cuenta como aprobación; la repetición completa terminó con exitCode 0. La validación oficial de esta revisión se consulta en su PR, no se deduce de los tests.
 
 El aviso de tangentes y los informativos de UV/triángulos permanecen fuera de este cambio y no se filtran. No se afirma cero advertencias totales, identidad entre DQ/LBS o aprobación artística. [Plan y criterio](../../specs/002-character-benchmark/plan-portable-root.md). Revertir sólo esta unidad devuelve la jerarquía portable anterior, sin afectar el juego.
+
+## Variante con tangentes · continuación de PR #37
+
+PR #37 está integrado como c49ed085 y su CI/exportación/Pages posterior aprobó.
+Las 14 advertencias de jerarquía quedaron corregidas. El GLB original mantiene una
+advertencia de tangentes generadas por el visor. La [variante separada](PORTABLE-TANGENTS.md)
+incorpora bases MikkTSpace con política declarada para UV degeneradas, conserva
+atributos originales por esquina y añade su propia validación. El artefacto incluye
+ambos archivos y ambos reportes. No se sobrescriben históricos ni se declara que
+el fallback haya reparado UV, materiales o equivalencia DQ/LBS.

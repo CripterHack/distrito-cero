@@ -2,12 +2,11 @@
 
 ## Versión activa del árbol: v0.20.3 · Coherencia
 
-### Actualización: exportación de autoría
+### Actualización: tangentes portables
 
-PR #36 integrado como `b96371e`, con Verify/exportación/benchmark aprobados antes del merge y Pages posterior aprobado. El GLB oficial revisado tiene 0 errores y 15 advertencias. Su cadena de hashes y avisos queda registrada en el PR.
+PR #37 integrado como `c49ed085`. Verify `35855788180`, exportación `35855788346` y Pages `35855786623` terminaron success. La corrección de raíces ya no está pendiente. Su salida original conserva cero errores y una advertencia de tangentes.
 
-La corrección siguiente promueve 14 instancias de malla a raíz sin alterar los huesos o buffers. Tiene RED/GREEN, 14 tests Python y 522 Node aprobados localmente. La validación oficial e integración se registran en su propio PR. El HTML de producto sigue idéntico. [Contrato](CURRENT-HUMAN-EXPORT.md), [plan](../../specs/002-character-benchmark/plan-portable-root.md).
-
+La continuación CHAR-06 añade una variante portable con tangentes explícitas, sin reemplazar el original ni modificar el juego. Los atributos de cada esquina y el prefijo binario se conservan. La política de UV degeneradas está declarada, no oculta: 984 triángulos usan una base ortogonal alternativa. Resultado local: 531 Node, 14 Python y cinco integraciones con Mikk real aprobados; derivado Khronos con cero errores/advertencias y 20 informativos conservados. [Alcance, pruebas y límites](PORTABLE-TANGENTS.md). La CI e integración del PR se comprueban por separado.
 
 Canal **prototype**, fecha 2026-09-23. Identidad en [version.json](../../version.json), huellas y tamaño en [build-info.json](../../build-info.json). Master `4c615090d7395bda048bee0d1ee2070702833808` integra PR #35. La publicación se confirma en Actions/Pages, no por la existencia de este documento. No cambian configuración de Pages, licencia o esquemas de partidas.
 
@@ -31,7 +30,7 @@ El primer run oficial 35846902847 detectó 13 nodos hoja inválidos y 15,921 adv
 
 | Unidad | Estado comprobado |
 | :--- | :--- |
-| #5 · Personaje patrón | Matriz completa previa ejecutada, aprobación artística/procedencia global pendientes. PR #36 añade una exportación actual verificable. |
+| #5 · Personaje patrón | Matriz completa previa ejecutada, aprobación artística/procedencia global pendientes. PRs #36/#37 aportan exportación actual y jerarquía verificables; la variante de tangentes tiene validación propia. |
 | #6 · Contactos y recargas | Rifle y tres familias largas corregidos en unidades acotadas. Revisión global de superficies, acciones, vídeo y coste por actor/LOD pendiente. |
 | #7 · Vertical slice | Escena, recorrido íntegro, playtest y GPU física pendientes. Los fixtures de campaña no sustituyen estos criterios. |
 | #29 · Rifle neutral | Cerrada por PR #30, merge d6da75a, CI posterior aprobada. |

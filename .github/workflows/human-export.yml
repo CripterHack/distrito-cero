@@ -2,10 +2,10 @@ name: Current human authoring export
 on:
   pull_request:
     branches: [master]
-    paths: ['tools/export_current_human.py', 'tools/export_traits_glb.py', 'tools/qa/validate_glb.cjs', 'tests/current_human_export.test.py', 'tests/glb-validation-contract.test.cjs', '.github/workflows/human-export.yml', 'src/**', 'assets/anatomy-source/**', 'version.json', 'requirements-dev.txt']
+    paths: ['tools/export_current_human.py', 'tools/export_traits_glb.py', 'tools/export_human_tangents.cjs', 'tools/qa/validate_glb.cjs', 'tests/current_human_export.test.py', 'tests/glb-validation-contract.test.cjs', 'tests/human-tangents.test.cjs', 'tests/human-tangents-integration.cjs', '.github/workflows/human-export.yml', 'src/**', 'assets/anatomy-source/**', 'version.json', 'requirements-dev.txt']
   push:
     branches: [master]
-    paths: ['tools/export_current_human.py', 'tools/export_traits_glb.py', 'tools/qa/validate_glb.cjs', 'tests/current_human_export.test.py', 'tests/glb-validation-contract.test.cjs', '.github/workflows/human-export.yml', 'src/**', 'assets/anatomy-source/**', 'version.json', 'requirements-dev.txt']
+    paths: ['tools/export_current_human.py', 'tools/export_traits_glb.py', 'tools/export_human_tangents.cjs', 'tools/qa/validate_glb.cjs', 'tests/current_human_export.test.py', 'tests/glb-validation-contract.test.cjs', 'tests/human-tangents.test.cjs', 'tests/human-tangents-integration.cjs', '.github/workflows/human-export.yml', 'src/**', 'assets/anatomy-source/**', 'version.json', 'requirements-dev.txt']
   workflow_dispatch:
 permissions:
   contents: read
@@ -30,19 +30,30 @@ jobs:
           mapfile -t packages < <(grep -E '^(numpy|scipy|Pillow)==' requirements-dev.txt)
           test "${#packages[@]}" = 3
           python3 -m pip install "${packages[@]}"
-          npm install --prefix artifacts/gltf-tools --ignore-scripts --no-audit --no-fund --no-package-lock --save-exact gltf-validator@2.0.0-dev.3.10
+          npm install --prefix artifacts/gltf-tools --ignore-scripts --no-audit --no-fund --no-package-lock --save-exact gltf-validator@2.0.0-dev.3.10 mikktspace@1.1.1
       - name: Verify export isolation and validator acceptance contract
         run: |
           python3 tests/current_human_export.test.py
-          node --test tests/glb-validation-contract.test.cjs
+          node --test tests/glb-validation-contract.test.cjs tests/human-tangents.test.cjs
       - name: Export current canonical neutral asset
         run: python3 tools/export_current_human.py --output artifacts/human-export
-      - name: Validate all GLB resources with the official Khronos validator
+      - name: Validate all original GLB resources with the official Khronos validator
         run: node tools/qa/validate_glb.cjs artifacts/human-export artifacts/gltf-tools/node_modules/gltf-validator
+      - name: Generate derivative with explicit tangents and verify every corner
+        env:
+          DC_MIKKTSPACE_MODULE: artifacts/gltf-tools/node_modules/mikktspace
+          DC_TANGENT_INPUT: artifacts/human-export
+        run: |
+          node --test tests/human-tangents-integration.cjs
+          node tools/export_human_tangents.cjs artifacts/human-export artifacts/human-export/tangents artifacts/gltf-tools/node_modules/mikktspace
+      - name: Validate tangent derivative without suppressing diagnostics
+        run: |
+          node tools/qa/validate_glb.cjs artifacts/human-export/tangents artifacts/gltf-tools/node_modules/gltf-validator
+          node -e "const r=require('./artifacts/human-export/tangents/validator-report.json').report.issues; if(r.numErrors!==0 || r.numWarnings!==0 || r.truncated!==false)process.exit(1)"
       - name: Verify tracked historical assets and runtime remain untouched
         if: always()
         run: git diff --exit-code -- src assets index.html version.json build-info.json
-      - name: Preserve authoring output and unfiltered validation report
+      - name: Preserve original, tangent derivative and unfiltered validation reports
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
