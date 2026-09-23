@@ -21,7 +21,7 @@
   const {sim:s,r}=state;
   Object.assign(s.player,{x:4,z:36,y:0,yaw:0,vy:0,vx:0,vz:0,car:null,moveSpeed:0,walk:0,crouch:config.crouch||0});
   s.setIdentity('Contacto largo',{...D.Appearance.default(),neckLength:config.neck||0});
-  s.equipment=D.Equipment.initial();s.equipWeapon(config.item);s.equipment.handling.ready=1;
+  s.equipment=D.Equipment.initial();s.equipWeapon(config.item);s.equipment.handling.ready=config.ready??1;
   s.equipment.aimWeight=config.aim??1;s.equipment.pitch=config.pitch||0;s.time=1.25;
   // Prepared settled aim includes the presentation filter, not just simulation intent.
   if(D.WeaponHandling.profile(config.item).dock)s.equipment.handling[config.item==='rifle'?'rifleAim':'longarmAim']=config.aim??1;
@@ -42,7 +42,7 @@
    stockClearance,stockScreen:stockClearance?DC_STOCK_CLEARANCE.screen(stockClearance):null,
    frame:r.frame,draws:state.draws,seed:1337,time:s.time,appearance:structuredClone(s.appearance),
    actor:{x:s.player.x,y:s.player.y,z:s.player.z,yaw:s.player.yaw,crouch:s.player.crouch},
-   pitch:s.equipment.pitch,aim:s.equipment.aimWeight,camera:structuredClone(r.camera),fov:r.fovOverride,
+   pitch:s.equipment.pitch,aim:s.equipment.aimWeight,ready:state.last.mount.ready,camera:structuredClone(r.camera),fov:r.fovOverride,
    actors:r.castStats.actors,triangles:r.castStats.triangles};
  }
  function sample(config){prepare(config);return observe();}

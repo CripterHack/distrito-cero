@@ -179,11 +179,10 @@
   const heavy=family==='heavy',optic=family==='optics',sidearm=family==='sidearm',melee=family==='melee',thrown=family==='throw',long=family==='long'||heavy;
   const rifleRelease=sm(0,.32,t)*(1-sm(.68,1,t));
   const coordination=dock?sm(.12,.95,aim)*sm(.15,1,ready)*(1-rifleRelease):0;
-  // Use one draw envelope for both torso support and the surface-relative
-  // mount. Mapping the existing exponential readiness halves its visual rate,
-  // without changing equip state, firing availability or another timer.
-  const carryReady=1-Math.sqrt(1-ready),carryWeight=carryReady*carryReady;
-  const braceWeight=long?(dock?(1-reload*.25)*carryWeight:aim*(1-reload*.82)*ready):0;
+  // A docked prop starts in supported low guard. Fading the shoulder before
+  // the hands are in reach lets the rigid-frame projection push its stock
+  // into the chest. Readiness still controls inclination and aim, not support.
+  const braceWeight=long?(dock?(1-reload*.25):aim*(1-reload*.82)*ready):0;
   const gait=clamp(speed/4,0,1)*(1-aim*.90)*(1-reload),sway=Math.sin(phase)*.007*gait;
   const inertia={yaw:(state?.lagYaw||0)*(1-aim*.7),pitch:(state?.lagPitch||0)*(1-aim*.7)};
   const eye=1.670-(D.CharacterFit?.drop(sim.appearance?.neckLength)||.045);
@@ -193,7 +192,7 @@
   pos[0]+=sway;pos[1]+=Math.sin(time*1.47)*.0014+Math.cos(phase*2)*.003*gait-(1-ready)*.06-reload*(sidearm?.11:.035);
   pos[2]-=kick*(heavy?.023:.012)+reload*(sidearm?.11:.075)+(1-ready)*.05;
   const yaw=(p.yaw||0)+sway*.3+inertia.yaw;
-  const pitch=(optic?(e.pitch||0)*aim:melee?-.30+kick*.9:thrown?-.26+kick*1.2:lerp(-.34,e.pitch||0,aim))+kick*(heavy?.050:.035)-reload*.25-(1-ready)*.18+inertia.pitch;
+  const pitch=(optic?(e.pitch||0)*aim:melee?-.30+kick*.9:thrown?-.26+kick*1.2:lerp(-.34,e.pitch||0,aim))+kick*(heavy?.050:.035)-reload*.25-(1-ready)*(dock?.08:.18)+inertia.pitch;
   const roll=reload*(sidearm?-.22:-.14)+Math.sin(phase+.35)*.014*gait;
   const cy=Math.cos(yaw),sy=Math.sin(yaw),cx=Math.cos(-pitch),sx=Math.sin(-pitch),cz=Math.cos(roll),sz=Math.sin(roll);
   function oriented(q,a,b){const x=q[0],y=q[1]*a-q[2]*b,z=q[1]*b+q[2]*a,xx=x*cz-y*sz,yy=x*sz+y*cz;return[xx*cy+z*sy,yy,-xx*sy+z*cy];}
@@ -250,8 +249,9 @@
    const gap=.030+.020*sm(.25,.60,-pitch);
    const carrying=sub(add(target,direction([0,0,gap])),direction([0,(dock.minY+dock.maxY)/2,-.2385]));
    const transition=add(mix(carrying,aligned,coordination),direction([0,0,.045*4*coordination*(1-coordination)]));
-   // Match torso and mount timing, including the first equip frame.
-   origin=mix(origin,transition,carryWeight);
+   // Never blend through the old interior origin during initial preparation.
+   // This is the same supported endpoint when ready=1, not a second mount.
+   origin=transition;
    rifleDock={target,eye,weight:coordination,reference:'jacket-triangle-8898'};
   }
   const pull=sm(.27,.46,t)*(1-sm(.62,.80,t));

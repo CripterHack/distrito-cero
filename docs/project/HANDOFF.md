@@ -1,66 +1,56 @@
-# Continuación vigente · v0.20.6, guardia y recarga
+# Continuación vigente · v0.20.7, preparación inicial
 
-## Base y unidad actual
+## Base verificada y unidad actual
 
-Base remota `02e3a140baa8994a02fbcb5943b9a4c8258915df`, producto publicado 0.20.5.
-Su Verify 35903012951 terminó con los tres jobs aprobados. PRs #40/#41 integrados
-y limpieza completada: no repetirlos ni restaurar ramas antiguas.
+Base remota `c27282f5ae830fe8f149d11396903d89c595acc9`, PR #42 integrado con
+0.20.6. Su HEAD f52f75f aprobó Verify 35917149375, exportación humana 35917149458
+y benchmark 35917149485. Los cuatro artefactos se cotejaron antes del merge:
+205 checks WebGL, 80 HTTP y 36 de benchmark, además de original/derivado GLB.
+El resultado posterior de master y Pages se consulta separadamente en #42.
 
-El parche local 0.20.6 se aplica en esta continuación a una rama nueva desde esa
-base. El PR de esta unidad registra HEAD, CI, revisión, merge y publicación finales.
-La documentación por sí sola no acredita integración ni despliegue.
+La candidata 0.20.7 aborda el siguiente defecto, no repite guardia/recarga:
+[preparación inicial](INITIAL-PREPARATION.md). Mantiene el apoyo y la referencia
+superficial desde ready=0, con inclinación inicial acotada para las cuatro familias.
+Los puntos finales asentados y equipos sin dock conservan sus resultados.
+No cambia huesos, malla, cámara, física, munición o datos. No añade una funda.
 
-[STOCK-TRANSITIONS](STOCK-TRANSITIONS.md) define la corrección acotada de #6:
-culata delante de la misma superficie de chaqueta durante guardia y recarga,
-arco exterior hacia el apuntado, y preparación compartida de torso y objeto.
-No cambian mallas, longitudes, anclas palmares, cámara, física, munición o partidas.
-El origen y el recorrido visual del equipo sí cambian.
+Cinco regresiones nuevas con RED observado y **559 Node completos aprobados**.
+**100 Python** actuales aprobados. El runner local nuevo pasó 28 checks y 76 PNG,
+con hashes cotejados y separación explícita entre ciclos asentados e iniciales.
+La evidencia adicional contiene 64 imágenes y un vídeo de rifle con 46 frames.
+Se revisaron 24 instantes de las cuatro familias y un detalle, no todo el vídeo
+como playtest humano. Escena/tiempo preparados y GPU software.
 
-## Verificación y procedencia
+El PR registra HEAD, árbol exacto, CI e integración finales. La implementación
+local o reconstrucción no equivalen a merge ni publicación. Las fuentes y el
+HTML canónico tienen sus huellas en [INITIAL-PREPARATION](INITIAL-PREPARATION.md).
 
-Diez de once regresiones volvieron a fallar con el código original. Repetición
-local nueva: **554/554 Node**, sin omisiones, y seis archivos de producto idénticos
-al manifiesto del parche. Reconstrucción remota 35916388833: mismo build y
-554 Node, con objetos de contenido comprobados. No sustituye la CI del PR.
+## Continuidad después de esta unidad
 
-El bundle de esa reconstrucción contiene el historial Git auténtico del master
-actual. El parche completo se aplicó con su verificador, desde el commit exacto,
-y se cotejaron sus once archivos. No se fabrica historia a partir de Pages.
-La herramienta temporal y su permiso de almacenamiento de objetos no pertenecen
-al árbol ni al historial de la rama de producto y se retiran al terminar.
+No tratar el desenvainado pendiente de las notas de 0.20.6 como trabajo nuevo
+cuando el PR de esta unidad esté integrado. La preparación corregida empieza con
+el objeto ya equipado, no valida todos los cambios entre familias o una animación
+de funda. #6 conserva revisión global de transiciones/acciones/anatomías y coste
+por actor/LOD, usando los observadores existentes y sin duplicar matrices.
 
-La evidencia gráfica previa del parche conserva 141 checks, 80 comparativas y
-las limitaciones de los escenarios preparados. No se etiqueta como ejecución
-nueva ni como hardware físico. Las suites HTTP y exportación humana del nuevo
-HEAD son controles separados, exigidos antes del merge.
+#5 mantiene aceptación artística global, revisión de materiales/UV y procedencia.
+#7 mantiene escena, recorrido completo, playtests humanos y hardware de referencia.
+No inventar aprobaciones o FPS ni cerrar issues para reducir un recuento.
 
-## Siguiente trabajo real
-
-**Desenvainado inicial con ready < 1.** La nueva reproducción nativa confirma
-penetración de chaqueta de hasta 23.70 mm al equipar, alrededor del décimo paso
-a 60 Hz. El parche no la resuelve: la aceptación actual empieza con ready=1.
-Retomar el recorrido inicial con `stock_clearance.js`, `longarm_contact.js` y
-las pruebas existentes. Conservar contactos, continuidad, alcance y estado.
-No crear otra matriz o solver paralelo ni relajar el límite de 2 mm.
-
-#5 conserva arte, materiales/UV y procedencia global. #6 mantiene además revisión
-amplia de acciones/anatomías y coste por actor/LOD. #7 conserva recorrido íntegro,
-playtests humanos y hardware. No inventar aprobación ni cerrar por recuentos.
-
-## Comprobaciones y ramas
+## Verificación y ramas
 
 ```sh
-node --test tests/stock-transition-clearance.test.cjs
-node --test tests/*.test.cjs
 python3 build.py --check
+node --test tests/*.test.cjs
 python3 tests/release_build.test.py
 ```
 
-Añadir los controles de [QA](QA.md), artefactos del HEAD exacto y revisión gráfica.
-Verificar master/Pages por separado. [Política y respaldo](BRANCH-CLEANUP.md):
-master es la única rama permanente. Retirar las ramas de esta unidad sólo después
-de verificar su integración o de conservar su trabajo. No modificar permisos
-normales ni licencia. Reversión sin migraciones ni borrado de partidas.
+Añadir los controles actuales de [QA](QA.md), revisar artefactos del HEAD exacto
+y publicación separada. [BRANCH-CLEANUP](BRANCH-CLEANUP.md) sigue vigente: master
+es la única rama permanente. Retirar las ramas ya integradas y el helper al
+terminar, comprobando sus SHAs y conservando respaldo. Los helpers no entran en
+el árbol ni el historial de producto. No restaurar ramas antiguas para continuar.
 
-[Handoff anterior](https://github.com/CripterHack/distrito-cero/blob/02e3a140baa8994a02fbcb5943b9a4c8258915df/docs/project/HANDOFF.md)
-conserva la limpieza y el apoyo dinámico. Revisión propia, no independiente.
+[Handoff anterior](https://github.com/CripterHack/distrito-cero/blob/c27282f5ae830fe8f149d11396903d89c595acc9/docs/project/HANDOFF.md)
+conserva la aplicación del parche 0.20.6 y su límite inicial ya investigado aquí.
+Revisión propia, no independiente. Reversión sin migraciones ni borrar partidas.

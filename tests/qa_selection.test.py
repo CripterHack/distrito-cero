@@ -39,6 +39,6 @@ class SelectionTests(unittest.TestCase):
         self.assertEqual(select_suites(['reload'],'http')[0].expected_checks,31)
         with self.assertRaises(ValueError):select_suites(['reload'],'fixture')
     def test_longarm_audit_is_not_a_native_or_artistic_acceptance_suite(self):
-        self.assertEqual(select_suites(['longarms'],'fixture')[0].expected_checks,24)
+        self.assertEqual(select_suites(['longarms'],'fixture')[0].expected_checks,28)
         with self.assertRaises(ValueError):select_suites(['longarms'],'http')
 if __name__=='__main__':unittest.main()
