@@ -1,0 +1,52 @@
+name: Current human authoring export
+on:
+  pull_request:
+    branches: [master]
+    paths: ['tools/export_current_human.py', 'tools/export_traits_glb.py', 'tools/qa/validate_glb.cjs', 'tests/current_human_export.test.py', 'tests/glb-validation-contract.test.cjs', '.github/workflows/human-export.yml', 'src/**', 'assets/anatomy-source/**', 'version.json', 'requirements-dev.txt']
+  push:
+    branches: [master]
+    paths: ['tools/export_current_human.py', 'tools/export_traits_glb.py', 'tools/qa/validate_glb.cjs', 'tests/current_human_export.test.py', 'tests/glb-validation-contract.test.cjs', '.github/workflows/human-export.yml', 'src/**', 'assets/anatomy-source/**', 'version.json', 'requirements-dev.txt']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  export:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12'
+      - name: Install pinned authoring tools, never runtime dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+          mapfile -t packages < <(grep -E '^(numpy|scipy|Pillow)==' requirements-dev.txt)
+          test "${#packages[@]}" = 3
+          python3 -m pip install "${packages[@]}"
+          npm install --prefix artifacts/gltf-tools --ignore-scripts --no-audit --no-fund --no-package-lock --save-exact gltf-validator@2.0.0-dev.3.10
+      - name: Verify export isolation and validator acceptance contract
+        run: |
+          python3 tests/current_human_export.test.py
+          node --test tests/glb-validation-contract.test.cjs
+      - name: Export current canonical neutral asset
+        run: python3 tools/export_current_human.py --output artifacts/human-export
+      - name: Validate all GLB resources with the official Khronos validator
+        run: node tools/qa/validate_glb.cjs artifacts/human-export artifacts/gltf-tools/node_modules/gltf-validator
+      - name: Verify tracked historical assets and runtime remain untouched
+        if: always()
+        run: git diff --exit-code -- src assets index.html version.json build-info.json
+      - name: Preserve authoring output and unfiltered validation report
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: human-export-${{ github.sha }}-${{ github.run_attempt }}
+          path: artifacts/human-export/
+          retention-days: 14
+          if-no-files-found: warn

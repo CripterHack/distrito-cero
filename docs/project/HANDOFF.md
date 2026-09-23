@@ -1,51 +1,29 @@
-# Verificación local de familias largas: preparada para PR
+# Handoff · 0.20.3 / exportación humana en revisión
 
-Base remota `6d1b75637680386f2ba86453d1272b21ff53c6e4`, producto 0.20.3. 519 Node y 92 Python locales aprobados. La repetición gráfica aislada verificó 24 checks/48 PNG sobre el HTML nuevo, con revisión visual de las tres familias. Leer [plan y límites](../../specs/003-weapon-contact/plan-longarm-families.md) y [ADR 0004](../adr/0004-longarm-family-docks.md). Publicación y CI exacta todavía deben comprobarse en el PR. No cerrar #6 sólo por el éxito de esta unidad.
+## Punto exacto para retomar
 
-# Continuación actual · familias largas 0.20.3
+Master `4c615090d7395bda048bee0d1ee2070702833808` contiene el PR #35. La coordinación de SMG, escopeta y sniper ya se integró; no repetir el arreglo del rifle #29 ni el del benchmark #33. Verify 35843734280 y benchmark 35843734295 aprobaron antes del merge. La CI del push y Pages se comprueban por separado.
 
-Base remota `6d1b75637680386f2ba86453d1272b21ff53c6e4`. #29/#30 y #33/#34 ya están integrados. No repetir sus arreglos ni presentar Actions históricos fallidos como estado actual de master. Los tres jobs de Verify de la base `35663565966` aprobaron.
+El trabajo actual está en PR #36, rama `feat/005-current-human-export`, continuación de #5 / CHAR-06. Leer [CURRENT-HUMAN-EXPORT](CURRENT-HUMAN-EXPORT.md) y [plan](../../specs/002-character-benchmark/plan-current-export.md). Se genera un GLB de autoría actual sin sustituir los históricos ni modificar el juego.
 
-Se amplía el montaje existente a SMG, escopeta y sniper. Leer [ADR 0004](../adr/0004-longarm-family-docks.md) y [plan](../../specs/003-weapon-contact/plan-longarm-families.md). El rifle conserva su comportamiento y geometría. Las nuevas referencias/proxies se contrastan con bytes y triángulos reales. No hay otro solver ni cambios persistentes.
+El primer validador oficial, run 35846902847, falló con 13 nodos hoja inválidos y 15,921 advertencias. Dos regresiones reprodujeron children vacío y 15,906 índices no nulos con peso cero. La normalización corrige sólo la salida portable. Nueve tests Python comprueban el aislamiento, el formato y la preservación de todos los demás buffers. La CI del nuevo HEAD y el reporte Khronos completo deben revisarse antes de integrar #36. Una prueba unitaria no acredita esa validación.
 
-La prueba inicial reproduce las tres desalineaciones. Hay cobertura de 54 combinaciones centrales, ciclos nativos, equivariancia, geometría ajena intacta y controles negativos de superficie. El primer run gráfico perdió contexto antes de capturar y está separado de su repetición. La CI del nuevo HEAD y sus artefactos deben revisarse antes del merge autorizado. Registrar resultados nuevos, no copiar cifras históricas como actuales.
+El manifiesto registra fuentes y versiones reales de herramientas. Una comparación entre plataformas produjo diferencias en muestras de animación; no afirmar identidad binaria entre toolchains distintos. La regresión compara contra los bytes exactos de la receta de la misma ejecución. DQ/LBS, materiales/tangentes y jerarquía siguen con límites de portabilidad explícitos. No se concede una licencia nueva al contenido propio.
 
-#5 sigue exigiendo revisión artística y procedencia de autoría. #7 sigue exigiendo recorrido sin teletransportes, playtest humano y GPU identificada. El cierre amplio de #6 requiere revisar todos sus criterios, no sólo una pose neutral. No fabricar aprobación artística, cinco participantes, FPS físicos ni cierre de issues por haber generado un plan.
+## Lo comprobado en PR #35
 
-Git local no resolvió GitHub. Snapshot recuperado de Pages de d6da75a y cinco blobs de #34 cotejados. El manifiesto local puede mantener commit=null. Los commits de publicación usan padres remotos reales y salidas reconstruidas/verificadas, nunca historia sintética.
+519 Node y 98 Python en la reconstrucción remota exacta. Artefactos del HEAD b7362fb: 205 checks WebGL, 80 HTTP nativos y 36 de benchmark, todos aprobados y con digests cotejados. Se revisaron las 48 capturas longarms, incluidas 20 vistas estáticas y 28 muestras de ciclo. La regresión local adicional aprobó 220 checks de arsenal, catálogo, campaña y continuidad. Estos fixtures no constituyen una vertical slice sin teletransportes ni rendimiento de GPU física.
 
-## Registro anterior preservado
+[ADR 0004](../adr/0004-longarm-family-docks.md) documenta la migración cosmética y la referencia de prenda por familia. [Plan](../../specs/003-weapon-contact/plan-longarm-families.md). Se conservan rifle, anatomía, manos, reglas, partidas y workflows normales. La rama auxiliar retiró su workflow en bedd63d; nunca entró al producto. El primer intento gráfico perdió contexto y permanece fallido, separado de la repetición aislada aprobada.
 
-# Continuación actual: benchmark de rifle · #33
+## Criterios todavía pendientes
 
-Base `d6da75a76201866fe7167fd0f8cbb46441c2c3c7`. PR #30 integrado, #29 cerrada y sus tres jobs posteriores de Verify `35653621273` aprobados. No hay un fallo pendiente de ese HEAD que deba reejecutarse.
+#5 requiere revisión artística registrada de proporciones/materiales/variantes y procedencia editable. #6 conserva la revisión global de superficies y acciones, vídeo y coste por actor/LOD. #7 requiere implementar y verificar la escena/recorrido íntegro, alternativas, playtest humano y presupuesto sobre equipo físico identificado. No cerrar esos alcances por el número de tests ni fabricar participantes, vídeos o FPS.
 
-[Correctivo del benchmark](BENCHMARK-AIM.md): la captura de apuntado asentaba aimWeight pero no rifleAim. Se corrige sólo el fixture y se rechaza la incoherencia con la fase del renderer. RED observado, 502/502 Node y 9/9 tests de matriz aprobados. Benchmark local `20260921T221156Z-44c19248a241`: 36 checks y 30 PNG cotejados, captura de apuntado revisada. El HTML 0.20.2 permanece intacto.
+## Integración e historia
 
-El PR de #33 determina su CI remota e integración. No confundir un resultado local con merge. Después de integrarlo, continuar #5/#6 desde la referencia corregida, sin repetir el diagnóstico de #29. #7 conserva sus gates. No cerrar aprobación artística, autocolisión, otras familias o GPU física por estas pruebas. Revisión propia, no independiente.
+Ramas por unidad, pruebas aplicables completas, revisión del diff y artefactos del HEAD exacto, merge autorizado sólo con sus gates aprobados. Comprobar el push a master y Pages por separado. No forzar push, borrar datos del sitio o reescribir evidencia histórica.
 
-## Registro anterior de la corrección del rifle
+[Estado](STATE.md), [QA](QA.md), [rifle #29](RIFLE-COORDINATION.md), [benchmark #33](BENCHMARK-AIM.md), [cancelación](../../specs/003-weapon-contact/plan-reload-cancellation.md), [HTTP nativo](../../specs/003-weapon-contact/plan-native-reload.md), [auditor #27](../../specs/003-weapon-contact/plan-longarm-audit.md), [variantes rechazadas](../../specs/003-weapon-contact/stock-surface-rejection.md), [gates CI](CI-GATES.md). El [handoff anterior completo](https://github.com/CripterHack/distrito-cero/blob/4c615090d7395bda048bee0d1ee2070702833808/docs/project/HANDOFF.md) conserva sus entradas históricas sin repetir instrucciones obsoletas como trabajo actual.
 
-# Handoff · v0.20.2 / rifle corregido, integración registrada en PR #30
-
-Leer [STATE](STATE.md), [RIFLE-COORDINATION](RIFLE-COORDINATION.md) y [ADR 0003](../adr/0003-rifle-surface-dock.md). Base del cambio: PR #30, `0f01f574ef23817afd407e0cf2ed90fc7bd49540`. Master previo `37ab6f0`, con #31/#32 integrados y su CI/Pages aprobados. El estado de cierre, SHA integrado y CI posterior de esta unidad se consultan en #30, no se inventan en el documento antes del merge.
-
-## No repetir el diagnóstico resuelto
-
-El rifle ya no usa el desplazamiento de una articulación como superficie. La coordinación y dos cuboides cosméticos nuevos permiten la línea ocular sin forzar cabeza/hombros. El antiguo valor se conserva en `legacyStockError`. Las tolerancias no cambian. Los diez controles de superficies permanecen. Las cinco regresiones nuevas prueban referencias independientes, alcance, ciclo nativo y 18 poses. Localmente: 500/500 Node y 90 checks gráficos canónicos aprobados. El requisito que daba 238.64 mm ya pasa.
-
-El HTML/GLB se regeneran, el recurso humano y partidas no cambian. No copiar perfiles A/B/C descartados. La decisión de autoría está documentada, no debe revertirse silenciosamente a referencias antiguas sólo para coincidir con un número histórico. No crear otro auditor equivalente.
-
-## Antes de cualquier integración
-
-Comprobar CI del HEAD exacto, artefactos y diff. La prueba del rifle debe permanecer dentro de `tests/*.test.cjs`, sin skip. Los workflows normales conservan ocho gates independientes y `contents: read`. Un build auxiliar en rama temporal no sustituye la CI completa de PR ni mueve master. Después del merge verificar el push y Pages separadamente. Conservar fallos históricos aunque una repetición apruebe.
-
-## Siguiente trabajo del producto
-
-#6 permanece abierta: extender una unidad equivalente a la siguiente familia larga reutilizando el observador, empezando por su evidencia de superficie, anatomía y ciclo. No aplicar automáticamente las medidas de rifle a SMG, escopeta o sniper. #5 requiere revisión artística/materiales/variantes. #7 requiere una escena y recorrido íntegro con playtest y hardware físico. El parche de rifle no cierra esos gates.
-
-El ciclo actual está medido a 60 Hz y la matriz central cubre cuello/elevación/agachado. No deducir cobertura de todos los cuerpos, recoil extremo, colisiones emergentes, Safari/Firefox, móvil o FPS de GPU física. Evitar afirmaciones AAA/fotorrealistas.
-
-## Historia preservada
-
-[Cancelación](../../specs/003-weapon-contact/plan-reload-cancellation.md), [HTTP nativo](../../specs/003-weapon-contact/plan-native-reload.md), [auditor #27](../../specs/003-weapon-contact/plan-longarm-audit.md), [rechazos de superficie](../../specs/003-weapon-contact/stock-surface-rejection.md) y [CI](CI-GATES.md). La investigación inicial y los SHA anteriores permanecen en esos documentos, PRs y Git. No reescribir manifiestos históricos ni borrar datos del sitio.
+Git del laboratorio no resuelve GitHub. Las copias locales son snapshots y pueden conservar commit=null. Publicar sólo sobre padres remotos reales con contenido verificado. Revisión propia, no independiente.
