@@ -2,6 +2,13 @@
 
 ## Versión activa del árbol: v0.20.3 · Coherencia
 
+### Actualización: exportación de autoría
+
+PR #36 integrado como `b96371e`, con Verify/exportación/benchmark aprobados antes del merge y Pages posterior aprobado. El GLB oficial revisado tiene 0 errores y 15 advertencias. Su cadena de hashes y avisos queda registrada en el PR.
+
+La corrección siguiente promueve 14 instancias de malla a raíz sin alterar los huesos o buffers. Tiene RED/GREEN, 14 tests Python y 522 Node aprobados localmente. La validación oficial e integración se registran en su propio PR. El HTML de producto sigue idéntico. [Contrato](CURRENT-HUMAN-EXPORT.md), [plan](../../specs/002-character-benchmark/plan-portable-root.md).
+
+
 Canal **prototype**, fecha 2026-09-23. Identidad en [version.json](../../version.json), huellas y tamaño en [build-info.json](../../build-info.json). Master `4c615090d7395bda048bee0d1ee2070702833808` integra PR #35. La publicación se confirma en Actions/Pages, no por la existencia de este documento. No cambian configuración de Pages, licencia o esquemas de partidas.
 
 ## Última unidad de producto integrada · PR #35
@@ -14,11 +21,11 @@ La revisión visual comprendió 20 vistas estáticas y 28 muestras de ciclo. No 
 
 HTML actual: e91218339a69d948f6af18a0ee43c1dc4874056d4b0ee67bc9353ab7a288b027, 8,866,152 bytes. GLB de equipo: c698c3301665a0a07a66d318f81e96c2c1984e94a4a8bb81e3b9ce3e3a69b329. Recurso humano intacto: 522a9a24e2cc70857a3ec5c18bf9c2126c7b59d9ce8e4c5601c3b8be2c911b54.
 
-## Unidad de autoría en revisión · PR #36
+## Unidad de autoría integrada · PR #36
 
 [Exportación humana actual](CURRENT-HUMAN-EXPORT.md), CHAR-06 de #5. Genera un perfil neutral con el contenido vigente sin sobrescribir los GLB históricos. Validación oficial separada y artefacto completo, workflow de lectura, sin nuevas dependencias en el juego.
 
-El primer run oficial 35846902847 detectó 13 nodos hoja inválidos y 15,921 advertencias. Se reprodujeron y corrigieron children vacío e índices con peso cero en la salida portable, no en las fuentes. Nueve tests Python comprueban aislamiento y cambios permitidos. La validación y CI de la revisión nueva deben terminar y revisarse antes de integrar. Se mantienen los avisos de portabilidad, licencia propia sin decisión nueva y aceptación artística pendiente.
+El primer run oficial 35846902847 detectó 13 nodos hoja inválidos y 15,921 advertencias. Se reprodujeron y corrigieron children vacío e índices con peso cero en la salida portable, no en las fuentes. Nueve tests Python comprueban aislamiento y cambios permitidos. La revisión final 6327b1c aprobó Verify, exportación y benchmark; el PR se integró como b96371e tras revisar el reporte oficial de cero errores y 15 advertencias. Se mantienen los avisos de portabilidad, licencia propia sin decisión nueva y aceptación artística pendiente.
 
 ## Backlog vigente
 

@@ -1,3 +1,15 @@
+# Continuación actual · raíces del GLB portable
+
+PR #36 ya está integrado en master `b96371eb2cc93799c34d029fa5e91ce3c487c3d8`. Verify 35848464331, exportación 35848464309 y benchmark 35848464268 aprobaron antes del merge. Pages 35851704477 aprobó después. La validación oficial entregó 0 errores y 15 advertencias revisadas. No repetir la normalización de children/índices con peso cero.
+
+La rama `fix/005-portable-skin-roots` corrige 14 advertencias de mallas no raíz. [Plan](../../specs/002-character-benchmark/plan-portable-root.md) y [contrato actualizado](CURRENT-HUMAN-EXPORT.md). Las instancias hoja pasan a raíz de sus escenas originales. Se preservan los 49 huesos, sus ancestros, todos los buffers y los 11 clips. No se modifica runtime, HTML, assets históricos, versión 0.20.3, licencia o permisos.
+
+RED observado en el GLB real y en los contratos. GREEN local: 14 Python del exportador, 522 Node completos y build inmutable. El PR de esta unidad debe registrar su validador oficial y CI del HEAD exacto antes del merge. No atribuir el reporte anterior al archivo nuevo. La advertencia de tangentes y la revisión visual portable siguen pendientes.
+
+#5 mantiene revisión artística/procedencia global. #6 mantiene vídeo continuo y coste por actor/LOD más revisión amplia de superficies/acciones. #7 mantiene escena y recorrido completo, playtest humano y equipo físico. No cerrar estos alcances sólo por un exporter válido.
+
+## Handoff anterior conservado
+
 # Handoff · 0.20.3 / exportación humana en revisión
 
 ## Punto exacto para retomar
