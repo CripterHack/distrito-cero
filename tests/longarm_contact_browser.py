@@ -101,7 +101,7 @@ try:
                 cycles.append({'item':item,'simulationStep':1/60,'renderedEverySteps':10,'samples':sequence})
                 ck(item+' raise/lower cycle retains all 60 numeric and seven rendered observations',
                    len(sequence)==60 and all(math.isfinite(p['eyeError']) and math.isfinite(p['stockError']) for p in sequence)
-                   and all(valid(c) for c in cases if c['name'].startswith(item+'-cycle-')))
+                   and all(valid(c) and not c['stockScreen']['failures'] for c in cases if c['name'].startswith(item+'-cycle-')))
             ck('Diagnostic scene leaves the live game and storage fixture untouched',page.evaluate('DC_LONGARM_STAGE.pristine()'))
             ck('No graphics errors, browser exceptions, external requests or modified HTML',
                not errors and not requests and page.evaluate('DC_APP.renderer.gl.getError()')==0
