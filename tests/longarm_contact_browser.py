@@ -1,4 +1,4 @@
-"""CONTACT-03 measurement integrity, NOT acceptance of the current long-arm pose.
+"""CONTACT-03 measurement integrity and settled long-arm contact criteria.
 Uses a prepared world/time/camera and Storage fixture. Never bundles QA helpers.
 """
 from pathlib import Path
@@ -46,7 +46,7 @@ def valid(record):
             and all(math.isfinite(v) for v in [*m['palmErrors'].values(),*m['segmentErrors'].values()])
             and 'invalid' not in record['screening']['failures']
             and record['screening']['artisticAcceptance'] is False
-            and (m['item']!='rifle' or valid_clearance(record)))
+            and valid_clearance(record))
 
 
 def valid_clearance(record):
@@ -87,9 +87,8 @@ try:
                 for name,config in poses.items():
                     record=page.evaluate('c=>DC_LONGARM_STAGE.sample(c)',{'item':item,**config})
                     capture(page,item+'-'+name,record)
-                    ck(item+' '+name+' measures the rendered frame and rifle contact criteria (not artistic approval)',
-                       valid(record) and (item!='rifle' or
-                       (not record['screening']['failures'] and not record['stockScreen']['failures'])))
+                    ck(item+' '+name+' measures the rendered frame and family contact criteria (not artistic approval)',
+                       valid(record) and not record['screening']['failures'] and not record['stockScreen']['failures'])
                     if name=='neutral':
                         front=page.evaluate('c=>DC_LONGARM_STAGE.sample(c)',{'item':item,'front':True})
                         capture(page,item+'-front',front)
@@ -117,7 +116,7 @@ finally:
     report={'schema':1,'status':status,'sha256':sha,'runId':os.environ.get('DC_QA_RUN_ID'),
             'checks':checks,'errors':errors,'requests':requests,'cases':cases,'cycles':cycles,'matrix':matrix,
             'nativeStorage':False,'physicalGpu':False,'preparedWorld':True,'preparedTimers':True,
-            'artisticAcceptance':False,'gateKind':'measurement integrity only',
+            'artisticAcceptance':False,'gateKind':'measurement integrity and settled long-arm contact criteria',
             'finishedUtc':datetime.now(timezone.utc).isoformat(),**info}
     O.mkdir(parents=True,exist_ok=True)
     (O/'report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')

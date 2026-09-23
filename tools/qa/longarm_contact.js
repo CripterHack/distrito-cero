@@ -22,8 +22,8 @@
   }
   const requirePoint=p=>{if(!points.some(q=>distance(p,q)<.000002))throw new Error(item+' missing geometry landmark '+p.join(','));};
   // Existing buttplate rear face, independent of mount.brace.stock/target.
-  const stock=[0,item==='rifle'?-.0745:-.012,-.2385];
-  for(const x of (item==='rifle'?[-.026,.026]:[-.034,.034]))for(const y of (item==='rifle'?[-.114,-.035]:[-.082,.058]))requirePoint([x,y,stock[2]]);
+  const lift=item==='sniper'?.0595:0,stock=[0,-.0745+lift,-.2385];
+  for(const x of [-.026,.026])for(const y of [-.114+lift,-.035+lift])requirePoint([x,y,stock[2]]);
   let rear,front,kind;
   if(item==='sniper'){
    kind='scope';rear=[0,.133,-.02];front=[0,.133,.302];
@@ -62,7 +62,7 @@
   let shoulderTarget=add(shoulder,[.010*c+.024*s,-.040,-.010*s+.024*c]);
   const legacyShoulderTarget=shoulderTarget,legacyStockError=distance(stockCenter,shoulderTarget);
   let shoulderReference='legacy articulated rig anchor, not garment surface';
-  if(item==='rifle'){
+  if(items.includes(item)){
    const part=D.HeroAsset.parts.find(p=>p.name==='jacket');
    if(!part||part.vertices<26697)throw new Error('Missing jacket reference triangle');
    const bytes=Uint8Array.from(atob(part.data),c=>c.charCodeAt(0)),v=new DataView(bytes.buffer),dq=D.DualQuaternion.pack(pose.matrices),a=sim.appearance||D.Appearance.default();
@@ -74,7 +74,8 @@
    }
    shoulderTarget=[0,1,2].map(k=>patch.reduce((sum,p)=>sum+p[k],0)/3);
    const origin=mount.point(0,0,0),local=[[1,0,0],[0,1,0]].map(p=>D.dot(sub(shoulderTarget,origin),mount.direction(p)));
-   stock=mount.point(D.clamp(local[0],-.026,.026),D.clamp(local[1],-.114,-.035),ref.stock[2]);
+   const lift=item==='sniper'?.0595:0;
+   stock=mount.point(D.clamp(local[0],-.026,.026),D.clamp(local[1],-.114+lift,-.035+lift),ref.stock[2]);
    shoulderReference='rendered jacket triangle 8898';
   }
   if(![eye,rear,front,stock,shoulderTarget].every(vector)||distance(front,rear)<1e-6)

@@ -1,10 +1,18 @@
 # Estado real del proyecto
 
-## Versión activa del árbol: v0.20.2 · Coherencia
+## Versión activa del árbol: v0.20.3 · Coherencia
 
-Canal **prototype**, fecha 2026-09-21. Identidad en [version.json](../../version.json), huellas y tamaño exactos en [build-info.json](../../build-info.json). El estado de integración y publicación se comprueba en el PR #30 y Actions, no se deduce de este documento. La configuración de Pages sobre master, permisos, licencia y esquemas de partidas no cambian.
+Canal **prototype**, fecha 2026-09-23. Identidad en [version.json](../../version.json), huellas y tamaño exactos en [build-info.json](../../build-info.json). El estado de integración y publicación se comprueba en el PR #30 y Actions, no se deduce de este documento. La configuración de Pages sobre master, permisos, licencia y esquemas de partidas no cambian.
 
-## Última continuación: coherencia del benchmark · #33
+## Continuación actual: familias largas · #6
+
+Base de trabajo `6d1b756`, PR #34 integrado y #33 cerrada. Verify de esa base `35663565966` completó sus tres jobs en success. La nueva unidad amplía la coordinación a SMG, escopeta y sniper, sin cambiar la geometría humana, rifle o partidas. [Decisión de autoría y contrato](../adr/0004-longarm-family-docks.md), [plan de ejecución](../../specs/003-weapon-contact/plan-longarm-families.md).
+
+Se reprodujeron tres fallos oculares sobre la base, de 205–239 mm. Las 54 combinaciones centrales y las transiciones de las nuevas familias pasan en las pruebas focalizadas. La primera ejecución completa detectó tres expectativas del contrato viejo, reemplazadas explícitamente por la cobertura del contrato nuevo. No se ocultan fallos ni se retiran tests de CI. El resultado completo del HEAD y la revisión gráfica se registran en el PR antes de integrar.
+
+Primer intento gráfico: pérdida de contexto antes de la primera captura durante ejecución concurrente. Se conserva como fallido y se repite aislado con el mismo renderer y controles, sin relajar tolerancias. No se atribuye el fallo a la pose sin evidencia. La aprobación remota y publicación de esta revisión son distintas de la CI verde anterior.
+
+## Registro anterior: benchmark · #33
 
 PR #30 integrado como `d6da75a`, #29 cerrada. Los tres jobs del Verify posterior `35653621273` ya terminaron success. Se conserva ese resultado separado de cualquier nueva CI.
 
@@ -27,7 +35,7 @@ El nuevo HTML es `acf4f05ccbb4a1a68008bd57876b9e7839628b4127a686715802ec47c7130b
 | Unidad | Situación |
 | :--- | :--- |
 | #29 · Rifle neutral | Cerrada mediante PR #30, merge `d6da75a`, CI posterior aprobada. |
-| #33 · Benchmark de apuntado | Fixture corregido y probado localmente. Su PR registra CI e integración. |
+| #33 · Benchmark de apuntado | Cerrado por PR #34, merge `6d1b756`, CI posterior aprobada. |
 | #6 · Contactos y recargas | Continúa abierta. Las otras familias largas y la revisión amplia de superficies, transiciones y anatomías no se consideran resueltas por #29. |
 | #5 · Personaje patrón | Benchmark disponible. Aprobación artística, materiales y variantes pendientes. |
 | #7 · Vertical slice | Escena, recorrido íntegro, playtest y rendimiento sobre GPU física pendientes. |

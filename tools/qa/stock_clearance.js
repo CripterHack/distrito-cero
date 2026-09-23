@@ -5,17 +5,21 @@
 (function(global){
  'use strict';
  const D=global.DC,R=D.SkinRig,parts=['face','jacket'];
- const boxes=[{center:[0,-.050,-.15],half:[.024,.026,.075]},
+ const supported=['rifle','smg','shotgun','sniper'];
+ const baseBoxes=[{center:[0,-.050,-.15],half:[.024,.026,.075]},
               {center:[0,-.0745,-.2295],half:[.026,.0395,.009]}];
  const sub=(a,b)=>a.map((v,i)=>v-b[i]);
  const vector=p=>Array.isArray(p)&&p.length===3&&p.every(Number.isFinite);
  const key=p=>p.map(v=>v.toFixed(6)).join(',');
  const triKey=p=>p.map(key).sort().join('|');
- let verifiedGeometry,assetCache;
- function verifyGeometry(geometry){
-  if(geometry===undefined&&verifiedGeometry===D.EquipmentGeometry)return structuredClone(boxes);
+ let verifiedGeometry,assetCache;const verifiedItems=new Set();
+ function boxesFor(item){const lift=item==='sniper'?.0595:0;return baseBoxes.map(b=>({center:[b.center[0],b.center[1]+lift,b.center[2]],half:b.half.slice()}));}
+ function verifyGeometry(geometry,item='rifle'){
+  if(!supported.includes(item))throw new Error('Unsupported stock family');
+  const boxes=boxesFor(item);
+  if(geometry===undefined&&verifiedGeometry===D.EquipmentGeometry&&verifiedItems.has(item))return structuredClone(boxes);
   const supplied=geometry!==undefined,triangles=new Set();
-  for(const part of geometry??D.EquipmentGeometry.build('rifle')){
+  for(const part of geometry??D.EquipmentGeometry.build(item)){
    if(!part.data||part.data.length%24)throw new Error('Invalid stock geometry triangle layout');
    for(let i=0;i<part.data.length;i+=24)triangles.add(triKey([0,8,16].map(k=>Array.from(part.data.subarray(i+k,i+k+3)))));
   }
@@ -26,7 +30,7 @@
     for(const t of [[f[0],f[1],f[2]],[f[0],f[2],f[3]]])
      if(!triangles.has(triKey(t.map(i=>points[i]))))throw new Error('Stock geometry changed or is missing a complete triangle');
   }
-  if(!supplied)verifiedGeometry=D.EquipmentGeometry;
+  if(!supplied){if(verifiedGeometry!==D.EquipmentGeometry)verifiedItems.clear();verifiedGeometry=D.EquipmentGeometry;verifiedItems.add(item);}
   return structuredClone(boxes);
  }
  function cohort(){
@@ -57,7 +61,7 @@
   return Math.hypot(...q.map(v=>Math.max(0,v)))+Math.min(Math.max(...q),0);
  }
  function inspect(sim,evidence){
-  if(sim.equipment?.selected!=='rifle')throw new Error('Stock rejection is scoped to rifle');
+  const item=sim.equipment?.selected;if(!supported.includes(item))throw new Error('Stock rejection is scoped to coordinated long arms');
   const {mount,pose,actor}=evidence||{};
   if(!mount||!pose||!actor||pose.matrices?.length!==R.bones.length*16||
      !Array.from(pose.matrices).every(Number.isFinite)||!Number.isFinite(pose.rootY)||
@@ -70,7 +74,7 @@
      Math.abs(D.dot(basis[0],basis[1]))>1e-5||Math.abs(D.dot(basis[0],basis[2]))>1e-5||
      Math.abs(D.dot(basis[1],basis[2]))>1e-5||D.dot(D.cross(basis[0],basis[1]),basis[2])<.99999)
    throw new Error('Invalid nonfinite or nonrigid prop frame');
-  verifyGeometry();const skin=cohort(),dq=D.DualQuaternion.pack(pose.matrices);
+  const boxes=verifyGeometry(undefined,item);const skin=cohort(),dq=D.DualQuaternion.pack(pose.matrices);
   const a=sim.appearance||D.Appearance.default(),c=Math.cos(actor.yaw||0),s=Math.sin(actor.yaw||0);
   const minimum={},samples={face:0,jacket:0};
   for(const vertex of skin){
@@ -85,7 +89,7 @@
    if(!minimum[vertex.part]||d<minimum[vertex.part].distance)
     minimum[vertex.part]={distance:d,index:vertex.index,bind:vertex.bind.slice(),world,local};
   }
-  return {schema:1,units:'metres',source:'supplied-palette',geometryVerified:true,samples,minimum,
+  return {schema:1,item,units:'metres',source:'supplied-palette',geometryVerified:true,samples,minimum,
    cohort:'All face/neck vertices and jacket bind y >= 1.30; distinct skin influences retained',
    artisticAcceptance:false,contactAcceptance:false};
  }
