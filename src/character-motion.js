@@ -62,15 +62,36 @@
    const measured=D.clamp(finite(n.moveSpeed),0,10),step=reset?0:D.clamp(dt,0,.1),speed=reset?measured:D.damp(old.motion.speed,measured,measured<.1?13:16,step);
    const acceleration=reset?0:D.damp(old.motion.acceleration,D.clamp((speed-old.motion.speed)/Math.max(step,.001),-9,9),7,step);
    const turn=reset?finite(n.turnRate):D.damp(old.motion.turn,D.clamp(D.wrap(yaw-old.yaw)/Math.max(step,.001),-4,4),9,step);
-   const motion={speed,acceleration,turn,phase:finite(n.walk),feet:{L:null,R:null},reset,inPlace};
+   const motion={speed,acceleration,turn,phase:finite(n.walk),feet:{L:null,R:null},swing:{L:null,R:null},reset,inPlace};
    const disabled=inPlace||n.seated||(n.seatBlend||0)>.025||(n.y||0)>.025||Math.abs(n.vy||0)>.05||!!n.accessPhase||(n.dodge||0)>.03;
    for(const k of ['L','R']){
     const f=foot({...n,motion},k),previous=!reset&&!disabled?old.motion.feet[k]:null;
-    if(disabled||!f.contact)continue;
+    if(disabled)continue;
+    if(!f.contact){
+     // Carry the last planted offset into swing instead of snapping to the
+     // nominal curve. This memory belongs only to the visual tracker.
+     let release=!reset?old.motion.swing?.[k]:null;
+     if(previous){
+      const c=Math.cos(yaw),s=Math.sin(yaw);
+      release={dx:previous.x-(x+f.x*c+f.z*s),dz:previous.z-(z-f.x*s+f.z*c),
+       yaw:previous.yaw,start:f.progress,progress:f.progress};
+     }
+     if(release){
+      const progress=Math.max(release.progress,f.progress),u=D.clamp((progress-release.start)/Math.max(1-release.start,1e-6),0,1);
+      // Zero velocity and acceleration at both ends of the release blend.
+      motion.swing[k]={...release,progress,weight:1-u*u*u*(u*(u*6-15)+10)};
+     }
+     continue;
+    }
     // During a sharp reversal, release naturally instead of twisting the ankle indefinitely.
     let lock=previous;
     if(!lock||Math.hypot(lock.x-x,lock.z-z)>.57||Math.abs(D.wrap(lock.yaw-yaw))>.68){lock={x:x+f.x*Math.cos(yaw)+f.z*Math.sin(yaw),z:z-f.x*Math.sin(yaw)+f.z*Math.cos(yaw),yaw};}
     motion.feet[k]={...lock};
+   }
+   if(D.SkinRig?.groundTargets){
+    const target=D.SkinRig.groundTargets({...n,motion},time).rootY;
+    // Only upward recovery is eased. Downward reach constraints remain exact.
+    motion.supportY=reset||disabled||!Number.isFinite(old.motion.supportY)?target:Math.min(target,D.damp(old.motion.supportY,target,10,step));
    }
    this.entries.delete(id);this.entries.set(id,{x,z,yaw,time,motion,walk:n.walk,rawSpeed:n.moveSpeed,seated:!!n.seated,accessPhase:n.accessPhase});
    while(this.entries.size>this.limit)this.entries.delete(this.entries.keys().next().value);
