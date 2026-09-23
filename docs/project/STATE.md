@@ -7,7 +7,21 @@ y [build-info.json](../../build-info.json). La publicación se verifica en Actio
 y Pages, nunca por la existencia de este documento. Configuración de Pages sobre
 master, licencia, permisos normales y esquemas de partidas sin cambios.
 
-## Unidad actual: continuidad del apoyo dinámico
+## Consolidación y limpieza de contexto
+
+PR #40 integrado por merge normal en `86952732d7231312bf305c362d6b07af5257a08b`.
+Su HEAD `5f7cdc2` aprobó Verify 35883392226, exportación 35883392094 y benchmark
+35883392101. Se revisaron diff y artefactos, y se repitieron 543 Node y build local
+sobre historial auténtico. El resultado del push y Pages se registra por separado
+en el PR. No hay una aceptación de producto fallida que heredar de los PRs antiguos.
+
+Se retiraron las 31 ramas originales ajenas a master después de cotejar integración,
+duplicados y payloads. [Respaldo, inventario y política de ramas](BRANCH-CLEANUP.md).
+Las ramas de mantenimiento/documentación de esta operación son temporales. Los
+tres issues globales siguen abiertos por sus criterios reales, no por tareas ya
+integradas. Esta consolidación no modifica runtime, versión, assets o partidas.
+
+## Unidad de producto integrada: continuidad del apoyo dinámico
 
 Base `bfa26cd629afbc5a4295d8afdbbf833cddd587c2`, PR #39 integrado. Verify
 35870590860, exportación 35870591093, benchmark 35870591062 y Pages 35870589780
@@ -24,7 +38,7 @@ sin skips, cancelaciones o todo, y **89 tests Python del core**. Autoría, build
 exportación del equipo aprobaron. Cuatro vídeos canónicos contienen 282 frames
 verificados; 52 fueron revisados visualmente. Misma trayectoria física/cámara,
 Storage fixture y GPU software. [Diseño, medidas y límites](SUPPORT-RELEASE.md).
-El PR de esta unidad determina su CI e integración finales.
+El PR #40 registra la revisión, CI aprobada e integración de esta unidad.
 
 HTML nuevo: `4307c76139bc4f4b8178a16792ecb6c490bd1b0633d98a4a4a86336036cf3641`,
 8,869,123 bytes. Fuente: `c24ebe1d3d15e9fd80f649c7ec70e9d0f5b57ab2eab618d9259f7ba203dd2e92`.
@@ -35,6 +49,7 @@ transiciones sigue pendiente de #6 y no se oculta con esta corrección de pies.
 
 | Unidad | Estado y alcance |
 | :--- | :--- |
+| PR #40, 8695273 | v0.20.5 conserva el residual de apoyo y exige alcance durante balanceo. No corrige penetraciones de culata/prenda. |
 | PR #39, bfa26cd | v0.20.4 aplica la envolvente de marcha al alcance longitudinal del pie. Corrige el hundimiento cerca de reposo, no todos los bordes de apoyo. |
 | PR #38, a7c13a8 | Derivado portable con tangentes MikkTSpace y política explícita para 984 triángulos con UV degeneradas. Original conservado. No repara las UV ni acredita arte. |
 | PR #37, c49ed085 | Raíces de escena GLB corregidas y validadas. |
