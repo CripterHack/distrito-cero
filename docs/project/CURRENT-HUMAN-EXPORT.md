@@ -4,7 +4,7 @@ Refs #5, CHAR-06. Exportación de autoría, no sustitución del runtime ni aprob
 
 ## Contrato
 
-El comando nuevo reutiliza `export_traits_glb.py` sobre una copia temporal y completa de sus entradas actuales. Esa receta produce el rig neutral, mapas incrustados y once clips procedurales. Se actualiza la identidad/procedencia y se normalizan dos defectos de intercambio heredados: se omite children vacío en nodos hoja y se pone a cero el índice de articulaciones cuyo peso ya era cero. Posiciones, normales, UVs, pesos, índices de triángulos, matrices, jerarquía y clips permanecen idénticos a la receta. Los índices de influencia nula modificados se cuentan en portableNormalization. No se modifica el exportador histórico ni se sobrescriben `assets/dc016-human-traits.glb` o sus informes.
+El comando nuevo reutiliza `export_traits_glb.py` sobre una copia temporal y completa de sus entradas actuales. Esa receta produce el rig neutral, mapas incrustados y once clips procedurales. Se actualiza la identidad/procedencia y se normalizan dos defectos de intercambio heredados: se omite children vacío en nodos hoja y se pone a cero el índice de articulaciones cuyo peso ya era cero. Posiciones, normales, UVs, pesos, índices de triángulos, matrices y clips permanecen idénticos a la receta. La jerarquía de articulaciones también se conserva; sólo las instancias hoja de malla con skin se promueven a raíz de sus escenas. Los índices de influencia nula modificados se cuentan en portableNormalization. No se modifica el exportador histórico ni se sobrescriben `assets/dc016-human-traits.glb` o sus informes.
 
 La salida exige un directorio nuevo. Dentro del repositorio sólo permite `artifacts/`. Rechaza destinos en fuentes o históricos, directorios existentes y cambios en las entradas durante el proceso. `source-manifest.json` identifica las fuentes, mapas, scripts, versión y build por SHA-256. Ese manifiesto deja `officialValidation=not-run` y `artisticAcceptance=pending` de manera intencional.
 
@@ -28,7 +28,7 @@ El GLB representa un solo perfil neutral ajustado y peinado clásico, 49 huesos 
 
 `assets/ATTRIBUTION-v09.md` mantiene la declaración de terceros. No se concede una licencia nueva al contenido propio. La decisión global del titular y la revisión artística de #5 siguen pendientes. Esta unidad no permite cerrar automáticamente #5, #6 o #7.
 
-## Estado y reversión
+## Registro de la primera unidad · PR #36
 
 Las cuatro regresiones iniciales de exportación y tres del contrato de reporte observaron RED/GREEN. El primer validador oficial, run 35846902847, rechazó el GLB con 13 errores EMPTY_ENTITY y registró 15,921 advertencias. Se conservaron su artefacto 10743459045 y reporte completo. Dos regresiones nuevas reprodujeron los 13 nodos hoja inválidos y 15,906 índices no nulos con peso cero. Tras la normalización, nueve pruebas Python pasan, incluidas preservación byte a byte y controles de formato/rango. La nueva validación oficial se consulta por el HEAD correspondiente, no se deduce de esos tests. El primer reporte también identifica 14 nodos de malla bajo el nodo raíz animado y una dependencia de tangentes generadas por el visor. Se conservan esa jerarquía/material y los avisos para una revisión de portabilidad separada, no se filtran. Los avisos informativos de UV sin uso y 52 triángulos degenerados cuantizados tampoco se eliminan modificando la anatomía. Consultar el artefacto y HEAD exacto antes de aceptar una exportación. Revertir esta unidad retira herramientas/tests/workflow/documentación, sin cambios en partidas ni recursos históricos.
 
@@ -36,4 +36,15 @@ Documentación del validador: [repositorio oficial](https://github.com/KhronosGr
 
 ## Reproducibilidad numérica
 
-El manifiesto registra versiones reales de Python, Node, NumPy, SciPy y Pillow. Una comparación entre el primer artefacto remoto y el laboratorio encontró diferencias binarias en muestras de animación, además de los índices normalizados, pese a descripciones de accessors idénticas. No se atribuye identidad binaria a entornos distintos. La regresión nueva coteja la salida contra la receta exacta de la misma ejecución: únicamente pueden cambiar los índices de peso cero y las propiedades hoja vacías. Los hashes de cada artefacto siguen siendo su identidad, no una promesa de igualdad entre plataformas.
+El manifiesto registra versiones reales de Python, Node, NumPy, SciPy y Pillow. Una comparación entre el primer artefacto remoto y el laboratorio encontró diferencias binarias en muestras de animación, además de los índices normalizados, pese a descripciones de accessors idénticas. No se atribuye identidad binaria a entornos distintos. La regresión coteja la salida contra la receta exacta de la misma ejecución: en el binario únicamente pueden cambiar índices de peso cero. Las normalizaciones JSON y de enlaces de instancia se comprueban por separado, conservando todos los ancestros de las articulaciones. Los hashes de cada artefacto siguen siendo su identidad, no una promesa de igualdad entre plataformas.
+
+
+## Continuación de jerarquía · 23 de septiembre de 2026
+
+PR #36 integrado en `b96371e`. Su artefacto oficial `10744701650` tiene 0 errores y 15 advertencias. Se comprobaron GLB, manifiestos y hashes. La siguiente corrección retira la ambigüedad de 14 instancias bajo un padre: glTF ignora los transforms de ese padre para la instancia, pero sigue aplicándolos a las articulaciones. Se mueven las hojas a raíz de las escenas originales, no los huesos.
+
+`portableHierarchy.promotedMeshNodes` registra cada índice promovido. Sólo cambian enlaces de padre y raíces de escena. No se modifican buffers, animación del contenedor, índices/atributos de nodos ni jerarquía del esqueleto. La transformación es idempotente y no agrega mallas a escenas ajenas. Grafos cíclicos, doble padre, índices inválidos e instancias con hijos, transforms propios, animación propia o función de articulación se rechazan antes de mutar.
+
+La prueba real falló primero con los 14 índices 50–63. Después del correctivo pasan 14 tests Python y 522 Node completos, sin omitidos. El build sigue intacto. La primera llamada a Node fue interrumpida antes de su resumen y no cuenta como aprobación; la repetición completa terminó con exitCode 0. La validación oficial de esta revisión se consulta en su PR, no se deduce de los tests.
+
+El aviso de tangentes y los informativos de UV/triángulos permanecen fuera de este cambio y no se filtran. No se afirma cero advertencias totales, identidad entre DQ/LBS o aprobación artística. [Plan y criterio](../../specs/002-character-benchmark/plan-portable-root.md). Revertir sólo esta unidad devuelve la jerarquía portable anterior, sin afectar el juego.
