@@ -17,7 +17,7 @@ sys.path.insert(0,str(R))
 from tools.qa.longarm_gallery import render_gallery
 
 O=R/'qa/v020/longarms'
-checks,errors,requests,cases,cycles,matrix=[],[],[],[],[],[]
+checks,errors,requests,cases,cycles,matrix,initialCycles=[],[],[],[],[],[],[]
 sha=hashlib.sha256((R/'index.html').read_bytes()).hexdigest()
 info={}
 FIX="""(()=>{window.qaLongarmStore=new Map([['distrito-cero:settings:v1',JSON.stringify({quality:'balanced',sound:false,rain:false,bloom:false})]]);Object.defineProperty(window,'localStorage',{value:{getItem:k=>qaLongarmStore.get(k)||null,setItem:(k,v)=>qaLongarmStore.set(k,String(v)),removeItem:k=>qaLongarmStore.delete(k)}});})();"""
@@ -102,6 +102,20 @@ try:
                 ck(item+' raise/lower cycle retains all 60 numeric and seven rendered observations',
                    len(sequence)==60 and all(math.isfinite(p['eyeError']) and math.isfinite(p['stockError']) for p in sequence)
                    and all(valid(c) and not c['stockScreen']['failures'] for c in cases if c['name'].startswith(item+'-cycle-')))
+                # Keep the settled cycle above and add the previously untested
+                # initial preparation, not a substitute for ready=1 coverage.
+                first=page.evaluate('c=>DC_LONGARM_STAGE.sample(c)',{'item':item,'aim':0,'ready':0})
+                capture(page,item+'-draw-00',first)
+                initial=[]
+                for start in range(0,60,10):
+                    result=page.evaluate('i=>DC_LONGARM_STAGE.stepCycle(i)',start)
+                    initial.extend(result['points']);capture(page,f'{item}-draw-{start+10:02}',result['rendered'])
+                observed=[c for c in cases if c['name'].startswith(item+'-draw-')]
+                initialCycles.append({'item':item,'simulationStep':1/60,'renderedEverySteps':10,'samples':initial})
+                ck(item+' initial preparation preserves sampled clearance from ready zero',
+                   first['ready']==0 and len(initial)==60 and len(observed)==7
+                   and all(valid(c) and not c['stockScreen']['failures'] for c in observed)
+                   and observed[-1]['ready']>.99)
             ck('Diagnostic scene leaves the live game and storage fixture untouched',page.evaluate('DC_LONGARM_STAGE.pristine()'))
             ck('No graphics errors, browser exceptions, external requests or modified HTML',
                not errors and not requests and page.evaluate('DC_APP.renderer.gl.getError()')==0
@@ -114,7 +128,7 @@ except Exception as error:
     raise
 finally:
     report={'schema':1,'status':status,'sha256':sha,'runId':os.environ.get('DC_QA_RUN_ID'),
-            'checks':checks,'errors':errors,'requests':requests,'cases':cases,'cycles':cycles,'matrix':matrix,
+            'checks':checks,'errors':errors,'requests':requests,'cases':cases,'cycles':cycles,'matrix':matrix,'initialCycles':initialCycles,
             'nativeStorage':False,'physicalGpu':False,'preparedWorld':True,'preparedTimers':True,
             'artisticAcceptance':False,'gateKind':'measurement integrity and settled long-arm contact criteria',
             'finishedUtc':datetime.now(timezone.utc).isoformat(),**info}

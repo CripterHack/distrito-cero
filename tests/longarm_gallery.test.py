@@ -45,4 +45,15 @@ class GalleryTests(unittest.TestCase):
         text=render_gallery(record)
         self.assertIn('no acredita contacto',text)
         self.assertNotIn('<script>',text)
+    def test_initial_preparation_readiness_is_visible_and_escaped(self):
+        record=self.record();record['cases'][0]['ready']=0
+        text=render_gallery(record).split('<details>')[0]
+        self.assertIn('ready=0',text)
+        record['cases'][0]['ready']='<script>bad()</script>'
+        text=render_gallery(record)
+        self.assertNotIn('<script>',text)
+    def test_all_coordinated_families_name_the_current_garment_reference(self):
+        text=render_gallery(self.record())
+        self.assertIn('Rifle, SMG, escopeta y sniper',text)
+        self.assertNotIn('Otras familias: referencia articulada heredada',text)
 if __name__=='__main__':unittest.main()
