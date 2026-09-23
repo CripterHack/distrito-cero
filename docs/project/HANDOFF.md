@@ -1,74 +1,41 @@
-# Continuación actual · frenado sin hundimiento, v0.20.4
+# Continuación actual · apoyo dinámico continuo, v0.20.5
 
-Base a7c13a82e27d1bd7728570de3eb6e0b6306163a6. PR #38 integrado tras CI y exportación
-aprobadas. Original y derivado GLB conservados, con 18 capturas portables revisadas.
-No repetir esa unidad. [Tangentes](PORTABLE-TANGENTS.md) y el PR registran sus límites.
+Base remota `bfa26cd629afbc5a4295d8afdbbf833cddd587c2`, árbol
+`f60e128f9dea2f17ef40ace6373a623fa71086af`. PR #39 integrado y los cuatro workflows
+posteriores terminaron success: Verify 35870590860, exportación 35870591093,
+benchmark 35870591062 y Pages 35870589780. No repetir los PRs #30/#34–#39.
 
-La grabación nativa de cuatro armas encontró dos pendientes distintos: penetración
-de culata durante transiciones y hundimiento al detener marcha lenta. Esta unidad
-corrige únicamente lo segundo, mediante atenuación de z del pie con el peso de
-marcha existente. [Causa y reproducción](GAIT-REST.md),
-[plan](../../specs/003-weapon-contact/plan-gait-rest.md).
+[Apoyo dinámico](SUPPORT-RELEASE.md) y
+[plan](../../specs/003-weapon-contact/plan-support-release.md) describen esta unidad.
+La reproducción local con simulación nativa localizó saltos de +109.59 y -84.91 mm
+al cambiar entre apoyo y balanceo. No eran cambios de cámara. El ajuste conserva
+el desfase del último apoyo y lo desvanece con una curva quintica. Un muestreador
+compartido exige alcance en balanceo, anticipa el siguiente talón y suaviza sólo
+la recuperación ascendente, siempre por debajo del techo geométrico.
 
-Tres tests RED y cinco regresiones finales, 536 Node aprobadas. Nuevo HTML 0.20.4
-reproducible. La CI y comparación gráfica del HEAD se verifican en el PR antes
-del merge. No confundir esta nota con integración o aprobación de #6 completo.
-El montaje, geometría, cámara, munición y formatos no se modifican. Las dos
-traslaciones exploratorias de culata no resolvieron el problema y se retiraron.
+Siete nuevas regresiones y 543 Node completos aprobaron, sin skips. Los 89 tests
+Python del core, autoría, build y exportación también aprobaron. Las cuatro
+secuencias canónicas antes/después contienen 282 frames verificados y 52 revisados
+visualmente. Trayectoria física y cámara idénticas, Storage fixture y GPU software.
+El nuevo PR registra la CI y revisión del HEAD antes de cualquier merge. No
+confundir esta nota de implementación con integración o despliegue.
 
-Siguiente pendiente real: penetración de superficie en guardia/recarga, conservando
-los videos y casos medidos. #5 requiere revisión artística/procedencia global;
-#7 requiere recorrido, playtests humanos y GPU física. No cerrar esos criterios
-por el éxito de pruebas unitarias o del validador GLB.
+Cambian character-motion.js y skin-rig.js, además de pruebas, versión y build.
+No se toca montaje, armamento, malla, longitudes, reglas, trayectoria física o datos.
+HTML nuevo: `4307c76139bc4f4b8178a16792ecb6c490bd1b0633d98a4a4a86336036cf3641`.
 
-## Registro anterior, conservado
+El siguiente pendiente real sigue siendo la penetración de culata/prenda durante
+guardia y recarga. No se considera resuelto por este ajuste de pies. #5 requiere
+decisión artística/procedencia global y #7 recorrido/playtests/hardware. No cerrar
+issues para satisfacer sólo un recuento ni fabricar evidencia humana o física.
 
-# Continuación actual · tangentes del GLB portable
+Copia local de Pages 10754299290, digest
+`d66ec2269f2cf24040f25777aa029100acdbab3690f4771760c0b50a31f0bc79`.
+Git no resolvió DNS. Los commits usan padres remotos reales y el helper de
+reconstrucción se excluye del producto. Su primer fallo por checkout superficial
+queda conservado. Revisión propia, no independiente.
 
-Base `c49ed085fe3270c42b284867575c5abc2251fa69`, PR #37 integrado. Verify
-35855788180, exportación 35855788346 y Pages 35855786623 terminaron success.
-Los PRs #35/#36/#37 ya están en master. No repetir los arreglos del rifle,
-las otras familias, el benchmark, children vacío, pesos cero o raíces de escena.
-
-## Unidad actual de CHAR-06
-
-[Variante con tangentes](PORTABLE-TANGENTS.md),
-[plan](../../specs/002-character-benchmark/plan-portable-tangents.md).
-Se genera un derivado separado con MikkTSpace 1.1.1 y una política explícita para
-984 triángulos con UV colapsadas. Se preservan original, atributos por esquina,
-buffers anteriores, clips y reportes completos. No se afirma reparación de UV
-o equivalencia visual portable. No cambia src, HTML, assets históricos, versión
-0.20.3, partidas o permisos.
-
-RED observado y GREEN local: 531 Node, 14 Python de exportación, nueve contratos
-del adaptador y cinco integraciones reales. Khronos derivado: cero errores y
-advertencias, 20 informativos conservados. El workflow human-export instala sólo
-herramientas de autoría fijadas y valida original/derivado separadamente. El PR
-registra CI y artefactos del HEAD exacto antes de integrar. Master y Pages se
-comprueban después, no se deducen de esta nota.
-
-La rama auxiliar de adquisición de dependencias usa sólo lectura y nunca se
-integra. La copia local procede del ZIP Pages de c49ed085, SHA-256
-`6c79f561e87611bedc2418d306d899d23a4d9c2105f2c7894a32e74e14f20dd2`.
-Git no resolvió DNS. No fabricar historial del snapshot. Una ejecución Node se
-interrumpió y otra observó los nuevos tests en RED. Sólo la repetición completa
-aprobada cuenta como GREEN. Revisión propia, no independiente.
-
-## Pendientes que no se cierran con este cambio
-
-#5 conserva aprobación artística y procedencia/licencia global. La geometría
-portable requiere revisión visual y las UV degeneradas no están reparadas.
-#6 conserva vídeo continuo y coste por actor/LOD además de superficies/acciones.
-#7 conserva escena, recorrido íntegro, playtest humano y GPU física. No fabricar
-participantes, FPS o aprobación artística para cerrar esos alcances.
-
-El siguiente agente debe consultar el PR de esta unidad antes de repetirla.
-[Estado](STATE.md), [exportación](CURRENT-HUMAN-EXPORT.md), [QA](QA.md),
-[rifle](RIFLE-COORDINATION.md), [familias](../../specs/003-weapon-contact/plan-longarm-families.md).
-El [handoff previo completo](https://github.com/CripterHack/distrito-cero/blob/c49ed085fe3270c42b284867575c5abc2251fa69/docs/project/HANDOFF.md)
-conserva las ejecuciones, fallos y límites de los PRs #35/#36/#37. No tratar sus
-instrucciones históricas como tareas sin implementar.
-
-Ramas por unidad y padres remotos reales. Merge sólo tras CI y revisión del HEAD
-exacto. Revertir tangentes retira derivador/tests/pasos adicionales, sin migrar
-partidas ni tocar los GLB históricos.
+[Handoff anterior completo](https://github.com/CripterHack/distrito-cero/blob/bfa26cd629afbc5a4295d8afdbbf833cddd587c2/docs/project/HANDOFF.md)
+conserva historia de tangentes, fuentes portables y marcha lenta. Es registro,
+no trabajo pendiente. [Estado](STATE.md), [QA](QA.md), [exportación](CURRENT-HUMAN-EXPORT.md).
+Revertir fuentes y build asociados no requiere migración ni borrado de partidas.

@@ -77,24 +77,52 @@
   const roll=D.clamp(finite(n.lookRoll,0)-torsoRoll*.75,-.22,.22);
   return {yaw,pitch,roll,neck:[pitch*.35,yaw*.63,roll*.55],head:[pitch*.65,yaw*.37,roll*.45]};
  }
- function pose(n={},time=0){
-  const motion=n.motion||{},speed=motion.speed??n.moveSpeed??0,g=D.NaturalMotion.gait(speed,n.sprintBlend,n.crouch);
-  const p=D.humanoidPose({phase:motion.phase??n.walk??0,speed,sprint:g.run,y:n.y||0,vy:n.vy||0,turn:(motion.turn??n.turnRate??0)*.13,time,landing:n.landing||0,crouch:n.crouch||0,carry:!!n.carry,reach:n.reach||0,stagger:n.stagger||0,dodge:n.dodge||0});
+ function groundTargets(n={},time=0){
+  const motion=n.motion||{},g=D.NaturalMotion.gait(motion.speed??n.moveSpeed??0,n.sprintBlend,n.crouch);
   const seated=D.clamp(n.seatBlend??(n.seated?1:0),0,1),air=(n.y||0)>.025||Math.abs(n.vy||0)>.05,seed=(n.variant||0)*1.37;
   const breath=Math.sin(time*1.47+seed)*.0017+Math.sin(time*.73+seed*.4)*.0006;
   const feet={L:D.NaturalMotion.foot(n,'L'),R:D.NaturalMotion.foot(n,'R')};
   let rootY=(n.y||0)-.025*g.weight-(n.crouch||0)*.22-(n.dodge||0)*.21-(n.landing||0)*.065;
   if(!air&&seated<.01){
    rootY+=breath*(1-g.weight*.75);
+   const bodyRoot=rootY;
    if(!feet.L.contact&&!feet.R.contact)rootY+=.045*g.run*Math.sin(Math.PI*((feet.L.progress+feet.R.progress)%1));
    for(const k of ['L','R']){
-    const f=feet[k],lock=motion.feet?.[k];
+    const f=feet[k],lock=motion.feet?.[k],swing=motion.swing?.[k];
     if(lock&&f.contact){const dx=lock.x-(n.x||0),dz=lock.z-(n.z||0),c=Math.cos(n.yaw||0),s=Math.sin(n.yaw||0);f.x=dx*c-dz*s;f.z=dx*s+dz*c;f.yaw=D.wrap(lock.yaw-(n.yaw||0));}
+    else if(swing&&!f.contact){
+     const c=Math.cos(n.yaw||0),s=Math.sin(n.yaw||0);
+     f.x+=(swing.dx*c-swing.dz*s)*swing.weight;
+     f.z+=(swing.dx*s+swing.dz*c)*swing.weight;
+     f.yaw=D.wrap(swing.yaw-(n.yaw||0))*swing.weight;
+    }
     const hip=bones[ids['thigh'+k]][2],horizontal=Math.hypot(f.x-hip[0],f.z);
-    if(f.contact)rootY=Math.min(rootY,f.y+Math.sqrt(Math.max(.08,.850*.850-horizontal*horizontal))-.94-.002);
+    // Swing targets must be reachable too. Waiting for heel strike applies
+    // the same constraint in one frame and makes the body drop abruptly.
+    rootY=Math.min(rootY,f.y+Math.sqrt(Math.max(.08,.850*.850-horizontal*horizontal))-.94-.002);
+    if(!f.contact){
+     // Prepare the pelvis for the next heel target throughout swing, instead
+     // of waiting until the falling foot makes the reach ceiling drop steeply.
+     const phase=(motion.phase??n.walk??0)+(1-f.phase)*Math.PI*2+1e-8;
+     const landing=D.NaturalMotion.foot({...n,motion:{...motion,phase}},k);
+     const reach=Math.hypot(landing.x-hip[0],landing.z);
+     const ceiling=landing.y+Math.sqrt(Math.max(.08,.850*.850-reach*reach))-.94-.002;
+     rootY=Math.min(rootY,D.lerp(bodyRoot,ceiling,D.NaturalMotion.smooth(0,1,f.progress)));
+    }
    }
   }
   rootY=D.lerp(rootY,n.y||0,seated);if(air)rootY=n.y||0;
+  return {feet,rootY};
+ }
+ function pose(n={},time=0){
+  const motion=n.motion||{},speed=motion.speed??n.moveSpeed??0,g=D.NaturalMotion.gait(speed,n.sprintBlend,n.crouch);
+  const p=D.humanoidPose({phase:motion.phase??n.walk??0,speed,sprint:g.run,y:n.y||0,vy:n.vy||0,turn:(motion.turn??n.turnRate??0)*.13,time,landing:n.landing||0,crouch:n.crouch||0,carry:!!n.carry,reach:n.reach||0,stagger:n.stagger||0,dodge:n.dodge||0});
+  const seated=D.clamp(n.seatBlend??(n.seated?1:0),0,1),air=(n.y||0)>.025||Math.abs(n.vy||0)>.05,seed=(n.variant||0)*1.37;
+  const breath=Math.sin(time*1.47+seed)*.0017+Math.sin(time*.73+seed*.4)*.0006;
+  const support=groundTargets(n,time),feet=support.feet;
+  // The tracked recovery stays at or BELOW the reach ceiling, so smoothing
+  // cannot make either leg unreachable or move the physical actor/camera.
+  const rootY=!air&&seated<.01&&Number.isFinite(motion.supportY)?Math.min(support.rootY,motion.supportY):support.rootY;
   const accel=D.clamp(motion.acceleration||0,-7,7);
   p.spinePitch=D.lerp(p.spinePitch,.065+g.run*.12+(n.crouch||0)*.22+(n.stagger||0)*.25+(n.dodge||0)*.4,g.weight)+accel*.012*g.weight;
   p.spineRoll=-D.clamp((motion.turn??n.turnRate??0)*speed*.012,-.12,.12)*(1-seated);
@@ -210,5 +238,5 @@
   }return true;
  }
  function blink(time,seed=0){const period=3.7+seed*.8,t=((time+seed*7.31)%period+period)%period;if(t>.17)return 0;const f=1-Math.abs(t-.085)/.085;return f*f*(3-2*f);}
- D.SkinRig={bones,ids,fingers,paletteWidth:bones.length*4,paletteStride:bones.length*16,blink,gripProfile,cervicalAngles,rest:()=>evaluate(),evaluate,transform:transformed,pose,validate,matrix,multiply,handPoint,palmPoint};
+ D.SkinRig={bones,ids,fingers,paletteWidth:bones.length*4,paletteStride:bones.length*16,blink,gripProfile,cervicalAngles,rest:()=>evaluate(),evaluate,transform:transformed,groundTargets,pose,validate,matrix,multiply,handPoint,palmPoint};
 })(DC);
