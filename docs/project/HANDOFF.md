@@ -1,41 +1,34 @@
-# Continuación vigente · v0.20.7, preparación inicial
+# Continuación vigente · v0.20.8, cambio visual entre equipos
 
-## Base verificada y unidad actual
+## Base e implementación actual
 
-Base remota `c27282f5ae830fe8f149d11396903d89c595acc9`, PR #42 integrado con
-0.20.6. Su HEAD f52f75f aprobó Verify 35917149375, exportación humana 35917149458
-y benchmark 35917149485. Los cuatro artefactos se cotejaron antes del merge:
-205 checks WebGL, 80 HTTP y 36 de benchmark, además de original/derivado GLB.
-El resultado posterior de master y Pages se consulta separadamente en #42.
+Base remota `be26fa05612e3318ad764ca09ddd5f8ef7f6ad3f`. PR #43 integrado como
+0.20.7 y Verify posterior 35926278907, benchmark 35926278952, exportación
+35926278905 y Pages 35926277991 aprobados. Las ramas anteriores se retiraron con
+respaldo. No volver a aplicar los parches de guardia/recarga/preparación #42/#43.
 
-La candidata 0.20.7 aborda el siguiente defecto, no repite guardia/recarga:
-[preparación inicial](INITIAL-PREPARATION.md). Mantiene el apoyo y la referencia
-superficial desde ready=0, con inclinación inicial acotada para las cuatro familias.
-Los puntos finales asentados y equipos sin dock conservan sus resultados.
-No cambia huesos, malla, cámara, física, munición o datos. No añade una funda.
+La nueva unidad de #6 corrige el salto al cambiar entre las cuatro familias con
+dock. [EQUIPMENT-HANDOFF](EQUIPMENT-HANDOFF.md) describe contrato, alternativas
+rechazadas, pruebas y límites. Selección y montaje de gameplay permanecen
+inmediatos. El renderer entrega la pose durante 0.40 segundos, abriendo brevemente
+la mano de apoyo mientras el objeto describe un arco exterior. Disparo/recarga
+priorizan inmediatamente el montaje lógico. No se introduce funda ni segundo IK.
 
-Cinco regresiones nuevas con RED observado y **559 Node completos aprobados**.
-**100 Python** actuales aprobados. El runner local nuevo pasó 28 checks y 76 PNG,
-con hashes cotejados y separación explícita entre ciclos asentados e iniciales.
-La evidencia adicional contiene 64 imágenes y un vídeo de rifle con 46 frames.
-Se revisaron 24 instantes de las cuatro familias y un detalle, no todo el vídeo
-como playtest humano. Escena/tiempo preparados y GPU software.
+El PR de la unidad conserva los SHAs de código/documentación, las verificaciones
+finales, revisión e integración. Este texto no acredita un merge o despliegue.
+Usar los resultados de ese PR antes de tratar la candidata como publicada.
 
-El PR registra HEAD, árbol exacto, CI e integración finales. La implementación
-local o reconstrucción no equivalen a merge ni publicación. Las fuentes y el
-HTML canónico tienen sus huellas en [INITIAL-PREPARATION](INITIAL-PREPARATION.md).
+## Punto de continuidad
 
-## Continuidad después de esta unidad
+Tras verificar e integrar esta unidad, no repetir el cambio libre entre familias
+ya cubierto. #6 conserva cambios desde una recarga activa o hacia familias sin
+dock, acciones/anatomías/locomoción combinadas y coste por actor/LOD. Reproducir un
+caso del renderer y preservar inputs, munición, alcance y persistencia antes de
+extender el alcance. Reutilizar los observadores y suites existentes.
 
-No tratar el desenvainado pendiente de las notas de 0.20.6 como trabajo nuevo
-cuando el PR de esta unidad esté integrado. La preparación corregida empieza con
-el objeto ya equipado, no valida todos los cambios entre familias o una animación
-de funda. #6 conserva revisión global de transiciones/acciones/anatomías y coste
-por actor/LOD, usando los observadores existentes y sin duplicar matrices.
-
-#5 mantiene aceptación artística global, revisión de materiales/UV y procedencia.
-#7 mantiene escena, recorrido completo, playtests humanos y hardware de referencia.
-No inventar aprobaciones o FPS ni cerrar issues para reducir un recuento.
+#5 mantiene decisión artística, materiales/UV y procedencia global. #7 mantiene
+recorrido completo, pruebas humanas y hardware de referencia. No inventar
+aprobaciones, participantes, FPS o ausencia universal de colisión para cerrar issues.
 
 ## Verificación y ramas
 
@@ -43,14 +36,14 @@ No inventar aprobaciones o FPS ni cerrar issues para reducir un recuento.
 python3 build.py --check
 node --test tests/*.test.cjs
 python3 tests/release_build.test.py
+xvfb-run -a python3 -m tools.qa.run --suite handoff --headed --output artifacts/handoff-check
 ```
 
-Añadir los controles actuales de [QA](QA.md), revisar artefactos del HEAD exacto
-y publicación separada. [BRANCH-CLEANUP](BRANCH-CLEANUP.md) sigue vigente: master
-es la única rama permanente. Retirar las ramas ya integradas y el helper al
-terminar, comprobando sus SHAs y conservando respaldo. Los helpers no entran en
-el árbol ni el historial de producto. No restaurar ramas antiguas para continuar.
+Añadir los gates de [QA](QA.md), revisar capturas del HTML canónico y artefactos
+exactos del HEAD. Verificar master/Pages separadamente. Revisión propia, no
+independiente. El [respaldo y política](BRANCH-CLEANUP.md) siguen vigentes: master
+es la única rama permanente, sólo conservar trabajo activo. Retirar ramas
+concluidas/helper con SHAs exactos y respaldo sin integrarlos al producto.
 
-[Handoff anterior](https://github.com/CripterHack/distrito-cero/blob/c27282f5ae830fe8f149d11396903d89c595acc9/docs/project/HANDOFF.md)
-conserva la aplicación del parche 0.20.6 y su límite inicial ya investigado aquí.
-Revisión propia, no independiente. Reversión sin migraciones ni borrar partidas.
+[Handoff anterior](https://github.com/CripterHack/distrito-cero/blob/be26fa05612e3318ad764ca09ddd5f8ef7f6ad3f/docs/project/HANDOFF.md)
+conserva 0.20.7. Reversión sin migraciones ni borrado de partidas.
