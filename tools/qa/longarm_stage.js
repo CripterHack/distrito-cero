@@ -29,7 +29,8 @@
   r.daylight=.67;r.lightTime=-1;r.fovOverride=.62;
   r.camera.target=[4.015,1.40-s.player.crouch*.22,36.25];
   r.camera.eye=config.front?[3.9,1.55-s.player.crouch*.22,37.85]:[5.6,1.54-s.player.crouch*.22,36.9];
-  r.camera.initialized=true;
+  // Selection resets this existing camera field to zero; make that initial state explicit.
+  r.camera.initialized=true;r.camera.weaponPitch=0;
  }
  function observe(){
   const {a,r,sim:s}=state,count=state.draws;
@@ -78,7 +79,7 @@
   const item=mount.displayItem||s.equipment.selected,shown={...s,equipment:{...s.equipment,selected:item}};
   const clearance=DC_STOCK_CLEARANCE.inspect(shown,{mount,pose,actor});
   const contacts=Q.inspect(shown,{mount,pose,actor});
-  return {time:s.time,item:s.equipment.selected,displayItem:item,phase:mount.phase,handoff:mount.handoff||null,
+  return {time:s.time,actorPosition:[s.player.x,s.player.y||0,s.player.z],actorYaw:s.player.yaw||0,item:s.equipment.selected,displayItem:item,phase:mount.phase,handoff:mount.handoff||null,
    ready:s.equipment.handling?.ready,hudMode:document.getElementById('weaponMode').textContent,palms:['L','R'].map(k=>{const p=D.SkinRig.palmPoint(pose,actor,k);return[p.x,p.y,p.z];}),
    clearance:clearance.minimum,palmErrors:contacts.palmErrors,segmentErrors:contacts.segmentErrors,
    ammo:structuredClone(s.equipment.ammo),shots:s.equipment.shots,trigger:s.equipment.trigger,

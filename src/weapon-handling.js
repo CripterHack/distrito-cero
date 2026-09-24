@@ -148,10 +148,11 @@
   // use a visually interpolated muzzle to alter a gameplay trace.
   return mount(sim,actorOverride,swap&&!e.reloading&&swap.serial===(e.shotSerial||0)?swap:null);
  }
- function captureSwitch(sim,next){
+ function captureSwitch(sim,next,actorOverride=null){
   const e=sim.equipment;
   if(e.selected===next||!profile(e.selected).dock||!profile(next).dock||!sim.equipmentAvailable())return null;
-  const m=present(sim),p=sim.player,c=Math.cos(p.yaw||0),s=Math.sin(p.yaw||0),delta=sub(m.origin,[p.x||0,p.y||0,p.z||0]);
+  // Only presentation consumes the tracked actor. Logical mount/firing stays independent.
+  const m=present(sim,actorOverride),p=sim.player,c=Math.cos(p.yaw||0),s=Math.sin(p.yaw||0),delta=sub(m.origin,[p.x||0,p.y||0,p.z||0]);
   return {age:0,duration:e.reloading>0?RELOAD_HANDOFF_SECONDS:(e.handling?.handoff?.duration||HANDOFF_SECONDS),serial:e.shotSerial||0,item:m.displayItem,origin:[delta[0]*c-delta[2]*s,delta[1],delta[0]*s+delta[2]*c],
    yaw:D.wrap(m.yaw-(p.yaw||0)),pitch:m.pitch,roll:m.roll,aim:m.aim,kick:m.kick,reload:m.reload,
    braceWeight:m.braceWeight,coordination:m.coordination,lookPitch:m.lookPitch,

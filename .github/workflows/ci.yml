@@ -93,7 +93,11 @@ jobs:
           assert not bad,bad
           PY
   browser:
-    name: WebGL hands, handling, optics and recovery
+    name: WebGL ${{ matrix.group }}
+    strategy:
+      fail-fast: false
+      matrix:
+        group: [handoff, graphics]
     runs-on: ubuntu-24.04
     timeout-minutes: 40
     steps:
@@ -110,17 +114,26 @@ jobs:
       - name: Run portable QA
         env:
           FULL_BROWSER: ${{ inputs.full_browser == true && 'true' || 'false' }}
+          GROUP: ${{ matrix.group }}
+          SUITE_TIMEOUT: ${{ matrix.group == 'handoff' && '1200' || '900' }}
         run: |
-          if [ "$FULL_BROWSER" = true ]; then
-            xvfb-run -a python3 -m tools.qa.run --suite all --headed --timeout 900 --output artifacts/ci-fixture
+          if [ "$GROUP" = handoff ]; then
+            suites=(--suite handoff)
+          elif [ "$FULL_BROWSER" = true ]; then
+            # Select every other fixture from the registry without duplicating
+            # handoff or accidentally mixing native HTTP persistence into it.
+            names=$(python3 -c "from tools.qa.run import SUITES; print(' '.join(k for k,v in SUITES.items() if v.origin=='fixture' and k!='handoff'))")
+            suites=()
+            for name in $names; do suites+=(--suite "$name"); done
           else
-            xvfb-run -a python3 -m tools.qa.run --suite handoff --suite longarms --suite sight --suite thenar --suite sidearms --suite thumbs --suite fingers --suite handling --suite optical --suite recovery --headed --timeout 900 --output artifacts/ci-fixture
+            suites=(--suite longarms --suite sight --suite thenar --suite sidearms --suite thumbs --suite fingers --suite handling --suite optical --suite recovery)
           fi
+          xvfb-run -a python3 -m tools.qa.run "${suites[@]}" --headed --timeout "$SUITE_TIMEOUT" --output artifacts/ci-fixture
       - name: Upload fresh evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
-          name: webgl-${{ github.run_id }}-${{ github.run_attempt }}
+          name: webgl-${{ matrix.group }}-${{ github.run_id }}-${{ github.run_attempt }}
           path: artifacts/ci-fixture/
           if-no-files-found: warn
           retention-days: 14

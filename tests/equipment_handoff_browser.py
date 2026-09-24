@@ -9,7 +9,7 @@ from qa_support import launch_options
 
 R=Path(__file__).resolve().parents[1]
 O=R/'qa/v020/handoff'
-checks,errors,requests,cases,actions,reload_cases=[],[],[],[],[],[]
+checks,errors,requests,cases,actions,reload_cases,tracked_cases=[],[],[],[],[],[],[]
 sha=hashlib.sha256((R/'index.html').read_bytes()).hexdigest()
 FIX="""(()=>{window.qaLongarmStore=new Map([['distrito-cero:settings:v1',JSON.stringify({quality:'balanced',sound:false,rain:false,bloom:false})]]);Object.defineProperty(window,'localStorage',{value:{getItem:k=>qaLongarmStore.get(k)||null,setItem:(k,v)=>qaLongarmStore.set(k,String(v)),removeItem:k=>qaLongarmStore.delete(k)}});})();"""
 
@@ -88,6 +88,35 @@ try:
                 ck(start+' reload -> '+target+' keeps sampled surfaces and bone reach',all(r['actors']>=1 and max(r['palmErrors'].values())<.012 and max(r['segmentErrors'].values())<1e-6 and min(r['clearance'][p]['distance'] for p in ('face','jacket'))>=-.002 for r in rows))
                 reload_cases.append({'from':start,'to':target,'reloadPhase':.46,'before':before,'frames':rows,'maximumPalmStep':max(jumps),'initialPalmStep':jumps[0]})
                 page.evaluate('DC_LONGARM_STAGE.endSwitch()')
+            # Native movement is advanced outside the renderer. Selection uses
+            # the real key handler and the renderer's existing MotionTracker.
+            for start,target in [('rifle','smg'),('shotgun','sniper')]:
+                page.evaluate('s=>DC_LONGARM_STAGE.beginSwitch(s)',start)
+                page.evaluate("""()=>{const a=DC_APP,s=a.sim,r=a.renderer;
+                  for(let i=0;i<30;i++){s.step(1/60,{aim:true,throttle:.6,steer:0,fire:false});r.motionTracker.update('player',s.player,s.time);}
+                  const dx=s.player.x-4,dz=s.player.z-36;
+                  for(const v of [r.camera.eye,r.camera.target]){v[0]+=dx;v[2]+=dz;}}""")
+                before=page.evaluate('DC_LONGARM_STAGE.switchObservation()')
+                capture(page,'tracked-'+start+'-'+target+'-before',before)
+                key=page.evaluate('id=>DC.Equipment.get(id).key',target)
+                page.keyboard.press('Digit'+key)
+                first=page.evaluate('DC_LONGARM_STAGE.switchObservation()');rows=[first]
+                capture(page,'tracked-'+start+'-'+target+'-00',first)
+                for frame in range(1,31):
+                    page.evaluate("""()=>{const a=DC_APP,s=a.sim,r=a.renderer,x=s.player.x,z=s.player.z;
+                      s.step(1/60,{...a.input(),throttle:.6,steer:0});
+                      // Keep the fixed relative QA viewpoint while the actor translates.
+                      for(const v of [r.camera.eye,r.camera.target]){v[0]+=s.player.x-x;v[2]+=s.player.z-z;}}""")
+                    row=page.evaluate('DC_LONGARM_STAGE.switchObservation()');rows.append(row)
+                    if frame in (6,12,18,24,30):capture(page,'tracked-'+start+'-'+target+f'-{frame:02}',row)
+                def relative(row,k):
+                    return [v-o for v,o in zip(row['palms'][k],row['actorPosition'])]
+                jumps=[max(distance(relative(a,k),relative(b,k)) for k in (0,1)) for a,b in zip([before]+rows,rows)]
+                ck(start+' moving -> '+target+' captures the tracked palms before cancellation',jumps[0]<1e-4 and before['time']==first['time'] and before['camera']==first['camera'] and first['ready']==0 and first['item']==target and not first['trigger'])
+                ck(start+' moving -> '+target+' remains continuous relative to the walking actor',max(jumps)<.030 and rows[-1]['handoff'] is None and rows[-1]['displayItem']==target and rows[-1]['actorPosition'][2]>before['actorPosition'][2] and all(r['ammo']==before['ammo'] and r['shots']==before['shots'] for r in rows))
+                ck(start+' moving -> '+target+' preserves sampled surfaces and bone reach',all(r['actors']>=1 and max(r['palmErrors'].values())<.012 and max(r['segmentErrors'].values())<1e-6 and min(r['clearance'][p]['distance'] for p in ('face','jacket'))>=-.002 for r in rows))
+                tracked_cases.append({'from':start,'to':target,'throttle':.6,'warmupSteps':30,'before':before,'frames':rows,'maximumRelativePalmStep':max(jumps),'initialPalmStep':jumps[0]})
+                page.evaluate('DC_LONGARM_STAGE.endSwitch()')
             # The new selection must never fire with the previous model/muzzle.
             page.evaluate('DC_LONGARM_STAGE.beginSwitch("rifle")');key=page.evaluate('DC.Equipment.get("sniper").key');page.keyboard.press('Digit'+key)
             first=page.evaluate('DC_LONGARM_STAGE.switchObservation()');page.keyboard.down('KeyJ')
@@ -104,11 +133,11 @@ except Exception as exc:
     errors.append(str(exc));print('ERROR',repr(exc),flush=True)
 finally:
     O.parent.mkdir(parents=True,exist_ok=True)
-    report={'suite':'handoff','status':status,'sha256':sha,'at':datetime.now(timezone.utc).isoformat(),'info':info,'checks':checks,'errors':errors,'requests':requests,'cases':cases,'reloadCases':reload_cases,'actions':actions,'nativeStorage':False,'physicalGpu':False,'scope':'Four settled and two cancelled-reload docked family switches, one firing interruption; 60 Hz prepared simulation, vertex samples, no collision or artistic guarantee.'}
+    report={'suite':'handoff','status':status,'sha256':sha,'at':datetime.now(timezone.utc).isoformat(),'info':info,'checks':checks,'errors':errors,'requests':requests,'cases':cases,'reloadCases':reload_cases,'trackedCases':tracked_cases,'actions':actions,'nativeStorage':False,'physicalGpu':False,'scope':'Four settled, two cancelled-reload and two walking docked family switches, one firing interruption; 60 Hz prepared simulation, vertex samples, no collision or artistic guarantee.'}
     (O.parent/'equipment-handoff.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
     if O.exists():
         figures=[]
-        for c in cases+reload_cases:
+        for c in cases+reload_cases+tracked_cases:
             for i,row in enumerate([c['before']]+c['frames']):
                 if 'image' in row: figures.append('<figure><img loading="lazy" src="'+html.escape(row['image'])+'"><figcaption>'+html.escape(f'{c["from"]} → {c["to"]}, frame {i-1}, visible {row["displayItem"]}')+'</figcaption></figure>')
         (O/'index.html').write_text('<!doctype html><meta charset="utf-8"><title>Equipment handoff evidence</title><style>body{font:16px system-ui}main{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}img{max-width:100%}</style><h1>Canonical handoff evidence</h1><p>Prepared 60 Hz scene. Not physical FPS or a human playtest.</p><main>'+''.join(figures)+'</main>')
