@@ -103,7 +103,10 @@ try:
                 first=page.evaluate('DC_LONGARM_STAGE.switchObservation()');rows=[first]
                 capture(page,'tracked-'+start+'-'+target+'-00',first)
                 for frame in range(1,31):
-                    page.evaluate("""()=>{const a=DC_APP,s=a.sim;s.step(1/60,{...a.input(),throttle:.6,steer:0});}""")
+                    page.evaluate("""()=>{const a=DC_APP,s=a.sim,r=a.renderer,x=s.player.x,z=s.player.z;
+                      s.step(1/60,{...a.input(),throttle:.6,steer:0});
+                      // Keep the fixed relative QA viewpoint while the actor translates.
+                      for(const v of [r.camera.eye,r.camera.target]){v[0]+=s.player.x-x;v[2]+=s.player.z-z;}}""")
                     row=page.evaluate('DC_LONGARM_STAGE.switchObservation()');rows.append(row)
                     if frame in (6,12,18,24,30):capture(page,'tracked-'+start+'-'+target+f'-{frame:02}',row)
                 def relative(row,k):

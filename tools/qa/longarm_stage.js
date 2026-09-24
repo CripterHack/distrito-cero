@@ -29,7 +29,8 @@
   r.daylight=.67;r.lightTime=-1;r.fovOverride=.62;
   r.camera.target=[4.015,1.40-s.player.crouch*.22,36.25];
   r.camera.eye=config.front?[3.9,1.55-s.player.crouch*.22,37.85]:[5.6,1.54-s.player.crouch*.22,36.9];
-  r.camera.initialized=true;
+  // Selection resets this existing camera field to zero; make that initial state explicit.
+  r.camera.initialized=true;r.camera.weaponPitch=0;
  }
  function observe(){
   const {a,r,sim:s}=state,count=state.draws;
