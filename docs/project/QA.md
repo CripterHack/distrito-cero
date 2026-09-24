@@ -119,3 +119,12 @@ xvfb-run -a python3 -m tools.qa.run --suite longarms --headed --timeout 600
 El informe canónico es `longarm-contact.json`. Galería, parámetros e imágenes se conservan bajo `evidence/v020/longarms/`, con `report.html` como entrada. El campo `screening.status` puede indicar `needs-coordination` aunque el proceso y los 24 checks aprueben. Es intencional: se ha medido válidamente un defecto pendiente. `artisticAcceptance` siempre es `false`. No usar este job para cerrar #6 ni presentar el contrafactual de traslación como una pose corregida.
 
 El primer intento local sin ventana no pudo crear WebGL2 y terminó fallido sin checks. Se conservó su informe y se utilizó el modo headed/Xvfb ya existente en CI, sin variar umbrales o runtime. La primera ejecución headed aprobó los 24 checks en 116.661 s. Las repeticiones tienen su propio manifiesto y resultado. Esto no es persistencia nativa, rendimiento físico ni aceptación de la superficie del hombro. [Contrato, hallazgos y siguiente paso](LONGARM-CONTACT.md).
+
+## Cambio entre armas cortas de 0.20.11
+
+La suite `sight` pasa de 26 a 32 checks, conservando todos los anteriores y
+agregando dos cambios por teclas reales de pistola ↔ revólver. Las secuencias
+registran el inicio y 60 pasos, con nueve PNG por caso. Se comprueban palmas,
+convergencia, selección y munición. [Contrato y límites](SIDEARM-HANDOFF.md).
+El conteo esperado no equivale a ejecución aprobada: consultar el PR y sus
+manifiestos propios. Las suites HTTP y los demás shards no se sustituyen.
