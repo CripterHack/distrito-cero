@@ -1,6 +1,6 @@
 # Recursos de Distrito Cero
 
-Este directorio conserva insumos de autoría, bases geométricas, exportaciones GLB y referencias de QA de varias versiones. **El juego vigente es v0.20.9**, no la versión indicada en el nombre de cada recurso.
+Este directorio conserva insumos de autoría, bases geométricas, exportaciones GLB y referencias de QA de varias versiones. **El juego vigente es v0.20.10**, no la versión indicada en el nombre de cada recurso.
 
 El índice rector está en [docs/project/ASSETS.md](../docs/project/ASSETS.md). La geometría humana del runtime está embebida en `src/hero-asset.js`, junto a materiales y generación de peinados en sus módulos. `dc019-equipment.glb` es el kit de equipamiento de esta base. Los GLB humanos anteriores son referencias/exportaciones históricas, no un exportador de todas las funciones del creador actual.
 

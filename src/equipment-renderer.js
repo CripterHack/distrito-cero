@@ -6,14 +6,21 @@
   constructor(...args){super(...args);this.equipmentMeshes=new Map();this.equipmentView=false;this.equipmentStats={};
    for(const w of E.catalog){const parts=D.EquipmentGeometry.build(w.id).map(p=>{const key='equip_'+w.id+'_'+p.name,m=this.createMesh(p.data);m.chunks=[];m.dynamicBuffer=this.gl.createBuffer();this.meshes[key]=m;this.static[key]=[];this.dynamic[key]=[];return{...p,data:undefined,key,count:p.data.length/24};});this.equipmentMeshes.set(w.id,parts);}
   }
+  // Share the existing visual tracker between drawing, menu freeze and selection.
+  // Sampling is idempotent at a simulation instant and never writes game state.
+  handlingActor(sim,n=sim.player){
+   if(this.previewStudio||!this.motionTracker)return n;
+   if(this.motionScene!==sim){this.motionTracker.clear();this.motionScene=sim;}
+   return this.motionTracker.update('player',n,sim.time,false);
+  }
   freezeHandling(sim){
    if(sim.equipmentAvailable?.()&&sim.equipment.selected!=='unarmed'){
-    const tracked=this.motionTracker?.update('player',sim.player,sim.time,false)||sim.player;const m=D.WeaponHandling.present(sim,tracked);this.frozenHandling={mount:m,equipment:{...sim.equipment},actor:D.WeaponHandling.actor(tracked,m,sim.equipment)};
+    const tracked=this.handlingActor(sim);const m=D.WeaponHandling.present(sim,tracked);this.frozenHandling={mount:m,equipment:{...sim.equipment},actor:D.WeaponHandling.actor(tracked,m,sim.equipment)};
    }else this.frozenHandling=null;
   }
   renderPerson(n,isPlayer=false){
    if(!this.previewStudio&&isPlayer&&(this.frozenHandling||this.currentSim.equipmentAvailable?.()&&this.currentSim.equipment.selected!=='unarmed')){
-    const frozen=this.frozenHandling,e=frozen?.equipment||this.currentSim.equipment,w=E.get(e.selected),tracked=frozen?.actor||this.motionTracker?.update('player',n,this.currentTime||0,false)||n,m=frozen?.mount||D.WeaponHandling.present(this.currentSim,tracked);
+    const frozen=this.frozenHandling,e=frozen?.equipment||this.currentSim.equipment,w=E.get(e.selected),tracked=frozen?.actor||this.handlingActor(this.currentSim,n),m=frozen?.mount||D.WeaponHandling.present(this.currentSim,tracked);
     if(!(w.kind==='optics'&&this.equipmentView&&e.aiming)){
      super.renderPerson(frozen?.actor||D.WeaponHandling.actor(tracked,m,e),true);
      this.drawEquipment(this.currentSim,m,e);

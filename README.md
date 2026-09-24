@@ -1,6 +1,6 @@
 # Distrito Cero
 
-Aventura criminal original de navegador con exploración, conducción y una ciudad procedural. **Versión jugable: v0.20.9 · Coherencia (`0.20.9`, prototipo).** JavaScript, WebGL2, Canvas 2D y Web Audio nativos. Un HTML autónomo, sin librerías externas, CDN, telemetría remota ni conexión obligatoria durante la partida.
+Aventura criminal original de navegador con exploración, conducción y una ciudad procedural. **Versión jugable: v0.20.10 · Coherencia (`0.20.10`, prototipo).** JavaScript, WebGL2, Canvas 2D y Web Audio nativos. Un HTML autónomo, sin librerías externas, CDN, telemetría remota ni conexión obligatoria durante la partida.
 
 El proyecto es un prototipo integrado en desarrollo. La dirección artística busca realismo, pero **no se presenta como un juego AAA terminado ni como fotorrealista**.
 
