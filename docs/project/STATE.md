@@ -1,53 +1,64 @@
 # Estado real del proyecto
 
-## Versión activa del árbol: v0.20.8 · Coherencia
+## Versión activa del árbol: v0.20.9 · Coherencia
 
-Canal **prototype**, fecha 2026-09-23. Identidad exacta en
+Canal **prototype**, fecha 2026-09-24. Identidad exacta en
 [version.json](../../version.json) y [build-info.json](../../build-info.json).
-El PR de cada unidad y Actions acreditan integración/publicación, no este texto.
+Este árbol es una candidata hasta que su PR registre integración y publicación.
+La base remota es `3d6722e4e20b706c6a821b1866cf62c1f133784f`, producto 0.20.8.
 
-## Unidad actual: entrega visual entre familias
+## Unidad actual: salida de recarga hacia otra familia
 
-Base `be26fa05612e3318ad764ca09ddd5f8ef7f6ad3f`, PR #43 y su CI/despliegue
-posteriores aprobados. 0.20.8 separa selección lógica inmediata de presentación
-cosmética al cambiar rifle, SMG, escopeta y sniper. Mantiene el montaje existente
-de gameplay y suaviza la entrega visual con alcance óseo sin escalar huesos.
-La mano de apoyo se libera durante el arco exterior y regresa al agarre final.
-Disparo y recarga interrumpen la curva cosmética para mostrar la acción real.
+PR #44 integrado en esa base. Su Verify posterior 35965293807 y Pages
+35965293263 terminaron success. La limpieza previa conservó sólo master.
+No repetir el cambio libre entre familias aceptado en 0.20.8.
 
-[EQUIPMENT-HANDOFF](EQUIPMENT-HANDOFF.md) registra causa, diseño, alternativas
-rechazadas y cobertura. Se amplía QA con una suite de 16 checks de teclado/renderer,
-sin sustituir las pruebas anteriores o relajar tolerancias. Los resultados finales
-locales/remotos y los hashes se registran por separado en el PR y sus artefactos.
-No se atribuye a GPU física el resultado de una escena preparada.
+La candidata amplía la presentación al cambio desde una recarga activa entre
+rifle, SMG, escopeta y sniper. Conserva la cancelación lógica inmediata, la pose
+inicial y la transformación de la pieza extraíble visible. La salida cosmética
+usa 0.60 s por su mayor recorrido; el cambio libre conserva 0.40 s.
+[RELOAD-HANDOFF](RELOAD-HANDOFF.md) define el contrato, la causa, las regresiones,
+la cobertura gráfica y las limitaciones. Las ejecuciones finales y la revisión
+se registran en el PR de esta unidad, sin anticipar resultados de CI.
 
-No cambian geometría, rig, longitudes, anclas originales, física, reglas de
-munición ni esquemas de partidas. El estado de entrega es transitorio y no se
-serializa. Los workflows normales sólo añaden la suite correspondiente, sin
-cambios a controles de acceso, licencia o dependencias del juego.
+No cambia geometría, anclas originales, longitudes de huesos, física, cámara,
+reglas de munición ni formatos de partidas. No añade funda, IK o reloj paralelos.
+La mano de apoyo es libre durante la entrega, no un contacto digital rígido.
+La pieza se asienta antes de reemplazar el único objeto mostrado. No equivale
+a aprobar artísticamente todo el gesto de reinserción ni una colisión completa.
+
+La suite gráfica existente añade dos casos de recarga y seis comprobaciones,
+sin retirar sus 16 controles anteriores. El presupuesto por suite WebGL de CI
+pasa de 600 a 900 s para esa cobertura adicional, no los umbrales geométricos.
+Los workflows de persistencia y exportación humana conservan su alcance.
 
 ## Backlog vigente
 
 | Issue | Pendiente real |
 | :--- | :--- |
 | #5 · Personaje patrón | Aceptación artística/procedencia global y materiales/UV. Matriz y exportaciones ya existen. |
-| #6 · Contactos y recargas | Integración de la entrega entre familias, cambios desde recarga/no dock, acciones/anatomías/locomoción y coste por actor/LOD. |
+| #6 · Contactos y recargas | Verificar/integrar esta salida de recarga. Después, equipos sin dock, interrupciones por acción, acciones/anatomías/locomoción combinadas y coste por actor/LOD. |
 | #7 · Vertical slice | Escena/recorrido íntegro, playtests humanos y medición en equipo de referencia. |
 
+Los observadores muestrean superficies contra volúmenes. No acreditan CCD,
+colisión de toda la malla, separación positiva universal o FPS de GPU física.
 No cerrar criterios globales por el éxito de una unidad acotada ni fabricar
-participantes, hardware, FPS o aceptación artística.
+participantes, hardware o aceptación artística.
 
-## Historia integrada que no debe repetirse
+## Integraciones que no deben repetirse
 
-#43 (be26fa0): preparación desde ready=0 de 0.20.7. #42 (c27282f): guardia y
-recarga de 0.20.6. #40 (8695273): apoyo dinámico. #41 (02e3a14): limpieza y
-continuidad. #30/#34–#39: rifle, benchmark, familias, exportación/raíces/tangentes
-y marcha cerca del reposo. Las issues ya resueltas conservan su alcance original.
+#44 (3d6722e): entrega cosmética libre entre familias, 0.20.8. #43 (be26fa0):
+preparación desde ready=0. #42 (c27282f): guardia/recarga de equipo preparado.
+#40 (8695273): apoyo dinámico. #41 (02e3a14): limpieza y continuidad.
+#30/#34–#39: rifle, benchmark, familias, exportación/raíces/tangentes y marcha.
+[EQUIPMENT-HANDOFF](EQUIPMENT-HANDOFF.md) conserva el alcance anterior;
+[estado anterior completo](https://github.com/CripterHack/distrito-cero/blob/3d6722e4e20b706c6a821b1866cf62c1f133784f/docs/project/STATE.md)
+conserva sus evidencias y límites. Las issues resueltas conservan su alcance.
 
-[Estado anterior completo](https://github.com/CripterHack/distrito-cero/blob/be26fa05612e3318ad764ca09ddd5f8ef7f6ad3f/docs/project/STATE.md)
-conserva evidencia y límites. La [política de ramas](BRANCH-CLEANUP.md) exige master
-como única rama permanente. Sólo trabajo activo en otras ramas y helpers fuera
-del árbol y ascendencia del producto. No restaurar ramas antiguas para continuar.
+La [política de ramas](BRANCH-CLEANUP.md) exige master como única rama permanente.
+Mantener sólo trabajo activo y retirar ramas concluidas tras revisión y respaldo.
+Los helpers no se integran al árbol ni a la ascendencia del producto. No se
+modifican permisos del repositorio, licencia ni dependencias del juego.
 
-Campaña, creador, catálogo, equipamiento, vehículos, policía, daños y regiones se
-conservan. [Handoff](HANDOFF.md), [QA](QA.md), [recursos](ASSETS.md).
+Campaña, creador, catálogo, equipamiento, vehículos, policía, daños y regiones
+permanecen. [Handoff](HANDOFF.md), [QA](QA.md), [recursos](ASSETS.md).

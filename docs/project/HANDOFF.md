@@ -1,34 +1,33 @@
-# Continuación vigente · v0.20.8, cambio visual entre equipos
+# Continuación vigente · candidata 0.20.9, salida de recarga
 
-## Base e implementación actual
+## Base integrada y cambio actual
 
-Base remota `be26fa05612e3318ad764ca09ddd5f8ef7f6ad3f`. PR #43 integrado como
-0.20.7 y Verify posterior 35926278907, benchmark 35926278952, exportación
-35926278905 y Pages 35926277991 aprobados. Las ramas anteriores se retiraron con
-respaldo. No volver a aplicar los parches de guardia/recarga/preparación #42/#43.
+Master verificado al iniciar: `3d6722e4e20b706c6a821b1866cf62c1f133784f`, 0.20.8,
+PR #44 integrado. Verify posterior 35965293807 y Pages 35965293263 aprobaron.
+Las ramas concluidas ya se retiraron. No reconstruir los trabajos #42/#43/#44.
 
-La nueva unidad de #6 corrige el salto al cambiar entre las cuatro familias con
-dock. [EQUIPMENT-HANDOFF](EQUIPMENT-HANDOFF.md) describe contrato, alternativas
-rechazadas, pruebas y límites. Selección y montaje de gameplay permanecen
-inmediatos. El renderer entrega la pose durante 0.40 segundos, abriendo brevemente
-la mano de apoyo mientras el objeto describe un arco exterior. Disparo/recarga
-priorizan inmediatamente el montaje lógico. No se introduce funda ni segundo IK.
+La nueva unidad extiende el montaje visual existente a una selección entre las
+cuatro familias con dock durante recarga. Mantiene cancelación lógica inmediata,
+munición, inputs, disponibilidad y datos. Captura también la pieza extraída, que
+vuelve a su asiento antes de reemplazar el único objeto mostrado. La salida de
+recarga usa 0.60 s cosméticos, el cambio libre conserva 0.40 s. No hay otro IK.
+[RELOAD-HANDOFF](RELOAD-HANDOFF.md) conserva el diseño, RED y ensayo rechazado.
 
-El PR de la unidad conserva los SHAs de código/documentación, las verificaciones
-finales, revisión e integración. Este texto no acredita un merge o despliegue.
-Usar los resultados de ese PR antes de tratar la candidata como publicada.
+El PR de esta unidad contiene la verificación final del HEAD y su estado real.
+No atribuir aprobación remota a la candidata por existir esta documentación.
+La suite handoff conserva los 16 checks previos y añade seis casos de aceptación
+agrupados, sin sustituir HTTP o la comprobación de superficies por estadísticas.
 
-## Punto de continuidad
+## Continuidad
 
-Tras verificar e integrar esta unidad, no repetir el cambio libre entre familias
-ya cubierto. #6 conserva cambios desde una recarga activa o hacia familias sin
-dock, acciones/anatomías/locomoción combinadas y coste por actor/LOD. Reproducir un
-caso del renderer y preservar inputs, munición, alcance y persistencia antes de
-extender el alcance. Reutilizar los observadores y suites existentes.
+Tras integrar esta unidad, el cambio durante recarga entre estas familias no se
+considera nuevamente pendiente. Siguen fuera la entrega hacia equipos sin dock,
+suavidad de interrupciones por acciones reales, combinaciones de locomoción y
+anatomías y coste por actor/LOD. Reproducir un caso concreto antes de ampliar el
+montaje. No añadir solvers, matrices duplicadas o umbrales más laxos.
 
-#5 mantiene decisión artística, materiales/UV y procedencia global. #7 mantiene
-recorrido completo, pruebas humanas y hardware de referencia. No inventar
-aprobaciones, participantes, FPS o ausencia universal de colisión para cerrar issues.
+#5 conserva arte/procedencia/materiales/UV. #7 requiere recorrido completo,
+playtests humanos y hardware de referencia. No inventar aprobación o mediciones.
 
 ## Verificación y ramas
 
@@ -36,14 +35,13 @@ aprobaciones, participantes, FPS o ausencia universal de colisión para cerrar i
 python3 build.py --check
 node --test tests/*.test.cjs
 python3 tests/release_build.test.py
-xvfb-run -a python3 -m tools.qa.run --suite handoff --headed --output artifacts/handoff-check
+xvfb-run -a python3 -m tools.qa.run --suite handoff --headed --timeout 900 --output artifacts/reload-handoff-check
 ```
 
-Añadir los gates de [QA](QA.md), revisar capturas del HTML canónico y artefactos
-exactos del HEAD. Verificar master/Pages separadamente. Revisión propia, no
-independiente. El [respaldo y política](BRANCH-CLEANUP.md) siguen vigentes: master
-es la única rama permanente, sólo conservar trabajo activo. Retirar ramas
-concluidas/helper con SHAs exactos y respaldo sin integrarlos al producto.
+Ejecutar los otros gates de [QA](QA.md), revisar artefactos del HEAD y verificar
+master/Pages por separado. [Política de ramas](BRANCH-CLEANUP.md): master es la
+única rama permanente. Retirar ramas sólo tras integración verificada y conservar
+trabajo recuperable. Los helpers no pertenecen al árbol o ascendencia del producto.
 
-[Handoff anterior](https://github.com/CripterHack/distrito-cero/blob/be26fa05612e3318ad764ca09ddd5f8ef7f6ad3f/docs/project/HANDOFF.md)
-conserva 0.20.7. Reversión sin migraciones ni borrado de partidas.
+[Handoff anterior](https://github.com/CripterHack/distrito-cero/blob/3d6722e4e20b706c6a821b1866cf62c1f133784f/docs/project/HANDOFF.md).
+Revisión propia, no independiente. Reversión sin migrar o borrar partidas.
