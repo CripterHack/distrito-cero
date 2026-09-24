@@ -9,7 +9,7 @@ from qa_support import launch_options
 
 R=Path(__file__).resolve().parents[1]
 O=R/'qa/v020/handoff'
-checks,errors,requests,cases,actions=[],[],[],[],[]
+checks,errors,requests,cases,actions,reload_cases=[],[],[],[],[],[]
 sha=hashlib.sha256((R/'index.html').read_bytes()).hexdigest()
 FIX="""(()=>{window.qaLongarmStore=new Map([['distrito-cero:settings:v1',JSON.stringify({quality:'balanced',sound:false,rain:false,bloom:false})]]);Object.defineProperty(window,'localStorage',{value:{getItem:k=>qaLongarmStore.get(k)||null,setItem:(k,v)=>qaLongarmStore.set(k,String(v)),removeItem:k=>qaLongarmStore.delete(k)}});})();"""
 
@@ -66,6 +66,28 @@ try:
                 ck(start+' -> '+target+' preserves sampled skin clearance and bone reach',all(r['actors']>=1 and max(r['palmErrors'].values())<.012 and max(r['segmentErrors'].values())<1e-6 and min(r['clearance'][p]['distance'] for p in ('face','jacket'))>=-.002 for r in rows))
                 cases.append({'from':start,'to':target,'before':before,'frames':rows,'maximumPalmStep':max(jumps),'initialPalmStep':jumps[0],'label':label})
                 page.evaluate('DC_LONGARM_STAGE.endSwitch()')
+            # Reuse the same scene, renderer and real keyboard path for reload cancellation.
+            # Logical cancellation must not depend on the longer cosmetic return.
+            for start,target in [('rifle','smg'),('shotgun','sniper')]:
+                page.evaluate('s=>DC_LONGARM_STAGE.beginSwitch(s)',start)
+                page.evaluate('DC_APP.sim.equipment.ammo[DC_APP.sim.equipment.selected].loaded-=2')
+                page.keyboard.press('KeyL')
+                page.evaluate("""()=>{const s=DC_APP.sim,n=Math.floor(DC.Equipment.get(s.equipment.selected).reload*.46*60);if(!s.equipment.reloading)throw new Error('Reload key rejected');for(let i=0;i<n;i++){s.time+=1/60;s.equipmentStep(1/60,{});}}""")
+                before=page.evaluate('DC_LONGARM_STAGE.switchObservation()')
+                capture(page,'reload-'+start+'-'+target+'-before',before)
+                key=page.evaluate('id=>DC.Equipment.get(id).key',target)
+                page.keyboard.press('Digit'+key)
+                first=page.evaluate('DC_LONGARM_STAGE.switchObservation()');rows=[first]
+                capture(page,'reload-'+start+'-'+target+'-00',first)
+                for frame in range(1,43):
+                    row=page.evaluate('DC_LONGARM_STAGE.tickSwitch()');rows.append(row)
+                    if frame in (6,12,18,24,30,36,42):capture(page,'reload-'+start+'-'+target+f'-{frame:02}',row)
+                jumps=[max(distance(a['palms'][k],b['palms'][k]) for k in (0,1)) for a,b in zip([before]+rows,rows)]
+                ck(start+' reload -> '+target+' cancels immediately with intact ammunition and no trigger',before['reloading']>0 and all(r['item']==target and r['reloading']==0 and r['reloadId'] is None and not r['trigger'] and r['ammo']==before['ammo'] and r['shots']==before['shots'] for r in rows))
+                ck(start+' reload -> '+target+' preserves first palms and visible piece then converges',jumps[0]<1e-4 and max(jumps)<.030 and all(distance(a,b)<1e-4 for a,b in zip(before['piecePoints'],first['piecePoints'])) and first['displayItem']==start and rows[18]['magazine']['offset']==[0,0,0] and rows[-1]['handoff'] is None and rows[-1]['displayItem']==target and rows[-1]['origin']==rows[-1]['gameplayOrigin'])
+                ck(start+' reload -> '+target+' keeps sampled surfaces and bone reach',all(r['actors']>=1 and max(r['palmErrors'].values())<.012 and max(r['segmentErrors'].values())<1e-6 and min(r['clearance'][p]['distance'] for p in ('face','jacket'))>=-.002 for r in rows))
+                reload_cases.append({'from':start,'to':target,'reloadPhase':.46,'before':before,'frames':rows,'maximumPalmStep':max(jumps),'initialPalmStep':jumps[0]})
+                page.evaluate('DC_LONGARM_STAGE.endSwitch()')
             # The new selection must never fire with the previous model/muzzle.
             page.evaluate('DC_LONGARM_STAGE.beginSwitch("rifle")');key=page.evaluate('DC.Equipment.get("sniper").key');page.keyboard.press('Digit'+key)
             first=page.evaluate('DC_LONGARM_STAGE.switchObservation()');page.keyboard.down('KeyJ')
@@ -82,11 +104,11 @@ except Exception as exc:
     errors.append(str(exc));print('ERROR',repr(exc),flush=True)
 finally:
     O.parent.mkdir(parents=True,exist_ok=True)
-    report={'suite':'handoff','status':status,'sha256':sha,'at':datetime.now(timezone.utc).isoformat(),'info':info,'checks':checks,'errors':errors,'requests':requests,'cases':cases,'actions':actions,'nativeStorage':False,'physicalGpu':False,'scope':'Four docked family switches from settled aim, one firing interruption; 60 Hz prepared simulation, vertex samples, no collision or artistic guarantee.'}
+    report={'suite':'handoff','status':status,'sha256':sha,'at':datetime.now(timezone.utc).isoformat(),'info':info,'checks':checks,'errors':errors,'requests':requests,'cases':cases,'reloadCases':reload_cases,'actions':actions,'nativeStorage':False,'physicalGpu':False,'scope':'Four settled and two cancelled-reload docked family switches, one firing interruption; 60 Hz prepared simulation, vertex samples, no collision or artistic guarantee.'}
     (O.parent/'equipment-handoff.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
     if O.exists():
         figures=[]
-        for c in cases:
+        for c in cases+reload_cases:
             for i,row in enumerate([c['before']]+c['frames']):
                 if 'image' in row: figures.append('<figure><img loading="lazy" src="'+html.escape(row['image'])+'"><figcaption>'+html.escape(f'{c["from"]} → {c["to"]}, frame {i-1}, visible {row["displayItem"]}')+'</figcaption></figure>')
         (O/'index.html').write_text('<!doctype html><meta charset="utf-8"><title>Equipment handoff evidence</title><style>body{font:16px system-ui}main{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}img{max-width:100%}</style><h1>Canonical handoff evidence</h1><p>Prepared 60 Hz scene. Not physical FPS or a human playtest.</p><main>'+''.join(figures)+'</main>')

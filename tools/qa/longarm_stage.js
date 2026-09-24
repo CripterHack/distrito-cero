@@ -82,6 +82,8 @@
    ready:s.equipment.handling?.ready,hudMode:document.getElementById('weaponMode').textContent,palms:['L','R'].map(k=>{const p=D.SkinRig.palmPoint(pose,actor,k);return[p.x,p.y,p.z];}),
    clearance:clearance.minimum,palmErrors:contacts.palmErrors,segmentErrors:contacts.segmentErrors,
    ammo:structuredClone(s.equipment.ammo),shots:s.equipment.shots,trigger:s.equipment.trigger,
+   reloading:s.equipment.reloading,reloadId:s.equipment.reloadId,magazine:structuredClone(mount.magazine),
+   piecePoints:[[0,0,0],[0,-.135,.12],[.03,-.2,.16]].map(q=>mount.partPoint('magazine',q)),
    origin:mount.origin,muzzle:mount.muzzle,gameplayOrigin:D.Equipment.mount(s).origin,
    key:D.Equipment.get(s.equipment.selected).key,frame:r.frame,actors:r.castStats.actors,
    camera:structuredClone(r.camera),version:D.BuildInfo?.version||null};

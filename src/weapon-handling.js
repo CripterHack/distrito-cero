@@ -140,7 +140,7 @@
  function beginEquip(sim,handoff=null){const e=sim.equipment;const h=e.handling={item:e.selected,serial:e.shotSerial||0,kick:0,velocity:0,ready:0,rifleAim:0,longarmAim:0,triggerWeight:0,lagYaw:0,lagPitch:0,velYaw:0,velPitch:0,lastYaw:sim.player.yaw||0,lastPitch:e.pitch||0};if(handoff)h.handoff=handoff;return h;}
  // A short presentation-only handover reuses this mount and the existing IK.
  // Gameplay still calls mount() without a handover (including firing origins).
- const HANDOFF_SECONDS=.40;
+ const HANDOFF_SECONDS=.40,RELOAD_HANDOFF_SECONDS=.60;
  const ease=x=>{x=clamp(x,0,1);return clamp(x*x*x*(x*(x*6-15)+10),0,1);};
  function present(sim,actorOverride=null){
   const e=sim.equipment,h=e.handling,swap=h?.item===e.selected?h.handoff:null;
@@ -150,12 +150,12 @@
  }
  function captureSwitch(sim,next){
   const e=sim.equipment;
-  if(e.selected===next||!profile(e.selected).dock||!profile(next).dock||e.reloading>0||!sim.equipmentAvailable())return null;
+  if(e.selected===next||!profile(e.selected).dock||!profile(next).dock||!sim.equipmentAvailable())return null;
   const m=present(sim),p=sim.player,c=Math.cos(p.yaw||0),s=Math.sin(p.yaw||0),delta=sub(m.origin,[p.x||0,p.y||0,p.z||0]);
-  return {age:0,serial:e.shotSerial||0,item:m.displayItem,origin:[delta[0]*c-delta[2]*s,delta[1],delta[0]*s+delta[2]*c],
+  return {age:0,duration:e.reloading>0?RELOAD_HANDOFF_SECONDS:(e.handling?.handoff?.duration||HANDOFF_SECONDS),serial:e.shotSerial||0,item:m.displayItem,origin:[delta[0]*c-delta[2]*s,delta[1],delta[0]*s+delta[2]*c],
    yaw:D.wrap(m.yaw-(p.yaw||0)),pitch:m.pitch,roll:m.roll,aim:m.aim,kick:m.kick,reload:m.reload,
    braceWeight:m.braceWeight,coordination:m.coordination,lookPitch:m.lookPitch,
-   contacts:structuredClone(m.localContacts),grips:structuredClone(m.grips)};
+   contacts:structuredClone(m.localContacts),grips:structuredClone(m.grips),magazine:structuredClone(m.magazine)};
  }
  function step(sim,dt){
   if(!Number.isFinite(dt)||dt<=0)return;
@@ -175,7 +175,7 @@
    [h.lagYaw,h.velYaw]=spring(h.lagYaw,h.velYaw||0,17,dt);[h.lagPitch,h.velPitch]=spring(h.lagPitch,h.velPitch||0,18,dt);
   }
   h.lastYaw=yaw;h.lastPitch=pitch;
-  if(h.handoff){h.handoff.age+=dt;if(h.handoff.age>=HANDOFF_SECONDS||e.reloading>0||h.handoff.serial!==(e.shotSerial||0))delete h.handoff;}
+  if(h.handoff){h.handoff.age+=dt;if(h.handoff.age>=(h.handoff.duration||HANDOFF_SECONDS)||e.reloading>0||h.handoff.serial!==(e.shotSerial||0))delete h.handoff;}
  }
  function actor(n,m,e){
   const a={...n,neckDrop:m.neckDrop??n.neckDrop??0,handTargets:m.hands,handGrips:m.grips,
@@ -186,7 +186,7 @@
  }
  function mount(sim,actorOverride=null,handover=null){
   const p=actorOverride||sim.player,e=sim.equipment,w=D.Equipment.get(e.selected)||D.Equipment.get('unarmed'),spec=profile(w.id),family=spec.family;
-  const u=handover?clamp(handover.age/HANDOFF_SECONDS,0,1):1,weight=ease(u);
+  const u=handover?clamp(handover.age/(handover.duration||HANDOFF_SECONDS),0,1):1,weight=ease(u);
   const blend=(key,target)=>handover?lerp(handover[key],target,weight):target;
   const requestedAim=clamp(e.aimWeight||0,0,1),time=sim.time||0,speed=clamp(p.motion?.speed??p.moveSpeed??0,0,6),phase=p.motion?.phase??p.walk??0;
   const state=e.handling?.item&&e.handling.item!==w.id?null:e.handling;
@@ -282,9 +282,17 @@
    origin=mix(from,origin,weight);
   }
   const pull=sm(.27,.46,t)*(1-sm(.62,.80,t));
-  const detached=spec.reload==='magazine'&&reload>0;
+  const detached=spec.reload==='magazine'&&e.reloading>0;
   const magazine={offset:detached?[-.025*pull,-.211*pull,.025*pull]:[0,0,0],rotation:[0,0,detached?-.23*pull:0],
    pivot:sidearm?[0,-.18,-.016]:[0,-.135,.12],surface:sidearm?[-.030,-.180,-.018]:[-.031,-.145,.12],attachedToHand:detached&&t>=.24&&t<=.84};
+  if(handover?.magazine&&u<.5){
+   // Cancellation ends the logical reload immediately. The one visible old
+   // piece returns to its seat before that prop is replaced at mid-handoff.
+   // Preserve its transform at age zero, not an extra magazine or ammo event.
+   const old=handover.magazine,seat=ease(u*2);
+   Object.assign(magazine,{offset:mix(old.offset,[0,0,0],seat),rotation:mix(old.rotation,[0,0,0],seat),
+    pivot:old.pivot.slice(),surface:old.surface.slice(),attachedToHand:u===0&&old.attachedToHand});
+  }
   function partLocal(role,q){if(role!=='magazine')return q.slice();const z=magazine.rotation[2],co=Math.cos(z),si=Math.sin(z),v=sub(q,magazine.pivot);return add(add([v[0]*co-v[1]*si,v[0]*si+v[1]*co,v[2]],magazine.pivot),magazine.offset);}
   const localRotate=(role,q)=>{if(role!=='magazine')return q.slice();const z=magazine.rotation[2],c=Math.cos(z),s=Math.sin(z);return[q[0]*c-q[1]*s,q[0]*s+q[1]*c,q[2]];};
   const contacts={R:spec.primary||PRIMARY};let support=spec.support;

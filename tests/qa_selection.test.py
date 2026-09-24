@@ -42,6 +42,6 @@ class SelectionTests(unittest.TestCase):
         self.assertEqual(select_suites(['longarms'],'fixture')[0].expected_checks,28)
         with self.assertRaises(ValueError):select_suites(['longarms'],'http')
     def test_equipment_handoff_is_canonical_graphics_not_native_storage(self):
-        self.assertEqual(select_suites(['handoff'],'fixture')[0].expected_checks,16)
+        self.assertEqual(select_suites(['handoff'],'fixture')[0].expected_checks,22)
         with self.assertRaises(ValueError):select_suites(['handoff'],'http')
 if __name__=='__main__':unittest.main()
