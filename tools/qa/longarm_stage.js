@@ -62,6 +62,32 @@
   }
   return rows;
  }
+ // Exercise the real EquipmentApp keyboard selection against this isolated
+ // scene. The original app simulation/Storage are restored before pristine().
+ function beginSwitch(from){
+  prepare({item:from});const {a,sim:s}=state;
+  D.WeaponHandling.beginEquip(s);
+  for(let i=0;i<180;i++){s.time+=1/60;s.equipmentStep(1/60,{aim:true});}
+  state.inputApp={sim:a.sim,mode:a.mode,started:a.started};a.sim=s;a.mode='play';a.started=true;
+  return switchObservation();
+ }
+ function switchObservation(){
+  const {a,r,sim:s}=state,count=state.draws;a.updateEquipmentHUD(performance.now());DC_MANUAL_FRAMES.draw(a,s);
+  if(state.draws!==count+1)throw new Error('Missing production handoff draw');
+  const {mount,pose}=state.last,actor=D.WeaponHandling.actor(s.player,mount,s.equipment);
+  const item=mount.displayItem||s.equipment.selected,shown={...s,equipment:{...s.equipment,selected:item}};
+  const clearance=DC_STOCK_CLEARANCE.inspect(shown,{mount,pose,actor});
+  const contacts=Q.inspect(shown,{mount,pose,actor});
+  return {time:s.time,item:s.equipment.selected,displayItem:item,phase:mount.phase,handoff:mount.handoff||null,
+   ready:s.equipment.handling?.ready,hudMode:document.getElementById('weaponMode').textContent,palms:['L','R'].map(k=>{const p=D.SkinRig.palmPoint(pose,actor,k);return[p.x,p.y,p.z];}),
+   clearance:clearance.minimum,palmErrors:contacts.palmErrors,segmentErrors:contacts.segmentErrors,
+   ammo:structuredClone(s.equipment.ammo),shots:s.equipment.shots,trigger:s.equipment.trigger,
+   origin:mount.origin,muzzle:mount.muzzle,gameplayOrigin:D.Equipment.mount(s).origin,
+   key:D.Equipment.get(s.equipment.selected).key,frame:r.frame,actors:r.castStats.actors,
+   camera:structuredClone(r.camera),version:D.BuildInfo?.version||null};
+ }
+ function tickSwitch(){const {a,sim:s}=state;s.time+=1/60;s.equipmentStep(1/60,a.input());return switchObservation();}
+ function endSwitch(){const {a}=state;a.clearWeaponInput();Object.assign(a,state.inputApp);delete state.inputApp;}
  function pristine(){return state.live===JSON.stringify(state.a.sim.serialize())&&state.store===JSON.stringify([...qaLongarmStore]);}
- global.DC_LONGARM_STAGE=Object.freeze({init,sample,stepCycle,matrix,pristine});
+ global.DC_LONGARM_STAGE=Object.freeze({init,sample,stepCycle,matrix,pristine,beginSwitch,switchObservation,tickSwitch,endSwitch});
 })(globalThis);

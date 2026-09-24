@@ -5,7 +5,7 @@ sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 from tools.qa.run import select_suites
 class SelectionTests(unittest.TestCase):
     def test_all_filters_by_storage_contract(self):
-        self.assertEqual(len(select_suites(['all'],'fixture')),14)
+        self.assertEqual(len(select_suites(['all'],'fixture')),15)
         self.assertEqual([s.name for s in select_suites(['all'],'http')],['release','native','reload'])
     def test_explicit_native_does_not_mislabel_fixture(self):
         with self.assertRaises(ValueError):select_suites(['handling'],'http')
@@ -41,4 +41,7 @@ class SelectionTests(unittest.TestCase):
     def test_longarm_audit_is_not_a_native_or_artistic_acceptance_suite(self):
         self.assertEqual(select_suites(['longarms'],'fixture')[0].expected_checks,28)
         with self.assertRaises(ValueError):select_suites(['longarms'],'http')
+    def test_equipment_handoff_is_canonical_graphics_not_native_storage(self):
+        self.assertEqual(select_suites(['handoff'],'fixture')[0].expected_checks,16)
+        with self.assertRaises(ValueError):select_suites(['handoff'],'http')
 if __name__=='__main__':unittest.main()

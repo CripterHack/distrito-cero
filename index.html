@@ -2,9 +2,9 @@
 <html lang="es">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover"><meta name="theme-color" content="#091314"><meta name="description" content="Distrito Cero. Una aventura criminal 3D original, sin dependencias externas.">
-<meta name="application-version" content="0.20.7">
-<meta name="build-source" content="1b90ec8dd6a48af70171a6e0a524e6837d0a81c2c6ceb6eb3ed07345ed542b4b">
-<title>Distrito Cero v0.20.7 · Coherencia</title>
+<meta name="application-version" content="0.20.8">
+<meta name="build-source" content="b4ac889eaa512bb3aa1e520d8f416c6d91b647b10aef77176a6d307a95e7ecbd">
+<title>Distrito Cero v0.20.8 · Coherencia</title>
 <style>:root{color-scheme:dark;--bg:#081011;--ink:#f0f1e8;--muted:#9eaaa6;--accent:#d5ee94;--accent-dark:#182417;--line:#ffffff20;--danger:#fb826d;--panel:#0b1414ed;--font:Arial,Helvetica,sans-serif;--mono:'Courier New',monospace}
 *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--bg);font-family:var(--font);color:var(--ink);overscroll-behavior:none}button,input,select{font:inherit}button{cursor:pointer;color:inherit}button:disabled{opacity:.45;cursor:not-allowed}button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--accent);outline-offset:5px}button{touch-action:manipulation;-webkit-tap-highlight-color:transparent}button:hover{filter:brightness(1.12)}[hidden]{display:none!important}#world{display:block;width:100%;height:100%;touch-action:none}#app{position:fixed;inset:0;pointer-events:none}button,select,input,a{pointer-events:auto}.mono{font-family:var(--mono);font-size:10px;letter-spacing:1.7px;text-transform:uppercase}.muted{color:var(--muted)}.eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:2.5px;font-weight:400}.accent{color:var(--accent)}
 #loading{position:fixed;inset:0;z-index:100;background:#091112;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px}.loadmark{font-size:60px;font-weight:900;letter-spacing:-6px}.loading-line{width:160px;height:2px;background:#25332c;overflow:hidden}.loading-line:after{content:'';display:block;width:70px;height:2px;background:var(--accent);animation:load 1.2s infinite}@keyframes load{to{transform:translateX(160px)}}#error{position:fixed;inset:0;background:#0b1515;z-index:101;padding:12%;display:grid;place-content:center;pointer-events:auto}#error p{max-width:620px;line-height:1.7;color:var(--muted)}
@@ -140,7 +140,7 @@ body.arsenal-open #toast,body.arsenal-open #chapter{visibility:hidden}
  <div class="landing-top"><div class="brand"><div class="brand-mark">DC.</div><div class="brand-name">DISTRITO CERO<br><span class="muted" style="font-size:8px;letter-spacing:1.6px">UNA CIUDAD. TUS REGLAS.</span></div></div><div class="right"><span class="mono muted">HORIZONTE / MUNDO PROCEDURAL</span><button id="landingAudio" class="icon-btn" aria-label="Activar o silenciar el sonido" title="Sonido">♫</button><button id="landingSettings" class="icon-btn" aria-label="Abrir ajustes" title="Ajustes">⚙</button></div></div>
  <div class="landing-content"><div class="live-label">AVENTURA CRIMINAL · UN HORIZONTE ABIERTO</div><h1>DISTRITO<br><span>CERO</span></h1><p class="landing-description">La ciudad tiene un precio.<br><strong>Esta noche, tú decides quién lo paga.</strong></p><div class="start-buttons"><button id="start" class="primary">Entrar a la ciudad <span class="arrow">↗</span></button><button id="continue" class="secondary" hidden>Continuar</button></div><div class="landing-links"><button id="freeRoam" class="text-btn">Explorar sin historia ↗</button><button id="exploreHorizon" class="text-btn">Atlas de regiones ↗</button><button id="landingSaves" class="text-btn">Mis partidas ↗</button><button id="landingControls" class="text-btn">Controles y ajustes</button></div></div>
  <div class="district-tag mono">UN TERRITORIO. MUCHAS FORMAS DE VIVIR.</div><div class="chapter-preview"><div class="number">CAPÍTULO 01 / 06</div><h3>La llamada</h3><p>Un coche prestado.<br>Un encargo sencillo.<br>Demasiados nombres.</p></div>
- <div class="landing-bottom"><div class="landing-footer-left mono"><span>CIUDAD FICTICIA<br><span class="accent">NINGÚN CAMINO ES INOCENTE</span></span><span class="platform">EXPLORA / CONDUCE / DECIDE<br>EXPERIENCIA 3D EN TU NAVEGADOR</span></div><div class="landing-footer-right mono">AURICULARES RECOMENDADOS<br><span id="buildLabel" data-build-version="0.20.7" style="opacity:.85">PROTOTIPO JUGABLE · v0.20.7 · COHERENCIA</span></div></div>
+ <div class="landing-bottom"><div class="landing-footer-left mono"><span>CIUDAD FICTICIA<br><span class="accent">NINGÚN CAMINO ES INOCENTE</span></span><span class="platform">EXPLORA / CONDUCE / DECIDE<br>EXPERIENCIA 3D EN TU NAVEGADOR</span></div><div class="landing-footer-right mono">AURICULARES RECOMENDADOS<br><span id="buildLabel" data-build-version="0.20.8" style="opacity:.85">PROTOTIPO JUGABLE · v0.20.8 · COHERENCIA</span></div></div>
 </section>
 <section id="hud" hidden aria-label="Interfaz del juego">
  <div class="hud-top"><div class="hud-wordmark"><span></span>DISTRITO CERO</div><div class="objective"><h2 id="objectiveTitle">LA LLAMADA</h2><p id="objectiveText">Contesta el teléfono de Lía.</p><span class="meta" id="objectiveMeta">CAPÍTULO 01 / 06</span></div></div>
@@ -151,7 +151,7 @@ body.arsenal-open #toast,body.arsenal-open #chapter{visibility:hidden}
  <aside id="equipmentHUD" hidden aria-label="Equipamiento activo"><div class="equipment-line"><button id="openArsenal" title="Selector de equipo (Tab)" aria-label="Abrir selector de armas y equipo"><span aria-hidden="true">▦</span><small>TAB</small></button><div><strong id="weaponName">Manos libres</strong><small id="weaponMode">TAB · EQUIPAMIENTO</small></div><b id="weaponAmmo">—</b></div><div id="weaponGauge" hidden><i id="weaponGaugeFill"></i></div><div class="equipment-actions"><button id="weaponAim" hidden aria-pressed="false">Z · Apuntar</button><button id="weaponReload" hidden>L · Recargar</button><button id="opticDown" hidden aria-label="Reducir zoom de binoculares">−</button><button id="opticUp" hidden aria-label="Aumentar zoom de binoculares">+</button><button id="opticMark" hidden>H · GPS</button></div></aside>
 <div id="weaponReticle" hidden aria-hidden="true"><i></i><b id="chargeText"></b></div>
 <div id="opticsOverlay" hidden aria-label="Vista de binoculares"><div class="optic-lenses"></div><div class="optic-top mono">ÓPTICA DE CAMPO <span id="opticMagnification">2×</span></div><div class="optic-compass mono" id="opticHeading">000°</div><div class="optic-center"><i></i></div><div class="optic-readout mono"><b id="opticRange">SIN RETORNO</b><span id="opticTarget">OBSERVANDO</span><small>RUEDA / + − · ZOOM &nbsp; H · MARCAR GPS</small></div></div>
-<div id="impactRibbon" hidden role="status"></div><aside id="interactionDrawer" hidden aria-label="Guía de interacciones"><button id="closeInteractions" aria-label="Cerrar interacciones">×</button><small data-build-version="0.20.7">INTERACCIONES / v0.20.7</small><h3>Una ciudad con ocupantes.</h3><p><kbd>F</kbd> Entrar, salir o cancelar</p><p class="note">Detén el coche y deja espacio junto a la puerta. Espera al cierre para conducir. Moverte cancela la secuencia.</p><p><kbd>E</kbd> Recoger, soltar o restaurar</p><p><kbd>G</kbd> Lanzar o empujar</p><p><kbd>X</kbd> Agacharse</p><p><kbd>Q</kbd> Esquivar a pie / bocina al conducir</p><p><kbd>V</kbd> Mantener junto al auto para reparar</p><p><kbd>ESPACIO</kbd> Saltar / freno de mano</p><button id="crouchButton" aria-pressed="false">AGACHARSE / LEVANTARSE</button><p class="note">Prueba las cajas junto al cruce inicial. Los golpes dañan zonas distintas del auto. Un poste roto deja de alumbrar. Restaurar el entorno cuesta $60.</p></aside><div id="marker" hidden><div class="marker-icon"></div><span id="markerDistance"></span></div><aside id="policePanel" hidden aria-label="Estado de la persecución">
+<div id="impactRibbon" hidden role="status"></div><aside id="interactionDrawer" hidden aria-label="Guía de interacciones"><button id="closeInteractions" aria-label="Cerrar interacciones">×</button><small data-build-version="0.20.8">INTERACCIONES / v0.20.8</small><h3>Una ciudad con ocupantes.</h3><p><kbd>F</kbd> Entrar, salir o cancelar</p><p class="note">Detén el coche y deja espacio junto a la puerta. Espera al cierre para conducir. Moverte cancela la secuencia.</p><p><kbd>E</kbd> Recoger, soltar o restaurar</p><p><kbd>G</kbd> Lanzar o empujar</p><p><kbd>X</kbd> Agacharse</p><p><kbd>Q</kbd> Esquivar a pie / bocina al conducir</p><p><kbd>V</kbd> Mantener junto al auto para reparar</p><p><kbd>ESPACIO</kbd> Saltar / freno de mano</p><button id="crouchButton" aria-pressed="false">AGACHARSE / LEVANTARSE</button><p class="note">Prueba las cajas junto al cruce inicial. Los golpes dañan zonas distintas del auto. Un poste roto deja de alumbrar. Restaurar el entorno cuesta $60.</p></aside><div id="marker" hidden><div class="marker-icon"></div><span id="markerDistance"></span></div><aside id="policePanel" hidden aria-label="Estado de la persecución">
  <div class="police-head"><span class="police-dot"></span><strong id="policePhase">PERSECUCIÓN ACTIVA</strong></div>
  <p id="policeHint"></p>
  <div id="bustWrap" hidden><div class="police-meter-label"><span>CAPTURA</span><b id="capturePercent">0%</b></div><div class="progress" role="progressbar" aria-label="Progreso de captura" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="captureProgress"><i id="bustFill"></i></div></div>
@@ -162,7 +162,7 @@ body.arsenal-open #toast,body.arsenal-open #chapter{visibility:hidden}
  <div id="touchControls"><div id="joystick" class="joystick" aria-label="Mando de movimiento" role="application"><div class="joystick-knob" id="joystickKnob"></div></div><div class="touch-buttons"><div class="row" id="touchWeaponRow" hidden><button class="touch-btn" id="touchAim" aria-label="Mantener para apuntar u observar">APUNTAR</button><button class="touch-btn primary-touch" id="touchFire" aria-label="Mantener para disparar o cargar Gauss">FUEGO</button></div><div class="row"><button class="touch-btn" id="touchHorn" aria-label="Bocina">BOCINA</button><button class="touch-btn" id="touchCar" aria-label="Entrar o salir del vehículo">SUBIR</button></div><div class="row"><button class="touch-btn" id="touchBrake" aria-label="Freno de mano o correr">CORRER</button><button class="touch-btn primary-touch" id="touchAction" aria-label="Interactuar">ACCIÓN</button></div><div class="row"><button class="touch-btn" id="touchPush" aria-label="Lanzar o empujar">EMPUJAR</button><button class="touch-btn" id="touchJump" aria-label="Saltar">SALTAR</button></div></div></div>
 </section>
 <div id="toast" role="status" aria-live="polite"></div><div id="chapter"><small id="chapterLabel">DISTRITO CERO</small><h2 id="chapterText"></h2></div>
-<section id="pause" class="overlay" hidden aria-label="Menú de pausa"><div class="panel"><div class="panel-head"><div><div class="eyebrow accent">LA CIUDAD PUEDE ESPERAR</div><h2 id="pauseTitle">Pausa</h2></div><button class="close" id="closePause" aria-label="Cerrar pausa">×</button></div><div class="panel-body"><div class="pause-grid"><div class="pause-actions"><button class="primary" id="resume">Volver a la ciudad <span>↗</span></button><button class="secondary" id="saveGame">Guardar progreso</button><button class="secondary" id="pauseSaves">Mis partidas</button><button class="secondary" id="pauseArsenal">Equipamiento · TAB</button><button class="secondary" id="editAppearance">Editar personaje</button><p id="activeSaveStatus" class="identity-note" role="status"></p><button class="secondary" id="openMapPause">Mapa de la ciudad</button><button class="secondary" id="toggleStory">Cambiar a exploración libre</button><button class="secondary" id="mainMenu">Menú principal</button><div class="pause-info" id="pauseStats"></div><p id="releaseInfo" class="note" data-build-version="0.20.7">v0.20.7 · Coherencia · prototipo<br>Build 1b90ec8dd6a4</p></div><div class="settings"><h3>ATMÓSFERA Y RENDIMIENTO</h3><label class="setting">Luz · noche a día<input id="daylight" type="range" min="0" max="100" value="62" aria-label="Luz solar"></label><label class="setting">Calidad gráfica<select id="quality"><option value="eco">Económica</option><option value="balanced" selected>Equilibrada</option><option value="high">Alta</option></select></label><label class="setting">Volumen<input id="volume" type="range" min="0" max="100" value="50"></label><div class="setting">Sonido<button class="toggle" id="soundToggle">SÍ</button></div><div class="setting">Lluvia y reflejos<button class="toggle" id="rainToggle">SÍ</button></div><div class="setting">Resplandor de luces<button class="toggle" id="bloomToggle">SÍ</button></div><div class="setting">Controles táctiles<button class="toggle" id="touchToggle">AUTO</button></div><div class="setting">Pantalla completa<button class="toggle" id="fullscreen">ABRIR</button></div><p class="note">Si la imagen pierde fluidez, usa calidad económica o desactiva lluvia y reflejos. El mundo y sus reglas no cambian.</p></div></div><div class="controls-grid"><div>Objetos: recoger / lanzar <kbd>E / G</kbd></div><div>Agacharse / esquivar <kbd>X / Q</kbd></div><div>Reparar junto al auto <kbd>MANTENER V · $90</kbd></div><div>Guía de interacciones <kbd>I</kbd></div><div>Moverte / conducir <kbd>W A S D / ↑ ← ↓ →</kbd></div><div>Subir / bajar del coche <kbd>F</kbd></div><div>Interactuar <kbd>E</kbd></div><div>Correr a pie <kbd>SHIFT</kbd></div><div>Freno de mano / saltar <kbd>ESPACIO</kbd></div><div>Mirar alrededor <kbd>ARRASTRAR RATÓN</kbd></div><div>Cambiar cámara / bocina <kbd>C / Q</kbd></div><div>Mapa / foto / radio <kbd>M / P / T</kbd></div><div>Rendirse cerca de una patrulla <kbd>MANTENER R · DETENIDO</kbd></div><div>Selector de equipo <kbd>TAB</kbd></div><div>Disparar / cargar y soltar Gauss <kbd>CLIC IZQ. / J</kbd></div><div>Apuntar y mover vista <kbd>CLIC DER. + ARRASTRAR / Z</kbd></div><div>Recargar <kbd>L</kbd></div><div>Binoculares / zoom / marcar <kbd>B / RUEDA / H</kbd></div><div>Pausar <kbd>ESC</kbd></div><div>Móvil <kbd>JOYSTICK + ARRASTRAR VISTA</kbd></div></div><div class="save-tools"><button id="exportSave">Exportar partida ↗</button><button id="importSave">Importar partida ↗</button><button id="cancelJob">Cancelar encargo activo</button><button id="newGame" class="danger">Reiniciar partida</button><input type="file" id="saveFile" accept="application/json,.json" hidden></div><div class="pause-info police-help">POLICÍA · Un roce no detiene el coche. Maniobra en reversa y gira para separarte. La captura solo sube si estás detenido y a la vista. Al perderte, las patrullas buscan tu última posición. Mantén R o el botón de rendición durante 1.8 segundos, detenido cerca de una patrulla, para entregar $150 en lugar de $300. Suelta o muévete para cancelar.</div><div class="pause-info">El autoguardado actualiza únicamente la partida activa. Mis partidas permite nombrar, duplicar y respaldar cada historia. Encargos temporizados y transmisiones en curso no se guardan.</div></div></div></section>
+<section id="pause" class="overlay" hidden aria-label="Menú de pausa"><div class="panel"><div class="panel-head"><div><div class="eyebrow accent">LA CIUDAD PUEDE ESPERAR</div><h2 id="pauseTitle">Pausa</h2></div><button class="close" id="closePause" aria-label="Cerrar pausa">×</button></div><div class="panel-body"><div class="pause-grid"><div class="pause-actions"><button class="primary" id="resume">Volver a la ciudad <span>↗</span></button><button class="secondary" id="saveGame">Guardar progreso</button><button class="secondary" id="pauseSaves">Mis partidas</button><button class="secondary" id="pauseArsenal">Equipamiento · TAB</button><button class="secondary" id="editAppearance">Editar personaje</button><p id="activeSaveStatus" class="identity-note" role="status"></p><button class="secondary" id="openMapPause">Mapa de la ciudad</button><button class="secondary" id="toggleStory">Cambiar a exploración libre</button><button class="secondary" id="mainMenu">Menú principal</button><div class="pause-info" id="pauseStats"></div><p id="releaseInfo" class="note" data-build-version="0.20.8">v0.20.8 · Coherencia · prototipo<br>Build b4ac889eaa51</p></div><div class="settings"><h3>ATMÓSFERA Y RENDIMIENTO</h3><label class="setting">Luz · noche a día<input id="daylight" type="range" min="0" max="100" value="62" aria-label="Luz solar"></label><label class="setting">Calidad gráfica<select id="quality"><option value="eco">Económica</option><option value="balanced" selected>Equilibrada</option><option value="high">Alta</option></select></label><label class="setting">Volumen<input id="volume" type="range" min="0" max="100" value="50"></label><div class="setting">Sonido<button class="toggle" id="soundToggle">SÍ</button></div><div class="setting">Lluvia y reflejos<button class="toggle" id="rainToggle">SÍ</button></div><div class="setting">Resplandor de luces<button class="toggle" id="bloomToggle">SÍ</button></div><div class="setting">Controles táctiles<button class="toggle" id="touchToggle">AUTO</button></div><div class="setting">Pantalla completa<button class="toggle" id="fullscreen">ABRIR</button></div><p class="note">Si la imagen pierde fluidez, usa calidad económica o desactiva lluvia y reflejos. El mundo y sus reglas no cambian.</p></div></div><div class="controls-grid"><div>Objetos: recoger / lanzar <kbd>E / G</kbd></div><div>Agacharse / esquivar <kbd>X / Q</kbd></div><div>Reparar junto al auto <kbd>MANTENER V · $90</kbd></div><div>Guía de interacciones <kbd>I</kbd></div><div>Moverte / conducir <kbd>W A S D / ↑ ← ↓ →</kbd></div><div>Subir / bajar del coche <kbd>F</kbd></div><div>Interactuar <kbd>E</kbd></div><div>Correr a pie <kbd>SHIFT</kbd></div><div>Freno de mano / saltar <kbd>ESPACIO</kbd></div><div>Mirar alrededor <kbd>ARRASTRAR RATÓN</kbd></div><div>Cambiar cámara / bocina <kbd>C / Q</kbd></div><div>Mapa / foto / radio <kbd>M / P / T</kbd></div><div>Rendirse cerca de una patrulla <kbd>MANTENER R · DETENIDO</kbd></div><div>Selector de equipo <kbd>TAB</kbd></div><div>Disparar / cargar y soltar Gauss <kbd>CLIC IZQ. / J</kbd></div><div>Apuntar y mover vista <kbd>CLIC DER. + ARRASTRAR / Z</kbd></div><div>Recargar <kbd>L</kbd></div><div>Binoculares / zoom / marcar <kbd>B / RUEDA / H</kbd></div><div>Pausar <kbd>ESC</kbd></div><div>Móvil <kbd>JOYSTICK + ARRASTRAR VISTA</kbd></div></div><div class="save-tools"><button id="exportSave">Exportar partida ↗</button><button id="importSave">Importar partida ↗</button><button id="cancelJob">Cancelar encargo activo</button><button id="newGame" class="danger">Reiniciar partida</button><input type="file" id="saveFile" accept="application/json,.json" hidden></div><div class="pause-info police-help">POLICÍA · Un roce no detiene el coche. Maniobra en reversa y gira para separarte. La captura solo sube si estás detenido y a la vista. Al perderte, las patrullas buscan tu última posición. Mantén R o el botón de rendición durante 1.8 segundos, detenido cerca de una patrulla, para entregar $150 en lugar de $300. Suelta o muévete para cancelar.</div><div class="pause-info">El autoguardado actualiza únicamente la partida activa. Mis partidas permite nombrar, duplicar y respaldar cada historia. Encargos temporizados y transmisiones en curso no se guardan.</div></div></div></section>
 <section id="mapOverlay" class="overlay" hidden aria-label="Atlas del mundo">
  <div class="panel" id="mapPanel"><div class="panel-head"><div><div class="eyebrow accent">HORIZONTE · ATLAS PROCEDURAL</div><h2 id="atlasTitle">El mundo continúa.</h2></div><button class="close" id="closeMap" aria-label="Cerrar mapa">×</button></div>
  <div class="map-body"><div class="atlas-toolbar"><div class="atlas-tabs"><button id="localView" aria-pressed="false">Calles</button><button id="regionalView" aria-pressed="true">Regiones</button></div><div class="atlas-zoom"><button id="zoomIn" aria-label="Acercar mapa">+</button><button id="zoomOut" aria-label="Alejar mapa">−</button><button id="centerMap">Centrar</button></div><span id="atlasPosition" class="mono"></span></div>
@@ -289,7 +289,7 @@ var DC = globalThis.DC = globalThis.DC || {};
  ];
 })(DC);
 
-DC.BuildInfo = Object.freeze({"schema":1,"version":"0.20.7","name":"Coherencia","channel":"prototype","date":"2026-09-23","label":"v0.20.7","product":"Distrito Cero","sourceSha256":"1b90ec8dd6a48af70171a6e0a524e6837d0a81c2c6ceb6eb3ed07345ed542b4b"});
+DC.BuildInfo = Object.freeze({"schema":1,"version":"0.20.8","name":"Coherencia","channel":"prototype","date":"2026-09-23","label":"v0.20.8","product":"Distrito Cero","sourceSha256":"b4ac889eaa512bb3aa1e520d8f416c6d91b647b10aef77176a6d307a95e7ecbd"});
 
 
 'use strict';
@@ -1631,7 +1631,26 @@ DC.BuildInfo = Object.freeze({"schema":1,"version":"0.20.7","name":"Coherencia",
  const mixThumb=(a,b,t)=>({opposition:mix(a.opposition,b.opposition,t),flexion:mix(a.flexion,b.flexion,t)});
  function applyThumb(g,p){g.thumbOpposition=p.opposition.slice();g.fingers.thumb=p.flexion.slice();}
  function spring(x,v,omega,dt){const b=v+omega*x,d=Math.exp(-omega*dt);return[(x+b*dt)*d,(v-omega*b*dt)*d];}
- function beginEquip(sim){const e=sim.equipment;return e.handling={item:e.selected,serial:e.shotSerial||0,kick:0,velocity:0,ready:0,rifleAim:0,longarmAim:0,triggerWeight:0,lagYaw:0,lagPitch:0,velYaw:0,velPitch:0,lastYaw:sim.player.yaw||0,lastPitch:e.pitch||0};}
+ function beginEquip(sim,handoff=null){const e=sim.equipment;const h=e.handling={item:e.selected,serial:e.shotSerial||0,kick:0,velocity:0,ready:0,rifleAim:0,longarmAim:0,triggerWeight:0,lagYaw:0,lagPitch:0,velYaw:0,velPitch:0,lastYaw:sim.player.yaw||0,lastPitch:e.pitch||0};if(handoff)h.handoff=handoff;return h;}
+ // A short presentation-only handover reuses this mount and the existing IK.
+ // Gameplay still calls mount() without a handover (including firing origins).
+ const HANDOFF_SECONDS=.40;
+ const ease=x=>{x=clamp(x,0,1);return clamp(x*x*x*(x*(x*6-15)+10),0,1);};
+ function present(sim,actorOverride=null){
+  const e=sim.equipment,h=e.handling,swap=h?.item===e.selected?h.handoff:null;
+  // A real action takes precedence: never show the previous prop firing or
+  // use a visually interpolated muzzle to alter a gameplay trace.
+  return mount(sim,actorOverride,swap&&!e.reloading&&swap.serial===(e.shotSerial||0)?swap:null);
+ }
+ function captureSwitch(sim,next){
+  const e=sim.equipment;
+  if(e.selected===next||!profile(e.selected).dock||!profile(next).dock||e.reloading>0||!sim.equipmentAvailable())return null;
+  const m=present(sim),p=sim.player,c=Math.cos(p.yaw||0),s=Math.sin(p.yaw||0),delta=sub(m.origin,[p.x||0,p.y||0,p.z||0]);
+  return {age:0,serial:e.shotSerial||0,item:m.displayItem,origin:[delta[0]*c-delta[2]*s,delta[1],delta[0]*s+delta[2]*c],
+   yaw:D.wrap(m.yaw-(p.yaw||0)),pitch:m.pitch,roll:m.roll,aim:m.aim,kick:m.kick,reload:m.reload,
+   braceWeight:m.braceWeight,coordination:m.coordination,lookPitch:m.lookPitch,
+   contacts:structuredClone(m.localContacts),grips:structuredClone(m.grips)};
+ }
  function step(sim,dt){
   if(!Number.isFinite(dt)||dt<=0)return;
   const e=sim.equipment;if(!e)return;dt=Math.min(dt,.25);
@@ -1650,33 +1669,36 @@ DC.BuildInfo = Object.freeze({"schema":1,"version":"0.20.7","name":"Coherencia",
    [h.lagYaw,h.velYaw]=spring(h.lagYaw,h.velYaw||0,17,dt);[h.lagPitch,h.velPitch]=spring(h.lagPitch,h.velPitch||0,18,dt);
   }
   h.lastYaw=yaw;h.lastPitch=pitch;
+  if(h.handoff){h.handoff.age+=dt;if(h.handoff.age>=HANDOFF_SECONDS||e.reloading>0||h.handoff.serial!==(e.shotSerial||0))delete h.handoff;}
  }
  function actor(n,m,e){
   const a={...n,neckDrop:m.neckDrop??n.neckDrop??0,handTargets:m.hands,handGrips:m.grips,
    weaponPose:{aim:m.aim,reload:m.reload,family:m.family,kick:m.kick,brace:m.braceWeight||0},reach:.72,
-   bodyLean:m.aim*.020-m.kick*.022,lookYaw:-(m.braceWeight||0)*.235,lookPitch:-(e.pitch||0)*.50+m.aim*.025};
+   bodyLean:m.aim*.020-m.kick*.022,lookYaw:-(m.braceWeight||0)*.235,lookPitch:m.lookPitch??(-(e.pitch||0)*.50+m.aim*.025)};
   if(profile(e.selected).dock){a.weaponPose.rifle=m.coordination||0;a.lookRoll=-.30*(m.coordination||0);}
   return a;
  }
- function mount(sim,actorOverride=null){
+ function mount(sim,actorOverride=null,handover=null){
   const p=actorOverride||sim.player,e=sim.equipment,w=D.Equipment.get(e.selected)||D.Equipment.get('unarmed'),spec=profile(w.id),family=spec.family;
+  const u=handover?clamp(handover.age/HANDOFF_SECONDS,0,1):1,weight=ease(u);
+  const blend=(key,target)=>handover?lerp(handover[key],target,weight):target;
   const requestedAim=clamp(e.aimWeight||0,0,1),time=sim.time||0,speed=clamp(p.motion?.speed??p.moveSpeed??0,0,6),phase=p.motion?.phase??p.walk??0;
   const state=e.handling?.item&&e.handling.item!==w.id?null:e.handling;
-  const kick=clamp(state?.kick??(e.recoil||0)*.45,0,1.3),ready=clamp(state?.ready??1,0,1);
+  const kick=blend('kick',clamp(state?.kick??(e.recoil||0)*.45,0,1.3)),ready=clamp(state?.ready??1,0,1);
   // A sidearm cannot reach its aim pose ahead of its draw presentation. The
   // squared readiness starts gently without delaying input, firing or camera.
   const dock=spec.dock,aimKey=w.id==='rifle'?'rifleAim':'longarmAim';
   const visualAim=dock&&Number.isFinite(state?.[aimKey])?clamp(state[aimKey],0,1):requestedAim;
-  const aim=(family==='sidearm'||dock)?visualAim*ready*ready:visualAim;
+  const aim=blend('aim',(family==='sidearm'||dock)?visualAim*ready*ready:visualAim);
   const t=e.reloading>0&&w.reload?clamp(1-e.reloading/w.reload,0,1):0;
-  const reload=sm(0,.16,t)*(1-sm(.82,1,t)),contact=sm(.045,.24,t)*(1-sm(.84,1,t));
+  const reload=blend('reload',sm(0,.16,t)*(1-sm(.82,1,t))),contact=sm(.045,.24,t)*(1-sm(.84,1,t));
   const heavy=family==='heavy',optic=family==='optics',sidearm=family==='sidearm',melee=family==='melee',thrown=family==='throw',long=family==='long'||heavy;
   const rifleRelease=sm(0,.32,t)*(1-sm(.68,1,t));
-  const coordination=dock?sm(.12,.95,aim)*sm(.15,1,ready)*(1-rifleRelease):0;
+  const coordination=blend('coordination',dock?sm(.12,.95,aim)*sm(.15,1,ready)*(1-rifleRelease):0);
   // A docked prop starts in supported low guard. Fading the shoulder before
   // the hands are in reach lets the rigid-frame projection push its stock
   // into the chest. Readiness still controls inclination and aim, not support.
-  const braceWeight=long?(dock?(1-reload*.25):aim*(1-reload*.82)*ready):0;
+  const braceWeight=blend('braceWeight',long?(dock?(1-reload*.25):aim*(1-reload*.82)*ready):0);
   const gait=clamp(speed/4,0,1)*(1-aim*.90)*(1-reload),sway=Math.sin(phase)*.007*gait;
   const inertia={yaw:(state?.lagYaw||0)*(1-aim*.7),pitch:(state?.lagPitch||0)*(1-aim*.7)};
   const eye=1.670-(D.CharacterFit?.drop(sim.appearance?.neckLength)||.045);
@@ -1685,9 +1707,9 @@ DC.BuildInfo = Object.freeze({"schema":1,"version":"0.20.7","name":"Coherencia",
    optic?lerp(.22,.135,aim):sidearm?lerp(.24,.515,aim):melee||thrown?.22:lerp(.145,.235,aim)];
   pos[0]+=sway;pos[1]+=Math.sin(time*1.47)*.0014+Math.cos(phase*2)*.003*gait-(1-ready)*.06-reload*(sidearm?.11:.035);
   pos[2]-=kick*(heavy?.023:.012)+reload*(sidearm?.11:.075)+(1-ready)*.05;
-  const yaw=(p.yaw||0)+sway*.3+inertia.yaw;
-  const pitch=(optic?(e.pitch||0)*aim:melee?-.30+kick*.9:thrown?-.26+kick*1.2:lerp(-.34,e.pitch||0,aim))+kick*(heavy?.050:.035)-reload*.25-(1-ready)*(dock?.08:.18)+inertia.pitch;
-  const roll=reload*(sidearm?-.22:-.14)+Math.sin(phase+.35)*.014*gait;
+  const yaw=(p.yaw||0)+blend('yaw',sway*.3+inertia.yaw);
+  const pitch=blend('pitch',(optic?(e.pitch||0)*aim:melee?-.30+kick*.9:thrown?-.26+kick*1.2:lerp(-.34,e.pitch||0,aim))+kick*(heavy?.050:.035)-reload*.25-(1-ready)*(dock?.08:.18)+inertia.pitch);
+  const roll=blend('roll',reload*(sidearm?-.22:-.14)+Math.sin(phase+.35)*.014*gait);
   const cy=Math.cos(yaw),sy=Math.sin(yaw),cx=Math.cos(-pitch),sx=Math.sin(-pitch),cz=Math.cos(roll),sz=Math.sin(roll);
   function oriented(q,a,b){const x=q[0],y=q[1]*a-q[2]*b,z=q[1]*b+q[2]*a,xx=x*cz-y*sz,yy=x*sz+y*cz;return[xx*cy+z*sy,yy,-xx*sy+z*cy];}
   function direction(q){return oriented(q,cx,sx);}
@@ -1695,7 +1717,8 @@ DC.BuildInfo = Object.freeze({"schema":1,"version":"0.20.7","name":"Coherencia",
   let origin=[(p.x||0)+pos[0]*c+pos[2]*s,pos[1],(p.z||0)-pos[0]*s+pos[2]*c];
   // Derive the brace from the same procedural torso before its arm IK is solved.
   const neckDrop=D.CharacterFit?.drop(sim.appearance?.neckLength)||.045;
-  const poseInfo={aim,reload,kick,family,braceWeight,neckDrop,coordination},posed=D.SkinRig&&D.NaturalMotion?D.SkinRig.pose(actor(p,poseInfo,e),time):null;
+  const lookPitch=blend('lookPitch',-(e.pitch||0)*.50+aim*.025);
+  const poseInfo={aim,reload,kick,family,braceWeight,neckDrop,coordination,lookPitch},posed=D.SkinRig&&D.NaturalMotion?D.SkinRig.pose(actor(p,poseInfo,e),time):null;
   const shoulders={};
   for(const k of['L','R']){
    const bind=D.SkinRig?.bones[D.SkinRig.ids['upperArm'+k]]?.[2]||[k==='L'?-.2115:.2115,1.435,0];
@@ -1748,6 +1771,10 @@ DC.BuildInfo = Object.freeze({"schema":1,"version":"0.20.7","name":"Coherencia",
    origin=transition;
    rifleDock={target,eye,weight:coordination,reference:'jacket-triangle-8898'};
   }
+  if(handover){
+   const q=handover.origin,from=[(p.x||0)+q[0]*c+q[2]*s,(p.y||0)+q[1],(p.z||0)-q[0]*s+q[2]*c];
+   origin=mix(from,origin,weight);
+  }
   const pull=sm(.27,.46,t)*(1-sm(.62,.80,t));
   const detached=spec.reload==='magazine'&&reload>0;
   const magazine={offset:detached?[-.025*pull,-.211*pull,.025*pull]:[0,0,0],rotation:[0,0,detached?-.23*pull:0],
@@ -1763,6 +1790,10 @@ DC.BuildInfo = Object.freeze({"schema":1,"version":"0.20.7","name":"Coherencia",
    support={p:mix(support.p,surface,contact),...frame(mix(support.palm,orientation.palm,contact),mix(support.fingers,orientation.fingers,contact))};
   }
   if(support)contacts.L=support;
+  if(handover)for(const k of Object.keys(contacts)){
+   const old=handover.contacts[k],next=contacts[k];
+   if(old)contacts[k]={p:mix(old.p,next.p,weight),...frame(mix(old.palm,next.palm,weight),mix(old.fingers,next.fingers,weight))};
+  }
   const localHands={},orientations={};
   for(const [k,v]of Object.entries(contacts))if(family!=='none'){const f=frame(v.palm,v.fingers);orientations[k]=f;localHands[k]=sub(v.p,palmOffset(k,f));}
   // Project a rigid mount into both reach spheres. No limb is scaled to reach a prop.
@@ -1771,6 +1802,20 @@ DC.BuildInfo = Object.freeze({"schema":1,"version":"0.20.7","name":"Coherencia",
   if(posed&&family!=='none')for(let pass=0;pass<5;pass++)for(const k of Object.keys(localHands)){
    const hand=add(origin,direction(localHands[k])),delta=sub(hand,shoulders[k]),len=Math.hypot(...delta),limit=.547;
    if(len>limit){const d=(len-limit);const correction=delta.map(v=>-v/len*d);origin=add(origin,correction);fitDistance+=d;}
+  }
+  if(handover){
+   // The support hand releases while the dominant hand carries the prop
+   // outside the torso. Keeping BOTH grips rigid here makes their reach
+   // projection undo the clearance arc and push the stock into the body.
+   const start=origin.slice(),arc=16*u*u*(1-u)*(1-u);
+   origin=add(origin,direction([0,0,.08*arc]));
+   const wrist=add(origin,direction(localHands.R)),delta=sub(wrist,shoulders.R),length=Math.hypot(...delta);
+   if(length>.547){fitDistance+=length-.547;origin=add(origin,delta.map(v=>-v*(length-.547)/length));}
+   const actual=sub(origin,start),local=[[1,0,0],[0,1,0],[0,0,1]].map(axis=>D.dot(actual,direction(axis)));
+   // Preserve the reachable support-hand approach, independent of the arc.
+   // These are transient reach targets, not claims of grip-surface contact.
+   contacts.L={...contacts.L,p:sub(contacts.L.p,local)};
+   localHands.L=sub(localHands.L,local);
   }
   const point=(x,y,z)=>add(origin,direction([x,y,z]));
   function socket(k){const local=localHands[k],o=orientations[k];return{...vec(point(...local)),orientation:frame(direction(o.palm),direction(o.fingers)),pole:spec.elbows?.[k]||(k==='L'?[-.72,-1,-.18]:[.60,-1,-.30])};}
@@ -1820,6 +1865,18 @@ DC.BuildInfo = Object.freeze({"schema":1,"version":"0.20.7","name":"Coherencia",
     fingerContacts.L={profile:contact>.5?mag?.profile:wrap?'sidearm-wrap-L':fore?.profile,weight:1-digitTravel};
    }
   }
+  if(handover)for(const k of Object.keys(grips)){
+   const old=handover.grips[k],g=grips[k];if(!old)continue;
+   for(const name of Object.keys(g.fingers))g.fingers[name]=mix(old.fingers[name],g.fingers[name],weight);
+   g.thumbOpposition=mix(old.thumbOpposition||[0,0,0],g.thumbOpposition||[0,0,0],weight);
+   g.indexLift=lerp(old.indexLift||0,g.indexLift||0,weight);
+   if(k==='L'){
+    const release=16*u*u*(1-u)*(1-u),loose=grip(.16,'transfer');
+    for(const name of Object.keys(g.fingers))g.fingers[name]=mix(g.fingers[name],loose.fingers[name],release);
+    g.amount=lerp(g.amount,.16,release);g.style='transfer';
+    fingerContacts.L={profile:null,weight:0,mode:'free-reach'};
+   }
+  }
   function partPoint(role,q){return point(...partLocal(role,q));}
   function partTransform(role){
    if(role!=='magazine'||!magazine.rotation[2])return{origin:partPoint(role,[0,0,0]),rx:-pitch,yaw,roll};
@@ -1839,11 +1896,11 @@ DC.BuildInfo = Object.freeze({"schema":1,"version":"0.20.7","name":"Coherencia",
    brace={weight:braceWeight,target:rifleDock.target,stock:contact,error:Math.hypot(...sub(contact,rifleDock.target)),reference:rifleDock.reference,legacy:brace};
   }
   const reloadStage=!reload?'':t<.24?'Buscar agarre':t<.57?'Extraer':t<.82?'Insertar':t<.90?'Asentar':'Recuperar apoyo';
-  return{point,direction,partPoint,partTransform,yaw,pitch,roll,origin,hands,palmContacts,grips,fingerContacts,magazine,reloadContact:contact,reload,reloadStage,aim,kick,ready,family,inertia,brace,braceWeight,fitDistance,neckDrop,sighting,coordination,rifleDock,
-   phase:reload?'Recargar':optic?(aim>.5?'Observar':'Transportar'):kick>.12?(melee?'Golpear':thrown?'Lanzar':'Recuperar'):aim>.5?'Apuntar':'Guardia baja',
+  return{displayItem:handover&&u<.5?handover.item:w.id,handoff:handover?{progress:u,from:handover.item,to:w.id,freeHand:'L'}:null,lookPitch,localContacts:contacts,point,direction,partPoint,partTransform,yaw,pitch,roll,origin,hands,palmContacts,grips,fingerContacts,magazine,reloadContact:contact,reload,reloadStage,aim,kick,ready,family,inertia,brace,braceWeight,fitDistance,neckDrop,sighting,coordination,rifleDock,
+   phase:handover?'Cambiar equipo':reload?'Recargar':optic?(aim>.5?'Observar':'Transportar'):kick>.12?(melee?'Golpear':thrown?'Lanzar':'Recuperar'):aim>.5?'Apuntar':'Guardia baja',
    muzzle:point(0,.012,w.length||.3),supportLocal:support?.p.slice()||null};
  }
- D.WeaponHandling=Object.freeze({profile,step,beginEquip,mount,actor,palmLandmark,contactFitStats});
+ D.WeaponHandling=Object.freeze({profile,step,beginEquip,mount,present,captureSwitch,actor,palmLandmark,contactFitStats});
 })(DC);
 
 
@@ -1904,7 +1961,7 @@ DC.BuildInfo = Object.freeze({"schema":1,"version":"0.20.7","name":"Coherencia",
   setLightLookup(){super.setLightLookup();const base=this.dynamics.lightActive;this.dynamics.lightActive=i=>{const p=this.dynamics.byId.get(this.world.lights[i]?.id||'lamp:'+i);return base(i)&&!(p?.empUntil>this.time);};}
   equipmentAvailable(){const p=this.player;return p.car===null&&!this.access&&!p.carry&&!(p.dodge>0)&&!(this.repairProgress>0)&&!(this.policeState?.surrender>0)&&p.health>0;}
   cancelEquipment(){if(!this.equipment)return;Object.assign(this.equipment,{charge:0,trigger:false,blockedTrigger:true,aiming:false,aimWeight:0});}
-  equipWeapon(id){if(!E.get(id))return false;const e=this.equipment;if(e.selected===id)return true;this.cancelEquipment();Object.assign(e,{selected:id,reloading:0,reloadId:null,recoil:0,cooldown:e.cooldown});D.WeaponHandling.beginEquip(this);this.emit('sound','equip');return true;}
+  equipWeapon(id){if(!E.get(id))return false;const e=this.equipment;if(e.selected===id)return true;const handoff=D.WeaponHandling.captureSwitch(this,id);this.cancelEquipment();Object.assign(e,{selected:id,reloading:0,reloadId:null,recoil:0,cooldown:e.cooldown});D.WeaponHandling.beginEquip(this,handoff);this.emit('sound','equip');return true;}
   cycleOptics(delta){this.equipment.zoom=clamp(this.equipment.zoom+Math.sign(delta),0,3);return E.zoom[this.equipment.zoom];}
   reloadWeapon(){const e=this.equipment,w=E.get(e.selected),ammo=e.ammo[w.id];if(!this.equipmentAvailable()||!w.mag||!ammo||e.reloading>0||ammo.loaded>=w.mag||ammo.reserve<=0)return false;e.charge=0;e.reloading=w.reload;e.reloadId=w.id;e.blockedTrigger=true;this.emit('sound','reload');return true;}
   addWeaponEffect(f){if(this.weaponEffects.length>=96)this.weaponEffects.shift();this.weaponEffects.push(f);}
@@ -3875,12 +3932,12 @@ DC.HeroAsset={"version":2,"stride":24,"positionScale":10000,"bones":["pelvis","s
   }
   freezeHandling(sim){
    if(sim.equipmentAvailable?.()&&sim.equipment.selected!=='unarmed'){
-    const tracked=this.motionTracker?.update('player',sim.player,sim.time,false)||sim.player;const m=E.mount(sim,tracked);this.frozenHandling={mount:m,equipment:{...sim.equipment},actor:D.WeaponHandling.actor(tracked,m,sim.equipment)};
+    const tracked=this.motionTracker?.update('player',sim.player,sim.time,false)||sim.player;const m=D.WeaponHandling.present(sim,tracked);this.frozenHandling={mount:m,equipment:{...sim.equipment},actor:D.WeaponHandling.actor(tracked,m,sim.equipment)};
    }else this.frozenHandling=null;
   }
   renderPerson(n,isPlayer=false){
    if(!this.previewStudio&&isPlayer&&(this.frozenHandling||this.currentSim.equipmentAvailable?.()&&this.currentSim.equipment.selected!=='unarmed')){
-    const frozen=this.frozenHandling,e=frozen?.equipment||this.currentSim.equipment,w=E.get(e.selected),tracked=frozen?.actor||this.motionTracker?.update('player',n,this.currentTime||0,false)||n,m=frozen?.mount||E.mount(this.currentSim,tracked);
+    const frozen=this.frozenHandling,e=frozen?.equipment||this.currentSim.equipment,w=E.get(e.selected),tracked=frozen?.actor||this.motionTracker?.update('player',n,this.currentTime||0,false)||n,m=frozen?.mount||D.WeaponHandling.present(this.currentSim,tracked);
     if(!(w.kind==='optics'&&this.equipmentView&&e.aiming)){
      super.renderPerson(frozen?.actor||D.WeaponHandling.actor(tracked,m,e),true);
      this.drawEquipment(this.currentSim,m,e);
@@ -3891,14 +3948,14 @@ DC.HeroAsset={"version":2,"stride":24,"positionScale":10000,"bones":["pelvis","s
    if(!isPlayer&&n.combatHitUntil>this.currentTime){super.renderPerson({...n,stagger:.8,bodyLean:-.10},false);return;}
    super.renderPerson(n,isPlayer);
   }
-  drawEquipment(sim,m=E.mount(sim),e=sim.equipment){
-   const w=E.get(e.selected),parts=this.equipmentMeshes.get(w.id)||[];
+  drawEquipment(sim,m=D.WeaponHandling.present(sim),e=sim.equipment){
+   const w=E.get(m.displayItem||e.selected),parts=this.equipmentMeshes.get(w.id)||[];
    for(const p of parts){
     const emission=p.material===0?(w.kind==='gauss'?.2+e.charge*3.5:w.kind==='emp'?1.1:.1):0;
     const transform=m.partTransform(p.role);
     this.add(this.dynamic,p.key,...transform.origin,1,1,1,p.color,p.material,emission,transform.yaw,0,0,transform.rx,transform.roll);
    }
-   this.equipmentStats={selected:w.id,parts:parts.length,triangles:parts.reduce((v,p)=>v+p.count,0),hands:m.hands,phase:m.phase,reloadStage:m.reloadStage,magazine:m.magazine,palms:m.palmContacts,brace:m.brace,fitDistance:m.fitDistance,inertia:m.inertia,grips:m.grips,contacts:this.motionDebug?.contacts||null};
+   this.equipmentStats={selected:w.id,logicalSelected:e.selected,handoff:m.handoff,parts:parts.length,triangles:parts.reduce((v,p)=>v+p.count,0),hands:m.hands,phase:m.phase,reloadStage:m.reloadStage,magazine:m.magazine,palms:m.palmContacts,brace:m.brace,fitDistance:m.fitDistance,inertia:m.inertia,grips:m.grips,contacts:this.motionDebug?.contacts||null};
    if(e.recoil>.55&&['hitscan','rocket','gauss'].includes(w.kind)){const size=w.kind==='gauss'?.09:.055;this.add(this.dynamic,'sphere',...m.muzzle,size,size,size,w.kind==='gauss'?[.25,.75,1]:[1,.63,.23],0,2.0);}
   }
   segment(a,b,width,color,emission=0){const v=b.map((n,i)=>n-a[i]),len=Math.hypot(...v);if(len<.001)return;this.add(this.dynamic,'body',...(a.map((v,i)=>(v+b[i])*.5)),width,width,len,color,0,emission,Math.atan2(v[0],v[2]),0,0,-Math.asin(D.clamp(v[1]/len,-1,1)),0);}
@@ -4565,7 +4622,7 @@ DC.HeroAsset={"version":2,"stride":24,"positionScale":10000,"bones":["pelvis","s
   updateEquipmentHUD(now){if(!$('equipmentHUD'))return;const s=this.sim,e=s.equipment,w=E.get(e.selected),play=this.mode==='play',ready=play&&s.equipmentAvailable(),armed=ready&&w.kind!=='none',optic=armed&&w.kind==='optics'&&e.aiming;
    $('equipmentHUD').hidden=!play;$('weaponReticle').hidden=!armed||optic;$('opticsOverlay').hidden=!optic;$('touchWeaponRow').hidden=!armed;document.body.classList.toggle('equipped',armed);document.body.classList.toggle('optic-view',optic);
    if(!play)return;
-   $('weaponName').textContent=w.name;$('weaponMode').textContent=!ready?'GUARDADO · TERMINA LA INTERACCIÓN':w.kind==='none'?'TAB · EQUIPAMIENTO':e.reloading>0?'RECARGANDO':w.kind==='gauss'?'MANTÉN Y SUELTA':w.kind==='emp'?'PULSO ELECTRÓNICO':w.kind==='optics'?'Z / APUNTAR · OBSERVAR':w.automatic?'AUTOMÁTICO':'PULSACIÓN INDIVIDUAL';
+   $('weaponName').textContent=w.name;$('weaponMode').textContent=!ready?'GUARDADO · TERMINA LA INTERACCIÓN':w.kind==='none'?'TAB · EQUIPAMIENTO':e.handling?.handoff?.serial===(e.shotSerial||0)&&!e.reloading?'CAMBIANDO EQUIPO':e.reloading>0?'RECARGANDO':w.kind==='gauss'?'MANTÉN Y SUELTA':w.kind==='emp'?'PULSO ELECTRÓNICO':w.kind==='optics'?'Z / APUNTAR · OBSERVAR':w.automatic?'AUTOMÁTICO':'PULSACIÓN INDIVIDUAL';
    const a=e.ammo[w.id];$('weaponAmmo').textContent=a?String(a.loaded).padStart(2,'0')+' / '+a.reserve:w.kind==='optics'?E.zoom[e.zoom]+'×':'—';$('weaponReload').hidden=!a||!ready;$('weaponReload').disabled=!a||e.reloading>0||a.loaded>=w.mag||!a.reserve;$('weaponAim').hidden=!armed;$('weaponAim').setAttribute('aria-pressed',String(e.aiming));
    $('weaponGauge').hidden=!(e.charge>0||e.reloading>0);$('weaponGaugeFill').style.width=100*(e.charge>0?e.charge:1-e.reloading/(w.reload||1))+'%';$('weaponReticle').dataset.kind=w.kind;$('weaponReticle').classList.toggle('confirmed',e.lastHitAge!==undefined&&e.lastHitAge<.18);$('chargeText').textContent=e.charge>0?Math.round(e.charge*100)+'%':'';
    $('touchFire').textContent=w.kind==='gauss'?'CARGAR':w.kind==='emp'?'PULSO':w.kind==='optics'?'MARCAR':w.kind==='melee'?'GOLPE':'FUEGO';$('touchAim').textContent=w.kind==='optics'?'OBSERVAR':'APUNTAR';

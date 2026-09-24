@@ -114,7 +114,7 @@ jobs:
           if [ "$FULL_BROWSER" = true ]; then
             xvfb-run -a python3 -m tools.qa.run --suite all --headed --output artifacts/ci-fixture
           else
-            xvfb-run -a python3 -m tools.qa.run --suite longarms --suite sight --suite thenar --suite sidearms --suite thumbs --suite fingers --suite handling --suite optical --suite recovery --headed --output artifacts/ci-fixture
+            xvfb-run -a python3 -m tools.qa.run --suite handoff --suite longarms --suite sight --suite thenar --suite sidearms --suite thumbs --suite fingers --suite handling --suite optical --suite recovery --headed --output artifacts/ci-fixture
           fi
       - name: Upload fresh evidence
         if: always()
