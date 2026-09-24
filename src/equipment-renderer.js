@@ -8,12 +8,12 @@
   }
   freezeHandling(sim){
    if(sim.equipmentAvailable?.()&&sim.equipment.selected!=='unarmed'){
-    const tracked=this.motionTracker?.update('player',sim.player,sim.time,false)||sim.player;const m=E.mount(sim,tracked);this.frozenHandling={mount:m,equipment:{...sim.equipment},actor:D.WeaponHandling.actor(tracked,m,sim.equipment)};
+    const tracked=this.motionTracker?.update('player',sim.player,sim.time,false)||sim.player;const m=D.WeaponHandling.present(sim,tracked);this.frozenHandling={mount:m,equipment:{...sim.equipment},actor:D.WeaponHandling.actor(tracked,m,sim.equipment)};
    }else this.frozenHandling=null;
   }
   renderPerson(n,isPlayer=false){
    if(!this.previewStudio&&isPlayer&&(this.frozenHandling||this.currentSim.equipmentAvailable?.()&&this.currentSim.equipment.selected!=='unarmed')){
-    const frozen=this.frozenHandling,e=frozen?.equipment||this.currentSim.equipment,w=E.get(e.selected),tracked=frozen?.actor||this.motionTracker?.update('player',n,this.currentTime||0,false)||n,m=frozen?.mount||E.mount(this.currentSim,tracked);
+    const frozen=this.frozenHandling,e=frozen?.equipment||this.currentSim.equipment,w=E.get(e.selected),tracked=frozen?.actor||this.motionTracker?.update('player',n,this.currentTime||0,false)||n,m=frozen?.mount||D.WeaponHandling.present(this.currentSim,tracked);
     if(!(w.kind==='optics'&&this.equipmentView&&e.aiming)){
      super.renderPerson(frozen?.actor||D.WeaponHandling.actor(tracked,m,e),true);
      this.drawEquipment(this.currentSim,m,e);
@@ -24,14 +24,14 @@
    if(!isPlayer&&n.combatHitUntil>this.currentTime){super.renderPerson({...n,stagger:.8,bodyLean:-.10},false);return;}
    super.renderPerson(n,isPlayer);
   }
-  drawEquipment(sim,m=E.mount(sim),e=sim.equipment){
-   const w=E.get(e.selected),parts=this.equipmentMeshes.get(w.id)||[];
+  drawEquipment(sim,m=D.WeaponHandling.present(sim),e=sim.equipment){
+   const w=E.get(m.displayItem||e.selected),parts=this.equipmentMeshes.get(w.id)||[];
    for(const p of parts){
     const emission=p.material===0?(w.kind==='gauss'?.2+e.charge*3.5:w.kind==='emp'?1.1:.1):0;
     const transform=m.partTransform(p.role);
     this.add(this.dynamic,p.key,...transform.origin,1,1,1,p.color,p.material,emission,transform.yaw,0,0,transform.rx,transform.roll);
    }
-   this.equipmentStats={selected:w.id,parts:parts.length,triangles:parts.reduce((v,p)=>v+p.count,0),hands:m.hands,phase:m.phase,reloadStage:m.reloadStage,magazine:m.magazine,palms:m.palmContacts,brace:m.brace,fitDistance:m.fitDistance,inertia:m.inertia,grips:m.grips,contacts:this.motionDebug?.contacts||null};
+   this.equipmentStats={selected:w.id,logicalSelected:e.selected,handoff:m.handoff,parts:parts.length,triangles:parts.reduce((v,p)=>v+p.count,0),hands:m.hands,phase:m.phase,reloadStage:m.reloadStage,magazine:m.magazine,palms:m.palmContacts,brace:m.brace,fitDistance:m.fitDistance,inertia:m.inertia,grips:m.grips,contacts:this.motionDebug?.contacts||null};
    if(e.recoil>.55&&['hitscan','rocket','gauss'].includes(w.kind)){const size=w.kind==='gauss'?.09:.055;this.add(this.dynamic,'sphere',...m.muzzle,size,size,size,w.kind==='gauss'?[.25,.75,1]:[1,.63,.23],0,2.0);}
   }
   segment(a,b,width,color,emission=0){const v=b.map((n,i)=>n-a[i]),len=Math.hypot(...v);if(len<.001)return;this.add(this.dynamic,'body',...(a.map((v,i)=>(v+b[i])*.5)),width,width,len,color,0,emission,Math.atan2(v[0],v[2]),0,0,-Math.asin(D.clamp(v[1]/len,-1,1)),0);}
