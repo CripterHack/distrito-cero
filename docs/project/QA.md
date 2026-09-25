@@ -128,3 +128,14 @@ registran el inicio y 60 pasos, con nueve PNG por caso. Se comprueban palmas,
 convergencia, selección y munición. [Contrato y límites](SIDEARM-HANDOFF.md).
 El conteo esperado no equivale a ejecución aprobada: consultar el PR y sus
 manifiestos propios. Las suites HTTP y los demás shards no se sustituyen.
+
+## Salida de recarga de armas cortas · candidata 0.20.12
+
+[SIDEARM-RELOAD-HANDOFF](SIDEARM-RELOAD-HANDOFF.md) conserva el contrato. Sight
+pasa de 32 a 40 checks con dos cambios desde recarga, sin retirar los anteriores.
+`reloadSwitchCases` incluye pieza, multiplicidad de modelo, targets y munición.
+CI usa shards handoff/sight/graphics sin duplicados, fail-fast desactivado y
+artefactos distintos. Presupuestos por suite: 1200/1800/900 s; cada job conserva
+40 minutos. HTTP y permisos de lectura permanecen iguales. Los contratos
+`ci_workflow.test.py` ejecutan la selección Bash normal/completa. Estas cifras
+describen requisitos, no aprobación anticipada del nuevo HEAD.
