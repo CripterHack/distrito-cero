@@ -140,7 +140,7 @@
  function beginEquip(sim,handoff=null){const e=sim.equipment;const h=e.handling={item:e.selected,serial:e.shotSerial||0,kick:0,velocity:0,ready:0,rifleAim:0,longarmAim:0,triggerWeight:0,lagYaw:0,lagPitch:0,velYaw:0,velPitch:0,lastYaw:sim.player.yaw||0,lastPitch:e.pitch||0};if(handoff)h.handoff=handoff;return h;}
  // A short presentation-only handover reuses this mount and the existing IK.
  // Gameplay still calls mount() without a handover (including firing origins).
- const HANDOFF_SECONDS=.40,RELOAD_HANDOFF_SECONDS=.60;
+ const HANDOFF_SECONDS=.40,RELOAD_HANDOFF_SECONDS=.60,SIDEARM_HANDOFF_SECONDS=.90;
  const ease=x=>{x=clamp(x,0,1);return clamp(x*x*x*(x*(x*6-15)+10),0,1);};
  function present(sim,actorOverride=null){
   const e=sim.equipment,h=e.handling,swap=h?.item===e.selected?h.handoff:null;
@@ -148,12 +148,15 @@
   // use a visually interpolated muzzle to alter a gameplay trace.
   return mount(sim,actorOverride,swap&&!e.reloading&&swap.serial===(e.shotSerial||0)?swap:null);
  }
- function captureSwitch(sim,next,actorOverride=null){
-  const e=sim.equipment;
-  if(e.selected===next||!profile(e.selected).dock||!profile(next).dock||!sim.equipmentAvailable())return null;
-  // Only presentation consumes the tracked actor. Logical mount/firing stays independent.
-  const m=present(sim,actorOverride),p=sim.player,c=Math.cos(p.yaw||0),s=Math.sin(p.yaw||0),delta=sub(m.origin,[p.x||0,p.y||0,p.z||0]);
-  return {age:0,duration:e.reloading>0?RELOAD_HANDOFF_SECONDS:(e.handling?.handoff?.duration||HANDOFF_SECONDS),serial:e.shotSerial||0,item:m.displayItem,origin:[delta[0]*c-delta[2]*s,delta[1],delta[0]*s+delta[2]*c],
+ function captureSwitch(sim,next,actorOverride=null,shown=null){
+  const e=sim.equipment,from=profile(e.selected),to=profile(next);
+  const sidearms=from.family==='sidearm'&&to.family==='sidearm'&&!e.reloading;
+  if(e.selected===next||!(from.dock&&to.dock||sidearms)||!sim.equipmentAvailable())return null;
+  // The UI may supply the visible mount before clearing aim or from its frozen
+  // selector. Copy only pose data below; never retain closures or game state.
+  // Other callers keep the original tracked/logical capture path.
+  const m=shown||present(sim,actorOverride),p=sim.player,c=Math.cos(p.yaw||0),s=Math.sin(p.yaw||0),delta=sub(m.origin,[p.x||0,p.y||0,p.z||0]);
+  return {age:0,duration:e.reloading>0?RELOAD_HANDOFF_SECONDS:sidearms?SIDEARM_HANDOFF_SECONDS:(e.handling?.handoff?.duration||HANDOFF_SECONDS),serial:e.shotSerial||0,item:m.displayItem,origin:[delta[0]*c-delta[2]*s,delta[1],delta[0]*s+delta[2]*c],
    yaw:D.wrap(m.yaw-(p.yaw||0)),pitch:m.pitch,roll:m.roll,aim:m.aim,kick:m.kick,reload:m.reload,
    braceWeight:m.braceWeight,coordination:m.coordination,lookPitch:m.lookPitch,
    contacts:structuredClone(m.localContacts),grips:structuredClone(m.grips),magazine:structuredClone(m.magazine)};
