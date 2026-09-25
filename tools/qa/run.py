@@ -27,7 +27,7 @@ class Suite:
 SUITES={
  'handoff': Suite('handoff',('tests/equipment_handoff_browser.py',),'qa/v020/equipment-handoff.json',28),
  'longarms': Suite('longarms',('tests/longarm_contact_browser.py',),'qa/v020/longarm-contact.json',28),
- 'sight': Suite('sight',('tests/sidearm_sight_browser.py',),'qa/v020/sidearm-sight.json',32),
+ 'sight': Suite('sight',('tests/sidearm_sight_browser.py',),'qa/v020/sidearm-sight.json',40),
  'release': Suite('release',('tests/release_browser.py',),'qa/v020/release.json',14,'http'),
  'thenar': Suite('thenar',('tests/thenar_surface_browser.py',),'qa/v019/thenar.json',15),
  'sidearms': Suite('sidearms',('tests/sidearm_support_browser.py',),'qa/v019/sidearm-support.json',20),

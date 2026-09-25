@@ -150,13 +150,13 @@
  }
  function captureSwitch(sim,next,actorOverride=null,shown=null){
   const e=sim.equipment,from=profile(e.selected),to=profile(next);
-  const sidearms=from.family==='sidearm'&&to.family==='sidearm'&&!e.reloading;
+  const sidearms=from.family==='sidearm'&&to.family==='sidearm';
   if(e.selected===next||!(from.dock&&to.dock||sidearms)||!sim.equipmentAvailable())return null;
   // The UI may supply the visible mount before clearing aim or from its frozen
   // selector. Copy only pose data below; never retain closures or game state.
   // Other callers keep the original tracked/logical capture path.
   const m=shown||present(sim,actorOverride),p=sim.player,c=Math.cos(p.yaw||0),s=Math.sin(p.yaw||0),delta=sub(m.origin,[p.x||0,p.y||0,p.z||0]);
-  return {age:0,duration:e.reloading>0?RELOAD_HANDOFF_SECONDS:sidearms?SIDEARM_HANDOFF_SECONDS:(e.handling?.handoff?.duration||HANDOFF_SECONDS),serial:e.shotSerial||0,item:m.displayItem,origin:[delta[0]*c-delta[2]*s,delta[1],delta[0]*s+delta[2]*c],
+  return {age:0,duration:sidearms?SIDEARM_HANDOFF_SECONDS:e.reloading>0?RELOAD_HANDOFF_SECONDS:(e.handling?.handoff?.duration||HANDOFF_SECONDS),serial:e.shotSerial||0,item:m.displayItem,origin:[delta[0]*c-delta[2]*s,delta[1],delta[0]*s+delta[2]*c],
    yaw:D.wrap(m.yaw-(p.yaw||0)),pitch:m.pitch,roll:m.roll,aim:m.aim,kick:m.kick,reload:m.reload,
    braceWeight:m.braceWeight,coordination:m.coordination,lookPitch:m.lookPitch,
    contacts:structuredClone(m.localContacts),grips:structuredClone(m.grips),magazine:structuredClone(m.magazine)};

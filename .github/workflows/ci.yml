@@ -97,7 +97,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        group: [handoff, graphics]
+        group: [handoff, sight, graphics]
     runs-on: ubuntu-24.04
     timeout-minutes: 40
     steps:
@@ -115,18 +115,20 @@ jobs:
         env:
           FULL_BROWSER: ${{ inputs.full_browser == true && 'true' || 'false' }}
           GROUP: ${{ matrix.group }}
-          SUITE_TIMEOUT: ${{ matrix.group == 'handoff' && '1200' || '900' }}
+          SUITE_TIMEOUT: ${{ matrix.group == 'sight' && '1800' || matrix.group == 'handoff' && '1200' || '900' }}
         run: |
           if [ "$GROUP" = handoff ]; then
             suites=(--suite handoff)
+          elif [ "$GROUP" = sight ]; then
+            suites=(--suite sight)
           elif [ "$FULL_BROWSER" = true ]; then
             # Select every other fixture from the registry without duplicating
-            # handoff or accidentally mixing native HTTP persistence into it.
-            names=$(python3 -c "from tools.qa.run import SUITES; print(' '.join(k for k,v in SUITES.items() if v.origin=='fixture' and k!='handoff'))")
+            # handoff/sight or accidentally mixing native HTTP persistence into it.
+            names=$(python3 -c "from tools.qa.run import SUITES; print(' '.join(k for k,v in SUITES.items() if v.origin=='fixture' and k not in ('handoff','sight')))")
             suites=()
             for name in $names; do suites+=(--suite "$name"); done
           else
-            suites=(--suite longarms --suite sight --suite thenar --suite sidearms --suite thumbs --suite fingers --suite handling --suite optical --suite recovery)
+            suites=(--suite longarms --suite thenar --suite sidearms --suite thumbs --suite fingers --suite handling --suite optical --suite recovery)
           fi
           xvfb-run -a python3 -m tools.qa.run "${suites[@]}" --headed --timeout "$SUITE_TIMEOUT" --output artifacts/ci-fixture
       - name: Upload fresh evidence
