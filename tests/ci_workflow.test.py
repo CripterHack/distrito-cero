@@ -86,7 +86,7 @@ class WorkflowTests(unittest.TestCase):
         self.assertNotIn('always()', '\n'.join(self.gates))
         self.assertIn('!cancelled()', node)
 
-    def test_graphics_and_handoff_shards_preserve_all_suites_without_overlap(self):
+    def test_graphics_handoff_and_sight_shards_preserve_all_suites_without_overlap(self):
         sys.path.insert(0,str(ROOT))
         from tools.qa.run import SUITES
         block=self.source.split('      - name: Run portable QA\n',1)[1].split('      - name: Upload fresh evidence',1)[0]
@@ -100,16 +100,18 @@ class WorkflowTests(unittest.TestCase):
             names=[output[i+1] for i,x in enumerate(output[:-1]) if x=='--suite']
             return [k for k,v in SUITES.items() if v.origin=='fixture'] if 'all' in names else names
         for full in (False,True):
-            handoff=selected('handoff',full);graphics=selected('graphics',full)
+            handoff=selected('handoff',full);sight=selected('sight',full);graphics=selected('graphics',full)
             self.assertEqual(handoff,['handoff'])
+            self.assertEqual(sight,['sight'])
+            self.assertEqual(len(handoff+sight+graphics),len(set(handoff+sight+graphics)),'every fixture runs once')
             self.assertFalse(set(handoff)&set(graphics),'do not run the long handoff twice')
             expected={k for k,v in SUITES.items() if v.origin=='fixture'} if full else {'handoff','longarms','sight','thenar','sidearms','thumbs','fingers','handling','optical','recovery'}
-            self.assertEqual(set(handoff+graphics),expected)
+            self.assertEqual(set(handoff+sight+graphics),expected)
 
     def test_browser_shards_fail_independently_and_keep_their_own_evidence(self):
         browser=self.source.split('\n  browser:\n',1)[1].split('\n  native:\n',1)[0]
         self.assertIn('fail-fast: false',browser)
-        self.assertIn('group: [handoff, graphics]',browser)
+        self.assertIn('group: [handoff, sight, graphics]',browser)
         self.assertIn('webgl-${{ matrix.group }}-',browser)
         self.assertNotIn('continue-on-error',browser)
         self.assertIn('timeout-minutes: 40',browser)
@@ -118,7 +120,8 @@ class WorkflowTests(unittest.TestCase):
         self.assertIn('permissions:\n  contents: read\n', self.source)
         self.assertNotIn('contents: write', self.source)
         self.assertIn('--suite reload --origin http --headed --timeout 1800', self.source)
-        self.assertIn('--suite longarms --suite sight --suite thenar', self.source)
+        self.assertIn('suites=(--suite sight)', self.source)
+        self.assertIn('--suite longarms --suite thenar', self.source)
 
 
 if __name__ == '__main__':

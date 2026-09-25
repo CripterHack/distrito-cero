@@ -64,9 +64,10 @@ test('sidearm handoff cannot delay a shot or reload and never creates ammunition
   const v=read(s);assert.equal(v.mount.displayItem,'revolver');assert.equal(v.mount.handoff,null);assert.deepEqual(v.mount.origin,D.Equipment.mount(s).origin);
  }
 });
-test('sidearm extension leaves reload exits, other families and unavailable paths explicit',()=>{
+test('sidearm extension leaves other families and unavailable paths explicit',()=>{
  for(const target of ['rifle','binoculars','gauss','unarmed']){const s=setup('pistol');s.equipWeapon(target);assert.equal(s.equipment.handling.handoff,undefined);}
- const s=setup('pistol');s.equipment.ammo.pistol.loaded--;s.reloadWeapon();s.equipWeapon('revolver');assert.equal(s.equipment.handling.handoff,undefined,'magazine/cylinder exchange is a separate contract');
+ // Active pistol/revolver reload exits now have their own complete contract
+ // in sidearm-reload-handoff.test.cjs; other families stay immediate.
  const hidden=setup('pistol');hidden.player.car='occupied';hidden.equipWeapon('revolver');assert.equal(hidden.equipment.handling.handoff,undefined);
 });
 test('sidearm selection preserves the tracked actor and its support memory while moving',()=>{
