@@ -97,7 +97,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        group: [handoff, sight, graphics]
+        group: [handoff, sight-base, sight-cross-family, graphics]
     runs-on: ubuntu-24.04
     timeout-minutes: 40
     steps:
@@ -115,16 +115,16 @@ jobs:
         env:
           FULL_BROWSER: ${{ inputs.full_browser == true && 'true' || 'false' }}
           GROUP: ${{ matrix.group }}
-          SUITE_TIMEOUT: ${{ matrix.group == 'sight' && '1800' || matrix.group == 'handoff' && '1200' || '900' }}
+          SUITE_TIMEOUT: ${{ startsWith(matrix.group, 'sight-') && '1800' || matrix.group == 'handoff' && '1200' || '900' }}
         run: |
           if [ "$GROUP" = handoff ]; then
             suites=(--suite handoff)
-          elif [ "$GROUP" = sight ]; then
-            suites=(--suite sight)
+          elif [[ "$GROUP" = sight-* ]]; then
+            suites=(--suite "$GROUP")
           elif [ "$FULL_BROWSER" = true ]; then
             # Select every other fixture from the registry without duplicating
-            # handoff/sight or accidentally mixing native HTTP persistence into it.
-            names=$(python3 -c "from tools.qa.run import SUITES; print(' '.join(k for k,v in SUITES.items() if v.origin=='fixture' and k not in ('handoff','sight')))")
+            # handoff/sight partitions or mixing native HTTP persistence into it.
+            names=$(python3 -c "from tools.qa.run import SUITES; print(' '.join(k for k,v in SUITES.items() if v.origin=='fixture' and k not in ('handoff','sight-base','sight-cross-family')))")
             suites=()
             for name in $names; do suites+=(--suite "$name"); done
           else

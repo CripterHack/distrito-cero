@@ -1,5 +1,60 @@
 # QA reproducible desde el repositorio
 
+## Guardas compartidas de las particiones
+
+Ambas particiones comprueban carga de mapas, selector, cierre de inputs,
+catálogo guardado y ausencia de errores/requests después de su propia última
+secuencia. Base cuenta esos cinco checks una vez. Cruces los conserva como
+cinco `guards` obligatorios, con fallo bloqueante, no como cinco tests nuevos.
+Así se mantiene la comprobación final con rifle del productor completo.
+
+## Sight vigente: 58 checks, dos particiones sin solapamiento
+
+PR #49 está integrado en `0fa83b9e024819821e135a9de540a3f897bc9c78`, producto
+0.20.13. Su Verify previo aprobó, pero el push `36304175245` agotó el productor
+sight a 1800.008 s (exit 124): 44 mensajes PASS no equivalen a los 58 checks
+completados. El artefacto fallido `10926778997` se conserva en ese run.
+
+La corrección de QA reparte el mismo productor y sus mismos ocho intercambios:
+
+| Selección | Checks | Contenido |
+| :--- | ---: | :--- |
+| `sight-base` | 40 | Apuntado/preparación/recarga, cuatro intercambios pistola/revólver y UI/integridad |
+| `sight-cross-family` | 18 | Los cuatro intercambios rifle/pistola, libres y desde recarga |
+| `sight` | 58 | Alias que ejecuta ambas particiones una vez, en orden |
+
+`--suite all --origin fixture` incluye las 16 suites concretas sin repetir el
+alias. Las peticiones explícitas solapadas se deduplican. HTTP permanece
+separado y rechaza las particiones de sight. Invocar directamente
+`python3 tests/sidearm_sight_browser.py` sin `--partition` mantiene el productor
+completo histórico de 58 checks; para CI se usan `base` y `cross-family`.
+
+```sh
+xvfb-run -a python3 -m tools.qa.run --suite sight --headed --timeout 1800
+python3 tests/qa_selection.test.py
+python3 tests/ci_workflow.test.py
+```
+
+Cada partición conserva 61 estados por intercambio, fotograma cero,
+resolución 820 × 680, renderer, espera gráfica, capturas, inputs reales y
+umbrales previos. La carga de mapas, ausencia de errores/peticiones y catálogo
+intacto se exigen en ambas; los checks compartidos se cuentan sólo en base.
+Los informes y directorios tienen sufijos propios, nunca se sobrescriben.
+Una selección inválida falla antes de cargar Playwright o crear artefactos.
+
+CI ejecuta las dos particiones en runners distintos. El límite sigue siendo
+1800 s por partición y 40 minutos por job, sin `continue-on-error` ni reintentos.
+Esto redistribuye trabajo, **no reduce el coste total de renderizado ni prueba
+FPS del juego**. El máximo agregado de tiempo de runners permitido es mayor
+al existir dos jobs. La ejecución serial del alias puede durar más de 1800 s:
+`--timeout` sigue siendo por productor. No se oculta este cambio presupuestario.
+
+La aceptación de esta candidata exige ambas particiones aprobadas en el HEAD
+exacto, unión de los mismos 58 nombres de checks y conservación de las capturas
+y estados. Los datos del PR y del push se registran por separado en su cierre.
+No reutilizar la CI de #49 como resultado de este cambio.
+
+
 ## Runner vigente (DC-001 / issue #2)
 
 ```sh

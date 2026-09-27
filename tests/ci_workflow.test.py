@@ -100,18 +100,20 @@ class WorkflowTests(unittest.TestCase):
             names=[output[i+1] for i,x in enumerate(output[:-1]) if x=='--suite']
             return [k for k,v in SUITES.items() if v.origin=='fixture'] if 'all' in names else names
         for full in (False,True):
-            handoff=selected('handoff',full);sight=selected('sight',full);graphics=selected('graphics',full)
-            self.assertEqual(handoff,['handoff'])
-            self.assertEqual(sight,['sight'])
-            self.assertEqual(len(handoff+sight+graphics),len(set(handoff+sight+graphics)),'every fixture runs once')
-            self.assertFalse(set(handoff)&set(graphics),'do not run the long handoff twice')
-            expected={k for k,v in SUITES.items() if v.origin=='fixture'} if full else {'handoff','longarms','sight','thenar','sidearms','thumbs','fingers','handling','optical','recovery'}
-            self.assertEqual(set(handoff+sight+graphics),expected)
+            groups=['handoff','sight-base','sight-cross-family','graphics']
+            results={g:selected(g,full) for g in groups}
+            self.assertEqual(results['handoff'],['handoff'])
+            self.assertEqual(results['sight-base'],['sight-base'])
+            self.assertEqual(results['sight-cross-family'],['sight-cross-family'])
+            names=[name for g in groups for name in results[g]]
+            self.assertEqual(len(names),len(set(names)),'every fixture runs once')
+            expected={k for k,v in SUITES.items() if v.origin=='fixture'} if full else {'handoff','longarms','sight-base','sight-cross-family','thenar','sidearms','thumbs','fingers','handling','optical','recovery'}
+            self.assertEqual(set(names),expected)
 
     def test_browser_shards_fail_independently_and_keep_their_own_evidence(self):
         browser=self.source.split('\n  browser:\n',1)[1].split('\n  native:\n',1)[0]
         self.assertIn('fail-fast: false',browser)
-        self.assertIn('group: [handoff, sight, graphics]',browser)
+        self.assertIn('group: [handoff, sight-base, sight-cross-family, graphics]',browser)
         self.assertIn('webgl-${{ matrix.group }}-',browser)
         self.assertNotIn('continue-on-error',browser)
         self.assertIn('timeout-minutes: 40',browser)
@@ -120,8 +122,15 @@ class WorkflowTests(unittest.TestCase):
         self.assertIn('permissions:\n  contents: read\n', self.source)
         self.assertNotIn('contents: write', self.source)
         self.assertIn('--suite reload --origin http --headed --timeout 1800', self.source)
-        self.assertIn('suites=(--suite sight)', self.source)
+        self.assertIn('suites=(--suite "$GROUP")', self.source)
         self.assertIn('--suite longarms --suite thenar', self.source)
+
+    def test_sight_partition_timeouts_and_renderers_are_not_relaxed(self):
+        self.assertIn("startsWith(matrix.group, 'sight-') && '1800'",self.source)
+        self.assertNotIn("'3600'",self.source)
+        block=self.source.split('      - name: Run portable QA\n',1)[1].split('      - name: Upload fresh evidence',1)[0]
+        self.assertIn('--headed --timeout "$SUITE_TIMEOUT"',script(block))
+        self.assertNotIn('--browser',script(block))
 
 
 if __name__ == '__main__':
