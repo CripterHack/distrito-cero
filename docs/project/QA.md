@@ -139,3 +139,16 @@ artefactos distintos. Presupuestos por suite: 1200/1800/900 s; cada job conserva
 40 minutos. HTTP y permisos de lectura permanecen iguales. Los contratos
 `ci_workflow.test.py` ejecutan la selección Bash normal/completa. Estas cifras
 describen requisitos, no aprobación anticipada del nuevo HEAD.
+
+## v0.20.13: primer cruce rifle ↔ pistola
+
+[Contrato y evidencia dirigida](CROSS-FAMILY-HANDOFF.md).
+`node --test tests/cross-family-handoff.test.cjs` agrega siete regresiones;
+no reemplaza la suite Node completa. `sight` conserva 40 checks y suma 18:
+cuatro secuencias con tecla real, antes/frame cero/60 pasos y nueve capturas
+por secuencia. Campo `crossFamilyCases`, hashes de PNG y del HTML canónico.
+Usa el mismo renderer y observador de culata, evaluando sólo el rifle visible.
+Palmas/pieza <30 mm por paso; contactos <12 mm; matrices iniciales <1e-5;
+superficies seleccionadas ≥−2 mm. Sin ampliar umbrales o presupuestos de CI.
+Toda ejecución debe conservar su estado y SHA: timeout no es aprobación, CI
+anterior no es evidencia nueva y software GPU no es rendimiento físico.

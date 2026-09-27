@@ -54,9 +54,9 @@ test('firing or reloading interrupts the cosmetic handoff without delaying the a
   advance(s);assert.equal(s.equipment.handling.handoff,undefined);
  }
 });
-test('unavailable and non-docked equipment retain the original immediate path',()=>{
+test('unavailable and unimplemented cross-family routes retain the immediate path',()=>{
  const s=settled('rifle');
- for(const id of ['pistol','gauss','binoculars','unarmed']){s.equipWeapon(id);assert.equal(s.equipment.handling.handoff,undefined);}
+ for(const id of ['revolver','gauss','binoculars','unarmed']){s.equipWeapon(id);assert.equal(s.equipment.handling.handoff,undefined);}
  const hidden=settled('rifle');hidden.player.car='occupied';hidden.equipWeapon('sniper');assert.equal(hidden.equipment.handling.handoff,undefined);
 });
 test('the displayed prop clears sampled face and jacket throughout every docked family handoff',()=>{
