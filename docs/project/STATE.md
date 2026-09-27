@@ -1,58 +1,52 @@
 # Estado real del proyecto
 
-## Versión del árbol: v0.20.13 · Coherencia
+## Árbol de trabajo: v0.20.14 · Coherencia · prototype
 
-Canal prototype, fecha 2026-09-27. Identidad reproducible en
-[version.json](../../version.json) y [build-info.json](../../build-info.json).
-El producto fue integrado por PR #49 en `0fa83b9`. La unidad de QA descrita
-abajo sigue siendo candidata hasta verificar su propio PR. No confundir
-los resultados del PR con la comprobación posterior del push a master.
+Identidad en [version.json](../../version.json) y [build-info.json](../../build-info.json).
+La última base integrada es #50 (`7231aa5`, producto 0.20.13). La corrección
+de caché descrita aquí es candidata hasta el cierre verificado de su propio PR.
+No confundir un manifiesto del árbol con una publicación ya aprobada.
 
-## Unidad actual: terminar la verificación de sight sin perder cobertura
+## Unidad actual: independencia del orden en los dedos
 
-#49 integró rifle ↔ pistola libre y desde recarga, tras aprobar la CI de su
-HEAD. No volver a implementar esa ruta. [Contrato](CROSS-FAMILY-HANDOFF.md).
-El push de `0fa83b9` aprobó core, handoff, graphics, HTTP, benchmark,
-exportación y Pages, pero sight agotó sus 1800 s sin completar el informe.
-Ese fallo permanece documentado en [PR #49](https://github.com/CripterHack/distrito-cero/pull/49#issuecomment-5854155400).
+La caché podía memorizar el perfil de la nueva arma contra el cargador anterior.
+Se separa el punto canónico de ajuste de `magazine.surface`, que conserva el
+objeto mostrado durante el handoff. Sin cambiar solver, huesos, geometría,
+munición, partidas o acciones prioritarias. Caché limitada a cuatro perfiles.
+[Plan](../../specs/003-weapon-contact/plan-finger-cache-order.md).
 
-La candidata sólo cambia QA: distribuye el mismo productor en `sight-base`
-(40 checks) y `sight-cross-family` (18). El alias `sight` conserva ambos.
-No cambia `src`, HTML, versión, mallas, shaders, resolución ni tolerancias.
-Se conservan todos los pasos de 60 Hz preparados y las capturas. No son FPS.
-[Plan y gates](../../specs/003-weapon-contact/plan-sight-ci-partitions.md).
-
-No seguir ampliando cruces antes de verificar esta unidad. Rifle → revólver
-fue reproducido con tecla real sobre `0fa83b9`, no corregido: salto inicial
-572.778 mm en una sola escena preparada. Es una pareja fuera de #49, no una
-regresión nueva demostrada. [Diagnóstico](https://github.com/CripterHack/distrito-cero/issues/6#issuecomment-5854143199).
+Cuatro regresiones de procesos independientes comparan caché fría/inicializada,
+ambas direcciones, libre/recarga y dos configuraciones. Las cuatro fallaron
+antes del cambio y el primer ensayo corregido pasó. El resultado completo de
+la candidata, renderer y CI debe consultarse en su PR, no inferirse de esta nota.
 
 ## Backlog vigente
 
 | Issue | Pendiente real |
 | :--- | :--- |
-| #5 | Arte global, fuentes/procedencia, materiales/UV y coste sobre hardware. Benchmark y exportaciones ya existen. |
-| #6 | Verificación de esta unidad de QA; otros cruces, herramientas/pesados, suavidad de cortes prioritarios, giros/acciones/anatomías combinadas y coste por actor/LOD. |
-| #7 | Escena/recorrido completo, playtests humanos y hardware de referencia. |
+| #5 | Arte global, fuentes/procedencia, materiales/UV y coste sobre hardware. Benchmark y exportaciones existen. |
+| #6 | Verificar e integrar caché canónica; otros cruces, herramientas/pesados, cortes prioritarios, giros/anatomías y coste por actor/LOD. |
+| #7 | Recorrido íntegro, playtests humanos y hardware de referencia. |
 
-No cerrar criterios globales por una corrección acotada. Los observadores sólo
-muestrean superficies seleccionadas: no certifican toda la malla, CCD, ausencia
-universal de penetración, GPU física o una calidad artística ya alcanzada.
+Rifle → revólver libre está reproducido con tecla real, no implementado. Las
+superficies observadas no acreditan toda la malla, CCD, separación universal,
+GPU física o calidad artística global. No cerrar #5/#6/#7 por esta unidad.
 
-## Integraciones previas
+## Integraciones que no deben repetirse
 
-#49 (`0fa83b9`): primer cruce rifle/pistola, 0.20.13. CI del PR aprobada,
-post-merge sight agotado; los otros gates y Pages aprobaron.
+#50 (`7231aa5`): sight 40 + 18 con cinco guardas compartidas, mismo productor,
+58 nombres, ocho intercambios y 61 estados por intercambio. PR y push Verify,
+benchmark y Pages aprobados. [Cierre real](https://github.com/CripterHack/distrito-cero/pull/50).
+El límite de 1800 s por productor se conserva. Aumenta el máximo agregado de
+runners, sin afirmar mejora de FPS ni menor cómputo total.
 
-#48 (`613c164`): salida de recarga entre pistola y revólver, 0.20.12.
-#47 (`5c0248f`): intercambio libre entre esas armas cortas, 0.20.11.
-#46 (`5266cb7`): captura con actor de marcha, 0.20.10.
-#45 (`6dd7a01`): salida de recarga larga. #44 (`3d6722e`): cambio libre largo.
-#43 (`be26fa0`): preparación inicial. #42 (`c27282f`): guardia/recarga.
-#39/#40: marcha/apoyo. #41: limpieza y continuidad. #30/#34–#38: rifle,
-benchmark, familias y exportación portable. No recrear trabajo ya aceptado.
-[Estado anterior](https://github.com/CripterHack/distrito-cero/blob/613c16495d79e009587c56593ebe9c5a48591406/docs/project/STATE.md).
+#49 (`0fa83b9`): rifle ↔ pistola libre/recarga. Su CI previa aprobó. Sight del
+push `36304175245` falló por timeout, conservado como fallo histórico.
+#48 (`613c164`): recarga corta. #47 (`5c0248f`): intercambio corto libre.
+#46 (`5266cb7`): actor de marcha. #45/#44: cambio largo desde recarga/libre.
+#43/#42: preparación/guardia/recarga. #39/#40: marcha/apoyo. #41: continuidad.
+#30/#34–#38: coordinación, benchmark, familias y exportación portable.
 
-Campaña, creador, catálogo, vehículos, policía, datos y reglas se conservan.
+Campaña, creador, catálogo, vehículos, policía y reglas permanecen intactos.
 [HANDOFF](HANDOFF.md), [QA](QA.md), [recursos](ASSETS.md),
 [política de ramas](BRANCH-CLEANUP.md). Revisión propia, no independiente.

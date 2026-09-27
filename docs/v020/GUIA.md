@@ -1,4 +1,14 @@
-# Parche vigente: v0.20.4 · Coherencia
+# Parche vigente del árbol: v0.20.14 · Coherencia
+
+Inicio y Pausa muestran v0.20.14 cuando se ejecuta este HTML. El ajuste de dedos
+durante las recargas ya no depende de qué equipo se mostró primero. Mantiene
+los cambios rifle ↔ pistola y la conservación del cargador anterior. Controles,
+campaña y partidas no cambian. El estado de publicación se consulta en
+[HANDOFF](../project/HANDOFF.md), no se deduce sólo de esta guía del árbol.
+
+## Notas históricas de v0.20.4
+
+# Parche v0.20.4 · Coherencia
 
 Inicio y Pausa muestran v0.20.4. El cuerpo ya no debe hundirse al terminar una
 marcha lenta. Controles, campaña y partidas no cambian. Desde v0.20.3 las cuatro
