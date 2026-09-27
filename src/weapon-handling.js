@@ -151,12 +151,14 @@
  function captureSwitch(sim,next,actorOverride=null,shown=null){
   const e=sim.equipment,from=profile(e.selected),to=profile(next);
   const sidearms=from.family==='sidearm'&&to.family==='sidearm';
-  if(e.selected===next||!(from.dock&&to.dock||sidearms)||!sim.equipmentAvailable())return null;
+  // First bounded cross-family route; other tools/heavy props stay immediate.
+  const crossFamily=e.selected==='rifle'&&next==='pistol'||e.selected==='pistol'&&next==='rifle';
+  if(e.selected===next||!(from.dock&&to.dock||sidearms||crossFamily)||!sim.equipmentAvailable())return null;
   // The UI may supply the visible mount before clearing aim or from its frozen
   // selector. Copy only pose data below; never retain closures or game state.
   // Other callers keep the original tracked/logical capture path.
   const m=shown||present(sim,actorOverride),p=sim.player,c=Math.cos(p.yaw||0),s=Math.sin(p.yaw||0),delta=sub(m.origin,[p.x||0,p.y||0,p.z||0]);
-  return {age:0,duration:sidearms?SIDEARM_HANDOFF_SECONDS:e.reloading>0?RELOAD_HANDOFF_SECONDS:(e.handling?.handoff?.duration||HANDOFF_SECONDS),serial:e.shotSerial||0,item:m.displayItem,origin:[delta[0]*c-delta[2]*s,delta[1],delta[0]*s+delta[2]*c],
+  return {age:0,duration:sidearms||crossFamily?SIDEARM_HANDOFF_SECONDS:e.reloading>0?RELOAD_HANDOFF_SECONDS:(e.handling?.handoff?.duration||HANDOFF_SECONDS),clearance:crossFamily?.12:(e.handling?.handoff?.clearance||.08),serial:e.shotSerial||0,item:m.displayItem,origin:[delta[0]*c-delta[2]*s,delta[1],delta[0]*s+delta[2]*c],
    yaw:D.wrap(m.yaw-(p.yaw||0)),pitch:m.pitch,roll:m.roll,aim:m.aim,kick:m.kick,reload:m.reload,
    braceWeight:m.braceWeight,coordination:m.coordination,lookPitch:m.lookPitch,
    contacts:structuredClone(m.localContacts),grips:structuredClone(m.grips),magazine:structuredClone(m.magazine)};
@@ -185,7 +187,8 @@
   const a={...n,neckDrop:m.neckDrop??n.neckDrop??0,handTargets:m.hands,handGrips:m.grips,
    weaponPose:{aim:m.aim,reload:m.reload,family:m.family,kick:m.kick,brace:m.braceWeight||0},reach:.72,
    bodyLean:m.aim*.020-m.kick*.022,lookYaw:-(m.braceWeight||0)*.235,lookPitch:m.lookPitch??(-(e.pitch||0)*.50+m.aim*.025)};
-  if(profile(e.selected).dock){a.weaponPose.rifle=m.coordination||0;a.lookRoll=-.30*(m.coordination||0);}
+  // Coordination belongs to the visible pose, even while leaving a docked prop.
+  if(profile(e.selected).dock||m.coordination){a.weaponPose.rifle=m.coordination||0;a.lookRoll=-.30*(m.coordination||0);}
   return a;
  }
  function mount(sim,actorOverride=null,handover=null){
@@ -326,7 +329,9 @@
    // outside the torso. Keeping BOTH grips rigid here makes their reach
    // projection undo the clearance arc and push the stock into the body.
    const start=origin.slice(),arc=16*u*u*(1-u)*(1-u);
-   origin=add(origin,direction([0,0,.08*arc]));
+   // Rifle/pistol needs another 4 cm while the old stock crosses low guard.
+   // Reuse the same zero-endpoint arc; a rapid retarget retains its envelope.
+   origin=add(origin,direction([0,0,(handover.clearance||.08)*arc]));
    const wrist=add(origin,direction(localHands.R)),delta=sub(wrist,shoulders.R),length=Math.hypot(...delta);
    if(length>.547){fitDistance+=length-.547;origin=add(origin,delta.map(v=>-v*(length-.547)/length));}
    const actual=sub(origin,start),local=[[1,0,0],[0,1,0],[0,0,1]].map(axis=>D.dot(actual,direction(axis)));
@@ -388,6 +393,8 @@
    for(const name of Object.keys(g.fingers))g.fingers[name]=mix(old.fingers[name],g.fingers[name],weight);
    g.thumbOpposition=mix(old.thumbOpposition||[0,0,0],g.thumbOpposition||[0,0,0],weight);
    g.indexLift=lerp(old.indexLift||0,g.indexLift||0,weight);
+   // Thumb lateral rotation also reads amount; retain it across grip families.
+   g.amount=lerp(old.amount,g.amount,weight);
    if(k==='L'){
     const release=16*u*u*(1-u)*(1-u),loose=grip(.16,'transfer');
     for(const name of Object.keys(g.fingers))g.fingers[name]=mix(g.fingers[name],loose.fingers[name],release);

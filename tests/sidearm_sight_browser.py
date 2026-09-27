@@ -10,7 +10,7 @@ R=Path(__file__).resolve().parents[1]
 O=Path(os.environ.get('DC_SIGHT_OUTPUT',str(R/('qa/v020/sight' if os.environ.get('DC_QA_RUN_ID') else 'artifacts/sight-'+datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')))))
 O.mkdir(parents=True,exist_ok=False)
 html=Path(os.environ.get('DC_SIGHT_HTML',str(R/'index.html'))).read_text();sha=hashlib.sha256(html.encode()).hexdigest()
-comparison=bool(os.environ.get('DC_SIGHT_HTML'));checks=[];errors=[];requests=[];cases=[];switch_cases=[];reload_switch_cases=[]
+comparison=bool(os.environ.get('DC_SIGHT_HTML'));checks=[];errors=[];requests=[];cases=[];switch_cases=[];reload_switch_cases=[];cross_family_cases=[]
 FIX="""(()=>{const m=new Map([['distrito-cero:settings:v1',JSON.stringify({quality:'balanced',rain:false,bloom:false,sound:false})]]);window.qaSightStore=m;Object.defineProperty(window,'localStorage',{value:{getItem:k=>m.get(k)||null,setItem:(k,v)=>m.set(k,String(v)),removeItem:k=>m.delete(k)}});})();"""
 def ck(name,value):
  checks.append({'name':name,'pass':bool(value)});print(('PASS ' if value else 'FAIL ')+name,flush=True)
@@ -22,7 +22,7 @@ try:
   p.set_content(html.replace('<script>','<script>'+FIX,1),timeout=120000);p.wait_for_function('!!window.DC_APP',timeout=120000);p.evaluate('DC_APP.renderer.humanReady')
   ck('Embedded skin maps decode in the production renderer',p.evaluate('DC_APP.renderer.humanTextureStatus.loaded===3'))
   p.click('#start');p.fill('#characterName','Referencia ocular');p.fill('#newSaveName','Inspección aislada');p.click('#commitCreator');p.click('#dismissTutorial')
-  for helper in ['manual_frames.js','sidearm_sight.js']:p.add_script_tag(content=(R/'tools/qa'/helper).read_text())
+  for helper in ['manual_frames.js','sidearm_sight.js','stock_clearance.js']:p.add_script_tag(content=(R/'tools/qa'/helper).read_text())
   p.evaluate('''()=>{const a=DC_APP,s=a.sim,r=a.renderer;DC_MANUAL_FRAMES.start(a);s.free=true;s.wanted=s.heat=0;s.peds.forEach(n=>n.hidden=true);s.cars.forEach(c=>Object.assign(c,{x:5000,z:5000,driver:null}));s.dynamics.props=[];Object.assign(s.player,{x:4,z:36,y:0,yaw:0,vy:0,vx:0,vz:0,car:null,moveSpeed:0,walk:0});r.rain=r.bloom=0;r.daylight=.67;r.previewStudio=false;r.fovOverride=.62;r.lightTime=-1;
    const draw=r.drawEquipment;r.drawEquipment=function(s,m,e){window.qaSightMount=m;window.qaSightDraws=(window.qaSightDraws||0)+1;return draw.call(this,s,m,e);};const add=r.add;r.add=function(...v){if(typeof v[1]==='string'&&v[1].startsWith('equip_'))(window.qaSightAdds??=[]).push(v[1]);return add.apply(this,v);};window.sightStoreBefore=JSON.stringify([...qaSightStore]);}''')
   css=p.add_style_tag(content='body>*:not(#world){visibility:hidden!important}#world{visibility:visible!important;position:fixed!important;inset:0!important;width:100vw!important;height:100vh!important}')
@@ -55,25 +55,27 @@ try:
   p.screenshot(path=str(O/'recoil.png'))
   # Same canonical sidearm scene and renderer, now including real-key exchange.
   # All prior sight/draw/reload checks above remain part of this suite.
-  p.evaluate('''()=>{window.qaSidearmObservation=()=>{const a=DC_APP,s=a.sim,r=a.renderer;window.qaSightDraws=0;window.qaSightAdds=[];DC_MANUAL_FRAMES.draw(a);
+  p.evaluate('''()=>{window.qaSidearmObservation=(includePalette=false)=>{const a=DC_APP,s=a.sim,r=a.renderer;window.qaSightDraws=0;window.qaSightAdds=[];DC_MANUAL_FRAMES.draw(a);
    const m=qaSightMount,n=DC.WeaponHandling.actor(s.player,m,s.equipment),q={matrices:r.heroPalette,rootY:r.motionDebug.rootY,scale:1},v=DC_SIDEARM_SIGHT_QA.inspect(s,{mount:m,pose:q});
-   const role=m.displayItem==='pistol'?'magazine':'body',points=m.displayItem==='pistol'?[[0,-.18,-.016],[.028,-.18,-.016],[0,-.14,-.016]]:[[0,-.025,.08],[.057,-.025,.08],[0,-.025,.125]];
-   return {reloading:s.equipment.reloading,reloadId:s.equipment.reloadId,partRole:role,partPoints:points.map(v=>m.partPoint(role,v)),magazineOffset:m.magazine.offset,drawCalls:qaSightDraws,drawnParts:qaSightAdds,expectedParts:r.equipmentMeshes.get(m.displayItem).map(p=>p.key),time:s.time,item:s.equipment.selected,displayItem:m.displayItem,handoff:m.handoff,phase:m.phase,
+   const stock=m.displayItem==='rifle'?DC_STOCK_CLEARANCE.inspect({...s,equipment:{...s.equipment,selected:m.displayItem}},{mount:m,actor:n,pose:q}):null;
+   const role=['pistol','rifle'].includes(m.displayItem)?'magazine':'body',points=m.displayItem==='rifle'?[[0,-.135,.12],[.028,-.135,.12],[0,-.095,.12]]:m.displayItem==='pistol'?[[0,-.18,-.016],[.028,-.18,-.016],[0,-.14,-.016]]:[[0,-.025,.08],[.057,-.025,.08],[0,-.025,.125]];
+   return {...(includePalette?{palette:Array.from(q.matrices)}:{}),stockMinimum:stock?Object.fromEntries(['face','jacket'].map(k=>[k,stock.minimum[k].distance])):null,reloading:s.equipment.reloading,reloadId:s.equipment.reloadId,partRole:role,partPoints:points.map(v=>m.partPoint(role,v)),magazineOffset:m.magazine.offset,drawCalls:qaSightDraws,drawnParts:qaSightAdds,expectedParts:r.equipmentMeshes.get(m.displayItem).map(p=>p.key),time:s.time,item:s.equipment.selected,displayItem:m.displayItem,handoff:m.handoff,phase:m.phase,
     palms:['L','R'].map(k=>{const p=DC.SkinRig.palmPoint(q,n,k);return[p.x,p.y,p.z];}),contacts:v.contacts,
     origin:m.origin,logicalOrigin:DC.Equipment.mount(s).origin,ammo:JSON.stringify(s.equipment.ammo),shots:s.equipment.shots,trigger:s.equipment.trigger,aimWeight:s.equipment.aimWeight};};}''')
   def snap(name,row):
    file=O/(name+'.png');p.screenshot(path=str(file));row.update(image=file.name,imageSha256=hashlib.sha256(file.read_bytes()).hexdigest())
-  for start,target,reload_phase in [('pistol','revolver',None),('revolver','pistol',None),('pistol','revolver',.46),('revolver','pistol',.46)]:
+  for start,target,reload_phase in [('pistol','revolver',None),('revolver','pistol',None),('pistol','revolver',.46),('revolver','pistol',.46),('rifle','pistol',None),('pistol','rifle',None),('rifle','pistol',.46),('pistol','rifle',.46)]:
+   cross_family={start,target}=={'rifle','pistol'}
    prefix=('reload-switch-' if reload_phase is not None else 'switch-')+start+'-'+target
    p.evaluate('''id=>{const a=DC_APP,s=a.sim,r=a.renderer;a.clearWeaponInput();s.equipment=DC.Equipment.initial();s.equipWeapon(id);DC.WeaponHandling.beginEquip(s);
-    s.equipment.handling.ready=1;s.equipment.aimWeight=1;s.equipment.aiming=true;s.equipment.pitch=0;s.time=1.25;s.player.crouch=0;s.appearance.neckLength=0;
+    s.equipment.handling.ready=1;if(id==='rifle')s.equipment.handling.rifleAim=1;s.equipment.aimWeight=1;s.equipment.aiming=true;s.equipment.pitch=0;s.time=1.25;s.player.crouch=0;s.appearance.neckLength=0;
     r.motionTracker.clear();r.motionScene=s;r.equipmentView=false;r.frozenHandling=null;r.camera.weaponPitch=0;
     r.camera.target=[4.015,1.40,36.25];r.camera.eye=[5.6,1.54,36.9];}''',start)
    if reload_phase is not None:
     p.evaluate('''phase=>{const s=DC_APP.sim,id=s.equipment.selected;s.equipment.ammo[id].loaded-=2;if(!s.reloadWeapon())throw new Error('Expected active reload');for(let i=0;i<Math.floor(DC.Equipment.get(id).reload*phase*60);i++){s.time+=1/60;s.equipmentStep(1/60,{});}}''',reload_phase)
-   before=p.evaluate('qaSidearmObservation()');snap(prefix+'-before',before)
+   before=p.evaluate('qaSidearmObservation(true)');snap(prefix+'-before',before)
    p.keyboard.press('Digit'+p.evaluate('id=>DC.Equipment.get(id).key',target))
-   first=p.evaluate('qaSidearmObservation()');rows=[first];snap(prefix+'-00',first)
+   first=p.evaluate('qaSidearmObservation(true)');rows=[first];snap(prefix+'-00',first)
    for frame in range(1,61):
     row=p.evaluate('''()=>{const a=DC_APP,s=a.sim;s.time+=1/60;s.equipmentStep(1/60,a.input());return qaSidearmObservation();}''');rows.append(row)
     if frame in [9,18,27,36,45,54,60]:snap(prefix+f'-{frame:02}',row)
@@ -92,8 +94,13 @@ try:
     part_steps=[max(distance(x,y) for x,y in zip(a['partPoints'],b['partPoints'])) for a,b in zip([before]+rows,rows) if a['displayItem']==b['displayItem']]
     ck(label+' returns the old piece continuously before one model replacement',before['reloading']>0 and part_initial<1e-4 and max(part_steps)<.030 and single and seated)
     entry.update(reloadPhase=reload_phase,initialPartStep=part_initial,maximumPartStep=max(part_steps),singleModel=single,seatedBeforeReplacement=seated)
-    reload_switch_cases.append(entry)
-   else:switch_cases.append(entry)
+    (cross_family_cases if cross_family else reload_switch_cases).append(entry)
+   else:(cross_family_cases if cross_family else switch_cases).append(entry)
+   if cross_family:
+    stock_rows=[r for r in [before]+rows if r['stockMinimum'] is not None]
+    same_palette=max(abs(x-y) for x,y in zip(before['palette'],first['palette']))<1e-5
+    ck(label+' retains the whole starting palette and sampled rifle clearance',same_palette and bool(stock_rows) and all(min(r['stockMinimum'].values())>=-.002 for r in stock_rows))
+    entry.update(initialPaletteMaxDifference=max(abs(x-y) for x,y in zip(before['palette'],first['palette'])),minimumSampledStockDistance=min(min(r['stockMinimum'].values()) for r in stock_rows))
   css.evaluate('(e)=>e.remove()');p.evaluate('DC_APP.setMode("play")');p.keyboard.press('Tab');p.wait_for_function('DC_APP.mode==="arsenal"')
   ck('Translucent selector remains paused and blocks game actions',p.evaluate('getComputedStyle(document.getElementById("arsenal")).backgroundColor.startsWith("rgba")&&!DC_APP.sim.equipment.trigger'))
   p.keyboard.press('Escape');ck('Closing selection does not restore a trigger or aiming request',p.evaluate('!DC_APP.sim.equipment.trigger&&!DC_APP.sim.equipment.aiming&&DC_APP.sim.equipment.charge===0'))
@@ -101,7 +108,7 @@ try:
   ck('No JavaScript or graphics exceptions or external requests',not errors and not requests)
   b.close()
 finally:
- report={'sha256':sha,'checks':checks,'errors':errors,'requests':requests,'cases':cases,'switchCases':switch_cases,'reloadSwitchCases':reload_switch_cases,'nativeStorage':False,'physicalGpu':False,'comparisonOnly':comparison,'note':'Actual eye-mesh bounds, production-renderer palette and visible sight top surfaces. Prepared camera/time; no optical physics, first-person aim or full anatomical acceptance.'}
+ report={'sha256':sha,'checks':checks,'errors':errors,'requests':requests,'cases':cases,'switchCases':switch_cases,'reloadSwitchCases':reload_switch_cases,'crossFamilyCases':cross_family_cases,'nativeStorage':False,'physicalGpu':False,'comparisonOnly':comparison,'note':'Actual eye-mesh bounds, production-renderer palette and visible sight top surfaces. Prepared camera/time; no optical physics, first-person aim or full anatomical acceptance.'}
  (O/'report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2))
  if os.environ.get('DC_QA_RUN_ID'):(O.parent/'sidearm-sight.json').write_text(json.dumps(report,ensure_ascii=False,indent=2))
  print(json.dumps({'checks':len(checks),'pass':sum(c['pass'] for c in checks),'output':str(O)}),flush=True)

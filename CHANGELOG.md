@@ -1,3 +1,16 @@
+# v0.20.13 · Coherencia · 2026-09-27
+
+Primer cruce rifle ↔ pistola, libre y desde recarga: continuidad de la pose
+visible, coordinación corporal, dedos y cargador anterior. Arco cosmético de
+0.90 s con 4 cm frontales adicionales sólo en esta pareja, tras reproducir una
+penetración muestreada de chaqueta. No se relajan umbrales ni se cambian piezas,
+huesos, controles, disponibilidad, munición, cámara, física o partidas.
+
+Siete regresiones dirigidas; sight conserva sus 40 checks y añade 18 mediante
+cuatro secuencias con tecla real. Otros cruces y criterios globales permanecen
+pendientes. [Contrato y límites](docs/project/CROSS-FAMILY-HANDOFF.md).
+Verificación completa e integración: consultar el PR del HEAD exacto.
+
 # v0.20.4 · Coherencia · 2026-09-23
 
 La excursión longitudinal de los pies se atenúa al acercarse al reposo, como su
