@@ -71,3 +71,23 @@ La limpieza no cambia controles de acceso del repositorio, workflows normales,
 versión 0.20.5, fuentes, HTML, assets ni partidas. El job de eliminación utilizó
 permiso de contenido limitado a su ejecución y fuera del árbol del producto.
 Revisión propia, no independiente. Restaurar referencias no necesita migrar partidas.
+
+
+## PR #49 · retirada verificada el 27 de septiembre de 2026
+
+Merge `0fa83b9e024819821e135a9de540a3f897bc9c78`. La operación
+[36304799177](https://github.com/CripterHack/distrito-cero/actions/runs/36304799177)
+retiró atómicamente sólo `fix/006-cross-family-handoff` en `a946fd5` y el
+helper `build/006-cross-family-0213` en `9754afe`, con leases de SHA exacto,
+sin PRs abiertos o ramas protegidas y tras subir un respaldo autocontenido.
+No cambia master ni equivale a aprobación de la ejecución sight del push.
+
+Artefacto `10926822359`, `pr49-backup-36304799177`, disponible hasta el
+26 de diciembre de 2026 según GitHub. Bundle `distrito-cero-pr49-before-retirement.bundle`,
+75,511,375 bytes, SHA-256 `dbf01324c22784e94ee712c9d6e3ec8a56f3a1f04bb8d9ed9bbb10c96815f72d`.
+Descargado, cotejado y restaurado en un repositorio vacío. `git fsck --full`,
+árbol y HTML verificados; el helper no pertenece a la ascendencia de master.
+Refs `refs/backup/pr49/0`, `/1`, `/2`: master, feature y helper respectivamente.
+Recibo de retirada `10926353809`. El [PR](https://github.com/CripterHack/distrito-cero/pull/49#issuecomment-5854096986)
+conserva los hashes de los ZIP, detalle y comprobaciones. Crear nuevas ramas
+sólo para trabajo activo posterior, no restaurar éstas como tareas pendientes.

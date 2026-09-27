@@ -9,6 +9,7 @@ import argparse, hashlib, json, os, shutil, signal, subprocess, sys, tempfile, t
 from .config import Config
 from .workspace import stage_workspace
 from .reporting import failure_summary
+from .sight_contract import SIGHT_PARTITIONS
 
 def digest(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
@@ -27,7 +28,8 @@ class Suite:
 SUITES={
  'handoff': Suite('handoff',('tests/equipment_handoff_browser.py',),'qa/v020/equipment-handoff.json',28),
  'longarms': Suite('longarms',('tests/longarm_contact_browser.py',),'qa/v020/longarm-contact.json',28),
- 'sight': Suite('sight',('tests/sidearm_sight_browser.py',),'qa/v020/sidearm-sight.json',58),
+ **{'sight-'+part: Suite('sight-'+part,('tests/sidearm_sight_browser.py','--partition',part),
+      'qa/v020/sidearm-sight-'+part+'.json',checks) for part,checks in SIGHT_PARTITIONS},
  'release': Suite('release',('tests/release_browser.py',),'qa/v020/release.json',14,'http'),
  'thenar': Suite('thenar',('tests/thenar_surface_browser.py',),'qa/v019/thenar.json',15),
  'sidearms': Suite('sidearms',('tests/sidearm_support_browser.py',),'qa/v019/sidearm-support.json',20),
@@ -46,6 +48,9 @@ SUITES={
 }
 
 def select_suites(names, origin):
+    # Compatibility alias expands to disjoint producers before deduplication.
+    names = [part for name in names for part in
+             (tuple('sight-'+p for p,_ in SIGHT_PARTITIONS) if name=='sight' else (name,))]
     selected = [s for s in SUITES.values() if s.origin == origin] if 'all' in names else [SUITES[n] for n in dict.fromkeys(names)]
     if not selected or any(s.origin != origin for s in selected):
         raise ValueError('Choose suites with the requested storage/origin contract.')
@@ -132,7 +137,7 @@ def run_suites(config,suites):
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--root',type=Path,default=Path(__file__).resolve().parents[2]);p.add_argument('--output',type=Path)
-    p.add_argument('--suite',action='append',choices=[*SUITES,'all'],required=True)
+    p.add_argument('--suite',action='append',choices=[*SUITES,'sight','all'],required=True)
     p.add_argument('--browser');p.add_argument('--headed',action='store_true');p.add_argument('--display');p.add_argument('--timeout',type=float,default=600)
     p.add_argument('--origin',choices=['fixture','http'],default='fixture');a=p.parse_args()
     root=a.root.resolve();out=a.output or root/'artifacts'/('qa-'+datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')+'-'+uuid.uuid4().hex[:8])
