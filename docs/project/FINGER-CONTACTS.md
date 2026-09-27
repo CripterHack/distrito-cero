@@ -25,3 +25,12 @@ Los vértices medidos tienen al menos 75% de influencia del dedo correspondiente
 Pulgar y oposición de su base no se modifican. Su exploración no produjo una solución convincente sólo con rotación y se reserva para otra unidad. Tampoco se garantiza contacto entre manos, todos los espacios interdigitales, piezas decorativas o todas las superficies en tránsito. Puede haber intersecciones residuales.
 
 Se conservan las correcciones de mangas y codos ópticos anteriores. No cambia el esquema de partidas, no hay dependencias nuevas de runtime ni pretensión de calidad AAA. #5, #6 y #7 siguen abiertos por sus criterios restantes. Revertir esta unidad no requiere migrar datos.
+
+## Independencia de inicialización · candidata 0.20.14
+
+El ajuste memorizado debe depender sólo del perfil canónico. El cargador
+mostrado durante un cambio conserva su transform y superficie anteriores,
+pero no alimenta la inicialización de `fitFingers` para el arma nueva.
+[Regresión y plan](../../specs/003-weapon-contact/plan-finger-cache-order.md).
+La caché sigue teniendo cuatro entradas. No añadir una entrada por actor,
+pose o tiempo ni esconder el fallo precalentando el juego.

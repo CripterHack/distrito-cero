@@ -1,3 +1,22 @@
+# v0.20.14 · Coherencia · 2026-09-27
+
+El ajuste canónico de los dedos deja de depender del primer equipo mostrado.
+Durante rifle ↔ pistola se conserva el cargador anterior, pero su superficie
+transitoria ya no inicializa el perfil de la nueva arma. Misma caché de cuatro
+entradas, sin precalentamiento, nuevas claves o cambios de geometría, gameplay,
+munición, huesos, acciones prioritarias o partidas.
+
+Cuatro regresiones comparan procesos fríos e inicializados, ambas direcciones,
+libre/recarga y dos configuraciones. Se comparan ajustes, matrices completas,
+palmas y piezas. [Plan y límites](specs/003-weapon-contact/plan-finger-cache-order.md).
+Estado de verificación e integración: [HANDOFF](docs/project/HANDOFF.md).
+
+## QA integrada de 0.20.13
+
+PR #50 (`7231aa5`) distribuyó sight en 40 + 18 comprobaciones. Su PR y su
+push aprobaron, incluidas ambas particiones, benchmark y Pages. El timeout
+anterior de #49 permanece como fallo histórico. No volver a implementar #50.
+
 # v0.20.13 · Coherencia · 2026-09-27
 
 Primer cruce rifle ↔ pistola, libre y desde recarga: continuidad de la pose

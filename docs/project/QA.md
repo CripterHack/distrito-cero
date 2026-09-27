@@ -1,5 +1,19 @@
 # QA reproducible desde el repositorio
 
+## Regresión de caché canónica (candidata 0.20.14)
+
+`node --test tests/finger-cache-order.test.cjs` ejecuta cuatro tests, cada uno
+con configuraciones neutral y agachada. Procesos separados representan el
+primer contacto frío o inicializado previamente por otro actor. Usa las
+mismas clases y UI del juego, compara perfiles y muestras de matrices completas,
+palmas, piezas y gameplay, y conserva cuatro entradas de caché.
+
+No precalentar todos los perfiles en las suites normales. Eso ocultaría la
+dependencia del orden. Mantener los tests existentes de superficies, dedos,
+pulgares, handoff, cancelación y persistencia. Los 58 checks de sight no cambian
+por este ajuste de runtime. Comparar capturas de su propio HTML/HEAD.
+
+
 ## Guardas compartidas de las particiones
 
 Ambas particiones comprueban carga de mapas, selector, cierre de inputs,
@@ -49,10 +63,11 @@ FPS del juego**. El máximo agregado de tiempo de runners permitido es mayor
 al existir dos jobs. La ejecución serial del alias puede durar más de 1800 s:
 `--timeout` sigue siendo por productor. No se oculta este cambio presupuestario.
 
-La aceptación de esta candidata exige ambas particiones aprobadas en el HEAD
+PR #50 ya está integrado y sus dos ejecuciones (PR/push) aprobaron.
+Para cambios posteriores se exigen ambas particiones aprobadas en el HEAD
 exacto, unión de los mismos 58 nombres de checks y conservación de las capturas
 y estados. Los datos del PR y del push se registran por separado en su cierre.
-No reutilizar la CI de #49 como resultado de este cambio.
+No reutilizar la CI de #49/#50 como resultado de una candidata posterior.
 
 
 ## Runner vigente (DC-001 / issue #2)

@@ -290,8 +290,11 @@
   }
   const pull=sm(.27,.46,t)*(1-sm(.62,.80,t));
   const detached=spec.reload==='magazine'&&e.reloading>0;
+  // Cache fitting must use the new prop's canonical surface, never the old
+  // magazine retained below for presentation during the first half of a swap.
+  const magazineSurface=sidearm?[-.030,-.180,-.018]:[-.031,-.145,.12];
   const magazine={offset:detached?[-.025*pull,-.211*pull,.025*pull]:[0,0,0],rotation:[0,0,detached?-.23*pull:0],
-   pivot:sidearm?[0,-.18,-.016]:[0,-.135,.12],surface:sidearm?[-.030,-.180,-.018]:[-.031,-.145,.12],attachedToHand:detached&&t>=.24&&t<=.84};
+   pivot:sidearm?[0,-.18,-.016]:[0,-.135,.12],surface:magazineSurface,attachedToHand:detached&&t>=.24&&t<=.84};
   if(handover?.magazine&&u<.5){
    // Cancellation ends the logical reload immediately. The one visible old
    // piece returns to its seat before that prop is replaced at mid-handoff.
@@ -367,7 +370,7 @@
    const base=grip(optic?.38:sidearm?.61:heavy?.53:.52,'support');
    const fore=['smg','rifle','sniper'].includes(w.id)?fitFingers('fore-L','L',SUPPORT,CONTACT_SHAPES.fore,base,['index','middle','ring','little']):null;
    const mag=spec.reload==='magazine'?fitFingers(sidearm?'magazine-pistol-L':'magazine-long-L','L',
-    {p:magazine.surface,palm:[1,0,0],fingers:[0,-.10,.994987]},sidearm?CONTACT_SHAPES.pistolMagazine:CONTACT_SHAPES.magazine,grip(.70,'reload'),['index','middle','ring','little']):null;
+    {p:magazineSurface,palm:[1,0,0],fingers:[0,-.10,.994987]},sidearm?CONTACT_SHAPES.pistolMagazine:CONTACT_SHAPES.magazine,grip(.70,'reload'),['index','middle','ring','little']):null;
    const wrap=sidearm?SIDEARM_WRAP:null;
    if(fore||mag||wrap){
     // The larger fitted arcs need a wider release window at native frame times.

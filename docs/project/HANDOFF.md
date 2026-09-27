@@ -1,64 +1,65 @@
-# Continuación vigente · QA de sight tras PR #49
+# Continuación vigente · caché canónica de dedos
 
-## Base integrada y fallo real
+## Base integrada, no repetir
 
-Master `0fa83b9e024819821e135a9de540a3f897bc9c78`, producto 0.20.13,
-árbol de producto `f5776e2c5fd2b05fe90ff477af1dcafeb7cef5d7`.
-PR #49 está integrado tras aprobación de su HEAD, no repetir rifle ↔ pistola
-libre/recarga. El push Verify `36304175245` falló sólo en sight: 1800.008 s,
-exit 124, informe incompleto. Los 44 mensajes PASS no constituyen un resultado
-aprobado. Core, handoff, graphics, HTTP, benchmark, exportación y Pages pasaron.
-[Registro exacto](https://github.com/CripterHack/distrito-cero/pull/49#issuecomment-5854155400).
+Master de partida: `7231aa51457539d2e5345f2d98ab470ded656fc0`, PR #50,
+árbol `738cedf4d6c983ef5bb13bb769aa166dca43ba97`, producto 0.20.13.
+PR #49 integró rifle ↔ pistola libre/recarga. PR #50 integró la partición de
+sight (40 + 18), con seis jobs aprobados tanto en PR `36307315376` como en
+push `36308741157`, benchmark `36308741141` y Pages `36308740389` aprobados.
+[Resultados finales de #50](https://github.com/CripterHack/distrito-cero/pull/50).
+No tratar #50 como candidata ni reabrir su timeout ya resuelto. El fallo
+histórico de #49 (`36304175245`) sigue siendo un fallo, no una suite aprobada.
 
-## Unidad actual
+## Unidad actual: candidata 0.20.14
 
-[Plan](../../specs/003-weapon-contact/plan-sight-ci-partitions.md): particiones
-sin solapamiento del productor existente, base 40 y cruce 18. Alias `sight`
-ejecuta ambas y deduplica selecciones explícitas. El productor directo sin
-flag sigue ejecutando los 58 checks. Misma densidad, fotogramas, resolución,
-renderer, umbrales y capturas. Cambia la distribución de CI, no el juego ni su
-versión. Las particiones no son una matriz de escenarios nueva.
-Ambas ejecutan las cinco guardas compartidas, también el selector tras acabar
-con rifle; se cuentan sólo en base y quedan registradas sin doble conteo en
-`guards` del cruce. Cualquier guarda fallida impide aprobar la partición.
+[Plan](../../specs/003-weapon-contact/plan-finger-cache-order.md), SPEC-003.
+La superficie del cargador anterior contaminaba el primer ajuste canónico de
+la nueva arma. `mount` ahora conserva por separado el punto de autoría para
+`fitFingers` y la superficie/pivote/transform mostrados. No modifica el solver,
+las cuatro claves de caché, gameplay, huesos, geometría o partidas.
+[Diagnóstico previo](https://github.com/CripterHack/distrito-cero/issues/6#issuecomment-5854636173).
 
-No declarar terminado antes de comprobar la CI y artefactos de este HEAD.
-La unión debe conservar los 58 nombres, ocho secuencias, 61 estados por
-secuencia y sus imágenes. Todos los demás gates permanecen activos.
-Después del merge verificar el push y Pages por separado. Registrar allí los
-resultados finales, nunca convertir la ejecución fallida de #49 en aprobada.
+Cuatro tests nuevos usan procesos independientes con caché fría/inicializada,
+ambas direcciones rifle/pistola, libre/recarga y configuración neutral/agachada.
+Exigen igualdad exacta de ajustes y muestras de matrices, palmas, piezas y
+estado, además del primer frame, lecturas no mutantes y cuatro entradas.
+Fallaron en la base antes del ajuste. No se precalienta el runtime ni el QA
+normal para ocultar el caso, ni se añade una API de reset al juego.
 
-## Pendientes reales
-
-#6 conserva otros cruces, herramientas/pesados, cortes prioritarios visuales,
-giros/anatomías combinadas, coste por actor/LOD y aceptación global. Una acción
-real tiene prioridad: no retrasar disparo o recarga para ocultar un corte.
-Rifle → revólver libre ya tiene un caso reproducido sobre esta base con la
-tecla Digit2, sin avanzar simulación; no se ha implementado su transición.
-[Diagnóstico](https://github.com/CripterHack/distrito-cero/issues/6#issuecomment-5854143199).
-
-#5 mantiene arte/procedencia/materiales/UV. Los GLB de PR y push no son siempre
-idénticos binariamente: se observaron variaciones sólo en animaciones de hasta
-7.11e-15, no en mallas/texturas. [Registro y límites](https://github.com/CripterHack/distrito-cero/issues/5#issuecomment-5854086868).
-#7 mantiene recorrido íntegro, playtests humanos y hardware. No fabricar evidencia.
-
-## Verificación y recuperación
+**Estado al escribir este commit:** código y regresión local implementados.
+Comprobar resultados completos, renderer, CI y revisión del PR de este HEAD
+antes de considerar integrada esta unidad. El cierre real del PR prevalece
+sobre esta nota previa de candidata. Verificar push y Pages separadamente.
 
 ```sh
 python3 build.py --check
+node --test tests/finger-cache-order.test.cjs
 node --test tests/*.test.cjs
-python3 tests/qa_selection.test.py
-python3 tests/ci_workflow.test.py
+python3 tests/release_build.test.py
+python3 tests/release_checkout.test.py
 xvfb-run -a python3 -m tools.qa.run --suite sight --headed --timeout 1800
 ```
 
-Ejecutar además [QA](QA.md). `--timeout` se aplica por productor, no al alias
-completo. CI conserva 1800 s por partición; el tiempo agregado de runners
-permitido aumenta al distribuirlas. No afirmar una mejora del rendimiento
-físico del juego por este reparto.
+Ejecutar también [QA](QA.md), especialmente dedos, pulgares, manos, banda
+palmar y conservación del cargador. No atribuir imágenes de 0.20.13 a esta
+candidata. Revisión propia, no aprobación artística ni revisión independiente.
 
-[BRANCH-CLEANUP](BRANCH-CLEANUP.md): ramas de #49 retiradas con respaldo y SHA
-exacto. Sólo master es permanente; conservar únicamente trabajo activo. El
-bundle `pr49-backup-36304799177` contiene master y ambas ramas concluidas y se
-restauró en un repositorio vacío. Ningún helper entra al árbol del producto.
-Revisión propia, no independiente. Reversión de QA sin migrar ni borrar partidas.
+## Siguiente trabajo real
+
+Tras integrar y verificar esta corrección, retomar rifle → revólver libre,
+ya reproducido con Digit2 sobre 0fa83b9, no implementado. No extender el arco
+a parejas no medidas. Otros cruces, herramientas/pesados, giros/anatomías,
+cortes prioritarios visuales y coste por actor/LOD siguen pendientes en #6.
+Las acciones reales prevalecen, no retrasarlas para disimular cortes.
+#5 conserva arte, procedencia, materiales/UV y hardware. #7 conserva recorrido
+íntegro, playtests humanos y hardware. No cerrar criterios por conteos de tests.
+
+## Recuperación
+
+Sólo master es permanente. #49/#50 retiraron sus ramas con respaldo previo,
+leases exactos y verificación. Bundle #50: artefacto `10929250154` del run
+`36310013208`, retención indicada hasta el 26 de diciembre de 2026. Su ZIP fue
+descargado y restaurado en la conversación anterior. Conservar sólo trabajo
+activo y retirar lo concluido con SHA comprobado y respaldo recuperable.
+Revertir esta unidad con su versión/build, sin migrar ni borrar partidas.
