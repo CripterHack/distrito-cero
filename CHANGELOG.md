@@ -1,3 +1,20 @@
+# v0.20.16 · Coherencia · 2026-09-27
+
+Rifle ↔ revólver desde recarga reutiliza la captura de pose y pieza visible,
+el retorno cosmético de 0.90 s y la caché canónica existente. Conserva selección,
+cancelaciones, munición, partidas y prioridad inmediata de disparo/nueva recarga.
+Mantiene excluido un tercer modelo mostrado ajeno a la pareja.
+
+La regresión existente cubre 128 casos dirigidos y 304 poses de culata, siete
+fases de recarga, selector congelado, reselección de pieza retornando y caché
+fría/inicializada. Sight conserva los 66 checks anteriores y añade diez en
+una partición disjunta: 40 + 26 + 10, doce secuencias de 61 estados cada una.
+Las cinco guardas compartidas siguen siendo bloqueantes y se cuentan una vez.
+Sin cambios de rig, geometría, solver, tiempos lógicos o guardados. Se mantienen
+1800 s por productor y 40 minutos por job, con mayor presupuesto agregado de
+runners. [Plan y límites](specs/003-weapon-contact/plan-rifle-revolver-reload.md).
+Verificación remota e integración pendientes al escribir esta candidata.
+
 # v0.20.15 · Coherencia · 2026-09-27
 
 Intercambio **libre rifle ↔ revólver**, conservando la pose mostrada, las

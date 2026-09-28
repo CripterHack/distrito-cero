@@ -1,28 +1,45 @@
 # Cruces medidos de equipamiento
 
-## Rifle ↔ revólver libre · candidata 0.20.15
+## Rifle ↔ revólver desde recarga · árbol 0.20.16
 
-Base integrada #51 `17f6086`, caché canónica de dedos corregida. Se habilitan
-ambos sentidos libres mediante el montaje existente. Sin nuevo solver, tracker,
-reloj, modelo simultáneo o geometría. [Plan](../../specs/003-weapon-contact/plan-rifle-revolver-free.md).
+[Plan vigente](../../specs/003-weapon-contact/plan-rifle-revolver-reload.md).
+#52 integró el cambio libre sobre la caché de #51. Ahora se elimina únicamente
+la exclusión de recarga/pieza retornando, manteniendo excluido un tercer modelo
+mostrado. Captura/montaje/retorno de 0.90 s y arco de 0.12 m existentes,
+sin otro solver, caché, tracker, reloj, rig o geometría.
 
-El selector conserva su vista congelada y la reversión libre se prueba antes
-y después del reemplazo de modelo. Una acción real siempre prevalece. Recarga
-activa, estado visual que devuelve una pieza y un tercer modelo mostrado no
-se admiten por analogía. La captura es cosmética, nunca estado persistente.
+Siete regresiones extendidas fallaron antes de habilitarlo, luego 20/20
+pruebas dirigidas aprobaron. Los mismos bucles cubren 128 casos dirigidos
+(cuatro parejas × cuatro configuraciones × ocho estados), 304 poses de
+culata, selector congelado, reselección durante retorno, prioridad y restore.
+Caché fría/inicializada comparada en procesos independientes para ambas
+parejas de rifle/arma corta, libre/recarga. No se precalienta QA.
 
-Las pruebas extendidas reprodujeron saltos palmares iniciales de 572.577 mm
-y 195.796 mm en las configuraciones dirigidas de la base, más fallos de
-selector, marcha y presencia del handoff. Arco 0.08 m rechazado a −4.068 mm
-contra chaqueta. Con 0.12 m: diez tests aprobados, 72 casos dirigidos (64
-rifle/pistola existentes y ocho rifle/revólver libres), 228 poses de culata.
-Mínimo combinado muestreado −0.353 mm, no separación positiva universal.
-Máximos palmares nuevos: 26.652 y 16.570 mm por paso preparado de 60 Hz.
+Máximos palmares dirigidos por paso preparado de 60 Hz para rifle→revólver
+26.652 mm y revólver→rifle 18.765 mm. Mínimo combinado muestreado −0.353 mm,
+conservando −2 mm. Los puntos del revólver se observan sobre su cuerpo
+realmente dibujado, no sobre un cargador que no renderiza.
 
-El mismo productor sight añade dos secuencias de teclas: 40 base + 26 cruces,
-66 checks. Conserva los ocho casos anteriores, cinco guards compartidos y
-61 estados por intercambio, incluidos frame cero y capturas. Los resultados
-completos de renderer y CI se registran en el PR, no se anticipan aquí.
+El mismo productor sight añade dos secuencias de recarga. Se conservan los
+66 checks anteriores y se añaden diez en un job disjunto: total 76, doce
+secuencias de 61 estados y cinco guardas comunes bloqueantes contadas una vez.
+No se elevan 1800 s/productor o 40 min/job. Presupuesto agregado mayor.
+
+Los resultados completos de renderer, CI, revisión y merge se registran en
+[issue #6](https://github.com/CripterHack/distrito-cero/issues/6) y el PR vinculado.
+No atribuir evidencia histórica a este HTML. Las acciones reales siguen
+inmediatas, sin cambiar munición, reglas, disponibilidad o partidas. No se
+acredita continuidad de todos los cortes prioritarios, toda la malla/CCD,
+FPS físicos ni una animación mecánica certificada del cilindro del revólver.
+
+## Registro del cambio libre · PR #52
+
+Integrado en d25baffca0f22e60a001f8f7f6e81ac8877cb9eb, producto 0.20.15.
+El primer arco de 0.08 m falló a −4.068 mm contra chaqueta. Se reutilizó
+0.12 m sin relajar el criterio. Verify del PR y push aprobaron seis jobs,
+277 WebGL, 80 HTTP y 36 benchmark por conjunto. [Cierre y límites](https://github.com/CripterHack/distrito-cero/pull/52).
+Su siguiente diagnóstico de recarga motivó esta unidad, no una repetición
+del cambio libre ni de los arreglos de caché o scheduling anteriores.
 
 ## Registro histórico de rifle ↔ pistola · PR #49
 

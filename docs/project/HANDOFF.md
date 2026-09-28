@@ -1,62 +1,68 @@
-# Continuación vigente · rifle ↔ revólver libre
+# Continuación vigente · rifle ↔ revólver desde recarga
 
-## Base integrada, no repetir
+## Punto de partida
 
-#51 está integrado en `17f6086d4ec60c764cd58be62493ae12bd0e2c68`, árbol
-`f82ac7205839239aa6826dfb26429e05cd3b543f`, producto 0.20.14. Verify posterior
-`36320055066` aprobó sus seis jobs. Su caché de dedos canónica no se modifica
-ni se oculta precalentando QA. #50 ya resolvió la distribución de sight.
-El timeout histórico de #49 sigue registrado como fallo, no como aprobación.
+#52 ya está integrado y verificado en `d25baffca0f22e60a001f8f7f6e81ac8877cb9eb`,
+árbol `1fd4f64fc57536034b6bd565cdd2a2793091f219`, producto 0.20.15.
+[Su cierre](https://github.com/CripterHack/distrito-cero/pull/52) distingue CI del
+PR, push y Pages. No repetir intercambio libre, caché de #51 o particiones de #50.
 
-## Unidad actual: candidata 0.20.15
+## Cambio implementado en este árbol (0.20.16)
 
-[Plan y registro](../../specs/003-weapon-contact/plan-rifle-revolver-free.md),
+[Plan](../../specs/003-weapon-contact/plan-rifle-revolver-reload.md),
 [SPEC-003](../../specs/003-weapon-contact/spec.md), CONTACT-04/05, issue #6.
-Rifle ↔ revólver libre reutiliza captura visible, montaje y 0.90 s cosméticos.
-Palmas, matrices, dedos y pieza inicial se conservan sin retrasar selección,
-disparo o nueva recarga. Se excluyen recargas activas/congeladas, devolución
-cosmética pendiente y modelo mostrado fuera de esta pareja.
+Ambas direcciones desde recarga conservan pose/pieza mostradas usando captura,
+montaje y retorno existentes de 0.90 s. La única ampliación de runtime retira
+la exclusión de recarga/pieza retornando; mantiene rechazado un tercer prop.
+No modifica gameplay, duración lógica, munición, geometría, huesos o partidas.
+El revólver no tiene un cilindro articulado independiente: el retorno es
+cosmético y no una reinserción mecánica certificada.
 
-Cinco pruebas extendidas fallaron en la base. El arco inicial de 0.08 m fue
-rechazado por chaqueta a −4.068 mm; se reutiliza 0.12 m sólo para la pareja
-medida, conservando el límite de −2 mm. Los diez tests dirigidos aprueban.
-No implica que se hayan verificado todas las anatomías, giros o toda la malla.
+Veinte pruebas dirigidas, siete fallos reproducidos antes del cambio. Se
+amplían las matrices existentes, no se duplican. 128 casos de selección,
+304 poses de culata, fases, congelación, reversión, acciones prioritarias,
+caché fría/inicializada y restore. Mantener los límites y la pureza de lectura.
 
-**Estado al escribir este commit:** cambio y regresión dirigida implementados.
-El cierre del PR del HEAD exacto es el registro de suite completa, renderer,
-revisión, CI, merge, push y Pages. No volver a implementar esta unidad sin
-comprobar primero ese cierre. No atribuirle artefactos de 0.20.14.
+## Gate antes de ampliar producto
+
+Consultar [issue #6](https://github.com/CripterHack/distrito-cero/issues/6) y el
+PR vinculado para HEAD, CI, revisión y merge reales. Una implementación en el
+árbol no demuestra por sí sola integración. No reutilizar capturas de #52.
 
 ```sh
 python3 build.py --check
-node --test tests/cross-family-handoff.test.cjs tests/finger-cache-order.test.cjs
-node --test tests/*.test.cjs
+node --test --test-concurrency=2 tests/*.test.cjs
 python3 tests/release_build.test.py
 python3 tests/release_checkout.test.py
 python3 tests/qa_selection.test.py
+python3 tests/ci_workflow.test.py
 xvfb-run -a python3 -m tools.qa.run --suite sight --headed --timeout 1800
 ```
 
-Sight ahora exige 66 checks, 40 base y 26 cruces, con diez intercambios y
-61 estados cada uno. Las cinco guardas compartidas se ejecutan en ambas
-particiones y se cuentan una vez. Misma cámara, renderer y presupuesto.
+El alias sight ejecuta 40 base + 26 cruces anteriores + 10 recarga nueva,
+sin solapamiento, con doce secuencias de 61 estados. La partición
+`sight-revolver-reload` añade un job, no un productor paralelo distinto ni
+un nuevo catálogo. Cinco guardas comunes por partición, contadas una vez.
 Ejecutar además [QA](QA.md), exportación, geometría y persistencia afectadas.
+Mantener 1800 s/productor y 40 min/job. Mayor presupuesto agregado de runners,
+no supuesta reducción de coste total o mejora de FPS.
 
 ## Siguiente trabajo real
 
-Tras verificar esta unidad, elegir una fase concreta de recarga rifle/revólver
-y reproducirla en UI/renderer antes de habilitarla. El revólver usa otro tipo
-de pieza, no inferir una reinserción mecánica de un retorno cosmético genérico.
-Otros cruces, herramientas/pesados, giros/anatomías, cortes prioritarios visuales
-y coste por actor/LOD siguen pendientes en #6. Las acciones reales prevalecen.
-#5 conserva arte/procedencia/materiales/UV; #7 recorrido/humanos/hardware.
-No cerrar criterios globales por el conteo de tests.
+Después de cerrar esta validación, elegir un cruce restante reproducible,
+por ejemplo SMG/revólver, antes de ampliar el allowlist. No tratar otra vez
+rifle/revólver libre o desde recarga como ruta ausente en este árbol. Quedan
+herramientas/pesados, giros/anatomías combinados, continuidad visual de cortes
+prioritarios y coste por actor/LOD. Una acción real siempre prevalece.
+#5 mantiene arte/procedencia/materiales/UV y #7 recorrido/humanos/hardware.
+No cerrar issues globales por conteos, ni atribuir revisión independiente.
 
-## Recuperación
+## Recuperación y límites operativos
 
-Sólo master es permanente. El bundle de #51, artefacto `10932299036` del run
-`36321562419`, contiene tres referencias y toda su historia. ZIP SHA-256:
-`03c63febabfeda2533abd390c9c0411401c66f447ebea2dd5ceee1d31cca9f50`.
-Se restauró y verificó con `git fsck --full` para esta continuación. Retirar
-sólo ramas concluidas tras respaldo y comprobación del SHA exacto.
-Revertir esta unidad junto con versión/build sin migrar ni borrar partidas.
+La limpieza de #52 fue bloqueada: sus ramas feature/helper se conservaron.
+No reintentar el borrado por otra vía. Esta unidad no modifica esas ramas.
+La copia local original es una instantánea de los 946 archivos y no historial
+Git remoto. Los commits locales se distinguen por identidad y equivalencia
+de árbol en los informes. Revertir esta unidad junto con versión/build no
+migra ni borra partidas. Conservar los respaldos anteriores y los helpers
+fuera de la ascendencia del producto.

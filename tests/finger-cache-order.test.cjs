@@ -47,7 +47,7 @@ if(process.argv[2]==='--probe'){
 }else{
  const test=require('node:test');
  const run=config=>JSON.parse(execFileSync(process.execPath,[__filename,'--probe',JSON.stringify(config)],{encoding:'utf8',timeout:30000,maxBuffer:8*1024*1024}));
- for(const [from,to]of [['rifle','pistol'],['pistol','rifle']])for(const reload of [false,true]){
+ for(const [from,to]of [['rifle','pistol'],['pistol','rifle'],['rifle','revolver'],['revolver','rifle']])for(const reload of [false,true]){
   test(`${from} -> ${to}${reload?' from reload':''} has identical finger poses with cold or previously initialized cache`,()=>{
    for(const cfg of [{},{crouch:1,pitch:.3,neck:1}]){
     const cold=run({from,to,reload,...cfg}),warm=run({from,to,reload,warm:true,...cfg});

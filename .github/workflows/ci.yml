@@ -97,7 +97,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        group: [handoff, sight-base, sight-cross-family, graphics]
+        group: [handoff, sight-base, sight-cross-family, sight-revolver-reload, graphics]
     runs-on: ubuntu-24.04
     timeout-minutes: 40
     steps:
@@ -124,7 +124,7 @@ jobs:
           elif [ "$FULL_BROWSER" = true ]; then
             # Select every other fixture from the registry without duplicating
             # handoff/sight partitions or mixing native HTTP persistence into it.
-            names=$(python3 -c "from tools.qa.run import SUITES; print(' '.join(k for k,v in SUITES.items() if v.origin=='fixture' and k not in ('handoff','sight-base','sight-cross-family')))")
+            names=$(python3 -c "from tools.qa.run import SUITES; print(' '.join(k for k,v in SUITES.items() if v.origin=='fixture' and k != 'handoff' and not k.startswith('sight-')))")
             suites=()
             for name in $names; do suites+=(--suite "$name"); done
           else
