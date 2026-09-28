@@ -1,5 +1,29 @@
 # QA reproducible desde el repositorio
 
+## Aceptación estricta de informes sight
+
+El runner rechaza `comparisonOnly: true` aun cuando el productor retorna exit 0.
+Cada partición sight exige `comparisonOnly: false`, su identidad exacta,
+checks aprobados con nombres no vacíos y únicos, y las cinco guardas canónicas.
+Base conserva esas guardas dentro de sus 40 checks y exige `guards: []`.
+Las demás particiones exigen cinco guardas separadas aprobadas, sin ausencias,
+duplicados, sustituciones o valores como 1/"true". No cuentan como checks nuevos.
+`tools/qa/sight_contract.py` comparte sus nombres con el productor y el validador.
+
+Regresión: `python3 tests/qa_runner.test.py`. Son procesos sintéticos que
+escriben informes frescos para probar el gate, no capturas ni partidas del juego.
+La suite crece de 15 a 26 métodos. Diez métodos nuevos detectaron 30 fallos de
+aserción en la base. Tras el arreglo aprobaron 26/26. Un primer intento fue
+interrumpido por el límite del contenedor; se conserva separado de las corridas
+completas. No se elevó el timeout del productor o de los fixtures para ocultarlo.
+
+Los tres informes originales del push #55, run 36451732544, pasan el contrato
+reforzado: 94 checks y guardas completas. La repetición de su validación no es
+una nueva ejecución de navegador. La CI del PR actual vuelve a ejecutar el
+productor con sus parámetros intactos. [Plan](../../specs/001-reliability/plan-sight-evidence-gates.md).
+Este control de esquema no protege contra un productor arbitrario que falsifique
+resultados. Tampoco acredita hardware, arte o cobertura no medida.
+
 ## Caché canónica y cruces medidos · 0.20.18
 
 `node --test tests/finger-cache-order.test.cjs` ejecuta doce tests: rifle/pistola,

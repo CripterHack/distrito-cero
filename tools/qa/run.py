@@ -9,7 +9,7 @@ import argparse, hashlib, json, os, shutil, signal, subprocess, sys, tempfile, t
 from .config import Config
 from .workspace import stage_workspace
 from .reporting import failure_summary
-from .sight_contract import SIGHT_PARTITIONS
+from .sight_contract import SIGHT_PARTITIONS, validate_sight_report
 
 def digest(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
@@ -88,10 +88,12 @@ def execute_suite(config, suite, stage, html_sha, run_id):
         if report.stat().st_mtime < started-1: raise ValueError('Stale report timestamp.')
         result=json.loads(report.read_text(encoding='utf-8'))
         if not isinstance(result,dict): raise ValueError('Report must be an object.')
+        if result.get('comparisonOnly',False) is not False: raise ValueError('Comparison reports are diagnostic, not acceptance evidence.')
         checks=result.get('checks')
         if not isinstance(checks,list) or len(checks)!=suite.expected_checks: raise ValueError('Unexpected number of checks; update the contract explicitly.')
         if any(not isinstance(c,dict) or c.get('pass',c.get('passed')) is not True for c in checks): raise ValueError('A check did not pass.')
         if result.get('errors') or result.get('requests'): raise ValueError('Runtime errors or external requests recorded.')
+        if suite.name.startswith('sight-'): validate_sight_report(result,suite.name.removeprefix('sight-'))
         if result.get('sha256')!=html_sha: raise ValueError('Report belongs to different HTML.')
         if digest(stage/'index.html')!=html_sha or digest(config.root/'index.html')!=html_sha: raise ValueError('HTML changed during execution.')
         if suite.origin=='http' and result.get('nativeStorage') is not True: raise ValueError('Native mode cannot be satisfied with a storage fixture.')

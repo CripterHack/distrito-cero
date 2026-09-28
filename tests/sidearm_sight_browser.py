@@ -6,7 +6,7 @@ from datetime import datetime, timezone
 import argparse,hashlib,json,os,sys
 R=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(R))
-from tools.qa.sight_contract import SIGHT_PARTITIONS,sight_cases
+from tools.qa.sight_contract import SIGHT_PARTITIONS,SIGHT_GUARDS,sight_cases
 parser=argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--partition',choices=['all',*(p for p,_ in SIGHT_PARTITIONS)],default='all')
 partition=parser.parse_args().partition
@@ -35,7 +35,7 @@ try:
   p.on('pageerror',lambda e:errors.append(str(e)));p.on('console',lambda m:errors.append(m.text) if m.type=='error' else None);p.on('request',lambda r:requests.append(r.url) if r.url.startswith(('http:','https:')) else None)
   p.set_content(html.replace('<script>','<script>'+FIX,1),timeout=120000);p.wait_for_function('!!window.DC_APP',timeout=120000);p.evaluate('DC_APP.renderer.humanReady')
   loaded=p.evaluate('DC_APP.renderer.humanTextureStatus.loaded===3')
-  guard('Embedded skin maps decode in the production renderer',loaded)
+  guard(SIGHT_GUARDS['maps'],loaded)
   p.click('#start');p.fill('#characterName','Referencia ocular');p.fill('#newSaveName','Inspección aislada');p.click('#commitCreator');p.click('#dismissTutorial')
   for helper in ['manual_frames.js','sidearm_sight.js','stock_clearance.js']:p.add_script_tag(content=(R/'tools/qa'/helper).read_text())
   p.evaluate('''()=>{const a=DC_APP,s=a.sim,r=a.renderer;DC_MANUAL_FRAMES.start(a);s.free=true;s.wanted=s.heat=0;s.peds.forEach(n=>n.hidden=true);s.cars.forEach(c=>Object.assign(c,{x:5000,z:5000,driver:null}));s.dynamics.props=[];Object.assign(s.player,{x:4,z:36,y:0,yaw:0,vy:0,vx:0,vz:0,car:null,moveSpeed:0,walk:0});r.rain=r.bloom=0;r.daylight=.67;r.previewStudio=false;r.fovOverride=.62;r.lightTime=-1;
@@ -120,10 +120,10 @@ try:
   # Keep the original final UI guards after the last exchange of EACH partition.
   # Cross-family ends with rifle and this extended shard with SMG; both need final UI guards.
   css.evaluate('(e)=>e.remove()');p.evaluate('DC_APP.setMode("play")');p.keyboard.press('Tab');p.wait_for_function('DC_APP.mode==="arsenal"')
-  guard('Translucent selector remains paused and blocks game actions',p.evaluate('getComputedStyle(document.getElementById("arsenal")).backgroundColor.startsWith("rgba")&&!DC_APP.sim.equipment.trigger'))
-  p.keyboard.press('Escape');guard('Closing selection does not restore a trigger or aiming request',p.evaluate('!DC_APP.sim.equipment.trigger&&!DC_APP.sim.equipment.aiming&&DC_APP.sim.equipment.charge===0'))
-  guard('Visual inspection never overwrites the saved catalogue',p.evaluate('JSON.stringify([...qaSightStore])===sightStoreBefore'))
-  guard('No JavaScript or graphics exceptions or external requests',not errors and not requests)
+  guard(SIGHT_GUARDS['selector'],p.evaluate('getComputedStyle(document.getElementById("arsenal")).backgroundColor.startsWith("rgba")&&!DC_APP.sim.equipment.trigger'))
+  p.keyboard.press('Escape');guard(SIGHT_GUARDS['inputs'],p.evaluate('!DC_APP.sim.equipment.trigger&&!DC_APP.sim.equipment.aiming&&DC_APP.sim.equipment.charge===0'))
+  guard(SIGHT_GUARDS['storage'],p.evaluate('JSON.stringify([...qaSightStore])===sightStoreBefore'))
+  guard(SIGHT_GUARDS['runtime'],not errors and not requests)
   b.close()
 finally:
  report={'partition':partition,'sha256':sha,'checks':checks,'guards':guards,'errors':errors,'requests':requests,'cases':cases,'switchCases':switch_cases,'reloadSwitchCases':reload_switch_cases,'crossFamilyCases':cross_family_cases,'nativeStorage':False,'physicalGpu':False,'comparisonOnly':comparison,'note':'Actual eye-mesh bounds, production-renderer palette and visible sight top surfaces. Prepared camera/time; no optical physics, first-person aim or full anatomical acceptance.'}
