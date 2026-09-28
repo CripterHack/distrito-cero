@@ -24,7 +24,7 @@ def ck(name,value):
  checks.append({'name':name,'pass':bool(value)});print(('PASS ' if value else 'FAIL ')+name,flush=True)
  if not comparison:assert value,name
 def guard(name,value):
- # Enforce shared prerequisites in both partitions, but count them only in base.
+ # Enforce shared prerequisites in every partition, but count them only in base.
  if base:ck(name,value)
  else:
   guards.append({'name':name,'pass':bool(value)});print(('GUARD PASS ' if value else 'GUARD FAIL ')+name,flush=True)
@@ -118,7 +118,7 @@ try:
     ck(label+' retains the whole starting palette and sampled rifle clearance',same_palette and bool(stock_rows) and all(min(r['stockMinimum'].values())>=-.002 for r in stock_rows))
     entry.update(initialPaletteMaxDifference=max(abs(x-y) for x,y in zip(before['palette'],first['palette'])),minimumSampledStockDistance=min(min(r['stockMinimum'].values()) for r in stock_rows))
   # Keep the original final UI guards after the last exchange of EACH partition.
-  # Cross-family ends with rifle, so moving these to base alone loses coverage.
+  # Reload and cross-family partitions end with rifle; base-only guards lose coverage.
   css.evaluate('(e)=>e.remove()');p.evaluate('DC_APP.setMode("play")');p.keyboard.press('Tab');p.wait_for_function('DC_APP.mode==="arsenal"')
   guard('Translucent selector remains paused and blocks game actions',p.evaluate('getComputedStyle(document.getElementById("arsenal")).backgroundColor.startsWith("rgba")&&!DC_APP.sim.equipment.trigger'))
   p.keyboard.press('Escape');guard('Closing selection does not restore a trigger or aiming request',p.evaluate('!DC_APP.sim.equipment.trigger&&!DC_APP.sim.equipment.aiming&&DC_APP.sim.equipment.charge===0'))

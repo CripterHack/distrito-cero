@@ -100,20 +100,21 @@ class WorkflowTests(unittest.TestCase):
             names=[output[i+1] for i,x in enumerate(output[:-1]) if x=='--suite']
             return [k for k,v in SUITES.items() if v.origin=='fixture'] if 'all' in names else names
         for full in (False,True):
-            groups=['handoff','sight-base','sight-cross-family','graphics']
+            groups=['handoff','sight-base','sight-cross-family','sight-revolver-reload','graphics']
             results={g:selected(g,full) for g in groups}
             self.assertEqual(results['handoff'],['handoff'])
             self.assertEqual(results['sight-base'],['sight-base'])
             self.assertEqual(results['sight-cross-family'],['sight-cross-family'])
+            self.assertEqual(results['sight-revolver-reload'],['sight-revolver-reload'])
             names=[name for g in groups for name in results[g]]
             self.assertEqual(len(names),len(set(names)),'every fixture runs once')
-            expected={k for k,v in SUITES.items() if v.origin=='fixture'} if full else {'handoff','longarms','sight-base','sight-cross-family','thenar','sidearms','thumbs','fingers','handling','optical','recovery'}
+            expected={k for k,v in SUITES.items() if v.origin=='fixture'} if full else {'handoff','longarms','sight-base','sight-cross-family','sight-revolver-reload','thenar','sidearms','thumbs','fingers','handling','optical','recovery'}
             self.assertEqual(set(names),expected)
 
     def test_browser_shards_fail_independently_and_keep_their_own_evidence(self):
         browser=self.source.split('\n  browser:\n',1)[1].split('\n  native:\n',1)[0]
         self.assertIn('fail-fast: false',browser)
-        self.assertIn('group: [handoff, sight-base, sight-cross-family, graphics]',browser)
+        self.assertIn('group: [handoff, sight-base, sight-cross-family, sight-revolver-reload, graphics]',browser)
         self.assertIn('webgl-${{ matrix.group }}-',browser)
         self.assertNotIn('continue-on-error',browser)
         self.assertIn('timeout-minutes: 40',browser)

@@ -3,8 +3,9 @@ const test=require('node:test'),assert=require('node:assert/strict');
 const fs=require('node:fs'),vm=require('node:vm');
 const {D,R,scene}=require('./helpers/sidearm_sight.cjs');
 D.App=class {};D.Audio=class {};vm.runInThisContext(fs.readFileSync('src/equipment-ui.js','utf8'));
-const pairs=[['rifle','pistol'],['pistol','rifle']],freePairs=[['rifle','revolver'],['revolver','rifle']],allPairs=[...pairs,...freePairs],phases=[null,0,.08,.28,.46,.65,.86,.97];
-const reloadPhases=(from,to)=>[from,to].includes('revolver')?[null]:phases;
+const pairs=[['rifle','pistol'],['pistol','rifle']],revolverPairs=[['rifle','revolver'],['revolver','rifle']],allPairs=[...pairs,...revolverPairs],phases=[null,0,.08,.28,.46,.65,.86,.97];
+const reloadPhases=()=>phases;
+const partRole=m=>m.displayItem==='revolver'?'body':'magazine';
 const xyz=p=>[p.x,p.y,p.z],distance=(a,b)=>Math.hypot(...a.map((x,i)=>x-b[i]));
 function tick(s,n=1){for(let i=0;i<n;i++){s.time+=1/60;s.equipmentStep(1/60,{});}}
 function setup(id,phase=null,cfg={}){const s=scene(id);s.player.crouch=cfg.crouch||0;s.equipment.pitch=cfg.pitch||0;s.appearance.neckLength=cfg.neck||0;
@@ -21,17 +22,17 @@ function sameStart(a,b){for(let k=0;k<2;k++)assert.ok(distance(a.palms[k],b.palm
 function lengths(v){for(const side of ['L','R'])for(const [a,b]of [['upperArm','forearm'],['forearm','hand']]){const pa=R.bones[R.ids[a+side]][2],pb=R.bones[R.ids[b+side]][2];
  const x=R.transform(v.pose.matrices.subarray(R.ids[a+side]*16,R.ids[a+side]*16+16),pa),y=R.transform(v.pose.matrices.subarray(R.ids[b+side]*16,R.ids[b+side]*16+16),pb);
  assert.ok(Math.abs(distance(x,y)-distance(pa,pb))<1e-6,'arm length changed');}}
-for(const [from,to]of allPairs)test(from+' -> '+to+' preserves torso, palms and visible parts across '+([from,to].includes('revolver')?'free selection':'aim and reload exits'),()=>{
+for(const [from,to]of allPairs)test(from+' -> '+to+' preserves torso, palms and visible parts across aim and reload exits',()=>{
  let maximum=0,partMaximum=0,cases=0;
  for(const cfg of [{},{aim:false},{crouch:1,pitch:.3,neck:1},{crouch:1,pitch:-.3,neck:-1}])for(const phase of reloadPhases(from,to)){const s=setup(from,phase,cfg),a=app(s),before=read(s),ammo=JSON.stringify(s.equipment.ammo),time=s.time,shots=s.equipment.shots;
   select(a,to);let previous=read(s);sameStart(before,previous);assert.equal(s.equipment.selected,to);assert.equal(s.equipment.reloading,0);assert.equal(s.equipment.reloadId,null);assert.equal(s.equipment.trigger,false);assert.equal(s.equipment.aimWeight,0);assert.equal(s.time,time);
   const points=[[0,0,0],[.03,-.18,-.02],[-.025,-.14,.04]];
-  for(const p of points)assert.ok(distance(before.mount.partPoint('magazine',p),previous.mount.partPoint('magazine',p))<1e-5,'old magazine initial transform changed');
+  for(const p of points)assert.ok(distance(before.mount.partPoint(partRole(before.mount),p),previous.mount.partPoint(partRole(previous.mount),p))<1e-5,'old magazine initial transform changed');
   let changes=0;
   for(let frame=1;frame<=72;frame++){tick(s);const data=JSON.stringify(s.serialize()),memory=JSON.stringify(s.equipment.handling),v=read(s);lengths(v);
    for(let k=0;k<2;k++){const d=distance(v.palms[k],previous.palms[k]);maximum=Math.max(d,maximum);assert.ok(d<.030,`${from} phase ${phase} ${JSON.stringify(cfg)} frame ${frame} palm ${k}: ${d}m`);}
    for(const k of ['L','R'])assert.ok(distance(xyz(R.palmPoint(v.pose,v.actor,k)),xyz(v.mount.palmContacts[k]))<.012,'unreachable presentation target');
-   if(v.mount.displayItem===previous.mount.displayItem)for(const p of points){const d=distance(v.mount.partPoint('magazine',p),previous.mount.partPoint('magazine',p));partMaximum=Math.max(d,partMaximum);assert.ok(d<.030,'magazine transform discontinuity');}
+   if(v.mount.displayItem===previous.mount.displayItem)for(const p of points){const d=distance(v.mount.partPoint(partRole(v.mount),p),previous.mount.partPoint(partRole(previous.mount),p));partMaximum=Math.max(d,partMaximum);assert.ok(d<.030,'visible piece transform discontinuity');}
    else {changes++;assert.equal(v.mount.displayItem,to);assert.ok(Math.hypot(...previous.mount.magazine.offset)<.001,'old magazine not seated before replacement');}
    assert.equal(JSON.stringify(s.serialize()),data);assert.equal(JSON.stringify(s.equipment.handling),memory);assert.equal(JSON.stringify(s.equipment.ammo),ammo);assert.equal(s.equipment.shots,shots);previous=v;
   }
@@ -53,7 +54,7 @@ test('cross-family presentation remains transient and a real shot or reload alwa
  }
 });
 test('cross-family selection reuses the moving actor and preserves foot support memory',()=>{
- for(const [from,to]of allPairs){const s=setup(from),tracker=new D.MotionTracker(4);Object.assign(s.player,{x:4,z:36,y:0,yaw:0,vx:0,vz:0,vy:0});
+ for(const [from,to]of allPairs)for(const phase of [null,.46]){const s=setup(from,phase),tracker=new D.MotionTracker(4);Object.assign(s.player,{x:4,z:36,y:0,yaw:0,vx:0,vz:0,vy:0});
   s.peds.forEach(n=>n.hidden=true);s.dynamics.props=[];s.cars.forEach((c,i)=>Object.assign(c,{x:5000+i*6,z:5000,driver:null,parked:true,speed:0}));
   let n;for(let i=0;i<30;i++){s.step(1/60,{aim:true,throttle:.6,steer:0});n=tracker.update('player',s.player,s.time);}
   const before=read(s,n),memory=JSON.stringify(n.motion);select(app(s,n),to);const first=read(s,n);sameStart(before,first);assert.equal(first.pose.rootY,before.pose.rootY);assert.equal(JSON.stringify(n.motion),memory);
@@ -80,16 +81,33 @@ test('the displayed rifle clears sampled face and jacket during the cross-family
  console.log(JSON.stringify({sampledStockPoses:samples,minimumSampledDistance:minimum}));
 });
 
-test('rifle/revolver excludes active or frozen reloads and a different displayed prop',()=>{
- for(const [from,to]of freePairs)for(const phase of phases.filter(x=>x!==null))for(const frozen of [false,true]){
-  const s=setup(from,phase),before=read(s),ammo=JSON.stringify(s.equipment.ammo),a=app(s,s.player,frozen?{mount:before.mount,equipment:{...s.equipment}}:null);
-  select(a,to,frozen);assert.equal(s.equipment.selected,to);assert.equal(s.equipment.handling.handoff,undefined);assert.equal(JSON.stringify(s.equipment.ammo),ammo);assert.equal(s.equipment.reloading,0);assert.equal(s.equipment.trigger,false);
+test('rifle/revolver preserves the frozen reload pose at every sampled phase',()=>{
+ for(const [from,to]of revolverPairs)for(const phase of phases.filter(x=>x!==null)){
+  const s=setup(from,phase),before=read(s),ammo=JSON.stringify(s.equipment.ammo),time=s.time;
+  const frozen={mount:before.mount,equipment:{...s.equipment}};s.cancelEquipment();
+  select(app(s,s.player,frozen),to,true);sameStart(before,read(s));
+  assert.ok(s.equipment.handling.handoff);assert.equal(s.time,time);
+  assert.equal(s.equipment.reloading,0);assert.equal(s.equipment.trigger,false);
+  tick(s,72);assert.equal(s.equipment.handling.handoff,undefined);assert.equal(JSON.stringify(s.equipment.ammo),ammo);
  }
- // Rifle is selected, but the free presentation still shows a third prop.
- const s=setup('pistol');select(app(s),'rifle');tick(s,9);assert.equal(read(s).mount.displayItem,'pistol');assert.equal(read(s).mount.reload,0);
- select(app(s),'revolver');assert.equal(s.equipment.handling.handoff,undefined);
- // The visible item is an allowed rifle, but still returning its old magazine.
- const r=setup('rifle',.46);select(app(r),'pistol');tick(r,9);select(app(r),'revolver');
- assert.equal(r.equipment.reloading,0);assert.equal(read(r).mount.displayItem,'rifle');assert.ok(read(r).mount.reload>0);
- select(app(r),'rifle');assert.equal(r.equipment.handling.handoff,undefined);
+});
+test('rifle/revolver retargets a returning piece without discarding its current pose',()=>{
+ for(const [from,to]of revolverPairs)for(const reverseAt of [0,9,36]){
+  const s=setup(from,.46),a=app(s);select(a,to);tick(s,reverseAt);const before=read(s),ammo=JSON.stringify(s.equipment.ammo);
+  select(a,from);sameStart(before,read(s));assert.ok(s.equipment.handling.handoff);
+  tick(s,72);assert.equal(s.equipment.handling.handoff,undefined);assert.equal(JSON.stringify(s.equipment.ammo),ammo);
+ }
+ // Preserve the original three-selection regression too: logical selection
+ // passed through pistol, but the permitted rifle piece is still returning.
+ const s=setup('rifle',.46),a=app(s);select(a,'pistol');tick(s,9);select(a,'revolver');
+ const before=read(s);assert.equal(before.mount.displayItem,'rifle');assert.ok(before.mount.reload>0);
+ select(a,'rifle');sameStart(before,read(s));assert.ok(s.equipment.handling.handoff);
+ tick(s,72);assert.equal(s.equipment.handling.handoff,undefined);
+});
+test('rifle/revolver still rejects a third displayed prop during free or reload presentation',()=>{
+ for(const phase of [null,.46]){
+  const s=setup('pistol',phase);select(app(s),'rifle');tick(s,9);
+  assert.equal(read(s).mount.displayItem,'pistol');
+  select(app(s),'revolver');assert.equal(s.equipment.handling.handoff,undefined);
+ }
 });

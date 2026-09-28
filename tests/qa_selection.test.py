@@ -5,7 +5,7 @@ sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 from tools.qa.run import select_suites
 class SelectionTests(unittest.TestCase):
     def test_all_filters_by_storage_contract(self):
-        self.assertEqual(len(select_suites(['all'],'fixture')),16)
+        self.assertEqual(len(select_suites(['all'],'fixture')),17)
         self.assertEqual([s.name for s in select_suites(['all'],'http')],['release','native','reload'])
     def test_explicit_native_does_not_mislabel_fixture(self):
         with self.assertRaises(ValueError):select_suites(['handling'],'http')
@@ -34,9 +34,9 @@ class SelectionTests(unittest.TestCase):
         with self.assertRaises(ValueError):select_suites(['release'],'fixture')
     def test_sight_alignment_is_a_graphical_not_native_contract(self):
         q=select_suites(['sight'],'fixture')
-        self.assertEqual([x.name for x in q],['sight-base','sight-cross-family'])
-        self.assertEqual([x.expected_checks for x in q],[40,26])
-        self.assertEqual(sum(x.expected_checks for x in q),66)
+        self.assertEqual([x.name for x in q],['sight-base','sight-cross-family','sight-revolver-reload'])
+        self.assertEqual([x.expected_checks for x in q],[40,26,10])
+        self.assertEqual(sum(x.expected_checks for x in q),76)
         with self.assertRaises(ValueError):select_suites(['sight'],'http')
     def test_reload_input_suite_requires_native_http_and_fixed_coverage(self):
         self.assertEqual(select_suites(['reload'],'http')[0].expected_checks,31)
@@ -51,32 +51,37 @@ class SelectionTests(unittest.TestCase):
         from tools.qa.run import SUITES
         self.assertIn('sight-base',SUITES)
         q=select_suites(['sight','sight-base','sight-cross-family','sight'],'fixture')
-        self.assertEqual([x.name for x in q],['sight-base','sight-cross-family'])
-        self.assertEqual(len({x.report for x in q}),2)
+        self.assertEqual([x.name for x in q],['sight-base','sight-cross-family','sight-revolver-reload'])
+        self.assertEqual(len({x.report for x in q}),3)
         self.assertEqual([x.command for x in q],[
             ('tests/sidearm_sight_browser.py','--partition','base'),
-            ('tests/sidearm_sight_browser.py','--partition','cross-family')])
+            ('tests/sidearm_sight_browser.py','--partition','cross-family'),
+            ('tests/sidearm_sight_browser.py','--partition','revolver-reload')])
 
     def test_sight_partitions_reject_native_mode_and_unknown_names(self):
         from tools.qa.run import SUITES
         self.assertIn('sight-base',SUITES)
-        for name in ['sight-base','sight-cross-family']:
+        for name in ['sight-base','sight-cross-family','sight-revolver-reload']:
             with self.assertRaises(ValueError):select_suites([name],'http')
         with self.assertRaises(KeyError):select_suites(['sight-imaginary'],'fixture')
 
-    def test_sight_partitions_keep_old_exchanges_and_add_only_free_rifle_revolver(self):
+    def test_sight_partitions_keep_old_exchanges_and_add_only_rifle_revolver_reload(self):
         from tools.qa.sight_contract import sight_cases
         cases=sight_cases
         expected=(('pistol','revolver',None),('revolver','pistol',None),
             ('pistol','revolver',.46),('revolver','pistol',.46),
             ('rifle','pistol',None),('pistol','rifle',None),
             ('rifle','pistol',.46),('pistol','rifle',.46),
-            ('rifle','revolver',None),('revolver','rifle',None))
+            ('rifle','revolver',None),('revolver','rifle',None),
+            ('rifle','revolver',.46),('revolver','rifle',.46))
         self.assertEqual(cases('all'),expected)
         self.assertEqual(cases('base'),expected[:4])
-        self.assertEqual(cases('cross-family'),expected[4:])
-        self.assertEqual(cases('base')+cases('cross-family'),cases('all'))
-        self.assertFalse(set(cases('base')) & set(cases('cross-family')))
+        self.assertEqual(cases('cross-family'),expected[4:10])
+        self.assertEqual(cases('revolver-reload'),expected[10:])
+        self.assertEqual(cases('base')+cases('cross-family')+cases('revolver-reload'),cases('all'))
+        self.assertEqual(len(cases('all')),len(set(cases('all'))))
+        self.assertEqual(len(cases('all')),12)
+        self.assertFalse(set(cases('revolver-reload')) & set(cases('cross-family')))
         with self.assertRaises(ValueError):cases('imaginary')
 
     def test_invalid_sight_partition_fails_before_loading_browser_or_writing_output(self):

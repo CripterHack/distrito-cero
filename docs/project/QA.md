@@ -1,48 +1,35 @@
 # QA reproducible desde el repositorio
 
-## Regresión de caché canónica integrada en #51 (0.20.14)
+## Caché canónica y recarga rifle/revólver · 0.20.16
 
-`node --test tests/finger-cache-order.test.cjs` ejecuta cuatro tests, cada uno
-con configuraciones neutral y agachada. Procesos separados representan el
-primer contacto frío o inicializado previamente por otro actor. Usa las
-mismas clases y UI del juego, compara perfiles y muestras de matrices completas,
-palmas, piezas y gameplay, y conserva cuatro entradas de caché.
+`node --test tests/finger-cache-order.test.cjs` ejecuta ocho tests, ambas
+parejas rifle/pistola y rifle/revólver, libres y desde recarga, con dos
+configuraciones cada una. Procesos separados simulan caché fría y equipo
+mostrado antes por otro actor. Exige igualdad de perfiles, muestras de
+matrices/palmas/piezas/gameplay y cuatro entradas de caché. No precalentar
+los perfiles en las suites normales ni agregar una API pública de reset.
 
-No precalentar todos los perfiles en las suites normales. Eso ocultaría la
-dependencia del orden. Mantener los tests existentes de superficies, dedos,
-pulgares, handoff, cancelación y persistencia. Los 58 checks históricos de sight no cambiaron
-por ese ajuste de runtime. La unidad libre siguiente añade ocho. Comparar capturas de su propio HTML/HEAD.
+`tests/cross-family-handoff.test.cjs` amplía el catálogo existente a 128 casos
+de selección y 304 poses de culata. Incluye congelación desde siete fases,
+retorno y reselección, cuerpo visible del revólver, longitudes, acciones
+prioritarias y estado transitorio no persistente. El muestreo no es toda la malla.
 
-
-## Guardas compartidas de las particiones
-
-Ambas particiones comprueban carga de mapas, selector, cierre de inputs,
-catálogo guardado y ausencia de errores/requests después de su propia última
-secuencia. Base cuenta esos cinco checks una vez. Cruces los conserva como
-cinco `guards` obligatorios, con fallo bloqueante, no como cinco tests nuevos.
-Así se mantiene la comprobación final con rifle del productor completo.
-
-## Sight vigente: 66 checks, dos particiones sin solapamiento
-
-PR #49 está integrado en `0fa83b9e024819821e135a9de540a3f897bc9c78`, producto
-0.20.13. Su Verify previo aprobó, pero el push `36304175245` agotó el productor
-sight a 1800.008 s (exit 124): 44 mensajes PASS no equivalen a los 58 checks
-completados. El artefacto fallido `10926778997` se conserva en ese run.
-
-La partición integrada en #50 se conserva. El productor incorpora ahora diez
-intercambios: los ocho anteriores y dos rifle/revólver exclusivamente libres:
+## Sight vigente: 76 checks, tres particiones sin solapamiento
 
 | Selección | Checks | Contenido |
 | :--- | ---: | :--- |
-| `sight-base` | 40 | Apuntado/preparación/recarga, cuatro intercambios pistola/revólver y UI/integridad |
-| `sight-cross-family` | 26 | Cuatro intercambios rifle/pistola y dos rifle/revólver libres |
-| `sight` | 66 | Alias que ejecuta ambas particiones una vez, en orden |
+| `sight-base` | 40 | Apuntado/preparación/recarga, cuatro intercambios cortos y guardas comunes |
+| `sight-cross-family` | 26 | Cuatro rifle/pistola y dos rifle/revólver libres, cobertura de #52 intacta |
+| `sight-revolver-reload` | 10 | Dos rifle/revólver desde recarga, sin duplicar los anteriores |
+| `sight` | 76 | Alias que ejecuta las tres particiones una vez, en orden |
 
-`--suite all --origin fixture` incluye las 16 suites concretas sin repetir el
-alias. Las peticiones explícitas solapadas se deduplican. HTTP permanece
-separado y rechaza las particiones de sight. Invocar directamente
-`python3 tests/sidearm_sight_browser.py` sin `--partition` mantiene el productor
-completo de 66 checks; para CI se usan `base` y `cross-family`.
+Catálogo único de doce intercambios en `tools/qa/sight_contract.py`, mismo
+productor `tests/sidearm_sight_browser.py`. El modo directo sin flag mantiene
+`all`, ahora con 76 checks. `--suite all --origin fixture` incluye 17 suites
+concretas, sin repetir alias. Selecciones solapadas se deduplican y HTTP
+rechaza las suites de sight. Una partición inválida falla antes de importar
+Playwright o crear archivos. El output del runner debe ser un directorio
+nuevo dentro de `<root>/artifacts/`, nunca evidencia histórica.
 
 ```sh
 xvfb-run -a python3 -m tools.qa.run --suite sight --headed --timeout 1800
@@ -50,26 +37,27 @@ python3 tests/qa_selection.test.py
 python3 tests/ci_workflow.test.py
 ```
 
-Cada partición conserva 61 estados por intercambio, fotograma cero,
-resolución 820 × 680, renderer, espera gráfica, capturas, inputs reales y
-umbrales previos. La carga de mapas, ausencia de errores/peticiones y catálogo
-intacto se exigen en ambas; los checks compartidos se cuentan sólo en base.
-Los informes y directorios tienen sufijos propios, nunca se sobrescriben.
-Una selección inválida falla antes de cargar Playwright o crear artefactos.
+Se conservan los 66 nombres previos y diez nuevos, 61 estados por intercambio,
+frame cero, resolución 820×680, renderer, esperas gráficas, capturas, teclas
+reales y umbrales. En cada partición se comprueban cinco guardas de mapas,
+selector/cierre de inputs, catálogo y ausencia de errores/requests. Base las
+cuenta una vez, las demás las registran como guards bloqueantes sin inflar
+el número de checks. Se mantiene la validación final con rifle.
 
-CI ejecuta las dos particiones en runners distintos. El límite sigue siendo
-1800 s por partición y 40 minutos por job, sin `continue-on-error` ni reintentos.
-Esto redistribuye trabajo, **no reduce el coste total de renderizado ni prueba
-FPS del juego**. El máximo agregado de tiempo de runners permitido es mayor
-al existir dos jobs. La ejecución serial del alias puede durar más de 1800 s:
-`--timeout` sigue siendo por productor. No se oculta este cambio presupuestario.
+Los tres jobs conservan 1800 s por productor y 40 minutos por job, sin
+continue-on-error ni reintentos para ocultar fallos. El presupuesto agregado
+permitido aumenta al agregar un runner. Esto no demuestra mejor FPS ni menor
+coste total CPU/GPU. El alias serial puede durar más de 1800 s porque el
+límite se aplica por productor. Cada informe tiene su sufijo y directorio.
 
-PR #50 ya está integrado y sus dos ejecuciones (PR/push) aprobaron.
-Para cambios posteriores se exigen ambas particiones aprobadas en el HEAD
-exacto, conservación de los 58 nombres anteriores más ocho nuevos y de las capturas
-y estados. Los datos del PR y del push se registran por separado en su cierre.
-No reutilizar la CI de #49/#50 como resultado de una candidata posterior.
+## Historia y separación de evidencia
 
+El timeout posterior a #49, run `36304175245`, queda fallido a 1800.008 s,
+exit 124 y sólo 44 mensajes PASS. #50 lo resolvió repartiendo sus 58 checks,
+y #52 añadió ocho. #52 está integrado y verificado en d25baff, pero sus
+artefactos no son resultados de 0.20.16. Se necesitan los tres productores
+actuales aprobados en el HEAD exacto. CI del PR y push se registran por
+separado en el cierre vinculado desde [issue #6](https://github.com/CripterHack/distrito-cero/issues/6).
 
 ## Runner vigente (DC-001 / issue #2)
 
