@@ -5,7 +5,7 @@
 El runner rechaza `comparisonOnly: true` aun cuando el productor retorna exit 0.
 Cada partición sight exige `comparisonOnly: false`, su identidad exacta,
 checks aprobados con nombres no vacíos y únicos, y las cinco guardas canónicas.
-Base conserva esas guardas dentro de sus 40 checks y exige `guards: []`.
+Base conserva esas guardas dentro de sus 48 checks y exige `guards: []`.
 Las demás particiones exigen cinco guardas separadas aprobadas, sin ausencias,
 duplicados, sustituciones o valores como 1/"true". No cuentan como checks nuevos.
 `tools/qa/sight_contract.py` comparte sus nombres con el productor y el validador.
@@ -24,58 +24,52 @@ productor con sus parámetros intactos. [Plan](../../specs/001-reliability/plan-
 Este control de esquema no protege contra un productor arbitrario que falsifique
 resultados. Tampoco acredita hardware, arte o cobertura no medida.
 
-## Caché canónica y cruces medidos · 0.20.18
+## Caché canónica y cruces medidos · 0.20.19
 
-`node --test tests/finger-cache-order.test.cjs` ejecuta doce tests: rifle/pistola,
-rifle/revólver y SMG/revólver, libres y desde recarga, con dos
-configuraciones cada una. Procesos separados simulan caché fría y equipo
-mostrado antes por otro actor. Exige igualdad de perfiles, muestras de
-matrices/palmas/piezas/gameplay y cuatro entradas de caché. No precalentar
-los perfiles en las suites normales ni agregar una API pública de reset.
+`node --test tests/finger-cache-order.test.cjs` cubre dieciséis tests:
+rifle/pistola, rifle/revólver, SMG/revólver y pistola/SMG, libres y desde
+recarga, con dos configuraciones y procesos separados para caché fría o
+inicializada. Exige perfiles y muestras idénticos, cuatro entradas de caché,
+sin precalentar QA ni añadir una API pública de reset.
 
-`tests/cross-family-handoff.test.cjs` amplía el catálogo existente a 192 casos
-de selección y 456 poses de culata. Las siete fases y cuatro configuraciones
-cubren también SMG/revólver. Incluye
-retorno y reselección, cuerpo visible del revólver, longitudes, acciones
-prioritarias y estado transitorio no persistente. El muestreo no es toda la malla.
+`tests/cross-family-handoff.test.cjs` cubre 256 selecciones dirigidas y 608
+poses de culata muestreadas en ocho direcciones. Mantiene congelación,
+retorno/reselección, movimiento, prioridades, longitudes y partidas. No es
+una certificación de toda la malla ni CCD. [Plan](../../specs/003-weapon-contact/plan-pistol-smg-handoff.md).
 
-## Sight vigente: 94 checks, tres particiones sin solapamiento
+## Sight vigente: 112 checks en los tres jobs existentes
 
 | Selección | Checks | Contenido |
 | :--- | ---: | :--- |
-| `sight-base` | 40 | Apuntado/preparación/recarga, cuatro intercambios cortos y guardas comunes |
-| `sight-cross-family` | 26 | Cuatro rifle/pistola y dos rifle/revólver libres, cobertura de #52 intacta |
-| `sight-revolver-reload` | 28 | Dos rifle/revólver desde recarga y cuatro SMG/revólver libres/recarga |
-| `sight` | 94 | Alias que ejecuta las tres particiones una vez, en orden |
+| `sight-base` | 48 | Los 40 checks anteriores y ambos cambios libres pistola/SMG |
+| `sight-cross-family` | 31 | Los 26 anteriores y salida de recarga pistola→SMG |
+| `sight-revolver-reload` | 33 | Los 28 anteriores y salida de recarga SMG→pistola |
+| `sight` | 112 | Alias de las tres particiones, sin duplicarlas |
 
-Catálogo único de dieciséis intercambios en `tools/qa/sight_contract.py`, mismo
-productor `tests/sidearm_sight_browser.py`. El modo directo sin flag mantiene
-`all`, ahora con 94 checks. `--suite all --origin fixture` incluye 17 suites
-concretas, sin repetir alias. Selecciones solapadas se deduplican y HTTP
-rechaza las suites de sight. Una partición inválida falla antes de importar
-Playwright o crear archivos. El output del runner debe ser un directorio
-nuevo dentro de `<root>/artifacts/`, nunca evidencia histórica.
+Un catálogo de veinte intercambios en `tools/qa/sight_contract.py`, un único
+productor `tests/sidearm_sight_browser.py` sin cambios de escena. Conserva
+los dieciséis casos y94 checks anteriores, su orden relativo dentro de cada
+partición,61 estados/caso, resolución 820×680, imágenes, teclas y umbrales.
+`all` conserva el orden del catálogo original y agrega los cuatro nuevos.
+Las particiones distribuyen esos cuatro casos para aprovechar la capacidad
+medida, sin cambiar las escenas ni asignarles una preparación más favorable.
+
+La validación estricta de#56 permanece: cinco guardas canónicas por partición,
+contadas sólo dentro de base. Las demás las reportan separadas. La interfaz
+se comprueba después del último equipo de cada partición. HTTP no admite
+estas suites fixture, y una partición inválida falla antes del navegador.
 
 ```sh
-xvfb-run -a python3 -m tools.qa.run --suite sight --headed --timeout 1800
+python3 tests/qa_runner.test.py
 python3 tests/qa_selection.test.py
 python3 tests/ci_workflow.test.py
+xvfb-run -a python3 -m tools.qa.run --suite sight --headed --timeout 1800
 ```
 
-Se conservan los 84 nombres previos y diez nuevos, 61 estados por intercambio,
-frame cero, resolución 820×680, renderer, esperas gráficas, capturas, teclas
-reales y umbrales. En cada partición se comprueban cinco guardas de mapas,
-selector/cierre de inputs, catálogo y ausencia de errores/requests. Base las
-cuenta una vez, las demás las registran como guards bloqueantes sin inflar
-el número de checks. Cross-family termina con rifle y el tercer shard con SMG.
-Cada uno comprueba la interfaz después de su propio último equipo.
-
-Los tres jobs conservan 1800 s por productor y 40 minutos por job, sin
-continue-on-error ni reintentos para ocultar fallos. El presupuesto agregado
-permitido no aumenta: se usa la capacidad del tercer runner existente. Su nombre
-histórico se conserva por compatibilidad, aunque ahora incluye SMG libre y desde recarga. Esto no demuestra mejor FPS ni menor
-coste total CPU/GPU. El alias serial puede durar más de 1800 s porque el
-límite se aplica por productor. Cada informe tiene su sufijo y directorio.
+Se conservan 1800 s por productor y 40 minutos por job, cinco jobs WebGL y los jobs core/HTTP,
+sin nuevo runner o permiso. El coste real de los productores ampliados debe
+medirse en la CI del HEAD. Los conteos no anticipan una ejecución aprobada,
+FPS, aceptación artística o un ahorro de cómputo.
 
 ## Historia y separación de evidencia
 
