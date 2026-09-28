@@ -1,3 +1,17 @@
+# v0.20.19 · Coherencia · 2026-09-28
+
+Pistola ↔ SMG conserva pose y pieza mostradas en cambio libre y desde recarga,
+selector congelado y retorno. Reutiliza captura/montaje de0.90 s y caché canónica,
+sin alterar acciones lógicas, munición, geometría, rig o partidas.
+
+El arco de 0.08 m falló a −7.772 mm en chaqueta. Se verifica 0.12 m sólo para esta
+pareja, manteniendo la tolerancia de 2 mm. Los bucles existentes suman64 casos
+dirigidos y152 poses de culata. Se mantienen exclusiones de terceros modelos.
+El catálogo gráfico pasa de 94 a 112 checks, veinte secuencias distribuidas entre
+los mismos tres jobs (48 + 31 + 33), sin elevar límites ni quitar guardas.
+[Plan](specs/003-weapon-contact/plan-pistol-smg-handoff.md). Consultar el PR
+vinculado en #6 para CI, revisión e integración reales, no inferirlas del conteo.
+
 # v0.20.18 · Coherencia · 2026-09-28
 
 SMG ↔ revólver desde recarga conserva pose y pieza visibles usando captura,

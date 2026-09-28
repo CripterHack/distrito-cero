@@ -3,7 +3,7 @@ const test=require('node:test'),assert=require('node:assert/strict');
 const fs=require('node:fs'),vm=require('node:vm');
 const {D,R,scene}=require('./helpers/sidearm_sight.cjs');
 D.App=class {};D.Audio=class {};vm.runInThisContext(fs.readFileSync('src/equipment-ui.js','utf8'));
-const pairs=[['rifle','pistol'],['pistol','rifle']],revolverPairs=[['rifle','revolver'],['revolver','rifle']],smgPairs=[['smg','revolver'],['revolver','smg']],allPairs=[...pairs,...revolverPairs,...smgPairs],phases=[null,0,.08,.28,.46,.65,.86,.97];
+const pairs=[['rifle','pistol'],['pistol','rifle']],revolverPairs=[['rifle','revolver'],['revolver','rifle']],smgPairs=[['smg','revolver'],['revolver','smg']],pistolSmgPairs=[['pistol','smg'],['smg','pistol']],allPairs=[...pairs,...revolverPairs,...smgPairs,...pistolSmgPairs],phases=[null,0,.08,.28,.46,.65,.86,.97];
 const reloadPhases=()=>phases;
 const partRole=m=>m.displayItem==='revolver'?'body':'magazine';
 const xyz=p=>[p.x,p.y,p.z],distance=(a,b)=>Math.hypot(...a.map((x,i)=>x-b[i]));
@@ -64,7 +64,7 @@ test('cross-family selection reuses the moving actor and preserves foot support 
  }
 });
 test('unavailable selections and other cross-family routes are not silently opted in',()=>{
- for(const [from,to]of [['shotgun','revolver'],['pistol','smg'],['pistol','shotgun'],['pistol','sniper'],['pistol','gauss'],['rifle','binoculars']]){const s=setup(from);select(app(s),to);assert.equal(s.equipment.handling.handoff,undefined);}
+ for(const [from,to]of [['shotgun','revolver'],['smg','binoculars'],['pistol','shotgun'],['pistol','sniper'],['pistol','gauss'],['rifle','binoculars']]){const s=setup(from);select(app(s),to);assert.equal(s.equipment.handling.handoff,undefined);}
  for(const [from,to]of allPairs){const s=setup(from);s.player.car='occupied';select(app(s),to);assert.equal(s.equipment.handling.handoff,undefined);}
  const s=setup('rifle'),handling=s.equipment.handling;assert.equal(s.equipWeapon('unknown-item'),false);assert.equal(s.equipment.handling,handling);
 });
@@ -142,6 +142,32 @@ test('SMG/revolver retargets returning pieces without discarding their visible p
 test('SMG/revolver rejects a third displayed prop without losing immediate selection',()=>{
  for(const [start,from,to]of [['rifle','smg','revolver'],['pistol','revolver','smg']])for(const phase of [null,.46]){
   const s=setup(start,phase),a=app(s);select(a,from);tick(s,9);assert.equal(read(s).mount.displayItem,start);
+  const ammo=JSON.stringify(s.equipment.ammo);select(a,to);assert.equal(s.equipment.selected,to);
+  assert.equal(s.equipment.handling.handoff,undefined);assert.equal(JSON.stringify(s.equipment.ammo),ammo);
+ }
+});
+
+
+test('pistol/SMG preserves every frozen reload phase after input cancellation',()=>{
+ for(const [from,to]of pistolSmgPairs)for(const phase of phases.filter(x=>x!==null)){
+  const s=setup(from,phase),before=read(s),ammo=JSON.stringify(s.equipment.ammo),time=s.time;
+  const frozen={mount:before.mount,equipment:{...s.equipment}};s.cancelEquipment();
+  select(app(s,s.player,frozen),to,true);sameStart(before,read(s));
+  assert.ok(s.equipment.handling.handoff);assert.equal(s.time,time);
+  assert.equal(s.equipment.reloading,0);assert.equal(s.equipment.reloadId,null);assert.equal(s.equipment.trigger,false);
+  tick(s,72);assert.equal(s.equipment.handling.handoff,undefined);assert.equal(JSON.stringify(s.equipment.ammo),ammo);
+ }
+});
+test('pistol/SMG retargets the returning piece before and after replacement',()=>{
+ for(const [from,to]of pistolSmgPairs)for(const reverseAt of [0,9,36]){
+  const s=setup(from,.46),a=app(s);select(a,to);tick(s,reverseAt);const before=read(s),ammo=JSON.stringify(s.equipment.ammo);
+  select(a,from);sameStart(before,read(s));assert.ok(s.equipment.handling.handoff);
+  tick(s,72);assert.equal(s.equipment.handling.handoff,undefined);assert.equal(JSON.stringify(s.equipment.ammo),ammo);
+ }
+});
+test('pistol/SMG rejects a third displayed model while keeping immediate selection',()=>{
+ for(const [from,to]of pistolSmgPairs)for(const phase of [null,.46]){
+  const s=setup('rifle',phase),a=app(s);select(a,from);tick(s,9);assert.equal(read(s).mount.displayItem,'rifle');
   const ammo=JSON.stringify(s.equipment.ammo);select(a,to);assert.equal(s.equipment.selected,to);
   assert.equal(s.equipment.handling.handoff,undefined);assert.equal(JSON.stringify(s.equipment.ammo),ammo);
  }

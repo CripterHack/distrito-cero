@@ -1,5 +1,25 @@
 # Cruces medidos de equipamiento
 
+## Extensión actual: pistola ↔ SMG, 0.20.19
+
+Se incorpora la pareja en ambos sentidos, libre y desde recarga, selector
+congelado o pieza retornando. Reutiliza la captura real antes de cancelar
+inputs,0.90 s cosméticos y el arco existente. Un tercer modelo mostrado queda
+excluido. Disparo/nueva recarga siguen inmediatos; no cambian munición,
+partidas, geometría o rig.
+
+La regresión sobre la base #56 produjo27/38aprobaciones y11fallos. El primer
+arco (0.08 m) dejó37/38 y falló a −7.772 mm de chaqueta, pistola→SMG desde fase 0.46,
+frame 30. El arco de 0.12 m aprobó el conjunto dirigido:45/45 incluyendo las siete
+pruebas de cambios cortos. No se amplía la tolerancia de−2 mm. Máximos de palma
+nuevos28.240 / 26.550 mm por paso preparado,256 selecciones y608 poses de culata
+con mínimo conjunto−0.353 mm. El renderer completo y la CI son gates distintos.
+
+[Plan y revisión](../../specs/003-weapon-contact/plan-pistol-smg-handoff.md),
+[estado](STATE.md),[siguiente tarea](HANDOFF.md). Lo siguiente conserva la
+historia y alcance previo; no tratarlo como una reversión de esta extensión.
+
+
 ## SMG ↔ revólver desde recarga · árbol 0.20.18
 
 [Plan](../../specs/003-weapon-contact/plan-smg-revolver-reload.md). Base integrada
