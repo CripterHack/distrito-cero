@@ -163,8 +163,9 @@
   // Measured reload exits reuse the captured piece/pose and its existing return.
   // A third displayed prop remains outside this pair, even after cancellation.
   if(rifleRevolver&&!['rifle','revolver'].includes(m.displayItem))return null;
-  // SMG/revolver is measured only for free poses, including frozen selection.
-  if(smgRevolver&&(e.reloading>0||m.reload>0||!['smg','revolver'].includes(m.displayItem)))return null;
+  // Measured SMG reload exits reuse the visible piece and existing return.
+  // Keep third displayed props excluded, including a frozen selector snapshot.
+  if(smgRevolver&&!['smg','revolver'].includes(m.displayItem))return null;
   return {age:0,duration:sidearms||crossFamily||rifleRevolver||smgRevolver?SIDEARM_HANDOFF_SECONDS:e.reloading>0?RELOAD_HANDOFF_SECONDS:(e.handling?.handoff?.duration||HANDOFF_SECONDS),clearance:(crossFamily||rifleRevolver||smgRevolver)?.12:(e.handling?.handoff?.clearance||.08),serial:e.shotSerial||0,item:m.displayItem,origin:[delta[0]*c-delta[2]*s,delta[1],delta[0]*s+delta[2]*c],
    yaw:D.wrap(m.yaw-(p.yaw||0)),pitch:m.pitch,roll:m.roll,aim:m.aim,kick:m.kick,reload:m.reload,
    braceWeight:m.braceWeight,coordination:m.coordination,lookPitch:m.lookPitch,

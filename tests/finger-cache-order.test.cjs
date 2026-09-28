@@ -16,7 +16,7 @@ function probe(config){
   assert.equal(JSON.stringify(s.serialize()),saved,'presentation changed persistent gameplay');
   assert.equal(JSON.stringify(s.equipment.handling),handling,'presentation changed transient simulation');
   return{matrices:Array.from(p.matrices),rootY:p.rootY,grips:m.grips,palms:['L','R'].map(k=>R.palmPoint(p,a,k)),
-   displayItem:m.displayItem,magazine:m.magazine,partPoints:[[0,0,0],[.03,-.18,-.02],[-.025,-.14,.04]].map(q=>m.partPoint('magazine',q)),
+   displayItem:m.displayItem,magazine:m.magazine,partPoints:[[0,0,0],[.03,-.18,-.02],[-.025,-.14,.04]].map(q=>m.partPoint(m.displayItem==='revolver'?'body':'magazine',q)),
    time:s.time,ammo:structuredClone(s.equipment.ammo),shots:s.equipment.shots};}
  // The warm path represents an earlier independently rendered actor/session.
  if(config.warm)read(setup(config.to));
@@ -28,7 +28,7 @@ function probe(config){
  D.EquipmentApp.prototype.selectEquipment.call(app,config.to,false);
  const first=read(s);assert.equal(first.displayItem,config.from);
  assert.deepEqual(first.matrices,before.matrices,'first pose changed');
- assert.deepEqual(first.partPoints,before.partPoints,'old visible magazine changed at frame zero');
+ assert.deepEqual(first.partPoints,before.partPoints,'old visible piece changed at frame zero');
  const snapshots=[first];
  for(let i=1;i<=60;i++){tick(s);const row=read(s);if(i%9===0||i===60)snapshots.push(row);}
  assert.equal(s.equipment.handling.handoff,undefined);
@@ -47,7 +47,7 @@ if(process.argv[2]==='--probe'){
 }else{
  const test=require('node:test');
  const run=config=>JSON.parse(execFileSync(process.execPath,[__filename,'--probe',JSON.stringify(config)],{encoding:'utf8',timeout:30000,maxBuffer:8*1024*1024}));
- for(const [from,to]of [['rifle','pistol'],['pistol','rifle'],['rifle','revolver'],['revolver','rifle'],['smg','revolver'],['revolver','smg']])for(const reload of ([from,to].includes('smg')?[false]:[false,true])){
+ for(const [from,to]of [['rifle','pistol'],['pistol','rifle'],['rifle','revolver'],['revolver','rifle'],['smg','revolver'],['revolver','smg']])for(const reload of [false,true]){
   test(`${from} -> ${to}${reload?' from reload':''} has identical finger poses with cold or previously initialized cache`,()=>{
    for(const cfg of [{},{crouch:1,pitch:.3,neck:1}]){
     const cold=run({from,to,reload,...cfg}),warm=run({from,to,reload,warm:true,...cfg});

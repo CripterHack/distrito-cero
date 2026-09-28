@@ -1,41 +1,38 @@
-# Continuación vigente · SMG ↔ revólver libre
+# Continuación vigente · SMG ↔ revólver desde recarga
 
-## Base integrada, no repetir
+## Base integrada
 
-#53 está integrado en **6ba8b86c6e18b160588caf75ecdb24c7e64f078f**, árbol
-7b099a58a4aab912cbe70d55f07907e9205f9d6e, producto 0.20.16. Su Verify posterior
-36387391877 terminó con siete jobs aprobados. Pages 36387391414 también aprobó
-y su HTML fue cotejado con el árbol. [PR #53](https://github.com/CripterHack/distrito-cero/pull/53).
-No repetir rifle/revólver desde recarga, cambio libre #52, caché #51 o particiones #50.
+#54 está integrado y verificado en **d50a60665638f43076b85739205d59c8ab2c1741**,
+árbol a6375d6e8b589bc961a6565005101ec8b16cfc84, producto 0.20.17. Su Verify del
+push **36395675734** aprobó siete jobs. [PR #54](https://github.com/CripterHack/distrito-cero/pull/54).
+No repetir cambio libre SMG/revólver, recarga rifle/revólver #53 ni caché #51.
 
-## Implementación de este árbol · v0.20.17
+## Implementación de este árbol · v0.20.18
 
-[Plan y alcance](../../specs/003-weapon-contact/plan-smg-revolver-free.md),
+[Plan](../../specs/003-weapon-contact/plan-smg-revolver-reload.md),
 [SPEC-003](../../specs/003-weapon-contact/spec.md), CONTACT-04/05, issue #6.
-SMG/revólver libre conserva la pose mediante captura/montaje existentes de
-0.90 s. Se midió el arco de 0.12 m contra la culata real de SMG después de
-rechazar 0.08 m a −4.068 mm de chaqueta. Tolerancia −2 mm sin cambios.
+SMG/revólver desde recarga usa la captura visible y el retorno existentes.
+Se retiran únicamente las condiciones de recarga activa/visible de la
+exclusión de esta pareja; permanece el rechazo de un tercer prop mostrado.
+No cambian munición, partidas, rig, geometría o prioridad de acciones.
+No inventar un cilindro articulado del revólver ni llamar reinserción mecánica
+al retorno cosmético del modelo.
 
-Sólo esta pareja libre se habilita. Se rechazan recarga activa, retorno visual
-y tercer objeto mostrado. No cambian gameplay, geometría, rig, caché, munición,
-partidas ni prioridad de disparo/nueva recarga. La transición es cosmética,
-no una animación física certificada de enfundado.
+Las pruebas existentes cubren siete fases y cuatro configuraciones, selector
+congelado después de cancelar inputs, retorno/reselección, locomoción y caché
+fría/inicializada. Se mantienen las anteriores tres selecciones lógicas.
+Los puntos de la prueba de caché del revólver ahora observan su cuerpo real.
 
-Los bucles de regresión se amplían sin otra matriz: 136 casos de selección,
-selector congelado, reversión, locomoción/memoria de pies, pureza y persistencia.
-Dos pruebas nuevas de caché fría/inicializada conservan cuatro perfiles.
-Los casos negativos de recarga y tercera pieza son obligatorios.
+## Gate antes de ampliar
 
-## Validación del HEAD e integración
-
-Consultar el PR actual y [issue #6](https://github.com/CripterHack/distrito-cero/issues/6)
-para los resultados completos y el estado de merge. Este commit no anticipa
-la CI. El push real y Pages se comprueban separadamente. La copia local procede
-de una instantánea exacta de árbol, con commit sintético distinto del remoto.
+Leer el cierre del PR vinculado desde [issue #6](https://github.com/CripterHack/distrito-cero/issues/6)
+para saber qué HEAD está integrado y qué comprobaciones terminaron. No inferir
+merge de las notas de implementación, ni atribuir evidencia de #54 a este HTML.
+La revisión es propia salvo identificación explícita de otra revisión.
 
 ```sh
 python3 build.py --check
-node --test --test-concurrency=2 tests/*.test.cjs
+node --test --test-concurrency=4 tests/*.test.cjs
 python3 tests/release_build.test.py
 python3 tests/release_checkout.test.py
 python3 tests/qa_selection.test.py
@@ -43,22 +40,26 @@ python3 tests/ci_workflow.test.py
 xvfb-run -a python3 -m tools.qa.run --suite sight --headed --timeout 1800
 ```
 
-Sight suma **84 checks = 40 + 26 + 18**, catorce secuencias. El nombre histórico
-sight-revolver-reload conserva sus dos recargas y usa capacidad disponible
-para las dos rutas SMG libres, sin nuevo job. No se duplican las doce secuencias
-anteriores. Mantener 61 estados, capturas, cinco guardas comunes bloqueantes y
-1800 s/productor, 40 min/job. Ejecutar el resto de [QA](QA.md) aplicable.
+Sight contiene 94 checks, tres particiones **40 +26 +28**, dieciséis secuencias.
+Se conserva el tercer job histórico `sight-revolver-reload`, que ya contiene
+SMG libre y ahora sus recargas. No hay otra matriz ni productor paralelo.
+Mantener 61 estados, capturas, cinco guardas por partición y límites originales.
+La concurrencia del comando Node local no altera el scheduling de CI.
+Ejecutar las demás pruebas vigentes de [QA](QA.md), no todos los tests históricos.
 
 ## Siguiente trabajo real
 
-Tras comprobar este cierre, reproducir SMG/revólver desde recarga antes de
-habilitarlo. Permanecen otros cruces/herramientas/pesados, cortes prioritarios
-visuales y coste por actor/LOD. #5 mantiene arte/procedencia/materiales/UV y
-#7 recorrido, personas y hardware. No cerrar por conteo de pruebas.
+Después de verificar este cierre, escoger y reproducir un cruce restante antes
+de ampliar las rutas permitidas. Quedan herramientas/pesados, cortes visuales
+prioritarios, giros/anatomías combinadas y coste por actor/LOD. No tratar otra
+vez SMG/revólver libre o desde recarga como ausente sin consultar el cierre.
+#5 mantiene arte/procedencia/materiales/UV y #7 recorrido, personas y hardware.
+No cerrar issues globales por conteos de checks o por un paso de CI.
 
-## Límites operativos y reversión
+## Recuperación
 
-La limpieza de #52 fue bloqueada. No reintentar por otra vía ni borrar ramas.
-Las ramas concluidas de #52/#53 no son features pendientes. Los helpers se
-mantienen fuera del árbol y ascendencia del producto. Conservar respaldos.
-Revertir esta unidad junto con versión/build no migra ni elimina partidas.
+La copia local es un snapshot de árbol con historia sintética. El commit
+publicado debe usar el padre remoto real de #54, no el commit local.
+No reintentar la limpieza bloqueada ni borrar ramas. Mantener los helpers
+fuera del producto. Revertir esta unidad junto con versión/build no migra
+ni elimina partidas. Conservar evidencia y fallos de cada ejecución.
