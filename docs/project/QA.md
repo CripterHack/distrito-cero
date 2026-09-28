@@ -1,6 +1,6 @@
 # QA reproducible desde el repositorio
 
-## Regresión de caché canónica (candidata 0.20.14)
+## Regresión de caché canónica integrada en #51 (0.20.14)
 
 `node --test tests/finger-cache-order.test.cjs` ejecuta cuatro tests, cada uno
 con configuraciones neutral y agachada. Procesos separados representan el
@@ -10,8 +10,8 @@ palmas, piezas y gameplay, y conserva cuatro entradas de caché.
 
 No precalentar todos los perfiles en las suites normales. Eso ocultaría la
 dependencia del orden. Mantener los tests existentes de superficies, dedos,
-pulgares, handoff, cancelación y persistencia. Los 58 checks de sight no cambian
-por este ajuste de runtime. Comparar capturas de su propio HTML/HEAD.
+pulgares, handoff, cancelación y persistencia. Los 58 checks históricos de sight no cambiaron
+por ese ajuste de runtime. La unidad libre siguiente añade ocho. Comparar capturas de su propio HTML/HEAD.
 
 
 ## Guardas compartidas de las particiones
@@ -22,26 +22,27 @@ secuencia. Base cuenta esos cinco checks una vez. Cruces los conserva como
 cinco `guards` obligatorios, con fallo bloqueante, no como cinco tests nuevos.
 Así se mantiene la comprobación final con rifle del productor completo.
 
-## Sight vigente: 58 checks, dos particiones sin solapamiento
+## Sight vigente: 66 checks, dos particiones sin solapamiento
 
 PR #49 está integrado en `0fa83b9e024819821e135a9de540a3f897bc9c78`, producto
 0.20.13. Su Verify previo aprobó, pero el push `36304175245` agotó el productor
 sight a 1800.008 s (exit 124): 44 mensajes PASS no equivalen a los 58 checks
 completados. El artefacto fallido `10926778997` se conserva en ese run.
 
-La corrección de QA reparte el mismo productor y sus mismos ocho intercambios:
+La partición integrada en #50 se conserva. El productor incorpora ahora diez
+intercambios: los ocho anteriores y dos rifle/revólver exclusivamente libres:
 
 | Selección | Checks | Contenido |
 | :--- | ---: | :--- |
 | `sight-base` | 40 | Apuntado/preparación/recarga, cuatro intercambios pistola/revólver y UI/integridad |
-| `sight-cross-family` | 18 | Los cuatro intercambios rifle/pistola, libres y desde recarga |
-| `sight` | 58 | Alias que ejecuta ambas particiones una vez, en orden |
+| `sight-cross-family` | 26 | Cuatro intercambios rifle/pistola y dos rifle/revólver libres |
+| `sight` | 66 | Alias que ejecuta ambas particiones una vez, en orden |
 
 `--suite all --origin fixture` incluye las 16 suites concretas sin repetir el
 alias. Las peticiones explícitas solapadas se deduplican. HTTP permanece
 separado y rechaza las particiones de sight. Invocar directamente
 `python3 tests/sidearm_sight_browser.py` sin `--partition` mantiene el productor
-completo histórico de 58 checks; para CI se usan `base` y `cross-family`.
+completo de 66 checks; para CI se usan `base` y `cross-family`.
 
 ```sh
 xvfb-run -a python3 -m tools.qa.run --suite sight --headed --timeout 1800
@@ -65,7 +66,7 @@ al existir dos jobs. La ejecución serial del alias puede durar más de 1800 s:
 
 PR #50 ya está integrado y sus dos ejecuciones (PR/push) aprobaron.
 Para cambios posteriores se exigen ambas particiones aprobadas en el HEAD
-exacto, unión de los mismos 58 nombres de checks y conservación de las capturas
+exacto, conservación de los 58 nombres anteriores más ocho nuevos y de las capturas
 y estados. Los datos del PR y del push se registran por separado en su cierre.
 No reutilizar la CI de #49/#50 como resultado de una candidata posterior.
 

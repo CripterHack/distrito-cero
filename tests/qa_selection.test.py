@@ -35,8 +35,8 @@ class SelectionTests(unittest.TestCase):
     def test_sight_alignment_is_a_graphical_not_native_contract(self):
         q=select_suites(['sight'],'fixture')
         self.assertEqual([x.name for x in q],['sight-base','sight-cross-family'])
-        self.assertEqual([x.expected_checks for x in q],[40,18])
-        self.assertEqual(sum(x.expected_checks for x in q),58)
+        self.assertEqual([x.expected_checks for x in q],[40,26])
+        self.assertEqual(sum(x.expected_checks for x in q),66)
         with self.assertRaises(ValueError):select_suites(['sight'],'http')
     def test_reload_input_suite_requires_native_http_and_fixed_coverage(self):
         self.assertEqual(select_suites(['reload'],'http')[0].expected_checks,31)
@@ -64,13 +64,14 @@ class SelectionTests(unittest.TestCase):
             with self.assertRaises(ValueError):select_suites([name],'http')
         with self.assertRaises(KeyError):select_suites(['sight-imaginary'],'fixture')
 
-    def test_sight_partitions_keep_all_eight_existing_exchanges_exactly_once(self):
+    def test_sight_partitions_keep_old_exchanges_and_add_only_free_rifle_revolver(self):
         from tools.qa.sight_contract import sight_cases
         cases=sight_cases
         expected=(('pistol','revolver',None),('revolver','pistol',None),
             ('pistol','revolver',.46),('revolver','pistol',.46),
             ('rifle','pistol',None),('pistol','rifle',None),
-            ('rifle','pistol',.46),('pistol','rifle',.46))
+            ('rifle','pistol',.46),('pistol','rifle',.46),
+            ('rifle','revolver',None),('revolver','rifle',None))
         self.assertEqual(cases('all'),expected)
         self.assertEqual(cases('base'),expected[:4])
         self.assertEqual(cases('cross-family'),expected[4:])

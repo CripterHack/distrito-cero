@@ -1,3 +1,19 @@
+# v0.20.15 · Coherencia · 2026-09-27
+
+Intercambio **libre rifle ↔ revólver**, conservando la pose mostrada, las
+palmas, coordinación corporal y dedos. Reutiliza el montaje de 0.90 s y el
+arco frontal existente, medido para esta pareja sin relajar la tolerancia.
+Selección, cancelaciones y acciones reales inmediatas. Recarga activa,
+devolución de pieza pendiente y otro modelo mostrado quedan excluidos.
+
+Tres tests Node adicionales y extensión de los observadores existentes,
+selector congelado, reversión antes/después del reemplazo, marcha, prioridad
+y persistencia. Sight conserva sus 58 checks y añade ocho: 40 base + 26 cruces,
+diez secuencias, 61 estados por intercambio. No cambia workflows, presupuesto,
+geometría, rig, munición ni partidas. [Plan y límites](specs/003-weapon-contact/plan-rifle-revolver-free.md).
+Resultados completos e integración: [HANDOFF](docs/project/HANDOFF.md) y PR
+del HEAD exacto. Una candidata no implica CI ni publicación aprobadas.
+
 # v0.20.14 · Coherencia · 2026-09-27
 
 El ajuste canónico de los dedos deja de depender del primer equipo mostrado.

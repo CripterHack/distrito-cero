@@ -81,7 +81,7 @@ try:
   def snap(name,row):
    file=O/(name+'.png');p.screenshot(path=str(file));row.update(image=file.name,imageSha256=hashlib.sha256(file.read_bytes()).hexdigest())
   for start,target,reload_phase in sight_cases(partition):
-   cross_family={start,target}=={'rifle','pistol'}
+   cross_family='rifle' in (start,target)
    prefix=('reload-switch-' if reload_phase is not None else 'switch-')+start+'-'+target
    p.evaluate('''id=>{const a=DC_APP,s=a.sim,r=a.renderer;a.clearWeaponInput();s.equipment=DC.Equipment.initial();s.equipWeapon(id);DC.WeaponHandling.beginEquip(s);
     s.equipment.handling.ready=1;if(id==='rifle')s.equipment.handling.rifleAim=1;s.equipment.aimWeight=1;s.equipment.aiming=true;s.equipment.pitch=0;s.time=1.25;s.player.crouch=0;s.appearance.neckLength=0;

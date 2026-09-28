@@ -26,7 +26,7 @@ Pulgar y oposición de su base no se modifican. Su exploración no produjo una s
 
 Se conservan las correcciones de mangas y codos ópticos anteriores. No cambia el esquema de partidas, no hay dependencias nuevas de runtime ni pretensión de calidad AAA. #5, #6 y #7 siguen abiertos por sus criterios restantes. Revertir esta unidad no requiere migrar datos.
 
-## Independencia de inicialización · candidata 0.20.14
+## Independencia de inicialización · integrada en #51, 0.20.14
 
 El ajuste memorizado debe depender sólo del perfil canónico. El cargador
 mostrado durante un cambio conserva su transform y superficie anteriores,
