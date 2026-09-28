@@ -1,5 +1,34 @@
 # Cruces medidos de equipamiento
 
+## SMG ↔ revólver desde recarga · árbol 0.20.18
+
+[Plan](../../specs/003-weapon-contact/plan-smg-revolver-reload.md). Base integrada
+#54, d50a60665638f43076b85739205d59c8ab2c1741. Se retira sólo la exclusión de
+recarga activa/visible, preservando el rechazo de un tercer objeto mostrado.
+Se reutilizan captura de cuerpo/dedos/pieza, retorno de 0.90 s, arco de 0.12 m
+y caché canónica, sin modificar gameplay, munición, rig o geometría.
+
+Nueve regresiones fallaron en el snapshot base: siete de ruta y dos de caché.
+Los tests existentes ahora cubren ambos sentidos desde siete fases, selector
+congelado, retorno/reselección, acciones prioritarias, movimiento y restore.
+No se descartan los anteriores casos de tres selecciones lógicas. El revólver
+se observa por su cuerpo, no por una pieza articulada ausente del renderer.
+
+La cobertura dirigida es 192 selecciones y 456 poses de culata. Conservar
+criterios de paso preparado <30 mm, contactos <12 mm y penetración muestreada
+máxima de 2 mm. La aceptación numérica no certifica toda la malla, colisión
+continua ni manipulación física del equipo.
+
+Sight conserva los 84 checks y catorce secuencias de #54 y añade diez checks,
+dos recargas, al mismo catálogo y tercer job: total 94 =40 +26 +28. Se mantienen
+61 estados por secuencia, capturas, cinco guardas por partición y límites
+1800 s/productor, 40 min/job, sin nuevo runner. Resultados concretos, revisión
+propia, CI y merge se registran en el PR vinculado desde
+[issue #6](https://github.com/CripterHack/distrito-cero/issues/6).
+
+Las secciones siguientes conservan evidencia histórica de sus versiones,
+no son una ampliación pendiente de esta unidad ni pruebas de su HTML.
+
 ## SMG ↔ revólver libre · árbol 0.20.17
 
 [Plan](../../specs/003-weapon-contact/plan-smg-revolver-free.md). Base integrada

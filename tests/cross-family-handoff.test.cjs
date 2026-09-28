@@ -3,8 +3,8 @@ const test=require('node:test'),assert=require('node:assert/strict');
 const fs=require('node:fs'),vm=require('node:vm');
 const {D,R,scene}=require('./helpers/sidearm_sight.cjs');
 D.App=class {};D.Audio=class {};vm.runInThisContext(fs.readFileSync('src/equipment-ui.js','utf8'));
-const pairs=[['rifle','pistol'],['pistol','rifle']],revolverPairs=[['rifle','revolver'],['revolver','rifle']],freePairs=[['smg','revolver'],['revolver','smg']],allPairs=[...pairs,...revolverPairs,...freePairs],phases=[null,0,.08,.28,.46,.65,.86,.97];
-const reloadPhases=(from,to)=>[from,to].includes('smg')?[null]:phases;
+const pairs=[['rifle','pistol'],['pistol','rifle']],revolverPairs=[['rifle','revolver'],['revolver','rifle']],smgPairs=[['smg','revolver'],['revolver','smg']],allPairs=[...pairs,...revolverPairs,...smgPairs],phases=[null,0,.08,.28,.46,.65,.86,.97];
+const reloadPhases=()=>phases;
 const partRole=m=>m.displayItem==='revolver'?'body':'magazine';
 const xyz=p=>[p.x,p.y,p.z],distance=(a,b)=>Math.hypot(...a.map((x,i)=>x-b[i]));
 function tick(s,n=1){for(let i=0;i<n;i++){s.time+=1/60;s.equipmentStep(1/60,{});}}
@@ -22,7 +22,7 @@ function sameStart(a,b){for(let k=0;k<2;k++)assert.ok(distance(a.palms[k],b.palm
 function lengths(v){for(const side of ['L','R'])for(const [a,b]of [['upperArm','forearm'],['forearm','hand']]){const pa=R.bones[R.ids[a+side]][2],pb=R.bones[R.ids[b+side]][2];
  const x=R.transform(v.pose.matrices.subarray(R.ids[a+side]*16,R.ids[a+side]*16+16),pa),y=R.transform(v.pose.matrices.subarray(R.ids[b+side]*16,R.ids[b+side]*16+16),pb);
  assert.ok(Math.abs(distance(x,y)-distance(pa,pb))<1e-6,'arm length changed');}}
-for(const [from,to]of allPairs)test(from+' -> '+to+' preserves torso, palms and visible parts across '+([from,to].includes('smg')?'free selection':'aim and reload exits'),()=>{
+for(const [from,to]of allPairs)test(from+' -> '+to+' preserves torso, palms and visible parts across aim and reload exits',()=>{
  let maximum=0,partMaximum=0,cases=0;
  for(const cfg of [{},{aim:false},{crouch:1,pitch:.3,neck:1},{crouch:1,pitch:-.3,neck:-1}])for(const phase of reloadPhases(from,to)){const s=setup(from,phase,cfg),a=app(s),before=read(s),ammo=JSON.stringify(s.equipment.ammo),time=s.time,shots=s.equipment.shots;
   select(a,to);let previous=read(s);sameStart(before,previous);assert.equal(s.equipment.selected,to);assert.equal(s.equipment.reloading,0);assert.equal(s.equipment.reloadId,null);assert.equal(s.equipment.trigger,false);assert.equal(s.equipment.aimWeight,0);assert.equal(s.time,time);
@@ -113,22 +113,35 @@ test('rifle/revolver still rejects a third displayed prop during free or reload 
 });
 
 
-test('SMG/revolver remains free-only for active, frozen and returning reload poses',()=>{
- for(const [from,to]of freePairs)for(const phase of phases.filter(x=>x!==null))for(const frozen of [false,true]){
-  const s=setup(from,phase),before=read(s),ammo=JSON.stringify(s.equipment.ammo),a=app(s,s.player,frozen?{mount:before.mount,equipment:{...s.equipment}}:null);
-  if(frozen)s.cancelEquipment();
-  select(a,to,frozen);assert.equal(s.equipment.selected,to);assert.equal(s.equipment.handling.handoff,undefined);
-  assert.equal(JSON.stringify(s.equipment.ammo),ammo);assert.equal(s.equipment.reloading,0);assert.equal(s.equipment.trigger,false);
+test('SMG/revolver preserves the frozen reload pose at every sampled phase',()=>{
+ for(const [from,to]of smgPairs)for(const phase of phases.filter(x=>x!==null)){
+  const s=setup(from,phase),before=read(s),ammo=JSON.stringify(s.equipment.ammo),time=s.time;
+  const frozen={mount:before.mount,equipment:{...s.equipment}};s.cancelEquipment();
+  select(app(s,s.player,frozen),to,true);sameStart(before,read(s));
+  assert.ok(s.equipment.handling.handoff);assert.equal(s.time,time);
+  assert.equal(s.equipment.reloading,0);assert.equal(s.equipment.reloadId,null);assert.equal(s.equipment.trigger,false);
+  tick(s,72);assert.equal(s.equipment.handling.handoff,undefined);assert.equal(JSON.stringify(s.equipment.ammo),ammo);
  }
+});
+test('SMG/revolver retargets returning pieces without discarding their visible pose',()=>{
+ for(const [from,to]of smgPairs)for(const reverseAt of [0,9,36]){
+  const s=setup(from,.46),a=app(s);select(a,to);tick(s,reverseAt);const before=read(s),ammo=JSON.stringify(s.equipment.ammo);
+  select(a,from);sameStart(before,read(s));assert.ok(s.equipment.handling.handoff);
+  tick(s,72);assert.equal(s.equipment.handling.handoff,undefined);assert.equal(JSON.stringify(s.equipment.ammo),ammo);
+ }
+ // Preserve both original three-selection cases: a logical intermediate item
+ // does not discard the permitted piece that is still visibly returning.
  for(const [from,via,to]of [['smg','rifle','revolver'],['revolver','pistol','smg']]){
   const s=setup(from,.46),a=app(s);select(a,via);tick(s,9);select(a,from);
-  assert.equal(s.equipment.reloading,0);assert.ok(read(s).mount.reload>0);assert.equal(read(s).mount.displayItem,from);
-  select(a,to);assert.equal(s.equipment.handling.handoff,undefined);
+  const before=read(s),ammo=JSON.stringify(s.equipment.ammo);
+  assert.equal(s.equipment.reloading,0);assert.ok(before.mount.reload>0);assert.equal(before.mount.displayItem,from);
+  select(a,to);sameStart(before,read(s));assert.ok(s.equipment.handling.handoff);
+  tick(s,72);assert.equal(s.equipment.handling.handoff,undefined);assert.equal(JSON.stringify(s.equipment.ammo),ammo);
  }
 });
 test('SMG/revolver rejects a third displayed prop without losing immediate selection',()=>{
- for(const [start,from,to]of [['rifle','smg','revolver'],['pistol','revolver','smg']]){
-  const s=setup(start),a=app(s);select(a,from);tick(s,9);assert.equal(read(s).mount.displayItem,start);
+ for(const [start,from,to]of [['rifle','smg','revolver'],['pistol','revolver','smg']])for(const phase of [null,.46]){
+  const s=setup(start,phase),a=app(s);select(a,from);tick(s,9);assert.equal(read(s).mount.displayItem,start);
   const ammo=JSON.stringify(s.equipment.ammo);select(a,to);assert.equal(s.equipment.selected,to);
   assert.equal(s.equipment.handling.handoff,undefined);assert.equal(JSON.stringify(s.equipment.ammo),ammo);
  }

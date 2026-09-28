@@ -1,3 +1,16 @@
+# v0.20.18 · Coherencia · 2026-09-28
+
+SMG ↔ revólver desde recarga conserva pose y pieza visibles usando captura,
+montaje y retorno existentes. Mantiene acciones lógicas inmediatas, munición,
+partidas, caché canónica y rechazo de terceros modelos todavía mostrados.
+
+Las regresiones existentes cubren fases activas, selector congelado, retorno,
+reselección y caché fría/inicializada. Sight conserva sus 84 checks y añade diez,
+en el tercer job existente: 40 +26 +28. No modifica los workflows, los límites
+de tiempo, la geometría ni las tolerancias. La transición es cosmética, no una
+recarga mecánica certificada. [Plan y criterios](specs/003-weapon-contact/plan-smg-revolver-reload.md).
+La evidencia de CI e integración del HEAD está en el PR vinculado desde #6.
+
 # v0.20.17 · Coherencia · 2026-09-28
 
 SMG ↔ revólver libre conserva la pose mostrada usando captura/montaje existentes.

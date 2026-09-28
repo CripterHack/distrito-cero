@@ -35,8 +35,8 @@ class SelectionTests(unittest.TestCase):
     def test_sight_alignment_is_a_graphical_not_native_contract(self):
         q=select_suites(['sight'],'fixture')
         self.assertEqual([x.name for x in q],['sight-base','sight-cross-family','sight-revolver-reload'])
-        self.assertEqual([x.expected_checks for x in q],[40,26,18])
-        self.assertEqual(sum(x.expected_checks for x in q),84)
+        self.assertEqual([x.expected_checks for x in q],[40,26,28])
+        self.assertEqual(sum(x.expected_checks for x in q),94)
         with self.assertRaises(ValueError):select_suites(['sight'],'http')
     def test_reload_input_suite_requires_native_http_and_fixed_coverage(self):
         self.assertEqual(select_suites(['reload'],'http')[0].expected_checks,31)
@@ -65,7 +65,7 @@ class SelectionTests(unittest.TestCase):
             with self.assertRaises(ValueError):select_suites([name],'http')
         with self.assertRaises(KeyError):select_suites(['sight-imaginary'],'fixture')
 
-    def test_sight_partitions_keep_old_exchanges_and_add_only_free_smg_revolver(self):
+    def test_sight_partitions_keep_old_exchanges_and_add_only_smg_revolver_reload(self):
         from tools.qa.sight_contract import sight_cases
         cases=sight_cases
         expected=(('pistol','revolver',None),('revolver','pistol',None),
@@ -74,16 +74,17 @@ class SelectionTests(unittest.TestCase):
             ('rifle','pistol',.46),('pistol','rifle',.46),
             ('rifle','revolver',None),('revolver','rifle',None),
             ('rifle','revolver',.46),('revolver','rifle',.46),
-            ('smg','revolver',None),('revolver','smg',None))
+            ('smg','revolver',None),('revolver','smg',None),
+            ('smg','revolver',.46),('revolver','smg',.46))
         self.assertEqual(cases('all'),expected)
         self.assertEqual(cases('base'),expected[:4])
         self.assertEqual(cases('cross-family'),expected[4:10])
         self.assertEqual(cases('revolver-reload'),expected[10:])
-        self.assertEqual(cases('all')[:12],expected[:12])
-        self.assertFalse(any('smg' in (a,b) and phase is not None for a,b,phase in cases('all')))
+        self.assertEqual(cases('all')[:14],expected[:14])
+        self.assertEqual(cases('all')[14:],(('smg','revolver',.46),('revolver','smg',.46)))
         self.assertEqual(cases('base')+cases('cross-family')+cases('revolver-reload'),cases('all'))
         self.assertEqual(len(cases('all')),len(set(cases('all'))))
-        self.assertEqual(len(cases('all')),14)
+        self.assertEqual(len(cases('all')),16)
         self.assertFalse(set(cases('revolver-reload')) & set(cases('cross-family')))
         with self.assertRaises(ValueError):cases('imaginary')
 

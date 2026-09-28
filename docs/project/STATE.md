@@ -1,57 +1,57 @@
 # Estado real del proyecto
 
-## Árbol de trabajo: v0.20.17 · Coherencia · prototype
+## Árbol de trabajo: v0.20.18 · Coherencia · prototype
 
 Identidad en [version.json](../../version.json) y [build-info.json](../../build-info.json).
-Base integrada #53: 6ba8b86c6e18b160588caf75ecdb24c7e64f078f, árbol
-7b099a58a4aab912cbe70d55f07907e9205f9d6e. Verify posterior 36387391877 aprobó
-siete jobs. Pages 36387391414 aprobó y su HTML fue cotejado. No repetir #53
-ni rifle/revólver libre (#52), caché canónica (#51) o particiones (#50).
+Base integrada #54: **d50a60665638f43076b85739205d59c8ab2c1741**, árbol
+a6375d6e8b589bc961a6565005101ec8b16cfc84, producto 0.20.17. Su Verify posterior
+36395675734 aprobó siete jobs. Benchmark, exportación y Pages también aprobaron.
+[Cierre de #54](https://github.com/CripterHack/distrito-cero/pull/54).
+No repetir #54 libre, recarga rifle/revólver #53 o caché canónica #51.
 
-## Unidad de este árbol: SMG ↔ revólver libre
+## Unidad de este árbol: SMG ↔ revólver desde recarga
 
-[Plan](../../specs/003-weapon-contact/plan-smg-revolver-free.md).
-Reutiliza captura y montaje cosmético de 0.90 s, preservando la pose realmente
-mostrada. Mantiene excluidas recargas, piezas retornando y terceros modelos
-para esta pareja. Acciones lógicas inmediatas, sin alterar rig, geometría,
-munición, gameplay, partidas o la caché de cuatro perfiles.
+[Plan](../../specs/003-weapon-contact/plan-smg-revolver-reload.md).
+Se elimina únicamente el rechazo de recarga lógica/visible en captureSwitch
+para esta pareja. Mantiene excluido un tercer modelo mostrado. Reutiliza la
+pose capturada, retorno cosmético de 0.90 s y arco de 0.12 m, sin alterar rig,
+geometría, caché, gameplay, munición, física o partidas. Las acciones reales
+siguen inmediatas. El revólver se observa sobre su cuerpo realmente dibujado.
 
-RED dirigido: siete fallos de 26 tests en base, más dos expectativas de QA.
-La primera trayectoria de 0.08 m falló contra chaqueta a −4.068 mm. La variante
-0.12 m se contrasta contra geometría SMG, conservando −2 mm y pasos palmares
-preparados menores a 30 mm. No extrapolar este muestreo a toda la malla/CCD.
+Las regresiones amplían los bucles existentes a fases de extracción/retorno,
+selector congelado tras cancelar inputs, reversión, tres selecciones lógicas,
+actor en movimiento, prioridades y caché fría/inicializada. Se preservan los
+criterios de paso palmar <30 mm, objetivos <12 mm y penetración muestreada <=2 mm.
+No se presenta el muestreo como toda la malla, CCD o aprobación artística.
 
-Sight conserva 76 checks y doce secuencias previas, agrega ocho y dos: 84,
-40 base +26 cruces +18 en el grupo histórico revolver-reload. Sin nuevo job,
-con 61 estados por caso y cinco guardas compartidas bloqueantes contadas una vez.
-Se mantienen límites y permisos del producto. Cómputo total y FPS físicos son
-cuestiones distintas de aprobar los checks.
+Sight mantiene 84 checks previos y añade diez: **94 = 40 +26 +28**, dieciséis
+secuencias de 61 estados. Cinco guardas por partición, contadas una vez.
+Sin nuevos jobs ni elevar 1800 s/productor o 40 min/job. Más cobertura no
+significa menos cómputo ni mejores FPS. [QA](QA.md).
 
-**Validación/integración:** consultar el cierre del PR del HEAD exacto y
-[issue #6](https://github.com/CripterHack/distrito-cero/issues/6). No atribuir CI
-previa a este árbol. La copia local tiene historial sintético, aunque su base
-se cotejó contra el árbol remoto completo. [HANDOFF](HANDOFF.md).
+**Verificación e integración:** consultar el PR de este cambio vinculado en
+[issue #6](https://github.com/CripterHack/distrito-cero/issues/6). El cierre
+identifica el HEAD, informes, revisión propia y merge reales. PR, push y Pages
+son comprobaciones separadas. La historia local restaurada es sintética,
+pero los 948 archivos base reconstruyeron el árbol remoto exacto.
 
 ## Backlog vigente
 
 | Issue | Pendiente real |
 | :--- | :--- |
 | #5 | Arte global, fuentes/procedencia, materiales/UV y coste en hardware. |
-| #6 | Validar esta unidad libre; recarga SMG/revólver, otros cruces, herramientas/pesados, cortes prioritarios visuales y coste por actor/LOD. |
+| #6 | Cierre de esta unidad, cruces restantes, herramientas/pesados, cortes prioritarios visuales, anatomías/giros y coste por actor/LOD. |
 | #7 | Recorrido íntegro, playtests humanos y hardware de referencia. |
 
-## Integraciones que no deben repetirse
+## Continuidad y límites operativos
 
-#53: rifle/revólver desde recarga y tercer grupo gráfico.
+#54: SMG/revólver libre. #53: rifle/revólver desde recarga. #52: cambio libre
+rifle/revólver. #51: caché canónica de cuatro perfiles, sin precalentar QA.
+#50: distribución de sight. #49: rifle/pistola libre/recarga. El timeout
+histórico posterior a #49 sigue registrado, no se reetiqueta como aprobación.
+Las demás integraciones y sus límites permanecen en los PRs del issue #6.
 
-#52: rifle/revólver libre. #51 (`17f6086`): caché canónica de cuatro perfiles,
-sin precalentamiento. #50 (`7231aa5`): partición del productor sight.
-#49 (`0fa83b9`): rifle/pistola libre/recarga. Su timeout posterior se conserva
-como fallo histórico. #48/#47: armas cortas. #46: actor de marcha.
-#45/#44: recarga/intercambio largo. #43/#42: preparación/guardia.
-#39/#40: marcha/apoyo. #30/#34–#38: coordinación, benchmark y exportación.
-
-La limpieza de las dos ramas concluidas de #52 fue bloqueada y no se ejecutó.
-No reintentar esa operación mediante otra vía. Los helpers quedan fuera del
-árbol y ascendencia del producto. Campaña, creador, catálogo y vehículos intactos.
-[HANDOFF](HANDOFF.md), [QA](QA.md), [recursos](ASSETS.md), [política de ramas](BRANCH-CLEANUP.md).
+No se reintenta la limpieza bloqueada ni se eliminan ramas. Los helpers no
+pertenecen al árbol ni a la ascendencia del producto, ni son features pendientes.
+Campaña, creador, catálogo y vehículos intactos. [HANDOFF](HANDOFF.md),
+[recursos](ASSETS.md), [política de ramas](BRANCH-CLEANUP.md).
