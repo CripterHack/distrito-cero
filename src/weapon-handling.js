@@ -151,14 +151,17 @@
  function captureSwitch(sim,next,actorOverride=null,shown=null){
   const e=sim.equipment,from=profile(e.selected),to=profile(next);
   const sidearms=from.family==='sidearm'&&to.family==='sidearm';
-  // First bounded cross-family route; other tools/heavy props stay immediate.
+  // Explicit measured routes only; other tools/heavy props stay immediate.
   const crossFamily=e.selected==='rifle'&&next==='pistol'||e.selected==='pistol'&&next==='rifle';
-  if(e.selected===next||!(from.dock&&to.dock||sidearms||crossFamily)||!sim.equipmentAvailable())return null;
+  const rifleRevolver=e.selected==='rifle'&&next==='revolver'||e.selected==='revolver'&&next==='rifle';
+  if(e.selected===next||!(from.dock&&to.dock||sidearms||crossFamily||rifleRevolver)||!sim.equipmentAvailable())return null;
   // The UI may supply the visible mount before clearing aim or from its frozen
   // selector. Copy only pose data below; never retain closures or game state.
   // Other callers keep the original tracked/logical capture path.
   const m=shown||present(sim,actorOverride),p=sim.player,c=Math.cos(p.yaw||0),s=Math.sin(p.yaw||0),delta=sub(m.origin,[p.x||0,p.y||0,p.z||0]);
-  return {age:0,duration:sidearms||crossFamily?SIDEARM_HANDOFF_SECONDS:e.reloading>0?RELOAD_HANDOFF_SECONDS:(e.handling?.handoff?.duration||HANDOFF_SECONDS),clearance:crossFamily?.12:(e.handling?.handoff?.clearance||.08),serial:e.shotSerial||0,item:m.displayItem,origin:[delta[0]*c-delta[2]*s,delta[1],delta[0]*s+delta[2]*c],
+  // This new pair is free-only, including the view frozen before cancellation.
+  if(rifleRevolver&&(e.reloading>0||m.reload>0||!['rifle','revolver'].includes(m.displayItem)))return null;
+  return {age:0,duration:sidearms||crossFamily||rifleRevolver?SIDEARM_HANDOFF_SECONDS:e.reloading>0?RELOAD_HANDOFF_SECONDS:(e.handling?.handoff?.duration||HANDOFF_SECONDS),clearance:(crossFamily||rifleRevolver)?.12:(e.handling?.handoff?.clearance||.08),serial:e.shotSerial||0,item:m.displayItem,origin:[delta[0]*c-delta[2]*s,delta[1],delta[0]*s+delta[2]*c],
    yaw:D.wrap(m.yaw-(p.yaw||0)),pitch:m.pitch,roll:m.roll,aim:m.aim,kick:m.kick,reload:m.reload,
    braceWeight:m.braceWeight,coordination:m.coordination,lookPitch:m.lookPitch,
    contacts:structuredClone(m.localContacts),grips:structuredClone(m.grips),magazine:structuredClone(m.magazine)};
@@ -332,7 +335,7 @@
    // outside the torso. Keeping BOTH grips rigid here makes their reach
    // projection undo the clearance arc and push the stock into the body.
    const start=origin.slice(),arc=16*u*u*(1-u)*(1-u);
-   // Rifle/pistol needs another 4 cm while the old stock crosses low guard.
+   // Measured rifle/sidearm routes need 4 cm more as the stock crosses low guard.
    // Reuse the same zero-endpoint arc; a rapid retarget retains its envelope.
    origin=add(origin,direction([0,0,(handover.clearance||.08)*arc]));
    const wrist=add(origin,direction(localHands.R)),delta=sub(wrist,shoulders.R),length=Math.hypot(...delta);

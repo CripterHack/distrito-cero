@@ -1,65 +1,62 @@
-# Continuación vigente · caché canónica de dedos
+# Continuación vigente · rifle ↔ revólver libre
 
 ## Base integrada, no repetir
 
-Master de partida: `7231aa51457539d2e5345f2d98ab470ded656fc0`, PR #50,
-árbol `738cedf4d6c983ef5bb13bb769aa166dca43ba97`, producto 0.20.13.
-PR #49 integró rifle ↔ pistola libre/recarga. PR #50 integró la partición de
-sight (40 + 18), con seis jobs aprobados tanto en PR `36307315376` como en
-push `36308741157`, benchmark `36308741141` y Pages `36308740389` aprobados.
-[Resultados finales de #50](https://github.com/CripterHack/distrito-cero/pull/50).
-No tratar #50 como candidata ni reabrir su timeout ya resuelto. El fallo
-histórico de #49 (`36304175245`) sigue siendo un fallo, no una suite aprobada.
+#51 está integrado en `17f6086d4ec60c764cd58be62493ae12bd0e2c68`, árbol
+`f82ac7205839239aa6826dfb26429e05cd3b543f`, producto 0.20.14. Verify posterior
+`36320055066` aprobó sus seis jobs. Su caché de dedos canónica no se modifica
+ni se oculta precalentando QA. #50 ya resolvió la distribución de sight.
+El timeout histórico de #49 sigue registrado como fallo, no como aprobación.
 
-## Unidad actual: candidata 0.20.14
+## Unidad actual: candidata 0.20.15
 
-[Plan](../../specs/003-weapon-contact/plan-finger-cache-order.md), SPEC-003.
-La superficie del cargador anterior contaminaba el primer ajuste canónico de
-la nueva arma. `mount` ahora conserva por separado el punto de autoría para
-`fitFingers` y la superficie/pivote/transform mostrados. No modifica el solver,
-las cuatro claves de caché, gameplay, huesos, geometría o partidas.
-[Diagnóstico previo](https://github.com/CripterHack/distrito-cero/issues/6#issuecomment-5854636173).
+[Plan y registro](../../specs/003-weapon-contact/plan-rifle-revolver-free.md),
+[SPEC-003](../../specs/003-weapon-contact/spec.md), CONTACT-04/05, issue #6.
+Rifle ↔ revólver libre reutiliza captura visible, montaje y 0.90 s cosméticos.
+Palmas, matrices, dedos y pieza inicial se conservan sin retrasar selección,
+disparo o nueva recarga. Se excluyen recargas activas/congeladas, devolución
+cosmética pendiente y modelo mostrado fuera de esta pareja.
 
-Cuatro tests nuevos usan procesos independientes con caché fría/inicializada,
-ambas direcciones rifle/pistola, libre/recarga y configuración neutral/agachada.
-Exigen igualdad exacta de ajustes y muestras de matrices, palmas, piezas y
-estado, además del primer frame, lecturas no mutantes y cuatro entradas.
-Fallaron en la base antes del ajuste. No se precalienta el runtime ni el QA
-normal para ocultar el caso, ni se añade una API de reset al juego.
+Cinco pruebas extendidas fallaron en la base. El arco inicial de 0.08 m fue
+rechazado por chaqueta a −4.068 mm; se reutiliza 0.12 m sólo para la pareja
+medida, conservando el límite de −2 mm. Los diez tests dirigidos aprueban.
+No implica que se hayan verificado todas las anatomías, giros o toda la malla.
 
-**Estado al escribir este commit:** código y regresión local implementados.
-Comprobar resultados completos, renderer, CI y revisión del PR de este HEAD
-antes de considerar integrada esta unidad. El cierre real del PR prevalece
-sobre esta nota previa de candidata. Verificar push y Pages separadamente.
+**Estado al escribir este commit:** cambio y regresión dirigida implementados.
+El cierre del PR del HEAD exacto es el registro de suite completa, renderer,
+revisión, CI, merge, push y Pages. No volver a implementar esta unidad sin
+comprobar primero ese cierre. No atribuirle artefactos de 0.20.14.
 
 ```sh
 python3 build.py --check
-node --test tests/finger-cache-order.test.cjs
+node --test tests/cross-family-handoff.test.cjs tests/finger-cache-order.test.cjs
 node --test tests/*.test.cjs
 python3 tests/release_build.test.py
 python3 tests/release_checkout.test.py
+python3 tests/qa_selection.test.py
 xvfb-run -a python3 -m tools.qa.run --suite sight --headed --timeout 1800
 ```
 
-Ejecutar también [QA](QA.md), especialmente dedos, pulgares, manos, banda
-palmar y conservación del cargador. No atribuir imágenes de 0.20.13 a esta
-candidata. Revisión propia, no aprobación artística ni revisión independiente.
+Sight ahora exige 66 checks, 40 base y 26 cruces, con diez intercambios y
+61 estados cada uno. Las cinco guardas compartidas se ejecutan en ambas
+particiones y se cuentan una vez. Misma cámara, renderer y presupuesto.
+Ejecutar además [QA](QA.md), exportación, geometría y persistencia afectadas.
 
 ## Siguiente trabajo real
 
-Tras integrar y verificar esta corrección, retomar rifle → revólver libre,
-ya reproducido con Digit2 sobre 0fa83b9, no implementado. No extender el arco
-a parejas no medidas. Otros cruces, herramientas/pesados, giros/anatomías,
-cortes prioritarios visuales y coste por actor/LOD siguen pendientes en #6.
-Las acciones reales prevalecen, no retrasarlas para disimular cortes.
-#5 conserva arte, procedencia, materiales/UV y hardware. #7 conserva recorrido
-íntegro, playtests humanos y hardware. No cerrar criterios por conteos de tests.
+Tras verificar esta unidad, elegir una fase concreta de recarga rifle/revólver
+y reproducirla en UI/renderer antes de habilitarla. El revólver usa otro tipo
+de pieza, no inferir una reinserción mecánica de un retorno cosmético genérico.
+Otros cruces, herramientas/pesados, giros/anatomías, cortes prioritarios visuales
+y coste por actor/LOD siguen pendientes en #6. Las acciones reales prevalecen.
+#5 conserva arte/procedencia/materiales/UV; #7 recorrido/humanos/hardware.
+No cerrar criterios globales por el conteo de tests.
 
 ## Recuperación
 
-Sólo master es permanente. #49/#50 retiraron sus ramas con respaldo previo,
-leases exactos y verificación. Bundle #50: artefacto `10929250154` del run
-`36310013208`, retención indicada hasta el 26 de diciembre de 2026. Su ZIP fue
-descargado y restaurado en la conversación anterior. Conservar sólo trabajo
-activo y retirar lo concluido con SHA comprobado y respaldo recuperable.
-Revertir esta unidad con su versión/build, sin migrar ni borrar partidas.
+Sólo master es permanente. El bundle de #51, artefacto `10932299036` del run
+`36321562419`, contiene tres referencias y toda su historia. ZIP SHA-256:
+`03c63febabfeda2533abd390c9c0411401c66f447ebea2dd5ceee1d31cca9f50`.
+Se restauró y verificó con `git fsck --full` para esta continuación. Retirar
+sólo ramas concluidas tras respaldo y comprobación del SHA exacto.
+Revertir esta unidad junto con versión/build sin migrar ni borrar partidas.

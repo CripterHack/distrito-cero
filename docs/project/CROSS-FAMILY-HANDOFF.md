@@ -1,4 +1,34 @@
-# Primer cruce rifle ↔ pistola · candidata 0.20.13
+# Cruces medidos de equipamiento
+
+## Rifle ↔ revólver libre · candidata 0.20.15
+
+Base integrada #51 `17f6086`, caché canónica de dedos corregida. Se habilitan
+ambos sentidos libres mediante el montaje existente. Sin nuevo solver, tracker,
+reloj, modelo simultáneo o geometría. [Plan](../../specs/003-weapon-contact/plan-rifle-revolver-free.md).
+
+El selector conserva su vista congelada y la reversión libre se prueba antes
+y después del reemplazo de modelo. Una acción real siempre prevalece. Recarga
+activa, estado visual que devuelve una pieza y un tercer modelo mostrado no
+se admiten por analogía. La captura es cosmética, nunca estado persistente.
+
+Las pruebas extendidas reprodujeron saltos palmares iniciales de 572.577 mm
+y 195.796 mm en las configuraciones dirigidas de la base, más fallos de
+selector, marcha y presencia del handoff. Arco 0.08 m rechazado a −4.068 mm
+contra chaqueta. Con 0.12 m: diez tests aprobados, 72 casos dirigidos (64
+rifle/pistola existentes y ocho rifle/revólver libres), 228 poses de culata.
+Mínimo combinado muestreado −0.353 mm, no separación positiva universal.
+Máximos palmares nuevos: 26.652 y 16.570 mm por paso preparado de 60 Hz.
+
+El mismo productor sight añade dos secuencias de teclas: 40 base + 26 cruces,
+66 checks. Conserva los ocho casos anteriores, cinco guards compartidos y
+61 estados por intercambio, incluidos frame cero y capturas. Los resultados
+completos de renderer y CI se registran en el PR, no se anticipan aquí.
+
+## Registro histórico de rifle ↔ pistola · PR #49
+
+La siguiente descripción corresponde al alcance y evidencia original de #49,
+no a nueva cobertura ni a una candidata pendiente. #50 particionó su QA y
+#51 corrigió la caché. Las cifras históricas no se suman a pruebas actuales.
 
 **Base integrada:** `613c16495d79e009587c56593ebe9c5a48591406`, PR #48.
 [Plan](../../specs/003-weapon-contact/plan-cross-family-handoff.md),
