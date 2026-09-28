@@ -1,5 +1,35 @@
 # Cruces medidos de equipamiento
 
+## SMG ↔ revólver libre · árbol 0.20.17
+
+[Plan](../../specs/003-weapon-contact/plan-smg-revolver-free.md). Base integrada
+#53, 6ba8b86c6e18b160588caf75ecdb24c7e64f078f. La única ampliación es el cambio
+libre SMG/revólver. CaptureSwitch reutiliza la pose/pieza mostradas, 0.90 s
+cosméticos y el montaje existente. Recargas activas, piezas retornando y
+tercer objeto mostrado siguen excluidos en esta pareja. Las acciones reales
+no esperan al montaje y la caché canónica permanece acotada a cuatro perfiles.
+
+Siete fallos dirigidos observados en la base: ambas direcciones, selector,
+prioridad/presencia de captura, marcha y dos comparaciones de caché. Dos
+expectativas de QA fallaron antes de añadir la cobertura. El primer ajuste de
+0.08 m no cumplió el criterio de chaqueta en SMG→revólver a guardia baja,
+frame 27, distancia −0.004067746185254382 m. Se midió el arco de 0.12 m con
+las cajas verificadas de la propia geometría SMG, sin relajar −2 mm.
+
+Los bucles existentes agregan ocho casos libres a los 128 anteriores, cuatro
+configuraciones en cada dirección. Se conservan pruebas de selector congelado,
+reversión, locomoción, longitudes, prioridad y restore. La caché fría/inicializada
+se comprueba en procesos distintos, sin precalentar las suites normales.
+
+El productor gráfico conserva los 76 checks y doce casos de #53. Añade ocho
+checks y dos casos libres al job existente sight-revolver-reload (18), cuyo
+nombre histórico se mantiene por compatibilidad. Los otros grupos siguen en
+40 y 26. Catorce secuencias de 61 estados, cinco guardas comunes bloqueantes,
+1800 s/productor, 40 min/job y mismo número de jobs. Más casos no demuestra
+menor coste total. La CI/revisión/merge reales se registran en el PR vinculado
+desde [issue #6](https://github.com/CripterHack/distrito-cero/issues/6).
+
+
 ## Rifle ↔ revólver desde recarga · árbol 0.20.16
 
 [Plan vigente](../../specs/003-weapon-contact/plan-rifle-revolver-reload.md).

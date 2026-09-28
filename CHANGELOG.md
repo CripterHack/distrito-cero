@@ -1,3 +1,16 @@
+# v0.20.17 · Coherencia · 2026-09-28
+
+SMG ↔ revólver libre conserva la pose mostrada usando captura/montaje existentes.
+Mantiene acciones lógicas inmediatas y excluye recargas activas, piezas retornando
+y terceros modelos mostrados para esta nueva pareja. El arco de 0.08 m fue
+rechazado por penetración muestreada de 4.068 mm en chaqueta. Se adopta 0.12 m
+sólo tras verificar la geometría de SMG, conservando el límite de 2 mm.
+
+El catálogo gráfico único añade dos casos y ocho checks a la capacidad del job
+existente sight-revolver-reload: 40 + 26 + 18 = 84, catorce secuencias. No agrega
+jobs ni eleva límites o tolerancias. [Plan](specs/003-weapon-contact/plan-smg-revolver-free.md).
+Integración/CI y verificación posterior se registran en el PR del HEAD exacto.
+
 # v0.20.16 · Coherencia · 2026-09-27
 
 Rifle ↔ revólver desde recarga reutiliza la captura de pose y pieza visible,

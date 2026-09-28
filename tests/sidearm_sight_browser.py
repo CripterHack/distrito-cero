@@ -73,15 +73,15 @@ try:
   # All prior sight/draw/reload checks above remain part of this suite.
   p.evaluate('''()=>{window.qaSidearmObservation=(includePalette=false)=>{const a=DC_APP,s=a.sim,r=a.renderer;window.qaSightDraws=0;window.qaSightAdds=[];DC_MANUAL_FRAMES.draw(a);
    const m=qaSightMount,n=DC.WeaponHandling.actor(s.player,m,s.equipment),q={matrices:r.heroPalette,rootY:r.motionDebug.rootY,scale:1},v=DC_SIDEARM_SIGHT_QA.inspect(s,{mount:m,pose:q});
-   const stock=m.displayItem==='rifle'?DC_STOCK_CLEARANCE.inspect({...s,equipment:{...s.equipment,selected:m.displayItem}},{mount:m,actor:n,pose:q}):null;
-   const role=['pistol','rifle'].includes(m.displayItem)?'magazine':'body',points=m.displayItem==='rifle'?[[0,-.135,.12],[.028,-.135,.12],[0,-.095,.12]]:m.displayItem==='pistol'?[[0,-.18,-.016],[.028,-.18,-.016],[0,-.14,-.016]]:[[0,-.025,.08],[.057,-.025,.08],[0,-.025,.125]];
+   const stock=['rifle','smg'].includes(m.displayItem)?DC_STOCK_CLEARANCE.inspect({...s,equipment:{...s.equipment,selected:m.displayItem}},{mount:m,actor:n,pose:q}):null;
+   const role=['pistol','rifle','smg'].includes(m.displayItem)?'magazine':'body',points=['rifle','smg'].includes(m.displayItem)?[[0,-.135,.12],[.028,-.135,.12],[0,-.095,.12]]:m.displayItem==='pistol'?[[0,-.18,-.016],[.028,-.18,-.016],[0,-.14,-.016]]:[[0,-.025,.08],[.057,-.025,.08],[0,-.025,.125]];
    return {...(includePalette?{palette:Array.from(q.matrices)}:{}),stockMinimum:stock?Object.fromEntries(['face','jacket'].map(k=>[k,stock.minimum[k].distance])):null,reloading:s.equipment.reloading,reloadId:s.equipment.reloadId,partRole:role,partPoints:points.map(v=>m.partPoint(role,v)),magazineOffset:m.magazine.offset,drawCalls:qaSightDraws,drawnParts:qaSightAdds,expectedParts:r.equipmentMeshes.get(m.displayItem).map(p=>p.key),time:s.time,item:s.equipment.selected,displayItem:m.displayItem,handoff:m.handoff,phase:m.phase,
     palms:['L','R'].map(k=>{const p=DC.SkinRig.palmPoint(q,n,k);return[p.x,p.y,p.z];}),contacts:v.contacts,
     origin:m.origin,logicalOrigin:DC.Equipment.mount(s).origin,ammo:JSON.stringify(s.equipment.ammo),shots:s.equipment.shots,trigger:s.equipment.trigger,aimWeight:s.equipment.aimWeight};};}''')
   def snap(name,row):
    file=O/(name+'.png');p.screenshot(path=str(file));row.update(image=file.name,imageSha256=hashlib.sha256(file.read_bytes()).hexdigest())
   for start,target,reload_phase in sight_cases(partition):
-   cross_family='rifle' in (start,target)
+   cross_family=any(item in (start,target) for item in ('rifle','smg'))
    prefix=('reload-switch-' if reload_phase is not None else 'switch-')+start+'-'+target
    p.evaluate('''id=>{const a=DC_APP,s=a.sim,r=a.renderer;a.clearWeaponInput();s.equipment=DC.Equipment.initial();s.equipWeapon(id);DC.WeaponHandling.beginEquip(s);
     s.equipment.handling.ready=1;if(id==='rifle')s.equipment.handling.rifleAim=1;s.equipment.aimWeight=1;s.equipment.aiming=true;s.equipment.pitch=0;s.time=1.25;s.player.crouch=0;s.appearance.neckLength=0;
@@ -115,10 +115,10 @@ try:
    if cross_family:
     stock_rows=[r for r in [before]+rows if r['stockMinimum'] is not None]
     same_palette=max(abs(x-y) for x,y in zip(before['palette'],first['palette']))<1e-5
-    ck(label+' retains the whole starting palette and sampled rifle clearance',same_palette and bool(stock_rows) and all(min(r['stockMinimum'].values())>=-.002 for r in stock_rows))
+    ck(label+' retains the whole starting palette and sampled '+('SMG' if 'smg' in (start,target) else 'rifle')+' clearance',same_palette and bool(stock_rows) and all(min(r['stockMinimum'].values())>=-.002 for r in stock_rows))
     entry.update(initialPaletteMaxDifference=max(abs(x-y) for x,y in zip(before['palette'],first['palette'])),minimumSampledStockDistance=min(min(r['stockMinimum'].values()) for r in stock_rows))
   # Keep the original final UI guards after the last exchange of EACH partition.
-  # Reload and cross-family partitions end with rifle; base-only guards lose coverage.
+  # Cross-family ends with rifle and this extended shard with SMG; both need final UI guards.
   css.evaluate('(e)=>e.remove()');p.evaluate('DC_APP.setMode("play")');p.keyboard.press('Tab');p.wait_for_function('DC_APP.mode==="arsenal"')
   guard('Translucent selector remains paused and blocks game actions',p.evaluate('getComputedStyle(document.getElementById("arsenal")).backgroundColor.startsWith("rgba")&&!DC_APP.sim.equipment.trigger'))
   p.keyboard.press('Escape');guard('Closing selection does not restore a trigger or aiming request',p.evaluate('!DC_APP.sim.equipment.trigger&&!DC_APP.sim.equipment.aiming&&DC_APP.sim.equipment.charge===0'))

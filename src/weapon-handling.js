@@ -154,7 +154,8 @@
   // Explicit measured routes only; other tools/heavy props stay immediate.
   const crossFamily=e.selected==='rifle'&&next==='pistol'||e.selected==='pistol'&&next==='rifle';
   const rifleRevolver=e.selected==='rifle'&&next==='revolver'||e.selected==='revolver'&&next==='rifle';
-  if(e.selected===next||!(from.dock&&to.dock||sidearms||crossFamily||rifleRevolver)||!sim.equipmentAvailable())return null;
+  const smgRevolver=e.selected==='smg'&&next==='revolver'||e.selected==='revolver'&&next==='smg';
+  if(e.selected===next||!(from.dock&&to.dock||sidearms||crossFamily||rifleRevolver||smgRevolver)||!sim.equipmentAvailable())return null;
   // The UI may supply the visible mount before clearing aim or from its frozen
   // selector. Copy only pose data below; never retain closures or game state.
   // Other callers keep the original tracked/logical capture path.
@@ -162,7 +163,9 @@
   // Measured reload exits reuse the captured piece/pose and its existing return.
   // A third displayed prop remains outside this pair, even after cancellation.
   if(rifleRevolver&&!['rifle','revolver'].includes(m.displayItem))return null;
-  return {age:0,duration:sidearms||crossFamily||rifleRevolver?SIDEARM_HANDOFF_SECONDS:e.reloading>0?RELOAD_HANDOFF_SECONDS:(e.handling?.handoff?.duration||HANDOFF_SECONDS),clearance:(crossFamily||rifleRevolver)?.12:(e.handling?.handoff?.clearance||.08),serial:e.shotSerial||0,item:m.displayItem,origin:[delta[0]*c-delta[2]*s,delta[1],delta[0]*s+delta[2]*c],
+  // SMG/revolver is measured only for free poses, including frozen selection.
+  if(smgRevolver&&(e.reloading>0||m.reload>0||!['smg','revolver'].includes(m.displayItem)))return null;
+  return {age:0,duration:sidearms||crossFamily||rifleRevolver||smgRevolver?SIDEARM_HANDOFF_SECONDS:e.reloading>0?RELOAD_HANDOFF_SECONDS:(e.handling?.handoff?.duration||HANDOFF_SECONDS),clearance:(crossFamily||rifleRevolver||smgRevolver)?.12:(e.handling?.handoff?.clearance||.08),serial:e.shotSerial||0,item:m.displayItem,origin:[delta[0]*c-delta[2]*s,delta[1],delta[0]*s+delta[2]*c],
    yaw:D.wrap(m.yaw-(p.yaw||0)),pitch:m.pitch,roll:m.roll,aim:m.aim,kick:m.kick,reload:m.reload,
    braceWeight:m.braceWeight,coordination:m.coordination,lookPitch:m.lookPitch,
    contacts:structuredClone(m.localContacts),grips:structuredClone(m.grips),magazine:structuredClone(m.magazine)};

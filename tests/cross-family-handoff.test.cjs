@@ -3,8 +3,8 @@ const test=require('node:test'),assert=require('node:assert/strict');
 const fs=require('node:fs'),vm=require('node:vm');
 const {D,R,scene}=require('./helpers/sidearm_sight.cjs');
 D.App=class {};D.Audio=class {};vm.runInThisContext(fs.readFileSync('src/equipment-ui.js','utf8'));
-const pairs=[['rifle','pistol'],['pistol','rifle']],revolverPairs=[['rifle','revolver'],['revolver','rifle']],allPairs=[...pairs,...revolverPairs],phases=[null,0,.08,.28,.46,.65,.86,.97];
-const reloadPhases=()=>phases;
+const pairs=[['rifle','pistol'],['pistol','rifle']],revolverPairs=[['rifle','revolver'],['revolver','rifle']],freePairs=[['smg','revolver'],['revolver','smg']],allPairs=[...pairs,...revolverPairs,...freePairs],phases=[null,0,.08,.28,.46,.65,.86,.97];
+const reloadPhases=(from,to)=>[from,to].includes('smg')?[null]:phases;
 const partRole=m=>m.displayItem==='revolver'?'body':'magazine';
 const xyz=p=>[p.x,p.y,p.z],distance=(a,b)=>Math.hypot(...a.map((x,i)=>x-b[i]));
 function tick(s,n=1){for(let i=0;i<n;i++){s.time+=1/60;s.equipmentStep(1/60,{});}}
@@ -22,7 +22,7 @@ function sameStart(a,b){for(let k=0;k<2;k++)assert.ok(distance(a.palms[k],b.palm
 function lengths(v){for(const side of ['L','R'])for(const [a,b]of [['upperArm','forearm'],['forearm','hand']]){const pa=R.bones[R.ids[a+side]][2],pb=R.bones[R.ids[b+side]][2];
  const x=R.transform(v.pose.matrices.subarray(R.ids[a+side]*16,R.ids[a+side]*16+16),pa),y=R.transform(v.pose.matrices.subarray(R.ids[b+side]*16,R.ids[b+side]*16+16),pb);
  assert.ok(Math.abs(distance(x,y)-distance(pa,pb))<1e-6,'arm length changed');}}
-for(const [from,to]of allPairs)test(from+' -> '+to+' preserves torso, palms and visible parts across aim and reload exits',()=>{
+for(const [from,to]of allPairs)test(from+' -> '+to+' preserves torso, palms and visible parts across '+([from,to].includes('smg')?'free selection':'aim and reload exits'),()=>{
  let maximum=0,partMaximum=0,cases=0;
  for(const cfg of [{},{aim:false},{crouch:1,pitch:.3,neck:1},{crouch:1,pitch:-.3,neck:-1}])for(const phase of reloadPhases(from,to)){const s=setup(from,phase,cfg),a=app(s),before=read(s),ammo=JSON.stringify(s.equipment.ammo),time=s.time,shots=s.equipment.shots;
   select(a,to);let previous=read(s);sameStart(before,previous);assert.equal(s.equipment.selected,to);assert.equal(s.equipment.reloading,0);assert.equal(s.equipment.reloadId,null);assert.equal(s.equipment.trigger,false);assert.equal(s.equipment.aimWeight,0);assert.equal(s.time,time);
@@ -54,7 +54,7 @@ test('cross-family presentation remains transient and a real shot or reload alwa
  }
 });
 test('cross-family selection reuses the moving actor and preserves foot support memory',()=>{
- for(const [from,to]of allPairs)for(const phase of [null,.46]){const s=setup(from,phase),tracker=new D.MotionTracker(4);Object.assign(s.player,{x:4,z:36,y:0,yaw:0,vx:0,vz:0,vy:0});
+ for(const [from,to]of allPairs)for(const phase of reloadPhases(from,to).includes(.46)?[null,.46]:[null]){const s=setup(from,phase),tracker=new D.MotionTracker(4);Object.assign(s.player,{x:4,z:36,y:0,yaw:0,vx:0,vz:0,vy:0});
   s.peds.forEach(n=>n.hidden=true);s.dynamics.props=[];s.cars.forEach((c,i)=>Object.assign(c,{x:5000+i*6,z:5000,driver:null,parked:true,speed:0}));
   let n;for(let i=0;i<30;i++){s.step(1/60,{aim:true,throttle:.6,steer:0});n=tracker.update('player',s.player,s.time);}
   const before=read(s,n),memory=JSON.stringify(n.motion);select(app(s,n),to);const first=read(s,n);sameStart(before,first);assert.equal(first.pose.rootY,before.pose.rootY);assert.equal(JSON.stringify(n.motion),memory);
@@ -64,16 +64,16 @@ test('cross-family selection reuses the moving actor and preserves foot support 
  }
 });
 test('unavailable selections and other cross-family routes are not silently opted in',()=>{
- for(const [from,to]of [['smg','revolver'],['pistol','smg'],['pistol','shotgun'],['pistol','sniper'],['pistol','gauss'],['rifle','binoculars']]){const s=setup(from);select(app(s),to);assert.equal(s.equipment.handling.handoff,undefined);}
+ for(const [from,to]of [['shotgun','revolver'],['pistol','smg'],['pistol','shotgun'],['pistol','sniper'],['pistol','gauss'],['rifle','binoculars']]){const s=setup(from);select(app(s),to);assert.equal(s.equipment.handling.handoff,undefined);}
  for(const [from,to]of allPairs){const s=setup(from);s.player.car='occupied';select(app(s),to);assert.equal(s.equipment.handling.handoff,undefined);}
  const s=setup('rifle'),handling=s.equipment.handling;assert.equal(s.equipWeapon('unknown-item'),false);assert.equal(s.equipment.handling,handling);
 });
-test('the displayed rifle clears sampled face and jacket during the cross-family arc',()=>{
+test('the displayed rifle or SMG clears sampled face and jacket during the cross-family arc',()=>{
  vm.runInThisContext(fs.readFileSync('tools/qa/stock_clearance.js','utf8'));
  let minimum=Infinity,samples=0;
  for(const [from,to]of allPairs)for(const cfg of [{},{aim:false},{crouch:1,pitch:.3,neck:1},{crouch:1,pitch:-.3,neck:-1}])for(const phase of reloadPhases(from,to).includes(.46)?[null,.46]:[null]){
   const s=setup(from,phase,cfg);select(app(s),to);
-  for(let frame=0;frame<=54;frame++){if(frame)tick(s);if(frame%3)continue;const v=read(s);if(v.mount.displayItem!=='rifle')continue;
+  for(let frame=0;frame<=54;frame++){if(frame)tick(s);if(frame%3)continue;const v=read(s);if(!['rifle','smg'].includes(v.mount.displayItem))continue;
    const shown={...s,equipment:{...s.equipment,selected:v.mount.displayItem}},result=DC_STOCK_CLEARANCE.inspect(shown,v);
    for(const part of ['face','jacket']){const d=result.minimum[part].distance;minimum=Math.min(d,minimum);assert.ok(d>=-.002,JSON.stringify({from,to,phase,cfg,frame,part,distance:d}));}samples++;
   }
@@ -109,5 +109,27 @@ test('rifle/revolver still rejects a third displayed prop during free or reload 
   const s=setup('pistol',phase);select(app(s),'rifle');tick(s,9);
   assert.equal(read(s).mount.displayItem,'pistol');
   select(app(s),'revolver');assert.equal(s.equipment.handling.handoff,undefined);
+ }
+});
+
+
+test('SMG/revolver remains free-only for active, frozen and returning reload poses',()=>{
+ for(const [from,to]of freePairs)for(const phase of phases.filter(x=>x!==null))for(const frozen of [false,true]){
+  const s=setup(from,phase),before=read(s),ammo=JSON.stringify(s.equipment.ammo),a=app(s,s.player,frozen?{mount:before.mount,equipment:{...s.equipment}}:null);
+  if(frozen)s.cancelEquipment();
+  select(a,to,frozen);assert.equal(s.equipment.selected,to);assert.equal(s.equipment.handling.handoff,undefined);
+  assert.equal(JSON.stringify(s.equipment.ammo),ammo);assert.equal(s.equipment.reloading,0);assert.equal(s.equipment.trigger,false);
+ }
+ for(const [from,via,to]of [['smg','rifle','revolver'],['revolver','pistol','smg']]){
+  const s=setup(from,.46),a=app(s);select(a,via);tick(s,9);select(a,from);
+  assert.equal(s.equipment.reloading,0);assert.ok(read(s).mount.reload>0);assert.equal(read(s).mount.displayItem,from);
+  select(a,to);assert.equal(s.equipment.handling.handoff,undefined);
+ }
+});
+test('SMG/revolver rejects a third displayed prop without losing immediate selection',()=>{
+ for(const [start,from,to]of [['rifle','smg','revolver'],['pistol','revolver','smg']]){
+  const s=setup(start),a=app(s);select(a,from);tick(s,9);assert.equal(read(s).mount.displayItem,start);
+  const ammo=JSON.stringify(s.equipment.ammo);select(a,to);assert.equal(s.equipment.selected,to);
+  assert.equal(s.equipment.handling.handoff,undefined);assert.equal(JSON.stringify(s.equipment.ammo),ammo);
  }
 });
