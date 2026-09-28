@@ -1,31 +1,32 @@
 # QA reproducible desde el repositorio
 
-## Caché canónica y recarga rifle/revólver · 0.20.16
+## Caché canónica y cruces medidos · 0.20.17
 
-`node --test tests/finger-cache-order.test.cjs` ejecuta ocho tests, ambas
-parejas rifle/pistola y rifle/revólver, libres y desde recarga, con dos
+`node --test tests/finger-cache-order.test.cjs` ejecuta diez tests: rifle/pistola
+y rifle/revólver libres/recarga, más SMG/revólver sólo libres, con dos
 configuraciones cada una. Procesos separados simulan caché fría y equipo
 mostrado antes por otro actor. Exige igualdad de perfiles, muestras de
 matrices/palmas/piezas/gameplay y cuatro entradas de caché. No precalentar
 los perfiles en las suites normales ni agregar una API pública de reset.
 
-`tests/cross-family-handoff.test.cjs` amplía el catálogo existente a 128 casos
-de selección y 304 poses de culata. Incluye congelación desde siete fases,
+`tests/cross-family-handoff.test.cjs` amplía el catálogo existente a 136 casos
+de selección y 380 poses de culata, incluidas 76 de SMG añadidas a las 304 previas.
+La congelación desde siete fases sigue correspondiendo a las parejas rifle/arma corta. Incluye
 retorno y reselección, cuerpo visible del revólver, longitudes, acciones
 prioritarias y estado transitorio no persistente. El muestreo no es toda la malla.
 
-## Sight vigente: 76 checks, tres particiones sin solapamiento
+## Sight vigente: 84 checks, tres particiones sin solapamiento
 
 | Selección | Checks | Contenido |
 | :--- | ---: | :--- |
 | `sight-base` | 40 | Apuntado/preparación/recarga, cuatro intercambios cortos y guardas comunes |
 | `sight-cross-family` | 26 | Cuatro rifle/pistola y dos rifle/revólver libres, cobertura de #52 intacta |
-| `sight-revolver-reload` | 10 | Dos rifle/revólver desde recarga, sin duplicar los anteriores |
-| `sight` | 76 | Alias que ejecuta las tres particiones una vez, en orden |
+| `sight-revolver-reload` | 18 | Dos rifle/revólver desde recarga y dos SMG/revólver libres |
+| `sight` | 84 | Alias que ejecuta las tres particiones una vez, en orden |
 
-Catálogo único de doce intercambios en `tools/qa/sight_contract.py`, mismo
+Catálogo único de catorce intercambios en `tools/qa/sight_contract.py`, mismo
 productor `tests/sidearm_sight_browser.py`. El modo directo sin flag mantiene
-`all`, ahora con 76 checks. `--suite all --origin fixture` incluye 17 suites
+`all`, ahora con 84 checks. `--suite all --origin fixture` incluye 17 suites
 concretas, sin repetir alias. Selecciones solapadas se deduplican y HTTP
 rechaza las suites de sight. Una partición inválida falla antes de importar
 Playwright o crear archivos. El output del runner debe ser un directorio
@@ -37,16 +38,18 @@ python3 tests/qa_selection.test.py
 python3 tests/ci_workflow.test.py
 ```
 
-Se conservan los 66 nombres previos y diez nuevos, 61 estados por intercambio,
+Se conservan los 76 nombres previos y ocho nuevos, 61 estados por intercambio,
 frame cero, resolución 820×680, renderer, esperas gráficas, capturas, teclas
 reales y umbrales. En cada partición se comprueban cinco guardas de mapas,
 selector/cierre de inputs, catálogo y ausencia de errores/requests. Base las
 cuenta una vez, las demás las registran como guards bloqueantes sin inflar
-el número de checks. Se mantiene la validación final con rifle.
+el número de checks. Cross-family termina con rifle y el tercer shard con SMG.
+Cada uno comprueba la interfaz después de su propio último equipo.
 
 Los tres jobs conservan 1800 s por productor y 40 minutos por job, sin
 continue-on-error ni reintentos para ocultar fallos. El presupuesto agregado
-permitido aumenta al agregar un runner. Esto no demuestra mejor FPS ni menor
+permitido no aumenta: se usa la capacidad del tercer runner existente. Su nombre
+histórico se conserva por compatibilidad, aunque ahora incluye SMG libre. Esto no demuestra mejor FPS ni menor
 coste total CPU/GPU. El alias serial puede durar más de 1800 s porque el
 límite se aplica por productor. Cada informe tiene su sufijo y directorio.
 
@@ -55,7 +58,7 @@ límite se aplica por productor. Cada informe tiene su sufijo y directorio.
 El timeout posterior a #49, run `36304175245`, queda fallido a 1800.008 s,
 exit 124 y sólo 44 mensajes PASS. #50 lo resolvió repartiendo sus 58 checks,
 y #52 añadió ocho. #52 está integrado y verificado en d25baff, pero sus
-artefactos no son resultados de 0.20.16. Se necesitan los tres productores
+artefactos no son resultados de 0.20.17. Se necesitan los tres productores
 actuales aprobados en el HEAD exacto. CI del PR y push se registran por
 separado en el cierre vinculado desde [issue #6](https://github.com/CripterHack/distrito-cero/issues/6).
 
