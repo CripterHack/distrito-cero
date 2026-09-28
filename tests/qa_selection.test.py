@@ -138,7 +138,16 @@ class SelectionTests(unittest.TestCase):
         tree=ast.parse(Path(__file__).with_name('sidearm_sight_browser.py').read_text())
         calls=[n for n in ast.walk(tree) if isinstance(n,ast.Call)
             and isinstance(n.func,ast.Name) and n.func.id=='guard']
-        names=[n.args[0].value for n in calls]
+        from tools.qa.sight_contract import SIGHT_GUARDS
+        names=[]
+        for call in calls:
+            label=call.args[0]
+            self.assertIsInstance(label,ast.Subscript,'Producer must use the shared guard contract')
+            self.assertIsInstance(label.value,ast.Name)
+            self.assertEqual(label.value.id,'SIGHT_GUARDS')
+            self.assertIsInstance(label.slice,ast.Constant)
+            self.assertIn(label.slice.value,SIGHT_GUARDS)
+            names.append(SIGHT_GUARDS[label.slice.value])
         self.assertEqual(set(names),{
             'Embedded skin maps decode in the production renderer',
             'Translucent selector remains paused and blocks game actions',

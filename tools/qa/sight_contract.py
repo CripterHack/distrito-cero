@@ -13,6 +13,59 @@ SWITCH_CASES = (
 )
 
 
+# The producer and acceptance gate share these labels. Base counts them inside
+# checks; the remaining partitions report them separately without inflating QA.
+SIGHT_GUARDS = {
+    'maps': 'Embedded skin maps decode in the production renderer',
+    'selector': 'Translucent selector remains paused and blocks game actions',
+    'inputs': 'Closing selection does not restore a trigger or aiming request',
+    'storage': 'Visual inspection never overwrites the saved catalogue',
+    'runtime': 'No JavaScript or graphics exceptions or external requests',
+}
+
+
+def validate_sight_report(report: dict, partition: str) -> None:
+    """Reject diagnostic, incomplete or mislabelled sight evidence, without retries."""
+    expected = dict(SIGHT_PARTITIONS).get(partition)
+    if expected is None:
+        raise ValueError('Unknown sight partition: ' + str(partition))
+    if report.get('partition') != partition:
+        raise ValueError('Sight report belongs to a different partition.')
+    if report.get('comparisonOnly') is not False:
+        raise ValueError('Sight acceptance requires explicit non-comparison mode.')
+    checks = report.get('checks')
+    if not isinstance(checks, list) or len(checks) != expected:
+        raise ValueError('Unexpected number of sight checks.')
+    names = []
+    for check in checks:
+        if not isinstance(check, dict) or check.get('pass') is not True:
+            raise ValueError('A sight check did not pass.')
+        name = check.get('name')
+        if not isinstance(name, str) or not name.strip():
+            raise ValueError('Sight checks require non-empty names.')
+        names.append(name)
+    if len(set(names)) != len(names):
+        raise ValueError('Duplicate sight check names.')
+    required = set(SIGHT_GUARDS.values())
+    guards = report.get('guards')
+    if partition == 'base':
+        if guards != [] or not required.issubset(names):
+            raise ValueError('Base sight guards must occur once inside checks.')
+        return
+    if not isinstance(guards, list) or len(guards) != len(required):
+        raise ValueError('Sight requires all five separate guards.')
+    guard_names = []
+    for guard in guards:
+        if not isinstance(guard, dict) or guard.get('pass') is not True:
+            raise ValueError('A sight guard did not pass.')
+        name = guard.get('name')
+        if not isinstance(name, str):
+            raise ValueError('Sight guards require names.')
+        guard_names.append(name)
+    if set(guard_names) != required:
+        raise ValueError('Missing, duplicate or unknown sight guard names.')
+
+
 def sight_cases(partition: str) -> tuple:
     """Keep both directions and reload cases; reject unknown partitions."""
     if partition == 'all':

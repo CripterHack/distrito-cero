@@ -93,4 +93,114 @@ class RunnerTests(unittest.TestCase):
     def test_browser_path_is_explicit_and_validated(self):
         with self.assertRaises(ValueError): Config(self.root,self.cfg.output,browser='/no/such/browser').validate()
 
+
+    # Literal expected names deliberately pin the producer/consumer contract.
+    SIGHT_GUARD_NAMES = (
+        'Embedded skin maps decode in the production renderer',
+        'Translucent selector remains paused and blocks game actions',
+        'Closing selection does not restore a trigger or aiming request',
+        'Visual inspection never overwrites the saved catalogue',
+        'No JavaScript or graphics exceptions or external requests',
+    )
+
+    def sight_report(self, partition='revolver-reload'):
+        counts={'base':40,'cross-family':26,'revolver-reload':28}
+        guards=[{'name':name,'pass':True} for name in self.SIGHT_GUARD_NAMES]
+        count=counts[partition]
+        checks=[{'name':f'continuity {i}','pass':True} for i in range(count)]
+        if partition=='base':
+            checks[:len(guards)]=guards
+            guards=[]
+        return dict(partition=partition,checks=checks,guards=guards,
+                    comparisonOnly=False,sha256=self.sha,errors=[],requests=[])
+
+    def run_sight_report(self, report, partition='revolver-reload', output='run-one'):
+        probe=self.suite(self.report_code(**report))
+        suite=Suite('sight-'+partition,probe.command,probe.report,
+                    {'base':40,'cross-family':26,'revolver-reload':28}[partition])
+        cfg=Config(self.root,self.root/'artifacts'/output,timeout=3)
+        result=run_suites(cfg,[suite])
+        self.assertEqual(result['suites'][0]['exitCode'],0,'Probe failure must not impersonate gate rejection.')
+        return result
+
+    def test_sight_accepts_complete_base_and_separate_guards_without_double_counting(self):
+        for partition in ('base','cross-family','revolver-reload'):
+            with self.subTest(partition=partition):
+                report=self.sight_report(partition)
+                result=self.run_sight_report(report,partition,partition)
+                self.assertEqual(result['status'],'passed')
+                self.assertEqual(result['suites'][0]['checks'],len(report['checks']))
+
+    def test_comparison_report_is_not_acceptance_even_with_all_checks_passed(self):
+        result=run_suites(self.cfg,[self.suite(self.report_code(comparisonOnly=True))])
+        self.assertEqual(result['suites'][0]['exitCode'],0)
+        self.assertEqual(result['status'],'failed')
+        self.assertIn('compar',result['suites'][0]['error'].lower())
+
+    def test_sight_failed_guard_cannot_hide_behind_exit_zero_and_green_checks(self):
+        report=self.sight_report()
+        report['guards'][1]['pass']=False
+        result=self.run_sight_report(report)
+        self.assertEqual(result['suites'][0]['exitCode'],0)
+        self.assertEqual(result['status'],'failed')
+        # Keep the actual rejected report, not a reconstructed success summary.
+        saved=json.loads((self.cfg.output/'sight-revolver-reload.json').read_text())
+        self.assertEqual(saved,report)
+
+    def test_sight_requires_all_five_separate_guards(self):
+        for i,guards in enumerate((None,[],[{'name':n,'pass':True} for n in self.SIGHT_GUARD_NAMES[:4]])):
+            with self.subTest(guards=guards):
+                report=self.sight_report()
+                if guards is None:report.pop('guards')
+                else:report['guards']=guards
+                self.assertEqual(self.run_sight_report(report,output=f'missing-{i}')['status'],'failed')
+
+    def test_sight_rejects_duplicate_and_unknown_guard_names(self):
+        for i,name in enumerate((self.SIGHT_GUARD_NAMES[1],'unrelated passing guard','')):
+            with self.subTest(name=name):
+                report=self.sight_report();report['guards'][0]['name']=name
+                self.assertEqual(self.run_sight_report(report,output=f'guard-name-{i}')['status'],'failed')
+
+    def test_sight_rejects_malformed_guard_values_and_container(self):
+        variants=(None,{},True,'passed',[None],
+                  [{'name':n,'pass':1} for n in self.SIGHT_GUARD_NAMES],
+                  [{'name':n,'pass':'true'} for n in self.SIGHT_GUARD_NAMES])
+        for i,guards in enumerate(variants):
+            with self.subTest(guards=guards):
+                report=self.sight_report();report['guards']=guards
+                self.assertEqual(self.run_sight_report(report,output=f'guard-type-{i}')['status'],'failed')
+
+    def test_sight_rejects_another_or_missing_partition(self):
+        for i,partition in enumerate((None,'base','all','imaginary')):
+            with self.subTest(partition=partition):
+                report=self.sight_report()
+                if partition is None:report.pop('partition')
+                else:report['partition']=partition
+                self.assertEqual(self.run_sight_report(report,output=f'partition-{i}')['status'],'failed')
+
+    def test_sight_rejects_duplicate_empty_or_missing_check_names(self):
+        for i,name in enumerate(('continuity 1','',None,7)):
+            with self.subTest(name=name):
+                report=self.sight_report()
+                if name is None:report['checks'][0].pop('name')
+                else:report['checks'][0]['name']=name
+                self.assertEqual(self.run_sight_report(report,output=f'check-name-{i}')['status'],'failed')
+
+    def test_sight_base_must_contain_its_guards_in_checks_not_count_replacements(self):
+        report=self.sight_report('base');report['checks'][0]['name']='unrelated passing check'
+        self.assertEqual(self.run_sight_report(report,'base')['status'],'failed')
+
+    def test_sight_base_rejects_duplicate_separate_guards(self):
+        report=self.sight_report('base')
+        report['guards']=[{'name':n,'pass':True} for n in self.SIGHT_GUARD_NAMES]
+        self.assertEqual(self.run_sight_report(report,'base')['status'],'failed')
+
+    def test_sight_requires_explicit_acceptance_mode(self):
+        for i,mode in enumerate(('missing',True,None,'false',0)):
+            with self.subTest(mode=mode):
+                report=self.sight_report()
+                if mode=='missing':report.pop('comparisonOnly')
+                else:report['comparisonOnly']=mode
+                self.assertEqual(self.run_sight_report(report,output=f'mode-{i}')['status'],'failed')
+
 if __name__=='__main__': unittest.main()
