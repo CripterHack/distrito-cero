@@ -49,7 +49,7 @@
    })));
   }
   sceneUniforms(...args){
-   super.sceneUniforms(...args);const g=this.gl,p=this.sceneProgram;
+   super.sceneUniforms(...args);const g=this.gl,p=args[4]||this.sceneProgram;
    for(const [key,name,unit]of [['albedo','uSkinAlbedo',4],['normal','uSkinNormal',5],['roughness','uSkinRoughness',6]]){
     g.activeTexture(g.TEXTURE0+unit);g.bindTexture(g.TEXTURE_2D,this.humanTextures[key]);g.uniform1i(this.uniform(p,name),unit);
    }

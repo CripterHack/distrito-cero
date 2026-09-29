@@ -96,7 +96,7 @@
     if(c.ix===0&&c.iz===0){box(13,.95,20,.65,1.8,.5,[.22,.32,.31],3);box(13,1.35,19.73,.48,.50,.035,[.1,.75,.64],0,1.1);}
     if(field&&c.seed>.94){const px=c.x,pz=c.z;box(px,10,pz,.4,20,.4,[.60,.62,.59],3);add('body',px,20,pz,1.8,.8,.9,[.69,.70,.65],3);for(let k=0;k<3;k++){const a=k*Math.PI*2/3;box(px+Math.sin(a)*3.7,20+Math.cos(a)*3.7,pz+.6,.35,7.5,.17,[.76,.77,.71],3,0,0,0,0,0,-a);}}
    }
-   const entries={};for(const[name,data]of Object.entries(lists)){if(!data.length)continue;const packed=new Float32Array(data.length);for(let i=0;i<data.length;i++)packed[i]=data[i]-(i%16===0?chunk.x:i%16===2?chunk.z:0);const buffer=this.gl.createBuffer();this.gl.bindBuffer(this.gl.ARRAY_BUFFER,buffer);this.gl.bufferData(this.gl.ARRAY_BUFFER,packed,this.gl.STATIC_DRAW);entries[name]={buffer,count:data.length/16,baseX:chunk.x,baseZ:chunk.z,min:[chunk.x-12,-3,chunk.z-12],max:[chunk.x+348,170,chunk.z+348]};}
+   const entries={};for(const[name,data]of Object.entries(lists)){if(!data.length)continue;const packed=new Float32Array(data.length);for(let i=0;i<data.length;i++)packed[i]=data[i]-(i%16===0?chunk.x:i%16===2?chunk.z:0);const buffer=this.gl.createBuffer();this.gl.bindBuffer(this.gl.ARRAY_BUFFER,buffer);this.gl.bufferData(this.gl.ARRAY_BUFFER,packed,this.gl.STATIC_DRAW);entries[name]={buffer,count:data.length/16,basicMaterials:this.basicMaterialBatch(packed),baseX:chunk.x,baseZ:chunk.z,min:[chunk.x-12,-3,chunk.z-12],max:[chunk.x+348,170,chunk.z+348]};}
    return entries;
   }
   renderReactive(sim){

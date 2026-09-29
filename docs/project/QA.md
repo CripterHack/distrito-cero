@@ -1,5 +1,15 @@
 # QA reproducible desde el repositorio
 
+## Variante de materiales básicos · 0.20.20
+
+`node --test tests/basic-material-program.test.cjs` verifica los lotes estáticos,
+la ruta general para datos mixtos/desconocidos/dinámicos/deformados, asignación
+correcta de uniforms por programa, reflexión, orden y lifecycle del recurso
+adicional. El shader especializado no autoriza omitir frames o geometría.
+Las pruebas de navegador habituales siguen usando el renderer de producción.
+[Diagnóstico y medición](SIGHT-CAPACITY.md). No cambiar comparaciones o umbrales
+para que pase una variante. El CI y sus artefactos siguen siendo gates completos.
+
 ## Aceptación estricta de informes sight
 
 El runner rechaza `comparisonOnly: true` aun cuando el productor retorna exit 0.
