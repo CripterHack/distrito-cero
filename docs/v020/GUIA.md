@@ -1,4 +1,17 @@
-# Parche vigente del árbol: v0.20.14 · Coherencia
+# Parche vigente del árbol: v0.20.20 · Coherencia
+
+Inicio y Pausa muestran v0.20.20 al ejecutar este HTML. El renderizado de la ciudad
+usa una ruta especializada cuando comprueba que sus materiales no requieren
+tratamiento de piel, cabello u otras superficies detalladas. Conserva el mismo
+contenido y calidad, sin cambiar controles, campaña o partidas.
+
+La mejora se valida con el renderer y las suites gráficas. No implica una cifra
+de FPS para todos los equipos. Consultar [HANDOFF](../project/HANDOFF.md) para
+el estado real de integración y publicación.
+
+## Notas históricas de v0.20.14
+
+# Parche v0.20.14 · Coherencia
 
 Inicio y Pausa muestran v0.20.14 cuando se ejecuta este HTML. El ajuste de dedos
 durante las recargas ya no depende de qué equipo se mostró primero. Mantiene

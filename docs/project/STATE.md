@@ -1,48 +1,46 @@
 # Estado real del proyecto
 
-## Producto integrado: v0.20.19 · Coherencia · prototype
+## Árbol candidato: v0.20.20 · Coherencia · prototype
 
 Identidad en [version.json](../../version.json) y [build-info.json](../../build-info.json).
-[PR #57](https://github.com/CripterHack/distrito-cero/pull/57) integrado en
-**5f222410ec48473c371c3e4a84052667d354cc7e**, árbol
-**d168a059695c62be7b96da4ab6fcecd1eb2d3bc7**. Pistola ↔ SMG libre y desde recarga,
-selector congelado y pieza retornando ya están resueltos dentro del alcance medido.
+Base integrada [#58](https://github.com/CripterHack/distrito-cero/pull/58):
+**f65a9e6218e2c3b6b3bf3a2d55671c6591512627**, árbol
+**99f6edda835f838c921faece5754aecd2c240aaa**, producto 0.20.19.
+Instrumentación y push de #58 ya verificados. No volver a tratarlos como ausentes.
 
-Verify del push 36480927360, benchmark 36480927408, exportación 36480927618 y
-Pages 36480926757 aprobados y artefactos contrastados en el cierre de #57.
-323 WebGL, 80 HTTP y 36 benchmark. 112 checks sight, veinte secuencias de 61 estados.
-No queda pendiente ese push. Exportación original con una advertencia conocida,
-derivada sin errores/advertencias; no es aprobación artística. Pages verificado
-por artefacto/despliegue, no por HTTP público.
+## Unidad de capacidad
 
-## Unidad actual de QA: diagnóstico de capacidad
+El shader de fragmentos general comparte caminos costosos de piel/cabello con la
+ciudad. Una variante para lotes estáticos con IDs comprobados 0–25 elimina sólo
+comparaciones de materiales 30–49 imposibles en esos lotes. El shader original
+permanece para datos mixtos, desconocidos, dinámicos y deformados. No modifica
+geometría, iluminación, sombras, partidas, rig ni acciones de juego.
 
-Se instrumenta el productor sight existente sin cambiar juego, versión, workflows,
-permisos, particiones, cobertura, imágenes ni límites. Temporizadores locales
-transparentes registran host y navegador por sección/operación. Sus valores no
-autorizan aceptación y no representan GPU física o FPS. [Plan](../../specs/001-reliability/plan-sight-capacity.md).
+Prueba de clasificación al subir datos, uniforms por programa, reflexión, orden
+transparente y liberación de recursos cubiertos por regresiones. TDD dirigido:
+13/13 nuevas y 9/9 lifecycle. Las sondas y las suites completas se registran por
+separado en el PR vinculado desde [#6](https://github.com/CripterHack/distrito-cero/issues/6).
+No anticipar merge, CI aprobada o capacidad estable desde esta nota de implementación.
+[Plan](../../specs/001-reliability/plan-static-material-program.md),
+[HANDOFF](HANDOFF.md), [capacidad](SIGHT-CAPACITY.md), [QA](QA.md).
 
-Base de #57 dejó sólo 33.773 s frente al límite de 1800 s. Medir antes de ampliar,
-optimizar o redistribuir. No se declara una mejora de velocidad sin medirla.
-La CI y el estado real de integración de esta unidad se consultan en
-[issue #6](https://github.com/CripterHack/distrito-cero/issues/6) y su PR, separados
-de los resultados del producto anterior. [HANDOFF](HANDOFF.md), [QA](QA.md), [capacidad](SIGHT-CAPACITY.md).
+Sight mantiene 112 checks, veinte secuencias, 61 estados más before y todas las
+capturas 820×680. Cinco guardas canónicas por partición. Presupuesto ordinario
+inalterado: tres productores con 1800 s y jobs de 40 minutos. Cualquier coste de
+transporte de fuentes se documenta por separado y no cuenta como ahorro de QA.
 
-## Backlog
+## Backlog global
 
 | Issue | Pendiente real |
 | :--- | :--- |
 | #5 | Arte global, fuentes/procedencia, materiales/UV y hardware |
-| #6 | Capacidad QA medida, otras parejas, herramientas/pesados, cortes prioritarios, anatomías/giros y coste por actor/LOD |
+| #6 | Verificar capacidad, otras parejas, herramientas/pesados, anatomías/giros, cortes y coste por actor/LOD |
 | #7 | Recorrido íntegro, playtests humanos y hardware de referencia |
 
-## Continuidad
+No repetir #58 temporizadores, #57 pistola/SMG, #56 verificador, #55/#54
+SMG/revólver, #53/#52 rifle/revólver, #51 caché ni #50 particiones.
+No reetiquetar el timeout histórico 36304175245 como aprobado.
 
-No repetir #57 pistola/SMG, #56 verificador, #55/#54 SMG/revólver, #53/#52
-rifle/revólver, #51 caché, #50 particiones ni #49 rifle/pistola. Cada PR conserva
-su evidencia propia. No reetiquetar el timeout histórico 36304175245.
-
-No se reintenta limpieza bloqueada ni se borran ramas. Helpers fuera del
-producto. Los snapshots locales tienen historia sintética; los commits publicados
-requieren padres remotos reales y cotejo de árboles. No declarar revisión
-independiente, GPU física, toda la malla/CCD o aceptación artística global.
+No se reintenta limpieza bloqueada ni se borran ramas. Helpers fuera del producto
+y de su ascendencia. Restauración local con historia sintética, no historial remoto.
+No afirmar GPU física, FPS, revisión independiente o aceptación artística global.

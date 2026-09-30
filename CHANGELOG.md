@@ -1,3 +1,16 @@
+# v0.20.20 · Coherencia · 2026-09-29
+
+Variante del fragment shader para lotes estáticos con materiales básicos comprobados.
+Conserva la ruta general para personajes, datos dinámicos, mixtos o desconocidos.
+Elimina trabajo de materiales detallados imposible en esos lotes, sin quitar
+geometría, reducir resolución o cambiar iluminación, sombras o capturas.
+No cambia controles, campaña, munición, assets, rig ni partidas.
+
+Trece regresiones nuevas cubren clasificación, selección, uniforms y recursos.
+Las sondas controladas son evidencia local, no FPS ni una aprobación anticipada
+de las suites completas. [Plan](specs/001-reliability/plan-static-material-program.md).
+El estado real de CI, revisión e integración está en el PR vinculado desde #6.
+
 # v0.20.19 · Coherencia · 2026-09-28
 
 Pistola ↔ SMG conserva pose y pieza mostradas en cambio libre y desde recarga,

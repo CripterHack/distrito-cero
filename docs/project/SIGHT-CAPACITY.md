@@ -47,3 +47,35 @@ El campo `timing` no sustituye `checks`, `guards`, identidad de HTML o modo de
 aceptación. `completed` significa que una sección terminó, no que un juego o un
 issue fue aceptado. Consultar [QA](QA.md), [HANDOFF](HANDOFF.md) y el cierre del PR
 para los resultados reales de cada ejecución.
+
+
+## Continuación 0.20.20: shader de materiales básicos
+
+#58 ya está integrado y su push verificado. En la investigación posterior se
+midió la espera de la cola gráfica mediante readback de diagnóstico. Un perfil
+por malla señaló las cajas de la ciudad como coste principal, no la inspección
+ocular o el cálculo de poses. Ni quitar la guarda GL ni rebajar la escena es
+una corrección aceptable.
+
+Las sondas de corte de luces, orden de chunks, shader de vértices rígidos y
+eliminación de descartes no justificaron integrar esos cambios. La variante de
+fragmentos para materiales básicos sí mostró un ahorro local con píxeles iguales.
+[Plan y límites de la candidata](../../specs/001-reliability/plan-static-material-program.md).
+
+Sólo se selecciona para lotes estáticos no deformados que registran prueba
+explícita de IDs enteros 0–25 al subir los datos. La función GLSL detailMaterial
+conserva las comparaciones originales en el programa general y retorna false
+en la variante, excluyendo ramas 30–49 imposibles en el lote. No se cambia ninguna
+fórmula o descarte alcanzable por materiales 0–25. Lotes no probados, dinámicos,
+deformados o mixtos mantienen el programa original. Las sombras no se especializan.
+Los uniforms se suben a ambos programas de escena, incluidos los de reflexión,
+sin getUniform ni copias del driver en producción. Un programa GPU adicional,
+registrado y liberado por el ledger existente, es el coste permanente explícito.
+
+Regresión: `node --test tests/basic-material-program.test.cjs`.
+Las sondas alternan ambas rutas reales sobre el mismo navegador/host y separan
+calentamiento. Registran número de dibujos/instancias/vértices, paleta, montaje,
+simulación, captura y tiempo host total. Sus muestras no sustituyen los tres
+productores completos, la identidad del HTML ni la revisión de imágenes/CI.
+No anunciar capacidad estable a partir de una sola escena ni extender cobertura
+a ciegas. Consultar el PR de #6 para resultados actuales y verificables.
