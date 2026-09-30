@@ -65,7 +65,7 @@ test('sidearm handoff cannot delay a shot or reload and never creates ammunition
  }
 });
 test('sidearm extension leaves other families and unavailable paths explicit',()=>{
- for(const target of ['shotgun','binoculars','gauss','unarmed']){const s=setup('pistol');s.equipWeapon(target);assert.equal(s.equipment.handling.handoff,undefined);}
+ for(const target of ['sniper','binoculars','gauss','unarmed']){const s=setup('pistol');s.equipWeapon(target);assert.equal(s.equipment.handling.handoff,undefined);}
  // Rifle/pistol now has cross-family-handoff.test.cjs; other routes stay immediate.
  // Active pistol/revolver reload exits now have their own complete contract
  // in sidearm-reload-handoff.test.cjs; other families stay immediate.

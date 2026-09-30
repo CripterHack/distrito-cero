@@ -1,6 +1,6 @@
-# Parche vigente del árbol: v0.20.20 · Coherencia
+# Parche vigente del árbol: v0.20.21 · Coherencia
 
-Inicio y Pausa muestran v0.20.20 al ejecutar este HTML. El renderizado de la ciudad
+Inicio y Pausa muestran v0.20.21 al ejecutar este HTML. El renderizado de la ciudad
 usa una ruta especializada cuando comprueba que sus materiales no requieren
 tratamiento de piel, cabello u otras superficies detalladas. Conserva el mismo
 contenido y calidad, sin cambiar controles, campaña o partidas.
@@ -8,6 +8,10 @@ contenido y calidad, sin cambiar controles, campaña o partidas.
 La mejora se valida con el renderer y las suites gráficas. No implica una cifra
 de FPS para todos los equipos. Consultar [HANDOFF](../project/HANDOFF.md) para
 el estado real de integración y publicación.
+
+El cambio entre pistola y escopeta conserva ahora la postura mostrada, también
+al cancelar una recarga. Disparar e iniciar otra recarga permanecen inmediatos.
+No cambian las partidas ni el inventario.
 
 ## Notas históricas de v0.20.14
 

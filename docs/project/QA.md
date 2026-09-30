@@ -1,5 +1,14 @@
 # QA reproducible desde el repositorio
 
+## Pistola ↔ escopeta · 0.20.21
+
+[Plan](../../specs/003-weapon-contact/plan-pistol-shotgun-handoff.md).
+El mismo productor mide la culata real de escopeta y su cargador visible, no la
+etiqueta del arma lógica nueva. Se conservan los veinte casos anteriores y
+se añaden cuatro: dos direcciones libres y dos desde recarga. Sin otro renderer,
+resolución distinta, nuevas tolerancias, runners ni timeouts mayores.
+
+
 ## Variante de materiales básicos · 0.20.20
 
 `node --test tests/basic-material-program.test.cjs` verifica los lotes estáticos,
@@ -51,12 +60,12 @@ una certificación de toda la malla ni CCD. [Plan](../../specs/003-weapon-contac
 
 | Selección | Checks | Contenido |
 | :--- | ---: | :--- |
-| `sight-base` | 48 | Los 40 checks anteriores y ambos cambios libres pistola/SMG |
-| `sight-cross-family` | 31 | Los 26 anteriores y salida de recarga pistola→SMG |
-| `sight-revolver-reload` | 33 | Los 28 anteriores y salida de recarga SMG→pistola |
-| `sight` | 112 | Alias de las tres particiones, sin duplicarlas |
+| `sight-base` | 56 | Los 48 checks anteriores y ambos cambios libres pistola/escopeta |
+| `sight-cross-family` | 36 | Los 31 anteriores y salida de recarga pistola→escopeta |
+| `sight-revolver-reload` | 38 | Los 33 anteriores y salida de recarga escopeta→pistola |
+| `sight` | 130 | Alias de las tres particiones, sin duplicarlas |
 
-Un catálogo de veinte intercambios en `tools/qa/sight_contract.py`, un único
+Un catálogo de veinticuatro intercambios en `tools/qa/sight_contract.py`, un único
 productor `tests/sidearm_sight_browser.py` sin cambios de escena. Conserva
 los dieciséis casos y94 checks anteriores, su orden relativo dentro de cada
 partición,61 estados/caso, resolución 820×680, imágenes, teclas y umbrales.

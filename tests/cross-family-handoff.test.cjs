@@ -3,7 +3,7 @@ const test=require('node:test'),assert=require('node:assert/strict');
 const fs=require('node:fs'),vm=require('node:vm');
 const {D,R,scene}=require('./helpers/sidearm_sight.cjs');
 D.App=class {};D.Audio=class {};vm.runInThisContext(fs.readFileSync('src/equipment-ui.js','utf8'));
-const pairs=[['rifle','pistol'],['pistol','rifle']],revolverPairs=[['rifle','revolver'],['revolver','rifle']],smgPairs=[['smg','revolver'],['revolver','smg']],pistolSmgPairs=[['pistol','smg'],['smg','pistol']],allPairs=[...pairs,...revolverPairs,...smgPairs,...pistolSmgPairs],phases=[null,0,.08,.28,.46,.65,.86,.97];
+const pairs=[['rifle','pistol'],['pistol','rifle']],revolverPairs=[['rifle','revolver'],['revolver','rifle']],smgPairs=[['smg','revolver'],['revolver','smg']],pistolSmgPairs=[['pistol','smg'],['smg','pistol']],pistolShotgunPairs=[['pistol','shotgun'],['shotgun','pistol']],allPairs=[...pairs,...revolverPairs,...smgPairs,...pistolSmgPairs,...pistolShotgunPairs],phases=[null,0,.08,.28,.46,.65,.86,.97];
 const reloadPhases=()=>phases;
 const partRole=m=>m.displayItem==='revolver'?'body':'magazine';
 const xyz=p=>[p.x,p.y,p.z],distance=(a,b)=>Math.hypot(...a.map((x,i)=>x-b[i]));
@@ -64,16 +64,16 @@ test('cross-family selection reuses the moving actor and preserves foot support 
  }
 });
 test('unavailable selections and other cross-family routes are not silently opted in',()=>{
- for(const [from,to]of [['shotgun','revolver'],['smg','binoculars'],['pistol','shotgun'],['pistol','sniper'],['pistol','gauss'],['rifle','binoculars']]){const s=setup(from);select(app(s),to);assert.equal(s.equipment.handling.handoff,undefined);}
+ for(const [from,to]of [['shotgun','revolver'],['smg','binoculars'],['pistol','sniper'],['pistol','gauss'],['rifle','binoculars']]){const s=setup(from);select(app(s),to);assert.equal(s.equipment.handling.handoff,undefined);}
  for(const [from,to]of allPairs){const s=setup(from);s.player.car='occupied';select(app(s),to);assert.equal(s.equipment.handling.handoff,undefined);}
  const s=setup('rifle'),handling=s.equipment.handling;assert.equal(s.equipWeapon('unknown-item'),false);assert.equal(s.equipment.handling,handling);
 });
-test('the displayed rifle or SMG clears sampled face and jacket during the cross-family arc',()=>{
+test('the displayed rifle, SMG or shotgun clears sampled face and jacket during the cross-family arc',()=>{
  vm.runInThisContext(fs.readFileSync('tools/qa/stock_clearance.js','utf8'));
  let minimum=Infinity,samples=0;
  for(const [from,to]of allPairs)for(const cfg of [{},{aim:false},{crouch:1,pitch:.3,neck:1},{crouch:1,pitch:-.3,neck:-1}])for(const phase of reloadPhases(from,to).includes(.46)?[null,.46]:[null]){
   const s=setup(from,phase,cfg);select(app(s),to);
-  for(let frame=0;frame<=54;frame++){if(frame)tick(s);if(frame%3)continue;const v=read(s);if(!['rifle','smg'].includes(v.mount.displayItem))continue;
+  for(let frame=0;frame<=54;frame++){if(frame)tick(s);if(frame%3)continue;const v=read(s);if(!['rifle','smg','shotgun'].includes(v.mount.displayItem))continue;
    const shown={...s,equipment:{...s.equipment,selected:v.mount.displayItem}},result=DC_STOCK_CLEARANCE.inspect(shown,v);
    for(const part of ['face','jacket']){const d=result.minimum[part].distance;minimum=Math.min(d,minimum);assert.ok(d>=-.002,JSON.stringify({from,to,phase,cfg,frame,part,distance:d}));}samples++;
   }
@@ -167,6 +167,31 @@ test('pistol/SMG retargets the returning piece before and after replacement',()=
 });
 test('pistol/SMG rejects a third displayed model while keeping immediate selection',()=>{
  for(const [from,to]of pistolSmgPairs)for(const phase of [null,.46]){
+  const s=setup('rifle',phase),a=app(s);select(a,from);tick(s,9);assert.equal(read(s).mount.displayItem,'rifle');
+  const ammo=JSON.stringify(s.equipment.ammo);select(a,to);assert.equal(s.equipment.selected,to);
+  assert.equal(s.equipment.handling.handoff,undefined);assert.equal(JSON.stringify(s.equipment.ammo),ammo);
+ }
+});
+
+test('pistol/shotgun preserves every frozen reload phase after input cancellation',()=>{
+ for(const [from,to]of pistolShotgunPairs)for(const phase of phases.filter(x=>x!==null)){
+  const s=setup(from,phase),before=read(s),ammo=JSON.stringify(s.equipment.ammo),time=s.time;
+  const frozen={mount:before.mount,equipment:{...s.equipment}};s.cancelEquipment();
+  select(app(s,s.player,frozen),to,true);sameStart(before,read(s));
+  assert.ok(s.equipment.handling.handoff);assert.equal(s.time,time);
+  assert.equal(s.equipment.reloading,0);assert.equal(s.equipment.reloadId,null);assert.equal(s.equipment.trigger,false);
+  tick(s,72);assert.equal(s.equipment.handling.handoff,undefined);assert.equal(JSON.stringify(s.equipment.ammo),ammo);
+ }
+});
+test('pistol/shotgun retargets the returning piece before and after replacement',()=>{
+ for(const [from,to]of pistolShotgunPairs)for(const reverseAt of [0,9,36]){
+  const s=setup(from,.46),a=app(s);select(a,to);tick(s,reverseAt);const before=read(s),ammo=JSON.stringify(s.equipment.ammo);
+  select(a,from);sameStart(before,read(s));assert.ok(s.equipment.handling.handoff);
+  tick(s,72);assert.equal(s.equipment.handling.handoff,undefined);assert.equal(JSON.stringify(s.equipment.ammo),ammo);
+ }
+});
+test('pistol/shotgun rejects a third displayed model while keeping immediate selection',()=>{
+ for(const [from,to]of pistolShotgunPairs)for(const phase of [null,.46]){
   const s=setup('rifle',phase),a=app(s);select(a,from);tick(s,9);assert.equal(read(s).mount.displayItem,'rifle');
   const ammo=JSON.stringify(s.equipment.ammo);select(a,to);assert.equal(s.equipment.selected,to);
   assert.equal(s.equipment.handling.handoff,undefined);assert.equal(JSON.stringify(s.equipment.ammo),ammo);
