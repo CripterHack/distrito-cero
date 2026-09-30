@@ -1,3 +1,15 @@
+# v0.20.21 · Coherencia · 2026-09-30
+
+Pistola ↔ escopeta conserva pose y pieza mostradas en cambio libre y desde
+recarga, incluida vista congelada y reselección. Reutiliza la transición existente
+sin retrasar acciones, modificar munición, partidas, geometría o rig.
+No altera la optimización gráfica de #59.
+
+Regresiones de ocho estados y cuatro configuraciones, caché fría/inicializada y
+cuatro secuencias adicionales en el renderer existente. Conserva los veinte casos
+anteriores y sus guardas. [Plan](specs/003-weapon-contact/plan-pistol-shotgun-handoff.md).
+CI e integración se registran en el PR correspondiente, no se anticipan aquí.
+
 # v0.20.20 · Coherencia · 2026-09-29
 
 Variante del fragment shader para lotes estáticos con materiales básicos comprobados.

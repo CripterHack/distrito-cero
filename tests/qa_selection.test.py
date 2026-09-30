@@ -35,8 +35,8 @@ class SelectionTests(unittest.TestCase):
     def test_sight_alignment_is_a_graphical_not_native_contract(self):
         q=select_suites(['sight'],'fixture')
         self.assertEqual([x.name for x in q],['sight-base','sight-cross-family','sight-revolver-reload'])
-        self.assertEqual([x.expected_checks for x in q],[48,31,33])
-        self.assertEqual(sum(x.expected_checks for x in q),112)
+        self.assertEqual([x.expected_checks for x in q],[56,36,38])
+        self.assertEqual(sum(x.expected_checks for x in q),130)
         with self.assertRaises(ValueError):select_suites(['sight'],'http')
     def test_reload_input_suite_requires_native_http_and_fixed_coverage(self):
         self.assertEqual(select_suites(['reload'],'http')[0].expected_checks,31)
@@ -65,7 +65,7 @@ class SelectionTests(unittest.TestCase):
             with self.assertRaises(ValueError):select_suites([name],'http')
         with self.assertRaises(KeyError):select_suites(['sight-imaginary'],'fixture')
 
-    def test_sight_partitions_keep_old_exchanges_and_add_only_pistol_smg(self):
+    def test_sight_partitions_keep_old_exchanges_and_add_only_pistol_shotgun(self):
         from tools.qa.sight_contract import sight_cases
         cases=sight_cases
         expected=(('pistol','revolver',None),('revolver','pistol',None),
@@ -77,18 +77,26 @@ class SelectionTests(unittest.TestCase):
             ('smg','revolver',None),('revolver','smg',None),
             ('smg','revolver',.46),('revolver','smg',.46),
             ('pistol','smg',None),('smg','pistol',None),
-            ('pistol','smg',.46),('smg','pistol',.46))
+            ('pistol','smg',.46),('smg','pistol',.46),
+            ('pistol','shotgun',None),('shotgun','pistol',None),
+            ('pistol','shotgun',.46),('shotgun','pistol',.46))
         self.assertEqual(cases('all'),expected)
-        self.assertEqual(cases('base'),expected[:4]+expected[16:18])
-        self.assertEqual(cases('cross-family'),expected[4:10]+expected[18:19])
-        self.assertEqual(cases('revolver-reload'),expected[10:16]+expected[19:])
+        self.assertEqual(cases('base'),expected[:4]+expected[16:18]+expected[20:22])
+        self.assertEqual(cases('cross-family'),expected[4:10]+expected[18:19]+expected[22:23])
+        self.assertEqual(cases('revolver-reload'),expected[10:16]+expected[19:20]+expected[23:])
         self.assertEqual(cases('all')[:16],expected[:16])
-        self.assertEqual(cases('all')[16:],(('pistol','smg',None),('smg','pistol',None),('pistol','smg',.46),('smg','pistol',.46)))
+        self.assertEqual(cases('all')[16:20],(('pistol','smg',None),('smg','pistol',None),('pistol','smg',.46),('smg','pistol',.46)))
         self.assertCountEqual(cases('base')+cases('cross-family')+cases('revolver-reload'),cases('all'))
         self.assertEqual(len(cases('all')),len(set(cases('all'))))
-        self.assertEqual(len(cases('all')),20)
+        self.assertEqual(len(cases('all')),24)
         self.assertFalse(set(cases('revolver-reload')) & set(cases('cross-family')))
         with self.assertRaises(ValueError):cases('imaginary')
+
+    def test_shotgun_uses_the_existing_stock_and_magazine_observers(self):
+        source=Path(__file__).with_name('sidearm_sight_browser.py').read_text()
+        self.assertIn("['rifle','smg','shotgun'].includes(m.displayItem)?DC_SIGHT_TIMING.call('stock'",source)
+        self.assertIn("['pistol','rifle','smg','shotgun'].includes(m.displayItem)?'magazine'",source)
+        self.assertIn("for item in ('rifle','smg','shotgun')",source)
 
     def test_invalid_sight_partition_fails_before_loading_browser_or_writing_output(self):
         import subprocess,tempfile,os

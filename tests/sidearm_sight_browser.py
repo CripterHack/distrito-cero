@@ -80,15 +80,15 @@ try:
    # All prior sight/draw/reload checks above remain part of this suite.
    timing.call('evaluate',p.evaluate,'''()=>{window.qaSidearmObservation=(includePalette=false)=>{const a=DC_APP,s=a.sim,r=a.renderer;window.qaSightDraws=0;window.qaSightAdds=[];DC_SIGHT_TIMING.call('render',()=>DC_MANUAL_FRAMES.draw(a));
     const m=qaSightMount,n=DC.WeaponHandling.actor(s.player,m,s.equipment),q={matrices:r.heroPalette,rootY:r.motionDebug.rootY,scale:1},v=DC_SIGHT_TIMING.call('sight',()=>DC_SIDEARM_SIGHT_QA.inspect(s,{mount:m,pose:q}));
-    const stock=['rifle','smg'].includes(m.displayItem)?DC_SIGHT_TIMING.call('stock',()=>DC_STOCK_CLEARANCE.inspect({...s,equipment:{...s.equipment,selected:m.displayItem}},{mount:m,actor:n,pose:q})):null;
-    const role=['pistol','rifle','smg'].includes(m.displayItem)?'magazine':'body',points=['rifle','smg'].includes(m.displayItem)?[[0,-.135,.12],[.028,-.135,.12],[0,-.095,.12]]:m.displayItem==='pistol'?[[0,-.18,-.016],[.028,-.18,-.016],[0,-.14,-.016]]:[[0,-.025,.08],[.057,-.025,.08],[0,-.025,.125]];
+    const stock=['rifle','smg','shotgun'].includes(m.displayItem)?DC_SIGHT_TIMING.call('stock',()=>DC_STOCK_CLEARANCE.inspect({...s,equipment:{...s.equipment,selected:m.displayItem}},{mount:m,actor:n,pose:q})):null;
+    const role=['pistol','rifle','smg','shotgun'].includes(m.displayItem)?'magazine':'body',points=['rifle','smg','shotgun'].includes(m.displayItem)?[[0,-.135,.12],[.028,-.135,.12],[0,-.095,.12]]:m.displayItem==='pistol'?[[0,-.18,-.016],[.028,-.18,-.016],[0,-.14,-.016]]:[[0,-.025,.08],[.057,-.025,.08],[0,-.025,.125]];
     return {...(includePalette?{palette:Array.from(q.matrices)}:{}),stockMinimum:stock?Object.fromEntries(['face','jacket'].map(k=>[k,stock.minimum[k].distance])):null,reloading:s.equipment.reloading,reloadId:s.equipment.reloadId,partRole:role,partPoints:points.map(v=>m.partPoint(role,v)),magazineOffset:m.magazine.offset,drawCalls:qaSightDraws,drawnParts:qaSightAdds,expectedParts:r.equipmentMeshes.get(m.displayItem).map(p=>p.key),time:s.time,item:s.equipment.selected,displayItem:m.displayItem,handoff:m.handoff,phase:m.phase,
      palms:['L','R'].map(k=>{const p=DC.SkinRig.palmPoint(q,n,k);return[p.x,p.y,p.z];}),contacts:v.contacts,
      origin:m.origin,logicalOrigin:DC.Equipment.mount(s).origin,ammo:JSON.stringify(s.equipment.ammo),shots:s.equipment.shots,trigger:s.equipment.trigger,aimWeight:s.equipment.aimWeight};};}''')
   def snap(name,row):
    file=O/(name+'.png');timing.call('screenshot',p.screenshot,path=str(file));row.update(image=file.name,imageSha256=hashlib.sha256(file.read_bytes()).hexdigest())
   for start,target,reload_phase in sight_cases(partition):
-   cross_family=any(item in (start,target) for item in ('rifle','smg'))
+   cross_family=any(item in (start,target) for item in ('rifle','smg','shotgun'))
    prefix=('reload-switch-' if reload_phase is not None else 'switch-')+start+'-'+target
    with timing.section(prefix):
     p.evaluate('DC_SIGHT_TIMING.reset()')
@@ -124,7 +124,7 @@ try:
     if cross_family:
      stock_rows=[r for r in [before]+rows if r['stockMinimum'] is not None]
      same_palette=max(abs(x-y) for x,y in zip(before['palette'],first['palette']))<1e-5
-     ck(label+' retains the whole starting palette and sampled '+('SMG' if 'smg' in (start,target) else 'rifle')+' clearance',same_palette and bool(stock_rows) and all(min(r['stockMinimum'].values())>=-.002 for r in stock_rows))
+     ck(label+' retains the whole starting palette and sampled '+('shotgun' if 'shotgun' in (start,target) else 'SMG' if 'smg' in (start,target) else 'rifle')+' clearance',same_palette and bool(stock_rows) and all(min(r['stockMinimum'].values())>=-.002 for r in stock_rows))
      entry.update(initialPaletteMaxDifference=max(abs(x-y) for x,y in zip(before['palette'],first['palette'])),minimumSampledStockDistance=min(min(r['stockMinimum'].values()) for r in stock_rows))
     timing.browser(p.evaluate('DC_SIGHT_TIMING.snapshot()'))
   with timing.section('ui-guards'):
