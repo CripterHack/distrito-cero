@@ -1,0 +1,85 @@
+name: Publish verified shotgun-revolver Git bundle
+on:
+  push:
+    branches: [build/publish-shotgun-revolver-022]
+permissions:
+  contents: read
+jobs:
+  publish:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12'
+      - name: Restore exact bundle, verify real parent and isolated product tree
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import base64,hashlib,os,subprocess
+          parts=[Path('.candidate/'+str(i)+'.b64').read_text() for i in range(4)]
+          # Correct only known transcription errors in transport text; hash every resulting part.
+          repairs={2:[('XBFMPMsBI','XMPMsBI')],3:[('GCYStoQ4UVgStoQ4UVgda','GCYStoQ4UVgda'),('Ukuyi8u1LzM3','Ukuyi8u1k1LzM3'),('TjUuvMk1cZm','TjUuvMk1iZm'),('56VqAp','56Vq6nAp')]}
+          for i,edits in repairs.items():
+              for old,new in edits:
+                  assert parts[i].count(old)==1,(i,old)
+                  parts[i]=parts[i].replace(old,new)
+          expected=['2408ee3a98559d46a3a72b3bb9f64e1a5252aa6e','9924d1f9e389bcde5b239d800c0c653c2f6ae710','ea1369faa33390fb7427170b63da158bae247e7b','5ad5e9cfa99ba29994c3cd5b397de398075b3b99']
+          for part,sha in zip(parts,expected):
+              b=part.encode();assert hashlib.sha1(b'blob '+str(len(b)).encode()+b'\0'+b).hexdigest()==sha
+          raw=base64.b64decode(''.join(parts),validate=True)
+          assert len(raw)==13098 and hashlib.sha256(raw).hexdigest()=='98baab3fcb9fc5fa3563b04ed878420894c6c10038b6f6f80c494b352748fe79'
+          bundle=Path(os.environ['RUNNER_TEMP'])/'candidate.bundle';bundle.write_bytes(raw)
+          def git(*args):return subprocess.check_output(['git',*args],text=True).strip()
+          assert git('rev-parse','origin/master')=='39b7647f1c763ab9e35e8c507723fc4cf5cfc57f'
+          git('bundle','verify',str(bundle));git('fetch',str(bundle),'HEAD')
+          assert git('rev-parse','FETCH_HEAD')=='37938b1bebfd024e77368c328e024d80e52725a4'
+          assert git('rev-parse','FETCH_HEAD^')=='39b7647f1c763ab9e35e8c507723fc4cf5cfc57f'
+          assert git('rev-parse','FETCH_HEAD^{tree}')=='c2e22853b1854b88cce09085059b2877922b7c85'
+          git('checkout','--detach','FETCH_HEAD')
+          assert not Path('.candidate').exists() and not Path('.github/workflows/publish-shotgun-revolver.yml').exists()
+          assert hashlib.sha256(Path('index.html').read_bytes()).hexdigest()=='6a2e0adba8477eb8fb6247466506bba10e7fbddfa89a7b40b88de62fe4024ff1'
+          PY
+      - name: Verify unchanged build, transitions and QA contracts
+        run: |
+          set -o pipefail
+          mkdir -p artifacts/bundle-publication
+          python3 build.py --check
+          node --test --test-name-pattern='shotgun -> revolver|revolver -> shotgun|shotgun/revolver' tests/cross-family-handoff.test.cjs | tee artifacts/bundle-publication/directed.tap
+          python3 tests/qa_selection.test.py
+          python3 tests/qa_runner.test.py
+          python3 tests/release_build.test.py
+          git diff --exit-code
+      - name: Push exact candidate without rewriting history
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python3 - <<'PY'
+          import base64,json,os,subprocess
+          from pathlib import Path
+          base='39b7647f1c763ab9e35e8c507723fc4cf5cfc57f';head='37938b1bebfd024e77368c328e024d80e52725a4'
+          env=os.environ.copy();env['GIT_CONFIG_COUNT']='1';env['GIT_CONFIG_KEY_0']='http.https://github.com/.extraheader'
+          env['GIT_CONFIG_VALUE_0']='AUTHORIZATION: basic '+base64.b64encode(('x-access-token:'+os.environ['GH_TOKEN']).encode()).decode()
+          refs=subprocess.check_output(['git','ls-remote','origin','refs/heads/master','refs/heads/fix/006-shotgun-revolver-handoff'],env=env,text=True).splitlines()
+          assert refs==[base+'\trefs/heads/master'],refs
+          subprocess.run(['git','push','origin',head+':refs/heads/fix/006-shotgun-revolver-handoff'],env=env,check=True)
+          proof={'commit':head,'parent':base,'tree':'c2e22853b1854b88cce09085059b2877922b7c85','helperExcluded':True,'bundleSha256':'98baab3fcb9fc5fa3563b04ed878420894c6c10038b6f6f80c494b352748fe79','fullPRVerificationPending':True}
+          Path('artifacts/bundle-publication/identity.json').write_text(json.dumps(proof,indent=2)+'\n')
+          Path('artifacts/bundle-publication/candidate.bundle').write_bytes((Path(os.environ['RUNNER_TEMP'])/'candidate.bundle').read_bytes())
+          PY
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: bundle-publication-${{ github.run_id }}
+          path: artifacts/bundle-publication/
+          retention-days: 30
+          if-no-files-found: error
