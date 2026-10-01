@@ -1,6 +1,6 @@
 """Disjoint scheduling of the canonical sight producer and measured exchange cases."""
 
-SIGHT_PARTITIONS = (('base', 56), ('cross-family', 36), ('revolver-reload', 38))
+SIGHT_PARTITIONS = (('base', 56), ('cross-family', 44), ('revolver-reload', 48))
 SWITCH_CASES = (
     ('pistol', 'revolver', None), ('revolver', 'pistol', None),
     ('pistol', 'revolver', .46), ('revolver', 'pistol', .46),
@@ -14,6 +14,8 @@ SWITCH_CASES = (
     ('pistol', 'smg', .46), ('smg', 'pistol', .46),
     ('pistol', 'shotgun', None), ('shotgun', 'pistol', None),
     ('pistol', 'shotgun', .46), ('shotgun', 'pistol', .46),
+    ('shotgun', 'revolver', None), ('revolver', 'shotgun', None),
+    ('shotgun', 'revolver', .46), ('revolver', 'shotgun', .46),
 )
 
 
@@ -77,9 +79,10 @@ def sight_cases(partition: str) -> tuple:
     if partition == 'base':
         return SWITCH_CASES[:4] + SWITCH_CASES[16:18] + SWITCH_CASES[20:22]
     if partition == 'cross-family':
-        return SWITCH_CASES[4:10] + SWITCH_CASES[18:19] + SWITCH_CASES[22:23]
+        return SWITCH_CASES[4:10] + SWITCH_CASES[18:19] + SWITCH_CASES[22:23] + SWITCH_CASES[24:26]
     # Preserve existing per-partition order; distribute the four new cases
     # over existing runners without removing checks or raising their limits.
+    # Keep base unchanged; append free cases to cross-family and reload exits here.
     if partition == 'revolver-reload':
-        return SWITCH_CASES[10:16] + SWITCH_CASES[19:20] + SWITCH_CASES[23:]
+        return SWITCH_CASES[10:16] + SWITCH_CASES[19:20] + SWITCH_CASES[23:24] + SWITCH_CASES[26:]
     raise ValueError('Unknown sight partition: ' + str(partition))
