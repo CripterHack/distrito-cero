@@ -1,3 +1,16 @@
+# v0.20.22 · Coherencia · 2026-10-01
+
+Escopeta ↔ revólver conserva pose y pieza durante cambio libre y cancelación de
+recarga, incluido selector congelado y reselección durante retorno. Reutiliza el
+sistema existente, sin cambiar munición, partidas, geometría, rig ni el renderer.
+No retrasa disparo, selección o nueva recarga. La cobertura del productor existente
+incorpora cuatro secuencias, sin aumentar timeouts ni añadir runners.
+
+[Plan y límites](specs/003-weapon-contact/plan-shotgun-revolver-handoff.md).
+Se retiraron las ramas históricas auditadas con autorización renovada del usuario
+y respaldo completo restaurado. [Recuperación](docs/project/BRANCH-CLEANUP.md).
+La integración y la evidencia final se consultan en el PR vinculado desde #6.
+
 # v0.20.21 · Coherencia · 2026-09-30
 
 Pistola ↔ escopeta conserva pose y pieza mostradas en cambio libre y desde

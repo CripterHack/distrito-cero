@@ -1,3 +1,14 @@
+# Parche vigente del árbol: v0.20.22 · Coherencia
+
+Inicio y Pausa identifican v0.20.22. Cambiar entre escopeta y revólver conserva
+la pose inicial y la pieza en mano, también al cancelar una recarga. La devolución
+y el cambio de modelo son visuales: los controles siguen respondiendo de inmediato.
+No cambian campaña, partidas ni la optimización de materiales de v0.20.20.
+
+Consultar [HANDOFF](../project/HANDOFF.md) para integración y pendientes reales.
+
+## Notas anteriores
+
 # Parche vigente del árbol: v0.20.21 · Coherencia
 
 Inicio y Pausa muestran v0.20.21 al ejecutar este HTML. El renderizado de la ciudad

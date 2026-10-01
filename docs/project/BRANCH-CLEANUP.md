@@ -1,3 +1,42 @@
+# Ramas: limpieza vigente y recuperación
+
+## Limpieza autorizada y completada en la continuación actual
+
+Con master **39b7647f1c763ab9e35e8c507723fc4cf5cfc57f** se auditaron las 16 ramas
+secundarias: nueve commits ya ancestros de master y siete auxiliares de transporte
+con productos integrados. No había ramas protegidas ni PRs abiertos afectados.
+La autorización renovada del usuario sustituye las notas antiguas de no reintento.
+
+[Auditoría 36802284648](https://github.com/CripterHack/distrito-cero/actions/runs/36802284648)
+y [retiro 36802528301](https://github.com/CripterHack/distrito-cero/actions/runs/36802528301)
+terminaron correctamente. El segundo job creó y publicó un bundle autónomo,
+restauró un mirror y comprobó fsck y cada ref antes de efectuar bajas atómicas
+con lease del SHA esperado. Master no cambió. También retiró su propio auxiliar:
+**17 bajas, de las cuales 16 eran ramas antiguas**. Sólo master quedó en remoto.
+Ningún helper entró en el producto o su ascendencia.
+
+Artefacto previo a las bajas: **11135907780**, `branch-retirement-backup-36802528301`,
+ZIP SHA-256 `4a0c91bb7c59e28556d6e26623f9ca15922837361e7bb90e022bdbb6847afb5a`.
+Resultado: **11135697974**, `branch-retirement-result-36802528301`, SHA-256
+`f8cb277649d78176c27106e78aac023da37672a6c33ee1576b996795739e82dc`.
+Los artefactos tienen retención de 30 días. La copia de conversación
+`distrito-cero-respaldo-ramas-retiradas.zip` conserva el bundle y plan completo.
+No depender sólo de la retención temporal de Actions.
+
+Para recuperar en un directorio nuevo, extraer el ZIP y ejecutar:
+
+```sh
+git clone --mirror repository.bundle distrito-cero-recuperado.git
+git --git-dir=distrito-cero-recuperado.git fsck --full
+```
+
+El plan JSON enumera nombres, SHAs, protección y contenido único. Recuperar una
+rama sólo cuando sea necesaria, nunca volver a subir en bloque todos los helpers.
+Las nuevas unidades parten de master actualizado y retiran su rama al cerrar.
+Esta limpieza no completa los criterios globales de #5, #6 o #7.
+
+## Registro histórico
+
 # Limpieza de ramas y recuperación · 23 de septiembre de 2026
 
 ## Resultado verificado

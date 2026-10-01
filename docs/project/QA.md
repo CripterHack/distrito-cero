@@ -1,5 +1,17 @@
 # QA reproducible desde el repositorio
 
+## Escopeta / revólver · 0.20.22
+
+El catálogo único conserva sus 24 secuencias previas y agrega las dos direcciones,
+libres y desde recarga .46. **148 comprobaciones = 56+44+48**, 28 intercambios,
+61 estados, 252 capturas de intercambio. Los productores y guardas no se duplican.
+La partición base queda igual, las dos restantes reciben dos casos cada una.
+Los tests de captura, selector congelado, retorno, caché, restore y prioridad usan
+los helpers actuales. [Plan](../../specs/003-weapon-contact/plan-shotgun-revolver-handoff.md).
+No confundir las pruebas dirigidas ni una sonda comparativa con la aceptación de
+las particiones completas. Mantener todos los umbrales y límites existentes.
+
+
 ## Pistola ↔ escopeta · 0.20.21
 
 [Plan](../../specs/003-weapon-contact/plan-pistol-shotgun-handoff.md).
@@ -43,40 +55,39 @@ productor con sus parámetros intactos. [Plan](../../specs/001-reliability/plan-
 Este control de esquema no protege contra un productor arbitrario que falsifique
 resultados. Tampoco acredita hardware, arte o cobertura no medida.
 
-## Caché canónica y cruces medidos · 0.20.19
+## Caché canónica y cruces medidos actuales
 
-`node --test tests/finger-cache-order.test.cjs` cubre dieciséis tests:
-rifle/pistola, rifle/revólver, SMG/revólver y pistola/SMG, libres y desde
-recarga, con dos configuraciones y procesos separados para caché fría o
-inicializada. Exige perfiles y muestras idénticos, cuatro entradas de caché,
+`node --test tests/finger-cache-order.test.cjs` cubre 24 tests: seis parejas,
+libres y desde recarga, dos configuraciones y procesos separados para caché
+fría/inicializada. Exige perfiles y muestras idénticos, cuatro entradas de caché,
 sin precalentar QA ni añadir una API pública de reset.
 
-`tests/cross-family-handoff.test.cjs` cubre 256 selecciones dirigidas y 608
-poses de culata muestreadas en ocho direcciones. Mantiene congelación,
-retorno/reselección, movimiento, prioridades, longitudes y partidas. No es
-una certificación de toda la malla ni CCD. [Plan](../../specs/003-weapon-contact/plan-pistol-smg-handoff.md).
+`tests/cross-family-handoff.test.cjs` barre 384 selecciones dirigidas en doce
+sentidos con cuatro configuraciones y ocho estados. Mantiene congelación,
+retorno/reselección, movimiento, prioridades, longitudes y partidas. La cohorte
+de culata se conserva para cada ruta, no equivale a toda la malla ni CCD.
+[Plan actual](../../specs/003-weapon-contact/plan-shotgun-revolver-handoff.md).
 
-## Sight vigente: 112 checks en los tres jobs existentes
+## Sight vigente: 148 checks en los tres jobs existentes
 
 | Selección | Checks | Contenido |
 | :--- | ---: | :--- |
-| `sight-base` | 56 | Los 48 checks anteriores y ambos cambios libres pistola/escopeta |
-| `sight-cross-family` | 36 | Los 31 anteriores y salida de recarga pistola→escopeta |
-| `sight-revolver-reload` | 38 | Los 33 anteriores y salida de recarga escopeta→pistola |
-| `sight` | 130 | Alias de las tres particiones, sin duplicarlas |
+| `sight-base` | 56 | Sin cambios respecto a #60 |
+| `sight-cross-family` | 44 | Los 36 anteriores y dos cambios libres escopeta/revólver |
+| `sight-revolver-reload` | 48 | Los 38 anteriores y dos salidas de recarga escopeta/revólver |
+| `sight` | 148 | Alias de las tres particiones, sin duplicarlas |
 
-Un catálogo de veinticuatro intercambios en `tools/qa/sight_contract.py`, un único
-productor `tests/sidearm_sight_browser.py` sin cambios de escena. Conserva
-los dieciséis casos y94 checks anteriores, su orden relativo dentro de cada
-partición,61 estados/caso, resolución 820×680, imágenes, teclas y umbrales.
-`all` conserva el orden del catálogo original y agrega los cuatro nuevos.
-Las particiones distribuyen esos cuatro casos para aprovechar la capacidad
-medida, sin cambiar las escenas ni asignarles una preparación más favorable.
+El catálogo único `tools/qa/sight_contract.py` contiene 28 intercambios ejecutados
+por `tests/sidearm_sight_browser.py`. Conserva los 24 casos/130 checks anteriores,
+su orden relativo dentro de cada partición, 61 estados/caso y resolución 820×680,
+todas las imágenes, teclas y umbrales. `all` conserva el orden original y agrega
+los cuatro casos nuevos. La distribución usa la capacidad observada, sin cambiar
+las escenas ni asignarles una preparación más favorable.
 
-La validación estricta de#56 permanece: cinco guardas canónicas por partición,
-contadas sólo dentro de base. Las demás las reportan separadas. La interfaz
-se comprueba después del último equipo de cada partición. HTTP no admite
-estas suites fixture, y una partición inválida falla antes del navegador.
+El gate estricto de #56 se mantiene: cinco guardas canónicas por partición,
+contadas dentro de base y reportadas separadamente por las demás. La interfaz
+se comprueba después del último equipo de cada partición. HTTP no acepta estas
+suites fixture. Una partición inválida falla antes de lanzar el navegador.
 
 ```sh
 python3 tests/qa_runner.test.py
@@ -85,10 +96,9 @@ python3 tests/ci_workflow.test.py
 xvfb-run -a python3 -m tools.qa.run --suite sight --headed --timeout 1800
 ```
 
-Se conservan 1800 s por productor y 40 minutos por job, cinco jobs WebGL y los jobs core/HTTP,
-sin nuevo runner o permiso. El coste real de los productores ampliados debe
-medirse en la CI del HEAD. Los conteos no anticipan una ejecución aprobada,
-FPS, aceptación artística o un ahorro de cómputo.
+1800 s/productor, 40 min/job y cinco jobs WebGL más core/HTTP, sin nuevo runner
+ni permiso. El coste completo se consulta en la CI del HEAD. Los conteos no
+anticipan una ejecución aprobada, FPS, aceptación artística o ahorro de cómputo.
 
 ## Historia y separación de evidencia
 
