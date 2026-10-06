@@ -1,0 +1,45 @@
+name: Collect pinned UV authoring tools
+on:
+  push:
+    branches: [build/uv-authoring-023]
+    paths: ['.github/workflows/collect-uv-authoring.yml']
+permissions:
+  contents: read
+jobs:
+  collect:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22'
+      - name: Pack the two existing pinned development dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts/authoring-packages
+          npm pack --ignore-scripts --json --pack-destination artifacts/authoring-packages gltf-validator@2.0.0-dev.3.10 mikktspace@1.1.1 > artifacts/authoring-packages/npm-pack.json
+          python3 - <<'PY'
+          from pathlib import Path
+          import json,hashlib,base64,tarfile
+          root=Path('artifacts/authoring-packages')
+          packages=json.loads((root/'npm-pack.json').read_text())
+          assert {(p['name'],p['version']) for p in packages}=={('gltf-validator','2.0.0-dev.3.10'),('mikktspace','1.1.1')}
+          records=[]
+          for p in packages:
+              assert Path(p['filename']).name==p['filename']
+              raw=(root/p['filename']).read_bytes()
+              assert hashlib.sha1(raw).hexdigest()==p['shasum']
+              assert 'sha512-'+base64.b64encode(hashlib.sha512(raw).digest()).decode()==p['integrity']
+              with tarfile.open(root/p['filename']) as t:
+                  meta=json.load(t.extractfile('package/package.json'))
+                  assert meta['name']==p['name'] and meta['version']==p['version']
+              records.append({'name':p['name'],'version':p['version'],'file':p['filename'],'sha256':hashlib.sha256(raw).hexdigest(),'integrity':p['integrity']})
+          (root/'manifest.json').write_text(json.dumps(records,indent=2)+'\n')
+          PY
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: uv-authoring-tools-${{ github.run_id }}
+          path: artifacts/authoring-packages/
+          retention-days: 14
+          if-no-files-found: error
