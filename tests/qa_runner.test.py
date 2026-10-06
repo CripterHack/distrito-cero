@@ -104,7 +104,7 @@ class RunnerTests(unittest.TestCase):
     )
 
     def sight_report(self, partition='revolver-reload'):
-        counts={'base':56,'cross-family':36,'revolver-reload':38}
+        counts={'base':56,'cross-family':44,'revolver-reload':48}
         guards=[{'name':name,'pass':True} for name in self.SIGHT_GUARD_NAMES]
         count=counts[partition]
         checks=[{'name':f'continuity {i}','pass':True} for i in range(count)]
@@ -117,7 +117,7 @@ class RunnerTests(unittest.TestCase):
     def run_sight_report(self, report, partition='revolver-reload', output='run-one'):
         probe=self.suite(self.report_code(**report))
         suite=Suite('sight-'+partition,probe.command,probe.report,
-                    {'base':56,'cross-family':36,'revolver-reload':38}[partition])
+                    {'base':56,'cross-family':44,'revolver-reload':48}[partition])
         cfg=Config(self.root,self.root/'artifacts'/output,timeout=3)
         result=run_suites(cfg,[suite])
         self.assertEqual(result['suites'][0]['exitCode'],0,'Probe failure must not impersonate gate rejection.')
