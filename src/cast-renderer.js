@@ -27,6 +27,9 @@
 
     this.meshes[part.key].crowd=true;this.lodParts[0].push(part);
     for(let lod=1;lod<=2;lod++){
+     // The coarse jacket collapses the authored neckline. Reuse its existing
+     // LOD1 batch so near/far actors keep independent slots without a new VBO.
+     if(lod===2&&part.name==='jacket'){const shared=this.lodParts[1].find(p=>p.name==='jacket');if(shared)this.lodParts[2].push(shared);continue;}
      const fine=['face','skin','eye','iris','pupil','lip','hair','scalp'].includes(part.name),cell=lod===1?(fine?.009:.027):(fine?.025:.060),data=D.CrowdGeometry.reduce(src,part.name==='face'?cell*.65:cell,{preserveUV:part.name==='face',clusterUV,weldUVSeams:part.name==='face'});
      if(!data.length)continue;const key='crowd'+lod+'_'+part.name,m=this.createSkinMesh(data);m.crowd=true;this.meshes[key]=m;this.dynamic[key]=[];this.static[key]=[];this.lodParts[lod].push({...part,key,vertices:data.length/16});
     }

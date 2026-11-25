@@ -1,3 +1,13 @@
+# Parche vigente del árbol: v0.20.25 · Coherencia
+
+La chaqueta conserva más detalle en los personajes lejanos para evitar los
+parches adicionales de piel que aparecían junto al cuello. Inicio y Pausa
+muestran v0.20.25. Los controles y las partidas mantienen su formato.
+
+Consultar [HANDOFF](../project/HANDOFF.md) para integración y pendientes.
+
+## Notas anteriores
+
 # Parche vigente del árbol: v0.20.24 · Coherencia
 
 La nuca deja de abrirse al utilizar el modelo de personaje más simplificado.

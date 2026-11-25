@@ -1,3 +1,38 @@
+# Continuación vigente · v0.20.25 · chaqueta LOD2 · refs #5
+
+La chaqueta LOD2 comparte la malla intermedia existente, con pose/apariencia por
+instancia y un solo propietario GPU. [Contrato, evidencia y coste](COLLAR-LOD.md).
+No repetir el atlas de #63, la costura de #64 ni los experimentos de conectividad:
+los últimos corrigieron dos píxeles pero no la cobertura completa muestreada.
+
+La base #64 (`2b72a688`) aprobó sus tres workflows y nueve jobs. Esta unidad
+mantiene master como destino y depende de #63/#64; ninguno se ha integrado ni
+desplegado. La nueva CI se registra por su commit exacto en el PR.
+
+**Siguiente paso concreto:** distinguir las limitaciones restantes de la piel
+LOD2 y la cobertura fuente/LOD1 con los datos guardados. No llamar a las sondas
+sin impacto 'sin intersección'. Comparar los pequeños márgenes negativos con
+la geometría anterior y las cámaras de juego antes de cambiar la piel, el rig
+u otra proporción. Las referencias completas de cuatro perfiles/tres poses,
+los IDs de anclas y las mediciones están en la evidencia del contrato.
+
+La [evidencia final](../../qa/collar-lod-v02025/README.md) conserva 42 vistas,
+173 guardas y 110 criterios aprobados; comparación 304/304. Los cinco márgenes
+negativos son menores de 0,2 mm: cuatro nuevos frente a la prenda anterior y
+uno antes desconocido, sin puntos nuevos visibles en las cámaras revisadas.
+Las 492 sondas sin impacto siguen desconocidas. No convertir el gate de
+cobertura en una afirmación de cero colisiones.
+También revisar las 190 combinaciones fuera del core LOD0/1 que pierden
+cobertura al reutilizar LOD1, aunque la pérdida total frente a LOD0 baja de
+1.365 a 841. Conservar IDs y cámaras; no aprobar sólo por el balance neto.
+
+La política añade 2.181 triángulos por actor LOD2 y elimina 155.712 bytes de VBO,
+un buffer de instancias, un VAO y la reducción anterior. Medir el coste real
+con reparto en hardware físico; no extrapolar FPS desde SwiftShader. Siguen
+pendientes arte global y adaptación de los modelos Higgsfield. #5/#6/#7 abiertos.
+
+## Registro anterior · v0.20.24
+
 # Continuación vigente · v0.20.24 · continuidad cervical LOD2 · refs #5
 
 La abertura posterior está corregida y verificada en la malla nativa y diez

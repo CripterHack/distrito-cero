@@ -1,3 +1,31 @@
+# Cobertura de chaqueta en LOD2 · v0.20.25
+
+[Contrato y presupuesto](COLLAR-LOD.md). El productor
+`tools/qa/render_collar_lod.py` usa el renderer y shader nativos: 42 capturas,
+cuatro perfiles por tres poses en LOD0/1/2 y seis vistas de cuello/cuerpo con
+luces neutra y lateral. Conserva una cohorte de 611 centroides de piel fuente
+por IDs y coordenadas baricéntricas. Para cada condición fija la cobertura
+LOD0/1 antes de evaluar LOD2 y registra también la pérdida respecto a LOD0.
+No interpreta esas sondas como volumen de intersección o área visible exacta.
+
+Con referencia externa exige además igualdad de la piel GPU en las 42 vistas,
+LOD0/1 completos intactos y hashes verificables antes/después del análisis.
+Sin referencia, CI declara LOD0/1 del mismo build y mantiene las regresiones
+Node con hashes anteriores para las partes no modificadas. La recuperación
+WebGL y la costura de nuca conservan sus productores separados.
+
+El job de personajes añade el gate al final, sin nuevos runners, permisos ni
+mayor timeout. Rechaza referencias vacías/inválidas, cohortes vacías y archivos
+modificados durante el análisis. Las salidas existentes nunca se sobrescriben.
+
+Resultado local: contrato **18/18**, 42 capturas con **173 guardas/110 criterios
+geométricos** y comparación **304/304**. [Galería y hashes](../../qa/collar-lod-v02025/README.md).
+Las 24 imágenes LOD0/1 y la piel de las 42 vistas coinciden con la referencia.
+Se registran por separado 492 sondas desconocidas y cinco márgenes negativos
+menores de 0,2 mm; la cobertura aprobada no declara cero intersecciones.
+
+## Registro anterior
+
 # Continuidad cervical LOD · v0.20.24
 
 [Contrato y evidencia](LOD-SEAM-CONTINUITY.md). La regresión Node conserva la

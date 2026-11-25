@@ -1,3 +1,25 @@
+# Estado vigente · candidata v0.20.25 · cobertura de chaqueta en LOD2
+
+La chaqueta LOD2 reutiliza la malla y el recurso GPU de LOD1; las demás partes
+conservan su reducción. El cambio evita la simplificación más agresiva del
+escote y torso. [Contrato, coste y evidencia](COLLAR-LOD.md).
+
+Verificación local: **707/707 Node**, benchmark **36/36**, recuperación
+**25/25**, collar **42 vistas/173 guardas/110 criterios geométricos** y
+comparación **304/304**. [Galería](../../qa/collar-lod-v02025/README.md).
+Persisten cinco márgenes negativos menores de 0,2 mm y 492 sondas desconocidas;
+la inspección de esas cámaras no observó puntos nuevos de piel visibles.
+Frente al conjunto completo de cobertura LOD0, pérdidas 1.365 → 841; incluye
+190 combinaciones que pierden cobertura fuera del subconjunto común LOD0/1.
+
+Depende del PR #64 (`2b72a688`), cuya CI aprobó tres workflows y nueve jobs;
+#63/#64 siguen sin integrar. La CI de esta unidad se registra separadamente.
+No se ha desplegado. No se presenta como reparación de todas las intersecciones
+de fuente/LOD1 ni aprobación artística. Los modelos Higgsfield siguen como
+candidatos de autoría. #5/#6/#7 permanecen abiertos.
+
+## Registro anterior · v0.20.24
+
 # Estado vigente · candidata v0.20.24 · continuidad cervical
 
 La candidata corrige la abertura de nuca que introducía la simplificación LOD2:

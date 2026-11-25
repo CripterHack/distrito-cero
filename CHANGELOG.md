@@ -1,3 +1,14 @@
+# v0.20.25 · Coherencia · 2026-11-25
+
+La chaqueta en LOD2 comparte la malla intermedia existente para conservar su
+cobertura cervical. El resto del personaje mantiene sus LOD y la selección por
+distancia. Se elimina el buffer de chaqueta LOD2 anterior; aumenta el número de
+triángulos dibujados por instancia lejana, con presupuesto explícito.
+
+[Contrato y límites](docs/project/COLLAR-LOD.md). Las intersecciones anteriores
+de fuente/LOD1, pequeños márgenes negativos medidos, la aceptación artística y
+el rendimiento físico siguen pendientes.
+
 # v0.20.24 · Coherencia · 2026-11-25
 
 Corrige la abertura posterior de la nuca en LOD2 uniendo los grupos de vértices
