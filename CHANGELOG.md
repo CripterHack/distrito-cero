@@ -1,3 +1,14 @@
+# v0.20.23 · Coherencia · 2026-11-25
+
+Atlas facial reparado integrado en el renderer nativo, color cervical horneado y
+base tangente ortonormal. Las nuevas UV conservan geometría, rig y simplificación
+LOD. Los mapas embebidos y la exportación GLB actual comparten procedencia y
+fuerza de normales; las fuentes históricas y partidas se conservan.
+
+[Contrato, reproducción y límites](docs/project/NATIVE-FACE-ATLAS.md).
+La aceptación artística y el rendimiento físico siguen pendientes. Los dos
+modelos Higgsfield son candidatos de autoría separados del personaje canónico.
+
 # v0.20.22 · Coherencia · 2026-10-01
 
 Escopeta ↔ revólver conserva pose y pieza durante cambio libre y cancelación de

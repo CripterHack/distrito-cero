@@ -1,0 +1,96 @@
+{
+  "schema": 1,
+  "productVersion": "0.20.23",
+  "sourceSha256": "7546f2d4bb120e31e6a4d31c63350201e3c524ee9d915f6658d684f5f54b0c13",
+  "htmlSha256": "fcb1006c41ac489d4b1845c0872743d8415ccc9ae190cb765a266fbe60980aa2",
+  "authoring": {
+    "nativeUvDegenerateTriangles": 0,
+    "faceCorners": 29016,
+    "faceLodTriangles": [
+      9672,
+      6229,
+      3645
+    ],
+    "estimatedRgba8MipBytes": 7340028,
+    "tangentGlbErrors": 0,
+    "tangentGlbWarnings": 0
+  },
+  "localChecks": {
+    "node": {
+      "passed": 695,
+      "failed": 0
+    },
+    "nativeAtlasPython": 14,
+    "currentHumanExportPython": 19,
+    "nativeTangentFramePython": 6,
+    "analyticGpuCharts": 14,
+    "blenderBakePython": 5,
+    "releaseBuildPython": 12,
+    "releaseCheckoutPython": 1,
+    "contactExportPython": 1,
+    "ciWorkflowPython": 9,
+    "characterBenchmarkChecksPerVersion": 36,
+    "characterFramesPerVersion": 30,
+    "nativeNeckChecksPerVersion": 32,
+    "nativeNeckFramesPerVersion": 28,
+    "graphicsRecoveryChecks": 25,
+    "distanceDiagnosticChecks": 10,
+    "focusedLodCloseupChecks": 6
+  },
+  "visualReview": {
+    "status": "material-regressions-corrected-art-review-pending",
+    "notes": [
+      "Observed cheek/ear angular patches fixed by averaging UV within connected islands.",
+      "Observed dark neck point fixed by explicit full-coverage padding; same finding in closeup and 43m zoom diagnostic.",
+      "Large collar/nape geometry gaps predate this change and remain pending.",
+      "Controlled SwiftShader captures do not establish physical-device FPS or AAA quality."
+    ],
+    "neckPixel43m": {
+      "xy": [
+        297,
+        479
+      ],
+      "baselineRGB": [
+        160,
+        153,
+        137
+      ],
+      "candidateRGB": [
+        161,
+        152,
+        135
+      ]
+    },
+    "islandAverageDistanceMaxPixelsAt2048": {
+      "lod1": 2.994,
+      "lod2": 6.263
+    },
+    "bakeMarginPixels": 16
+  },
+  "images": {
+    "after-front.png": {
+      "sha256": "e68ba4f16e1b6b4d8c58bae17c56454ddef7e734dc15b3e8a3edcbdf43283a8b",
+      "bytes": 472034
+    },
+    "after-profile-lod2-forced.png": {
+      "sha256": "0e6bd9a7e14272bd2b21c438fdeae7f29bf8165dfc6f2fe17fe7789c5d0e0bfd",
+      "bytes": 473887
+    },
+    "before-front.png": {
+      "sha256": "7bbb5fc044334ee598fd4a52b97d3919a78ba50800288c979a14a566f94d269e",
+      "bytes": 472036
+    },
+    "before-profile-lod2-forced.png": {
+      "sha256": "7a4d8fb15de2b503425ec312e8f5f68b578cadf16a81205df5d60350f1f4614c",
+      "bytes": 473489
+    }
+  },
+  "localArtifactRoot": "artifacts/neck-material/final",
+  "remoteCi": "New commit CI is reported separately; these counts are local evidence.",
+  "preservedEarlierAttempts": [
+    "artifacts/neck-material/native-after-lods",
+    "artifacts/neck-material/distance-diagnostic/after2-unoccluded",
+    "artifacts/neck-material/distance-diagnostic/after3-unoccluded"
+  ],
+  "finalDistanceDiagnostic": "artifacts/neck-material/distance-diagnostic/after4-unoccluded"
+}

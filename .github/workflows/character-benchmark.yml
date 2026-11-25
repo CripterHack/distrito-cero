@@ -2,10 +2,10 @@ name: Character reference benchmark
 on:
   pull_request:
     branches: [master]
-    paths: ['src/**', 'build.py', 'version.json', 'tools/qa/**', 'tests/character*', 'tests/benchmarks/**', 'tests/qa_stage_assets.test.py', '.github/workflows/character-benchmark.yml']
+    paths: ['src/**', 'build.py', 'version.json', 'tools/qa/**', 'tests/character*', 'tests/native_tangent_frame.test.py', 'tests/benchmarks/**', 'tests/qa_stage_assets.test.py', '.github/workflows/character-benchmark.yml']
   push:
     branches: [master]
-    paths: ['src/**', 'build.py', 'version.json', 'tools/qa/**', 'tests/character*', 'tests/benchmarks/**', 'tests/qa_stage_assets.test.py', '.github/workflows/character-benchmark.yml']
+    paths: ['src/**', 'build.py', 'version.json', 'tools/qa/**', 'tests/character*', 'tests/native_tangent_frame.test.py', 'tests/benchmarks/**', 'tests/qa_stage_assets.test.py', '.github/workflows/character-benchmark.yml']
   workflow_dispatch:
     inputs:
       matrix:
@@ -49,6 +49,7 @@ jobs:
           MATRIX: ${{ inputs.matrix || 'smoke' }}
           DC_QA_HEADLESS: '0'
         run: |
+          DC_QA_HEADLESS=1 python3 tests/native_tangent_frame.test.py
           if [ "$MATRIX" = full ]; then
             xvfb-run -a python3 tests/character_benchmark.py --matrix full --output artifacts/ci-characters
           else

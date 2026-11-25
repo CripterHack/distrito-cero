@@ -2,13 +2,16 @@
 """Explicit authoring test: requires Blender, NumPy and Pillow, never runtime."""
 from pathlib import Path
 import hashlib
+import importlib.util
 import io
 import json
 import shutil
 import struct
 import subprocess
 import tempfile
+import types
 import unittest
+from unittest.mock import patch
 
 import numpy as np
 from PIL import Image
@@ -52,6 +55,51 @@ def fixture(path):
 
 
 class BakeIntegration(unittest.TestCase):
+    def test_coverage_encoding_never_rounds_partial_samples_to_full_white(self):
+        spec = importlib.util.spec_from_file_location('dc_uv_bake_coverage', ROOT / 'tools/bake_human_uv.py')
+        module = importlib.util.module_from_spec(spec)
+        with patch.dict('sys.modules', {'bpy': types.ModuleType('bpy')}):
+            spec.loader.exec_module(module)
+        values = np.array([0, .25, .5, np.nextafter(np.float32(1), np.float32(0)), 1])
+        rgba = np.column_stack((values, values, values, np.ones(len(values))))
+        encoded = module.coverage_png_pixels(rgba).reshape(-1, 4)
+        decoded = np.rint(encoded * 255).astype(int)
+        self.assertEqual(decoded[:, 0].tolist(), [0, 63, 127, 254, 255])
+        self.assertTrue(np.all(decoded[:, :3] == decoded[:, :1]))
+        self.assertTrue(np.all(decoded[:, 3] == 255))
+
+    def test_cervical_coverage_requires_strictly_positive_source_rgb(self):
+        # Exercise the production pixel guard without initializing a Blender
+        # scene. The mocked module is unused by this pure NumPy validation.
+        spec = importlib.util.spec_from_file_location('dc_uv_bake_guard', ROOT / 'tools/bake_human_uv.py')
+        module = importlib.util.module_from_spec(spec)
+        with patch.dict('sys.modules', {'bpy': types.ModuleType('bpy')}):
+            spec.loader.exec_module(module)
+        rgba = np.array([[80, 34, 7, 255], [100, 50, 10, 255]], dtype=np.float32) / 255
+        self.assertEqual(module.cervical_color_coverage(rgba), {
+            'sourceBaseColorMinEncoded': [80, 34, 7],
+            'colorCoveragePolicy': 'coverage-mask-full-white-is-valid-source'})
+        for zero in [(0, 0, 0), (80, 0, 7), (0, 34, 7), (80, 34, 0)]:
+            with self.subTest(source_rgb=zero):
+                invalid = rgba.copy(); invalid[1, :3] = np.array(zero) / 255
+                with self.assertRaisesRegex(ValueError, 'strictly positive source RGB'):
+                    module.cervical_color_coverage(invalid)
+
+    def test_cervical_color_requires_canonical_source_provenance(self):
+        blender = shutil.which('blender')
+        self.assertIsNotNone(blender, 'Explicit authoring test requires Blender')
+        with tempfile.TemporaryDirectory(prefix='dc-uv-cervical-guard-') as directory:
+            root = Path(directory); source = root / 'input.glb'; raw = fixture(source); output = root / 'bake'
+            (root / 'source-manifest.json').write_text(json.dumps({'sha256': hashlib.sha256(raw).hexdigest(),
+                        'sources': {'src/hero-asset.js': '0' * 64}}))
+            run = subprocess.run([blender, '-b', '--python-exit-code', '1', '--python',
+                                  str(ROOT / 'tools/bake_human_uv.py'), '--', str(source), str(output),
+                                  '--cervical-color', str(ROOT / 'src/hero-asset.js')],
+                                 capture_output=True, text=True, timeout=30)
+            self.assertEqual(run.returncode, 1)
+            self.assertIn('provenance mismatch', run.stdout + run.stderr)
+            self.assertFalse(output.exists())
+
     def test_tracked_output_is_rejected_before_writing(self):
         blender = shutil.which('blender')
         self.assertIsNotNone(blender, 'Explicit authoring test requires Blender')
@@ -78,6 +126,9 @@ class BakeIntegration(unittest.TestCase):
             self.assertEqual(source.read_bytes(), raw)
             self.assertEqual(recipe['sourceSha256'], hashlib.sha256(raw).hexdigest())
             self.assertEqual(recipe['normalScale'], 1)
+            self.assertEqual(set(recipe['images']), {'baseColor', 'normal', 'orm'},
+                             'Default portable bake must not add the cervical coverage mask')
+            self.assertNotIn('nativeSource', recipe)
             uv = np.array(recipe['cornerUvs'], dtype=np.float32).reshape(2, 3, 2)
             xy = np.array([[[0, 0, 0], [1, 0, 0], [1, 1, 0]], [[0, 0, 0], [1, 1, 0], [0, 1, 0]]], float)
             im = np.asarray(Image.open(output / recipe['images']['normal']).convert('RGB'), float) / 255

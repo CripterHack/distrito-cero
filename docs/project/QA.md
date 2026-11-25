@@ -1,5 +1,18 @@
 # QA reproducible desde el repositorio
 
+## Atlas facial nativo · 0.20.23
+
+[Contrato y reproducción](NATIVE-FACE-ATLAS.md). El gate de autoría comprueba
+el replay compacto y la exportación de mapas canónicos. La suite Node verifica
+que LOD0/1/2 conserve posiciones, normales, articulaciones y pesos originales.
+`tests/native_tangent_frame.test.py` ejecuta 14 cartas analíticas con la función
+real del shader en WebGL2, con navegador configurable por `DC_QA_BROWSER`.
+
+`tools/qa/render_native_neck.py` produce primeros planos controlados antes y
+después. Incluye muestras con LOD1/2 forzado, explícitamente distintas de una
+prueba de selección por distancia. Se conservan matriz, stage, cámaras,
+guardas y hashes. Ninguna de estas capturas demuestra FPS de hardware físico.
+
 ## Escopeta / revólver · 0.20.22
 
 El catálogo único conserva sus 24 secuencias previas y agrega las dos direcciones,

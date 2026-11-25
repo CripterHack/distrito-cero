@@ -1,4 +1,21 @@
-# Estado real del proyecto · 25 noviembre 2026
+# Estado real del proyecto · candidata v0.20.23 · 25 noviembre 2026
+
+## Continuación vigente de #63: integración del atlas
+
+La candidata **v0.20.23** integra el [atlas facial](NATIVE-FACE-ATLAS.md) en
+el renderer nativo, conserva geometría y LOD y utiliza los mapas canónicos
+al exportar GLB. El canon ya no mantiene las 984 degeneraciones UV originales.
+Las notas siguientes describen las etapas anteriores del mismo PR; sus
+indicaciones de runtime intacto no describen esta candidata.
+
+## Evidencia local de la candidata
+
+Node **695/695**, benchmark **36/36**, primeros planos **32/32** y recuperación
+WebGL **25/25**. [Resultados y hashes](NATIVE-FACE-ATLAS.md). La comparación
+final confirma corregidos los parches angulares y el punto oscuro detectados
+en las primeras candidatas. Persisten huecos LOD2 anteriores y queda revisión
+artística. La CI del nuevo commit
+se registra separadamente y no se ha desplegado la candidata.
 
 ## Continuación de #63: UV reproyectadas en autoría
 

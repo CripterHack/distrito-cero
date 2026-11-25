@@ -1,4 +1,28 @@
-# Continuación vigente · autoría y validación · refs #5
+# Continuación vigente · atlas nativo v0.20.23 · refs #5
+
+## Unidad actual
+
+El atlas facial está integrado en la candidata del PR #63. Se ha adaptado
+el shader cervical, la base tangente, la simplificación LOD y la exportación.
+[Reproducción y límites](NATIVE-FACE-ATLAS.md). No repetir el diagnóstico ni
+copiar los mapas anteriores sobre las nuevas UV.
+
+**Siguiente paso:** revisar la candidata y la CI del HEAD exacto; después,
+continuar la revisión artística del rostro, cuello y cabello y medir coste
+en dispositivos físicos. Los candidatos Higgsfield aún requieren retopología,
+rig/pivotes y adaptación al juego antes de sustituir recursos canónicos.
+No cerrar los issues globales #5/#6/#7 por esta unidad técnica.
+
+## Evidencia local de la candidata
+
+Node **695/695**, benchmark **36/36**, primeros planos **32/32** y recuperación
+WebGL **25/25**. [Resultados y hashes](NATIVE-FACE-ATLAS.md). La comparación
+final confirma corregidos los parches angulares y el punto oscuro detectados
+en las primeras candidatas. Persisten huecos LOD2 anteriores y queda revisión
+artística. La CI del nuevo commit
+se registra separadamente y no se ha desplegado la candidata.
+
+## Registro de etapas anteriores de #63
 
 ## Continuación: derivado UV reproyectado
 

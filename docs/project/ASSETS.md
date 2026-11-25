@@ -1,5 +1,12 @@
 # Inventario y política de recursos
 
+## Atlas facial canónico · v0.20.23
+
+El [atlas nativo](NATIVE-FACE-ATLAS.md) sustituye las UV y mapas de face con
+procedencia reproducible. Conserva geometría, rig y grupos LOD originales;
+el exportador vigente lee los mismos mapas embebidos. Las fuentes anatómicas
+y derivados anteriores quedan como historia, sin sobrescrituras.
+
 ## Derivado humano con UV reproyectadas
 
 [Receta portable y límites](UV-REBAKE.md). Genera cartas nuevas y mapas de

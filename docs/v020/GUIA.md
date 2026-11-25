@@ -1,3 +1,14 @@
+# Parche vigente del árbol: v0.20.23 · Coherencia
+
+La cara utiliza un atlas de texturas reparado con transición cervical horneada.
+Los modelos simplificados mantienen su geometría y las partidas siguen usando
+el mismo formato. Inicio y Pausa identifican esta candidata como v0.20.23.
+
+Consultar [HANDOFF](../project/HANDOFF.md) para el estado de integración,
+revisión visual y publicación. Esta mejora de materiales no anuncia calidad AAA.
+
+## Notas anteriores
+
 # Parche vigente del árbol: v0.20.22 · Coherencia
 
 Inicio y Pausa identifican v0.20.22. Cambiar entre escopeta y revólver conserva

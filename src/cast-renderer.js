@@ -14,12 +14,20 @@
    this.hairParts=new Map();this.lodParts=[[],[],[]];this.lodHistory=new Map();this.motionTracker=new D.MotionTracker(144);this.motionScene=null;this.castCursor=1;this.castStats={};
    for(const part of this.heroParts){
     if(part.name==='scalp')continue;
-    let src=D.Realism.decode(D.HeroAsset.parts.find(p=>p.name===part.name));
+    const source=D.HeroAsset.parts.find(p=>p.name===part.name);
+    let src=D.Realism.decode(source),clusterUV;
+    if(part.name==='face'&&source.lodClusterUV!==undefined){
+     if(typeof source.lodClusterUV!=='string')throw new Error('Invalid face LOD cluster metadata');
+     const raw=atob(source.lodClusterUV);
+     if(raw.length!==source.vertices*2)throw new Error('Invalid face LOD cluster metadata size');
+     clusterUV=new Uint16Array(source.vertices);
+     for(let i=0;i<clusterUV.length;i++)clusterUV[i]=raw.charCodeAt(i*2)|(raw.charCodeAt(i*2+1)<<8);
+    }
     if(part.name==='hair'){src=D.HairGeometry.brows(src);this.deleteMesh(this.meshes[part.key]);this.meshes[part.key]=this.createSkinMesh(src);part.vertices=src.length/16;}
 
     this.meshes[part.key].crowd=true;this.lodParts[0].push(part);
     for(let lod=1;lod<=2;lod++){
-     const fine=['face','skin','eye','iris','pupil','lip','hair','scalp'].includes(part.name),cell=lod===1?(fine?.009:.027):(fine?.025:.060),data=D.CrowdGeometry.reduce(src,part.name==='face'?cell*.65:cell,{preserveUV:part.name==='face'});
+     const fine=['face','skin','eye','iris','pupil','lip','hair','scalp'].includes(part.name),cell=lod===1?(fine?.009:.027):(fine?.025:.060),data=D.CrowdGeometry.reduce(src,part.name==='face'?cell*.65:cell,{preserveUV:part.name==='face',clusterUV});
      if(!data.length)continue;const key='crowd'+lod+'_'+part.name,m=this.createSkinMesh(data);m.crowd=true;this.meshes[key]=m;this.dynamic[key]=[];this.static[key]=[];this.lodParts[lod].push({...part,key,vertices:data.length/16});
     }
    }
