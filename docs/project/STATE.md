@@ -1,4 +1,32 @@
-# Estado real del proyecto
+# Estado real del proyecto · 25 noviembre 2026
+
+## Actualización vigente · refs #5
+
+Base master inspeccionada: **f9454df7e3325a3cf4d516a0374c2ccb9565090c**,
+[PR #62](https://github.com/CripterHack/distrito-cero/pull/62), Pillow 13.0.0.
+El [PR #61](https://github.com/CripterHack/distrito-cero/pull/61) ya está integrado
+en **d53568618fbeb552f0d0fbabe7222b82cb2b5366**, producto **0.20.22**.
+Escopeta/revólver ya no es pendiente. Las notas inferiores se conservan como
+registro de la candidata anterior, no como instrucciones de trabajo vigente.
+
+Esta unidad produce dos [modelos Higgsfield de autoría](HIGGSFIELD-ASSETS.md),
+corrige la aceptación de un GLB/manifiesto cambiado durante la validación y
+añade un [auditor UV](../../specs/002-character-benchmark/plan-uv-audit.md).
+Los modelos no se integran aún en el runtime. El humano canónico conserva
+984 triángulos UV degenerados: ahora se identifican por índice y región.
+No cambia versión, HTML, rig, simulación ni partidas.
+
+Verificación local: Node existente **667/667**; después, validador **6/6** y
+UV+tangentes **19/19**, ejecutados separadamente. Build intacto, release
+**12/12**, exportación equipos **1/1**, exportación humana **14/14**.
+Python 3.12.14 y Node 24.22.3. No sumar estas cifras como una única ejecución.
+Ambos derivados nuevos tienen cero errores/advertencias glTF; los renders
+Blender no prueban integración DQ, animación ni FPS físicos.
+
+#5/#6/#7 permanecen abiertos. Ver [HANDOFF](HANDOFF.md) para el siguiente paso.
+No se ha desplegado esta unidad ni se atribuye nueva CI a estas pruebas locales.
+
+## Registro anterior a la integración de #61
 
 ## Base integrada: v0.20.21 · Coherencia · prototype
 

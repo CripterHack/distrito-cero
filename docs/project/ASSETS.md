@@ -1,5 +1,14 @@
 # Inventario y política de recursos
 
+## Candidatos Higgsfield · 25 noviembre 2026
+
+[Dos modelos de autoría y verificación](HIGGSFIELD-ASSETS.md), con
+[prompts/jobs/huellas](../../assets/higgsfield-20261125/manifest.json).
+No sustituyen recursos canónicos ni históricos. Los GLB pesados se entregan
+como artefactos separados; conservar sus hashes al transferirlos.
+El [auditor UV](../../specs/002-character-benchmark/plan-uv-audit.md) ahora
+localiza cartas colapsadas y bloquea su aceptación sin modificar mallas.
+
 ## Categorías
 
 **Canónico del runtime:** `src/hero-asset.js`, `src/human-materials.js`, `src/hair-geometry.js`, `src/vehicle-asset.js` y las recetas de `visual-geometry.js` / `equipment-geometry.js`. El build incorpora sus datos o código dentro del HTML.

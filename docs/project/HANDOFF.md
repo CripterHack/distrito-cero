@@ -1,4 +1,40 @@
-# Continuación vigente · escopeta / revólver · candidata 0.20.22
+# Continuación vigente · autoría y validación · refs #5
+
+## Actualización · 25 noviembre 2026
+
+Base master **f9454df7e3325a3cf4d516a0374c2ccb9565090c**, producto 0.20.22.
+PR #61 ya integrado: no repetir escopeta/revólver. PR #62 sólo actualiza Pillow.
+Los apartados inferiores conservan la entrega anterior como historia.
+
+Trabajo actual: dos [modelos Higgsfield](HIGGSFIELD-ASSETS.md), rechazo de
+GLB/manifiesto modificados durante la validación y diagnóstico UV por triángulo.
+[Regresión de integridad](../../specs/002-character-benchmark/plan-validation-input-integrity.md),
+[auditor UV y evidencia](../../specs/002-character-benchmark/plan-uv-audit.md).
+Ver [STATE](STATE.md) para resultados locales. Runtime/build intactos.
+
+**Primera tarea:** preparar receta de reparametrización y horneado del humano
+canónico, usando los IDs del auditor: 981 triángulos en V=1 del GLB más tres
+faciales, `1852`, `2200`, `5790`. No extender coordenadas a ciegas ni apagar
+el normal map para ocultarlo. Comparar costura cervical, color y normales en
+las luces/cámaras del benchmark y conservar rig/atributos.
+
+Los nuevos candidatos requieren revisión de términos del proveedor y adaptación:
+manos/topología/49 huesos para el personaje, piezas/pivotes para el coche;
+ambos necesitan escala/ejes, LODs, proxies y pruebas en el renderer real.
+El pipeline de tangentes puede repetirse sin nuevas generaciones de pago.
+
+```sh
+python3 tools/export_current_human.py --output artifacts/human-uv-next
+node tools/qa/audit_uv.cjs artifacts/human-uv-next/dc-human-0.20.22-neutral.glb > artifacts/human-uv-next/uv-audit.json
+node --test tests/glb-validation-contract.test.cjs tests/uv-audit.test.cjs
+```
+
+El auditor devuelve exit 1 para la deuda conocida; conservar su JSON.
+Retirar las herramientas/tests/docs de esta unidad revierte sus efectos;
+los modelos están separados y el HTML conserva su hash. #5/#6/#7 siguen
+abiertos. No se requiere migración de partidas.
+
+## Registro anterior a la integración de #61
 
 ## Base cerrada
 
