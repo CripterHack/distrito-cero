@@ -1,3 +1,13 @@
+# Parche vigente del árbol: v0.20.24 · Coherencia
+
+La nuca deja de abrirse al utilizar el modelo de personaje más simplificado.
+Inicio y Pausa muestran v0.20.24. Los controles y las partidas mantienen el
+mismo comportamiento. La intersección de piel y chaqueta sigue en revisión.
+
+Consultar [HANDOFF](../project/HANDOFF.md) para integración y pendientes.
+
+## Notas anteriores
+
 # Parche vigente del árbol: v0.20.23 · Coherencia
 
 La cara utiliza un atlas de texturas reparado con transición cervical horneada.

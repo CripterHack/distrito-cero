@@ -2,10 +2,10 @@ name: Character reference benchmark
 on:
   pull_request:
     branches: [master]
-    paths: ['src/**', 'build.py', 'version.json', 'tools/qa/**', 'tests/character*', 'tests/native_tangent_frame.test.py', 'tests/benchmarks/**', 'tests/qa_stage_assets.test.py', '.github/workflows/character-benchmark.yml']
+    paths: ['src/**', 'build.py', 'version.json', 'requirements-dev.txt', 'tools/qa/**', 'tests/character*', 'tests/native_tangent_frame.test.py', 'tests/lod_seam_qa.test.py', 'tests/crowd-seam-continuity.test.cjs', 'tests/benchmarks/**', 'tests/qa_stage_assets.test.py', '.github/workflows/character-benchmark.yml']
   push:
     branches: [master]
-    paths: ['src/**', 'build.py', 'version.json', 'tools/qa/**', 'tests/character*', 'tests/native_tangent_frame.test.py', 'tests/benchmarks/**', 'tests/qa_stage_assets.test.py', '.github/workflows/character-benchmark.yml']
+    paths: ['src/**', 'build.py', 'version.json', 'requirements-dev.txt', 'tools/qa/**', 'tests/character*', 'tests/native_tangent_frame.test.py', 'tests/lod_seam_qa.test.py', 'tests/crowd-seam-continuity.test.cjs', 'tests/benchmarks/**', 'tests/qa_stage_assets.test.py', '.github/workflows/character-benchmark.yml']
   workflow_dispatch:
     inputs:
       matrix:
@@ -42,8 +42,11 @@ jobs:
           python3 build.py --check
       - name: Install development browser
         run: |
-          python3 -m pip install playwright==1.57.0
+          mapfile -t packages < <(grep -E '^(numpy|playwright)==' requirements-dev.txt)
+          test "${#packages[@]}" = 2
+          python3 -m pip install "${packages[@]}"
           python3 -m playwright install --with-deps chromium
+          python3 tests/lod_seam_qa.test.py
       - name: Capture the production renderer
         env:
           MATRIX: ${{ inputs.matrix || 'smoke' }}
@@ -55,6 +58,7 @@ jobs:
           else
             xvfb-run -a python3 -m tools.qa.run --suite characters --headed --timeout 900 --output artifacts/ci-characters
           fi
+          xvfb-run -a python3 tools/qa/render_lod_seam.py --html index.html --output artifacts/ci-characters/lod-seam --label ci-current
           echo '### Character reference generated' >> "$GITHUB_STEP_SUMMARY"
           echo 'Read report.html and art-review.json in the artifact. Numerical checks do not approve anatomy or claim FPS.' >> "$GITHUB_STEP_SUMMARY"
       - name: Show failure diagnostics

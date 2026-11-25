@@ -1,3 +1,18 @@
+# Estado vigente · candidata v0.20.24 · continuidad cervical
+
+La candidata corrige la abertura de nuca que introducía la simplificación LOD2:
+**22 → 0 bordes abiertos**, con las mismas 3.645 caras. LOD0/1 conservan sus
+buffers y capturas. La unión sólo considera vértices con los catorce atributos
+geométricos y de rig idénticos; conserva cada isla UV. [Contrato y evidencia](LOD-SEAM-CONTINUITY.md).
+
+Depende del PR #63 (`a72060b`), verificado en tres workflows y nueve jobs.
+La nueva unidad tiene su propia CI y no se ha integrado ni desplegado.
+Persisten el cruce de cuello/chaqueta, la revisión artística y el coste en
+hardware físico. Los modelos Higgsfield siguen como candidatos de autoría;
+#5/#6/#7 permanecen abiertos. [Siguiente paso](HANDOFF.md).
+
+## Registro anterior · atlas nativo
+
 # Estado real del proyecto · candidata v0.20.23 · 25 noviembre 2026
 
 ## Continuación vigente de #63: integración del atlas

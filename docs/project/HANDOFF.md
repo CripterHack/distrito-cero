@@ -1,3 +1,25 @@
+# Continuación vigente · v0.20.24 · continuidad cervical LOD2 · refs #5
+
+La abertura posterior está corregida y verificada en la malla nativa y diez
+poses cervicales preparadas. **No repetir ese diagnóstico ni el atlas de #63.**
+[Contrato, reproducción, costes y límites](LOD-SEAM-CONTINUITY.md).
+
+**Siguiente paso concreto:** resolver la intersección del cuello con la chaqueta
+en LOD2. El diagnóstico separó ambas superficies: existen caras de prenda, pero
+la piel queda por delante tras simplificar. En la vista posterior, píxel
+(267,547), la chaqueta pasa de estar 28,52 mm delante en LOD0 a quedar 6,07 mm
+detrás en LOD2; en perfil (447,548), de 43,85 mm delante a 10,44 mm detrás.
+Reproducir en las cámaras fijadas antes de modificar la reducción; no tapar el
+problema con color, culling ni caras inventadas. Conservar las pruebas de nuca.
+
+Antes de integrar, revisar la nueva CI y la dependencia #63, cuyo HEAD `a72060b`
+aprobó tres workflows/nueve jobs. Esta unidad se propone contra master para
+mantener los gates; integrar primero #63 reduce el diff. No se ha desplegado.
+La aceptación artística, adaptación de candidatos Higgsfield y evaluación en
+hardware físico siguen pendientes. No cerrar los issues globales #5/#6/#7.
+
+## Registro de la unidad anterior · atlas nativo
+
 # Continuación vigente · atlas nativo v0.20.23 · refs #5
 
 ## Unidad actual

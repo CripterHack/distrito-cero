@@ -20,8 +20,8 @@ function fixture(){
  return {original,atlas,clusterUV:bins(original)};
 }
 function encodeBins(values){const b=Buffer.alloc(values.length*2);values.forEach((v,i)=>b.writeUInt16LE(v,i*2));return b.toString('base64');}
-function castFixture(source,clusterUV){
- let decodes=0;const calls=[],part={name:'face',key:'hero_face',vertices:source.length/16,lodClusterUV:encodeBins(clusterUV)};
+function castFixture(source,clusterUV,name='face'){
+ let decodes=0;const calls=[],part={name,key:'hero_face',vertices:source.length/16,lodClusterUV:encodeBins(clusterUV)};
  const noop=()=>{},g=new Proxy({createTexture:()=>({}),createBuffer:()=>({})},{get:(target,key)=>target[key]??noop});
  class Base{
   constructor(){this.gl=g;this.heroParts=[{...part}];this.meshes={hero_face:{data:source},body:{}};this.static={};this.dynamic={};this.assetParts=[];this.visualStats={};}
@@ -92,6 +92,9 @@ test('cast renderer decodes little-endian cluster metadata once and shares it ac
  const {atlas,clusterUV}=fixture(),{calls,decodes}=castFixture(atlas,clusterUV);
  assert.equal(decodes,1);assert.equal(calls.length,2);
  assert.deepEqual(calls[0].clusterUV,clusterUV);assert.equal(calls[0].clusterUV,calls[1].clusterUV);
+ assert.ok(calls.every(o=>o.weldUVSeams===true));
+ const jacket=castFixture(atlas,clusterUV,'jacket');
+ assert.equal(jacket.decodes,0);assert.ok(jacket.calls.every(o=>o.weldUVSeams===false));
 });
 test('real face remapping preserves positions, normals, joint IDs and weights at all three LODs',()=>{
  const face=DC.HeroAsset.parts.find(p=>p.name==='face'),original=DC.Realism.decode(face),atlas=Float32Array.from(original),clusterUV=bins(original);
@@ -99,7 +102,7 @@ test('real face remapping preserves positions, normals, joint IDs and weights at
  for(let i=0;i<atlas.length;i+=16){atlas[i+6]=.07+atlas[i+6]*.43;atlas[i+7]=.11+atlas[i+7]*.37;}
  const {renderer}=castFixture(atlas,clusterUV);
  for(let lod=0;lod<3;lod++){
-  const expected=lod?DC.CrowdGeometry.reduce(original,(lod===1?.009:.025)*.65,{preserveUV:true}):original;
+  const expected=lod?DC.CrowdGeometry.reduce(original,(lod===1?.009:.025)*.65,{preserveUV:true,weldUVSeams:true}):original;
   const actual=renderer.meshes[lod?'crowd'+lod+'_face':'hero_face'].data;
   assert.equal(hash(geometry(actual)),hash(geometry(expected)),'LOD '+lod);
  }
@@ -125,9 +128,10 @@ test('authored face atlas matches original source geometry at LOD0, LOD1 and LOD
   '411e01b0fe55a6a2841d50edf5d56e7f65b4c76d850906ea66c6730acee84420',
   '8cdf605aa448a78a61d15e8c3a1b5a80e13555bd5020ee1ed8ea1ed0d8cbab21'];
  for(let lod=0;lod<3;lod++){
-  const expected=lod?DC.CrowdGeometry.reduce(original,(lod===1?.009:.025)*.65,{preserveUV:true}):original;
+  const legacy=lod?DC.CrowdGeometry.reduce(original,(lod===1?.009:.025)*.65,{preserveUV:true}):original;
+  const expected=lod?DC.CrowdGeometry.reduce(original,(lod===1?.009:.025)*.65,{preserveUV:true,weldUVSeams:true}):original;
   const actual=renderer.meshes[lod?'crowd'+lod+'_face':'hero_face'].data;
-  assert.equal(hash(geometry(expected)),baselineHashes[lod],'original geometry fingerprint LOD '+lod);
+  assert.equal(hash(geometry(legacy)),baselineHashes[lod],'original geometry fingerprint without seam option LOD '+lod);
   assert.equal(actual.length,expected.length,'retained corners LOD '+lod);
   assert.equal(hash(geometry(actual)),hash(geometry(expected)),'exact geometry LOD '+lod);
   let collapsed=0;

@@ -27,7 +27,7 @@
 
     this.meshes[part.key].crowd=true;this.lodParts[0].push(part);
     for(let lod=1;lod<=2;lod++){
-     const fine=['face','skin','eye','iris','pupil','lip','hair','scalp'].includes(part.name),cell=lod===1?(fine?.009:.027):(fine?.025:.060),data=D.CrowdGeometry.reduce(src,part.name==='face'?cell*.65:cell,{preserveUV:part.name==='face',clusterUV});
+     const fine=['face','skin','eye','iris','pupil','lip','hair','scalp'].includes(part.name),cell=lod===1?(fine?.009:.027):(fine?.025:.060),data=D.CrowdGeometry.reduce(src,part.name==='face'?cell*.65:cell,{preserveUV:part.name==='face',clusterUV,weldUVSeams:part.name==='face'});
      if(!data.length)continue;const key='crowd'+lod+'_'+part.name,m=this.createSkinMesh(data);m.crowd=true;this.meshes[key]=m;this.dynamic[key]=[];this.static[key]=[];this.lodParts[lod].push({...part,key,vertices:data.length/16});
     }
    }

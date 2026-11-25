@@ -1,0 +1,31 @@
+{
+  "kind": "post-fix isolated RED replay",
+  "baselineCommit": "a72060bf4b52201d97746c0d06bb0e02cb38bfaf",
+  "testPath": "tests/crowd-seam-continuity.test.cjs",
+  "testSha256": "3df54631d41ada64f211ebd1a23eb8d26cb47f8cdb6d014f6c4596c983ffc6a8",
+  "initialRedRun": {
+    "observedTests": 5,
+    "observedPass": 1,
+    "observedFail": 4,
+    "retainedLog": false,
+    "note": "Initial pre-fix run was observed in tool output only; this file records a later replay."
+  },
+  "command": [
+    "node",
+    "--test",
+    "tests/crowd-seam-continuity.test.cjs"
+  ],
+  "sourceSha256": {
+    "src/core.js": "b1d0f35f9a6351c4db4a9648c20b161ce8bb5037d1b6eb3cec103d4e91be9ce9",
+    "src/character-fit.js": "efdf174324622f53f2be64763bb47c1e6401e9ea637d72cd403dd93caa2223e7",
+    "src/character-motion.js": "5faedd7e3c986ab5c0080f5cce0d8a3914584d8dd159eadb1229c0ca6443419a",
+    "src/skin-rig.js": "e6bc6edee944a89e7688eaa8c9a3a6a20f4cd76b47d25e6037eee2ae7698fac0",
+    "src/dual-quaternion.js": "cf2d72966dec06f5a4e53265a4ec6b3ed983749534027885930fd93cb3516ca4",
+    "src/hero-asset.js": "df11a1ce85b35ea16c288d4380661af0f69fa318a321c86cbae039382daaec4b",
+    "src/crowd-geometry.js": "1ec9a42d474c7342d314a0fe60bf4fb8a20bced99dab454f10b237fe2f5ddafe",
+    "src/realism-renderer.js": "5eacc06a155b6b5d0a72f71955bc28399e34770d9e3311708531b638323d11ea",
+    "src/appearance.js": "f63382e887310320cc566e63ceaac77f049e310350fe3284c9e675f8bd9f3a31",
+    "tests/benchmarks/characters.json": "f722322ef61a6f42aee9af3568f8166b879479fb4fc6defb4ca874e3c9162569"
+  },
+  "exitCode": 1
+}

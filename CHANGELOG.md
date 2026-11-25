@@ -1,3 +1,13 @@
+# v0.20.24 · Coherencia · 2026-11-25
+
+Corrige la abertura posterior de la nuca en LOD2 uniendo los grupos de vértices
+separados sólo por UV, con normales e influencias idénticas. Conserva las islas
+de textura, LOD0/1 y el número de triángulos. Añade regresiones geométricas y
+capturas de diez poses cervicales al gate de personajes existente.
+
+[Contrato y límites](docs/project/LOD-SEAM-CONTINUITY.md). La intersección entre
+cuello y chaqueta queda pendiente; no implica aceptación artística ni AAA.
+
 # v0.20.23 · Coherencia · 2026-11-25
 
 Atlas facial reparado integrado en el renderer nativo, color cervical horneado y

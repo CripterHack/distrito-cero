@@ -1,3 +1,21 @@
+# Continuidad cervical LOD · v0.20.24
+
+[Contrato y evidencia](LOD-SEAM-CONTINUITY.md). La regresión Node conserva la
+salida histórica sin opción, comprueba controles negativos y prueba cuatro
+perfiles con cinco poses DQ. El nuevo productor `tools/qa/render_lod_seam.py`
+lee el VBO real y las posiciones GPU del vertex shader de producción: seis
+vistas neutras LOD0/1/2 y diez poses cervicales preparadas. Reutiliza matriz,
+stage y capturador de primeros planos, sin un segundo reductor.
+
+CI añade el contrato Python y estas capturas al job de personajes existente,
+sin nuevos runners ni mayor timeout. La aceptación exige cero bordes abiertos
+posteriores, coincidencia de vértices deformados y un rayo exterior dentro de
+la envolvente LOD0. `--reference` permite fijar esa envolvente a la baseline y
+comparar los cuatro renders LOD0/1. Sin referencia, CI usa el LOD0 de su propio
+build y lo declara. No cubre intersección de prenda, movimiento continuo ni FPS.
+
+## Registro de QA anterior
+
 # QA reproducible desde el repositorio
 
 ## Atlas facial nativo · 0.20.23
