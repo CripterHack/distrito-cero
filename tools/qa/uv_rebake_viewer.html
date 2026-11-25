@@ -1,0 +1,48 @@
+<!doctype html><meta charset="utf-8"><title>Portable UV comparison</title>
+<link rel="icon" href="data:,">
+<style>html,body{margin:0;background:#30343b}canvas{display:block}</style>
+<script type="importmap">{"imports":{"three":"/artifacts/uv-rebake/viewer-deps/node_modules/three/build/three.module.js","three/addons/":"/artifacts/uv-rebake/viewer-deps/node_modules/three/examples/jsm/"}}</script>
+<script type="module">
+import * as THREE from 'three';
+import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
+const renderer=new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true});
+renderer.debug.onShaderError=(gl,program,vertex,fragment)=>{
+ throw Error('Portable viewer shader compilation failed: '+gl.getProgramInfoLog(program)+'\n'+gl.getShaderInfoLog(vertex)+'\n'+gl.getShaderInfoLog(fragment));
+};
+renderer.setSize(800,800);renderer.setPixelRatio(1);
+renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;
+document.body.append(renderer.domElement);
+const scene=new THREE.Scene();scene.background=new THREE.Color('#30343b');
+scene.add(new THREE.HemisphereLight(0xe6edff,0x80705c,2));
+for(const [position,color,power] of [[[2,3,4],0xfff4e4,3],[[-3,2,1],0xc0dcff,1.5],[[0,2,-3],0xffffff,2]]){
+ const light=new THREE.DirectionalLight(color,power);light.position.set(...position);scene.add(light);
+}
+const camera=new THREE.OrthographicCamera(-.3,.3,.3,-.3,.01,100);
+const input=new URLSearchParams(location.search).get('asset');
+if(!input||!input.startsWith('/artifacts/'))throw Error('Expected local authoring asset');
+const gltf=await new GLTFLoader().loadAsync(input);scene.add(gltf.scene);
+const mixer=new THREE.AnimationMixer(gltf.scene);
+const face=[];gltf.scene.traverse(o=>{if(o.isMesh&&['face','face UV rebake'].includes(o.material.name))face.push(o);});
+if(face.length!==1)throw Error('Expected one face mesh');
+const original=face[0].material;
+const normals=original.clone();
+normals.onBeforeCompile=shader=>{
+ shader.fragmentShader=shader.fragmentShader.replace('#include <opaque_fragment>','outgoingLight = normal * 0.5 + 0.5;\n#include <opaque_fragment>');
+};
+normals.toneMapped=false;
+window.capture=({view='front',mode='color',clip=null,time=0}={})=>{
+ mixer.stopAllAction();gltf.scene.traverse(o=>{if(o.isSkinnedMesh)o.skeleton.pose();});
+ if(clip){const c=gltf.animations.find(a=>a.name===clip);if(!c)throw Error('Missing clip');mixer.clipAction(c).play();mixer.setTime(time);}
+ gltf.scene.updateMatrixWorld(true);gltf.scene.traverse(o=>{if(o.isSkinnedMesh)o.skeleton.update();});
+ const box=new THREE.Box3().setFromObject(face[0],true),center=box.getCenter(new THREE.Vector3());
+ const span=Math.max(...box.getSize(new THREE.Vector3()).toArray())*1.25;
+ camera.left=-span/2;camera.right=span/2;camera.top=span/2;camera.bottom=-span/2;camera.updateProjectionMatrix();
+ const direction={front:[0,.05,1],side:[1,.05,.2],back:[.2,.05,-1]}[view];
+ if(!direction)throw Error('Unknown view');
+ camera.position.copy(center).add(new THREE.Vector3(...direction));camera.lookAt(center);
+ face[0].material=mode==='normal'?normals:original;
+ renderer.render(scene,camera);
+ return {view,mode,clip,time,renderer:renderer.getContext().getParameter(renderer.getContext().RENDERER),faceBounds:{min:box.min.toArray(),max:box.max.toArray()},triangles:renderer.info.render.triangles};
+};
+window.capture();window.ready=true;
+</script>

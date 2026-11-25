@@ -1,5 +1,19 @@
 # Estado real del proyecto · 25 noviembre 2026
 
+## Continuación de #63: UV reproyectadas en autoría
+
+El [derivado portable](UV-REBAKE.md) pasa de 984 a cero triángulos UV
+degenerados, con mapas reproyectados y tangentes regeneradas. La validación
+glTF completa tiene cero errores/advertencias. Se verificaron los atributos
+por esquina, 49 huesos, once clips y las trece mallas no afectadas.
+Las comparaciones portátiles conservan la costura de color heredada del cuello;
+el remuestreo introduce pequeñas diferencias, sin aprobación artística.
+
+El canon del runtime mantiene sus UV originales. No se cambian shader, HTML,
+versión, partidas ni fuentes anatómicas. Integrar exige adaptar la mezcla
+cervical del renderer y revisar el coste de los nuevos mapas/cartas.
+Los siguientes apartados registran la unidad anterior y sus resultados.
+
 ## Actualización vigente · refs #5
 
 Base master inspeccionada: **f9454df7e3325a3cf4d516a0374c2ccb9565090c**,

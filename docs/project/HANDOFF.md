@@ -1,5 +1,23 @@
 # Continuación vigente · autoría y validación · refs #5
 
+## Continuación: derivado UV reproyectado
+
+Ya existe una [receta de UV y horneado](UV-REBAKE.md) con cero cartas colapsadas
+en el derivado portable. Conserva geometría por esquina, rig y clips. No
+rehacer el diagnóstico de 984 triángulos ni confundir el derivado con el
+recurso canónico del runtime, que continúa intacto.
+
+**Siguiente paso vigente:** corregir la transición de color del cuello en
+materiales y adaptar pigmento/mezcla cervical del shader nativo para el nuevo
+atlas, con comparación en las luces y poses del benchmark real. La reproyección
+conserva la costura heredada; no la convierte en una superficie aceptada.
+Revisar también el coste de tres mapas 2048² y las 29,016 esquinas de face
+antes de integrar. La aceptación artística y rendimiento siguen pendientes.
+
+Los comandos, resultados y reversión están en [UV-REBAKE](UV-REBAKE.md) y
+su [plan](../../specs/002-character-benchmark/plan-uv-rebake.md).
+Las notas siguientes describen la primera unidad de #63.
+
 ## Actualización · 25 noviembre 2026
 
 Base master **f9454df7e3325a3cf4d516a0374c2ccb9565090c**, producto 0.20.22.

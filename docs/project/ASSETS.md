@@ -1,5 +1,12 @@
 # Inventario y política de recursos
 
+## Derivado humano con UV reproyectadas
+
+[Receta portable y límites](UV-REBAKE.md). Genera cartas nuevas y mapas de
+face mediante las fuentes autorizadas existentes, con huellas y preservación
+de atributos/rig. Cero UV degeneradas en el derivado no cambia aún el canon
+del runtime ni aprueba la costura de color cervical heredada.
+
 ## Candidatos Higgsfield · 25 noviembre 2026
 
 [Dos modelos de autoría y verificación](HIGGSFIELD-ASSETS.md), con
