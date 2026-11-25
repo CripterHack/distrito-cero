@@ -129,3 +129,18 @@ Los informes no registran errores JS/shader ni peticiones externas. El GLB
 actual tiene cero UV colapsadas; su derivado con tangentes conserva el informe
 completo de Khronos con cero errores/advertencias, incluidas sus notas
 informativas. Estas cifras locales no se atribuyen a una CI todavía pendiente.
+
+## Comprobación heredada detectada por CI
+
+El run de autoría `45559958452` sobre `d85a1f8` falló en dos aserciones de
+`human-tangents-integration.cjs`: aún exigían 984 UV degeneradas y 26.064
+esquinas válidas del atlas v1. El resultado real era 0 y 29.016. Las otras
+tres pruebas de integración aprobaron; la generación posterior del workflow
+no se ejecutó por ese fallo. Se conserva el run fallido como evidencia.
+
+El contrato se separa explícitamente por versión de material: v1 mantiene
+sus cifras históricas y v2 exige cero fallback, 29.016 esquinas válidas y
+normalScale 1. No se calculan los valores esperados a partir del resultado
+ni se modifican las tolerancias de tangentes. La misma suite aprueba **5/5 con v2** y **5/5 con el export histórico**.
+El trigger de CI incluye ahora el propio archivo de integración. El arreglo
+del gate conserva el hash del HTML y la evidencia de runtime de la candidata.

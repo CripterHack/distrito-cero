@@ -22,6 +22,14 @@ en las primeras candidatas. Persisten huecos LOD2 anteriores y queda revisión
 artística. La CI del nuevo commit
 se registra separadamente y no se ha desplegado la candidata.
 
+## Ajuste del gate de autoría
+
+El primer CI de `d85a1f8` aprobó el benchmark, pero autoría falló porque dos
+aserciones exigían las UV defectuosas v1. [Registro y arreglo](NATIVE-FACE-ATLAS.md).
+La integración de tangentes ahora pasa 5/5 para v2 y 5/5 para el export histórico;
+conserva tolerancias y exige cero fallback en v2. El HTML mantiene su hash.
+Comprobar la nueva CI del commit de corrección, no reutilizar el resultado anterior.
+
 ## Registro de etapas anteriores de #63
 
 ## Continuación: derivado UV reproyectado

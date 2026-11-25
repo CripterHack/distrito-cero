@@ -2,10 +2,10 @@ name: Current human authoring export
 on:
   pull_request:
     branches: [master]
-    paths: ['tools/export_current_human.py', 'tools/prepare_native_face_atlas.py', 'tests/native_face_atlas.test.py', 'assets/native-face-atlas/**', 'assets/native-face-uv-source.json', 'tools/export_traits_glb.py', 'tools/export_human_tangents.cjs', 'tools/qa/validate_glb.cjs', 'tests/current_human_export.test.py', 'tests/glb-validation-contract.test.cjs', 'tests/human-tangents.test.cjs', 'tests/human-tangents-integration.cjs', '.github/workflows/human-export.yml', 'src/**', 'assets/anatomy-source/**', 'version.json', 'requirements-dev.txt']
+    paths: ['tools/export_current_human.py', 'tools/prepare_native_face_atlas.py', 'tests/native_face_atlas.test.py', 'assets/native-face-atlas/**', 'assets/native-face-uv-source.json', 'tools/export_traits_glb.py', 'tools/export_human_tangents.cjs', 'tools/qa/validate_glb.cjs', 'tests/current_human_export.test.py', 'tests/glb-validation-contract.test.cjs', 'tests/human-tangents.test.cjs', 'tests/human-tangents-integration.cjs', 'tests/human-tangents-integration.cjs', '.github/workflows/human-export.yml', 'src/**', 'assets/anatomy-source/**', 'version.json', 'requirements-dev.txt']
   push:
     branches: [master]
-    paths: ['tools/export_current_human.py', 'tools/prepare_native_face_atlas.py', 'tests/native_face_atlas.test.py', 'assets/native-face-atlas/**', 'assets/native-face-uv-source.json', 'tools/export_traits_glb.py', 'tools/export_human_tangents.cjs', 'tools/qa/validate_glb.cjs', 'tests/current_human_export.test.py', 'tests/glb-validation-contract.test.cjs', 'tests/human-tangents.test.cjs', 'tests/human-tangents-integration.cjs', '.github/workflows/human-export.yml', 'src/**', 'assets/anatomy-source/**', 'version.json', 'requirements-dev.txt']
+    paths: ['tools/export_current_human.py', 'tools/prepare_native_face_atlas.py', 'tests/native_face_atlas.test.py', 'assets/native-face-atlas/**', 'assets/native-face-uv-source.json', 'tools/export_traits_glb.py', 'tools/export_human_tangents.cjs', 'tools/qa/validate_glb.cjs', 'tests/current_human_export.test.py', 'tests/glb-validation-contract.test.cjs', 'tests/human-tangents.test.cjs', 'tests/human-tangents-integration.cjs', 'tests/human-tangents-integration.cjs', '.github/workflows/human-export.yml', 'src/**', 'assets/anatomy-source/**', 'version.json', 'requirements-dev.txt']
   workflow_dispatch:
 permissions:
   contents: read

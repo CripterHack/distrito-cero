@@ -8,6 +8,23 @@ const gen=M.loadGenerator(dependency).generateTangents;
 const directory=process.env.DC_TANGENT_INPUT;
 assert.ok(directory,'Set DC_TANGENT_INPUT to a current-human export directory');
 const manifest=JSON.parse(fs.readFileSync(path.join(directory,'source-manifest.json'))),raw=fs.readFileSync(path.join(directory,manifest.file)),before=M.decodeGlb(raw);
+// Fixed asset contracts: these expectations must not be inferred from generated
+// tangents. Exports predating portableMaterial are the historical v1 chart only.
+const CONTRACTS=Object.freeze({
+ 1:Object.freeze({degenerateUvTriangles:984,fallbackTangentCorners:2952,validCorners:26064,normalScale:.30}),
+ 2:Object.freeze({degenerateUvTriangles:0,fallbackTangentCorners:0,validCorners:29016,normalScale:1})
+});
+function materialContract(info){
+ if(!Object.hasOwn(info,'portableMaterial'))return CONTRACTS[1];
+ const material=info.portableMaterial;
+ assert.ok(material&&typeof material==='object'&&!Array.isArray(material),'Invalid portableMaterial contract');
+ const version=material.humanMaterialsVersion;
+ assert.ok(Number.isInteger(version)&&Object.hasOwn(CONTRACTS,version),'Unknown humanMaterialsVersion contract');
+ const expected=CONTRACTS[version];
+ assert.equal(material.normalScale,expected.normalScale,'Declared normal scale violates versioned material contract');
+ return expected;
+}
+const contract=materialContract(manifest);
 const after=M.addTangents(before.document,before.binary,gen);
 function rows(doc,bin,id){
  const a=doc.accessors[id],v=doc.bufferViews[a.bufferView],w={SCALAR:1,VEC2:2,VEC3:3,VEC4:4}[a.type],s={5121:1,5123:2,5125:4,5126:4}[a.componentType];
@@ -30,10 +47,11 @@ test('MikkTSpace preserves every real corner attribute and every earlier binary 
 });
 test('real output provides normalized orthogonal tangents and uniform triangle handedness',()=>{
  for(const record of after.report.primitives){const p=after.document.meshes[record.mesh].primitives[record.primitive];
+  assert.equal(after.document.materials[p.material].normalTexture.scale,contract.normalScale,'Exported normal scale violates versioned material contract');
   const ns=rows(after.document,after.binary,p.attributes.NORMAL),ts=rows(after.document,after.binary,p.attributes.TANGENT),order=indices(after.document,after.binary,p);
   for(let i=0;i<ts.length;i++){const t=[0,4,8,12].map(k=>ts[i].readFloatLE(k)),n=[0,4,8].map(k=>ns[i].readFloatLE(k));assert.ok(t.every(Number.isFinite));assert.ok(Math.abs(Math.hypot(...t.slice(0,3))-1)<1e-5);assert.ok(Math.abs(t.slice(0,3).reduce((sum,v,k)=>sum+v*n[k],0))<1e-5);assert.equal(Math.abs(t[3]),1);}
   for(let i=0;i<order.length;i+=3){assert.equal(ts[order[i]].readFloatLE(12),ts[order[i+1]].readFloatLE(12));assert.equal(ts[order[i]].readFloatLE(12),ts[order[i+2]].readFloatLE(12));}
-  assert.equal(record.degenerateUvTriangles,984);assert.equal(record.fallbackTangentCorners,2952);
+  assert.equal(record.degenerateUvTriangles,contract.degenerateUvTriangles);assert.equal(record.fallbackTangentCorners,contract.fallbackTangentCorners);
  }
 });
 test('valid-chart frames are the pinned Mikk result with only documented W conversion',()=>{
@@ -45,7 +63,7 @@ test('valid-chart frames are the pinned Mikk result with only documented W conve
  for(let i=0;i<order.length;i+=3){const q=i*2,det=(uv[q+2]-uv[q])*(uv[q+5]-uv[q+1])-(uv[q+4]-uv[q])*(uv[q+3]-uv[q+1]);if(det===0)continue;
   for(let j=i;j<i+3;j++)for(let k=0;k<4;k++)assert.equal(ts[outOrder[j]].readFloatLE(k*4),expected[j*4+k]*(k===3?-1:1));compared+=3;
  }
- assert.equal(compared,26064);
+ assert.equal(compared,contract.validCorners);
 });
 test('separate derivative is reproducible, hash-linked and not pre-approved',()=>{
  const root=fs.mkdtempSync(path.join(os.tmpdir(),'dc-tangent-test-'));
@@ -59,7 +77,11 @@ test('separate derivative is reproducible, hash-linked and not pre-approved',()=
   assert.deepEqual(fs.readFileSync(path.join(directory,manifest.file)),raw);
  }finally{fs.rmSync(root,{recursive:true,force:true});}
 });
-test('wrong hashes, package versions and source paths cannot produce a derivative',()=>{
+test('wrong hashes, versions, material contracts and source paths are rejected',()=>{
+ assert.equal(materialContract({}),CONTRACTS[1],'Historical manifests without material metadata retain v1');
+ for(const version of [1,2])assert.equal(materialContract({portableMaterial:{humanMaterialsVersion:version,normalScale:CONTRACTS[version].normalScale}}),CONTRACTS[version]);
+ for(const portableMaterial of [null,{},[],{humanMaterialsVersion:'2',normalScale:1},{humanMaterialsVersion:3,normalScale:1},{humanMaterialsVersion:2,normalScale:.30},{humanMaterialsVersion:1,normalScale:1}])
+  assert.throws(()=>materialContract({portableMaterial}),/contract/i);
  const root=fs.mkdtempSync(path.join(os.tmpdir(),'dc-tangent-reject-'));
  try{
   const input=path.join(root,'in'),dest=path.join(root,'out');fs.mkdirSync(input);fs.writeFileSync(path.join(input,manifest.file),raw);

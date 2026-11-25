@@ -35,7 +35,9 @@
     "nativeNeckFramesPerVersion": 28,
     "graphicsRecoveryChecks": 25,
     "distanceDiagnosticChecks": 10,
-    "focusedLodCloseupChecks": 6
+    "focusedLodCloseupChecks": 6,
+    "tangentIntegrationV2": 5,
+    "tangentIntegrationLegacyV1": 5
   },
   "visualReview": {
     "status": "material-regressions-corrected-art-review-pending",
@@ -92,5 +94,20 @@
     "artifacts/neck-material/distance-diagnostic/after2-unoccluded",
     "artifacts/neck-material/distance-diagnostic/after3-unoccluded"
   ],
-  "finalDistanceDiagnostic": "artifacts/neck-material/distance-diagnostic/after4-unoccluded"
+  "finalDistanceDiagnostic": "artifacts/neck-material/distance-diagnostic/after4-unoccluded",
+  "remoteCiHistory": [
+    {
+      "commit": "d85a1f8dbc0f1ece8b36f9a652529f747203272d",
+      "runId": 45559958452,
+      "workflow": "Current human authoring export",
+      "conclusion": "failure",
+      "cause": "Two integration assertions still required historical v1 UV counts; fixed versioned contracts preserve v1 and require zero degeneracy in v2."
+    },
+    {
+      "commit": "d85a1f8dbc0f1ece8b36f9a652529f747203272d",
+      "runId": 45559958383,
+      "workflow": "Character reference benchmark",
+      "conclusion": "success"
+    }
+  ]
 }
