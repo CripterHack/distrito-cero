@@ -13,3 +13,5 @@ En el GLB se comprobaron 33 poses por clip para contacto de suela, cierre de cic
 El muestreo de una paleta de 49 huesos en un AMD EPYC 9V74 con Node v24.22.3 consumió una mediana de 3,36 µs de CPU de hilo en reposo, 3,16 µs en marcha, 2,74 µs en carrera y 4,76 µs mezclando las tres acciones. Para cada medición se descartaron dos tandas de calentamiento y se ejecutaron 25 tandas de 1.500 paletas, sin dibujar. La memoria de los buffers y la textura se especifican por separado. [Presupuesto de la malla](README.md).
 
 La prueba de iluminación aisló la lámpara comparando los HTML de `7155ff7` y `5b97127`. El ajuste de apoyo del jugador se comprobó después en la misma cámara. Las capturas de Chromium utilizan WebGL2 y SwiftShader. La aceptación artística y las mediciones en GPU física quedan pendientes. [Mediciones de noche](../../qa/mercado-luz/README.md).
+
+La medición a 60 Hz del apoyo del jugador encontró cero cambio instantáneo de altura al empezar la aproximación y al terminar la salida del sedán. Las 43 muestras de contacto pleno conservaron la palma sobre la manilla. [Bordillo y sedán](../../qa/market-pedestrian-v02029/contacto-acera/README.md).

@@ -20,7 +20,7 @@ El difusor situado bajo la cubierta de cada marquesina usa la lista de luces pun
 
 ## Apoyo del jugador
 
-Al llegar a pie desde el taller, el avatar pisaba visualmente a 0,015 m en un bordillo de 0,150 m. La presentación consulta las mismas superficies de la manzana que se dibujan en WebGL2, suaviza el cambio de altura en 36 cm y coloca la sombra sobre el plano superior. En el mismo instante y con la misma cámara, la suela llega a 0,150 m y la sombra a 0,153 m. La altura del salto sigue siendo relativa al suelo para el rig. [Regresiones de superficie y acceso](../../tests/player-surface.test.cjs).
+Al llegar a pie desde el taller, el avatar pisaba visualmente a 0,015 m en un bordillo de 0,150 m. La presentación consulta las mismas superficies de la manzana que se dibujan en WebGL2, suaviza el cambio de altura en 36 cm y coloca la sombra sobre el plano superior. En el mismo instante y con la misma cámara, la suela llega a 0,150 m y la sombra a 0,153 m. La altura del salto sigue siendo relativa al suelo para el rig. [Apoyo anterior y corregido en WebGL2](../../qa/market-pedestrian-v02029/contacto-acera/README.md) · [Regresiones de superficie y acceso](../../tests/player-surface.test.cjs).
 
 ## Mallas y presupuesto
 
