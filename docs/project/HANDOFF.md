@@ -1,3 +1,9 @@
+# Continuación · v0.20.28 · Barrio del Mercado
+
+Probar el recorrido entre el marcador del Taller del Mercado y la parada situada al oeste, la entrada al sedán y las vitrinas desde las dos aceras. El rig de 49 huesos del GLB de Higgsfield se puede revisar en Blender antes de integrar vestuario y apariencias en el reparto jugable. Quedan la aceptación artística del conjunto y el perfilado en GPU física. [Reproducción de la entrega](../../specs/mercado-3d/README.md).
+
+## Registro anterior
+
 # Continuación · v0.20.27 · refs #5
 
 La inserción de la chaqueta recupera sus caras fuente en los dos niveles reducidos de personaje. Revisar los pares del [contrato del escote](NECKLINE-DETAIL.md), incluidos los rayos del borde lateral y las vistas a distancia de juego. Para continuar, medir la transición del reparto en movimiento sobre hardware físico y revisar las regiones donde la piel reducida aún difiere de la superficie fuente. Mantener los controles de las caras y de la abertura del escote al modificar peinados o prendas.

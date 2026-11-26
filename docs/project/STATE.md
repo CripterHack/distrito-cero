@@ -1,3 +1,9 @@
+# Candidata v0.20.28 · Barrio del Mercado
+
+La calle incorpora dos mallas generadas con Higgsfield: el taller de la misión y dos paradas que comparten una marquesina. El sedán recibe ruedas detalladas y una trayectoria de entrada medida contra el tirador. Los comercios de esquina añaden vitrinas visibles desde dos calles. El GLB de personaje de autoría conserva sus mapas 4K, los índices articulados y dos ciclos corporales. [Especificación y reproducción](../../specs/mercado-3d/README.md).
+
+## Registro anterior
+
 # Estado de la candidata v0.20.27 · inserción cervical de la chaqueta
 
 La malla compartida de chaqueta conserva los vértices de la abertura cervical y su unión con el torso en LOD1/2. La causa, los límites y el presupuesto están en el [contrato del escote](NECKLINE-DETAIL.md). Esta candidata incluye el arreglo del tirador de v0.20.26 y el diagnóstico de cámara del PR #67. La aceptación artística y la evaluación en hardware físico siguen pendientes.

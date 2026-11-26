@@ -1,3 +1,10 @@
+# v0.20.28 · Barrio del Mercado · 2026-11-26
+
+- Taller del Mercado y marquesinas con malla Higgsfield, mapas de material integrados y dos niveles de detalle.
+- Vitrinas de esquina con producto y profundidad interior, visibles desde dos aceras.
+- Ruedas del sedán con radios bifurcados, disco y pinza. La palma sigue el tirador al entrar.
+- Dos animaciones corporales en el GLB de autoría del personaje Higgsfield.
+
 # v0.20.27 · Coherencia · 2026-11-26
 
 La chaqueta conserva los vértices fuente del escote y de su unión con el torso en los niveles de detalle intermedio y lejano. Ambos niveles comparten una sola malla de 3.965 triángulos.

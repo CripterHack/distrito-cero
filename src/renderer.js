@@ -119,11 +119,12 @@
  precision highp float;
  flat in vec4 vTraits;flat in vec4 vLook;in vec3 vSurface;in vec3 vWorld;in vec3 vNormal;in vec3 vLocal;in vec3 vFace;in vec2 vUV;in vec4 vColor;in vec4 vShadow;in vec4 vReflection;
  flat in int vMaterial;flat in float vSeed;flat in float vDetail;
+ uniform sampler2D uMercadoAtlas;uniform int uMercadoLoaded;
  uniform sampler2D uSkinAlbedo;uniform sampler2D uSkinNormal;uniform sampler2D uSkinRoughness;
  uniform float uStudio;uniform float uDaylight;uniform vec3 uEye;uniform vec3 uSun;uniform vec4 uLights[12];uniform vec3 uHeadPos;uniform vec3 uHeadDir;
  uniform sampler2D uShadow;uniform sampler2D uReflection;uniform sampler2D uSigns;uniform float uTime;uniform float uRain;uniform float uShadowTexel;uniform int uPass;uniform int uShadows;uniform int uLightCount;
  out vec4 frag;
- // Static batches prove that none of the detailed 30–49 material paths is reachable.
+ // Static batches prove that none of the detailed 30–51 material paths is reachable.
  // The general program retains the original comparisons and every surface formula.
  bool detailMaterial(int material){
 #ifdef DC_BASIC_MATERIALS
@@ -194,6 +195,16 @@
   // Clip the ocular opening while lids close; the eyeball stays spherical.
   if((detailMaterial(34)||detailMaterial(41))&&vSurface.y>1.65){float ph=mod(uTime+vSeed*7.31,3.7+vSeed*.8);float blink=0.;if(ph<.17){float t=1.-abs(ph-.085)/.085;blink=t*t*(3.-2.*t);}float dy=abs(vSurface.y-1.6708135);if(blink>.15&&dy>.0125*(1.-blink))discard;}
   vec3 n=normalize(vNormal),view=normalize(uEye-vWorld),base=vColor.rgb,emission=base*max(vColor.a,0.);float rough=.66,metal=0.;
+  if((detailMaterial(50)||detailMaterial(51))&&uMercadoLoaded==1){
+   // Each of the six 640px tiles includes an eight-texel extruded border.
+   vec2 tile=(vec2(8.5)+clamp(vUV,0.,1.)*623.)/640.;
+   vec2 uv=(tile+vec2(detailMaterial(50)?0.:1.,0.))/vec2(2.,3.);
+   base=pow(texture(uMercadoAtlas,uv).rgb,vec3(2.2));
+   vec3 orm=texture(uMercadoAtlas,uv+vec2(0.,1./3.)).rgb;
+   rough=clamp(orm.g,.06,1.);metal=orm.b;
+   vec3 map=texture(uMercadoAtlas,uv+vec2(0.,2./3.)).rgb*2.-1.;
+   n=mappedNormal(n,map);
+  }
   float grain=noise(vWorld.xz*85.)*.08;
   if(vDetail>=100.&&vDetail<=103.&&vSeed>.05){vec3 gn=normalize(cross(dFdx(vWorld),dFdy(vWorld)));if(dot(gn,n)<0.)gn=-gn;n=normalize(mix(n,gn,clamp(vSeed*.62,0.,.62)));}
   if(vMaterial==0){base*=.91+noise((vWorld.xz+vWorld.y)*12.)*.15;}

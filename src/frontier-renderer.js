@@ -53,6 +53,7 @@
      for(const zz of [z0+11,z0+73]){for(let i=0;i<5;i++)box(x0+12+i*15,.54,zz,.10,1.1,.10,[.30,.22,.135]);box(c.x,.76,zz,61,.065,.065,[.38,.31,.20]);}
     }
     for(const b of c.buildings){
+     if(b.landmark==='taller')continue;
      const kind=b.kind||'urban',retro=kind==='retro',rural=['village','suburb','barn','greenhouse'].includes(kind),future=kind==='future';
      const colors=retro?[[.47,.32,.23],[.32,.40,.35],[.54,.48,.33],[.36,.40,.46]]:rural?[[.49,.44,.33],[.44,.37,.29],[.43,.49,.46],[.48,.50,.44]]:[[.22,.255,.28],[.25,.28,.30],[.27,.295,.29],[.18,.225,.265]];
      const color=colors[Math.floor(b.tone*4)];
