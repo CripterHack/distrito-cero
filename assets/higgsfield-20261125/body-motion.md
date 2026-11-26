@@ -12,6 +12,10 @@ El GLB contiene 30.099 triángulos, tres mapas de 4096 × 4096 píxeles y 49 hue
 
 En las 129 fases muestreadas por acción, las 717 caras de la rodilla derecha y las 826 de la izquierda registraron cero cruces entre caras sin vértice común. La superficie volvió a su posición inicial al cerrar los tres ciclos. La huella SHA-256 del GLB de 10.177.556 bytes es `55f8152dfdbb9553bdd443ef3ae01b5ee032cc1b1e1de6ae1a1a5a60d7889bc7`. La reexportación reprodujo esos bytes. El validador glTF de Khronos registró cero errores y cero advertencias.
 
+![Las tres acciones del residente en el estudio de Blender](residente-poses.jpg)
+
+La lámina toma los fotogramas 103 (reposo, tres cuartos), 11 (marcha, perfil) y 178 (carrera, tres cuartos) de la escena empaquetada. La [revisión de las rodillas](../../qa/higgsfield-knee/README.md) muestra la deformación antes y después con la cámara fija.
+
 ## Revisión original de v0.20.28 · marcha y reposo
 
 Abrir `character-motion.blend` del paquete de autoría y pulsar **Espacio**. La primera marca de la línea de tiempo muestra cuatro zancadas completas en el sitio. La segunda reproduce la respiración en reposo. Las cámaras **Estudio · oblicua** y **Estudio · perfil** permiten comparar la silueta y el contacto de los zapatos. En el GLB portátil, seleccionar la animación **Marcha** (0,7654 s) o **Reposo** (4 s) en el visor. [Descargar el GLB](character-walk.glb) · [Ver referencia y fases de marcha](marcha-personaje.jpg).
