@@ -14,6 +14,27 @@
   if(!c.suspension)c.suspension={pitch:0,roll:0,kick:0};
   if(!Number.isFinite(c.steerAngle))c.steerAngle=0;return c;
  };
+ // The door is rendered in body space, then its own yaw is applied to
+ // the handle. Share the exact shader order with boarding animation.
+ D.vehicleBodyFrame=function(c,time){
+  const body=c.suspension||{},pitch=(body.pitch||0)+Math.sin(time*20)*(body.kick||0),roll=body.roll||0;
+  const cp=Math.cos(pitch),sp=Math.sin(pitch),cr=Math.cos(roll),sr=Math.sin(roll);
+  const co=Math.cos(c.yaw),si=Math.sin(c.yaw);
+  function place(x,y,z,originX,originY,originZ,cy,sy){
+   const py=y*cp-z*sp,pz=y*sp+z*cp,rx=x*cr-py*sr;
+   return [originX+rx*cy+pz*sy,originY+x*sr+py*cr,originZ-rx*sy+pz*cy];
+  }
+  const point=(x,y,z)=>place(x,y-.6,z,c.x,.6,c.z,co,si);
+  function door(side,opening){
+   const angle=-side*opening*1.12,yaw=c.yaw+angle,cy=Math.cos(yaw),sy=Math.sin(yaw);
+   const x=side*.944-.85*Math.sin(angle),z=.78-.85*Math.cos(angle);
+   const damage=c.damage?.[side<0?'left':'right']||0,panel=point(x-side*damage*.12,.81,z);
+   const handle=place(side*.023,.15,-.48,...panel,cy,sy);
+   return {x,z,yaw,angle,panel,handle};
+  }
+  const direction=(x,y,z,yaw)=>place(x,y,z,0,0,0,Math.cos(yaw),Math.sin(yaw));
+  return {point,direction,door,pitch,roll};
+ };
  D.damageVehicle=function(c,amount,x,z){
   D.ensureVehicle(c);if(!Number.isFinite(amount)||amount<=0)return null;
   const dx=x-c.x,dz=z-c.z,u=dx*Math.cos(c.yaw)-dz*Math.sin(c.yaw),v=dx*Math.sin(c.yaw)+dz*Math.cos(c.yaw);

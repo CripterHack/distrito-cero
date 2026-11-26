@@ -15,15 +15,8 @@
   renderCar(c){
    D.ensureVehicle(c);const near=D.distance(c,this.currentSim?.player||c)<66;
    if(!near||!this.assetParts.length){super.renderCar(c);return;}
-   const L=this.dynamic,a=c.yaw,co=Math.cos(a),si=Math.sin(a),col=c.color,body=c.suspension;
-   const pitch=body.pitch+Math.sin(this.currentTime*20)*(body.kick||0),roll=body.roll;
-   const cp=Math.cos(pitch),sp=Math.sin(pitch),cr=Math.cos(roll),sr=Math.sin(roll);
-   // Match the vertex shader: pitch first, then roll, then yaw.
-   const place=(x,y,z,originX,originY,originZ,cy,sy)=>{
-    const pitchedY=y*cp-z*sp,pitchedZ=y*sp+z*cp,rolledX=x*cr-pitchedY*sr;
-    return [originX+rolledX*cy+pitchedZ*sy,(x*sr+pitchedY*cr)+originY,originZ-rolledX*sy+pitchedZ*cy];
-   };
-   const rotate=(x,y,z)=>place(x,y-.6,z,c.x,.6,c.z,co,si);
+   const L=this.dynamic,a=c.yaw,col=c.color,body=D.vehicleBodyFrame(c,this.currentTime);
+   const {pitch,roll,point:rotate}=body;
    const put=(mesh,x,y,z,sx,sy,sz,color,mat=0,em=0,yaw=0,spin=0)=>{const q=rotate(x,y,z);this.add(L,mesh,...q,sx,sy,sz,color,mat,c.empUntil>this.currentTime?0:em,a+yaw,0,0,pitch+spin,roll);return q;};
    const damage=c.damage,sideNames=['front','rear','left','right'],dominant=sideNames.reduce((best,k)=>damage[k]>damage[best]?k:best,'front'),d=damage[dominant];
    const open=c.boarding?c.doorOpen||0:c.doorUntil>this.currentTime?Math.sin(D.clamp((c.doorUntil-this.currentTime)/.85,0,1)*Math.PI):0;
@@ -40,14 +33,11 @@
    put('box',0,.69,2.205-damage.front*.4,.78,.14,.026,[.018,.022,.03],3);
    for(let k=0;k<5;k++)put('box',0,.645+k*.024,2.222-damage.front*.4,.71,.012,.008,[.22,.30,.32],3);
    for(const side of [-1,1]){
-    const sd=damage[side<0?'left':'right'],opening=c.doorSide===side?open:0,da=-side*opening*1.12;
-    const doorX=side*.944-.85*Math.sin(da),doorZ=.78-.85*Math.cos(da);
-    const panel=put('body',doorX-side*sd*.12,.81,doorZ,.035,.30,1.7,col,5,0,da);
+    const opening=c.doorSide===side?open:0,door=body.door(side,opening);
+    this.add(L,'body',...door.panel,.035,.30,1.7,col,5,0,door.yaw,0,0,pitch,roll);
     put('body',side*.946,.34,-.17,.06,.11,2.07,[.024,.034,.038],3);
-    const panelYaw=a+da;
-    const handle=place(side*.023,.15,-.48,...panel,Math.cos(panelYaw),Math.sin(panelYaw));
-    this.add(L,'box',...handle,.03,.036,.21,[.33,.40,.42],3,0,panelYaw,0,0,pitch,roll);
-    if(opening>.05)put(this.meshes.glassPanel?'glassPanel':'body',doorX,.123+1.1,doorZ,.028,.40,1.25,[.055,.13,.16],6,0,da);
+    this.add(L,'box',...door.handle,.03,.036,.21,[.33,.40,.42],3,0,door.yaw,0,0,pitch,roll);
+    if(opening>.05)put(this.meshes.glassPanel?'glassPanel':'body',door.x,.123+1.1,door.z,.028,.40,1.25,[.055,.13,.16],6,0,door.angle);
     put('body',side*1.065,1.1,.62,.22,.14,.27,col,5);
     put('box',side*.755,1.27,-.4,.044,.54,.06,[.025,.03,.037],3);
     put('body',side*.761,1.255,.715,.045,.79,.045,col,5,0,0,-.77);put('body',side*.760,1.255,-1.03,.064,.69,.051,col,5,0,0,.61);

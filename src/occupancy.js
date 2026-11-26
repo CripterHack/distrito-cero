@@ -18,6 +18,34 @@
   for(let i=0;i<lengths.length;i++){const length=lengths[i];if(remaining<=length||i===lengths.length-1){const f=length?clamp(remaining/length,0,1):1,a=path[i],b=path[i+1];return{x:mix(a.x,b.x,f),z:mix(a.z,b.z,f),yaw:Math.atan2(b.x-a.x,b.z-a.z)};}remaining-=length;}
   return{...path[path.length-1],yaw:0};
  }
+ // The driver approaches the latch, pulls the door through its arc, then
+ // steps around the free end before using the existing entry/occupant pose.
+ const latchReach=.45,latchSwing=.72,clearDoor=.93;
+ function openingPose(a,base,t,time){
+  const c=a.c,frame=D.vehicleBodyFrame(c,time),door=frame.door(-1,c.doorOpen);
+  const outside=frame.direction(-1,0,0,door.yaw),up=frame.direction(0,1,0,door.yaw);
+  const forward=frame.direction(0,0,1,door.yaw),[hx,,hz]=door.handle;
+  const nearHandle=(out,along)=>({x:hx+out*outside[0]+along*forward[0],z:hz+out*outside[2]+along*forward[2]});
+  const stance=nearHandle(.42,-.25),reach=ease(t/latchReach),clear=ease((t-latchReach-latchSwing)/clearDoor);
+  let q={x:mix(a.door.x,stance.x,reach),z:mix(a.door.z,stance.z,reach)};
+  if(clear>0){
+   // Round the free end on the outside, then enter from behind the panel.
+   const around=nearHandle(0,-.86),first=clear<=.5;
+   const start=first?stance:around,end=first?around:D.carPoint(c,-1.30,0);
+   const control=nearHandle(first?.55:-.55,-.86),f=first?clear*2:clear*2-1,u=1-f;
+   q={x:u*u*start.x+2*u*f*control.x+f*f*end.x,z:u*u*start.z+2*u*f*control.z+f*f*end.z};
+  }
+  const facing=a.approachYaw+D.wrap(door.yaw+.23-a.approachYaw)*reach;
+  const weight=reach*(1-ease((t-latchReach-latchSwing)/.22));
+  // The palm landmark is 13 mm inward and 49 mm below the wrist in this
+  // orientation. Place it against the outer face of the 30 mm thick handle.
+  const landmark=D.WeaponHandling?.palmLandmark('R')||[-.013,-.049,0];
+  const wrist=door.handle.map((v,i)=>v+outside[i]*(.015-landmark[0])-up[i]*landmark[1]);
+  return {...base,...q,moveSpeed:a.stepSpeed||0,stepDirection:a.stepDirection,yaw:facing+D.wrap(c.yaw+Math.PI*.5-facing)*clear,
+   crouch:.38*weight,bodyLean:.07*weight,reach:.58*weight,
+   handTargets:weight?{R:{x:wrist[0],y:wrist[1],z:wrist[2],weight,grip:mix(.13,.54,weight),
+     orientation:{palm:outside.map(v=>-v),fingers:up.map(v=>-v)}}}:null,accessPhase:'open'};
+ }
  class OccupancySimulation extends Base{
   constructor(world){
    super(world);this.access=null;this.accessSerial=0;this.driverEvents=new Set();
@@ -49,9 +77,10 @@
    if(!this.clearance(door,c)||(!exiting&&!path)){this.emit('toast','No hay espacio libre junto a la puerta del conductor.');return;}
    if(p.carry)this.dropHeld();
    const approach=exiting?0:Math.max(.16,path.slice(1).reduce((s,v,i)=>s+D.distance(v,path[i]),0)/2.9);
+   const approachYaw=exiting?p.yaw:pointOnPath(path,1).yaw;
    const kind=exiting?'exit':c.driver?'extract':'enter';
-   const opening=.38,pulling=kind==='extract'?1.40:0,returning=kind==='extract'?.9:0,entry=1.05,closing=.34;
-   this.access={serial:++this.accessSerial,kind,index,c,elapsed:0,duration:approach+opening+pulling+returning+entry+closing,approach,opening,pulling,returning,entry,closing,door,path,driver:copyDriver(c.driver),released:false,reported:false,wasParked:c.parked,from:{x:p.x,z:p.z,yaw:p.yaw},lastSafe:{x:p.x,z:p.z},anchor:{x:c.x,z:c.z,yaw:c.yaw}};
+   const opening=exiting?.38:latchReach+latchSwing+clearDoor,pulling=kind==='extract'?1.40:0,returning=kind==='extract'?.9:0,entry=1.05,closing=.34;
+   this.access={serial:++this.accessSerial,kind,index,c,elapsed:0,duration:approach+opening+pulling+returning+entry+closing,approach,opening,pulling,returning,entry,closing,door,path,approachYaw,driver:copyDriver(c.driver),released:false,reported:false,wasParked:c.parked,from:{x:p.x,z:p.z,yaw:p.yaw},lastSafe:{x:p.x,z:p.z},anchor:{x:c.x,z:c.z,yaw:c.yaw}};
    c.boarding=true;c.doorOpen=0;c.doorSide=-1;c.speed=0;p.vx=p.vz=0;p.transition=null;p.moveSpeed=0;this.repairProgress=0;
    this.emit('sound','door');
   }
@@ -105,11 +134,22 @@
     if(a){
      if(Math.abs(input.throttle||0)>.15||Math.abs(input.steer||0)>.15||input.brake||input.surrender||D.distance(a.c,a.anchor)>.65||Math.abs(D.wrap(a.c.yaw-a.anchor.yaw))>.2)this.cancelAccess();
      else{
-      a.elapsed+=h;const t=a.elapsed-a.approach,open=ease(t/a.opening),close=ease((a.elapsed-a.duration+a.closing)/a.closing);
+      a.elapsed+=h;const t=a.elapsed-a.approach,open=a.kind==='exit'?ease(t/a.opening):ease((t-latchReach)/latchSwing),close=ease((a.elapsed-a.duration+a.closing)/a.closing);
       a.c.doorOpen=open*(1-close);a.c.speed=0;
       if(a.kind!=='exit'){
        if(a.elapsed<a.approach){const q=pointOnPath(a.path,a.elapsed/a.approach);this.player.walk+=D.distance(this.player,q)*(D.NaturalMotion?D.NaturalMotion.distanceRate(2.9):4.8);Object.assign(this.player,q,{moveSpeed:2.9});if(this.clearance(q,a.c,true))a.lastSafe={x:q.x,z:q.z};}
-       else{this.player.x=a.door.x;this.player.z=a.door.z;this.player.moveSpeed=0;this.player.yaw=Math.atan2(a.c.x-a.door.x,a.c.z-a.door.z);a.lastSafe={...a.door};}
+       else if(t<a.opening){
+        const q=openingPose(a,this.player,t,this.time),dx=q.x-this.player.x,dz=q.z-this.player.z,dist=Math.hypot(dx,dz);
+        if(!this.clearance(q,a.c)){this.cancelAccess(true);this.emit('toast','El paso junto a la puerta quedó obstruido.');}
+        else{
+         const speed=dist/h,co=Math.cos(q.yaw),si=Math.sin(q.yaw);
+         a.stepSpeed=speed;
+         if(dist>1e-6)a.stepDirection=[(dx*co-dz*si)/dist,(dx*si+dz*co)/dist];
+         this.player.walk+=dist*(D.NaturalMotion?D.NaturalMotion.distanceRate(speed,0,q.crouch):4.8);
+         Object.assign(this.player,{x:q.x,z:q.z,yaw:q.yaw,moveSpeed:speed});
+         if(this.clearance(q,a.c,true))a.lastSafe={x:q.x,z:q.z};
+        }
+       }else{this.player.x=a.door.x;this.player.z=a.door.z;this.player.moveSpeed=0;this.player.yaw=Math.atan2(a.c.x-a.door.x,a.c.z-a.door.z);a.lastSafe={...a.door};}
        if(a.kind==='extract'&&t>=a.opening+.25&&!a.reported){a.reported=true;this.addHeat(a.c.police?38:16);this.emit('toast',a.c.police?'Alerta policial: intento de sustracción de patrulla.':'El conductor está dando la alarma.');}
        if(a.kind==='extract'&&t>=a.opening+a.pulling)this.releaseDriver(a);
       }
@@ -139,13 +179,16 @@
    if(a.kind==='exit'){
     const f=ease((t-a.opening)/a.entry);return{...base,x:mix(seat.x,a.door.x,f),z:mix(seat.z,a.door.z,f),yaw:yaw-f*Math.PI*.55,y:mix(-.29,0,f),seatBlend:1-f,seated:f<.999,crouch:Math.sin(f*Math.PI)*.12,reach:.4,accessPhase:f<1?'exit':'close'};
    }
+   if(t<a.opening)return openingPose(a,base,t,this.time);
    if(t<pullEnd){
-    const pulling=a.kind==='extract'&&t>a.opening,drag=ease((t-a.opening-.25)/1.15),q=D.carPoint(c,mix(-1.85,-1.30,ease(t/a.opening))-drag*2.25,mix(.15,0,ease(t/a.opening))-drag*.24);
-    const driver=this.driverPose(c),handTarget=pulling&&driver?{x:driver.x-Math.cos(c.yaw)*.20,y:(driver.y||0)+1.30,z:driver.z+Math.sin(c.yaw)*.20}: {...D.carPoint(c,-.99,.54),y:1.0};
-    return{...base,...q,yaw:D.turn(base.yaw,yaw+Math.PI*.5,ease(t/a.opening)),bodyLean:pulling?.16:0,reach:pulling?.8:.65,crouch:pulling?.09:0,handTargets:{R:handTarget,L:pulling?{...handTarget,y:handTarget.y-.09,z:handTarget.z-.16}:null},accessPhase:pulling?'pull':'open'};
+    const drag=ease((t-a.opening-.25)/1.15),q=D.carPoint(c,-1.30-drag*2.25,-drag*.24),driver=this.driverPose(c);
+    const hand={x:driver.x-Math.cos(yaw)*.20,y:(driver.y||0)+1.30,z:driver.z+Math.sin(yaw)*.20};
+    const weight=ease((t-a.opening)/.20);
+    return {...base,...q,yaw:yaw+Math.PI*.5,bodyLean:.16*weight,reach:.8*weight,crouch:.09*weight,
+     handTargets:{R:{...hand,weight},L:{...hand,weight,y:hand.y-.09,z:hand.z-.16}},accessPhase:'pull'};
    }
    if(a.returning&&t<entryStart){const f=ease((t-pullEnd)/a.returning),u=1-f,q=D.carPoint(c,u*u*-3.55+2*u*f*-2.9+f*f*-1.85,u*u*-.24+2*u*f*1.20+f*f*.15);return{...base,...q,yaw:yaw+Math.PI*.5,walk:f*8,moveSpeed:2.6,accessPhase:'reposition'};}
-   const f=ease((t-entryStart)/a.entry),start=a.kind==='extract'?a.door:D.carPoint(c,-1.30,0);return{...base,x:mix(start.x,seat.x,f),z:mix(start.z,seat.z,f),yaw:yaw+Math.PI*.5*(1-f),y:mix(0,-.29,f),seatBlend:f,seated:f>.001,crouch:Math.sin(f*Math.PI)*.12,reach:.4,accessPhase:f<1?'enter':'close'};
+   const f=ease((t-entryStart)/a.entry),start=a.kind==='extract'?a.door:D.carPoint(c,-1.30,0);return{...base,x:mix(start.x,seat.x,f),z:mix(start.z,seat.z,f),yaw:yaw+Math.PI*.5*(1-f),y:mix(0,-.29,f),seatBlend:f,seated:f>.001,crouch:Math.sin(f*Math.PI)*.12,reach:.4*f,accessPhase:f<1?'enter':'close'};
   }
   driverPose(c){
    if(!c.driver)return null;const q=D.carPoint(c,-.38,-.20);let n={...c.driver,...q,y:-.29,yaw:c.yaw,seated:true,seatBlend:1,moveSpeed:0,walk:0,reach:1,steering:c.steerAngle||0,handTargets:D.VehicleCabin.hands(c)};

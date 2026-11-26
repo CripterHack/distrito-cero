@@ -47,7 +47,10 @@
   const lift=contact?0:Math.pow(Math.max(0,Math.sin(Math.PI*t)),1.35)*D.lerp(.12,.24,g.run)*g.weight;
   // Rotate around heel on strike and forefoot on push-off; bottom is y=.015 in bind pose.
   const soleOffset=.015+.070*Math.cos(pitch)+Math.sin(pitch)*(pitch>=0?.205:-.075);
-  return{x:side*(.108+.016*g.run+.018*(n.crouch||0)),y:soleOffset+lift,z,pitch,contact,phase:ph,progress:t,run:g.run,weight:g.weight,yaw:0};
+  const stance=side*(.108+.016*g.run+.018*(n.crouch||0));
+  // While pulling the door the actor sidesteps and backs around it.
+  const direction=n.stepDirection;
+  return{x:stance+(direction?z*direction[0]:0),y:soleOffset+lift,z:direction?z*direction[1]:z,pitch,contact,phase:ph,progress:t,run:g.run,weight:g.weight,yaw:0};
  }
  function frequency(speed,sprint=0,crouch=0){return gait(speed,sprint,crouch).hz*TAU;}
  function distanceRate(speed,sprint=0,crouch=0){return speed>.01?frequency(speed,sprint,crouch)/speed:0;}
@@ -63,7 +66,7 @@
    const acceleration=reset?0:D.damp(old.motion.acceleration,D.clamp((speed-old.motion.speed)/Math.max(step,.001),-9,9),7,step);
    const turn=reset?finite(n.turnRate):D.damp(old.motion.turn,D.clamp(D.wrap(yaw-old.yaw)/Math.max(step,.001),-4,4),9,step);
    const motion={speed,acceleration,turn,phase:finite(n.walk),feet:{L:null,R:null},swing:{L:null,R:null},reset,inPlace};
-   const disabled=inPlace||n.seated||(n.seatBlend||0)>.025||(n.y||0)>.025||Math.abs(n.vy||0)>.05||!!n.accessPhase||(n.dodge||0)>.03;
+   const disabled=inPlace||n.seated||(n.seatBlend||0)>.025||(n.y||0)>.025||Math.abs(n.vy||0)>.05||(!!n.accessPhase&&n.accessPhase!=='open')||(n.dodge||0)>.03;
    for(const k of ['L','R']){
     const f=foot({...n,motion},k),previous=!reset&&!disabled?old.motion.feet[k]:null;
     if(disabled)continue;
