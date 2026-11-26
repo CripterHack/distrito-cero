@@ -13,12 +13,12 @@
    }
   }
   renderCar(c){
-   D.ensureVehicle(c);const near=D.distance(c,this.currentSim?.player||c)<66;
-   if(!near||!this.assetParts.length){super.renderCar(c);return;}
-   const L=this.dynamic,a=c.yaw,co=Math.cos(a),si=Math.sin(a),col=c.color,body=c.suspension;
-   const pitch=body.pitch+Math.sin(this.currentTime*20)*(body.kick||0),roll=body.roll;
-   const rotate=(x,y,z)=>{y-=.6;const yy=y*Math.cos(pitch)-z*Math.sin(pitch),zz=y*Math.sin(pitch)+z*Math.cos(pitch),xx=x*Math.cos(roll)-yy*Math.sin(roll),y2=x*Math.sin(roll)+yy*Math.cos(roll);return[c.x+xx*co+zz*si,y2+.6,c.z-xx*si+zz*co];};
-   const put=(mesh,x,y,z,sx,sy,sz,color,mat=0,em=0,yaw=0,spin=0)=>{const q=rotate(x,y,z);this.add(L,mesh,...q,sx,sy,sz,color,mat,c.empUntil>this.currentTime?0:em,a+yaw,0,0,pitch+spin,roll);};
+   D.ensureVehicle(c);const distance=D.distance(c,this.currentSim?.player||c);
+   if(distance>=66||!this.assetParts.length){super.renderCar(c);return;}
+   const L=this.dynamic,a=c.yaw,col=c.color,body=D.vehicleBodyFrame(c,this.currentTime);
+   const {pitch,roll,point:rotate}=body;
+   const cp=Math.cos(pitch),sp=Math.sin(pitch),cr=Math.cos(roll),sr=Math.sin(roll);
+   const put=(mesh,x,y,z,sx,sy,sz,color,mat=0,em=0,yaw=0,spin=0)=>{const q=rotate(x,y,z);this.add(L,mesh,...q,sx,sy,sz,color,mat,c.empUntil>this.currentTime?0:em,a+yaw,0,0,pitch+spin,roll);return q;};
    const damage=c.damage,sideNames=['front','rear','left','right'],dominant=sideNames.reduce((best,k)=>damage[k]>damage[best]?k:best,'front'),d=damage[dominant];
    const open=c.boarding?c.doorOpen||0:c.doorUntil>this.currentTime?Math.sin(D.clamp((c.doorUntil-this.currentTime)/.85,0,1)*Math.PI):0;
    for(const part of this.assetParts){
@@ -34,24 +34,41 @@
    put('box',0,.69,2.205-damage.front*.4,.78,.14,.026,[.018,.022,.03],3);
    for(let k=0;k<5;k++)put('box',0,.645+k*.024,2.222-damage.front*.4,.71,.012,.008,[.22,.30,.32],3);
    for(const side of [-1,1]){
-    const sd=damage[side<0?'left':'right'],opening=c.doorSide===side?open:0,da=-side*opening*1.12;
-    const doorX=side*.944-.85*Math.sin(da),doorZ=.78-.85*Math.cos(da);
-    put('body',doorX-side*sd*.12,.81,doorZ,.035,.30,1.7,col,5,0,da);
+    const opening=c.doorSide===side?open:0,door=body.door(side,opening);
+    this.add(L,'body',...door.panel,.035,.30,1.7,col,5,0,door.yaw,0,0,pitch,roll);
     put('body',side*.946,.34,-.17,.06,.11,2.07,[.024,.034,.038],3);
-    put('box',doorX+side*.023,.96,doorZ-.48,.03,.036,.21,[.33,.40,.42],3,0,da);
-    if(opening>.05)put(this.meshes.glassPanel?'glassPanel':'body',doorX,.123+1.1,doorZ,.028,.40,1.25,[.055,.13,.16],6,0,da);
+    this.add(L,'box',...door.handle,.03,.036,.21,[.33,.40,.42],3,0,door.yaw,0,0,pitch,roll);
+    if(opening>.05)put(this.meshes.glassPanel?'glassPanel':'body',door.x,.123+1.1,door.z,.028,.40,1.25,[.055,.13,.16],6,0,door.angle);
     put('body',side*1.065,1.1,.62,.22,.14,.27,col,5);
     put('box',side*.755,1.27,-.4,.044,.54,.06,[.025,.03,.037],3);
     put('body',side*.761,1.255,.715,.045,.79,.045,col,5,0,0,-.77);put('body',side*.760,1.255,-1.03,.064,.69,.051,col,5,0,0,.61);
     put('body',side*.66,.79-damage.front*.06,2.105-damage.front*.42,.36,.105,.058,damage.front>.75?[.055,.08,.09]:[.70,.90,1],0,damage.front>.75?0:5);
     put('body',side*.65,.77,-2.16+damage.rear*.35,.37,.09,.045,[.8,.025,.016],0,damage.rear>.85?0:c.brake?6:2);
     for(const front of [-1,1]){
-     const z=front>0?1.36:-1.39,steer=front>0?c.steerAngle:0;
-     put(this.meshes.tire?'tire':'wheel',side*.92,.365,z,.27,.73,.73,[.018,.023,.028],4,0,steer,c.wheel||0);
-     put(this.meshes.rim?'rim':'wheel',side*1.052,.365,z,.025,.528,.528,[.3,.39,.43],3,0,steer,c.wheel||0);
-     put('wheel',side*1.066,.365,z,.026,.42,.42,[.025,.034,.045],3,0,steer);
-     for(let k=0;k<5;k++){const theta=(c.wheel||0)+k*Math.PI*2/5,dy=Math.cos(theta)*.145,dz=Math.sin(theta)*.145;put('body',side*1.085,.365+dy,z+dz,.030,.27,.041,[.38,.44,.47],3,0,steer,theta);}
-     put('wheel',side*1.09,.365,z,.035,.14,.14,[.36,.4,.42],3,0,steer);
+     const z=front>0?1.36:-1.39, steer=front>0?c.steerAngle:0, spin=side*(c.wheel||0);
+     // The wheel is authored facing +X. Turn the left assembly outwards around
+     // Y, then decompose body tilt × steering into the shader's Ry*Rz*Rx order.
+     const cs=side*Math.cos(steer), ss=side*Math.sin(steer);
+     const wheelYaw=a+Math.atan2(cp*ss,cr*cs-sr*sp*ss);
+     const wheelRoll=Math.asin(D.clamp(sr*cs+cr*sp*ss,-1,1));
+     const wheelPitch=Math.atan2(cr*sp*cs-sr*ss,cr*cp);
+     const pivot=rotate(side*.92,.365,z);
+     const axle=[Math.cos(wheelYaw)*Math.cos(wheelRoll),Math.sin(wheelRoll),-Math.sin(wheelYaw)*Math.cos(wheelRoll)];
+     const wheelPart=(key,offset,w,h,d,color,mat,rotation)=>{
+      this.add(L,key,pivot[0]+axle[0]*offset,pivot[1]+axle[1]*offset,pivot[2]+axle[2]*offset,
+       w,h,d,color,mat,0,wheelYaw,0,0,wheelPitch+rotation,wheelRoll);
+     };
+     wheelPart(this.meshes.tire?'tire':'wheel',0,.27,.73,.73,[.018,.023,.028],4,spin);
+     wheelPart(this.meshes.rim?'rim':'wheel',.132,.025,.528,.528,[.36,.41,.44],3,spin);
+     if(this.meshes.wheelAlloy){
+      if(distance<(this.quality==='eco'?16:26)){
+       wheelPart('wheelBrake',0,1,1,1,[.125,.145,.15],3,spin);
+       wheelPart('wheelCaliper',0,1,1,1,[.225,.153,.092],3,-side*1.12);
+      }else wheelPart('wheel',.078,.016,.41,.41,[.125,.145,.15],3,spin);
+      wheelPart('wheelAlloy',0,1,1,1,[.40,.44,.46],3,spin);
+     } else {
+      wheelPart('wheel',.14,.026,.42,.42,[.21,.25,.27],3,spin);
+     }
     }
     put('body',side*.37,.53,-.16,.48,.15,.57,[.05,.065,.067]);put('body',side*.37,.84,-.44,.45,.60,.16,[.043,.052,.056]);
    }
@@ -73,10 +90,11 @@
    const env=sim.dynamics;if(!env)return;const L=this.dynamic,player=sim.player;
    for(const p of env.hash.query(player.x,player.z,this.quality==='eco'?105:155)){
     const col=p.color,s=p.scale||1;
+    const heldLift=p.held&&player.carry===p.id&&player.car===null&&!sim.access&&!this.previewStudio?(this.playerSurface?.(player.x,player.z).lift||0):0;
     const put=(mesh,x,y,z,sx,sy,sz,color=col,mat=0,em=0,pitch=0,roll=0,yaw=0)=>{
      let X=x,Y=y,Z=z,a=p.yaw;
      if(p.hinged){const xx=x,yy=y*Math.cos(p.angle)-z*Math.sin(p.angle),zz=y*Math.sin(p.angle)+z*Math.cos(p.angle);X=xx;Y=yy;Z=zz;a=p.fallYaw;pitch+=p.angle;}
-     const co=Math.cos(a),si=Math.sin(a);this.add(L,mesh,p.x+(X*co+Z*si)*s,p.y+Y*s+.02,p.z+(-X*si+Z*co)*s,sx*s,sy*s,sz*s,color,mat,em,a+yaw,0,0,pitch,roll);
+     const co=Math.cos(a),si=Math.sin(a);this.add(L,mesh,p.x+(X*co+Z*si)*s,p.y+heldLift+Y*s+.02,p.z+(-X*si+Z*co)*s,sx*s,sy*s,sz*s,color,mat,em,a+yaw,0,0,pitch,roll);
     };
     if(p.type==='lamp'){
      put('body',0,.22,0,.40,.44,.40,col,3);if(this.meshes.lampMast)put('lampMast',0,0,0,1,1,1,col,3);else put('body',0,3.6,0,.12,7.2,.12,col,3);put('body',0,7.2,.82,.13,.15,1.8,col,3);put('body',0,7.18,1.5,.56,.12,.88,col,3);put('box',0,7.105,1.5,.45,.025,.73,(p.broken||p.empUntil>sim.time)?[.14,.15,.13]:p.warm?[1,.74,.42]:[.42,.73,1],0,(p.broken||p.empUntil>sim.time)?0:6);

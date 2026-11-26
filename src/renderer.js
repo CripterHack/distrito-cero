@@ -69,7 +69,21 @@
   mat3 ry=mat3(c,0.,-s,0.,1.,0.,s,0.,c);mat3 rx=mat3(1.,0.,0.,0.,cx,sx,0.,-sx,cx);mat3 rz=mat3(cz,sz,0.,-sz,cz,0.,0.,0.,1.);
   mat3 rot=ry*rz*rx;vec3 position=aPosition,normal=aNormal;
   vSurface=position;vLook=vec4(0.);vTraits=vec4(0.);
-  if(uSkinned>0){
+  if(uSkinned==3){
+   // These glTF joints have their own inverse bind matrices and use linear skinning.
+   mat4 skin=crowdBone(int(aJoints.x))*aWeights.x+crowdBone(int(aJoints.y))*aWeights.y+
+             crowdBone(int(aJoints.z))*aWeights.z+crowdBone(int(aJoints.w))*aWeights.w;
+   position=(skin*vec4(position,1.)).xyz;normal=normalize(mat3(skin)*normal);
+   // Bend the torso in response to a hit, keeping the soles on the pavement.
+   if(iExtra.z!=0.){
+    float h=position.y-.92,t=clamp(h/.36,0.,1.),angle=iExtra.z*t*t*(3.-2.*t);
+    float ca=cos(angle),sa=sin(angle),slope=iExtra.z*6.*t*(1.-t)/.36;
+    vec2 yz=mat2(ca,sa,-sa,ca)*vec2(h,position.z);
+    vec2 dy=vec2(ca,sa)+slope*vec2(-yz.y,yz.x);
+    normal=normalize(vec3(dot(dy,vec2(ca,sa))*normal.x,ca*normal.y-dy.y*normal.z,sa*normal.y+dy.x*normal.z));
+    position.yz=yz+vec2(.92,0.);
+   }
+  }else if(uSkinned>0){
    int lookRow=uSkinned==2?clamp(int(iExtra.w+.5)-200,0,127):0;
    vLook=texelFetch(uCharacterLooks,ivec2(0,lookRow),0);
    if(uSkinned==2)vTraits=texelFetch(uCharacterLooks,ivec2(1,lookRow),0);
@@ -119,11 +133,12 @@
  precision highp float;
  flat in vec4 vTraits;flat in vec4 vLook;in vec3 vSurface;in vec3 vWorld;in vec3 vNormal;in vec3 vLocal;in vec3 vFace;in vec2 vUV;in vec4 vColor;in vec4 vShadow;in vec4 vReflection;
  flat in int vMaterial;flat in float vSeed;flat in float vDetail;
+ uniform sampler2D uMarketPedAtlas;uniform sampler2D uMercadoAtlas;uniform int uMercadoLoaded;
  uniform sampler2D uSkinAlbedo;uniform sampler2D uSkinNormal;uniform sampler2D uSkinRoughness;
  uniform float uStudio;uniform float uDaylight;uniform vec3 uEye;uniform vec3 uSun;uniform vec4 uLights[12];uniform vec3 uHeadPos;uniform vec3 uHeadDir;
  uniform sampler2D uShadow;uniform sampler2D uReflection;uniform sampler2D uSigns;uniform float uTime;uniform float uRain;uniform float uShadowTexel;uniform int uPass;uniform int uShadows;uniform int uLightCount;
  out vec4 frag;
- // Static batches prove that none of the detailed 30–49 material paths is reachable.
+ // Static batches prove that none of the detailed material paths is reachable.
  // The general program retains the original comparisons and every surface formula.
  bool detailMaterial(int material){
 #ifdef DC_BASIC_MATERIALS
@@ -176,6 +191,12 @@
   if(abs(orientation)<1e-20)return normal;
   return normalize(mat3(tangent,bitangent*sign(orientation),normal)*sampleNormal);
  }
+ void sampleStreetPBR(sampler2D atlas,vec2 uv,inout vec3 base,inout vec3 n,inout float rough,inout float metal){
+  base=pow(texture(atlas,uv).rgb,vec3(2.2));
+  vec3 orm=texture(atlas,uv+vec2(0.,1./3.)).rgb;
+  rough=clamp(orm.g,.06,1.);metal=orm.b;
+  n=mappedNormal(n,texture(atlas,uv+vec2(0.,2./3.)).rgb*2.-1.);
+ }
  void main(){
   if(uPass==1&&vWorld.y<.025)discard;
   bool groom=detailMaterial(42)||(detailMaterial(33)&&(vSurface.y>1.706||vSurface.z<.04));
@@ -194,6 +215,16 @@
   // Clip the ocular opening while lids close; the eyeball stays spherical.
   if((detailMaterial(34)||detailMaterial(41))&&vSurface.y>1.65){float ph=mod(uTime+vSeed*7.31,3.7+vSeed*.8);float blink=0.;if(ph<.17){float t=1.-abs(ph-.085)/.085;blink=t*t*(3.-2.*t);}float dy=abs(vSurface.y-1.6708135);if(blink>.15&&dy>.0125*(1.-blink))discard;}
   vec3 n=normalize(vNormal),view=normalize(uEye-vWorld),base=vColor.rgb,emission=base*max(vColor.a,0.);float rough=.66,metal=0.;
+  if((detailMaterial(50)||detailMaterial(51))&&uMercadoLoaded==1){
+   // Each of the six 640px tiles includes an eight-texel extruded border.
+   vec2 tile=(vec2(8.5)+clamp(vUV,0.,1.)*623.)/640.;
+   vec2 uv=(tile+vec2(detailMaterial(50)?0.:1.,0.))/vec2(2.,3.);
+   sampleStreetPBR(uMercadoAtlas,uv,base,n,rough,metal);
+  }
+  if(detailMaterial(52)){
+   vec2 tile=(vec2(4.5)+clamp(vUV,0.,1.)*503.)/512.;
+   sampleStreetPBR(uMarketPedAtlas,tile/vec2(1.,3.),base,n,rough,metal);
+  }
   float grain=noise(vWorld.xz*85.)*.08;
   if(vDetail>=100.&&vDetail<=103.&&vSeed>.05){vec3 gn=normalize(cross(dFdx(vWorld),dFdy(vWorld)));if(dot(gn,n)<0.)gn=-gn;n=normalize(mix(n,gn,clamp(vSeed*.62,0.,.62)));}
   if(vMaterial==0){base*=.91+noise((vWorld.xz+vWorld.y)*12.)*.15;}
@@ -312,7 +343,16 @@
   light+=brdf(n,view,uSun,base,rough,metal)*mix(vec3(1.4,1.65,1.9),vec3(3.8,3.65,3.25),uDaylight)*shadow(n)*mix(1.,.55,uStudio);
   for(int i=0;i<12;i++){
    if(i>=uLightCount)break;vec3 dl=uLights[i].xyz-vWorld;float ds=dot(dl,dl),dist=sqrt(ds);vec3 ld=dl/max(dist,.01);
-   float att=(1.-smoothstep(10.,27.,dist))/(1.+ds*.035);vec3 lc=mix(vec3(.42,.74,1.),vec3(1.,.73,.42),uLights[i].w)*10.8*mix(1.,.22,uStudio);
+   float kind=uLights[i].w,att;vec3 lc;
+   if(kind<0.){
+    // A canopy diffuser directs light below the roof and reaches only the boarding pavement.
+    if(ds>=16.||dl.y<=0.)continue;
+    att=smoothstep(.12,.50,ld.y)*(1.-smoothstep(2.,4.,dist))/(.32+ds);
+    lc=vec3(1.,.86,.69)*(-kind*10.);
+   }else{
+    att=(1.-smoothstep(10.,27.,dist))/(1.+ds*.035);
+    lc=mix(vec3(.42,.74,1.),vec3(1.,.73,.42),kind)*10.8*mix(1.,.22,uStudio);
+   }
    light+=brdf(n,view,ld,base,rough,metal)*lc*att;
    if(detailMaterial(30)||detailMaterial(40)||detailMaterial(36)){float transmission=pow(max(dot(-n,ld),0.),2.)*(detailMaterial(36)?.12:.035);light+=base*lc*att*transmission;}
   }
@@ -411,7 +451,9 @@
   dispose(){if(this.disposed)return;this.disposed=true;this.resources?.dispose();this.uniforms?.clear();for(const key of ['sectorGPU','hairParts','equipmentMeshes','lodHistory'])this[key]?.clear();this.motionTracker?.clear();this.meshes={};this.static={};this.dynamic={};this.humanTextures={};}
   uniform(program,name){let m=this.uniforms.get(program);if(!m){m={};this.uniforms.set(program,m);}if(!Object.prototype.hasOwnProperty.call(m,name))m[name]=this.gl.getUniformLocation(program,name);return m[name];}
   createMesh(data){const gl=this.gl,vao=gl.createVertexArray(),vbo=gl.createBuffer();gl.bindVertexArray(vao);gl.bindBuffer(gl.ARRAY_BUFFER,vbo);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(data),gl.STATIC_DRAW);for(const [i,size,offset]of [[0,3,0],[1,3,12],[2,2,24]]){gl.enableVertexAttribArray(i);gl.vertexAttribPointer(i,size,gl.FLOAT,false,32,offset);}return{vao,vbo,count:data.length/8};}
-  add(list,mesh,x,y,z,sx,sy,sz,color,mat=0,emission=0,yaw=0,seed=0,detail=0,pitch=0,roll=0){list[mesh].push(x,y,z,yaw,sx,sy,sz,mat,color[0],color[1],color[2],emission,pitch,roll,seed,detail);}
+  add(list,mesh,x,y,z,sx,sy,sz,color,mat=0,emission=0,yaw=0,seed=0,detail=0,pitch=0,roll=0){
+   if(this.playerSurfaceFrame)y=mat===37?this.playerSurfaceFrame.shadow:y+this.playerSurfaceFrame.lift;
+   list[mesh].push(x,y,z,yaw,sx,sy,sz,mat,color[0],color[1],color[2],emission,pitch,roll,seed,detail);}
   createWhite(){let gl=this.gl;this.white=gl.createTexture();gl.bindTexture(gl.TEXTURE_2D,this.white);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,1,1,0,gl.RGBA,gl.UNSIGNED_BYTE,new Uint8Array([0,0,0,255]));gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.NEAREST);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.NEAREST);}
   createSigns(){
    const c=document.createElement('canvas');c.width=2048;c.height=1024;const ctx=c.getContext('2d');
@@ -617,7 +659,7 @@
      const {buffer,count}=batch;if(!count)continue;
      const selected=basic&&!m.skinned&&!m.crowd&&!batch.dynamic&&batch.basicMaterials===true?basic:original;
      if(program!==selected){gl.useProgram(selected);program=selected;}
-     gl.uniform1i(this.uniform(program,'uSkinned'),m.crowd?2:m.skinned?1:0);
+     gl.uniform1i(this.uniform(program,'uSkinned'),m.linearCrowd?3:m.crowd?2:m.skinned?1:0);
      if(m.skinned&&!m.crowd&&m.palette)gl.uniformMatrix4fv(this.uniform(program,'uBones[0]'),false,m.palette);
      const o=this.renderOrigin||[0,0];gl.uniform3fv(this.uniform(program,'uChunkOffset'),batch.dynamic?[0,0,0]:[(batch.baseX||0)-o[0],0,(batch.baseZ||0)-o[1]]);
      gl.bindBuffer(gl.ARRAY_BUFFER,buffer);for(let i=3;i<=6;i++){gl.enableVertexAttribArray(i);gl.vertexAttribPointer(i,4,gl.FLOAT,false,64,(i-3)*16);gl.vertexAttribDivisor(i,1);}
@@ -633,12 +675,13 @@
    const car=sim.player.car!==null?sim.actor():sim.cars[0],h=[car.x+Math.sin(car.yaw)*2.4,.75,car.z+Math.cos(car.yaw)*2.4];h[0]-=(this.renderOrigin?.[0]||0);h[2]-=(this.renderOrigin?.[1]||0);if(car.damage?.front>.8||car.empUntil>sim.time)h[1]=-1000;gl.uniform3fv(this.uniform(p,'uHeadPos'),h);gl.uniform3fv(this.uniform(p,'uHeadDir'),[Math.sin(car.yaw),-.05,Math.cos(car.yaw)]);
    for(const [i,n,tex]of [[0,'uShadow',this.shadowTex],[1,'uReflection',pass===1?this.white:this.reflection.tex],[2,'uSigns',this.signs]]){gl.activeTexture(gl.TEXTURE0+i);gl.bindTexture(gl.TEXTURE_2D,tex);gl.uniform1i(this.uniform(p,n),i);}
   }
+  sceneLights(sim){return this.world.lights.filter((light,index)=>!sim.dynamics||sim.dynamics.lightActive(index));}
   render(sim){
    if(!this.canRender())return false;
    const gl=this.gl;this.frame++;this.updateDynamic(sim);const c=this.camera,aspect=this.canvas.width/this.canvas.height,fov=this.fovOverride||Math.PI*.36;this.sun=D.normalize([-.55,.8,.42]);
    const o=this.renderOrigin||[0,0],eyeLocal=[c.eye[0]-o[0],c.eye[1],c.eye[2]-o[1]],targetLocal=[c.target[0]-o[0],c.target[1],c.target[2]-o[1]];const projection=D.M4.perspective(fov,aspect,.15,1000);this.vp=D.M4.multiply(projection,D.M4.lookAt(eyeLocal,targetLocal));
    const re=[eyeLocal[0],-eyeLocal[1],eyeLocal[2]],rt=[targetLocal[0],-targetLocal[1],targetLocal[2]];this.reflectVP=D.M4.multiply(projection,D.M4.lookAt(re,rt,[0,-1,0]));
-   if(this.lightTime<sim.time-.35||this.lightTime<0||this.lightRevision!==sim.dynamics?.lightRevision||this.lightWorld!==sim.dynamics){const sorted=this.world.lights.filter((l,i)=>!sim.dynamics||sim.dynamics.lightActive(i)).sort((a,b)=>Math.hypot(a.x-c.target[0],a.z-c.target[2])-Math.hypot(b.x-c.target[0],b.z-c.target[2]));for(let i=0;i<12;i++){const l=sorted[i];this.lights.set(l?[l.x-o[0],l.y,l.z-o[1],l.warm?1:0]:[0,-1000,0,0],i*4);}this.lightTime=sim.time;this.lightRevision=sim.dynamics?.lightRevision;this.lightWorld=sim.dynamics;}
+   if(this.lightTime<sim.time-.35||this.lightTime<0||this.lightRevision!==sim.dynamics?.lightRevision||this.lightWorld!==sim.dynamics){const sorted=this.sceneLights(sim).sort((a,b)=>Math.hypot(a.x-c.target[0],a.z-c.target[2])-Math.hypot(b.x-c.target[0],b.z-c.target[2]));for(let i=0;i<12;i++){const l=sorted[i];this.lights.set(l?[l.x-o[0],l.y,l.z-o[1],l.downlight?-l.downlight:l.warm?1:0]:[0,-1000,0,0],i*4);}this.lightTime=sim.time;this.lightRevision=sim.dynamics?.lightRevision;this.lightWorld=sim.dynamics;}
    gl.enable(gl.DEPTH_TEST);gl.disable(gl.CULL_FACE);gl.disable(gl.BLEND);
    if(this.frame%3===1||!this.lightVP){let t=[Math.round(targetLocal[0]/4)*4,0,Math.round(targetLocal[2]/4)*4],eye=t.map((v,i)=>v+this.sun[i]*170);this.lightVP=D.M4.multiply(D.M4.ortho(this.previewStudio?-3:-110,this.previewStudio?3:110,this.previewStudio?-3:-110,this.previewStudio?3:110,1,350),D.M4.lookAt(eye,t));
     if(this.quality!=='eco'){gl.bindFramebuffer(gl.FRAMEBUFFER,this.shadowFB);gl.viewport(0,0,this.shadowSize,this.shadowSize);gl.clear(gl.DEPTH_BUFFER_BIT);gl.useProgram(this.shadowProgram);gl.uniform1f(this.uniform(this.shadowProgram,'uTime'),sim.time);gl.uniformMatrix4fv(this.uniform(this.shadowProgram,'uVP'),false,this.lightVP);this.setFrustum(this.lightVP);this.drawMeshes();}

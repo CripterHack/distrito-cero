@@ -48,19 +48,59 @@ function snapshot(renderer,lod,excludeJacket=false){
  }
  return h.digest('hex');
 }
-const sourceBefore=hash(Buffer.from(fs.readFileSync(path.join(root,'src/hero-asset.js'))));
+const sourceBefore='df11a1ce85b35ea16c288d4380661af0f69fa318a321c86cbae039382daaec4b';
 const built=fixture();
 // Regression cases
 // Frozen on the pre-policy v0.20.24 constructor, including face seam welding.
 const baseline={lod0:'3c2883002e8cf02cd3768be0000dd687496cef0845f2fd5acaefaee0607db3db',
- lod1:'58939647fa30adb9409b901cf10d87e6e1bd322f79ab3b67460b3d0f6c3ab038',
+ otherLod1:'78ecb683cd05bc4d2b0355ee57682ac8b03fae49d9fec4f19abfc1c4bc25926e',
  otherLod2:'31a43771ad8e45c9dd2b2bc818c88eec8f9fbbfd922e26591164d373222f271c',
- jacket1:'3d7125a498abde6def16c410be2e4b768cc20a0faa866de94a7c278972c9525f'};
-test('far jacket reuses the exact existing LOD1 entry, mesh and 2992-triangle buffer',()=>{
+ legacyJacket:'3d7125a498abde6def16c410be2e4b768cc20a0faa866de94a7c278972c9525f'};
+test('preserves the authored lateral occluders and their posterior transition in every reduced jacket', () => {
+ const renderer = built.renderer;
+ const full = renderer.meshes[part(renderer, 0, 'jacket').key].data;
+ // The two camera rays through skin anchor 9216 hit different surfaces.
+ // These are the original torso and collar triangles in the canonical asset.
+ const triangleKey = (data, offset) => Buffer.from(
+  data.buffer, data.byteOffset + offset * Float32Array.BYTES_PER_ELEMENT,
+  48 * Float32Array.BYTES_PER_ELEMENT
+ ).toString('hex');
+ for (const lod of [1, 2]) {
+  const mesh = renderer.meshes[part(renderer, lod, 'jacket').key].data;
+  const keys = new Set();
+  for (let offset = 0; offset < mesh.length; offset += 48) keys.add(triangleKey(mesh, offset));
+  // 8621 is the posterior transition at skin anchor 9352 during a right turn.
+  for (const id of [9815, 15887, 8621]) {
+   assert.ok(keys.has(triangleKey(full, id * 48)), 'Missing source occluder ' + id + ' at LOD' + lod);
+  }
+ }
+});
+test('restores the authored neckline boundary without introducing new open edges at the join', () => {
+ function openEdges(data) {
+  const counts = new Map();
+  for (let i = 0; i < data.length; i += 48) {
+   const points = [0,16,32].map(offset => data.subarray(i+offset,i+offset+3).join(':'));
+   for (let k = 0; k < 3; k++) {
+    const key = [points[k],points[(k+1)%3]].sort().join('/');
+    counts.set(key,(counts.get(key)||0)+1);
+   }
+  }
+  return new Set([...counts].filter(([,count]) => count===1).map(([key]) => key));
+ }
+ const source = built.renderer.meshes[part(built.renderer,0,'jacket').key].data;
+ const authored = openEdges(source);
+ const previous = openEdges(DC.CrowdGeometry.reduce(source,.027));
+ const candidate = openEdges(built.renderer.meshes.crowd1_jacket.data);
+ assert.equal(authored.size,128);
+ assert.ok([...authored].every(edge => candidate.has(edge)));
+ assert.ok([...candidate].every(edge => authored.has(edge) || previous.has(edge)));
+ assert.equal([...candidate].filter(edge => !authored.has(edge)).length,16);
+});
+test('far jacket reuses the intermediate entry, mesh and detailed 3965-triangle buffer',()=>{
  const r=built.renderer,a=part(r,1,'jacket'),b=part(r,2,'jacket');
- assert.equal(b,a);assert.equal(b.key,'crowd1_jacket');assert.equal(b.vertices/3,2992);
- assert.equal(hash(r.meshes[b.key].data),baseline.jacket1);
- assert.equal(r.visualStats.lodTriangles[2],5965+2181);
+ assert.equal(b,a);assert.equal(b.key,'crowd1_jacket');assert.equal(b.vertices/3,3965);
+ assert.equal(hash(r.meshes[b.key].data),'1b5cdc0cdd8ac52f9c32f469df539cc9c1287ea3734c8e5932e832cbb2837069');
+ assert.equal(r.visualStats.lodTriangles[2],9119);
 });
 test('the constructor reduces jacket once and allocates no LOD2 jacket resource or queue',()=>{
  const r=built.renderer,source=DC.Realism.decode(DC.HeroAsset.parts.find(p=>p.name==='jacket')),sourceHash=hash(source);
@@ -70,9 +110,11 @@ test('the constructor reduces jacket once and allocates no LOD2 jacket resource 
  for(const store of [r.meshes,r.static,r.dynamic])assert.equal(Object.hasOwn(store,'crowd2_jacket'),false);
  const keys=Object.keys(r.meshes).filter(k=>r.meshes[k]===r.meshes.crowd1_jacket);assert.deepEqual(keys,['crowd1_jacket']);
 });
-test('every LOD0 and LOD1 part retains its pre-policy bytes and triangle budget',()=>{
- assert.equal(snapshot(built.renderer,0),baseline.lod0);assert.equal(snapshot(built.renderer,1),baseline.lod1);
- assert.deepEqual(Array.from(built.renderer.visualStats.lodTriangles.slice(0,2)),[77481,15829]);
+test('every LOD0 part and every other LOD1 part retains its pre-policy bytes',()=>{
+ const source = built.renderer.meshes[part(built.renderer,0,'jacket').key].data;
+ assert.equal(hash(DC.CrowdGeometry.reduce(source,.027)),baseline.legacyJacket);
+ assert.equal(snapshot(built.renderer,0),baseline.lod0);assert.equal(snapshot(built.renderer,1,true),baseline.otherLod1);
+ assert.deepEqual(Array.from(built.renderer.visualStats.lodTriangles.slice(0,2)),[77481,16802]);
 });
 test('other LOD2 parts including welded face and canonical source remain unchanged',()=>{
  assert.equal(snapshot(built.renderer,2,true),baseline.otherLod2);
@@ -95,7 +137,7 @@ test('native renderPerson, upload and draw share one jacket batch with two indep
  assert.deepEqual([queue[15],queue[31]],[201,202]);assert.deepEqual([packed[15],packed[31]],[201,202]);
  assert.deepEqual([packed[0],packed[2],packed[16],packed[18]],[20,0,60,0]);
  assert.equal(r.castCursor,3);assert.deepEqual(Array.from(r.castStats.lod),[0,1,1]);assert.equal(r.castStats.actors,2);
- assert.equal(r.castStats.triangles,15829+8146);assert.equal(r.castStats.paletteRows,3);
+ assert.equal(r.castStats.triangles,16802+9119);assert.equal(r.castStats.paletteRows,3);
  const distinctKeys=new Set([...r.lodParts[1],...r.lodParts[2]].map(p=>p.key));
  assert.equal(r.castStats.drawBatches,distinctKeys.size);
  assert.equal(textureUploads.length,3);assert.ok(textureUploads.every(t=>t.height===3&&t.data.every(Number.isFinite)));
@@ -103,11 +145,11 @@ test('native renderPerson, upload and draw share one jacket batch with two indep
  assert.notDeepEqual(r.posePixels.slice(stride,2*stride),r.posePixels.slice(2*stride,3*stride));
  assert.notDeepEqual(r.appearancePixels.slice(8,16),r.appearancePixels.slice(16,24));
  r.drawMeshes();
- assert.deepEqual(draws.filter(d=>d.vao===mesh.vao),[{vao:mesh.vao,count:2992*3,instances:2}]);
+ assert.deepEqual(draws.filter(d=>d.vao===mesh.vao),[{vao:mesh.vao,count:3965*3,instances:2}]);
  // A second frame clears the shared queue, without a stale far actor/slot.
  sim.time+=.016;sim.peds=[near];r.updateDynamic(sim);
  assert.equal(mesh.dynamicCount,1);assert.equal(r.dynamic[key].length,16);assert.equal(r.dynamic[key][15],201);
- assert.equal(r.castStats.triangles,15829);assert.deepEqual(Array.from(r.castStats.lod),[0,1,0]);
+ assert.equal(r.castStats.triangles,16802);assert.deepEqual(Array.from(r.castStats.lod),[0,1,0]);
 });
 test('per-part reuse leaves balanced and eco actor LOD hysteresis unchanged',()=>{
  for(const [quality,distances]of [['balanced',[20,50,40,36,10,18,20]],['eco',[20,30,23,22,7,10,11]]]){

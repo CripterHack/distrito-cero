@@ -2,6 +2,7 @@
 'use strict';
 (function(D){
  const Base=D.Renderer;
+ function smoothWeight(t){t=D.clamp(t,0,1);return t*t*(3-2*t);}
  function steeringRing(){const out=[],s=24,t=6,R=.155,r=.018;
   const v=(a,b)=>{const c=Math.cos(a),n=Math.sin(a),d=R+r*Math.cos(b);return[c*d,n*d,r*Math.sin(b),c*Math.cos(b),n*Math.cos(b),Math.sin(b),a/(2*Math.PI),b/(2*Math.PI)];};
   for(let i=0;i<s;i++)for(let j=0;j<t;j++){const a=i*Math.PI*2/s,b=j*Math.PI*2/t,A=v(a,b),B=v(a+Math.PI*2/s,b),C=v(a+Math.PI*2/s,b+Math.PI*2/t),E=v(a,b+Math.PI*2/t);out.push(...A,...B,...C,...A,...C,...E);}return out;
@@ -30,7 +31,7 @@
      // The coarse jacket collapses the authored neckline. Reuse its existing
      // LOD1 batch so near/far actors keep independent slots without a new VBO.
      if(lod===2&&part.name==='jacket'){const shared=this.lodParts[1].find(p=>p.name==='jacket');if(shared)this.lodParts[2].push(shared);continue;}
-     const fine=['face','skin','eye','iris','pupil','lip','hair','scalp'].includes(part.name),cell=lod===1?(fine?.009:.027):(fine?.025:.060),data=D.CrowdGeometry.reduce(src,part.name==='face'?cell*.65:cell,{preserveUV:part.name==='face',clusterUV,weldUVSeams:part.name==='face'});
+     const fine=['face','skin','eye','iris','pupil','lip','hair','scalp'].includes(part.name),cell=lod===1?(fine?.009:.027):(fine?.025:.060),data=D.CrowdGeometry.reduce(src,part.name==='face'?cell*.65:cell,{preserveUV:part.name==='face',clusterUV,weldUVSeams:part.name==='face',preserveJacketNeckline:part.name==='jacket'});
      if(!data.length)continue;const key='crowd'+lod+'_'+part.name,m=this.createSkinMesh(data);m.crowd=true;this.meshes[key]=m;this.dynamic[key]=[];this.static[key]=[];this.lodParts[lod].push({...part,key,vertices:data.length/16});
     }
    }
@@ -98,8 +99,31 @@
    if(n.police&&lod<2){const q=D.carPoint(n,-.10,.128),y=pose.rootY+1.27;this.add(this.dynamic,'body',q.x,y,q.z,.043,.067,.008,[.63,.64,.44],3,0,n.yaw);}
   }
   renderPlayer(sim){
-   if(sim.access){this.renderPerson(sim.accessPlayerPose(),true);return;}
-   const p=sim.player;if(p.car===null){this.renderPerson(p,true);return;}
+   const p=sim.player,a=sim.access;
+   if(a||p.car===null){
+    const actor=a?sim.accessPlayerPose():p;
+    if(this.previewStudio||!this.playerSurface){this.renderPerson(actor,true);return;}
+    // Keep the rig and world-space hand targets in their original frame. Ease
+    // to the vehicle frame before the first latch contact. While exiting, the
+    // body acquires the street elevation as the seat releases it.
+    const frame=this.playerSurface(actor.x,actor.z);
+    if(a){
+     const weight=a.kind==='exit'?smoothWeight(1-(actor.seatBlend??1)):
+      actor.accessPhase==='approach'?smoothWeight((a.approach-a.elapsed)/Math.min(.40,a.approach)):0;
+     frame.lift*=weight;
+     this.lastAccessSurface={sim,lift:frame.lift,time:sim.time,exiting:a.kind==='exit'};
+    }else if(this.lastAccessSurface){
+     const last=this.lastAccessSurface,t=(sim.time-last.time)/.24;
+     // Cancelling an approach can return control at the door before the
+     // authored arm/seat sequence completes. Recover its street frame smoothly.
+     if(last.sim===sim&&!last.exiting&&t>=0&&t<1)frame.lift=D.lerp(last.lift,frame.lift,smoothWeight(t));
+     else this.lastAccessSurface=null;
+    }
+    this.playerSurfaceFrame=frame;
+    try{this.renderPerson(actor,true);}finally{this.playerSurfaceFrame=null;}
+    return;
+   }
+   this.lastAccessSurface=null;
    const c=sim.actor(),q=D.carPoint(c,-.38,-.20),hands=D.VehicleCabin.hands(c);
    this.renderPerson({...p,...q,y:-.29,yaw:c.yaw,seated:true,seatBlend:1,moveSpeed:0,crouch:0,handTargets:hands},true);
   }

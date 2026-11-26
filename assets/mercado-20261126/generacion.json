@@ -1,0 +1,41 @@
+{
+  "provider": "Higgsfield / Tripo",
+  "date": "2026-11-26",
+  "estimatedCreditsPerModel": 12.5,
+  "assets": [
+    {
+      "key": "taller",
+      "jobId": "ecd55599-850f-4f2c-b6aa-48a4bf8f3fce",
+      "params": {
+        "model": "tripo_3d",
+        "prompt": "Complete freestanding neighborhood auto workshop for Distrito Cero, a fictional Latin American Barrio del Mercado. Compact two-storey corner building, 10 m wide, 7 m deep, 6.5 m high. Front has large closed muted teal ribbed steel rolling garage door, separate recessed pedestrian doorway, burnt-sienna ceramic tile wainscot, angled concrete rain lip. Upper floor ivory stucco, two deeply recessed windows with metal frames, flat roof and low parapet. Side and rear finished service facades. Precise eaves, convincing frame thickness, subtle rain stains and restrained wear. Flat base. One original isolated building for real-time urban architecture, PBR materials, neutral albedo. No ground plane, pavement, neighboring buildings, signs, people or vehicles.",
+        "negative_prompt": "diorama, pedestal, disconnected rubble, unreadable typography, people, vehicles, large ground plane, high rise towers, glossy stucco, collapsing roof, malformed garage",
+        "texture": true,
+        "pbr": true,
+        "texture_quality": "detailed",
+        "geometry_quality": "detailed",
+        "auto_size": true,
+        "face_limit": 24000,
+        "count": 1
+      },
+      "sha256": "a4dbd606e95c218f8082b7ba7e9d9f117c615c1f691d70e8fb8334dbe2b0adba"
+    },
+    {
+      "key": "marquesina",
+      "jobId": "7870589d-833f-4230-b797-b4cbd63b7de0",
+      "params": {
+        "model": "tripo_3d",
+        "prompt": "One original freestanding bus shelter structure for the street of a contemporary Latin American market district in Distrito Cero. Asset for a realistic real-time videogame. Open front and open ends, shallow slightly sloping opaque sheet-metal canopy about 4.0m wide, 1.6m deep and 2.5m high with folded warm ivory fascia, three sturdy dark teal square steel posts, perforated steel back windbreak with warm gray finish and bolt heads, simple fixed three-place bench with timber slats, visible air gaps below and above seat. Four-sided readable silhouette; intentionally opaque perforated metal instead of glass. Flat on ground, small real baseplates only. Correct human scale, physically believable frame joints, sparse fine wear on edges and rain drip line, PBR painted metal/wood separated by material. No text, posters, logos, people, road, pavement slab or diorama. Symmetrical sensible production-ready urban street furniture, built as an isolated complete object.",
+        "negative_prompt": "bus vehicle, cars, glass walls, giant platform, floating parts, people, road, monumental building, letters, melted bench, broken roof",
+        "texture": true,
+        "pbr": true,
+        "texture_quality": "detailed",
+        "geometry_quality": "detailed",
+        "auto_size": true,
+        "face_limit": 12000,
+        "count": 1
+      },
+      "sha256": "8194a0199917c89b905756c880a4b9a26c8f838bcd5864549c923cb03a733780"
+    }
+  ]
+}

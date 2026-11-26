@@ -1,0 +1,158 @@
+{
+  "chromium": "156.0.8078.79",
+  "before": {
+    "htmlSha256": "8e7a5b44624e52ad28c21fba272cb813a6b6f76aa5a3c1fffb2baebf5d464ec8",
+    "frames": {
+      "taller": {
+        "site": [
+          189.1144776261255,
+          103.36810315948911
+        ],
+        "eyeOffset": [
+          -13,
+          3.35,
+          -6.2
+        ],
+        "instances": {}
+      },
+      "taller-puerta": {
+        "site": [
+          189.1144776261255,
+          103.36810315948911
+        ],
+        "eyeOffset": [
+          -9.9,
+          1.72,
+          1.1
+        ],
+        "instances": {}
+      },
+      "marquesina": {
+        "site": [
+          -13.5,
+          58
+        ],
+        "eyeOffset": [
+          4.7,
+          1.76,
+          2.8
+        ],
+        "instances": {}
+      },
+      "marquesina-lateral": {
+        "site": [
+          -13.5,
+          58
+        ],
+        "eyeOffset": [
+          3.5,
+          1.64,
+          -3.3
+        ],
+        "instances": {}
+      },
+      "marquesina-lejos": {
+        "site": [
+          -13.5,
+          58
+        ],
+        "eyeOffset": [
+          1.8,
+          1.65,
+          -46
+        ],
+        "instances": {}
+      }
+    }
+  },
+  "after": {
+    "htmlSha256": "f2e80f97bf977113c44ea85fda8a4db6221329931672c61a9b5d2bfda140e7b3",
+    "frames": {
+      "taller": {
+        "site": [
+          189.1144776261255,
+          103.36810315948911
+        ],
+        "eyeOffset": [
+          -13,
+          3.35,
+          -6.2
+        ],
+        "instances": {
+          "taller0": 1,
+          "taller1": 0,
+          "marquesina0": 1,
+          "marquesina1": 1
+        }
+      },
+      "taller-puerta": {
+        "site": [
+          189.1144776261255,
+          103.36810315948911
+        ],
+        "eyeOffset": [
+          -9.9,
+          1.72,
+          1.1
+        ],
+        "instances": {
+          "taller0": 1,
+          "taller1": 0,
+          "marquesina0": 1,
+          "marquesina1": 1
+        }
+      },
+      "marquesina": {
+        "site": [
+          -13.5,
+          58
+        ],
+        "eyeOffset": [
+          4.7,
+          1.76,
+          2.8
+        ],
+        "instances": {
+          "taller0": 0,
+          "taller1": 1,
+          "marquesina0": 1,
+          "marquesina1": 1
+        }
+      },
+      "marquesina-lateral": {
+        "site": [
+          -13.5,
+          58
+        ],
+        "eyeOffset": [
+          3.5,
+          1.64,
+          -3.3
+        ],
+        "instances": {
+          "taller0": 0,
+          "taller1": 1,
+          "marquesina0": 1,
+          "marquesina1": 1
+        }
+      },
+      "marquesina-lejos": {
+        "site": [
+          -13.5,
+          58
+        ],
+        "eyeOffset": [
+          1.8,
+          1.65,
+          -46
+        ],
+        "instances": {
+          "taller0": 0,
+          "taller1": 1,
+          "marquesina0": 0,
+          "marquesina1": 2
+        }
+      }
+    }
+  }
+}

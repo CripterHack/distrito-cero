@@ -58,6 +58,18 @@ test('draw traversal specializes proven static batches and preserves order, dyna
  const {r,calls,state,scene,basic}=renderer();r.meshes={one:mesh('one',[batch('basic',2,true),batch('mixed',3,false)],4),skin:mesh('skin',[batch('skin',1,true)],0,{skinned:true,crowd:true}),glass:mesh('glass',[batch('glass',1,true)],0,{transparent:true})};
  r.drawMeshes(true);assert.deepEqual(calls.map(c=>[c.buffer,c.count,c.program,c.skinned]),[['basic',2,basic,0],['mixed',3,scene,0],['one-dynamic',4,scene,0],['skin',1,scene,2],['glass',1,basic,0]]);assert.equal(state.program,scene);
 });
+test('both scene and shadow traversals draw the native resident with its linear palette',()=>{
+ const {r,calls,scene,state}=renderer(),shadow={name:'shadow'};
+ r.meshes={marketPed0:mesh('resident',[],1,{skinned:true,crowd:true,linearCrowd:true}),
+           nativeCivilian:mesh('civilian',[],1,{skinned:true,crowd:true})};
+ r.crowdTexture={};
+ for(const [program,transparent] of [[scene,true],[shadow,false]]){
+  state.program=program;calls.length=0;r.drawMeshes(transparent);
+  assert.deepEqual(calls.map(draw=>[draw.vao,draw.skinned,draw.program]),[['resident',3,program],['civilian',2,program]]);
+  assert.equal(state.uniforms.get(program).uCrowdBones,3);
+ }
+});
+
 test('unknown metadata, hidden batches, empty batches and an absent specialized program fail safe',()=>{
  const {r,calls,scene}=renderer();r.meshes={one:mesh('one',[batch('missing',1),batch('truthy',1,'yes'),batch('empty',0,true),batch('hidden',1,true)])};r.visibleChunk=b=>b.buffer!=='hidden';
  r.drawMeshes();assert.deepEqual(calls.map(c=>[c.buffer,c.program]),[['missing',scene],['truthy',scene]]);

@@ -91,6 +91,7 @@
   }
   nearby(x,z,r=10){
    if(!valid(x,z))return[];const out=[];r=Math.min(1200,Math.max(0,r));
+   for(const bench of this.shelterBenches)if(Math.abs(x-bench.x)<bench.w/2+r&&Math.abs(z-bench.z)<bench.d/2+r)out.push(bench);
    for(let ix=Math.floor((x-r)/STEP);ix<=Math.floor((x+r)/STEP);ix++)for(let iz=Math.floor((z-r)/STEP);iz<=Math.floor((z+r)/STEP);iz++)for(const b of this.cell(ix,iz).buildings)if(Math.abs(x-b.x)<b.w/2+r&&Math.abs(z-b.z)<b.d/2+r)out.push(b);return out;
   }
   blocked(x,z,r=.5){return!valid(x,z)||this.nearby(x,z,r).some(b=>D.circleBox(x,z,r,b));}

@@ -59,7 +59,7 @@
    this.equipmentView=active;
    if(!active){this.fovOverride=null;super.updateCamera(sim,dt,options);return;}
    const c=this.camera,p=sim.player,optic=w.kind==='optics'&&e.aiming,scope=w.id==='sniper'&&e.aiming,yaw=c.yaw,pitch=D.clamp(c.weaponPitch||0,-.70,.70),dir=[Math.sin(yaw)*Math.cos(pitch),Math.sin(pitch),Math.cos(yaw)*Math.cos(pitch)];
-   const distance=optic?.0:e.aiming?1.8:2.6,side=optic?0:-.58,base=1.65-D.CharacterFit.drop(sim.appearance?.neckLength)-(p.crouch||0)*.22+(p.y||0),dx=-Math.sin(yaw)*distance+Math.cos(yaw)*side,dz=-Math.cos(yaw)*distance-Math.sin(yaw)*side;
+   const distance=optic?.0:e.aiming?1.8:2.6,side=optic?0:-.58,lift=this.playerSurface?.(p.x,p.z).lift||0,base=lift+1.65-D.CharacterFit.drop(sim.appearance?.neckLength)-(p.crouch||0)*.22+(p.y||0),dx=-Math.sin(yaw)*distance+Math.cos(yaw)*side,dz=-Math.cos(yaw)*distance-Math.sin(yaw)*side;
    const q=this.world.move(p.x,p.z,dx,dz,.12);let eye=[q.x,base+.055,q.z];if(optic)eye=[p.x+dir[0]*.13,base,p.z+dir[2]*.13];
    c.eye=eye;c.target=eye.map((v,i)=>v+dir[i]*4);c.initialized=true;
    this.fovOverride=optic?2*Math.atan(Math.tan(Math.PI*.36/2)/E.zoom[e.zoom]):scope?2*Math.atan(Math.tan(Math.PI*.36/2)/4):e.aiming?.79:Math.PI*.36;

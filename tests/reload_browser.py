@@ -7,7 +7,7 @@ from datetime import datetime, timezone
 import hashlib, json, os, sys
 from playwright.sync_api import sync_playwright
 from qa_support import launch_options
-from native_support import game_origin
+from native_support import game_origin, navigate_and_hash
 
 R = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(R))
@@ -133,11 +133,11 @@ try:
         p.on('pageerror', lambda error: errors.append(str(error)))
         p.on('console', lambda msg: errors.append(msg.text) if msg.type == 'error' else None)
         p.on('request', lambda request: requests.append(request.url) if request.url.startswith(('http:', 'https:')) and urlsplit(request.url).netloc != urlsplit(origin).netloc else None)
-        response = p.goto(origin, wait_until='domcontentloaded', timeout=120000)
+        response, digest = navigate_and_hash(p, origin, expected['htmlBytes'])
         p.wait_for_function('!!window.DC_APP', timeout=120000)
         p.evaluate('DC_APP.renderer.humanReady')
         info.update(browser=browser.version, viewport={'width': 1100, 'height': 760}, originMode='HTTP loopback', nativeStorage=p.evaluate(NATIVE))
-        ck('Reload suite serves the canonical HTML over HTTP', [] if response.status == 200 and hashlib.sha256(response.body()).hexdigest() == expected['htmlSha256'] else ['HTML mismatch'])
+        ck('Reload suite serves the canonical HTML over HTTP', [] if response.status == 200 and digest == expected['htmlSha256'] else ['HTML mismatch'])
         ck('Reload suite retains native Web Storage', [] if info['nativeStorage'] else ['Storage was replaced'])
         p.click('#start')
         p.fill('#characterName', 'Recarga QA')

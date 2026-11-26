@@ -1,0 +1,56 @@
+{
+  "taller": {
+    "sizeXYZ": [
+      6.5325,
+      6.5,
+      8.5286
+    ],
+    "sourceTriangles": 17648,
+    "mapSizes": [
+      [
+        4096,
+        4096
+      ],
+      [
+        4096,
+        4096
+      ],
+      [
+        4096,
+        4096
+      ]
+    ],
+    "nativeTriangles": [
+      6529,
+      1853
+    ],
+    "normalizedSha256": "ee542cfab1d7468321821a5c5900250f30c0cba130846b464a6fd3fcb932bc84"
+  },
+  "marquesina": {
+    "sizeXYZ": [
+      3.0315,
+      2.5,
+      1.744
+    ],
+    "sourceTriangles": 8372,
+    "mapSizes": [
+      [
+        4096,
+        4096
+      ],
+      [
+        4096,
+        4096
+      ],
+      [
+        4096,
+        4096
+      ]
+    ],
+    "nativeTriangles": [
+      4604,
+      1339
+    ],
+    "normalizedSha256": "e25f80afc3403f1184cb10755701cf83d9531e00ef84a30bc7767d759c5c9ef1"
+  }
+}

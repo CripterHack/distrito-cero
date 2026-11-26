@@ -6,7 +6,13 @@
  class FrontierSimulation extends Base{
   constructor(world){
    if(world.home){world.buildings=world.home.buildings;world.blocks=world.home.blocks;world.lights=world.home.lights;world.pois=world.home.pois;world.activeKey='';}
-   super(world);this.homeProps=[...this.dynamics.props];this.streamProps=new Map();this.changes=new Map();this.sectorVisits=new Set();this.recycleClock=0;this.setLightLookup();this.syncRegion();
+   super(world);
+   // Give the existing ped:38 slot a permanent beat on the Mercado sidewalk.
+   const stop=world.shelters[1],resident=this.peds[38];
+   Object.assign(resident,{visualModel:'mercado-higgsfield',x:stop.x+1,z:stop.z,groundY:.145,
+    homeZ:Math.floor(stop.z/84)*84,yaw:0,speed:1.35,moveSpeed:0,
+    sidewalkRoute:{x:stop.x+1,startZ:stop.z,endZ:stop.z+19,towardEnd:true,wait:2.4,fleeing:false}});
+   this.homeProps=[...this.dynamics.props];this.streamProps=new Map();this.changes=new Map();this.sectorVisits=new Set();this.recycleClock=0;this.setLightLookup();this.syncRegion();
   }
   setLightLookup(){this.dynamics.lightActive=index=>!this.dynamics.byId.get(this.world.lights[index]?.id||'lamp:'+index)?.broken;}
   archive(){for(const o of this.streamProps.values())if(o.changed){if(this.changes.size>=4096&&!this.changes.has(o.id)){if(!this.deltaWarning){this.emit('toast','Límite de 4096 cambios persistentes. Los nuevos daños lejanos no se archivarán.');this.deltaWarning=true;}continue;}this.changes.set(o.id,delta(o));}}
@@ -35,7 +41,7 @@
     const a=this.random()*Math.PI*2,d=350+this.random()*220,sp=this.world.node(p.x+Math.sin(a)*d,p.z+Math.cos(a)*d);
     c.x=sp.x+4;c.z=sp.z+24;c.yaw=0;c.speed=0;c.route=[];c.navTime=0;this.newTrafficRoute(c);
    }
-   for(let i=0;i<this.peds.length;i++){const n=this.peds[i];if(D.distance(n,p)<420)continue;const a=this.random()*Math.PI*2,d=180+this.random()*110,sp=this.world.node(p.x+Math.sin(a)*d,p.z+Math.cos(a)*d);n.x=sp.x+12;n.z=sp.z+20;n.homeZ=sp.z;n.panic=0;const t=this.world.region(n.x,n.z).type;n.hidden=large&&['farmland','woodland'].includes(t)&&i%9!==0;}
+   for(let i=0;i<this.peds.length;i++){const n=this.peds[i];if(n.sidewalkRoute||D.distance(n,p)<420)continue;const a=this.random()*Math.PI*2,d=180+this.random()*110,sp=this.world.node(p.x+Math.sin(a)*d,p.z+Math.cos(a)*d);n.x=sp.x+12;n.z=sp.z+20;n.homeZ=sp.z;n.panic=0;const t=this.world.region(n.x,n.z).type;n.hidden=large&&['farmland','woodland'].includes(t)&&i%9!==0;}
   }
   step(dt,input={}){
    if(!Number.isFinite(dt)||dt<=0)return;this.syncRegion();super.step(dt,input);

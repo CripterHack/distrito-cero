@@ -267,6 +267,23 @@
    for(const [key,value] of this.contactRecords)if(this.time-value.touch>3)this.contactRecords.delete(key);
    if(playerCar){p.x=playerCar.x;p.z=playerCar.z;}
   }
+  walkSidewalk(n,speed,dt,car){
+   const route=n.sidewalkRoute,fleeing=n.panic>0;
+   if(fleeing){
+    route.wait=0;
+    if(!route.fleeing&&car)route.towardEnd=car.z<=n.z;
+   }
+   route.fleeing=fleeing;
+   const goalZ=route.towardEnd?route.endZ:route.startZ,dx=route.x-n.x,dz=goalZ-n.z;
+   const distance=Math.hypot(dx,dz),heading=Math.atan2(dx,dz);
+   n.yaw=D.turn(n.yaw,heading,dt*4);
+   const movingTime=Math.max(0,dt-route.wait);
+   route.wait=Math.max(0,route.wait-dt);
+   const step=Math.min(distance,speed*movingTime*Math.max(0,Math.cos(heading-n.yaw)));
+   const q=step>0?this.world.move(n.x,n.z,dx/distance*step,dz/distance*step,.35):{x:n.x,z:n.z};
+   if(q.hit||distance-step<.00001){route.towardEnd=!route.towardEnd;route.wait=fleeing?0:2.4;}
+   return q;
+  }
   pedestrians(dt){
    const p=this.player,car=p.car!==null?this.actor():null;
    for(let n of this.peds){if(n.hidden||D.distance(n,p)>145)continue;n.panic=Math.max(0,n.panic-dt);
@@ -274,8 +291,9 @@
     let speed=n.speed*(n.panic?2.8:1);
     let direction=n.yaw;
     if(n.panic&&car)direction=Math.atan2(n.x-car.x,n.z-car.z);
-    let q=this.world.move(n.x,n.z,Math.sin(direction)*speed*dt,Math.cos(direction)*speed*dt,.35);const travelled=D.distance(n,q);n.x=q.x;n.z=q.z;n.moveSpeed=travelled/Math.max(dt,.001);n.phase+=travelled*(D.NaturalMotion?D.NaturalMotion.distanceRate(n.moveSpeed,n.panic?.5:0):3);
-    if(q.hit||n.z<n.homeZ+10||n.z>n.homeZ+74)n.yaw=D.wrap(n.yaw+Math.PI);
+    const q=n.sidewalkRoute?this.walkSidewalk(n,speed,dt,car):
+     this.world.move(n.x,n.z,Math.sin(direction)*speed*dt,Math.cos(direction)*speed*dt,.35);const travelled=D.distance(n,q);n.x=q.x;n.z=q.z;n.moveSpeed=travelled/Math.max(dt,.001);n.phase+=travelled*(D.NaturalMotion?D.NaturalMotion.distanceRate(n.moveSpeed,n.panic?.5:0):3);
+    if(!n.sidewalkRoute&&(q.hit||n.z<n.homeZ+10||n.z>n.homeZ+74))n.yaw=D.wrap(n.yaw+Math.PI);
     if(car&&D.distance(n,car)<1.8&&Math.abs(car.speed)>4&&this.cooldowns.crime<=0){this.addHeat(18);this.cooldowns.crime=3;n.panic=8;this.emit('toast','Un peatón ha dado la alarma. La policía busca tu vehículo.');}
    }
   }

@@ -1,3 +1,25 @@
+# v0.20.29 · Barrio del Mercado · 2026-11-26
+
+- Un residente recorre los 19 m de acera entre la parada del Mercado y la esquina. Espera en ambos extremos y corre al oír un claxon cercano.
+- El personaje 3D de Higgsfield tiene dos mallas de juego y tres animaciones con transiciones. El GLB de autoría incluye la corrección del pantalón en las rodillas.
+- Las marquesinas tienen un difusor bajo la cubierta. Su luz aumenta al anochecer y cae con la distancia hasta los cuatro metros.
+- Los zapatos y la sombra del jugador siguen la altura de la acera y del bordillo. El equipo en mano se eleva con el cuerpo.
+
+# v0.20.28 · Barrio del Mercado · 2026-11-26
+
+- Taller del Mercado y marquesinas con malla Higgsfield, mapas de material integrados y dos niveles de detalle.
+- Vitrinas de esquina con producto y profundidad interior, visibles desde dos aceras.
+- Ruedas del sedán con radios bifurcados, disco y pinza. La palma sigue el tirador al entrar.
+- Dos animaciones corporales en el GLB de autoría del personaje Higgsfield.
+
+# v0.20.27 · Coherencia · 2026-11-26
+
+La chaqueta conserva los vértices fuente del escote y de su unión con el torso en los niveles de detalle intermedio y lejano. Ambos niveles comparten una sola malla de 3.965 triángulos.
+
+# v0.20.26 · Coherencia · 2026-11-26
+
+El tirador se mantiene unido al panel de la puerta al abrirse o cerrarse, incluso con daño lateral o con la suspensión inclinada.
+
 # v0.20.25 · Coherencia · 2026-11-25
 
 La chaqueta en LOD2 comparte la malla intermedia existente para conservar su

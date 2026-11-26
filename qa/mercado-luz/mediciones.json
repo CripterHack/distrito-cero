@@ -1,0 +1,164 @@
+{
+  "htmlSha256": {
+    "before": "8215b7e7cd2d68e54f0d746098a369cc84c2a9e494d08afe3386120e68706bf6",
+    "after": "0fbc8b3cbed52d0058516ffe7f41895e2a5ff44c5df6e6be73d620285348f773"
+  },
+  "chromium": "156.0.8078.79",
+  "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+  "sites": {
+    "taller": [
+      189.1144776261255,
+      103.36810315948911
+    ],
+    "marquesina": [
+      154.5,
+      130
+    ]
+  },
+  "roadWidth": 20,
+  "resident": [
+    155.5,
+    130
+  ],
+  "poseSha256": "16ce63da043c45eac96708c03ec0f1dfc45e3f550b72b7e35aba75689de74f4a",
+  "timeS": 1.25,
+  "sliderPercent": [
+    100,
+    0
+  ],
+  "frameSize": [
+    704,
+    422
+  ],
+  "quality": "balanced",
+  "cameras": {
+    "taller": [
+      [
+        174,
+        1.62,
+        98
+      ],
+      3.0
+    ],
+    "marquesina": [
+      [
+        161.5,
+        1.62,
+        127
+      ],
+      1.28
+    ]
+  },
+  "materials": {
+    "workshop": {
+      "sharedPixels": 26937,
+      "before": {
+        "day": {
+          "medianLuma": 143.4,
+          "medianBackgroundDifference": 70.2
+        },
+        "night": {
+          "medianLuma": 117.67,
+          "medianBackgroundDifference": 80.1
+        }
+      },
+      "after": {
+        "day": {
+          "medianLuma": 143.4,
+          "medianBackgroundDifference": 70.2
+        },
+        "night": {
+          "medianLuma": 117.67,
+          "medianBackgroundDifference": 80.1
+        }
+      }
+    },
+    "shelter": {
+      "sharedPixels": 8060,
+      "before": {
+        "day": {
+          "medianLuma": 45.86,
+          "medianBackgroundDifference": 16.82
+        },
+        "night": {
+          "medianLuma": 28.5,
+          "medianBackgroundDifference": 11.79
+        }
+      },
+      "after": {
+        "day": {
+          "medianLuma": 45.95,
+          "medianBackgroundDifference": 16.82
+        },
+        "night": {
+          "medianLuma": 63.89,
+          "medianBackgroundDifference": 25.6
+        }
+      }
+    },
+    "resident": {
+      "sharedPixels": 1371,
+      "before": {
+        "day": {
+          "medianLuma": 15.94,
+          "medianBackgroundDifference": 34.59
+        },
+        "night": {
+          "medianLuma": 8.74,
+          "medianBackgroundDifference": 22.73
+        }
+      },
+      "after": {
+        "day": {
+          "medianLuma": 15.94,
+          "medianBackgroundDifference": 34.59
+        },
+        "night": {
+          "medianLuma": 11.36,
+          "medianBackgroundDifference": 38.41
+        }
+      }
+    },
+    "jacketBand": {
+      "sharedPixels": 595,
+      "before": {
+        "day": {
+          "medianLuma": 14.08,
+          "medianBackgroundDifference": 31.8
+        },
+        "night": {
+          "medianLuma": 7.72,
+          "medianBackgroundDifference": 20.29
+        }
+      },
+      "after": {
+        "day": {
+          "medianLuma": 14.08,
+          "medianBackgroundDifference": 31.8
+        },
+        "night": {
+          "medianLuma": 10.57,
+          "medianBackgroundDifference": 39.15
+        }
+      }
+    }
+  },
+  "frameDifferences": {
+    "taller_day": {
+      "p99MaxChannelDelta": 0.0,
+      "changedPixelsOver4": 0
+    },
+    "taller_night": {
+      "p99MaxChannelDelta": 0.0,
+      "changedPixelsOver4": 0
+    },
+    "marquesina_day": {
+      "p99MaxChannelDelta": 0.0,
+      "changedPixelsOver4": 110
+    },
+    "marquesina_night": {
+      "p99MaxChannelDelta": 53.0,
+      "changedPixelsOver4": 20370
+    }
+  }
+}

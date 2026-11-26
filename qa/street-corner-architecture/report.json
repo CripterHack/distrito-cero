@@ -1,0 +1,237 @@
+{
+  "before": {
+    "sha256": "8e7a5b44624e52ad28c21fba272cb813a6b6f76aa5a3c1fffb2baebf5d464ec8",
+    "environment": {
+      "webGL": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    },
+    "views": {
+      "approach": {
+        "eye": [
+          76.4,
+          2.1,
+          5
+        ],
+        "target": [
+          64.5,
+          2,
+          15.3
+        ],
+        "calls": 73,
+        "triangles": 478880,
+        "stream": {
+          "loaded": 25,
+          "pending": 0,
+          "instances": 21364,
+          "buffers": 52
+        },
+        "world": 1337
+      },
+      "entrance": {
+        "eye": [
+          67.5,
+          1.76,
+          6.5
+        ],
+        "target": [
+          63.2,
+          1.88,
+          15.4
+        ],
+        "calls": 74,
+        "triangles": 486668,
+        "stream": {
+          "loaded": 25,
+          "pending": 0,
+          "instances": 21364,
+          "buffers": 52
+        },
+        "world": 1337
+      },
+      "corner": {
+        "eye": [
+          73.4,
+          1.79,
+          10.4
+        ],
+        "target": [
+          66.3,
+          1.88,
+          17.7
+        ],
+        "calls": 73,
+        "triangles": 490124,
+        "stream": {
+          "loaded": 25,
+          "pending": 0,
+          "instances": 21364,
+          "buffers": 52
+        },
+        "world": 1337
+      },
+      "return": {
+        "eye": [
+          77.6,
+          1.78,
+          20.2
+        ],
+        "target": [
+          67.8,
+          1.88,
+          18.3
+        ],
+        "calls": 68,
+        "triangles": 478304,
+        "stream": {
+          "loaded": 25,
+          "pending": 0,
+          "instances": 21364,
+          "buffers": 52
+        },
+        "world": 1337
+      },
+      "rural": {
+        "eye": [
+          5.5,
+          1.85,
+          2020
+        ],
+        "target": [
+          26,
+          2,
+          2041
+        ],
+        "calls": 85,
+        "triangles": 509678,
+        "stream": {
+          "loaded": 25,
+          "pending": 0,
+          "instances": 10724,
+          "buffers": 43
+        },
+        "world": 1337
+      }
+    }
+  },
+  "after": {
+    "sha256": "0a98c3d9cd81f485aebb2cf85e52918e1bccb32185bb86fc32fa0a8d46fa6c41",
+    "environment": {
+      "webGL": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    },
+    "views": {
+      "approach": {
+        "eye": [
+          76.4,
+          2.1,
+          5
+        ],
+        "target": [
+          64.5,
+          2,
+          15.3
+        ],
+        "calls": 82,
+        "triangles": 506528,
+        "stream": {
+          "loaded": 25,
+          "pending": 0,
+          "instances": 23003,
+          "buffers": 67
+        },
+        "world": 1337
+      },
+      "entrance": {
+        "eye": [
+          67.5,
+          1.76,
+          6.5
+        ],
+        "target": [
+          63.2,
+          1.88,
+          15.4
+        ],
+        "calls": 82,
+        "triangles": 511404,
+        "stream": {
+          "loaded": 25,
+          "pending": 0,
+          "instances": 23003,
+          "buffers": 67
+        },
+        "world": 1337
+      },
+      "corner": {
+        "eye": [
+          73.4,
+          1.79,
+          10.4
+        ],
+        "target": [
+          66.3,
+          1.88,
+          17.7
+        ],
+        "calls": 82,
+        "triangles": 517772,
+        "stream": {
+          "loaded": 25,
+          "pending": 0,
+          "instances": 23003,
+          "buffers": 67
+        },
+        "world": 1337
+      },
+      "return": {
+        "eye": [
+          77.6,
+          1.78,
+          20.2
+        ],
+        "target": [
+          67.8,
+          1.88,
+          18.3
+        ],
+        "calls": 78,
+        "triangles": 506476,
+        "stream": {
+          "loaded": 25,
+          "pending": 0,
+          "instances": 23003,
+          "buffers": 67
+        },
+        "world": 1337
+      },
+      "rural": {
+        "eye": [
+          5.5,
+          1.85,
+          2020
+        ],
+        "target": [
+          26,
+          2,
+          2041
+        ],
+        "calls": 85,
+        "triangles": 509678,
+        "stream": {
+          "loaded": 25,
+          "pending": 0,
+          "instances": 10724,
+          "buffers": 43
+        },
+        "world": 1337
+      }
+    }
+  },
+  "changedPixels": {
+    "approach": 164471,
+    "entrance": 236151,
+    "corner": 209868,
+    "return": 268734,
+    "rural": 0
+  }
+}

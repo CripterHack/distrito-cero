@@ -1,0 +1,768 @@
+{
+  "htmlSha256": "eea706081b10f04383614db3dd9456277dbb85e0a48ac69a056c2013f086b8eb",
+  "frames": {
+    "idle": {
+      "metrics": {
+        "heightAboveCurb": [
+          3.315304242246242e-08,
+          1.8428175300709073
+        ],
+        "paletteRms": {
+          "Reposo": 0,
+          "Marcha": 0.10919784956941489,
+          "Carrera": 0.36422316029878565
+        }
+      },
+      "calls": [
+        {
+          "key": "marketPed0",
+          "main": false,
+          "vertices": 29319,
+          "instances": 1
+        },
+        {
+          "key": "marketPed0",
+          "main": true,
+          "vertices": 29319,
+          "instances": 1
+        }
+      ],
+      "slot": 5,
+      "otherCrowdMeshes": 40,
+      "parts": [
+        "marketPed0",
+        "smoke"
+      ],
+      "actorVisits": 1,
+      "time": 5.366666666666653,
+      "pos": [
+        155.5,
+        130
+      ],
+      "speed": 0,
+      "phase": 2.9371567931957543,
+      "panic": 0,
+      "yaw": 0,
+      "camera": [
+        158.05,
+        1.36,
+        132.2
+      ],
+      "playerRange": 41.427647772954714,
+      "roi": [
+        228,
+        0,
+        559,
+        526
+      ],
+      "sha256": "320ca4d1f541ca34ad907e4ef19a877795d7ef24c8c0c68f20287be2399e6472",
+      "poseSha256": "d9c531c0c306c449b39c8427370adf1dcca80bad3c4928a7cd3a42db4e0ffcb6",
+      "visibleActorPixels": 37013,
+      "visibilityControlSha256": "cd694aa5a58224f24ce9b2248bfa81eb0f4372c5dfb01e3fa026fe3da64cc162"
+    },
+    "rest": {
+      "metrics": null,
+      "calls": [
+        {
+          "key": "marketPed0",
+          "main": false,
+          "vertices": 29319,
+          "instances": 1
+        },
+        {
+          "key": "marketPed0",
+          "main": true,
+          "vertices": 29319,
+          "instances": 1
+        }
+      ],
+      "slot": 5,
+      "otherCrowdMeshes": 40,
+      "parts": [
+        "marketPed0",
+        "smoke"
+      ],
+      "actorVisits": 1,
+      "time": 6.11666666666665,
+      "pos": [
+        155.5,
+        130
+      ],
+      "speed": 0,
+      "phase": 2.9371567931957543,
+      "panic": 0,
+      "yaw": 0,
+      "camera": [
+        158.05,
+        1.36,
+        132.2
+      ],
+      "playerRange": 41.427647772954714,
+      "roi": [
+        228,
+        0,
+        559,
+        526
+      ],
+      "sha256": "0473b7a29e24da7ef99f48dd930a8b92edebc4af0d30fa1796512ae07f3b3bfb",
+      "poseSha256": "97f00e1d8f1652e7676fd0d2f8d2743b32b558c8ce49f007c5dd50d83f050a8d"
+    },
+    "walk": {
+      "metrics": {
+        "heightAboveCurb": [
+          -0.00010333680050286786,
+          1.7967142300972285
+        ],
+        "paletteRms": {
+          "Reposo": 0.08260853336613216,
+          "Marcha": 1.7561074905018707e-08,
+          "Carrera": 0.29114763214543044
+        }
+      },
+      "calls": [
+        {
+          "key": "marketPed0",
+          "main": false,
+          "vertices": 29319,
+          "instances": 1
+        },
+        {
+          "key": "marketPed0",
+          "main": true,
+          "vertices": 29319,
+          "instances": 1
+        }
+      ],
+      "slot": 5,
+      "otherCrowdMeshes": 40,
+      "parts": [
+        "marketPed0",
+        "smoke"
+      ],
+      "actorVisits": 1,
+      "time": 8.066666666666647,
+      "pos": [
+        155.5,
+        130.40500000000014
+      ],
+      "speed": 1.3500000000004775,
+      "phase": 5.3998512743449645,
+      "panic": 0,
+      "yaw": 0,
+      "camera": [
+        158.05,
+        1.36,
+        132.60500000000013
+      ],
+      "playerRange": 41.79945005619106,
+      "roi": [
+        228,
+        0,
+        559,
+        526
+      ],
+      "sha256": "1a8d8766d49c71bc4009e9109963ef3e5313906e9e8c21ca0905d9edefb2b126",
+      "poseSha256": "7a948474628e5afda81f18c6dfe415ceaceae473cd52bce57658f918d22d15f3",
+      "visibleActorPixels": 33073,
+      "visibilityControlSha256": "fa2b324dabf20d066b37b96b2b970fd665d26b5e8cc3ba0bcd73767bb46a4463"
+    },
+    "stride": {
+      "metrics": {
+        "heightAboveCurb": [
+          -0.00010576822353158821,
+          1.8024662452555755
+        ],
+        "paletteRms": {
+          "Reposo": 0.06451679839774657,
+          "Marcha": 2.3975627539377623e-08,
+          "Carrera": 0.2872402352629106
+        }
+      },
+      "calls": [
+        {
+          "key": "marketPed0",
+          "main": false,
+          "vertices": 29319,
+          "instances": 1
+        },
+        {
+          "key": "marketPed0",
+          "main": true,
+          "vertices": 29319,
+          "instances": 1
+        }
+      ],
+      "slot": 5,
+      "otherCrowdMeshes": 40,
+      "parts": [
+        "marketPed0",
+        "smoke"
+      ],
+      "actorVisits": 1,
+      "time": 8.416666666666664,
+      "pos": [
+        155.5,
+        130.8775000000003
+      ],
+      "speed": 1.3500000000004775,
+      "phase": 8.27299483568571,
+      "panic": 0,
+      "yaw": 0,
+      "camera": [
+        158.05,
+        1.36,
+        133.0775000000003
+      ],
+      "playerRange": 42.2339911238569,
+      "roi": [
+        228,
+        0,
+        559,
+        526
+      ],
+      "sha256": "af5f0511404e9090f42313fe0b0e3621101c1e1042c8f74428d3f7573e970e0c",
+      "poseSha256": "44f188a47c0abf1d4d2887b1dd88c4b262ee4e5bdf0bcae73a0374f4bebf2814",
+      "visibleActorPixels": 35194,
+      "visibilityControlSha256": "022389e236042202fc2a304df55677cc415a18fb7b11612f43e7ede5a4f87c5d"
+    },
+    "far": {
+      "metrics": {
+        "heightAboveCurb": [
+          6.067935977280281e-05,
+          1.8024662452555755
+        ],
+        "paletteRms": {
+          "Reposo": 0.06451679839774657,
+          "Marcha": 2.3975627539377623e-08,
+          "Carrera": 0.2872402352629106
+        }
+      },
+      "calls": [
+        {
+          "key": "marketPed1",
+          "main": false,
+          "vertices": 15993,
+          "instances": 1
+        },
+        {
+          "key": "marketPed1",
+          "main": true,
+          "vertices": 15993,
+          "instances": 1
+        }
+      ],
+      "slot": 5,
+      "otherCrowdMeshes": 40,
+      "parts": [
+        "marketPed1",
+        "smoke"
+      ],
+      "actorVisits": 1,
+      "time": 8.416666666666664,
+      "pos": [
+        155.5,
+        130.8775000000003
+      ],
+      "speed": 1.3500000000004775,
+      "phase": 8.27299483568571,
+      "panic": 0,
+      "yaw": 0,
+      "camera": [
+        161.1,
+        1.65,
+        154.5775000000003
+      ],
+      "playerRange": 42.2339911238569,
+      "roi": [
+        366,
+        227,
+        408,
+        293
+      ],
+      "sha256": "68131073a3881fe99f24ccc6c042957a0c1ae97446601a193f495f236dc00c8f",
+      "poseSha256": "44f188a47c0abf1d4d2887b1dd88c4b262ee4e5bdf0bcae73a0374f4bebf2814",
+      "visibleActorPixels": 869,
+      "visibilityControlSha256": "71ca4ef52c164f5470b602fea65e7199b4fb830fb4a3d21a00caf59a2624c820"
+    },
+    "alert": {
+      "metrics": {
+        "heightAboveCurb": [
+          -0.00036036849963311246,
+          1.7866939036365344
+        ],
+        "paletteRms": {
+          "Reposo": 0.3296800163036591,
+          "Marcha": 0.29119357139378077,
+          "Carrera": 1.898074495464191e-08
+        }
+      },
+      "calls": [
+        {
+          "key": "marketPed0",
+          "main": false,
+          "vertices": 29319,
+          "instances": 1
+        },
+        {
+          "key": "marketPed0",
+          "main": true,
+          "vertices": 29319,
+          "instances": 1
+        }
+      ],
+      "slot": 3,
+      "otherCrowdMeshes": 36,
+      "parts": [
+        "marketPed0",
+        "smoke"
+      ],
+      "actorVisits": 1,
+      "time": 13.1666666666669,
+      "pos": [
+        155.5,
+        137.93800000000226
+      ],
+      "speed": 3.7799999999992906,
+      "phase": 48.03924322890151,
+      "panic": 2.7333333333333343,
+      "yaw": 0,
+      "camera": [
+        158.05,
+        1.36,
+        140.13800000000225
+      ],
+      "playerRange": 18.095348382518832,
+      "roi": [
+        228,
+        0,
+        559,
+        526
+      ],
+      "sha256": "031d1ae903c4ad08b0ce1485cfedb091c551aba023239e2b7280534f969cc00a",
+      "poseSha256": "ecea4083d00a9a1b803e720522ac3286a37eb46621b66318ac0b8f3c4db360f2",
+      "visibleActorPixels": 33192,
+      "visibilityControlSha256": "a2b00f65dcd50fc01e5a11bb2cd65f80ca2e6647283ead9e65ca82ca358589c4"
+    }
+  },
+  "environment": {
+    "seed": 1337,
+    "actor": "ped:38",
+    "actorOrigin": [
+      155.5,
+      130
+    ],
+    "workshop": [
+      168,
+      96
+    ],
+    "webgl": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+    "clips": {
+      "Marcha": {
+        "duration": 0.7654037475585938
+      },
+      "Reposo": {
+        "duration": 4
+      },
+      "Carrera": {
+        "duration": 0.5655468702316284
+      }
+    },
+    "canvas": [
+      774,
+      528
+    ]
+  },
+  "chromium": "156.0.8078.79",
+  "strideMaskChangedPixels": 14579,
+  "horn": {
+    "range": 19.94060694051544,
+    "horn": 0.9833333333333333,
+    "panic": 2.9833333333333334
+  },
+  "motion": {
+    "marcha": [
+      {
+        "pos": [
+          155.5,
+          130.8775000000003
+        ],
+        "phase": 8.27299483568571,
+        "time": 8.416666666666664,
+        "speed": 1.3500000000004775,
+        "poseSha256": "44f188a47c0abf1d4d2887b1dd88c4b262ee4e5bdf0bcae73a0374f4bebf2814"
+      },
+      {
+        "pos": [
+          155.5,
+          130.99000000000035
+        ],
+        "phase": 8.957076636004935,
+        "time": 8.500000000000002,
+        "speed": 1.3500000000004775,
+        "poseSha256": "cfa5a84001054568afc7c668f1216b8816a3baa90f522bd64849f483704ac12e"
+      },
+      {
+        "pos": [
+          155.5,
+          131.1025000000004
+        ],
+        "phase": 9.64115843632416,
+        "time": 8.58333333333334,
+        "speed": 1.3500000000004775,
+        "poseSha256": "fc4bd3af10c77cacc99319e442033014e67258f5cdd1c22b8f95060c7808d95f"
+      },
+      {
+        "pos": [
+          155.5,
+          131.21500000000043
+        ],
+        "phase": 10.325240236643385,
+        "time": 8.666666666666677,
+        "speed": 1.3500000000004775,
+        "poseSha256": "66a34e7c6fab5657d4606799a3d92c5b651b7e0bb637fb430b1fcb41297b1ba6"
+      },
+      {
+        "pos": [
+          155.5,
+          131.32750000000047
+        ],
+        "phase": 11.00932203696261,
+        "time": 8.750000000000014,
+        "speed": 1.3500000000004775,
+        "poseSha256": "5b5cf5bbf0ba8b1913a6028cbc614a47189409ed720e1ab210305c2385c3cda6"
+      },
+      {
+        "pos": [
+          155.5,
+          131.4400000000005
+        ],
+        "phase": 11.693403837281835,
+        "time": 8.833333333333352,
+        "speed": 1.3500000000004775,
+        "poseSha256": "08e76b773536642af30aa2abfd9430562f47d519d053578961165ebfb6898c9c"
+      },
+      {
+        "pos": [
+          155.5,
+          131.55250000000055
+        ],
+        "phase": 12.37748563760106,
+        "time": 8.91666666666669,
+        "speed": 1.3500000000004775,
+        "poseSha256": "5a86ee6c0d487ff2fae9922d7c2fee464fd8ffb3045bd118ec453cd29347ca9f"
+      },
+      {
+        "pos": [
+          155.5,
+          131.6650000000006
+        ],
+        "phase": 13.061567437920285,
+        "time": 9.000000000000027,
+        "speed": 1.3500000000004775,
+        "poseSha256": "b7e73ea2c97fc605de9225241c739b4f2e597749ad903f259be13361422a02f4"
+      },
+      {
+        "pos": [
+          155.5,
+          131.77750000000063
+        ],
+        "phase": 13.74564923823951,
+        "time": 9.083333333333364,
+        "speed": 1.3500000000004775,
+        "poseSha256": "04b5926ca547b8bb49ffce9ff6d86f67d92d5cf924b187409e44291472e7b016"
+      },
+      {
+        "pos": [
+          155.5,
+          131.89000000000067
+        ],
+        "phase": 14.429731038558735,
+        "time": 9.166666666666702,
+        "speed": 1.3500000000004775,
+        "poseSha256": "0effe094ee2cacfe39d828b88f585140ec54f8b5ea5f06daad75fb02192961b8"
+      },
+      {
+        "pos": [
+          155.5,
+          132.0025000000007
+        ],
+        "phase": 15.11381283887796,
+        "time": 9.250000000000039,
+        "speed": 1.3500000000004775,
+        "poseSha256": "8816e3ee7390bf6835c63c08a2cae368ce967660a62960a1f669191014771312"
+      },
+      {
+        "pos": [
+          155.5,
+          132.11500000000075
+        ],
+        "phase": 15.797894639197185,
+        "time": 9.333333333333377,
+        "speed": 1.3500000000004775,
+        "poseSha256": "f572eb32cd953a0c97d01ae924583e82ad5feab3f4d2dd0389da917109bbc490"
+      },
+      {
+        "pos": [
+          155.5,
+          132.2275000000008
+        ],
+        "phase": 16.481976439516416,
+        "time": 9.416666666666714,
+        "speed": 1.3500000000004775,
+        "poseSha256": "afe0630c7177dd1794f145a359cc9d1ad2217dac9e6904cfab211ff8b3c863b0"
+      },
+      {
+        "pos": [
+          155.5,
+          132.34000000000083
+        ],
+        "phase": 17.16605823983565,
+        "time": 9.500000000000052,
+        "speed": 1.3500000000004775,
+        "poseSha256": "27ce2053bb7380130bc4a92ea9012640aa3f90a52e0767c83cca09980436f47d"
+      }
+    ],
+    "carrera": [
+      {
+        "pos": [
+          155.5,
+          137.93800000000226
+        ],
+        "phase": 48.03924322890151,
+        "time": 13.1666666666669,
+        "speed": 3.7799999999992906,
+        "poseSha256": "ecea4083d00a9a1b803e720522ac3286a37eb46621b66318ac0b8f3c4db360f2"
+      },
+      {
+        "pos": [
+          155.5,
+          138.2530000000022
+        ],
+        "phase": 48.96507058391436,
+        "time": 13.250000000000238,
+        "speed": 3.7799999999992906,
+        "poseSha256": "f4362c2aadb11aa712363fae76ee150f5b72a524f7cd873765de9bd7f42a6586"
+      },
+      {
+        "pos": [
+          155.5,
+          138.56800000000214
+        ],
+        "phase": 49.89089793892721,
+        "time": 13.333333333333576,
+        "speed": 3.7799999999992906,
+        "poseSha256": "e2d60f4a99bca1dbc48dfd32a0b41d13c187860ce7526a7df22c26e59f92c4de"
+      },
+      {
+        "pos": [
+          155.5,
+          138.88300000000208
+        ],
+        "phase": 50.81672529394006,
+        "time": 13.416666666666913,
+        "speed": 3.7799999999992906,
+        "poseSha256": "6158b4ba5309900600417d5462c67cc698d073167e495bdae3b5b682ac769000"
+      },
+      {
+        "pos": [
+          155.5,
+          139.19800000000203
+        ],
+        "phase": 51.74255264895291,
+        "time": 13.50000000000025,
+        "speed": 3.7799999999992906,
+        "poseSha256": "b92c36893f71c5a285debd5db0e083f8cbbb2e159da4493dae329222897a4812"
+      },
+      {
+        "pos": [
+          155.5,
+          139.51300000000197
+        ],
+        "phase": 52.66838000396576,
+        "time": 13.583333333333588,
+        "speed": 3.7799999999992906,
+        "poseSha256": "77774871391be683530cb4eb634e96c4eef94bd273f4df201787247cc6d835e8"
+      },
+      {
+        "pos": [
+          155.5,
+          139.8280000000019
+        ],
+        "phase": 53.59420735897861,
+        "time": 13.666666666666925,
+        "speed": 3.7799999999992906,
+        "poseSha256": "bc2d04f53b2bff6d5aeab6fb822677663b9142e2c9c3478c1bd055ed932a8490"
+      },
+      {
+        "pos": [
+          155.5,
+          140.14300000000185
+        ],
+        "phase": 54.52003471399146,
+        "time": 13.750000000000263,
+        "speed": 3.7799999999992906,
+        "poseSha256": "9e45301192dea1c71eb633a1601b1bc8a400b5fad023bfd2e619428699263c4c"
+      },
+      {
+        "pos": [
+          155.5,
+          140.4580000000018
+        ],
+        "phase": 55.445862069004306,
+        "time": 13.8333333333336,
+        "speed": 3.7799999999992906,
+        "poseSha256": "fd6e2445adf70ed560044d992bb6c01b9f83c3ee6bc834ced79fb34bb22080c2"
+      },
+      {
+        "pos": [
+          155.5,
+          140.77300000000173
+        ],
+        "phase": 56.371689424017156,
+        "time": 13.916666666666938,
+        "speed": 3.7799999999992906,
+        "poseSha256": "333943769ca8632a44beacb2780d07a49824b8cdbdfa9bf15226b748c09fe0fb"
+      },
+      {
+        "pos": [
+          155.5,
+          141.08800000000167
+        ],
+        "phase": 57.297516779030005,
+        "time": 14.000000000000275,
+        "speed": 3.7799999999992906,
+        "poseSha256": "c6a856a0d5426c939a82d9f0a4b92966a8980fef7b76488c11bbac8f14af6ba5"
+      },
+      {
+        "pos": [
+          155.5,
+          141.4030000000016
+        ],
+        "phase": 58.223344134042854,
+        "time": 14.083333333333613,
+        "speed": 3.7799999999992906,
+        "poseSha256": "9788cd3349e4b989b8b144d316afd79204c4cbe69985c07b96f5901e29f27fa3"
+      },
+      {
+        "pos": [
+          155.5,
+          141.71800000000155
+        ],
+        "phase": 59.1491714890557,
+        "time": 14.16666666666695,
+        "speed": 3.7799999999992906,
+        "poseSha256": "ac314349aff53fe578947851a00330bdf16872c26e8cbdc4e2437362175f75d7"
+      },
+      {
+        "pos": [
+          155.5,
+          142.0330000000015
+        ],
+        "phase": 60.07499884406855,
+        "time": 14.250000000000288,
+        "speed": 3.7799999999992906,
+        "poseSha256": "ff3fa42dc02563174d18af416bd67b5eea70067ee07461d40e7d6c5e7a703fb7"
+      }
+    ]
+  },
+  "gameplayViews": {
+    "street": {
+      "player": [
+        160.94624259304643,
+        145.58042450567757
+      ],
+      "resident": [
+        155.5,
+        139.6525000000034
+      ],
+      "start": [
+        172,
+        92
+      ],
+      "approachSeconds": 8.883333333333333,
+      "yaw": -2.7885179645710583,
+      "camera": [
+        162.35669701672677,
+        2.660796924531014,
+        149.40780612356042
+      ],
+      "target": [
+        160.94624259304643,
+        1.3,
+        145.58042450567757
+      ],
+      "fov": 1.1309733552923256,
+      "mode": 0,
+      "visibleActorPixels": 1790,
+      "mainDraws": [
+        {
+          "key": "marketPed0",
+          "main": true,
+          "vertices": 29319,
+          "instances": 1
+        }
+      ]
+    },
+    "sidewalk": {
+      "player": [
+        156.85630222456163,
+        141.59919430609622
+      ],
+      "resident": [
+        155.5,
+        138.59500000000304
+      ],
+      "start": [
+        172,
+        92
+      ],
+      "approachSeconds": 8.366666666666667,
+      "yaw": -3.107517328201846,
+      "camera": [
+        156.99526854151398,
+        2.660796924531014,
+        145.67582527945396
+      ],
+      "target": [
+        156.85630222456163,
+        1.3,
+        141.59919430609622
+      ],
+      "fov": 1.1309733552923256,
+      "mode": 0,
+      "visibleActorPixels": 4458,
+      "mainDraws": [
+        {
+          "key": "marketPed0",
+          "main": true,
+          "vertices": 29319,
+          "instances": 1
+        }
+      ]
+    }
+  },
+  "fallback": {
+    "actor": "ped:38",
+    "atlasDecodeFailures": 1,
+    "nativeDraws": 0,
+    "genericCrowdMeshes": [
+      "crowd1_eye",
+      "crowd1_face",
+      "crowd1_hair",
+      "crowd1_iris",
+      "crowd1_jacket",
+      "crowd1_metal",
+      "crowd1_pants",
+      "crowd1_pupil",
+      "crowd1_rubber",
+      "crowd1_skin",
+      "crowd1_sole",
+      "groom_2_1_locks",
+      "groom_2_1_root"
+    ],
+    "actorVisits": 1,
+    "glError": 0
+  },
+  "errors": []
+}

@@ -51,6 +51,13 @@
   for(let i=0;i<corners;i++){const g=cornerGroups[i];uv[i*2]=g[0]/g[2];uv[i*2+1]=g[1]/g[2];}
   return uv;
  }
+ // Grid centers are in the canonical character's rest space (metres).
+ // Lock the authored neckline and its first torso ring as whole cells so
+ // that neighboring reduced faces attach to the same boundary vertices.
+ function necklineCell(gridX,gridY,gridZ,cell){
+  const x=gridX*cell, z=gridZ*cell+.01;
+  return gridY*cell>=1.45 && x*x+z*z<=.112*.112;
+ }
  function reduce(data,cell,options={}){
   if(!(data instanceof Float32Array)||data.length%48||!Number.isFinite(cell)||cell<=0)throw new Error('Invalid LOD input');
   // Optional authoring metadata preserves pre-atlas spatial/UV clusters. New
@@ -58,16 +65,29 @@
   const clusterUV=options.clusterUV;
   if(clusterUV!==undefined&&(!(clusterUV instanceof Uint16Array)||!options.preserveUV||clusterUV.length!==data.length/16||clusterUV.some(v=>v>1088)))throw new Error('Invalid LOD cluster UV metadata');
   if(options.weldUVSeams!==undefined&&typeof options.weldUVSeams!=='boolean'||options.weldUVSeams&&!options.preserveUV)throw new Error('Invalid LOD seam welding: UV preservation is required');
+  const keepCollar=options.preserveJacketNeckline===true;
+  if(keepCollar&&options.preserveUV)throw new Error('Jacket neckline and face UV policies are distinct');
   const clusters=new Map(),indices=[],verts=[];
   for(let i=0;i<data.length;i+=16){
+   const gx=Math.round(data[i]/cell),gy=Math.round(data[i+1]/cell),gz=Math.round(data[i+2]/cell);
+   if(keepCollar && necklineCell(gx,gy,gz,cell)){
+    const sourceRow=data.subarray(i,i+16);
+    // Include UV, normal and skinning attributes: equal positions alone
+    // would weld distinct source corners at seams.
+    const key='source:'+sourceRow.join(':');
+    let id=clusters.get(key);
+    if(id===undefined){id=verts.length;clusters.set(key,id);verts.push({sourceRow});}
+    indices.push(id);
+    continue;
+   }
    let dominant=0;for(let j=1;j<4;j++)if(data[i+12+j]>data[i+12+dominant])dominant=j;
    const uvBin=clusterUV?.[i/16];
-   const key=[Math.round(data[i]/cell),Math.round(data[i+1]/cell),Math.round(data[i+2]/cell),data[i+8+dominant],...(options.preserveUV?(clusterUV?[uvBin%33,Math.floor(uvBin/33)]:[Math.floor(data[i+6]*32),Math.floor(data[i+7]*32)]):[])].join(':');
+   const key=[gx,gy,gz,data[i+8+dominant],...(options.preserveUV?(clusterUV?[uvBin%33,Math.floor(uvBin/33)]:[Math.floor(data[i+6]*32),Math.floor(data[i+7]*32)]):[])].join(':');
    let id=clusters.get(key);if(id===undefined){id=verts.length;clusters.set(key,id);verts.push({sum:new Float64Array(8),weights:new Map(),count:0});}
    const v=verts[id];v.count++;for(let k=0;k<8;k++)v.sum[k]+=data[i+k];for(let k=0;k<4;k++){const j=data[i+8+k];v.weights.set(j,(v.weights.get(j)||0)+data[i+12+k]);}indices.push(id);
   }
   if(options.weldUVSeams)weldSeamClusters(data,indices,verts);
-  const rows=verts.map(v=>{const row=new Float32Array(16);for(let j=0;j<8;j++)row[j]=v.sum[j]/v.count;const l=Math.hypot(row[3],row[4],row[5])||1;for(let j=3;j<6;j++)row[j]/=l;
+  const rows=verts.map(v=>{if(v.sourceRow)return v.sourceRow;const row=new Float32Array(16);for(let j=0;j<8;j++)row[j]=v.sum[j]/v.count;const l=Math.hypot(row[3],row[4],row[5])||1;for(let j=3;j<6;j++)row[j]/=l;
    const weights=[...v.weights].sort((a,b)=>b[1]-a[1]).slice(0,4),sum=weights.reduce((a,b)=>a+b[1],0);weights.forEach(([joint,w],i)=>{row[8+i]=joint;row[12+i]=w/sum;});return row;
   });
   const atlasUV=clusterUV||options.weldUVSeams?islandClusterUV(data,indices):null;

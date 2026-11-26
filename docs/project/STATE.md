@@ -1,8 +1,36 @@
-# Estado vigente · candidata v0.20.25 · cobertura de chaqueta en LOD2
+# Candidata v0.20.29 · El residente del Mercado
+
+El civil de Higgsfield aparece en la acera de la marquesina del Mercado. Usa el puesto existente `ped:38`, un recorrido de ida y vuelta de 19 m, dos niveles de detalle y tres animaciones. La simulación regula el paso y el renderizador mezcla reposo, marcha y carrera. Las dos marquesinas tienen un difusor que ilumina al residente y el banco durante la noche. El avatar del jugador, sus objetos y su sombra siguen las superficies de acera y calzada durante el recorrido. [Especificación, reproducción y evidencia](../../specs/005-mercado-character/README.md).
+
+## Registro anterior
+
+# Candidata v0.20.28 · Barrio del Mercado
+
+La calle incorpora dos mallas generadas con Higgsfield: el taller de la misión y dos paradas que comparten una marquesina. El sedán recibe ruedas detalladas y una trayectoria de entrada medida contra el tirador. Los comercios de esquina añaden vitrinas visibles desde dos calles. El GLB de personaje de autoría conserva sus mapas 4K, los índices articulados y dos ciclos corporales. [Especificación y reproducción](../../specs/mercado-3d/README.md).
+
+## Registro anterior
+
+# Estado de la candidata v0.20.27 · inserción cervical de la chaqueta
+
+La malla compartida de chaqueta conserva los vértices de la abertura cervical y su unión con el torso en LOD1/2. La causa, los límites y el presupuesto están en el [contrato del escote](NECKLINE-DETAIL.md). Esta candidata incluye el arreglo del tirador de v0.20.26 y el diagnóstico de cámara del PR #67. La aceptación artística y la evaluación en hardware físico siguen pendientes.
+
+En la candidata pasaron 712 pruebas Node, 36 comprobaciones del benchmark de personajes y 25 de recuperación WebGL. La costura de nuca pasó 16 vistas y 33 criterios geométricos. El escote pasó 361 comparaciones con v0.20.25, incluidas las 42 vistas y los 85 rayos que dejaban ver piel en el borde antes del cambio. En una cámara de calle eco a 24,25 m (LOD1) cambiaron 28 píxeles. Las dos capturas con LOD2 a distancia de juego coincidieron con la versión anterior. La [galería](../../qa/neckline-detail-v02027/README.md) registra la franja central y los márgenes negativos que quedan frente a la piel reducida.
+
+## Registro anterior
+
+# Estado · v0.20.25 integrada en master
+
+El merge `ba9997df` incorpora los PR #63, #64 y #65. Los nueve trabajos de CI del PR #65 aprobaron el commit `079c8ad3`. La comprobación posterior del cuello en cámara de calle está documentada en la [revisión visual](../../qa/collar-street-v02025/README.md).
+
+## Registro previo al merge · candidata v0.20.25
 
 La chaqueta LOD2 reutiliza la malla y el recurso GPU de LOD1; las demás partes
 conservan su reducción. El cambio evita la simplificación más agresiva del
 escote y torso. [Contrato, coste y evidencia](COLLAR-LOD.md).
+
+### Trabajo posterior · candidata v0.20.26
+
+El tirador conserva su fijación al panel durante la apertura y el cierre de la puerta detallada, incluida la inclinación de suspensión y el desplazamiento por daño lateral. La simulación de acceso mantiene otro objetivo para la mano. [Mediciones y reproducción](../../qa/door-handle-v02026/README.md).
 
 Verificación local: **707/707 Node**, benchmark **36/36**, recuperación
 **25/25**, collar **42 vistas/173 guardas/110 criterios geométricos** y

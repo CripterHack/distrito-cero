@@ -1,6 +1,6 @@
 # Distrito Cero
 
-Aventura criminal original de navegador con exploración, conducción y una ciudad procedural. **Versión jugable: v0.20.25 · Coherencia (`0.20.25`, prototipo).** JavaScript, WebGL2, Canvas 2D y Web Audio nativos. Un HTML autónomo, sin librerías externas, CDN, telemetría remota ni conexión obligatoria durante la partida.
+Aventura criminal original de navegador con exploración, conducción y una ciudad procedural. **Versión jugable: v0.20.29 · Barrio del Mercado (`0.20.29`, prototipo).** JavaScript, WebGL2, Canvas 2D y Web Audio nativos. Un HTML autónomo, sin librerías externas, CDN, telemetría remota ni conexión obligatoria durante la partida.
 
 El proyecto es un prototipo integrado en desarrollo. La dirección artística busca realismo, pero **no se presenta como un juego AAA terminado ni como fotorrealista**.
 
@@ -18,6 +18,8 @@ Abrir `http://127.0.0.1:8080`. También se puede abrir `index.html` directamente
 No hace falta instalar paquetes para construir el HTML. Python 3.12 y Node 22 son los objetivos del entorno de integración continua. Las dependencias de `requirements-dev.txt` son exclusivamente de autoría y pruebas.
 
 ## Estado jugable
+
+En la parada del Taller del Mercado hay un residente con el personaje 3D de Higgsfield. Camina hasta la esquina, espera y vuelve. Desde un vehículo cercano, el claxon (Q) le hace correr. [Recorrido y animaciones](specs/005-mercado-character/README.md).
 
 Campaña dirigida y exploración libre, tráfico y persecuciones, vehículos conducibles con daño, objetos destruibles, regiones urbanas/futuristas/retro/rurales, creador de personajes con once opciones de cabello y catálogo local de hasta doce partidas con nombres. Arsenal ficticio con Gauss, EMP y binoculares. Las secuencias de acceso distinguen vehículos vacíos y ocupados. El selector de equipo es translúcido sobre la escena pausada.
 
