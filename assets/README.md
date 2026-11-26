@@ -4,6 +4,8 @@ Este directorio conserva insumos de autoría, bases geométricas, exportaciones 
 
 El Taller del Mercado y la marquesina tienen originales 4K, procedencia y métricas en [mercado-20261126](mercado-20261126/).
 
+El [escaparate modular «La Esquina»](mercado-20261126/escaparate-esquina.glb) incluye las dos vitrinas de la fachada, estanterías, productos y el rótulo que se ve desde la acera. [Ficha y dimensiones del modelo](mercado-20261126/escaparate-esquina.md) · [Iluminación nocturna dentro del juego](../qa/mercado-vitrinas-noche/README.md).
+
 El [civil del Mercado](higgsfield-20261125/character-walk.glb) tiene un rig de 49 huesos y seis animaciones. Las dos frenadas permiten examinar el último paso con el apoyo izquierdo o derecho antes de la media vuelta. Sus dos mallas de juego, los materiales y las poses se reconstruyen desde ese GLB. [Modelo, recorrido y validación](../specs/007-mercado-braking/README.md).
 
 El [sedán distante con ejes articulados](dc-native-sedan-far.glb) corresponde a la malla que se activa a 66 m en el juego. [Mediciones y receta](../qa/sedan-axles-v02031/README.md).
