@@ -42,6 +42,8 @@ los archivos que se deben abrir y su procedencia. [Modelos y recetas](HIGGSFIELD
 
 El job de lógica de #66 detectó que un checkout limpio carecía de `artifacts/`. La prueba del sedán prepara esa carpeta. La receta admite el destino documentado `artifacts/sedan-review-model`. Su reproducción conserva la huella del GLB entregado.
 
+**Actualización de autoría.** Ya se pueden revisar las manos cerrando cada índice en la [escena editable](../../assets/higgsfield-20261125/hand-authoring.md). El trabajo pendiente es reconstruir las paredes entre dedos y repetir las flexiones. El [proxy de ruedas](../../assets/higgsfield-20261125/sedan-contact-proxy.md) queda listo para autoría. El [corte del habitáculo](../../assets/higgsfield-20261125/sedan-cabin.md) mide los tobillos a unos 8,5 cm por debajo de los bajos en la pose de referencia. Ajustar el espacio para los pies y contrastar la posición de la manilla con la trayectoria de la mano antes de vincular la carrocería al acceso del juego.
+
 ## Registro anterior · v0.20.24
 
 # Continuación vigente · v0.20.24 · continuidad cervical LOD2 · refs #5

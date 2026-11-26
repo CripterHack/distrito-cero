@@ -26,6 +26,8 @@ rotar por separado en el editor. Las pruebas, las medidas y los comandos están
 en las fichas del [personaje](../../assets/higgsfield-20261125/character-lod-review.md)
 y del [sedán](../../assets/higgsfield-20261125/sedan-review.md).
 
+La siguiente entrega incluye una escena para reconstruir los espacios entre dedos, un proxy auxiliar de rodadura y una escena de Blender donde comparar el conductor nativo con el habitáculo del sedán. [Escena de manos](../../assets/higgsfield-20261125/hand-authoring.md) · [Contacto de ruedas](../../assets/higgsfield-20261125/sedan-contact-proxy.md) · [Alineación del habitáculo](../../assets/higgsfield-20261125/sedan-cabin.md).
+
 ## Verificación y preparación de las fuentes
 
 Los originales pasan Khronos glTF Validator 2.0.0-dev.3.10 con cero errores,
