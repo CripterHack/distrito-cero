@@ -1,0 +1,613 @@
+{
+  "schema": 1,
+  "productVersion": "0.20.25",
+  "scope": "Regresión preparada de cobertura cervical: jacket LOD2 reutiliza LOD1. No aceptación global de colisiones, anatomía, AAA ni rendimiento físico.",
+  "evidencePackage": "distrito-cero-v0.20.25-revision.zip",
+  "packagePathNote": "Rutas relativas dentro del paquete de revisión; los informes se capturaron antes del commit candidato. Las huellas HTML/productor identifican los bytes medidos.",
+  "provenance": {
+    "beforeReport": {
+      "packagePath": "evidencia/before-final/report.json",
+      "bytes": 11345633,
+      "sha256": "c61d619cede3132379a37aea82795359aacb6f5a41f94530bf78274dcc054f12"
+    },
+    "afterReport": {
+      "packagePath": "evidencia/after-final/report.json",
+      "bytes": 11369471,
+      "sha256": "6de962854245af263e6955c1623cecc1c725dd8d653743527f4039829312e233"
+    },
+    "comparison": {
+      "packagePath": "evidencia/collar-comparison-final.json",
+      "bytes": 52917,
+      "sha256": "b9bfb0264ddbadffc73f6060ed0cb767e472edd4ac8cd90ac53ae3ed7b656ea4"
+    },
+    "freeze": {
+      "packagePath": "evidencia/final-qa-freeze.json",
+      "bytes": 2467,
+      "sha256": "a208c057483b3d1a412465fa2d5b3fee3e7599ae29d873cb9e5fc712b84c91de"
+    },
+    "skinBefore": {
+      "packagePath": "evidencia/skin-clearance-before-final.json",
+      "bytes": 33121865,
+      "sha256": "c59a16485acb44db203b0bd1135ed8d11f8fa75de0eb119d6489797c15ed89cd"
+    },
+    "skinAfter": {
+      "packagePath": "evidencia/skin-clearance-after-final.json",
+      "bytes": 33862431,
+      "sha256": "59cd01c2730699b75d0c643e58a3f5b448997e8c9b96741669759d49682238ec"
+    },
+    "skinComparison": {
+      "packagePath": "evidencia/skin-clearance-comparison-final.json",
+      "bytes": 23585,
+      "sha256": "e1d50c341aaf9cf5ccc87a0daa52c4161d3a4ceed83fcdb7bdaacc057a89f1a1"
+    },
+    "producer": {
+      "packagePath": "tools/qa/render_collar_lod.py",
+      "bytes": 25342,
+      "sha256": "e468485e276f220517b3f0a9150e66492725a0a560a1ea21d01ae016a3ed2531"
+    },
+    "comparisonProducer": {
+      "packagePath": "evidencia/compare_final.py",
+      "bytes": 5256,
+      "sha256": "d0986bd8df21b4892573b247ae32e7ebe4dc54e92e87f224aeeaadbdeb5418b1"
+    },
+    "skinAuditProducer": {
+      "packagePath": "evidencia/audit_skin_clearance.py",
+      "bytes": 16089,
+      "sha256": "76cc9fa33252a6b7ff5def59472e51f74819fe41d1406bc808a5dc823547cb80"
+    },
+    "baselineHtml": {
+      "packagePath": "evidencia/baseline.html",
+      "bytes": 9806018,
+      "sha256": "50b5123b8dcbe27182e63eab5fe9d2647ddc73c5d080fb21e77adae5cb8f4de1"
+    },
+    "candidateHtml": {
+      "packagePath": "index.html",
+      "bytes": 9806323,
+      "sha256": "81c9f68654e0e14eddb9cfa73f6408038120d87943bb438c7d713adf64859003"
+    },
+    "fullSourceCoverage": {
+      "packagePath": "evidencia/fullsource-coverage-final.json",
+      "galleryFile": "fullsource-coverage-final.json",
+      "bytes": 27288,
+      "sha256": "3bef8bf808e7bb946fac6f94fb20fbdb746763c506d60ab1be456a86865c9e66"
+    }
+  },
+  "captureContract": {
+    "beforeVersion": "0.20.24",
+    "afterVersion": "0.20.25",
+    "capturesPerBuild": 42,
+    "fullOriginalImages": 84,
+    "selectedGalleryImages": 8,
+    "profiles": 4,
+    "posesPerProfile": 3,
+    "extraVisualViews": 6,
+    "viewport": [
+      720,
+      720
+    ],
+    "preparedPoses": true,
+    "continuousSimulation": false,
+    "physicalGpu": false,
+    "beforeCapturedHead": "2b72a688ae77fe595d8d3903c862257be261fc57",
+    "afterCapturedHead": "2b72a688ae77fe595d8d3903c862257be261fc57",
+    "sourceRestSha256": "86ba0aeb8a98df0aabe84a98cb5d90abdeeb34977b205e253c9e8a765b15daed",
+    "cohortSha256": "707cc3fe72280b129c1212f0a431465b430a6c4129142480aa39a1bf4e138f41",
+    "vertexShaderSha256": "8ac8e791386d2e79542b4a01c799d346a509831d7db1be3f97fa52b888c8f5d2",
+    "producerInputs": {
+      "html": "81c9f68654e0e14eddb9cfa73f6408038120d87943bb438c7d713adf64859003",
+      "stage": "d0de3db8463228c8c5c299895822bec18168067b74eec76da9c9fe48eff59ed8",
+      "matrix": "f722322ef61a6f42aee9af3568f8166b879479fb4fc6defb4ca874e3c9162569",
+      "nativeNeckHelper": "126bff11a06e7c23a9150276621ac215cd51f19cdeae5b6b78b4aabdc61ae45b",
+      "nativeSeamHelper": "fdb15b6477b59d0da40900f6039d9d1171d8fa618d14a316f36078cbcd1b93b1",
+      "fixture": "52dfc4bf5bd9c8490d7a1848affefd7bb7d7bfea69820821f12b0b985244373a",
+      "tool": "e468485e276f220517b3f0a9150e66492725a0a560a1ea21d01ae016a3ed2531"
+    }
+  },
+  "results": {
+    "beforeCaptureChecksPassed": 130,
+    "beforeGeometricFailures": 44,
+    "afterCaptureChecksPassed": 173,
+    "afterGeometricChecksPassed": 110,
+    "comparisonChecksPassed": 304,
+    "lod01PixelIdentities": 24,
+    "faceGeometryIdentities": 42,
+    "javascriptErrors": 0,
+    "externalRequests": 0
+  },
+  "coverage": {
+    "sourceUniqueAnchors": 611,
+    "conditions": [
+      {
+        "condition": "neutral/idle",
+        "sourceCovered": 367,
+        "core01": 289,
+        "coreLossBefore": 59,
+        "coreLossAfter": 0,
+        "fullSourceLossBefore": 119,
+        "fullSourceLossAfter": 78,
+        "lod1Debt": 78,
+        "newLossOutsideCore": 18,
+        "skinClearanceBefore": {
+          "known": 191,
+          "unknown": 98,
+          "negative": 0,
+          "minimumMarginMm": 0.19875114978801275,
+          "negativeSourceTriangleIDs": []
+        },
+        "skinClearanceAfter": {
+          "known": 249,
+          "unknown": 40,
+          "negative": 1,
+          "minimumMarginMm": -0.0751425595796913,
+          "negativeSourceTriangleIDs": [
+            9308
+          ]
+        }
+      },
+      {
+        "condition": "neutral/neck-left",
+        "sourceCovered": 351,
+        "core01": 284,
+        "coreLossBefore": 56,
+        "coreLossAfter": 0,
+        "fullSourceLossBefore": 107,
+        "fullSourceLossAfter": 67,
+        "lod1Debt": 67,
+        "newLossOutsideCore": 16,
+        "skinClearanceBefore": {
+          "known": 189,
+          "unknown": 95,
+          "negative": 0,
+          "minimumMarginMm": 0.11926472650704568,
+          "negativeSourceTriangleIDs": []
+        },
+        "skinClearanceAfter": {
+          "known": 244,
+          "unknown": 40,
+          "negative": 0,
+          "minimumMarginMm": 0.46268165122602667,
+          "negativeSourceTriangleIDs": []
+        }
+      },
+      {
+        "condition": "neutral/neck-right",
+        "sourceCovered": 352,
+        "core01": 283,
+        "coreLossBefore": 55,
+        "coreLossAfter": 0,
+        "fullSourceLossBefore": 108,
+        "fullSourceLossAfter": 69,
+        "lod1Debt": 69,
+        "newLossOutsideCore": 16,
+        "skinClearanceBefore": {
+          "known": 189,
+          "unknown": 94,
+          "negative": 0,
+          "minimumMarginMm": 0.22891354650063367,
+          "negativeSourceTriangleIDs": []
+        },
+        "skinClearanceAfter": {
+          "known": 243,
+          "unknown": 40,
+          "negative": 0,
+          "minimumMarginMm": 0.09007377239710346,
+          "negativeSourceTriangleIDs": []
+        }
+      },
+      {
+        "condition": "light/idle",
+        "sourceCovered": 363,
+        "core01": 294,
+        "coreLossBefore": 64,
+        "coreLossAfter": 0,
+        "fullSourceLossBefore": 117,
+        "fullSourceLossAfter": 69,
+        "lod1Debt": 69,
+        "newLossOutsideCore": 16,
+        "skinClearanceBefore": {
+          "known": 193,
+          "unknown": 101,
+          "negative": 2,
+          "minimumMarginMm": -0.2390726535830314,
+          "negativeSourceTriangleIDs": [
+            9333,
+            9615
+          ]
+        },
+        "skinClearanceAfter": {
+          "known": 256,
+          "unknown": 38,
+          "negative": 0,
+          "minimumMarginMm": 0.04670807914598035,
+          "negativeSourceTriangleIDs": []
+        }
+      },
+      {
+        "condition": "light/neck-left",
+        "sourceCovered": 356,
+        "core01": 290,
+        "coreLossBefore": 63,
+        "coreLossAfter": 0,
+        "fullSourceLossBefore": 114,
+        "fullSourceLossAfter": 66,
+        "lod1Debt": 66,
+        "newLossOutsideCore": 15,
+        "skinClearanceBefore": {
+          "known": 190,
+          "unknown": 100,
+          "negative": 3,
+          "minimumMarginMm": -0.2605603847396355,
+          "negativeSourceTriangleIDs": [
+            9333,
+            9439,
+            9615
+          ]
+        },
+        "skinClearanceAfter": {
+          "known": 252,
+          "unknown": 38,
+          "negative": 1,
+          "minimumMarginMm": -0.011387055719590382,
+          "negativeSourceTriangleIDs": [
+            9220
+          ]
+        }
+      },
+      {
+        "condition": "light/neck-right",
+        "sourceCovered": 354,
+        "core01": 292,
+        "coreLossBefore": 64,
+        "coreLossAfter": 0,
+        "fullSourceLossBefore": 113,
+        "fullSourceLossAfter": 62,
+        "lod1Debt": 62,
+        "newLossOutsideCore": 13,
+        "skinClearanceBefore": {
+          "known": 191,
+          "unknown": 101,
+          "negative": 2,
+          "minimumMarginMm": -0.41696307518316245,
+          "negativeSourceTriangleIDs": [
+            9333,
+            9615
+          ]
+        },
+        "skinClearanceAfter": {
+          "known": 254,
+          "unknown": 38,
+          "negative": 1,
+          "minimumMarginMm": -0.19592918359185538,
+          "negativeSourceTriangleIDs": [
+            9335
+          ]
+        }
+      },
+      {
+        "condition": "robust/idle",
+        "sourceCovered": 408,
+        "core01": 310,
+        "coreLossBefore": 53,
+        "coreLossAfter": 0,
+        "fullSourceLossBefore": 134,
+        "fullSourceLossAfter": 98,
+        "lod1Debt": 98,
+        "newLossOutsideCore": 17,
+        "skinClearanceBefore": {
+          "known": 214,
+          "unknown": 96,
+          "negative": 1,
+          "minimumMarginMm": -0.005952154742594321,
+          "negativeSourceTriangleIDs": [
+            9545
+          ]
+        },
+        "skinClearanceAfter": {
+          "known": 267,
+          "unknown": 43,
+          "negative": 0,
+          "minimumMarginMm": 0.17425537637508778,
+          "negativeSourceTriangleIDs": []
+        }
+      },
+      {
+        "condition": "robust/neck-left",
+        "sourceCovered": 396,
+        "core01": 322,
+        "coreLossBefore": 53,
+        "coreLossAfter": 0,
+        "fullSourceLossBefore": 115,
+        "fullSourceLossAfter": 74,
+        "lod1Debt": 74,
+        "newLossOutsideCore": 12,
+        "skinClearanceBefore": {
+          "known": 226,
+          "unknown": 96,
+          "negative": 1,
+          "minimumMarginMm": -0.04380453721529783,
+          "negativeSourceTriangleIDs": [
+            9543
+          ]
+        },
+        "skinClearanceAfter": {
+          "known": 279,
+          "unknown": 43,
+          "negative": 0,
+          "minimumMarginMm": 0.36147634475588336,
+          "negativeSourceTriangleIDs": []
+        }
+      },
+      {
+        "condition": "robust/neck-right",
+        "sourceCovered": 395,
+        "core01": 320,
+        "coreLossBefore": 53,
+        "coreLossAfter": 0,
+        "fullSourceLossBefore": 116,
+        "fullSourceLossAfter": 75,
+        "lod1Debt": 75,
+        "newLossOutsideCore": 12,
+        "skinClearanceBefore": {
+          "known": 224,
+          "unknown": 96,
+          "negative": 1,
+          "minimumMarginMm": -0.1647809575143623,
+          "negativeSourceTriangleIDs": [
+            9539
+          ]
+        },
+        "skinClearanceAfter": {
+          "known": 277,
+          "unknown": 43,
+          "negative": 1,
+          "minimumMarginMm": -0.007299339565429959,
+          "negativeSourceTriangleIDs": [
+            9421
+          ]
+        }
+      },
+      {
+        "condition": "extreme/idle",
+        "sourceCovered": 433,
+        "core01": 370,
+        "coreLossBefore": 70,
+        "coreLossAfter": 0,
+        "fullSourceLossBefore": 115,
+        "fullSourceLossAfter": 63,
+        "lod1Debt": 63,
+        "newLossOutsideCore": 18,
+        "skinClearanceBefore": {
+          "known": 257,
+          "unknown": 113,
+          "negative": 0,
+          "minimumMarginMm": 0.25070185305566234,
+          "negativeSourceTriangleIDs": []
+        },
+        "skinClearanceAfter": {
+          "known": 327,
+          "unknown": 43,
+          "negative": 0,
+          "minimumMarginMm": 0.17447938583807313,
+          "negativeSourceTriangleIDs": []
+        }
+      },
+      {
+        "condition": "extreme/neck-left",
+        "sourceCovered": 410,
+        "core01": 354,
+        "coreLossBefore": 62,
+        "coreLossAfter": 0,
+        "fullSourceLossBefore": 99,
+        "fullSourceLossAfter": 56,
+        "lod1Debt": 56,
+        "newLossOutsideCore": 19,
+        "skinClearanceBefore": {
+          "known": 249,
+          "unknown": 105,
+          "negative": 1,
+          "minimumMarginMm": -0.23434975018223514,
+          "negativeSourceTriangleIDs": [
+            9539
+          ]
+        },
+        "skinClearanceAfter": {
+          "known": 311,
+          "unknown": 43,
+          "negative": 0,
+          "minimumMarginMm": 0.2056428338528872,
+          "negativeSourceTriangleIDs": []
+        }
+      },
+      {
+        "condition": "extreme/neck-right",
+        "sourceCovered": 411,
+        "core01": 347,
+        "coreLossBefore": 62,
+        "coreLossAfter": 0,
+        "fullSourceLossBefore": 108,
+        "fullSourceLossAfter": 64,
+        "lod1Debt": 64,
+        "newLossOutsideCore": 18,
+        "skinClearanceBefore": {
+          "known": 242,
+          "unknown": 105,
+          "negative": 0,
+          "minimumMarginMm": 0.17079589679294332,
+          "negativeSourceTriangleIDs": []
+        },
+        "skinClearanceAfter": {
+          "known": 304,
+          "unknown": 43,
+          "negative": 1,
+          "minimumMarginMm": -0.046329837831533396,
+          "negativeSourceTriangleIDs": [
+            9455
+          ]
+        }
+      }
+    ],
+    "countingUnit": "Combinaciones condición-ancla; un mismo triángulo reaparece en distintos perfiles/poses. Los totales siguientes no son anclas únicas.",
+    "core01ConditionAnchors": 3755,
+    "coreLossBefore": 714,
+    "coreLossAfter": 0,
+    "sourceCoveredConditionAnchors": 4596,
+    "fullSourceLossBefore": 1365,
+    "fullSourceLossAfter": 841,
+    "lod1DebtRetained": 841,
+    "newLossOutsideCore": 190,
+    "netFewerFullSourceLosses": 524,
+    "unknownAfter": 492,
+    "unknownPerConditionRange": [
+      38,
+      43
+    ],
+    "negativeAfter": 5,
+    "negativeAfterClassification": {
+      "newComparedWithPreviousJacket2": 4,
+      "previousBaselineUnknown": 1
+    },
+    "negativeResiduals": [
+      {
+        "condition": "neutral/idle",
+        "sourceTriangle": 9308,
+        "beforeMarginMm": 5.226752276819578,
+        "afterMarginMm": -0.0751425595796913,
+        "classification": "new-negative",
+        "pixel": [
+          258,
+          525
+        ]
+      },
+      {
+        "condition": "light/neck-left",
+        "sourceTriangle": 9220,
+        "beforeMarginMm": 0.49588154342481827,
+        "afterMarginMm": -0.011387055719590382,
+        "classification": "new-negative",
+        "pixel": [
+          289,
+          531
+        ]
+      },
+      {
+        "condition": "light/neck-right",
+        "sourceTriangle": 9335,
+        "beforeMarginMm": null,
+        "afterMarginMm": -0.19592918359185538,
+        "classification": "baseline-unknown",
+        "pixel": [
+          268,
+          528
+        ]
+      },
+      {
+        "condition": "robust/neck-right",
+        "sourceTriangle": 9421,
+        "beforeMarginMm": 16.60653279418358,
+        "afterMarginMm": -0.007299339565429959,
+        "classification": "new-negative",
+        "pixel": [
+          261,
+          521
+        ]
+      },
+      {
+        "condition": "extreme/neck-right",
+        "sourceTriangle": 9455,
+        "beforeMarginMm": 51.76944398567897,
+        "afterMarginMm": -0.046329837831533396,
+        "classification": "new-negative",
+        "pixel": [
+          271,
+          522
+        ]
+      }
+    ]
+  },
+  "budget": {
+    "jacketTrianglesBefore": 811,
+    "jacketTrianglesAfter": 2992,
+    "additionalTrianglesPerLod2Actor": 2181,
+    "bodyLod2TrianglesBefore": 5965,
+    "bodyLod2TrianglesAfter": 8146,
+    "neutralGroomTriangles": 960,
+    "neutralLod2TotalBefore": 6925,
+    "neutralLod2TotalAfter": 9106,
+    "neutralLod2TotalIncreasePercent": 31.5,
+    "removedGeometryVboBytes": 155712,
+    "sharedExistingLod1VboBytes": 574464,
+    "removedInstanceBuffers": 1,
+    "removedVaos": 1,
+    "removedReductionCalls": 1,
+    "fpsClaim": false
+  },
+  "limitations": [
+    "La pérdida de cobertura completa baja 1365→841, pero 190 combinaciones antes cubiertas fuera del core dejan de estarlo; no mejora cada ancla.",
+    "Cinco márgenes direccionales negativos de magnitud inferior a 0,2 mm: no equivalen a aceptación de colisión ni a área visible exacta.",
+    "492 sondas sin impacto sobre piel LOD2 (38–43 por condición) son UNKNOWN, no ausencia de intersección.",
+    "Muestras de poses, cámaras y renderer preparado; no juego continuo, validación de distancia LOD ni hardware físico.",
+    "La galería contiene 8 de 84 capturas originales; el paquete conserva informes completos, geometrías GPU y auditorías."
+  ],
+  "gallery": [
+    {
+      "id": "neutral--idle--back--lod2",
+      "before": {
+        "file": "antes-neutral--idle--back--lod2.png",
+        "bytes": 473693,
+        "sha256": "c243e3e28298bd5192ce9700e47e07ca612f4579f61fc8fd86cd6bf0448b3376",
+        "packageOriginal": "evidencia/before-final/images/neutral--idle--back--lod2.png"
+      },
+      "after": {
+        "file": "despues-neutral--idle--back--lod2.png",
+        "bytes": 472699,
+        "sha256": "ac6d360bb5f00522ca9eec6f0732359a146223ef6d8931bc7c74bec05dff1585",
+        "packageOriginal": "evidencia/after-final/images/neutral--idle--back--lod2.png"
+      }
+    },
+    {
+      "id": "visual--closeup--neutral--profile",
+      "before": {
+        "file": "antes-visual--closeup--neutral--profile.png",
+        "bytes": 473782,
+        "sha256": "9dad0a1354ea0a4ee46d5852b1d60631d9724c586923a8a56b21eb1a3021b52e",
+        "packageOriginal": "evidencia/before-final/images/visual--closeup--neutral--profile.png"
+      },
+      "after": {
+        "file": "despues-visual--closeup--neutral--profile.png",
+        "bytes": 474022,
+        "sha256": "521f53161dc388490ff1361b591ddc2e89cff9e08fc7f06c885583c664d86724",
+        "packageOriginal": "evidencia/after-final/images/visual--closeup--neutral--profile.png"
+      }
+    },
+    {
+      "id": "robust--neck-right--back--lod2",
+      "before": {
+        "file": "antes-robust--neck-right--back--lod2.png",
+        "bytes": 473966,
+        "sha256": "6756fa182f619ae310bdce7d61f075f757d6738e22a80fdeb9a99039d38b46ec",
+        "packageOriginal": "evidencia/before-final/images/robust--neck-right--back--lod2.png"
+      },
+      "after": {
+        "file": "despues-robust--neck-right--back--lod2.png",
+        "bytes": 473399,
+        "sha256": "4b167789e3ba890c3de1e603aa4e6dca6f671d9b2e68784683fa947f601e1b73",
+        "packageOriginal": "evidencia/after-final/images/robust--neck-right--back--lod2.png"
+      }
+    },
+    {
+      "id": "visual--fullbody--neutral--back",
+      "before": {
+        "file": "antes-visual--fullbody--neutral--back.png",
+        "bytes": 428184,
+        "sha256": "0e0f638b20d428037f5025a71abf991e8055161a1ca41758f7380f59fb18e20c",
+        "packageOriginal": "evidencia/before-final/images/visual--fullbody--neutral--back.png"
+      },
+      "after": {
+        "file": "despues-visual--fullbody--neutral--back.png",
+        "bytes": 427829,
+        "sha256": "5518693851cd25082c82c68190045686d0952db4295521fbe9e086ddfec808dd",
+        "packageOriginal": "evidencia/after-final/images/visual--fullbody--neutral--back.png"
+      }
+    }
+  ]
+}

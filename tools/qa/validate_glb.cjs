@@ -32,6 +32,9 @@ async function main(){
  // Preserve full diagnostics even when the official report fails acceptance.
  fs.writeFileSync(path.join(root,'validator-report.json'),JSON.stringify(envelope,null,2)+'\n',{flag:'wx'});
  const counts=checkReport(report);
+ if(hash(fs.readFileSync(path.join(root,manifest.file)))!==sha256 ||
+    hash(fs.readFileSync(path.join(root,'source-manifest.json')))!==hash(manifestBytes))
+  throw new Error('Input changed during validation');
  const accepted={...manifest,officialValidation:'passed',validatorPackage:info.version,
   validationCounts:counts,validationReportSha256:hash(fs.readFileSync(path.join(root,'validator-report.json')))};
  fs.writeFileSync(path.join(root,'validated-manifest.json'),JSON.stringify(accepted,null,2)+'\n',{flag:'wx'});

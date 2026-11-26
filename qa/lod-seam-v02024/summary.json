@@ -1,0 +1,788 @@
+{
+  "schema": 1,
+  "scope": "Posterior seam only; four selected pairs from sixteen complete views; controlled poses, not continuous animation or physical hardware.",
+  "candidateBuild": {
+    "schema": 1,
+    "version": "0.20.24",
+    "name": "Coherencia",
+    "channel": "prototype",
+    "date": "2026-11-25",
+    "label": "v0.20.24",
+    "product": "Distrito Cero",
+    "sourceSha256": "3299740ffe90fb6263c5f11a8c3dfbc41b0d7292c8193c65cf088a9991eea9e7",
+    "htmlSha256": "50b5123b8dcbe27182e63eab5fe9d2647ddc73c5d080fb21e77adae5cb8f4de1",
+    "htmlBytes": 9806018
+  },
+  "producerSha256": "fdb15b6477b59d0da40900f6039d9d1171d8fa618d14a316f36078cbcd1b93b1",
+  "captureGitHead": "a72060bf4b52201d97746c0d06bb0e02cb38bfaf",
+  "captureWasBeforeCandidateCommit": true,
+  "captureChecks": {
+    "before": 36,
+    "after": 53
+  },
+  "geometricChecks": {
+    "beforeFailures": 13,
+    "afterPassed": 37
+  },
+  "images": [
+    {
+      "path": "antes-idle--neutral--back--body-lod2.png",
+      "sha256": "fc7043063f493799f3a23b9a53d4d9fe00f019f68c3e4a63f0fbdc38b425953c",
+      "captureId": "idle--neutral--back--body-lod2",
+      "sourceReportSha256": "c03342e1a589a519979db9335fcbcc345ce8789b72075123c64131dec2ab1003"
+    },
+    {
+      "path": "despues-idle--neutral--back--body-lod2.png",
+      "sha256": "c243e3e28298bd5192ce9700e47e07ca612f4579f61fc8fd86cd6bf0448b3376",
+      "captureId": "idle--neutral--back--body-lod2",
+      "sourceReportSha256": "398ffc730885d6a9cf1e83e3735a846cfbf288aecdb76689e18bf68c82c626e6"
+    },
+    {
+      "path": "antes-idle--neutral--profile--body-lod2.png",
+      "sha256": "0e6bd9a7e14272bd2b21c438fdeae7f29bf8165dfc6f2fe17fe7789c5d0e0bfd",
+      "captureId": "idle--neutral--profile--body-lod2",
+      "sourceReportSha256": "c03342e1a589a519979db9335fcbcc345ce8789b72075123c64131dec2ab1003"
+    },
+    {
+      "path": "despues-idle--neutral--profile--body-lod2.png",
+      "sha256": "9dad0a1354ea0a4ee46d5852b1d60631d9724c586923a8a56b21eb1a3021b52e",
+      "captureId": "idle--neutral--profile--body-lod2",
+      "sourceReportSha256": "398ffc730885d6a9cf1e83e3735a846cfbf288aecdb76689e18bf68c82c626e6"
+    },
+    {
+      "path": "antes-neck-sequence-02.png",
+      "sha256": "66067c27059782289d2bd2163894783b449c335bc3a0f77e6230407a980c955e",
+      "captureId": "neck-sequence-02",
+      "sourceReportSha256": "c03342e1a589a519979db9335fcbcc345ce8789b72075123c64131dec2ab1003"
+    },
+    {
+      "path": "despues-neck-sequence-02.png",
+      "sha256": "dd37117734999c83900a7d1465bfae43396a0f3deccc6efcd8ad616519db6856",
+      "captureId": "neck-sequence-02",
+      "sourceReportSha256": "398ffc730885d6a9cf1e83e3735a846cfbf288aecdb76689e18bf68c82c626e6"
+    },
+    {
+      "path": "antes-neck-sequence-07.png",
+      "sha256": "84ae06fce4fc42e0faa97f5fd13949f2567a4b2ac9bd6d93cd88eba7a3953049",
+      "captureId": "neck-sequence-07",
+      "sourceReportSha256": "c03342e1a589a519979db9335fcbcc345ce8789b72075123c64131dec2ab1003"
+    },
+    {
+      "path": "despues-neck-sequence-07.png",
+      "sha256": "f3519823a0e0bf46c239632c7e1034900b81815310a2e1dad3db8d24787ecbf3",
+      "captureId": "neck-sequence-07",
+      "sourceReportSha256": "398ffc730885d6a9cf1e83e3735a846cfbf288aecdb76689e18bf68c82c626e6"
+    }
+  ],
+  "comparison": {
+    "schema": 1,
+    "scope": "Posterior cervical seam only; collar intersections remain a separate recorded defect.",
+    "checks": [
+      {
+        "name": "Both 16-frame captures valid",
+        "pass": true
+      },
+      {
+        "name": "Baseline RED and candidate GREEN",
+        "pass": true
+      },
+      {
+        "name": "Native vertex shader identical",
+        "pass": true
+      },
+      {
+        "name": "Fixed exterior envelope identical",
+        "pass": true
+      },
+      {
+        "name": "Same software-renderer environment",
+        "pass": true
+      },
+      {
+        "name": "Same camera and viewport contracts",
+        "pass": true
+      },
+      {
+        "name": "Unchanged stage",
+        "pass": true
+      },
+      {
+        "name": "Unchanged matrix",
+        "pass": true
+      },
+      {
+        "name": "Unchanged sharedHelper",
+        "pass": true
+      },
+      {
+        "name": "Unchanged fixture",
+        "pass": true
+      },
+      {
+        "name": "Unchanged tool",
+        "pass": true
+      },
+      {
+        "name": "Same case and camera idle--neutral--back",
+        "pass": true
+      },
+      {
+        "name": "Verified seam-before-final/images/idle--neutral--back.png",
+        "pass": true
+      },
+      {
+        "name": "Verified seam-before-final/geometry/idle--neutral--back.json.gz",
+        "pass": true
+      },
+      {
+        "name": "Verified seam-after-final/images/idle--neutral--back.png",
+        "pass": true
+      },
+      {
+        "name": "Verified seam-after-final/geometry/idle--neutral--back.json.gz",
+        "pass": true
+      },
+      {
+        "name": "Same case and camera idle--neutral--back--body-lod1",
+        "pass": true
+      },
+      {
+        "name": "Verified seam-before-final/images/idle--neutral--back--body-lod1.png",
+        "pass": true
+      },
+      {
+        "name": "Verified seam-before-final/geometry/idle--neutral--back--body-lod1.json.gz",
+        "pass": true
+      },
+      {
+        "name": "Verified seam-after-final/images/idle--neutral--back--body-lod1.png",
+        "pass": true
+      },
+      {
+        "name": "Verified seam-after-final/geometry/idle--neutral--back--body-lod1.json.gz",
+        "pass": true
+      },
+      {
+        "name": "Same case and camera idle--neutral--back--body-lod2",
+        "pass": true
+      },
+      {
+        "name": "Verified seam-before-final/images/idle--neutral--back--body-lod2.png",
+        "pass": true
+      },
+      {
+        "name": "Verified seam-before-final/geometry/idle--neutral--back--body-lod2.json.gz",
+        "pass": true
+      },
+      {
+        "name": "Verified seam-after-final/images/idle--neutral--back--body-lod2.png",
+        "pass": true
+      },
+      {
+        "name": "Verified seam-after-final/geometry/idle--neutral--back--body-lod2.json.gz",
+        "pass": true
+      },
+      {
+        "name": "Same case and camera idle--neutral--profile",
+        "pass": true
+      },
+      {
+        "name": "Verified seam-before-final/images/idle--neutral--profile.png",
+        "pass": true
+      },
+      {
+        "name": "Verified seam-before-final/geometry/idle--neutral--profile.json.gz",
+        "pass": true
+      },
+      {
+        "name": "Verified seam-after-final/images/idle--neutral--profile.png",
+        "pass": true
+      },
+      {
+        "name": "Verified seam-after-final/geometry/idle--neutral--profile.json.gz",
+        "pass": true
+      },
+      {
+        "name": "Same case and camera idle--neutral--profile--body-lod1",
+        "pass": true
+      },
+      {
+        "name": "Verified seam-before-final/images/idle--neutral--profile--body-lod1.png",
+        "pass": true
+      },
+      {
+        "name": "Verified seam-before-final/geometry/idle--neutral--profile--body-lod1.json.gz",
+        "pass": true
+      },
+      {
+        "name": "Verified seam-after-final/images/idle--neutral--profile--body-lod1.png",
+        "pass": true
+      },
+      {
+        "name": "Verified seam-after-final/geometry/idle--neutral--profile--body-lod1.json.gz",
+        "pass": true
+      },
+      {
+        "name": "Same case and camera idle--neutral--profile--body-lod2",
+        "pass": true
+      },
+      {
+        "name": "Verified seam-before-final/images/idle--neutral--profile--body-lod2.png",
+        "pass": true
+      },
+      {
+        "name": "Verified seam-before-final/geometry/idle--neutral--profile--body-lod2.json.gz",
+        "pass": true
+      },
+      {
+        "name": "Verified seam-after-final/images/idle--neutral--profile--body-lod2.png",
+        "pass": true
+      },
+      {
+        "name": "Verified seam-after-final/geometry/idle--neutral--profile--body-lod2.json.gz",
+        "pass": true
+      },
+      {
+        "name": "Same case and camera neck-sequence-00",
+        "pass": true
+      },
+      {
+        "name": "Verified seam-before-final/images/neck-sequence-00.png",
+        "pass": true
+      },
+      {
+        "name": "Verified seam-before-final/geometry/neck-sequence-00.json.gz",
+        "pass": true
+      },
+      {
+        "name": "Verified seam-after-final/images/neck-sequence-00.png",
+        "pass": true
+      },
+      {
+        "name": "Verified seam-after-final/geometry/neck-sequence-00.json.gz",
+        "pass": true
+      },
+      {
+        "name": "Same case and camera neck-sequence-01",
+        "pass": true
+      },
+      {
+        "name": "Verified seam-before-final/images/neck-sequence-01.png",
+        "pass": true
+      },
+      {
+        "name": "Verified seam-before-final/geometry/neck-sequence-01.json.gz",
+        "pass": true
+      },
+      {
+        "name": "Verified seam-after-final/images/neck-sequence-01.png",
+        "pass": true
+      },
+      {
+        "name": "Verified seam-after-final/geometry/neck-sequence-01.json.gz",
+        "pass": true
+      },
+      {
+        "name": "Same case and camera neck-sequence-02",
+        "pass": true
+      },
+      {
+        "name": "Verified seam-before-final/images/neck-sequence-02.png",
+        "pass": true
+      },
+      {
+        "name": "Verified seam-before-final/geometry/neck-sequence-02.json.gz",
+        "pass": true
+      },
+      {
+        "name": "Verified seam-after-final/images/neck-sequence-02.png",
+        "pass": true
+      },
+      {
+        "name": "Verified seam-after-final/geometry/neck-sequence-02.json.gz",
+        "pass": true
+      },
+      {
+        "name": "Same case and camera neck-sequence-03",
+        "pass": true
+      },
+      {
+        "name": "Verified seam-before-final/images/neck-sequence-03.png",
+        "pass": true
+      },
+      {
+        "name": "Verified seam-before-final/geometry/neck-sequence-03.json.gz",
+        "pass": true
+      },
+      {
+        "name": "Verified seam-after-final/images/neck-sequence-03.png",
+        "pass": true
+      },
+      {
+        "name": "Verified seam-after-final/geometry/neck-sequence-03.json.gz",
+        "pass": true
+      },
+      {
+        "name": "Same case and camera neck-sequence-04",
+        "pass": true
+      },
+      {
+        "name": "Verified seam-before-final/images/neck-sequence-04.png",
+        "pass": true
+      },
+      {
+        "name": "Verified seam-before-final/geometry/neck-sequence-04.json.gz",
+        "pass": true
+      },
+      {
+        "name": "Verified seam-after-final/images/neck-sequence-04.png",
+        "pass": true
+      },
+      {
+        "name": "Verified seam-after-final/geometry/neck-sequence-04.json.gz",
+        "pass": true
+      },
+      {
+        "name": "Same case and camera neck-sequence-05",
+        "pass": true
+      },
+      {
+        "name": "Verified seam-before-final/images/neck-sequence-05.png",
+        "pass": true
+      },
+      {
+        "name": "Verified seam-before-final/geometry/neck-sequence-05.json.gz",
+        "pass": true
+      },
+      {
+        "name": "Verified seam-after-final/images/neck-sequence-05.png",
+        "pass": true
+      },
+      {
+        "name": "Verified seam-after-final/geometry/neck-sequence-05.json.gz",
+        "pass": true
+      },
+      {
+        "name": "Same case and camera neck-sequence-06",
+        "pass": true
+      },
+      {
+        "name": "Verified seam-before-final/images/neck-sequence-06.png",
+        "pass": true
+      },
+      {
+        "name": "Verified seam-before-final/geometry/neck-sequence-06.json.gz",
+        "pass": true
+      },
+      {
+        "name": "Verified seam-after-final/images/neck-sequence-06.png",
+        "pass": true
+      },
+      {
+        "name": "Verified seam-after-final/geometry/neck-sequence-06.json.gz",
+        "pass": true
+      },
+      {
+        "name": "Same case and camera neck-sequence-07",
+        "pass": true
+      },
+      {
+        "name": "Verified seam-before-final/images/neck-sequence-07.png",
+        "pass": true
+      },
+      {
+        "name": "Verified seam-before-final/geometry/neck-sequence-07.json.gz",
+        "pass": true
+      },
+      {
+        "name": "Verified seam-after-final/images/neck-sequence-07.png",
+        "pass": true
+      },
+      {
+        "name": "Verified seam-after-final/geometry/neck-sequence-07.json.gz",
+        "pass": true
+      },
+      {
+        "name": "Same case and camera neck-sequence-08",
+        "pass": true
+      },
+      {
+        "name": "Verified seam-before-final/images/neck-sequence-08.png",
+        "pass": true
+      },
+      {
+        "name": "Verified seam-before-final/geometry/neck-sequence-08.json.gz",
+        "pass": true
+      },
+      {
+        "name": "Verified seam-after-final/images/neck-sequence-08.png",
+        "pass": true
+      },
+      {
+        "name": "Verified seam-after-final/geometry/neck-sequence-08.json.gz",
+        "pass": true
+      },
+      {
+        "name": "Same case and camera neck-sequence-09",
+        "pass": true
+      },
+      {
+        "name": "Verified seam-before-final/images/neck-sequence-09.png",
+        "pass": true
+      },
+      {
+        "name": "Verified seam-before-final/geometry/neck-sequence-09.json.gz",
+        "pass": true
+      },
+      {
+        "name": "Verified seam-after-final/images/neck-sequence-09.png",
+        "pass": true
+      },
+      {
+        "name": "Verified seam-after-final/geometry/neck-sequence-09.json.gz",
+        "pass": true
+      }
+    ],
+    "pairs": [
+      {
+        "id": "idle--neutral--back",
+        "beforeBoundaries": 0,
+        "afterBoundaries": 0,
+        "maxSharedWorldSpreadM": 0.0,
+        "pixelIdentical": true,
+        "beforeRay": {
+          "pixel": [
+            362,
+            470
+          ],
+          "triangle": 1092,
+          "depthM": 0.7834315472257445,
+          "frontFacing": true
+        },
+        "afterRay": {
+          "pixel": [
+            362,
+            470
+          ],
+          "triangle": 1092,
+          "depthM": 0.7834315472257445,
+          "frontFacing": true
+        }
+      },
+      {
+        "id": "idle--neutral--back--body-lod1",
+        "beforeBoundaries": 0,
+        "afterBoundaries": 0,
+        "maxSharedWorldSpreadM": 0.0,
+        "pixelIdentical": true,
+        "beforeRay": {
+          "pixel": [
+            362,
+            470
+          ],
+          "triangle": 622,
+          "depthM": 0.7834315472257445,
+          "frontFacing": true
+        },
+        "afterRay": {
+          "pixel": [
+            362,
+            470
+          ],
+          "triangle": 622,
+          "depthM": 0.7834315472257445,
+          "frontFacing": true
+        }
+      },
+      {
+        "id": "idle--neutral--back--body-lod2",
+        "beforeBoundaries": 22,
+        "afterBoundaries": 0,
+        "maxSharedWorldSpreadM": 0.0,
+        "pixelIdentical": false,
+        "beforeRay": {
+          "pixel": [
+            362,
+            470
+          ],
+          "triangle": 340,
+          "depthM": 0.9072084323959899,
+          "frontFacing": false
+        },
+        "afterRay": {
+          "pixel": [
+            362,
+            470
+          ],
+          "triangle": 1912,
+          "depthM": 0.7835937393740152,
+          "frontFacing": true
+        }
+      },
+      {
+        "id": "idle--neutral--profile",
+        "beforeBoundaries": 0,
+        "afterBoundaries": 0,
+        "maxSharedWorldSpreadM": 0.0,
+        "pixelIdentical": true,
+        "beforeRay": null,
+        "afterRay": null
+      },
+      {
+        "id": "idle--neutral--profile--body-lod1",
+        "beforeBoundaries": 0,
+        "afterBoundaries": 0,
+        "maxSharedWorldSpreadM": 0.0,
+        "pixelIdentical": true,
+        "beforeRay": null,
+        "afterRay": null
+      },
+      {
+        "id": "idle--neutral--profile--body-lod2",
+        "beforeBoundaries": 22,
+        "afterBoundaries": 0,
+        "maxSharedWorldSpreadM": 0.0,
+        "pixelIdentical": false,
+        "beforeRay": null,
+        "afterRay": null
+      },
+      {
+        "id": "neck-sequence-00",
+        "beforeBoundaries": 22,
+        "afterBoundaries": 0,
+        "maxSharedWorldSpreadM": 0.0,
+        "pixelIdentical": false,
+        "beforeRay": null,
+        "afterRay": null
+      },
+      {
+        "id": "neck-sequence-01",
+        "beforeBoundaries": 22,
+        "afterBoundaries": 0,
+        "maxSharedWorldSpreadM": 0.0,
+        "pixelIdentical": false,
+        "beforeRay": null,
+        "afterRay": null
+      },
+      {
+        "id": "neck-sequence-02",
+        "beforeBoundaries": 22,
+        "afterBoundaries": 0,
+        "maxSharedWorldSpreadM": 0.0,
+        "pixelIdentical": false,
+        "beforeRay": null,
+        "afterRay": null
+      },
+      {
+        "id": "neck-sequence-03",
+        "beforeBoundaries": 22,
+        "afterBoundaries": 0,
+        "maxSharedWorldSpreadM": 0.0,
+        "pixelIdentical": false,
+        "beforeRay": null,
+        "afterRay": null
+      },
+      {
+        "id": "neck-sequence-04",
+        "beforeBoundaries": 22,
+        "afterBoundaries": 0,
+        "maxSharedWorldSpreadM": 0.0,
+        "pixelIdentical": false,
+        "beforeRay": null,
+        "afterRay": null
+      },
+      {
+        "id": "neck-sequence-05",
+        "beforeBoundaries": 22,
+        "afterBoundaries": 0,
+        "maxSharedWorldSpreadM": 0.0,
+        "pixelIdentical": false,
+        "beforeRay": null,
+        "afterRay": null
+      },
+      {
+        "id": "neck-sequence-06",
+        "beforeBoundaries": 22,
+        "afterBoundaries": 0,
+        "maxSharedWorldSpreadM": 0.0,
+        "pixelIdentical": false,
+        "beforeRay": null,
+        "afterRay": null
+      },
+      {
+        "id": "neck-sequence-07",
+        "beforeBoundaries": 22,
+        "afterBoundaries": 0,
+        "maxSharedWorldSpreadM": 0.0,
+        "pixelIdentical": false,
+        "beforeRay": null,
+        "afterRay": null
+      },
+      {
+        "id": "neck-sequence-08",
+        "beforeBoundaries": 22,
+        "afterBoundaries": 0,
+        "maxSharedWorldSpreadM": 0.0,
+        "pixelIdentical": false,
+        "beforeRay": null,
+        "afterRay": null
+      },
+      {
+        "id": "neck-sequence-09",
+        "beforeBoundaries": 22,
+        "afterBoundaries": 0,
+        "maxSharedWorldSpreadM": 0.0,
+        "pixelIdentical": false,
+        "beforeRay": null,
+        "afterRay": null
+      }
+    ],
+    "beforeGeometricFailures": 13,
+    "afterGeometricFailures": 0,
+    "shaderSha256": "8ac8e791386d2e79542b4a01c799d346a509831d7db1be3f97fa52b888c8f5d2",
+    "referenceEnvelope": {
+      "rays": [
+        {
+          "pixel": [
+            352,
+            460
+          ],
+          "triangle": 5302,
+          "depthM": 0.7841103740001018,
+          "frontFacing": true
+        },
+        {
+          "pixel": [
+            362,
+            460
+          ],
+          "triangle": 1091,
+          "depthM": 0.7840451417601875,
+          "frontFacing": true
+        },
+        {
+          "pixel": [
+            372,
+            460
+          ],
+          "triangle": 1366,
+          "depthM": 0.7843714586018942,
+          "frontFacing": true
+        },
+        {
+          "pixel": [
+            352,
+            470
+          ],
+          "triangle": 5305,
+          "depthM": 0.7836067140982567,
+          "frontFacing": true
+        },
+        {
+          "pixel": [
+            362,
+            470
+          ],
+          "triangle": 1092,
+          "depthM": 0.7834315472257445,
+          "frontFacing": true
+        },
+        {
+          "pixel": [
+            372,
+            470
+          ],
+          "triangle": 1396,
+          "depthM": 0.783882465314767,
+          "frontFacing": true
+        },
+        {
+          "pixel": [
+            352,
+            480
+          ],
+          "triangle": 5304,
+          "depthM": 0.7825561409078962,
+          "frontFacing": true
+        },
+        {
+          "pixel": [
+            362,
+            480
+          ],
+          "triangle": 1092,
+          "depthM": 0.7823958216823558,
+          "frontFacing": true
+        },
+        {
+          "pixel": [
+            372,
+            480
+          ],
+          "triangle": 1396,
+          "depthM": 0.7828284324926115,
+          "frontFacing": true
+        }
+      ],
+      "minDepthM": 0.7823958216823558,
+      "maxDepthM": 0.7843714586018942
+    },
+    "limitations": [
+      "Forced body geometry with LOD0 groom; not chooseLOD/distance behavior.",
+      "Ten controlled poses reset fixture between samples; not continuous simulation or a playthrough.",
+      "Software WebGL/in-memory storage; no FPS, physical GPU, persistence or AAA approval.",
+      "Cervical seam criterion only; existing collar intersection and facial LOD artifacts remain separate."
+    ]
+  },
+  "verification": {
+    "node": {
+      "passed": 700,
+      "failed": 0
+    },
+    "targeted": {
+      "passed": 24,
+      "failed": 0
+    },
+    "seamQAUnit": {
+      "passed": 9,
+      "failed": 0
+    },
+    "benchmark": {
+      "passed": 36,
+      "frames": 30
+    },
+    "webglRecovery": {
+      "passed": 25
+    },
+    "currentHumanExport": {
+      "passed": 19
+    },
+    "tangentIntegration": {
+      "passed": 5
+    },
+    "release": {
+      "passed": 12
+    },
+    "checkout": {
+      "passed": 1
+    },
+    "workflow": {
+      "passed": 9
+    },
+    "contactExport": {
+      "passed": 1
+    },
+    "thenar": {
+      "passed": 8
+    },
+    "garment": {
+      "passed": 5
+    }
+  },
+  "limitations": [
+    "Forced body geometry with LOD0 groom; not chooseLOD/distance behavior.",
+    "Ten controlled poses reset fixture between samples; not continuous simulation or a playthrough.",
+    "Software WebGL/in-memory storage; no FPS, physical GPU, persistence or AAA approval.",
+    "Cervical seam criterion only; existing collar intersection and facial LOD artifacts remain separate."
+  ]
+}

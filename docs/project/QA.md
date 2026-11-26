@@ -1,4 +1,63 @@
+# Cobertura de chaqueta en LOD2 · v0.20.25
+
+[Contrato y presupuesto](COLLAR-LOD.md). El productor
+`tools/qa/render_collar_lod.py` usa el renderer y shader nativos: 42 capturas,
+cuatro perfiles por tres poses en LOD0/1/2 y seis vistas de cuello/cuerpo con
+luces neutra y lateral. Conserva una cohorte de 611 centroides de piel fuente
+por IDs y coordenadas baricéntricas. Para cada condición fija la cobertura
+LOD0/1 antes de evaluar LOD2 y registra también la pérdida respecto a LOD0.
+No interpreta esas sondas como volumen de intersección o área visible exacta.
+
+Con referencia externa exige además igualdad de la piel GPU en las 42 vistas,
+LOD0/1 completos intactos y hashes verificables antes/después del análisis.
+Sin referencia, CI declara LOD0/1 del mismo build y mantiene las regresiones
+Node con hashes anteriores para las partes no modificadas. La recuperación
+WebGL y la costura de nuca conservan sus productores separados.
+
+El job de personajes añade el gate al final, sin nuevos runners, permisos ni
+mayor timeout. Rechaza referencias vacías/inválidas, cohortes vacías y archivos
+modificados durante el análisis. Las salidas existentes nunca se sobrescriben.
+
+Resultado local: contrato **18/18**, 42 capturas con **173 guardas/110 criterios
+geométricos** y comparación **304/304**. [Galería y hashes](../../qa/collar-lod-v02025/README.md).
+Las 24 imágenes LOD0/1 y la piel de las 42 vistas coinciden con la referencia.
+Se registran por separado 492 sondas desconocidas y cinco márgenes negativos
+menores de 0,2 mm; la cobertura aprobada no declara cero intersecciones.
+
+## Registro anterior
+
+# Continuidad cervical LOD · v0.20.24
+
+[Contrato y evidencia](LOD-SEAM-CONTINUITY.md). La regresión Node conserva la
+salida histórica sin opción, comprueba controles negativos y prueba cuatro
+perfiles con cinco poses DQ. El nuevo productor `tools/qa/render_lod_seam.py`
+lee el VBO real y las posiciones GPU del vertex shader de producción: seis
+vistas neutras LOD0/1/2 y diez poses cervicales preparadas. Reutiliza matriz,
+stage y capturador de primeros planos, sin un segundo reductor.
+
+CI añade el contrato Python y estas capturas al job de personajes existente,
+sin nuevos runners ni mayor timeout. La aceptación exige cero bordes abiertos
+posteriores, coincidencia de vértices deformados y un rayo exterior dentro de
+la envolvente LOD0. `--reference` permite fijar esa envolvente a la baseline y
+comparar los cuatro renders LOD0/1. Sin referencia, CI usa el LOD0 de su propio
+build y lo declara. No cubre intersección de prenda, movimiento continuo ni FPS.
+
+## Registro de QA anterior
+
 # QA reproducible desde el repositorio
+
+## Atlas facial nativo · 0.20.23
+
+[Contrato y reproducción](NATIVE-FACE-ATLAS.md). El gate de autoría comprueba
+el replay compacto y la exportación de mapas canónicos. La suite Node verifica
+que LOD0/1/2 conserve posiciones, normales, articulaciones y pesos originales.
+`tests/native_tangent_frame.test.py` ejecuta 14 cartas analíticas con la función
+real del shader en WebGL2, con navegador configurable por `DC_QA_BROWSER`.
+
+`tools/qa/render_native_neck.py` produce primeros planos controlados antes y
+después. Incluye muestras con LOD1/2 forzado, explícitamente distintas de una
+prueba de selección por distancia. Se conservan matriz, stage, cámaras,
+guardas y hashes. Ninguna de estas capturas demuestra FPS de hardware físico.
 
 ## Escopeta / revólver · 0.20.22
 

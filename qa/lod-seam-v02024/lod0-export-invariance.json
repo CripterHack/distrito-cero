@@ -1,0 +1,596 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Exact LOD0 portable export comparison; does not assert crowd LOD1/LOD2 invariance, native DQ equivalence or artistic acceptance.",
+  "baseline": {
+    "path": "artifacts/neck-material/final/export/dc-human-0.20.23-neutral.glb",
+    "sha256": "ac7edc45cd262d160df1b08eb55570b28d0964b492b6311ac0d71509f456ea61",
+    "sourceManifestSha256": "76a2d192ab6b4f517dbd89a0fd2e194b4a8a43599b9df2ea539706c213a1af9d",
+    "productVersion": "0.20.23",
+    "matchedHead": "a72060bf4b52201d97746c0d06bb0e02cb38bfaf",
+    "sourceHashChecks": {
+      "version.json": true,
+      "build-info.json": true,
+      "tools/export_current_human.py": true,
+      "tools/export_traits_glb.py": true,
+      "src/core.js": true,
+      "src/character-fit.js": true,
+      "src/character-motion.js": true,
+      "src/skin-rig.js": true,
+      "src/hero-asset.js": true,
+      "src/hair-geometry.js": true,
+      "src/visual-geometry.js": true,
+      "src/human-materials.js": true,
+      "assets/anatomy-source/skin-repaired.webp": true,
+      "assets/anatomy-source/normal.webp": true,
+      "assets/anatomy-source/roughness.webp": true,
+      "assets/ATTRIBUTION-v09.md": true
+    }
+  },
+  "current": {
+    "path": "artifacts/lod-boundary/human-export/dc-human-0.20.24-neutral.glb",
+    "sha256": "a22fd4099c4ce9190893521eb881e53fc06867df5c5d6b3c6eadfb2b3b3da630",
+    "sourceManifestSha256": "cbf9fcbaaee5efb3567d8bd69e2b142350a86dfb8276bffe5942b0aac06eb026",
+    "productVersion": "0.20.24"
+  },
+  "checks": {
+    "baselineMatchesManifest": true,
+    "currentMatchesManifest": true,
+    "baselineAllSourcesMatchHead": true,
+    "binaryChunkEqual": true,
+    "accessorDescriptorsAndBytesEqual": true,
+    "meshDescriptorsAndCornerAttributesEqual": true,
+    "nodesEqualExceptProductRootName": true,
+    "skinsEqual": true,
+    "animationsEqual": true,
+    "materialsEqual": true,
+    "imagesEqual": true,
+    "onlyAllowedDocumentMetadataChanged": true
+  },
+  "binaryChunk": {
+    "bytes": 4860080,
+    "currentBytes": 4860080,
+    "sha256": "197da4459fc640d0eb9421aaf7676f575d1fd3c2224b944e7e0d76f5f90f23fb",
+    "currentSha256": "197da4459fc640d0eb9421aaf7676f575d1fd3c2224b944e7e0d76f5f90f23fb"
+  },
+  "accessorCount": 1185,
+  "changedAccessors": [],
+  "meshes": [
+    {
+      "mesh": 0,
+      "name": "jacket",
+      "primitive": 0,
+      "triangles": 16026,
+      "indexOrderEqual": true,
+      "descriptorEqual": true,
+      "attributes": {
+        "POSITION": {
+          "equal": true,
+          "cornerSha256": "075b53602b1060c486f8ba2faaa8180262ee9a155c7fb0bafd6146ac7c7ec60b",
+          "currentCornerSha256": "075b53602b1060c486f8ba2faaa8180262ee9a155c7fb0bafd6146ac7c7ec60b"
+        },
+        "NORMAL": {
+          "equal": true,
+          "cornerSha256": "ce96f67f23244d1b8c009a9d014c03a8594b3aa149bc07e77b5782f82ae55ed5",
+          "currentCornerSha256": "ce96f67f23244d1b8c009a9d014c03a8594b3aa149bc07e77b5782f82ae55ed5"
+        },
+        "TEXCOORD_0": {
+          "equal": true,
+          "cornerSha256": "fc3b6cb89cd31e1fe2115869eb21023f89fb25267268cdc9978af9fcb81363c7",
+          "currentCornerSha256": "fc3b6cb89cd31e1fe2115869eb21023f89fb25267268cdc9978af9fcb81363c7"
+        },
+        "JOINTS_0": {
+          "equal": true,
+          "cornerSha256": "10321828b4e3d0daad2f9b8c950f0760969e6e295c2c032f20aad6290cb3bfc0",
+          "currentCornerSha256": "10321828b4e3d0daad2f9b8c950f0760969e6e295c2c032f20aad6290cb3bfc0"
+        },
+        "WEIGHTS_0": {
+          "equal": true,
+          "cornerSha256": "41f03b781fcdf9331f8e140e0caf08c729e3d9c61928f6de4ac8224f227e6ad4",
+          "currentCornerSha256": "41f03b781fcdf9331f8e140e0caf08c729e3d9c61928f6de4ac8224f227e6ad4"
+        }
+      }
+    },
+    {
+      "mesh": 1,
+      "name": "pants",
+      "primitive": 0,
+      "triangles": 17939,
+      "indexOrderEqual": true,
+      "descriptorEqual": true,
+      "attributes": {
+        "POSITION": {
+          "equal": true,
+          "cornerSha256": "301fd9e56a54e5c64a8326808756d630bc4de7af07b8c7f54fa54d2c28462d12",
+          "currentCornerSha256": "301fd9e56a54e5c64a8326808756d630bc4de7af07b8c7f54fa54d2c28462d12"
+        },
+        "NORMAL": {
+          "equal": true,
+          "cornerSha256": "4e55e1141d8e18909bc1c04409939c9c8db941f36e9ccb580406e21d316c0ba6",
+          "currentCornerSha256": "4e55e1141d8e18909bc1c04409939c9c8db941f36e9ccb580406e21d316c0ba6"
+        },
+        "TEXCOORD_0": {
+          "equal": true,
+          "cornerSha256": "7e9eeb60dfe779c3635fde3fcb330b8d68d30d4b02cd1cd6743608dbf8506926",
+          "currentCornerSha256": "7e9eeb60dfe779c3635fde3fcb330b8d68d30d4b02cd1cd6743608dbf8506926"
+        },
+        "JOINTS_0": {
+          "equal": true,
+          "cornerSha256": "b817fe3c1dcc339ddfd04834d5ad9f202ddf5b847465c4487bebec94844abc7c",
+          "currentCornerSha256": "b817fe3c1dcc339ddfd04834d5ad9f202ddf5b847465c4487bebec94844abc7c"
+        },
+        "WEIGHTS_0": {
+          "equal": true,
+          "cornerSha256": "fd674ba3eefdd329f317b59cbdc1f0506a58415215df0136f72c4f739e380014",
+          "currentCornerSha256": "fd674ba3eefdd329f317b59cbdc1f0506a58415215df0136f72c4f739e380014"
+        }
+      }
+    },
+    {
+      "mesh": 2,
+      "name": "skin",
+      "primitive": 0,
+      "triangles": 17770,
+      "indexOrderEqual": true,
+      "descriptorEqual": true,
+      "attributes": {
+        "POSITION": {
+          "equal": true,
+          "cornerSha256": "34dd724fed91d2752adcabef8ec9cf82cd2808ba738c583659271f14c9e684fa",
+          "currentCornerSha256": "34dd724fed91d2752adcabef8ec9cf82cd2808ba738c583659271f14c9e684fa"
+        },
+        "NORMAL": {
+          "equal": true,
+          "cornerSha256": "d981a23b2778c182a3c06bba1c18f31ccdc2b47bcd53512dbe375a7d236e546d",
+          "currentCornerSha256": "d981a23b2778c182a3c06bba1c18f31ccdc2b47bcd53512dbe375a7d236e546d"
+        },
+        "TEXCOORD_0": {
+          "equal": true,
+          "cornerSha256": "0b4129db61d94edf79d268b6c676ae9e94649dd67a8279e04ac56dc024e966fa",
+          "currentCornerSha256": "0b4129db61d94edf79d268b6c676ae9e94649dd67a8279e04ac56dc024e966fa"
+        },
+        "JOINTS_0": {
+          "equal": true,
+          "cornerSha256": "af84159ec32db5856116d4cf86d15958350f3d3377df5126e7053e54d234c513",
+          "currentCornerSha256": "af84159ec32db5856116d4cf86d15958350f3d3377df5126e7053e54d234c513"
+        },
+        "WEIGHTS_0": {
+          "equal": true,
+          "cornerSha256": "d62e6f3b2b1a75b081d4bd0709a123b3179f6fe9a505277287493db2a1e4927f",
+          "currentCornerSha256": "d62e6f3b2b1a75b081d4bd0709a123b3179f6fe9a505277287493db2a1e4927f"
+        }
+      }
+    },
+    {
+      "mesh": 3,
+      "name": "face",
+      "primitive": 0,
+      "triangles": 9672,
+      "indexOrderEqual": true,
+      "descriptorEqual": true,
+      "attributes": {
+        "POSITION": {
+          "equal": true,
+          "cornerSha256": "4f01045eb7092536238795cd6203b7afd4ea55ddcdcbbd627beba5efc53031e8",
+          "currentCornerSha256": "4f01045eb7092536238795cd6203b7afd4ea55ddcdcbbd627beba5efc53031e8"
+        },
+        "NORMAL": {
+          "equal": true,
+          "cornerSha256": "57d3c3552b6ffab75add09516b6b0ae2c11af62101ed0aef938327c172343950",
+          "currentCornerSha256": "57d3c3552b6ffab75add09516b6b0ae2c11af62101ed0aef938327c172343950"
+        },
+        "TEXCOORD_0": {
+          "equal": true,
+          "cornerSha256": "77c505279287158b133160b31f0c4a6bceea17d93f3e6d878dcf4a5c1cf90d65",
+          "currentCornerSha256": "77c505279287158b133160b31f0c4a6bceea17d93f3e6d878dcf4a5c1cf90d65"
+        },
+        "JOINTS_0": {
+          "equal": true,
+          "cornerSha256": "9c90877889f20ad2b315b13e207d8554bf2deb1640fb011d0a089b18aa11c1bc",
+          "currentCornerSha256": "9c90877889f20ad2b315b13e207d8554bf2deb1640fb011d0a089b18aa11c1bc"
+        },
+        "WEIGHTS_0": {
+          "equal": true,
+          "cornerSha256": "e4bc646ba220bb805efdd6d4a12818cb7880effdebcbb4fbc8eda3f2c42a0a8e",
+          "currentCornerSha256": "e4bc646ba220bb805efdd6d4a12818cb7880effdebcbb4fbc8eda3f2c42a0a8e"
+        }
+      }
+    },
+    {
+      "mesh": 4,
+      "name": "hair",
+      "primitive": 0,
+      "triangles": 110,
+      "indexOrderEqual": true,
+      "descriptorEqual": true,
+      "attributes": {
+        "POSITION": {
+          "equal": true,
+          "cornerSha256": "c02c386f41a4cb96334eae73259055a9334fe980ed75f60b548c8bd071515982",
+          "currentCornerSha256": "c02c386f41a4cb96334eae73259055a9334fe980ed75f60b548c8bd071515982"
+        },
+        "NORMAL": {
+          "equal": true,
+          "cornerSha256": "95016543a3d20779fae9d777f6bda174c5d92be5bae852cb36fa91f78e45b3e5",
+          "currentCornerSha256": "95016543a3d20779fae9d777f6bda174c5d92be5bae852cb36fa91f78e45b3e5"
+        },
+        "TEXCOORD_0": {
+          "equal": true,
+          "cornerSha256": "38751476a7fc8f625c191c31a209b6456a9c8b8c41761e8c9ae02ad881bbd94d",
+          "currentCornerSha256": "38751476a7fc8f625c191c31a209b6456a9c8b8c41761e8c9ae02ad881bbd94d"
+        },
+        "JOINTS_0": {
+          "equal": true,
+          "cornerSha256": "823559ce9661c231de91a720ded78392246c1467d31743fd96bca1baac1ffa3b",
+          "currentCornerSha256": "823559ce9661c231de91a720ded78392246c1467d31743fd96bca1baac1ffa3b"
+        },
+        "WEIGHTS_0": {
+          "equal": true,
+          "cornerSha256": "08366e526c338bb3caff782b3fdf32dcf11a7a28ae55f3d29472f04694102a93",
+          "currentCornerSha256": "08366e526c338bb3caff782b3fdf32dcf11a7a28ae55f3d29472f04694102a93"
+        }
+      }
+    },
+    {
+      "mesh": 5,
+      "name": "rubber",
+      "primitive": 0,
+      "triangles": 3160,
+      "indexOrderEqual": true,
+      "descriptorEqual": true,
+      "attributes": {
+        "POSITION": {
+          "equal": true,
+          "cornerSha256": "5799ad0ba50255fa8de192a7bda505c4966d8ac087b98b1d61580117147361f9",
+          "currentCornerSha256": "5799ad0ba50255fa8de192a7bda505c4966d8ac087b98b1d61580117147361f9"
+        },
+        "NORMAL": {
+          "equal": true,
+          "cornerSha256": "daa451c9fff21389c27bf75828299063fb2c97a7b24c2de810e9bf3628bdd9db",
+          "currentCornerSha256": "daa451c9fff21389c27bf75828299063fb2c97a7b24c2de810e9bf3628bdd9db"
+        },
+        "TEXCOORD_0": {
+          "equal": true,
+          "cornerSha256": "3246a53b7c81e6d96ff12175e4889d61e0d203c33cc53d702b3e42e5d65dc0e6",
+          "currentCornerSha256": "3246a53b7c81e6d96ff12175e4889d61e0d203c33cc53d702b3e42e5d65dc0e6"
+        },
+        "JOINTS_0": {
+          "equal": true,
+          "cornerSha256": "432a3c2f21d83fab7f8e7245a5fcbdafa940b8ca23010139caca82aa5e1196fb",
+          "currentCornerSha256": "432a3c2f21d83fab7f8e7245a5fcbdafa940b8ca23010139caca82aa5e1196fb"
+        },
+        "WEIGHTS_0": {
+          "equal": true,
+          "cornerSha256": "2c06cf57e8ea33c2bc2a9fb1e48df05ccdac7ab7e6afabd96cd6283a89a5ce08",
+          "currentCornerSha256": "2c06cf57e8ea33c2bc2a9fb1e48df05ccdac7ab7e6afabd96cd6283a89a5ce08"
+        }
+      }
+    },
+    {
+      "mesh": 6,
+      "name": "sole",
+      "primitive": 0,
+      "triangles": 3880,
+      "indexOrderEqual": true,
+      "descriptorEqual": true,
+      "attributes": {
+        "POSITION": {
+          "equal": true,
+          "cornerSha256": "4fa37fc5c630da8b1612337488889d425249ceeb339d496a7151e2d52c81417e",
+          "currentCornerSha256": "4fa37fc5c630da8b1612337488889d425249ceeb339d496a7151e2d52c81417e"
+        },
+        "NORMAL": {
+          "equal": true,
+          "cornerSha256": "af9aa6117e117c98712954161e1ec701b1db78d0e5bcd70b75073e44feefe9f5",
+          "currentCornerSha256": "af9aa6117e117c98712954161e1ec701b1db78d0e5bcd70b75073e44feefe9f5"
+        },
+        "TEXCOORD_0": {
+          "equal": true,
+          "cornerSha256": "c9ad76a0e0092ac55d45301845171d6b796b868cc9029515f72a3dca1b953be6",
+          "currentCornerSha256": "c9ad76a0e0092ac55d45301845171d6b796b868cc9029515f72a3dca1b953be6"
+        },
+        "JOINTS_0": {
+          "equal": true,
+          "cornerSha256": "e182b2a0ef8717376ef13409d472ce241f4505d6ede608fca866eceb952ea999",
+          "currentCornerSha256": "e182b2a0ef8717376ef13409d472ce241f4505d6ede608fca866eceb952ea999"
+        },
+        "WEIGHTS_0": {
+          "equal": true,
+          "cornerSha256": "165daa1c3e896c5426aaa173731da129d062ab8617d046761e2d3858b29bf911",
+          "currentCornerSha256": "165daa1c3e896c5426aaa173731da129d062ab8617d046761e2d3858b29bf911"
+        }
+      }
+    },
+    {
+      "mesh": 7,
+      "name": "metal",
+      "primitive": 0,
+      "triangles": 2020,
+      "indexOrderEqual": true,
+      "descriptorEqual": true,
+      "attributes": {
+        "POSITION": {
+          "equal": true,
+          "cornerSha256": "1f86729a43ff31bb0a862f09ca49c4ac2bb5bdc8e128b5cdb9e2cccd3e8c23ac",
+          "currentCornerSha256": "1f86729a43ff31bb0a862f09ca49c4ac2bb5bdc8e128b5cdb9e2cccd3e8c23ac"
+        },
+        "NORMAL": {
+          "equal": true,
+          "cornerSha256": "7388b401d97927e4b6f60dec0da5fab1472aaadcd1517c512412a87153ff76ef",
+          "currentCornerSha256": "7388b401d97927e4b6f60dec0da5fab1472aaadcd1517c512412a87153ff76ef"
+        },
+        "TEXCOORD_0": {
+          "equal": true,
+          "cornerSha256": "2710acc6101def60059a3252d227c82169220c3500eb2d3652b38d43e9b7b0f0",
+          "currentCornerSha256": "2710acc6101def60059a3252d227c82169220c3500eb2d3652b38d43e9b7b0f0"
+        },
+        "JOINTS_0": {
+          "equal": true,
+          "cornerSha256": "e67605eb8030506c8a1f2ac11eef54145fe186106c218deab1690b83a8ac0d5e",
+          "currentCornerSha256": "e67605eb8030506c8a1f2ac11eef54145fe186106c218deab1690b83a8ac0d5e"
+        },
+        "WEIGHTS_0": {
+          "equal": true,
+          "cornerSha256": "193b59800f0021fd3c46764f3849689dd3ebdfc04884c7f6a32e6e8c877e73e1",
+          "currentCornerSha256": "193b59800f0021fd3c46764f3849689dd3ebdfc04884c7f6a32e6e8c877e73e1"
+        }
+      }
+    },
+    {
+      "mesh": 8,
+      "name": "eye",
+      "primitive": 0,
+      "triangles": 2176,
+      "indexOrderEqual": true,
+      "descriptorEqual": true,
+      "attributes": {
+        "POSITION": {
+          "equal": true,
+          "cornerSha256": "ec758d5dc4d542ae76ace2ad88a90594355c95591bcce908918d39bbbe624d1e",
+          "currentCornerSha256": "ec758d5dc4d542ae76ace2ad88a90594355c95591bcce908918d39bbbe624d1e"
+        },
+        "NORMAL": {
+          "equal": true,
+          "cornerSha256": "96ad4e90c9a777f9af81952006ab19cd88f4dab51be1aa116b2835b09cf27af4",
+          "currentCornerSha256": "96ad4e90c9a777f9af81952006ab19cd88f4dab51be1aa116b2835b09cf27af4"
+        },
+        "TEXCOORD_0": {
+          "equal": true,
+          "cornerSha256": "f655598e02ccf9854b3a386bd0a01ce9669eec5acbc55f25e86813c352874464",
+          "currentCornerSha256": "f655598e02ccf9854b3a386bd0a01ce9669eec5acbc55f25e86813c352874464"
+        },
+        "JOINTS_0": {
+          "equal": true,
+          "cornerSha256": "7ca31ccaf15975984dcb59b49953cb6e52466a4a179afc6db53505b538976c11",
+          "currentCornerSha256": "7ca31ccaf15975984dcb59b49953cb6e52466a4a179afc6db53505b538976c11"
+        },
+        "WEIGHTS_0": {
+          "equal": true,
+          "cornerSha256": "b21c03beb315d5deb7ca5a67b189e45dfb4b51c4597a6751e489293cc0a5ab82",
+          "currentCornerSha256": "b21c03beb315d5deb7ca5a67b189e45dfb4b51c4597a6751e489293cc0a5ab82"
+        }
+      }
+    },
+    {
+      "mesh": 9,
+      "name": "iris",
+      "primitive": 0,
+      "triangles": 1664,
+      "indexOrderEqual": true,
+      "descriptorEqual": true,
+      "attributes": {
+        "POSITION": {
+          "equal": true,
+          "cornerSha256": "98fffa0c38ce8643b589d44783c4298eea2fb3b15ce43b0f5460d10ed6b96073",
+          "currentCornerSha256": "98fffa0c38ce8643b589d44783c4298eea2fb3b15ce43b0f5460d10ed6b96073"
+        },
+        "NORMAL": {
+          "equal": true,
+          "cornerSha256": "134d687aa9186b63f510295d2198a9d4e3f9423ed1a60314c1ff6b0d47ec8d5f",
+          "currentCornerSha256": "134d687aa9186b63f510295d2198a9d4e3f9423ed1a60314c1ff6b0d47ec8d5f"
+        },
+        "TEXCOORD_0": {
+          "equal": true,
+          "cornerSha256": "ef262bc13cb47d0789833b7aa7036b267a26e0944c3d8e593bc15f357220eb93",
+          "currentCornerSha256": "ef262bc13cb47d0789833b7aa7036b267a26e0944c3d8e593bc15f357220eb93"
+        },
+        "JOINTS_0": {
+          "equal": true,
+          "cornerSha256": "7ff8ae9ab0aa9adbce915361377f001074ebdd4387ae8bb92df369d50e062583",
+          "currentCornerSha256": "7ff8ae9ab0aa9adbce915361377f001074ebdd4387ae8bb92df369d50e062583"
+        },
+        "WEIGHTS_0": {
+          "equal": true,
+          "cornerSha256": "25981140fe2189c2fed3d7204ad1e845e9b83dbfea0c54de4ea08730a6d25bc8",
+          "currentCornerSha256": "25981140fe2189c2fed3d7204ad1e845e9b83dbfea0c54de4ea08730a6d25bc8"
+        }
+      }
+    },
+    {
+      "mesh": 10,
+      "name": "nails",
+      "primitive": 0,
+      "triangles": 600,
+      "indexOrderEqual": true,
+      "descriptorEqual": true,
+      "attributes": {
+        "POSITION": {
+          "equal": true,
+          "cornerSha256": "9722d42deff062298648b61a43fa4706e3f3b5f08ea9373ea809e8322b8b7cbc",
+          "currentCornerSha256": "9722d42deff062298648b61a43fa4706e3f3b5f08ea9373ea809e8322b8b7cbc"
+        },
+        "NORMAL": {
+          "equal": true,
+          "cornerSha256": "ae82ef0bbd1e5322f655aafb5ede0aec22e4f44fe739e3b3bbeab02991ceff92",
+          "currentCornerSha256": "ae82ef0bbd1e5322f655aafb5ede0aec22e4f44fe739e3b3bbeab02991ceff92"
+        },
+        "TEXCOORD_0": {
+          "equal": true,
+          "cornerSha256": "cd87127a9cced9fa00248a89cff75458717a75ade437a15bbac94dcc6fa95182",
+          "currentCornerSha256": "cd87127a9cced9fa00248a89cff75458717a75ade437a15bbac94dcc6fa95182"
+        },
+        "JOINTS_0": {
+          "equal": true,
+          "cornerSha256": "63846c36e84ed454f153c3e073e7c316a33f7f9b4a5cf63a90d81f3aeb69acd0",
+          "currentCornerSha256": "63846c36e84ed454f153c3e073e7c316a33f7f9b4a5cf63a90d81f3aeb69acd0"
+        },
+        "WEIGHTS_0": {
+          "equal": true,
+          "cornerSha256": "a9f83b9fade11c69022295a5e1c7adb850bca4b605c2a76bc2360f762748cd7b",
+          "currentCornerSha256": "a9f83b9fade11c69022295a5e1c7adb850bca4b605c2a76bc2360f762748cd7b"
+        }
+      }
+    },
+    {
+      "mesh": 11,
+      "name": "pupil",
+      "primitive": 0,
+      "triangles": 2464,
+      "indexOrderEqual": true,
+      "descriptorEqual": true,
+      "attributes": {
+        "POSITION": {
+          "equal": true,
+          "cornerSha256": "08d0d6c64c4784fd59a0010e6292ac88c94fe8df66500c2328f036309eb75dac",
+          "currentCornerSha256": "08d0d6c64c4784fd59a0010e6292ac88c94fe8df66500c2328f036309eb75dac"
+        },
+        "NORMAL": {
+          "equal": true,
+          "cornerSha256": "124da6a3d84a29ecd741bf67da02534bbd8f922f1c5f2a05a9405b79e135a6aa",
+          "currentCornerSha256": "124da6a3d84a29ecd741bf67da02534bbd8f922f1c5f2a05a9405b79e135a6aa"
+        },
+        "TEXCOORD_0": {
+          "equal": true,
+          "cornerSha256": "467c8fba54ce2e2604eb5a5be5f1930dec4460e4c98d1f57237e85769f4f6c5d",
+          "currentCornerSha256": "467c8fba54ce2e2604eb5a5be5f1930dec4460e4c98d1f57237e85769f4f6c5d"
+        },
+        "JOINTS_0": {
+          "equal": true,
+          "cornerSha256": "2a9302190d05101f445d19ee5e4007c37fad1f557e35f681f3e506d1e94428f2",
+          "currentCornerSha256": "2a9302190d05101f445d19ee5e4007c37fad1f557e35f681f3e506d1e94428f2"
+        },
+        "WEIGHTS_0": {
+          "equal": true,
+          "cornerSha256": "e59dfe48430a9e1a1b76be03b7a142e7b3981583442a707c55f7e25d867dd254",
+          "currentCornerSha256": "e59dfe48430a9e1a1b76be03b7a142e7b3981583442a707c55f7e25d867dd254"
+        }
+      }
+    },
+    {
+      "mesh": 12,
+      "name": "groom_root",
+      "primitive": 0,
+      "triangles": 3312,
+      "indexOrderEqual": true,
+      "descriptorEqual": true,
+      "attributes": {
+        "POSITION": {
+          "equal": true,
+          "cornerSha256": "a3189650a3f3fa4d1a874225717a4d1623c97f0f6b9711fa08b49d02bdc851a3",
+          "currentCornerSha256": "a3189650a3f3fa4d1a874225717a4d1623c97f0f6b9711fa08b49d02bdc851a3"
+        },
+        "NORMAL": {
+          "equal": true,
+          "cornerSha256": "2a3ca626b6511ec5377c384757ba15d48bdea30f328dc75707d458eb622def4a",
+          "currentCornerSha256": "2a3ca626b6511ec5377c384757ba15d48bdea30f328dc75707d458eb622def4a"
+        },
+        "TEXCOORD_0": {
+          "equal": true,
+          "cornerSha256": "b2aafa970019672652e7d91a6ef597740d7daa5ca1a76c537a4889cb2eb90f19",
+          "currentCornerSha256": "b2aafa970019672652e7d91a6ef597740d7daa5ca1a76c537a4889cb2eb90f19"
+        },
+        "JOINTS_0": {
+          "equal": true,
+          "cornerSha256": "3c44f795f0f7c11ac190610b1088cd6f9f98993b2d33de0b3da54a37425ebe56",
+          "currentCornerSha256": "3c44f795f0f7c11ac190610b1088cd6f9f98993b2d33de0b3da54a37425ebe56"
+        },
+        "WEIGHTS_0": {
+          "equal": true,
+          "cornerSha256": "01cf95854ad7de19e6f0d41cd9fff579a8e99a52ef5711b285f3c3896f384c32",
+          "currentCornerSha256": "01cf95854ad7de19e6f0d41cd9fff579a8e99a52ef5711b285f3c3896f384c32"
+        }
+      }
+    },
+    {
+      "mesh": 13,
+      "name": "groom_locks",
+      "primitive": 0,
+      "triangles": 8640,
+      "indexOrderEqual": true,
+      "descriptorEqual": true,
+      "attributes": {
+        "POSITION": {
+          "equal": true,
+          "cornerSha256": "4fcbe886641fd9638d215256a903b9a378835b454969041a477157c6b6e2faef",
+          "currentCornerSha256": "4fcbe886641fd9638d215256a903b9a378835b454969041a477157c6b6e2faef"
+        },
+        "NORMAL": {
+          "equal": true,
+          "cornerSha256": "3f3f95db01688e0c8da4872c73ea7bfbcad45683a31886e240ee4e5c76c0e285",
+          "currentCornerSha256": "3f3f95db01688e0c8da4872c73ea7bfbcad45683a31886e240ee4e5c76c0e285"
+        },
+        "TEXCOORD_0": {
+          "equal": true,
+          "cornerSha256": "2fe215e0841b9d7be0527577353c289baf6d5b1d2cf6f330c3171f48e71cab6b",
+          "currentCornerSha256": "2fe215e0841b9d7be0527577353c289baf6d5b1d2cf6f330c3171f48e71cab6b"
+        },
+        "JOINTS_0": {
+          "equal": true,
+          "cornerSha256": "376b69179d598e5d7ce267b6f35b4ff7c4eb5c918e3dd179c46325bf36a23f15",
+          "currentCornerSha256": "376b69179d598e5d7ce267b6f35b4ff7c4eb5c918e3dd179c46325bf36a23f15"
+        },
+        "WEIGHTS_0": {
+          "equal": true,
+          "cornerSha256": "a611729a68dc684aab81f396e263460dd3e6db11d09e7908a3d2e3779ba7f80f",
+          "currentCornerSha256": "a611729a68dc684aab81f396e263460dd3e6db11d09e7908a3d2e3779ba7f80f"
+        }
+      }
+    }
+  ],
+  "nodes": 64,
+  "joints": 49,
+  "animations": 11,
+  "images": [
+    {
+      "image": 0,
+      "equal": true,
+      "sha256": "b2264ea69c0193cb2d6d19af77a452c41a86e592b3d29c9298ac300139e7d07a",
+      "currentSha256": "b2264ea69c0193cb2d6d19af77a452c41a86e592b3d29c9298ac300139e7d07a"
+    },
+    {
+      "image": 1,
+      "equal": true,
+      "sha256": "376d06355746cd954e59ffcf6246d85c50302185f0b6cd484dc9b24447a9e58a",
+      "currentSha256": "376d06355746cd954e59ffcf6246d85c50302185f0b6cd484dc9b24447a9e58a"
+    },
+    {
+      "image": 2,
+      "equal": true,
+      "sha256": "b696b482ac9731ea48086407c2ae44381a0ea254372571d2862b31516c534256",
+      "currentSha256": "b696b482ac9731ea48086407c2ae44381a0ea254372571d2862b31516c534256"
+    }
+  ],
+  "documentDifferences": [
+    {
+      "path": "/asset/generator",
+      "before": "Distrito Cero current human exporter v0.20.23",
+      "after": "Distrito Cero current human exporter v0.20.24"
+    },
+    {
+      "path": "/extras/sourceManifest/build-info.json",
+      "before": "4a05f8a72785fc3d9d4aec6ce278259c89124e4221c7dea5a97dda8206cd69a3",
+      "after": "cbdf58035ab4f0aa377e3fc4f15b62ef989b2fcf4a9a3ff355e0c8528c876fc0"
+    },
+    {
+      "path": "/extras/sourceManifest/version.json",
+      "before": "fbb7b816cf9e3a54e549f301a42c12119e24c6f0f64fd387b63f2557ece72312",
+      "after": "d64b6e9797f160a007d1dbcc1f9db0c9dfe41d9d688f0b6f149a4d1536836df6"
+    },
+    {
+      "path": "/nodes/0/name",
+      "before": "DC human 0.20.23 neutral fitted neck and classic groom",
+      "after": "DC human 0.20.24 neutral fitted neck and classic groom"
+    }
+  ],
+  "unexpectedDocumentDifferences": []
+}

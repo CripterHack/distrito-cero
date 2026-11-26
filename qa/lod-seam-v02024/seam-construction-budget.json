@@ -1,0 +1,198 @@
+{
+  "node": "v24.22.3",
+  "scope": "CPU face LOD construction only, fixed source, explicit GC before each sample; not FPS or GPU timing",
+  "samples": [
+    {
+      "lod": 1,
+      "weldUVSeams": false,
+      "wallMs": 72.18510500000002,
+      "cpuMs": 110.927,
+      "triangles": 6229,
+      "outputBytes": 1195968
+    },
+    {
+      "lod": 1,
+      "weldUVSeams": true,
+      "wallMs": 101.99755599999992,
+      "cpuMs": 147.474,
+      "triangles": 6229,
+      "outputBytes": 1195968
+    },
+    {
+      "lod": 1,
+      "weldUVSeams": true,
+      "wallMs": 93.82309599999996,
+      "cpuMs": 143.383,
+      "triangles": 6229,
+      "outputBytes": 1195968
+    },
+    {
+      "lod": 1,
+      "weldUVSeams": false,
+      "wallMs": 131.94829099999993,
+      "cpuMs": 144.622,
+      "triangles": 6229,
+      "outputBytes": 1195968
+    },
+    {
+      "lod": 1,
+      "weldUVSeams": false,
+      "wallMs": 61.24845800000003,
+      "cpuMs": 97.203,
+      "triangles": 6229,
+      "outputBytes": 1195968
+    },
+    {
+      "lod": 1,
+      "weldUVSeams": true,
+      "wallMs": 82.69982600000003,
+      "cpuMs": 134.098,
+      "triangles": 6229,
+      "outputBytes": 1195968
+    },
+    {
+      "lod": 1,
+      "weldUVSeams": true,
+      "wallMs": 97.82666399999994,
+      "cpuMs": 135.074,
+      "triangles": 6229,
+      "outputBytes": 1195968
+    },
+    {
+      "lod": 1,
+      "weldUVSeams": false,
+      "wallMs": 55.95445399999994,
+      "cpuMs": 85.338,
+      "triangles": 6229,
+      "outputBytes": 1195968
+    },
+    {
+      "lod": 1,
+      "weldUVSeams": false,
+      "wallMs": 50.862620000000106,
+      "cpuMs": 57.637,
+      "triangles": 6229,
+      "outputBytes": 1195968
+    },
+    {
+      "lod": 1,
+      "weldUVSeams": true,
+      "wallMs": 81.62158899999986,
+      "cpuMs": 87.097,
+      "triangles": 6229,
+      "outputBytes": 1195968
+    },
+    {
+      "lod": 1,
+      "weldUVSeams": true,
+      "wallMs": 71.11132599999996,
+      "cpuMs": 77.198,
+      "triangles": 6229,
+      "outputBytes": 1195968
+    },
+    {
+      "lod": 1,
+      "weldUVSeams": false,
+      "wallMs": 54.97447299999999,
+      "cpuMs": 61.569,
+      "triangles": 6229,
+      "outputBytes": 1195968
+    },
+    {
+      "lod": 2,
+      "weldUVSeams": false,
+      "wallMs": 39.47176499999978,
+      "cpuMs": 41.206,
+      "triangles": 3645,
+      "outputBytes": 699840
+    },
+    {
+      "lod": 2,
+      "weldUVSeams": true,
+      "wallMs": 63.13163200000008,
+      "cpuMs": 67.726,
+      "triangles": 3645,
+      "outputBytes": 699840
+    },
+    {
+      "lod": 2,
+      "weldUVSeams": true,
+      "wallMs": 89.33087100000012,
+      "cpuMs": 94.082,
+      "triangles": 3645,
+      "outputBytes": 699840
+    },
+    {
+      "lod": 2,
+      "weldUVSeams": false,
+      "wallMs": 41.77064900000005,
+      "cpuMs": 44.335,
+      "triangles": 3645,
+      "outputBytes": 699840
+    },
+    {
+      "lod": 2,
+      "weldUVSeams": false,
+      "wallMs": 38.735729999999876,
+      "cpuMs": 41.496,
+      "triangles": 3645,
+      "outputBytes": 699840
+    },
+    {
+      "lod": 2,
+      "weldUVSeams": true,
+      "wallMs": 60.82856200000015,
+      "cpuMs": 65.425,
+      "triangles": 3645,
+      "outputBytes": 699840
+    },
+    {
+      "lod": 2,
+      "weldUVSeams": true,
+      "wallMs": 60.7876610000003,
+      "cpuMs": 65.11,
+      "triangles": 3645,
+      "outputBytes": 699840
+    },
+    {
+      "lod": 2,
+      "weldUVSeams": false,
+      "wallMs": 38.06142499999987,
+      "cpuMs": 40.61,
+      "triangles": 3645,
+      "outputBytes": 699840
+    },
+    {
+      "lod": 2,
+      "weldUVSeams": false,
+      "wallMs": 38.23804799999971,
+      "cpuMs": 40.908,
+      "triangles": 3645,
+      "outputBytes": 699840
+    },
+    {
+      "lod": 2,
+      "weldUVSeams": true,
+      "wallMs": 59.23357699999997,
+      "cpuMs": 63.674,
+      "triangles": 3645,
+      "outputBytes": 699840
+    },
+    {
+      "lod": 2,
+      "weldUVSeams": true,
+      "wallMs": 59.86948399999983,
+      "cpuMs": 64.856,
+      "triangles": 3645,
+      "outputBytes": 699840
+    },
+    {
+      "lod": 2,
+      "weldUVSeams": false,
+      "wallMs": 39.6196460000001,
+      "cpuMs": 41.628,
+      "triangles": 3645,
+      "outputBytes": 699840
+    }
+  ]
+}

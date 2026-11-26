@@ -1,0 +1,57 @@
+{
+  "schema": 1,
+  "date": "2026-11-25",
+  "assetId": "dc-human-0.20.22-uv-rebaked",
+  "scope": "Portable authoring derivative; canonical runtime unchanged",
+  "file": "dc-human-0.20.22-neutral-tangents-uv-rebaked-tangents.glb",
+  "sha256": "2066cf494d6df9bb356cbccd7299f0197009362978a603789560b755730f8560",
+  "bytes": 23823476,
+  "sourceSha256": "3bce159bda06e1acf26181971aa29eda8249baf08b54bb2657b1781274aa5e01",
+  "recipeSha256": "c9e6ce650e20fe3f1f84a2595093163c07bb341658802099588bcdbc5f4f06ff",
+  "toolchain": {
+    "blender": "4.3.2",
+    "scriptSha256": "d915800e7f04afa647763397f4e64a64c8ed4ad6a3cb46ea1288b23bb49b302a",
+    "engine": "Cycles CPU",
+    "samples": 16,
+    "resolution": 2048,
+    "marginPixels": 16,
+    "uvAlgorithm": "Smart Project 66 degrees, area weight .5, island margin .018",
+    "sourceBasis": "Explicit GLB tangent, W and normal corner attributes; source normal scale baked once",
+    "sourceSampler": "Linear repeat U / clamp V; V clamped per-image to half-texel interval before Blender repeat lookup",
+    "normalConvention": "Blender target UV V inverted to glTF; baked normal green inverted",
+    "sourceFallback": "Preserves declared portable-tangent fallback; does not recover an undefined original UV basis"
+  },
+  "imageSha256": {
+    "baseColor": "9a75cf1351b02bdab4352155b1abcbb50c9340dc8d5e95d170cc585356edd151",
+    "normal": "ff5b42533cc643308817120dd23255dd0b10dd478a8d172fc026b65817e85a47",
+    "orm": "0c3a1ba767a6bae2add4a9b4b92c38d023d6eb5a703ee475120c194677cb251e"
+  },
+  "officialValidation": {
+    "errors": 0,
+    "warnings": 0
+  },
+  "validationReportSha256": "e3bf5747c515a400a1a5b39cdaba5485f670805064654c48cd438a37ec35bdba",
+  "degenerateUvTriangles": 0,
+  "triangles": 9672,
+  "faceVertices": 29016,
+  "joints": 49,
+  "clips": 11,
+  "preservedBinaryBytes": 4454420,
+  "artisticAcceptance": "pending",
+  "runtimeIntegrated": false,
+  "license": "Existing MakeHuman HM08/Aksel Skin attribution retained; no new global license",
+  "artifactStorage": "Review archive and local artifacts/uv-rebake; no heavy binaries tracked",
+  "limitations": [
+    "Inherited neck color seam remains visible.",
+    "Maps are resampled, not newly scanned detail.",
+    "Blender/portable shading is not native DQ.",
+    "Approximate full mip RGBA8 texture budget:64MiB; hardware measurement pending."
+  ],
+  "visualComparison": {
+    "captures": 24,
+    "status": "passed",
+    "reportSha256": "24a6ea79d4df08a74a4c6de2bae589d70bc905f6090f7bee100bc0281a072aca",
+    "nativeRuntime": false,
+    "remainingDefect": "Inherited neck color seam"
+  }
+}

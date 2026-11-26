@@ -1,3 +1,34 @@
+# Parche vigente del árbol: v0.20.25 · Coherencia
+
+La chaqueta conserva más detalle en los personajes lejanos para evitar los
+parches adicionales de piel que aparecían junto al cuello. Inicio y Pausa
+muestran v0.20.25. Los controles y las partidas mantienen su formato.
+
+Consultar [HANDOFF](../project/HANDOFF.md) para integración y pendientes.
+
+## Notas anteriores
+
+# Parche vigente del árbol: v0.20.24 · Coherencia
+
+La nuca deja de abrirse al utilizar el modelo de personaje más simplificado.
+Inicio y Pausa muestran v0.20.24. Los controles y las partidas mantienen el
+mismo comportamiento. La intersección de piel y chaqueta sigue en revisión.
+
+Consultar [HANDOFF](../project/HANDOFF.md) para integración y pendientes.
+
+## Notas anteriores
+
+# Parche vigente del árbol: v0.20.23 · Coherencia
+
+La cara utiliza un atlas de texturas reparado con transición cervical horneada.
+Los modelos simplificados mantienen su geometría y las partidas siguen usando
+el mismo formato. Inicio y Pausa identifican esta candidata como v0.20.23.
+
+Consultar [HANDOFF](../project/HANDOFF.md) para el estado de integración,
+revisión visual y publicación. Esta mejora de materiales no anuncia calidad AAA.
+
+## Notas anteriores
+
 # Parche vigente del árbol: v0.20.22 · Coherencia
 
 Inicio y Pausa identifican v0.20.22. Cambiar entre escopeta y revólver conserva

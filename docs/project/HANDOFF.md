@@ -1,4 +1,147 @@
-# Continuación vigente · escopeta / revólver · candidata 0.20.22
+# Continuación vigente · v0.20.25 · chaqueta LOD2 · refs #5
+
+La chaqueta LOD2 comparte la malla intermedia existente, con pose/apariencia por
+instancia y un solo propietario GPU. [Contrato, evidencia y coste](COLLAR-LOD.md).
+No repetir el atlas de #63, la costura de #64 ni los experimentos de conectividad:
+los últimos corrigieron dos píxeles pero no la cobertura completa muestreada.
+
+La base #64 (`2b72a688`) aprobó sus tres workflows y nueve jobs. Esta unidad
+mantiene master como destino y depende de #63/#64; ninguno se ha integrado ni
+desplegado. La nueva CI se registra por su commit exacto en el PR.
+
+**Siguiente paso concreto:** distinguir las limitaciones restantes de la piel
+LOD2 y la cobertura fuente/LOD1 con los datos guardados. No llamar a las sondas
+sin impacto 'sin intersección'. Comparar los pequeños márgenes negativos con
+la geometría anterior y las cámaras de juego antes de cambiar la piel, el rig
+u otra proporción. Las referencias completas de cuatro perfiles/tres poses,
+los IDs de anclas y las mediciones están en la evidencia del contrato.
+
+La [evidencia final](../../qa/collar-lod-v02025/README.md) conserva 42 vistas,
+173 guardas y 110 criterios aprobados; comparación 304/304. Los cinco márgenes
+negativos son menores de 0,2 mm: cuatro nuevos frente a la prenda anterior y
+uno antes desconocido, sin puntos nuevos visibles en las cámaras revisadas.
+Las 492 sondas sin impacto siguen desconocidas. No convertir el gate de
+cobertura en una afirmación de cero colisiones.
+También revisar las 190 combinaciones fuera del core LOD0/1 que pierden
+cobertura al reutilizar LOD1, aunque la pérdida total frente a LOD0 baja de
+1.365 a 841. Conservar IDs y cámaras; no aprobar sólo por el balance neto.
+
+La política añade 2.181 triángulos por actor LOD2 y elimina 155.712 bytes de VBO,
+un buffer de instancias, un VAO y la reducción anterior. Medir el coste real
+con reparto en hardware físico; no extrapolar FPS desde SwiftShader. Siguen
+pendientes arte global y adaptación de los modelos Higgsfield. #5/#6/#7 abiertos.
+
+## Registro anterior · v0.20.24
+
+# Continuación vigente · v0.20.24 · continuidad cervical LOD2 · refs #5
+
+La abertura posterior está corregida y verificada en la malla nativa y diez
+poses cervicales preparadas. **No repetir ese diagnóstico ni el atlas de #63.**
+[Contrato, reproducción, costes y límites](LOD-SEAM-CONTINUITY.md).
+
+**Siguiente paso concreto:** resolver la intersección del cuello con la chaqueta
+en LOD2. El diagnóstico separó ambas superficies: existen caras de prenda, pero
+la piel queda por delante tras simplificar. En la vista posterior, píxel
+(267,547), la chaqueta pasa de estar 28,52 mm delante en LOD0 a quedar 6,07 mm
+detrás en LOD2; en perfil (447,548), de 43,85 mm delante a 10,44 mm detrás.
+Reproducir en las cámaras fijadas antes de modificar la reducción; no tapar el
+problema con color, culling ni caras inventadas. Conservar las pruebas de nuca.
+
+Antes de integrar, revisar la nueva CI y la dependencia #63, cuyo HEAD `a72060b`
+aprobó tres workflows/nueve jobs. Esta unidad se propone contra master para
+mantener los gates; integrar primero #63 reduce el diff. No se ha desplegado.
+La aceptación artística, adaptación de candidatos Higgsfield y evaluación en
+hardware físico siguen pendientes. No cerrar los issues globales #5/#6/#7.
+
+## Registro de la unidad anterior · atlas nativo
+
+# Continuación vigente · atlas nativo v0.20.23 · refs #5
+
+## Unidad actual
+
+El atlas facial está integrado en la candidata del PR #63. Se ha adaptado
+el shader cervical, la base tangente, la simplificación LOD y la exportación.
+[Reproducción y límites](NATIVE-FACE-ATLAS.md). No repetir el diagnóstico ni
+copiar los mapas anteriores sobre las nuevas UV.
+
+**Siguiente paso:** revisar la candidata y la CI del HEAD exacto; después,
+continuar la revisión artística del rostro, cuello y cabello y medir coste
+en dispositivos físicos. Los candidatos Higgsfield aún requieren retopología,
+rig/pivotes y adaptación al juego antes de sustituir recursos canónicos.
+No cerrar los issues globales #5/#6/#7 por esta unidad técnica.
+
+## Evidencia local de la candidata
+
+Node **695/695**, benchmark **36/36**, primeros planos **32/32** y recuperación
+WebGL **25/25**. [Resultados y hashes](NATIVE-FACE-ATLAS.md). La comparación
+final confirma corregidos los parches angulares y el punto oscuro detectados
+en las primeras candidatas. Persisten huecos LOD2 anteriores y queda revisión
+artística. La CI del nuevo commit
+se registra separadamente y no se ha desplegado la candidata.
+
+## Ajuste del gate de autoría
+
+El primer CI de `d85a1f8` aprobó el benchmark, pero autoría falló porque dos
+aserciones exigían las UV defectuosas v1. [Registro y arreglo](NATIVE-FACE-ATLAS.md).
+La integración de tangentes ahora pasa 5/5 para v2 y 5/5 para el export histórico;
+conserva tolerancias y exige cero fallback en v2. El HTML mantiene su hash.
+Comprobar la nueva CI del commit de corrección, no reutilizar el resultado anterior.
+
+## Registro de etapas anteriores de #63
+
+## Continuación: derivado UV reproyectado
+
+Ya existe una [receta de UV y horneado](UV-REBAKE.md) con cero cartas colapsadas
+en el derivado portable. Conserva geometría por esquina, rig y clips. No
+rehacer el diagnóstico de 984 triángulos ni confundir el derivado con el
+recurso canónico del runtime, que continúa intacto.
+
+**Siguiente paso vigente:** corregir la transición de color del cuello en
+materiales y adaptar pigmento/mezcla cervical del shader nativo para el nuevo
+atlas, con comparación en las luces y poses del benchmark real. La reproyección
+conserva la costura heredada; no la convierte en una superficie aceptada.
+Revisar también el coste de tres mapas 2048² y las 29,016 esquinas de face
+antes de integrar. La aceptación artística y rendimiento siguen pendientes.
+
+Los comandos, resultados y reversión están en [UV-REBAKE](UV-REBAKE.md) y
+su [plan](../../specs/002-character-benchmark/plan-uv-rebake.md).
+Las notas siguientes describen la primera unidad de #63.
+
+## Actualización · 25 noviembre 2026
+
+Base master **f9454df7e3325a3cf4d516a0374c2ccb9565090c**, producto 0.20.22.
+PR #61 ya integrado: no repetir escopeta/revólver. PR #62 sólo actualiza Pillow.
+Los apartados inferiores conservan la entrega anterior como historia.
+
+Trabajo actual: dos [modelos Higgsfield](HIGGSFIELD-ASSETS.md), rechazo de
+GLB/manifiesto modificados durante la validación y diagnóstico UV por triángulo.
+[Regresión de integridad](../../specs/002-character-benchmark/plan-validation-input-integrity.md),
+[auditor UV y evidencia](../../specs/002-character-benchmark/plan-uv-audit.md).
+Ver [STATE](STATE.md) para resultados locales. Runtime/build intactos.
+
+**Primera tarea:** preparar receta de reparametrización y horneado del humano
+canónico, usando los IDs del auditor: 981 triángulos en V=1 del GLB más tres
+faciales, `1852`, `2200`, `5790`. No extender coordenadas a ciegas ni apagar
+el normal map para ocultarlo. Comparar costura cervical, color y normales en
+las luces/cámaras del benchmark y conservar rig/atributos.
+
+Los nuevos candidatos requieren revisión de términos del proveedor y adaptación:
+manos/topología/49 huesos para el personaje, piezas/pivotes para el coche;
+ambos necesitan escala/ejes, LODs, proxies y pruebas en el renderer real.
+El pipeline de tangentes puede repetirse sin nuevas generaciones de pago.
+
+```sh
+python3 tools/export_current_human.py --output artifacts/human-uv-next
+node tools/qa/audit_uv.cjs artifacts/human-uv-next/dc-human-0.20.22-neutral.glb > artifacts/human-uv-next/uv-audit.json
+node --test tests/glb-validation-contract.test.cjs tests/uv-audit.test.cjs
+```
+
+El auditor devuelve exit 1 para la deuda conocida; conservar su JSON.
+Retirar las herramientas/tests/docs de esta unidad revierte sus efectos;
+los modelos están separados y el HTML conserva su hash. #5/#6/#7 siguen
+abiertos. No se requiere migración de partidas.
+
+## Registro anterior a la integración de #61
 
 ## Base cerrada
 

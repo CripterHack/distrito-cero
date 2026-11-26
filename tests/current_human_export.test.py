@@ -2,12 +2,17 @@
 from pathlib import Path
 import hashlib
 import copy
+import base64
+import io
 import importlib.util
 import json
+import shutil
 import struct
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
+from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[1]
 SPEC = importlib.util.spec_from_file_location('current_export', ROOT / 'tools/export_current_human.py')
@@ -49,6 +54,7 @@ class CurrentExport(unittest.TestCase):
             self.assertEqual(record['artisticAcceptance'], 'pending')
             self.assertEqual(record['ownContentLicense'], 'owner-decision-pending')
             self.assertIn('src/hero-asset.js', record['sources'])
+            self.assertIn('src/human-materials.js', record['sources'])
             for path, digest in record['sources'].items():
                 self.assertEqual(hashlib.sha256((ROOT / path).read_bytes()).hexdigest(), digest)
             saved = json.loads((destination / 'source-manifest.json').read_text())
@@ -120,6 +126,10 @@ class PortableSchema(unittest.TestCase):
                             expected[jp] = 0
         self.assertEqual(self.binary, bytes(expected))
         for key in ('accessors', 'bufferViews', 'meshes', 'skins', 'materials', 'images', 'animations'):
+            if key == 'materials' and self.record.get('portableMaterial', {}).get('humanMaterialsVersion') == 2:
+                for material in prior['materials']:
+                    if material.get('name') == 'face':
+                        material['normalTexture']['scale'] = 1
             self.assertEqual(self.gltf[key], prior[key], key)
         instances = {i for i, node in enumerate(prior['nodes']) if 'skin' in node and 'mesh' in node}
         for node in prior['nodes']:
@@ -169,6 +179,146 @@ class PortableSchema(unittest.TestCase):
                         w = self.binary[wo + index * weight_view.get('byteStride', 4) + component]
                         violations += int(w == 0 and j != 0)
         self.assertEqual(violations, 0, 'Khronos ACCESSOR_JOINTS_USED_ZERO_WEIGHT')
+
+
+class NativeMaterialExport(unittest.TestCase):
+    @staticmethod
+    def maps():
+        result = {'version': 2, 'atlas': {'version': 2, 'normalScale': 1,
+            'uvConvention': 'native-bottom-left', 'material': 'cervical-color',
+            'mapSizes': {'albedo': 1024, 'normal': 512, 'roughness': 256}}}
+        for key, size, color, space in [('albedo', 1024, (23, 57, 91), 'srgb'),
+                                       ('normal', 512, (137, 161, 247), 'linear'),
+                                       ('roughness', 256, (103, 103, 103), 'linear')]:
+            stream = io.BytesIO()
+            image = Image.new('RGB', (size, size), color)
+            corner = {'albedo': (193, 17, 5), 'normal': (109, 183, 237),
+                      'roughness': (211, 211, 211)}[key]
+            image.putpixel((size - 1, size - 1), corner)
+            image.save(stream, format='WEBP', lossless=True)
+            result[key] = {'width': size, 'height': size, 'colorSpace': space,
+                'uri': 'data:image/webp;base64,' + base64.b64encode(stream.getvalue()).decode()}
+        return result
+
+    @classmethod
+    def setUpClass(cls):
+        cls.temp = tempfile.TemporaryDirectory()
+        cls.root = Path(cls.temp.name) / 'source'
+        for name in set(M.INPUTS) | {'src/human-materials.js'}:
+            target = cls.root / name
+            target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(ROOT / name, target)
+        cls.materials = cls.maps()
+        (cls.root / 'src/human-materials.js').write_text('DC.HumanMaterials=' + json.dumps(cls.materials) + ';\n')
+        cls.disk_before = {name: (cls.root / name).read_bytes() for name in (
+            'assets/anatomy-source/skin-repaired.webp', 'assets/anatomy-source/normal.webp',
+            'assets/anatomy-source/roughness.webp')}
+        cls.output = Path(cls.temp.name) / 'export'
+        with patch.object(M, 'ROOT', cls.root):
+            cls.record = M.export_current(cls.output)
+        raw = (cls.output / cls.record['file']).read_bytes()
+        size = struct.unpack_from('<I', raw, 12)[0]
+        cls.gltf, cls.binary = json.loads(raw[20:20 + size]), raw[28 + size:]
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.temp.cleanup()
+
+    def image(self, index):
+        view = self.gltf['bufferViews'][self.gltf['images'][index]['bufferView']]
+        offset = view.get('byteOffset', 0)
+        return Image.open(io.BytesIO(self.binary[offset:offset + view['byteLength']]))
+
+    def test_v2_exports_embedded_canonical_maps_instead_of_stale_disk_maps(self):
+        for index, size, color, corner in [(0, 1024, (23, 57, 91), (193, 17, 5)),
+                                           (1, 512, (137, 94, 247), (109, 72, 237)),
+                                           (2, 256, (255, 103, 0), (255, 211, 0))]:
+            with self.subTest(image=index):
+                image = self.image(index)
+                self.assertEqual(image.size, (size, size))
+                self.assertEqual(image.convert('RGB').getpixel((0, 0)), color)
+                self.assertEqual(image.convert('RGB').getpixel((size - 1, size - 1)), corner)
+        for name, original in self.disk_before.items():
+            self.assertEqual((self.root / name).read_bytes(), original)
+
+    def test_v2_normal_scale_is_not_applied_twice_and_provenance_is_explicit(self):
+        face = next(m for m in self.gltf['materials'] if m['name'] == 'face')
+        self.assertEqual(face['normalTexture']['scale'], 1)
+        record = self.record['portableMaterial']
+        self.assertEqual(record['humanMaterialsVersion'], 2)
+        self.assertEqual(record['source'], 'src/human-materials.js')
+        self.assertEqual(record['normalScale'], 1)
+        self.assertEqual(record['uvConvention'], 'native-bottom-left')
+        for key in ('albedo', 'normal', 'roughness'):
+            data = base64.b64decode(self.materials[key]['uri'].split(',', 1)[1])
+            self.assertEqual(record['maps'][key]['sha256'], hashlib.sha256(data).hexdigest())
+        self.assertIn('src/human-materials.js', self.record['sources'])
+        self.assertEqual(len(self.gltf['skins'][0]['joints']), 49)
+        self.assertEqual(len(self.gltf['animations']), 11)
+
+    def test_v2_retains_the_single_historical_native_to_gltf_v_conversion(self):
+        source = (self.root / 'src/hero-asset.js').read_text()
+        hero = json.loads(source.split('DC.HeroAsset=', 1)[1].strip().rstrip(';'))
+        native = base64.b64decode(next(p for p in hero['parts'] if p['name'] == 'face')['data'])
+        mesh = next(m for m in self.gltf['meshes'] if m['name'] == 'face')
+        primitive = mesh['primitives'][0]
+        uv = self.gltf['accessors'][primitive['attributes']['TEXCOORD_0']]
+        indices = self.gltf['accessors'][primitive['indices']]
+        uv_view, index_view = (self.gltf['bufferViews'][a['bufferView']] for a in (uv, indices))
+        index_format = '<H' if indices['componentType'] == 5123 else '<I'
+        index_size = struct.calcsize(index_format)
+        self.assertEqual(indices['count'], len(native) // 24)
+        for corner in range(indices['count']):
+            index = struct.unpack_from(index_format, self.binary,
+                index_view.get('byteOffset', 0) + corner * index_size)[0]
+            actual = struct.unpack_from('<2f', self.binary, uv_view.get('byteOffset', 0) + index * 8)
+            source_u, source_v = struct.unpack_from('<2H', native, corner * 24 + 12)
+            self.assertAlmostEqual(actual[0], source_u / 65535, delta=1e-7)
+            self.assertAlmostEqual(actual[1], 1 - source_v / 65535, delta=1e-7)
+
+    def test_v1_fallback_keeps_historical_maps_and_normal_strength(self):
+        with tempfile.TemporaryDirectory() as temp:
+            staged = Path(temp)
+            (staged / 'src').mkdir()
+            (staged / 'src/human-materials.js').write_text('DC.HumanMaterials={version:1};')
+            directory = staged / 'assets/anatomy-source'
+            directory.mkdir(parents=True)
+            paths = [directory / name for name in ('skin-repaired.webp', 'normal.webp', 'roughness.webp')]
+            for path in paths:
+                path.write_bytes(b'unchanged legacy input')
+            metadata = M.stage_native_materials(staged)
+            material = {'materials': [{'name': 'face', 'normalTexture': {'scale': .30}}]}
+            M.normalize_portable_material(material, metadata)
+            self.assertEqual(material['materials'][0]['normalTexture']['scale'], .30)
+            self.assertEqual(metadata['humanMaterialsVersion'], 1)
+            for path in paths:
+                self.assertEqual(path.read_bytes(), b'unchanged legacy input')
+
+    def test_invalid_atlas_fails_before_any_staging_map_is_replaced(self):
+        for kind in ('version', 'orientation', 'scale', 'declared-size', 'pixels-size',
+                     'uri', 'base64', 'color-space'):
+            with self.subTest(kind=kind), tempfile.TemporaryDirectory() as temp:
+                staged = Path(temp)
+                (staged / 'src').mkdir()
+                materials = copy.deepcopy(self.materials)
+                if kind == 'version': materials['version'] = 3
+                if kind == 'orientation': materials['atlas']['uvConvention'] = 'top-left'
+                if kind == 'scale': materials['atlas']['normalScale'] = .30
+                if kind == 'declared-size': materials['normal']['width'] = 12
+                if kind == 'pixels-size': materials['roughness']['uri'] = materials['albedo']['uri']
+                if kind == 'uri': materials['roughness']['uri'] = 'https://invalid.example/map.webp'
+                if kind == 'base64': materials['roughness']['uri'] = 'data:image/webp;base64,!!!'
+                if kind == 'color-space': materials['roughness']['colorSpace'] = 'srgb'
+                (staged / 'src/human-materials.js').write_text('DC.HumanMaterials=' + json.dumps(materials))
+                directory = staged / 'assets/anatomy-source'
+                directory.mkdir(parents=True)
+                paths = [directory / name for name in ('skin-repaired.webp', 'normal.webp', 'roughness.webp')]
+                for path in paths:
+                    path.write_bytes(b'unchanged legacy input')
+                with self.assertRaises(ValueError):
+                    M.stage_native_materials(staged)
+                for path in paths:
+                    self.assertEqual(path.read_bytes(), b'unchanged legacy input')
 
 class PortableNormalization(unittest.TestCase):
     def fixture(self):

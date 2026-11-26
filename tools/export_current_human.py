@@ -6,7 +6,9 @@ not equivalent to native DQ deformation or an artistic approval. No network use.
 """
 from pathlib import Path
 import argparse
+import base64
 import hashlib
+import io
 from importlib.metadata import version as package_version
 import shutil
 import struct
@@ -14,13 +16,14 @@ import subprocess
 import sys
 import tempfile
 import json
+from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[1]
 INPUTS = (
     'version.json', 'build-info.json', 'tools/export_current_human.py',
     'tools/export_traits_glb.py', 'src/core.js', 'src/character-fit.js',
     'src/character-motion.js', 'src/skin-rig.js', 'src/hero-asset.js',
-    'src/hair-geometry.js', 'src/visual-geometry.js',
+    'src/hair-geometry.js', 'src/visual-geometry.js', 'src/human-materials.js',
     'assets/anatomy-source/skin-repaired.webp',
     'assets/anatomy-source/normal.webp', 'assets/anatomy-source/roughness.webp',
     'assets/ATTRIBUTION-v09.md',
@@ -30,6 +33,80 @@ INPUTS = (
 def source_hashes():
     """Identify every byte consumed by the legacy exporter and its declaration."""
     return {path: hashlib.sha256((ROOT / path).read_bytes()).hexdigest() for path in INPUTS}
+
+
+def stage_native_materials(staged):
+    """Decode canonical v2 maps into private legacy-recipe inputs only.
+
+    Version 1 retains the historical disk-map export contract. Version 2 bakes
+    the source normal strength into its atlas and declares a native bottom-left
+    UV frame. The unchanged historical recipe converts V and normal green for
+    glTF exactly once after these maps have been staged.
+    """
+    script = r'''
+const fs=require('node:fs'),vm=require('node:vm'),context={DC:{}};
+vm.runInNewContext(fs.readFileSync(process.argv[1],'utf8'),context,{timeout:5000});
+const m=context.DC.HumanMaterials;
+if(!m)throw new Error('Missing canonical HumanMaterials');
+console.log(JSON.stringify({version:m.version,atlas:m.atlas,
+  albedo:m.albedo,normal:m.normal,roughness:m.roughness}));
+'''
+    materials = json.loads(subprocess.check_output(
+        ['node', '-e', script, str(staged / 'src/human-materials.js')],
+        text=True, timeout=15))
+    revision = materials.get('version')
+    if type(revision) is not int or revision not in (1, 2):
+        raise ValueError('Unsupported canonical human material version')
+    if revision == 1:
+        return {'humanMaterialsVersion': 1, 'source': 'assets/anatomy-source',
+                'normalScale': .30, 'uvConvention': 'native-bottom-left',
+                'policy': 'Historical disk maps and legacy normal strength retained'}
+    atlas = materials.get('atlas', {})
+    sizes = {'albedo': 1024, 'normal': 512, 'roughness': 256}
+    if (atlas.get('version') != 2 or atlas.get('normalScale') != 1
+            or atlas.get('uvConvention') != 'native-bottom-left'
+            or atlas.get('mapSizes') != sizes):
+        raise ValueError('Unsupported canonical atlas convention or normal scale')
+    filenames = {'albedo': 'skin-repaired.webp', 'normal': 'normal.webp',
+                 'roughness': 'roughness.webp'}
+    decoded, maps = {}, {}
+    for key, size in sizes.items():
+        entry = materials.get(key, {})
+        space = 'srgb' if key == 'albedo' else 'linear'
+        if (entry.get('width') != size or entry.get('height') != size
+                or entry.get('colorSpace') != space):
+            raise ValueError('Unsupported canonical map dimensions or color space: ' + key)
+        uri = entry.get('uri', '')
+        prefix = 'data:image/webp;base64,'
+        if not isinstance(uri, str) or not uri.startswith(prefix):
+            raise ValueError('Expected embedded WebP map: ' + key)
+        try:
+            data = base64.b64decode(uri[len(prefix):], validate=True)
+            with Image.open(io.BytesIO(data)) as image:
+                if image.format != 'WEBP' or image.size != (size, size):
+                    raise ValueError('Canonical map bytes do not match declared dimensions: ' + key)
+                image.load()
+        except (OSError, ValueError) as error:
+            raise ValueError('Invalid canonical WebP map: ' + key) from error
+        decoded[key] = data
+        maps[key] = {'width': size, 'height': size, 'colorSpace': space,
+                     'sha256': hashlib.sha256(data).hexdigest()}
+    # Validate the complete atlas before replacing any staging input.
+    for key, data in decoded.items():
+        (staged / 'assets/anatomy-source' / filenames[key]).write_bytes(data)
+    return {'humanMaterialsVersion': 2, 'source': 'src/human-materials.js',
+            'normalScale': 1, 'uvConvention': 'native-bottom-left', 'maps': maps,
+            'policy': 'Canonical embedded atlas; baked source normal strength; legacy V and normal-green conversion exactly once'}
+
+
+def normalize_portable_material(description, materials):
+    """The v2 atlas already includes source normal scale .30 in its vectors."""
+    if materials['humanMaterialsVersion'] == 1:
+        return
+    faces = [m for m in description['materials'] if m.get('name') == 'face']
+    if len(faces) != 1 or faces[0].get('normalTexture', {}).get('scale') != .30:
+        raise ValueError('Unexpected historical face normal material')
+    faces[0]['normalTexture']['scale'] = materials['normalScale']
 
 
 def normalize_portable_structure(description, binary):
@@ -156,6 +233,7 @@ def export_current(destination):
             target = staged / path
             target.parent.mkdir(parents=True, exist_ok=True)
             shutil.copyfile(ROOT / path, target)
+        materials = stage_native_materials(staged)
         subprocess.run([sys.executable, str(staged / 'tools/export_traits_glb.py')],
                        cwd=staged, check=True, capture_output=True, text=True, timeout=180)
         raw = (staged / 'assets/dc016-human-traits.glb').read_bytes()
@@ -173,9 +251,11 @@ def export_current(destination):
         description = json.loads(raw[20:20 + json_length])
         normalization = normalize_portable_structure(description, binary)
         hierarchy = normalize_skinned_roots(description)
+        normalize_portable_material(description, materials)
         description['asset']['generator'] = 'Distrito Cero current human exporter v' + version
         description['nodes'][0]['name'] = 'DC human ' + version + ' neutral fitted neck and classic groom'
         description['extras']['sourceManifest'] = sources
+        description['extras']['portableMaterial'] = materials
         encoded = json.dumps(description, separators=(',', ':'), ensure_ascii=False).encode()
         encoded += b' ' * (-len(encoded) % 4)
         tail = struct.pack('<II', len(binary), 0x004e4942) + binary
@@ -190,6 +270,7 @@ def export_current(destination):
         'schema': 1, 'assetId': 'human-neutral-authoring', 'productVersion': version,
         'sha256': hashlib.sha256((destination / filename).read_bytes()).hexdigest(),
         'sources': sources, 'portableNormalization': normalization, 'portableHierarchy': hierarchy,
+        'portableMaterial': materials,
         'toolchain': {'python': sys.version.split()[0],
                       'node': subprocess.check_output(['node', '--version'], text=True).strip(),
                       **{name: package_version(name) for name in ('numpy', 'scipy', 'Pillow')}},

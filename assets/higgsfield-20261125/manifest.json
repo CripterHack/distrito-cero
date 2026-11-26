@@ -1,0 +1,211 @@
+{
+  "schema": 1,
+  "date": "2026-11-25",
+  "provider": "Higgsfield / Tripo",
+  "model": "tripo_3d",
+  "sourceCommit": "f9454df7e3325a3cf4d516a0374c2ccb9565090c",
+  "parameters": {
+    "texture": true,
+    "pbr": true,
+    "texture_quality": "detailed",
+    "geometry_quality": "detailed",
+    "auto_size": true,
+    "face_limit": 50000,
+    "count": 1
+  },
+  "estimatedCreditsPerModel": 12.5,
+  "assets": [
+    {
+      "asset_id": "dc-hf-character-urban-01",
+      "filename": "urban-character.glb",
+      "prompt": "Original realistic full-body adult male civilian for Distrito Cero, a contemporary urban crime videogame. Coherent human proportions, 1.80m tall. Neutral A-pose, arms 35 degrees away from torso, palms forward, five separated fingers each hand, parallel feet. Short dark cropped hair, calm original face, no celebrity likeness. Dark charcoal fitted zip-front jacket with sewn panels and ribbed cuffs, muted grey crew neck shirt, indigo straight trousers, worn black low-top leather shoes. Restrained wear at cuffs and shoes, fine fabric weave, stitched seams, natural skin detail and subtle roughness variation. High fidelity PBR materials, neutral albedo, no baked lighting. Entire figure including hands and soles, clean silhouette. Single isolated character, no base, environment, weapons or floating accessories. Authoring mesh for retopology and binding to an existing game rig.",
+      "jobId": "95e1dfb1-a1ab-4ae7-86fd-ea340a8b1298",
+      "sourceSha256": "e7d41d6ea3245dc78a88865d2228a90979cc62ced65ca3712085a28f2ef9c7fd",
+      "sourceBytes": 9852796,
+      "inspection": {
+        "file": "urban-character.glb",
+        "blenderVersion": "4.3.2",
+        "boundsBlenderZUp": {
+          "min": [
+            -0.21587446331977844,
+            -0.9083418250083923,
+            -0.9248552918434143
+          ],
+          "max": [
+            0.2159072905778885,
+            0.9102185964584351,
+            0.9251446723937988
+          ],
+          "size": [
+            0.4317817687988281,
+            1.8185603618621826,
+            1.8499999046325684
+          ]
+        },
+        "objects": [
+          {
+            "name": "tripo_node_111d5109-8e94-40c1-a434-053f54724920",
+            "vertices": 26776,
+            "triangles": 47321,
+            "uvLayers": 1,
+            "materials": 1
+          }
+        ],
+        "armatures": 0,
+        "images": [
+          {
+            "name": "Color_111d5109-8e94-40c1-a434-053f54724920",
+            "size": [
+              4096,
+              4096
+            ]
+          },
+          {
+            "name": "NormalGL_111d5109-8e94-40c1-a434-053f54724920",
+            "size": [
+              4096,
+              4096
+            ]
+          },
+          {
+            "name": "ORM_111d5109-8e94-40c1-a434-053f54724920",
+            "size": [
+              4096,
+              4096
+            ]
+          }
+        ]
+      },
+      "portableDerivative": {
+        "file": "character-portable/urban-character-tangents.glb",
+        "sha256": "1cc77f0ea4e930a178a7c627f7fb2c4eba8f27b481bb94ced444e65208788bb8",
+        "bytes": 11422896,
+        "validation": {
+          "errors": 0,
+          "warnings": 0
+        },
+        "reportSha256": "0aef224ee0f5834ffc63c77e5471e3b4e69b7f3ddc520b93650a2b3a8596ea68",
+        "tangents": {
+          "algorithm": "MikkTSpace",
+          "packageVersion": "1.1.1",
+          "degenerateUvPolicy": "Least-parallel-axis orthogonal frame, final W=+1; collapsed UVs remain unrepaired",
+          "gltfHandednessFlipped": true,
+          "originalBinaryBytes": 9850520,
+          "addedBinaryBytes": 1569174,
+          "primitives": [
+            {
+              "mesh": 0,
+              "primitive": 0,
+              "inputVertices": 26776,
+              "referencedVertices": 26776,
+              "outputVertices": 26776,
+              "triangles": 47321,
+              "degenerateUvTriangles": 0,
+              "fallbackTangentCorners": 0,
+              "splitVertices": 0
+            }
+          ]
+        }
+      },
+      "license": "No global license granted; provider/account redistribution terms remain to be verified before publication."
+    },
+    {
+      "asset_id": "dc-hf-vehicle-sedan-01",
+      "filename": "urban-sedan.glb",
+      "prompt": "Original compact four-door sports sedan for Distrito Cero, a grounded near contemporary urban crime adventure videogame. Single isolated vehicle, approximately 4.4m long, 1.8m wide, 1.45m high. Restrained boxy silhouette with softly bevelled corners, deep petrol teal paint, black window trim, subtly tinted glass, four correctly positioned black rubber tires with detailed tread and understated five-spoke alloy wheels. Clearly defined four doors, side mirrors, continuous wheel arches, headlights and tail lights, bumper seams, grille and believable underbody. Cohesive premium realistic game art with manufactured panel gaps, gentle accumulated dust in crevices and restrained fine scratches, distinct clear-coated paint, glass, rubber and brushed metal PBR materials. No brand logos or legible license plate text. Wheels point straight. No ground platform, no environment, no driver. Exterior showcase mesh for later separation into existing game wheel and door pivots; no baked shadows or dramatic lighting.",
+      "jobId": "9288d580-b874-4f37-b355-f82b1e18f7dd",
+      "sourceSha256": "d5af7354a1fdd16e88b7b0eb28029e44d6d6a4f147f49a4a9650333962dbdc9b",
+      "sourceBytes": 8889512,
+      "inspection": {
+        "file": "urban-sedan.glb",
+        "blenderVersion": "4.3.2",
+        "boundsBlenderZUp": {
+          "min": [
+            -0.9458397030830383,
+            -2.012011766433716,
+            -0.7002352476119995
+          ],
+          "max": [
+            0.946449875831604,
+            2.0132009983062744,
+            0.6997647285461426
+          ],
+          "size": [
+            1.892289638519287,
+            4.02521276473999,
+            1.399999976158142
+          ]
+        },
+        "objects": [
+          {
+            "name": "tripo_node_dcd72758-37d8-4df3-8d60-cf205264ee5e",
+            "vertices": 28821,
+            "triangles": 44745,
+            "uvLayers": 1,
+            "materials": 1
+          }
+        ],
+        "armatures": 0,
+        "images": [
+          {
+            "name": "Color_dcd72758-37d8-4df3-8d60-cf205264ee5e",
+            "size": [
+              4096,
+              4096
+            ]
+          },
+          {
+            "name": "NormalGL_dcd72758-37d8-4df3-8d60-cf205264ee5e",
+            "size": [
+              4096,
+              4096
+            ]
+          },
+          {
+            "name": "ORM_dcd72758-37d8-4df3-8d60-cf205264ee5e",
+            "size": [
+              4096,
+              4096
+            ]
+          }
+        ]
+      },
+      "portableDerivative": {
+        "file": "sedan-portable/urban-sedan-tangents.glb",
+        "sha256": "e4518033f49441a8327893f20211550a1949418cc78111cdf2989b50ac8e1978",
+        "bytes": 10542412,
+        "validation": {
+          "errors": 0,
+          "warnings": 0
+        },
+        "reportSha256": "eb1f2f5eba97ede03aeb4957b29ed4f6ee80d84c4a4cdd9606c3c7f30a6fb0f4",
+        "tangents": {
+          "algorithm": "MikkTSpace",
+          "packageVersion": "1.1.1",
+          "degenerateUvPolicy": "Least-parallel-axis orthogonal frame, final W=+1; collapsed UVs remain unrepaired",
+          "gltfHandednessFlipped": true,
+          "originalBinaryBytes": 8887236,
+          "addedBinaryBytes": 1651974,
+          "primitives": [
+            {
+              "mesh": 0,
+              "primitive": 0,
+              "inputVertices": 28821,
+              "referencedVertices": 28821,
+              "outputVertices": 28823,
+              "triangles": 44745,
+              "degenerateUvTriangles": 0,
+              "fallbackTangentCorners": 0,
+              "splitVertices": 2
+            }
+          ]
+        }
+      },
+      "license": "No global license granted; provider/account redistribution terms remain to be verified before publication."
+    }
+  ],
+  "status": "generated-authoring-candidates",
+  "runtimeIntegrated": false,
+  "artisticAcceptance": "pending",
+  "binaryStorage": "Delivered review archive / local artifacts/higgsfield-20261125; binaries are not tracked in Git."
+}

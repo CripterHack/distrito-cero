@@ -1,3 +1,35 @@
+# v0.20.25 · Coherencia · 2026-11-25
+
+La chaqueta en LOD2 comparte la malla intermedia existente para conservar su
+cobertura cervical. El resto del personaje mantiene sus LOD y la selección por
+distancia. Se elimina el buffer de chaqueta LOD2 anterior; aumenta el número de
+triángulos dibujados por instancia lejana, con presupuesto explícito.
+
+[Contrato y límites](docs/project/COLLAR-LOD.md). Las intersecciones anteriores
+de fuente/LOD1, pequeños márgenes negativos medidos, la aceptación artística y
+el rendimiento físico siguen pendientes.
+
+# v0.20.24 · Coherencia · 2026-11-25
+
+Corrige la abertura posterior de la nuca en LOD2 uniendo los grupos de vértices
+separados sólo por UV, con normales e influencias idénticas. Conserva las islas
+de textura, LOD0/1 y el número de triángulos. Añade regresiones geométricas y
+capturas de diez poses cervicales al gate de personajes existente.
+
+[Contrato y límites](docs/project/LOD-SEAM-CONTINUITY.md). La intersección entre
+cuello y chaqueta queda pendiente; no implica aceptación artística ni AAA.
+
+# v0.20.23 · Coherencia · 2026-11-25
+
+Atlas facial reparado integrado en el renderer nativo, color cervical horneado y
+base tangente ortonormal. Las nuevas UV conservan geometría, rig y simplificación
+LOD. Los mapas embebidos y la exportación GLB actual comparten procedencia y
+fuerza de normales; las fuentes históricas y partidas se conservan.
+
+[Contrato, reproducción y límites](docs/project/NATIVE-FACE-ATLAS.md).
+La aceptación artística y el rendimiento físico siguen pendientes. Los dos
+modelos Higgsfield son candidatos de autoría separados del personaje canónico.
+
 # v0.20.22 · Coherencia · 2026-10-01
 
 Escopeta ↔ revólver conserva pose y pieza durante cambio libre y cancelación de

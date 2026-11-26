@@ -162,10 +162,19 @@
  }
  vec3 mappedNormal(vec3 normal,vec3 sampleNormal){
   vec3 p1=dFdx(vWorld),p2=dFdy(vWorld);vec2 t1=dFdx(vUV),t2=dFdy(vUV);
-  vec3 perp2=cross(p2,normal),perp1=cross(normal,p1);
-  vec3 tangent=perp2*t1.x+perp1*t2.x,bitangent=perp2*t1.y+perp1*t2.y;
-  float scale=inversesqrt(max(max(dot(tangent,tangent),dot(bitangent,bitangent)),1e-12));
-  return normalize(mat3(tangent*scale,bitangent*scale,normal)*sampleNormal);
+  normal=normalize(normal);
+  float det=t1.x*t2.y-t1.y*t2.x;
+  // An atlas may rotate, reflect or stretch a chart. Normal strength must not
+  // inherit that stretch; reconstruct an orthonormal frame from its Jacobian.
+  if(abs(det)<=max(length(t1)*length(t2)*1e-6,1e-20))return normal;
+  vec3 tangent=(p1*t2.y-p2*t1.y)/det,alongV=(p2*t1.x-p1*t2.x)/det;
+  tangent-=normal*dot(normal,tangent);
+  if(dot(tangent,tangent)<1e-20)return normal;
+  tangent=normalize(tangent);
+  vec3 bitangent=cross(normal,tangent);
+  float orientation=dot(bitangent,alongV);
+  if(abs(orientation)<1e-20)return normal;
+  return normalize(mat3(tangent,bitangent*sign(orientation),normal)*sampleNormal);
  }
  void main(){
   if(uPass==1&&vWorld.y<.025)discard;
@@ -271,11 +280,12 @@
   if(detailMaterial(40)){
    float jawGuard=smoothstep(.035,.092,vSurface.z)*smoothstep(1.530,1.549,vSurface.y);
    float faceBlend=max(smoothstep(1.537,1.605,vSurface.y),jawGuard);
-   vec3 neckPigment=textureLod(uSkinAlbedo,vec2(clamp(vUV.x,.23,.77),.095),3.).rgb*vec3(.975,.982,.990);
-   base=mix(pow(neckPigment,vec3(2.2)),pow(texture(uSkinAlbedo,vUV).rgb,vec3(2.2)),faceBlend)*vColor.rgb;
+   // The atlas contains the cervical pigment blend in canonical rest space.
+   base=pow(texture(uSkinAlbedo,vUV).rgb,vec3(2.2))*vColor.rgb;
    float neckRough=.64+.018*noise(vSurface.xy*170.);
    rough=mix(neckRough,clamp(texture(uSkinRoughness,vUV).r,.42,.80),faceBlend);
-   vec3 map=texture(uSkinNormal,vUV).xyz*2.-1.;map.xy*=.30*detailFade;map.z=max(.35,map.z);
+   // Source normal strength .30 was baked once into this atlas.
+   vec3 map=texture(uSkinNormal,vUV).xyz*2.-1.;map.xy*=detailFade;map.z=max(.35,map.z);
    vec3 faceNormal=mappedNormal(n,normalize(map));
    float poreFade=1.-smoothstep(.12,.8,max(length(dFdx(vSurface)),length(dFdy(vSurface)))*650.);
    vec3 neckNormal=surfaceBump(n,(noise(vSurface.xz*570.)-.5)*.000028*detailFade*poreFade);
