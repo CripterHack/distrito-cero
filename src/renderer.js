@@ -368,7 +368,7 @@
     vec3 ld=delta*inversesqrt(max(.001,ds));
     float power=(1.-smoothstep(.10,.64,uDaylight))*cameraFade;
     float att=smoothstep(.12,.50,ld.y)*(1.-smoothstep(2.,4.,sqrt(ds)))/(.32+ds);
-    light+=brdf(n,view,ld,base,rough,metal)*vec3(6.,5.16,4.14)*power*att;
+    light+=brdf(n,view,ld,base,rough,metal)*vec3(1.,.86,.69)*8.*power*att;
    }
   }
   vec3 hl=uHeadPos-vWorld;float hd=length(hl);vec3 hdir=hl/max(hd,.01);float cone=smoothstep(.89,.99,dot(-hdir,uHeadDir));
