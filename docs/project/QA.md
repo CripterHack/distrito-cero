@@ -1,3 +1,7 @@
+# Media vuelta del Mercado · v0.20.30
+
+La [especificación del giro](../../specs/006-mercado-turn/README.md) identifica los dos extremos de la acera, las fases de apoyo y la reacción al claxon. La comparación usa el calzado deformado en coordenadas de mundo.
+
 # Personaje y parada del Mercado · v0.20.29
 
 La [ficha del modelo de calle](../../assets/higgsfield-20261125/peaton-mercado.md) reproduce ambas mallas y las compara con el GLB. La [revisión de rodillas](../../qa/higgsfield-knee/README.md) evalúa las superficies al reproducir los ciclos. La [especificación de calle](../../specs/005-mercado-character/README.md) describe la ruta y los criterios en WebGL2.

@@ -1,3 +1,8 @@
+# v0.20.30 · Barrio del Mercado · 2026-11-26
+
+- El residente da media vuelta en cinco pasos al llegar a la marquesina y a la esquina. El claxon puede acelerar la maniobra en curso.
+- El modelo de Higgsfield incorpora la acción `Giro` en el GLB y en las dos mallas del juego. Dura 1,4 s al paso normal.
+
 # v0.20.29 · Barrio del Mercado · 2026-11-26
 
 - Un residente recorre los 19 m de acera entre la parada del Mercado y la esquina. Espera en ambos extremos y corre al oír un claxon cercano.

@@ -1,3 +1,7 @@
+# Personaje del Mercado · v0.20.30
+
+El GLB vigente incorpora una cuarta acción, `Giro`. Para ver el cambio de orientación y la posición final de los pies, reprodúcela una vez. Las tres acciones anteriores se pueden seguir revisando por separado. [Media vuelta en el juego y en el modelo](../../specs/006-mercado-turn/README.md).
+
 # Personaje del Mercado · v0.20.29
 
 En el juego, el residente pasa del reposo a la marcha cuando sale de la parada y corre al oír el claxon de un vehículo cercano. Las tres acciones están disponibles por separado en el [GLB portátil](character-walk.glb). La escena editable `character-motion.blend` del paquete reproduce cuatro ciclos de marcha, una respiración y cuatro ciclos de carrera. Las cámaras de perfil y tres cuartos permiten seguir el apoyo de los pies.

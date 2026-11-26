@@ -1,3 +1,7 @@
+# Media vuelta en v0.20.30
+
+La malla del civil procede de la generación de Higgsfield/Tripo del 25 de noviembre. La acción `Giro` se añadió localmente al derivado de 49 huesos y se integró en los dos niveles de detalle. [Generación original](../../assets/higgsfield-20261125/manifest.json) · [Media vuelta](../../specs/006-mercado-turn/README.md).
+
 # Derivado integrado en v0.20.29
 
 El personaje urbano de la generación del 25 de noviembre aparece como residente de la parada del Mercado. El GLB de índices sirve de entrada al rig de 49 huesos. Las dos mallas y las tres animaciones del HTML se hornean desde el nuevo GLB portátil. [Modelo de autoría](../../assets/higgsfield-20261125/character-walk.glb) · [Conversión y recorrido](../../specs/005-mercado-character/README.md).
