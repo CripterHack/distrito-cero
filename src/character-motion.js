@@ -66,7 +66,8 @@
    const acceleration=reset?0:D.damp(old.motion.acceleration,D.clamp((speed-old.motion.speed)/Math.max(step,.001),-9,9),7,step);
    const turn=reset?finite(n.turnRate):D.damp(old.motion.turn,D.clamp(D.wrap(yaw-old.yaw)/Math.max(step,.001),-4,4),9,step);
    const motion={speed,acceleration,turn,phase:finite(n.walk),feet:{L:null,R:null},swing:{L:null,R:null},reset,inPlace};
-   const disabled=inPlace||n.seated||(n.seatBlend||0)>.025||(n.y||0)>.025||Math.abs(n.vy||0)>.05||(!!n.accessPhase&&n.accessPhase!=='open')||(n.dodge||0)>.03;
+   const openingDoor=n.accessPhase==='open',lockRadius=.57;
+   const disabled=inPlace||n.seated||(n.seatBlend||0)>.025||(n.y||0)>.025||Math.abs(n.vy||0)>.05||(!!n.accessPhase&&!openingDoor)||(n.dodge||0)>.03;
    for(const k of ['L','R']){
     const f=foot({...n,motion},k),previous=!reset&&!disabled?old.motion.feet[k]:null;
     if(disabled)continue;
@@ -74,10 +75,12 @@
      // Carry the last planted offset into swing instead of snapping to the
      // nominal curve. This memory belongs only to the visual tracker.
      let release=!reset?old.motion.swing?.[k]:null;
-     if(previous){
+     // A sparse draw may first see swing after the leg has already lifted.
+     // Release at its sampled phase and discard an unreachable previous plant.
+     if(previous&&(!openingDoor||Math.hypot(previous.x-x,previous.z-z)<=lockRadius)){
       const c=Math.cos(yaw),s=Math.sin(yaw);
       release={dx:previous.x-(x+f.x*c+f.z*s),dz:previous.z-(z-f.x*s+f.z*c),
-       yaw:previous.yaw,start:f.progress,progress:f.progress};
+       yaw:previous.yaw,start:openingDoor?0:f.progress,progress:f.progress};
      }
      if(release){
       const progress=Math.max(release.progress,f.progress),u=D.clamp((progress-release.start)/Math.max(1-release.start,1e-6),0,1);
@@ -88,7 +91,7 @@
     }
     // During a sharp reversal, release naturally instead of twisting the ankle indefinitely.
     let lock=previous;
-    if(!lock||Math.hypot(lock.x-x,lock.z-z)>.57||Math.abs(D.wrap(lock.yaw-yaw))>.68){lock={x:x+f.x*Math.cos(yaw)+f.z*Math.sin(yaw),z:z-f.x*Math.sin(yaw)+f.z*Math.cos(yaw),yaw};}
+    if(!lock||Math.hypot(lock.x-x,lock.z-z)>lockRadius||Math.abs(D.wrap(lock.yaw-yaw))>.68){lock={x:x+f.x*Math.cos(yaw)+f.z*Math.sin(yaw),z:z-f.x*Math.sin(yaw)+f.z*Math.cos(yaw),yaw};}
     motion.feet[k]={...lock};
    }
    if(D.SkinRig?.groundTargets){

@@ -101,3 +101,18 @@ test('an obstacle entering the swing path cancels before the actor walks through
  assert.equal(s.player.car,null);assert.ok(s.clearance(s.player,c,true));
  assert.ok(D.distance(s.player,cone)>=cone.radius+.32);
 });
+test('the supporting leg stays within reach when several swing frames are skipped',()=>{
+ for(const framesBetweenDraws of [8,10,15]){
+  const {s,c}=scene(false,0),tracker=new D.MotionTracker();let samples=0;
+  for(let i=0;s.access;i++){
+   s.step(1/60,{});if(!s.access||i%framesBetweenDraws)continue;
+   const n=s.accessPlayerPose(),a=tracker.update('player',n,s.time,false),q=D.SkinRig.pose(a,s.time);
+   if(n.accessPhase==='enter')break;
+   if(n.accessPhase!=='open')continue;
+   assert.ok(q.rootY>-.26,'planted foot dragged the pelvis down to '+q.rootY+' m');
+   if(c.doorOpen>.02&&c.doorOpen<.98)assert.ok(gap(D.SkinRig.palmPoint(q,a,'R'),drawnHandle(s,c))<.006);
+   samples++;
+  }
+  assert.ok(samples>=7);
+ }
+});
