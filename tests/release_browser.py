@@ -5,7 +5,7 @@ from tempfile import TemporaryDirectory
 import hashlib,json,os
 from playwright.sync_api import sync_playwright
 from qa_support import launch_options
-from native_support import game_origin
+from native_support import game_origin, navigate_and_hash
 
 R=Path(__file__).resolve().parents[1];O=R/'qa/v020';O.mkdir(parents=True,exist_ok=True)
 expected=json.loads((R/'build-info.json').read_text());checks=[];errors=[];requests=[];paths=[];info={}
@@ -22,10 +22,10 @@ try:
             page.on('pageerror',lambda e:errors.append(str(e)))
             page.on('request',lambda r:requests.append(r.url) if urlsplit(r.url).netloc!=urlsplit(origin).netloc and r.url.startswith(('http:','https:')) else None)
             page.on('request',lambda r:paths.append(urlsplit(r.url).path))
-            response=page.goto(origin,wait_until='domcontentloaded',timeout=120000)
-            page.wait_for_function('!!window.DC_APP',timeout=120000);page.evaluate('DC_APP.renderer.humanReady');return context,page,response
-        context,p,response=boot()
-        ck('Served HTML matches the active build hash',hashlib.sha256(response.body()).hexdigest()==expected['htmlSha256'])
+            response,digest=navigate_and_hash(page,origin,expected['htmlBytes'])
+            page.wait_for_function('!!window.DC_APP',timeout=120000);page.evaluate('DC_APP.renderer.humanReady');return context,page,response,digest
+        context,p,response,digest=boot()
+        ck('Served HTML matches the active build hash',response.status==200 and digest==expected['htmlSha256'])
         ck('Document title identifies the current product release',p.title()=='Distrito Cero '+expected['label']+' · '+expected['name'])
         ck('Landing label exposes the active version and is visible',p.locator('#buildLabel').is_visible() and p.locator('#buildLabel').get_attribute('data-build-version')==expected['version'])
         ck('Embedded immutable identity agrees with version manifest',p.evaluate('DC.BuildInfo.version')==expected['version'] and p.evaluate('Object.isFrozen(DC.BuildInfo)'))
@@ -46,7 +46,7 @@ try:
         export=json.loads(Path(dl.value.path()).read_text())
         ck('Downloaded save retains schema one, not product version',export['version']==1 and export['format']=='distrito-cero-slot' and export['data']['equipment']['version']==1)
         raw=p.evaluate('DC_APP.getStore().raw()');context.close()
-        context,p,response=boot();ck('Imported catalogue survives native browser restart',p.evaluate('DC_APP.getStore().raw()')==raw and p.evaluate(NATIVE))
+        context,p,response,digest=boot();ck('Imported catalogue survives native browser restart',p.evaluate('DC_APP.getStore().raw()')==raw and p.evaluate(NATIVE))
         ck('Three visible version attributes never contain old labels',p.evaluate("[...document.querySelectorAll('[data-build-version]')].length===3 && [...document.querySelectorAll('[data-build-version]')].every(e=>e.dataset.buildVersion===DC.BuildInfo.version)"))
         ck('Versioning adds no runtime resource requests or exceptions',not errors and not requests and not any(x in ['/version.json','/build-info.json'] for x in paths))
         info={'browser':context.browser.version if context.browser else 'persistent Chromium','originMode':'HTTP loopback','preparedWorld':False,'legacyFixture':'ef905ec'};context.close()
