@@ -94,3 +94,30 @@ test('village, farm, suburb, future, retro and park parcels keep their own archi
   }
   assert.equal(orientations.size,4);
 });
+
+test('the front display strip addresses only the shelves, rear wall and stock in each corner orientation',()=>{
+  const world=new D.World(1337),orientations=new Set();
+  for(let ix=-4;ix<4;ix++)for(let iz=-4;iz<4;iz++){
+    const cell=world.cell(ix,iz),{r,rows}=bake(world,cell);
+    const glass=rows('smoke').filter(v=>v[7]===6);
+    if(glass.length!==2)continue;
+    const key=glass.map(v=>Math.round(Math.sin(v[3]))+','+Math.round(Math.cos(v[3]))).join('/');
+    if(orientations.has(key))continue;
+    orientations.add(key);
+    r.camera={eye:[glass[0][0],1.7,glass[0][2]]};r.quality='balanced';
+    r.renderCornerShopDetails();
+    const near=Array.from({length:r.dynamic.box.length/16},(_,i)=>r.dynamic.box.slice(i*16,i*16+16));
+    const strip=near.find(v=>v[11]>.5 && v[7]===0);
+    assert.ok(strip);
+    const fixed=rows('box').filter(v=>v[7]===53),stock=near.filter(v=>v[7]===53);
+    assert.equal(fixed.length,5,'four shelves and the rear wall receive display light');
+    assert.equal(stock.length,18,'all eighteen stock items and trays receive display light');
+    assert.equal(strip[4],D.ShopDisplay.stripLength);
+    for(const v of [...fixed,...stock]){
+      assert.ok(Math.abs(v[0]+v[14]-strip[0])<.0001);
+      assert.ok(Math.abs(v[2]+v[15]-strip[2])<.0001);
+      assert.ok(Math.abs(v[11]-strip[1])<.0001);
+    }
+  }
+  assert.equal(orientations.size,4);
+});

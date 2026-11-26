@@ -71,13 +71,19 @@
   // u and v are metres inward from the intersection-facing corner.
   const box=(u,y,v,du,h,dv,col,mat=0,em=0)=>add('box',x-sx*u,y,z-sz*v,du,h,dv,col,mat,em);
   const close=(u,y,v,du,h,dv,col,mat=0,em=0)=>nearBox(x-sx*u,y,z-sz*v,du,h,dv,col,mat,em);
+  const stripU=3.93,stripV=.43,stripY=2.91;
+  // Material 53 stores the strip height and the horizontal offsets to its centre.
+  const display=(near,u,y,v,du,h,dv,col)=>{
+   const args=[x-sx*u,y,z-sz*v,du,h,dv,col,D.ShopDisplay.material,stripY,0,sx*(u-stripU),sz*(v-stripV)];
+   if(near)nearBox(...args);else add('box',...args);
+  };
   const podium=(u0,u1,v0,v1,col)=>box((u0+u1)/2,(ceiling+floor)/2,(v0+v1)/2,u1-u0,ceiling-floor,v1-v0,col);
 
   add('box',b.x,(b.h+.15+ceiling)/2,b.z,b.w,b.h+.15-ceiling,b.d,wall,1,0,0,b.seed,b.style);
   box(b.w/2,.20,b.d/2,b.w+.28,.12,b.d+.28,stone);
   podium(0,b.w,side,b.d,wall);
   podium(width,b.w,0,side,wall);
-  podium(depth,width,depth,side,[.39,.32,.23]);
+  display(false,(depth+width)/2,(ceiling+floor)/2,(depth+side)/2,width-depth,ceiling-floor,side-depth,[.39,.32,.23]);
 
   // Two sealed glazing planes on the original collision envelope. The
   // transparent quad is also used for particles with a different material.
@@ -100,8 +106,8 @@
   add('box',x-sx*width*.48,3.73,z+sz*.12,3.55,1.22,.12,[1,1,1],10+shopSigns[variant],0,frontYaw);
   // Timber shelf and return wall are visible through the glass from the street.
   for(const y of [1.02,1.73]){
-   box(4.35,y,.69,6.1,.065,.53,wood);
-   box(.70,y,3.0,.51,.065,2.9,wood);
+   display(false,4.35,y,.69,6.1,.065,.53,wood);
+   display(false,.70,y,3.0,.51,.065,2.9,wood);
   }
   box(doorJamb+.76,1.39,.94,1.30,2.23,.10,[.19,.23,.22]);
   box(doorJamb+.76,.29,0,1.40,.06,.32,stone);
@@ -109,15 +115,15 @@
   // Small features are prepared once, then streamed only near the eye.
   close(doorJamb+.28,1.30,-.11,.042,.39,.049,[.68,.68,.58],3);
   for(const y of [1.16,1.45])close(doorJamb+.28,y,-.07,.043,.037,.09,trim,3);
-  close(3.93,2.91,.43,5.4,.035,.10,[.95,.79,.48],0,.7);
+  close(stripU,stripY,stripV,D.ShopDisplay.stripLength,.035,.10,[.95,.79,.48],0,.7);
   const stock=[[.42,.23,.15],[.67,.51,.26],[.20,.35,.29]];
   for(let bay=0;bay<3;bay++){
    const u=2.1+bay*1.91;
-   close(u,1.17,.66,1.48,.25,.40,wood);
-   for(let i=0;i<3;i++)close(u+(i-1)*.37,1.33,.65,.30,.27,.31,stock[(bay+i+variant)%3]);
-   close(u+.10,1.95,.74,.62,.36,.23,stock[(bay+variant)%3]);
+   display(true,u,1.17,.66,1.48,.25,.40,wood);
+   for(let i=0;i<3;i++)display(true,u+(i-1)*.37,1.33,.65,.30,.27,.31,stock[(bay+i+variant)%3]);
+   display(true,u+.10,1.95,.74,.62,.36,.23,stock[(bay+variant)%3]);
   }
-  for(let i=0;i<3;i++)close(.76,1.29,1.96+i*1.0,.29,.46,.65,stock[(variant+i)%3]);
+  for(let i=0;i<3;i++)display(true,.76,1.29,1.96+i*1.0,.29,.46,.65,stock[(variant+i)%3]);
  }
  class FrontierRenderer extends Base{
   playerSurface(x,z){return playerSurface(this.world,x,z);}
