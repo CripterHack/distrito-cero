@@ -1,0 +1,1153 @@
+{
+  "schema": 1,
+  "status": "offline-diagnostic-not-acceptance",
+  "runtimeChanged": false,
+  "fullReport": {
+    "path": "artifacts/collar-followup/visibility-verified.json",
+    "sha256": "a35c0f0421a9cdec461f8fa670512274264fef4e5adb1a8e8af99648a854653b"
+  },
+  "producer": {
+    "path": "tools/qa/project_collar_visibility.py",
+    "sha256": "1473bb6f45543563750688e83645efa9c0443bf91c86083ac7c89a8eb76c44a6"
+  },
+  "inputs": {
+    "artifacts/collar-lod/before-final/report.json": "c61d619cede3132379a37aea82795359aacb6f5a41f94530bf78274dcc054f12",
+    "artifacts/collar-lod/after-final/report.json": "6de962854245af263e6955c1623cecc1c725dd8d653743527f4039829312e233",
+    "artifacts/collar-lod/skin-clearance-after-final.json": "59cd01c2730699b75d0c643e58a3f5b448997e8c9b96741669759d49682238ec",
+    "artifacts/collar-lod/fullsource-coverage-final.json": "3bef8bf808e7bb946fac6f94fb20fbdb746763c506d60ab1be456a86865c9e66",
+    "artifacts/collar-lod/after-final/geometry/neutral--idle--back--lod0.json.gz": "88a7d4cc129a8e1d963357b9e20e9a3529b2064101200c61bd280225fb563bcc",
+    "artifacts/collar-lod/after-final/geometry/neutral--idle--back--lod1.json.gz": "abb82840d64201732b8371262ba6a408a980d03b18c5b12268065b0faf4bc065",
+    "artifacts/collar-lod/after-final/geometry/neutral--idle--back--lod2.json.gz": "baf2553e3dfa2cc71b16797531e2e060eb63c8f9a37fcd9ba5b553eda1822bd3",
+    "artifacts/collar-lod/before-final/geometry/neutral--idle--back--lod2.json.gz": "bc0af0818c87da296613ef27b3d5062e5343429fce5f6e50a4e49107dff5f18b",
+    "artifacts/collar-lod/after-final/geometry/neutral--neck-left--back--lod0.json.gz": "565d92b9ce3d5d1c15cb14089fd84bce8cd172193d0ec0079987496b83103f2a",
+    "artifacts/collar-lod/after-final/geometry/neutral--neck-left--back--lod1.json.gz": "a421a191d96ecec56abce9c2fca6f6cfd4dccb4305cdeace4338626f00b89852",
+    "artifacts/collar-lod/after-final/geometry/neutral--neck-left--back--lod2.json.gz": "cf0a548753e644e0737b7decee57160aac29c98d1b6abaaca9209f055f0e2e2a",
+    "artifacts/collar-lod/before-final/geometry/neutral--neck-left--back--lod2.json.gz": "04358c5575940b92b148913361e2aeb2ffcff9eefed47c8a2f924c81825242c8",
+    "artifacts/collar-lod/after-final/geometry/neutral--neck-right--back--lod0.json.gz": "cdcce4e93c8f1479402db8968d0413f1f9ada066933f17e9758537b267ed1dec",
+    "artifacts/collar-lod/after-final/geometry/neutral--neck-right--back--lod1.json.gz": "11dea4502224613f6854979c9cc22cf3892ae72550dab0c6b7da5f2ce68dc39e",
+    "artifacts/collar-lod/after-final/geometry/neutral--neck-right--back--lod2.json.gz": "f89f5c2b1de0cac209a142de9945783db4f26989bdc7d8442d3a3229a5cb3bd2",
+    "artifacts/collar-lod/before-final/geometry/neutral--neck-right--back--lod2.json.gz": "bb3adb940d0949968cc29ce7b6a2ff0ea2a56ef1d5f021d648d8ef2af89e1dc2",
+    "artifacts/collar-lod/after-final/geometry/light--idle--back--lod0.json.gz": "c2029f0ab6d07ed3366abff20aea200537adeaef57d7d1cbbe090c129223099d",
+    "artifacts/collar-lod/after-final/geometry/light--idle--back--lod1.json.gz": "38587be41582e600e8c6a28e533b6a221488c9d7829ea7a8533faafd89b2de87",
+    "artifacts/collar-lod/after-final/geometry/light--idle--back--lod2.json.gz": "18ce985c3236e1bf097c930ede9443d6f51582a562ef33df8609c66c48731498",
+    "artifacts/collar-lod/before-final/geometry/light--idle--back--lod2.json.gz": "acc84c0b462616c3d074528705b4c808f66bb346e4ffbbc2942a08e0249935de",
+    "artifacts/collar-lod/after-final/geometry/light--neck-left--back--lod0.json.gz": "b315f642eb1ec6d41d7475024ce64033914dc2190a0b0f3b5fadb5519ba2f239",
+    "artifacts/collar-lod/after-final/geometry/light--neck-left--back--lod1.json.gz": "9c234ab0a7dbcf5f7270293436ad3804abbbffb8ad1b6898584adb69d174626d",
+    "artifacts/collar-lod/after-final/geometry/light--neck-left--back--lod2.json.gz": "2986c64953d6f13a473f248e716c3236992f31df78b91914c74b7e04c1bd1f5c",
+    "artifacts/collar-lod/before-final/geometry/light--neck-left--back--lod2.json.gz": "9fd0718aeb22d4755e613e17e1539b6b4049981e5087358722258b5852b5666c",
+    "artifacts/collar-lod/after-final/geometry/light--neck-right--back--lod0.json.gz": "f2b885f8a8b22f9cb7e3eff8872cffd3199ba921f248c13caba5ad61abb9cadc",
+    "artifacts/collar-lod/after-final/geometry/light--neck-right--back--lod1.json.gz": "1b1a316d50c4bd6cacb3d79ca0437480c6b58d25bc7d2c6c49400c6ac46d79d1",
+    "artifacts/collar-lod/after-final/geometry/light--neck-right--back--lod2.json.gz": "127ae52c2a9e564890e35a6feff54a3a6dfe240279d5f609c463cac5ff1f748b",
+    "artifacts/collar-lod/before-final/geometry/light--neck-right--back--lod2.json.gz": "fee92e83c97941b093fba0c7fb790247ff472b95d46bfd55854088580c116d1f",
+    "artifacts/collar-lod/after-final/geometry/robust--idle--back--lod0.json.gz": "433f93d05bac5d2259cf31c6f6a424d97ef5354921510b02eaf4b9d49b409e49",
+    "artifacts/collar-lod/after-final/geometry/robust--idle--back--lod1.json.gz": "3c4898acccc0a3618717ebb51c4ce97de1940f997975b7a574eeb49474be6ed3",
+    "artifacts/collar-lod/after-final/geometry/robust--idle--back--lod2.json.gz": "ccca1888c9c2256dac9744454d6d1496782083ed0330f9ee73fd6a10b6dabbb9",
+    "artifacts/collar-lod/before-final/geometry/robust--idle--back--lod2.json.gz": "1b4d42933a61d2272844cedca8a6a37a525c85ce1b9bdb14c716a9bb2fe15d01",
+    "artifacts/collar-lod/after-final/geometry/robust--neck-left--back--lod0.json.gz": "1ad7b5ec81f450d4281cce56ecc98cf799b09ecdbfcfe145f84cd0f9498c3e9f",
+    "artifacts/collar-lod/after-final/geometry/robust--neck-left--back--lod1.json.gz": "192fda736e479e38a7005ac4c377d61c7bf1b66fc8cf16f1df7aa7454865ce26",
+    "artifacts/collar-lod/after-final/geometry/robust--neck-left--back--lod2.json.gz": "90a5f8bc78c594de24068a1d0c2d317bf753a2949305124d1c25fa501abbec33",
+    "artifacts/collar-lod/before-final/geometry/robust--neck-left--back--lod2.json.gz": "f12d531753acb8d37e0c8a6fe1266839f01e5861032ed9342b81c831f14af0e9",
+    "artifacts/collar-lod/after-final/geometry/robust--neck-right--back--lod0.json.gz": "643cc12e21857dabd801c20fe459cee68921082a40468e0986e2a64d164d4c11",
+    "artifacts/collar-lod/after-final/geometry/robust--neck-right--back--lod1.json.gz": "eace513a1b2cc412eb66eb6c0466e8720f1a966f255dee2767c27a43b50cd39b",
+    "artifacts/collar-lod/after-final/geometry/robust--neck-right--back--lod2.json.gz": "16e93d804e7231ba74fd568fb9af57b779c564389513dfefd1ea9ead1e59276f",
+    "artifacts/collar-lod/before-final/geometry/robust--neck-right--back--lod2.json.gz": "6cd042d66df3861e76a137aa0b20421a48b6d75ccb6c96ceb9c201e52f34d79e",
+    "artifacts/collar-lod/after-final/geometry/extreme--idle--back--lod0.json.gz": "20fde70df5b2247db4d3707578303f64063927ab2ba8175d2c163af4de511144",
+    "artifacts/collar-lod/after-final/geometry/extreme--idle--back--lod1.json.gz": "7ddd705a6c64de2f2bff0324591e80770729659610077482ffbcb9a9f149a407",
+    "artifacts/collar-lod/after-final/geometry/extreme--idle--back--lod2.json.gz": "40ba41c0b85750357013abfceb753c77f18c944ff5c79b9977c44633e486c0db",
+    "artifacts/collar-lod/before-final/geometry/extreme--idle--back--lod2.json.gz": "46b5c87eef27ea0c776549d532bad0b9055b0944ef8b71bb7b4927fa22958f45",
+    "artifacts/collar-lod/after-final/geometry/extreme--neck-left--back--lod0.json.gz": "324693db17854e12efed38ced31e955bb791fcfe09b011c9df53e1f279266a18",
+    "artifacts/collar-lod/after-final/geometry/extreme--neck-left--back--lod1.json.gz": "22b065bd425c0029c71c546b78520a3e09b3c57a1623b8a360822ebe8b4a0edc",
+    "artifacts/collar-lod/after-final/geometry/extreme--neck-left--back--lod2.json.gz": "f4862e3d4cd7ec0fc4f17c98998cebe34c534cdb635bf4a2c4e3150472b44b76",
+    "artifacts/collar-lod/before-final/geometry/extreme--neck-left--back--lod2.json.gz": "2f6e1dd10adfea4d6c80997be5519cd87c7c6a252cb7e9274fd5ab5028160411",
+    "artifacts/collar-lod/after-final/geometry/extreme--neck-right--back--lod0.json.gz": "8580312bd5519d5d2ae4fec3cdb34d4aa7de88785fce57f496d986e98a25bb8f",
+    "artifacts/collar-lod/after-final/geometry/extreme--neck-right--back--lod1.json.gz": "f4c1e7cbad353fb45691ad1d2277f0d10513380e8caf8ee65f9c1a58c7a3c81c",
+    "artifacts/collar-lod/after-final/geometry/extreme--neck-right--back--lod2.json.gz": "676f51e28839a15e81bbeb5e05d9b866030eb98ad448bd1dde747dea5dad0ed6",
+    "artifacts/collar-lod/before-final/geometry/extreme--neck-right--back--lod2.json.gz": "8671db321b6a927a2083d0acb826a0bd97fddc321da54ebdc1bf8e7265fdea34",
+    "src/renderer.js": "5dbfdd524a8365a181524fec4aea48393d6133212d36b6b75faba1ccf95f1a23",
+    "src/cast-renderer.js": "8e09a5be59b3193b2a3240d32388c283f0b1abc7b41cbedae73c8a85ac3a3c07"
+  },
+  "summary": {
+    "newlyUncoveredOutsideCore": {
+      "combinations": 190,
+      "uniqueSourceTriangles": 54,
+      "views": {
+        "backCloseup": {
+          "winnerCounts": {
+            "skin2": 155,
+            "jacket1": 35
+          },
+          "newlyVisibleSkinPoints": 76,
+          "newlyExposedUniquePixelCentersByCondition": 76,
+          "newlyVisibleAlsoSourceJacketCovered": 75
+        },
+        "profileCloseup": {
+          "winnerCounts": {
+            "skin2": 125,
+            "jacket1": 65
+          },
+          "newlyVisibleSkinPoints": 9,
+          "newlyExposedUniquePixelCentersByCondition": 8,
+          "newlyVisibleAlsoSourceJacketCovered": 9
+        },
+        "backFullbody": {
+          "winnerCounts": {
+            "jacket1": 190
+          },
+          "newlyVisibleSkinPoints": 0,
+          "newlyExposedUniquePixelCentersByCondition": 0,
+          "newlyVisibleAlsoSourceJacketCovered": 0
+        },
+        "frontFullbody": {
+          "winnerCounts": {
+            "jacket1": 190
+          },
+          "newlyVisibleSkinPoints": 0,
+          "newlyExposedUniquePixelCentersByCondition": 0,
+          "newlyVisibleAlsoSourceJacketCovered": 0
+        },
+        "profileFullbody": {
+          "winnerCounts": {
+            "jacket1": 190
+          },
+          "newlyVisibleSkinPoints": 0,
+          "newlyExposedUniquePixelCentersByCondition": 0,
+          "newlyVisibleAlsoSourceJacketCovered": 0
+        }
+      }
+    },
+    "unknownSkinNormalRay": {
+      "combinations": 492,
+      "uniqueSourceTriangles": 44,
+      "views": {
+        "backCloseup": {
+          "winnerCounts": {
+            "jacket1": 329,
+            "skin2": 163
+          },
+          "newlyVisibleSkinPoints": 0,
+          "newlyExposedUniquePixelCentersByCondition": 2,
+          "newlyVisibleAlsoSourceJacketCovered": 0
+        },
+        "profileCloseup": {
+          "winnerCounts": {
+            "skin2": 210,
+            "jacket1": 282
+          },
+          "newlyVisibleSkinPoints": 0,
+          "newlyExposedUniquePixelCentersByCondition": 1,
+          "newlyVisibleAlsoSourceJacketCovered": 0
+        },
+        "backFullbody": {
+          "winnerCounts": {
+            "jacket1": 492
+          },
+          "newlyVisibleSkinPoints": 0,
+          "newlyExposedUniquePixelCentersByCondition": 0,
+          "newlyVisibleAlsoSourceJacketCovered": 0
+        },
+        "frontFullbody": {
+          "winnerCounts": {
+            "jacket1": 492
+          },
+          "newlyVisibleSkinPoints": 0,
+          "newlyExposedUniquePixelCentersByCondition": 0,
+          "newlyVisibleAlsoSourceJacketCovered": 0
+        },
+        "profileFullbody": {
+          "winnerCounts": {
+            "jacket1": 492
+          },
+          "newlyVisibleSkinPoints": 0,
+          "newlyExposedUniquePixelCentersByCondition": 0,
+          "newlyVisibleAlsoSourceJacketCovered": 0
+        }
+      }
+    }
+  },
+  "cameras": {
+    "backCloseup": {
+      "eye": [
+        1.0409497792752501e-16,
+        1.595,
+        -0.85
+      ],
+      "target": [
+        0,
+        1.58,
+        0
+      ],
+      "fov": 0.62
+    },
+    "profileCloseup": {
+      "eye": [
+        0.85,
+        1.595,
+        5.204748896376251e-17
+      ],
+      "target": [
+        0,
+        1.58,
+        0
+      ],
+      "fov": 0.62
+    },
+    "backFullbody": {
+      "eye": [
+        4.0413344371862655e-16,
+        1.03,
+        -3.3
+      ],
+      "target": [
+        0,
+        0.93,
+        0
+      ],
+      "fov": 0.62
+    },
+    "frontFullbody": {
+      "eye": [
+        0,
+        1.03,
+        3.3
+      ],
+      "target": [
+        0,
+        0.93,
+        0
+      ],
+      "fov": 0.62
+    },
+    "profileFullbody": {
+      "eye": [
+        3.3,
+        1.03,
+        2.0206672185931328e-16
+      ],
+      "target": [
+        0,
+        0.93,
+        0
+      ],
+      "fov": 0.62
+    }
+  },
+  "gameProjectionScenarios": [
+    {
+      "quality": "eco",
+      "cssViewportHeight": 720,
+      "dpr": 1,
+      "renderHeight": 468,
+      "retainedLOD2PlayerDistanceBoundaryM": 22.099999999999998,
+      "cameraOffsetM": 4.3,
+      "actorOriginEuclideanCameraDistanceLowerBoundM": 17.799999999999997,
+      "onAxisPixelsPerMetreAtThatDistanceEstimate": 20.714887597340695,
+      "largestSourceTriangleEdgePixelsOnAxisEstimate": 0.3225078617335699,
+      "projectionScope": "Transverse on-axis estimate placed at actor origin; not a global bound for triangle offsets, inclined/off-axis triangles or a captured camera."
+    },
+    {
+      "quality": "eco",
+      "cssViewportHeight": 720,
+      "dpr": 1.5,
+      "renderHeight": 702,
+      "retainedLOD2PlayerDistanceBoundaryM": 22.099999999999998,
+      "cameraOffsetM": 4.3,
+      "actorOriginEuclideanCameraDistanceLowerBoundM": 17.799999999999997,
+      "onAxisPixelsPerMetreAtThatDistanceEstimate": 31.07233139601104,
+      "largestSourceTriangleEdgePixelsOnAxisEstimate": 0.4837617926003548,
+      "projectionScope": "Transverse on-axis estimate placed at actor origin; not a global bound for triangle offsets, inclined/off-axis triangles or a captured camera."
+    },
+    {
+      "quality": "eco",
+      "cssViewportHeight": 720,
+      "dpr": 1,
+      "renderHeight": 468,
+      "retainedLOD2PlayerDistanceBoundaryM": 22.099999999999998,
+      "cameraOffsetM": 10,
+      "actorOriginEuclideanCameraDistanceLowerBoundM": 12.099999999999998,
+      "onAxisPixelsPerMetreAtThatDistanceEstimate": 30.473140432451604,
+      "largestSourceTriangleEdgePixelsOnAxisEstimate": 0.4744330527981442,
+      "projectionScope": "Transverse on-axis estimate placed at actor origin; not a global bound for triangle offsets, inclined/off-axis triangles or a captured camera."
+    },
+    {
+      "quality": "eco",
+      "cssViewportHeight": 720,
+      "dpr": 1.5,
+      "renderHeight": 702,
+      "retainedLOD2PlayerDistanceBoundaryM": 22.099999999999998,
+      "cameraOffsetM": 10,
+      "actorOriginEuclideanCameraDistanceLowerBoundM": 12.099999999999998,
+      "onAxisPixelsPerMetreAtThatDistanceEstimate": 45.7097106486774,
+      "largestSourceTriangleEdgePixelsOnAxisEstimate": 0.7116495791972162,
+      "projectionScope": "Transverse on-axis estimate placed at actor origin; not a global bound for triangle offsets, inclined/off-axis triangles or a captured camera."
+    },
+    {
+      "quality": "eco",
+      "cssViewportHeight": 720,
+      "dpr": 1,
+      "renderHeight": 468,
+      "retainedLOD2PlayerDistanceBoundaryM": 22.099999999999998,
+      "cameraOffsetM": 17,
+      "actorOriginEuclideanCameraDistanceLowerBoundM": 5.099999999999998,
+      "onAxisPixelsPerMetreAtThatDistanceEstimate": 72.2990194573852,
+      "largestSourceTriangleEdgePixelsOnAxisEstimate": 1.1256156742857932,
+      "projectionScope": "Transverse on-axis estimate placed at actor origin; not a global bound for triangle offsets, inclined/off-axis triangles or a captured camera."
+    },
+    {
+      "quality": "eco",
+      "cssViewportHeight": 720,
+      "dpr": 1.5,
+      "renderHeight": 702,
+      "retainedLOD2PlayerDistanceBoundaryM": 22.099999999999998,
+      "cameraOffsetM": 17,
+      "actorOriginEuclideanCameraDistanceLowerBoundM": 5.099999999999998,
+      "onAxisPixelsPerMetreAtThatDistanceEstimate": 108.44852918607778,
+      "largestSourceTriangleEdgePixelsOnAxisEstimate": 1.6884235114286896,
+      "projectionScope": "Transverse on-axis estimate placed at actor origin; not a global bound for triangle offsets, inclined/off-axis triangles or a captured camera."
+    },
+    {
+      "quality": "balanced",
+      "cssViewportHeight": 720,
+      "dpr": 1,
+      "renderHeight": 634,
+      "retainedLOD2PlayerDistanceBoundaryM": 36.55,
+      "cameraOffsetM": 4.3,
+      "actorOriginEuclideanCameraDistanceLowerBoundM": 32.25,
+      "onAxisPixelsPerMetreAtThatDistanceEstimate": 15.488746406513561,
+      "largestSourceTriangleEdgePixelsOnAxisEstimate": 0.24114263044031553,
+      "projectionScope": "Transverse on-axis estimate placed at actor origin; not a global bound for triangle offsets, inclined/off-axis triangles or a captured camera."
+    },
+    {
+      "quality": "balanced",
+      "cssViewportHeight": 720,
+      "dpr": 1.5,
+      "renderHeight": 950,
+      "retainedLOD2PlayerDistanceBoundaryM": 36.55,
+      "cameraOffsetM": 4.3,
+      "actorOriginEuclideanCameraDistanceLowerBoundM": 32.25,
+      "onAxisPixelsPerMetreAtThatDistanceEstimate": 23.208689410390985,
+      "largestSourceTriangleEdgePixelsOnAxisEstimate": 0.3613335945083593,
+      "projectionScope": "Transverse on-axis estimate placed at actor origin; not a global bound for triangle offsets, inclined/off-axis triangles or a captured camera."
+    },
+    {
+      "quality": "balanced",
+      "cssViewportHeight": 720,
+      "dpr": 1,
+      "renderHeight": 634,
+      "retainedLOD2PlayerDistanceBoundaryM": 36.55,
+      "cameraOffsetM": 10,
+      "actorOriginEuclideanCameraDistanceLowerBoundM": 26.549999999999997,
+      "onAxisPixelsPerMetreAtThatDistanceEstimate": 18.81401399661252,
+      "largestSourceTriangleEdgePixelsOnAxisEstimate": 0.29291336465914036,
+      "projectionScope": "Transverse on-axis estimate placed at actor origin; not a global bound for triangle offsets, inclined/off-axis triangles or a captured camera."
+    },
+    {
+      "quality": "balanced",
+      "cssViewportHeight": 720,
+      "dpr": 1.5,
+      "renderHeight": 950,
+      "retainedLOD2PlayerDistanceBoundaryM": 36.55,
+      "cameraOffsetM": 10,
+      "actorOriginEuclideanCameraDistanceLowerBoundM": 26.549999999999997,
+      "onAxisPixelsPerMetreAtThatDistanceEstimate": 28.19134589397775,
+      "largestSourceTriangleEdgePixelsOnAxisEstimate": 0.4389080385271031,
+      "projectionScope": "Transverse on-axis estimate placed at actor origin; not a global bound for triangle offsets, inclined/off-axis triangles or a captured camera."
+    },
+    {
+      "quality": "balanced",
+      "cssViewportHeight": 720,
+      "dpr": 1,
+      "renderHeight": 634,
+      "retainedLOD2PlayerDistanceBoundaryM": 36.55,
+      "cameraOffsetM": 17,
+      "actorOriginEuclideanCameraDistanceLowerBoundM": 19.549999999999997,
+      "onAxisPixelsPerMetreAtThatDistanceEstimate": 25.550489596422633,
+      "largestSourceTriangleEdgePixelsOnAxisEstimate": 0.3977928302659937,
+      "projectionScope": "Transverse on-axis estimate placed at actor origin; not a global bound for triangle offsets, inclined/off-axis triangles or a captured camera."
+    },
+    {
+      "quality": "balanced",
+      "cssViewportHeight": 720,
+      "dpr": 1.5,
+      "renderHeight": 950,
+      "retainedLOD2PlayerDistanceBoundaryM": 36.55,
+      "cameraOffsetM": 17,
+      "actorOriginEuclideanCameraDistanceLowerBoundM": 19.549999999999997,
+      "onAxisPixelsPerMetreAtThatDistanceEstimate": 38.285433937857256,
+      "largestSourceTriangleEdgePixelsOnAxisEstimate": 0.5960618119127666,
+      "projectionScope": "Transverse on-axis estimate placed at actor origin; not a global bound for triangle offsets, inclined/off-axis triangles or a captured camera."
+    },
+    {
+      "quality": "high",
+      "cssViewportHeight": 720,
+      "dpr": 1,
+      "renderHeight": 864,
+      "retainedLOD2PlayerDistanceBoundaryM": 36.55,
+      "cameraOffsetM": 4.3,
+      "actorOriginEuclideanCameraDistanceLowerBoundM": 32.25,
+      "onAxisPixelsPerMetreAtThatDistanceEstimate": 21.107692263766115,
+      "largestSourceTriangleEdgePixelsOnAxisEstimate": 0.32862339542654984,
+      "projectionScope": "Transverse on-axis estimate placed at actor origin; not a global bound for triangle offsets, inclined/off-axis triangles or a captured camera."
+    },
+    {
+      "quality": "high",
+      "cssViewportHeight": 720,
+      "dpr": 1.5,
+      "renderHeight": 1296,
+      "retainedLOD2PlayerDistanceBoundaryM": 36.55,
+      "cameraOffsetM": 4.3,
+      "actorOriginEuclideanCameraDistanceLowerBoundM": 32.25,
+      "onAxisPixelsPerMetreAtThatDistanceEstimate": 31.661538395649174,
+      "largestSourceTriangleEdgePixelsOnAxisEstimate": 0.4929350931398248,
+      "projectionScope": "Transverse on-axis estimate placed at actor origin; not a global bound for triangle offsets, inclined/off-axis triangles or a captured camera."
+    },
+    {
+      "quality": "high",
+      "cssViewportHeight": 720,
+      "dpr": 1,
+      "renderHeight": 864,
+      "retainedLOD2PlayerDistanceBoundaryM": 36.55,
+      "cameraOffsetM": 10,
+      "actorOriginEuclideanCameraDistanceLowerBoundM": 26.549999999999997,
+      "onAxisPixelsPerMetreAtThatDistanceEstimate": 25.63928721304924,
+      "largestSourceTriangleEdgePixelsOnAxisEstimate": 0.3991753108288601,
+      "projectionScope": "Transverse on-axis estimate placed at actor origin; not a global bound for triangle offsets, inclined/off-axis triangles or a captured camera."
+    },
+    {
+      "quality": "high",
+      "cssViewportHeight": 720,
+      "dpr": 1.5,
+      "renderHeight": 1296,
+      "retainedLOD2PlayerDistanceBoundaryM": 36.55,
+      "cameraOffsetM": 10,
+      "actorOriginEuclideanCameraDistanceLowerBoundM": 26.549999999999997,
+      "onAxisPixelsPerMetreAtThatDistanceEstimate": 38.45893081957386,
+      "largestSourceTriangleEdgePixelsOnAxisEstimate": 0.5987629662432901,
+      "projectionScope": "Transverse on-axis estimate placed at actor origin; not a global bound for triangle offsets, inclined/off-axis triangles or a captured camera."
+    },
+    {
+      "quality": "high",
+      "cssViewportHeight": 720,
+      "dpr": 1,
+      "renderHeight": 864,
+      "retainedLOD2PlayerDistanceBoundaryM": 36.55,
+      "cameraOffsetM": 17,
+      "actorOriginEuclideanCameraDistanceLowerBoundM": 19.549999999999997,
+      "onAxisPixelsPerMetreAtThatDistanceEstimate": 34.819594655061756,
+      "largestSourceTriangleEdgePixelsOnAxisEstimate": 0.5421025320975056,
+      "projectionScope": "Transverse on-axis estimate placed at actor origin; not a global bound for triangle offsets, inclined/off-axis triangles or a captured camera."
+    },
+    {
+      "quality": "high",
+      "cssViewportHeight": 720,
+      "dpr": 1.5,
+      "renderHeight": 1296,
+      "retainedLOD2PlayerDistanceBoundaryM": 36.55,
+      "cameraOffsetM": 17,
+      "actorOriginEuclideanCameraDistanceLowerBoundM": 19.549999999999997,
+      "onAxisPixelsPerMetreAtThatDistanceEstimate": 52.22939198259263,
+      "largestSourceTriangleEdgePixelsOnAxisEstimate": 0.8131537981462584,
+      "projectionScope": "Transverse on-axis estimate placed at actor origin; not a global bound for triangle offsets, inclined/off-axis triangles or a captured camera."
+    }
+  ],
+  "selectedRecords": [
+    {
+      "condition": "neutral/idle",
+      "category": "newlyUncoveredOutsideCore",
+      "sourceTriangle": 9216,
+      "restCenter": [
+        0.07056666910648346,
+        1.4783999919891357,
+        -0.03286666671435038
+      ],
+      "sourceWorldCenter": [
+        0.07052879532178243,
+        1.4605531295140584,
+        -0.032210731257994965
+      ],
+      "targetWorld": [
+        0.07050171282217318,
+        1.4605309026641038,
+        -0.03220449298436555
+      ],
+      "targetIsSkin2": true,
+      "sourceTriangleMaxEdgeM": 0.011929186948386345,
+      "views": {
+        "backCloseup": {
+          "inFront": true,
+          "withinViewport": true,
+          "coordinates": [
+            263.37879036751076,
+            524.4833005653611
+          ],
+          "depthM": 0.8200408130099621,
+          "targetDistanceM": 0.8317703534895611,
+          "hits": {
+            "skin2": {
+              "triangle": 3421,
+              "distanceM": 0.8317703534895614,
+              "pointWorld": [
+                0.07050171282217321,
+                1.4605309026641038,
+                -0.03220449298436523
+              ]
+            },
+            "jacket1": {
+              "triangle": 1716,
+              "distanceM": 0.8696879621705769,
+              "pointWorld": [
+                0.07371564843182468,
+                1.4544009094621568,
+                0.00507604951876528
+              ]
+            },
+            "oldJacket2": {
+              "triangle": 485,
+              "distanceM": 0.8309344995714126,
+              "pointWorld": [
+                0.07043086498219986,
+                1.4606660319355507,
+                -0.03302630344673119
+              ]
+            },
+            "sourceJacket0": {
+              "triangle": 15887,
+              "distanceM": 0.8105501647612302,
+              "pointWorld": [
+                0.06870306774486235,
+                1.4639614885363037,
+                -0.05306815436307155
+              ]
+            }
+          },
+          "beforeWinner": "oldJacket2",
+          "afterWinner": "skin2",
+          "sourceJacketWinnerAgainstSkin2": "sourceJacket0",
+          "pixel": [
+            263,
+            524
+          ],
+          "pixelCenterHits": {
+            "skin2": {
+              "triangle": 3421,
+              "distanceM": 0.831414501967096,
+              "pointWorld": [
+                0.07038363030841331,
+                1.4605753272041546,
+                -0.032548945801931906
+              ]
+            },
+            "jacket1": {
+              "triangle": 1716,
+              "distanceM": 0.8698978383893385,
+              "pointWorld": [
+                0.07364144806041184,
+                1.4543532684182987,
+                0.005288070335015438
+              ]
+            },
+            "oldJacket2": {
+              "triangle": 485,
+              "distanceM": 0.8308430654145549,
+              "pointWorld": [
+                0.07033525518509805,
+                1.4606677181492453,
+                -0.03311078518671151
+              ]
+            },
+            "sourceJacket0": {
+              "triangle": 15887,
+              "distanceM": 0.8103194988559838,
+              "pointWorld": [
+                0.06859782684117224,
+                1.4639860072970918,
+                -0.05328966236471888
+              ]
+            }
+          },
+          "beforePixelWinner": "oldJacket2",
+          "afterPixelWinner": "skin2",
+          "targetOnNearestSkin": true,
+          "newlyVisibleSkinPoint": true,
+          "newlyExposedPixelCenter": true,
+          "sourceTriangleProjectedVertices": [
+            [
+              259.9090927466264,
+              525.8203458770129
+            ],
+            [
+              262.91187045640487,
+              526.4830558403191
+            ],
+            [
+              267.2394985951204,
+              521.045197025431
+            ]
+          ],
+          "sourceTriangleMaxProjectedEdgePixels": 8.7485368181427
+        },
+        "profileCloseup": {
+          "inFront": true,
+          "withinViewport": true,
+          "coordinates": [
+            406.2974523163256,
+            533.5113701272858
+          ],
+          "depthM": 0.7817495550146416,
+          "targetDistanceM": 0.7916670052616039,
+          "hits": {
+            "skin2": {
+              "triangle": 3421,
+              "distanceM": 0.791667005261604,
+              "pointWorld": [
+                0.0705017128221731,
+                1.4605309026641038,
+                -0.032204492984365556
+              ]
+            },
+            "jacket1": {
+              "triangle": 1329,
+              "distanceM": 0.8983320036027329,
+              "pointWorld": [
+                -0.03452373721696378,
+                1.4424132522518236,
+                -0.03654355494845377
+              ]
+            },
+            "oldJacket2": {
+              "triangle": 485,
+              "distanceM": 0.7909411936261069,
+              "pointWorld": [
+                0.07121636800285325,
+                1.4606541858561688,
+                -0.032174967444500956
+              ]
+            },
+            "sourceJacket0": {
+              "triangle": 9814,
+              "distanceM": 0.7729677331028244,
+              "pointWorld": [
+                0.08891355836122539,
+                1.4637070793031675,
+                -0.03144381889406269
+              ]
+            }
+          },
+          "beforeWinner": "oldJacket2",
+          "afterWinner": "skin2",
+          "sourceJacketWinnerAgainstSkin2": "sourceJacket0",
+          "pixel": [
+            406,
+            533
+          ],
+          "pixelCenterHits": {
+            "skin2": {
+              "triangle": 3421,
+              "distanceM": 0.7917071228155311,
+              "pointWorld": [
+                0.07046654098166538,
+                1.4605327675225122,
+                -0.03234683875747437
+              ]
+            },
+            "jacket1": {
+              "triangle": 1329,
+              "distanceM": 0.8983384771642067,
+              "pointWorld": [
+                -0.03452519914519525,
+                1.4424220006727693,
+                -0.036703484196436015
+              ]
+            },
+            "oldJacket2": {
+              "triangle": 485,
+              "distanceM": 0.7909947349894675,
+              "pointWorld": [
+                0.07116797479501669,
+                1.4606537627954619,
+                -0.03231773267331977
+              ]
+            },
+            "sourceJacket0": {
+              "triangle": 9815,
+              "distanceM": 0.7730194445668649,
+              "pointWorld": [
+                0.08886686863616189,
+                1.4637067700079152,
+                -0.03158331485116993
+              ]
+            }
+          },
+          "beforePixelWinner": "oldJacket2",
+          "afterPixelWinner": "skin2",
+          "targetOnNearestSkin": true,
+          "newlyVisibleSkinPoint": true,
+          "newlyExposedPixelCenter": true,
+          "sourceTriangleProjectedVertices": [
+            [
+              397.7052204883856,
+              537.1317104380357
+            ],
+            [
+              410.94338135642283,
+              534.8550338818573
+            ],
+            [
+              410.22729233784014,
+              528.5052780329248
+            ]
+          ],
+          "sourceTriangleMaxProjectedEdgePixels": 15.205841622312455
+        }
+      }
+    },
+    {
+      "condition": "neutral/idle",
+      "category": "newlyUncoveredOutsideCore",
+      "sourceTriangle": 9169,
+      "restCenter": [
+        -0.0692666694521904,
+        1.4761666456858318,
+        -0.04013333469629288
+      ],
+      "sourceWorldCenter": [
+        -0.06930423527956009,
+        1.4593776861826577,
+        -0.03933311998844147
+      ],
+      "targetWorld": [
+        -0.06930592278423477,
+        1.4593791949064516,
+        -0.03933382154460507
+      ],
+      "targetIsSkin2": true,
+      "sourceTriangleMaxEdgeM": 0.00879414156379492,
+      "views": {
+        "backCloseup": {
+          "inFront": true,
+          "withinViewport": true,
+          "coordinates": [
+            455.81288374654787,
+            527.6873126816804
+          ],
+          "depthM": 0.8129329153841822,
+          "targetDistanceM": 0.8248490568574779,
+          "hits": {
+            "skin2": {
+              "triangle": 3441,
+              "distanceM": 0.8248490568574779,
+              "pointWorld": [
+                -0.06930592278423477,
+                1.4593791949064516,
+                -0.039333821544605074
+              ]
+            },
+            "jacket1": {
+              "triangle": 1206,
+              "distanceM": 0.8629951399320684,
+              "pointWorld": [
+                -0.07251105403353361,
+                1.4531072564775576,
+                -0.0018436418177419922
+              ]
+            },
+            "oldJacket2": {
+              "triangle": 328,
+              "distanceM": 0.8177529987465689,
+              "pointWorld": [
+                -0.06870969387251029,
+                1.4605459212377618,
+                -0.046307866387165775
+              ]
+            },
+            "sourceJacket0": {
+              "triangle": 6815,
+              "distanceM": 0.8055045294794404,
+              "pointWorld": [
+                -0.06768054622641029,
+                1.4625598015342374,
+                -0.05834572918177294
+              ]
+            }
+          },
+          "beforeWinner": "oldJacket2",
+          "afterWinner": "skin2",
+          "sourceJacketWinnerAgainstSkin2": "sourceJacket0",
+          "pixel": [
+            455,
+            527
+          ],
+          "pixelCenterHits": {
+            "skin2": {
+              "triangle": 3441,
+              "distanceM": 0.8245770015518039,
+              "pointWorld": [
+                -0.06906007209427323,
+                1.4595529645577048,
+                -0.03956058923545003
+              ]
+            },
+            "jacket1": {
+              "triangle": 1206,
+              "distanceM": 0.8648266676004793,
+              "pointWorld": [
+                -0.07243106696056326,
+                1.4529414559495628,
+                -1.0143569733056523e-06
+              ]
+            },
+            "oldJacket2": {
+              "triangle": 328,
+              "distanceM": 0.8184416414497254,
+              "pointWorld": [
+                -0.06854622267793434,
+                1.4605607738170383,
+                -0.04559075696581261
+              ]
+            },
+            "sourceJacket0": {
+              "triangle": 6815,
+              "distanceM": 0.8061423055338711,
+              "pointWorld": [
+                -0.06751612721873274,
+                1.4625810928225118,
+                -0.057679217514289394
+              ]
+            }
+          },
+          "beforePixelWinner": "oldJacket2",
+          "afterPixelWinner": "skin2",
+          "targetOnNearestSkin": true,
+          "newlyVisibleSkinPoint": true,
+          "newlyExposedPixelCenter": true,
+          "sourceTriangleProjectedVertices": [
+            [
+              454.2999806785711,
+              523.8932338002979
+            ],
+            [
+              454.6696995308769,
+              530.3515580386754
+            ],
+            [
+              458.4516216751899,
+              528.8497723723308
+            ]
+          ],
+          "sourceTriangleMaxProjectedEdgePixels": 6.468898205858898
+        }
+      }
+    },
+    {
+      "condition": "neutral/idle",
+      "category": "unknownSkinNormalRay",
+      "sourceTriangle": 9569,
+      "restCenter": [
+        -0.08730000009139378,
+        1.4493666887283325,
+        -0.013399999588727951
+      ],
+      "sourceWorldCenter": [
+        -0.08730000009139378,
+        1.443983793258667,
+        -0.012659918516874313
+      ],
+      "targetWorld": [
+        -0.08730000009139378,
+        1.443983793258667,
+        -0.012659918516874313
+      ],
+      "targetIsSkin2": false,
+      "sourceTriangleMaxEdgeM": 0.012074155710445273,
+      "views": {
+        "backCloseup": {
+          "inFront": true,
+          "withinViewport": true,
+          "coordinates": [
+            476.8175834260003,
+            542.2761197264549
+          ],
+          "depthM": 0.8398743072705366,
+          "targetDistanceM": 0.8553160800386405,
+          "hits": {
+            "skin2": null,
+            "jacket1": {
+              "triangle": 1167,
+              "distanceM": 0.7876713843713319,
+              "pointWorld": [
+                -0.08039567305281926,
+                1.4559272672377688,
+                -0.07888293981141903
+              ]
+            },
+            "oldJacket2": {
+              "triangle": 323,
+              "distanceM": 0.8003287686267929,
+              "pointWorld": [
+                -0.08168758100643642,
+                1.4536924558012285,
+                -0.06649157314454635
+              ]
+            },
+            "sourceJacket0": {
+              "triangle": 6474,
+              "distanceM": 0.7855354434070793,
+              "pointWorld": [
+                -0.08017766283329196,
+                1.4563043929691477,
+                -0.08097399015267959
+              ]
+            }
+          },
+          "beforeWinner": "oldJacket2",
+          "afterWinner": "jacket1",
+          "sourceJacketWinnerAgainstSkin2": "sourceJacket0",
+          "pixel": [
+            476,
+            542
+          ],
+          "pixelCenterHits": {
+            "skin2": null,
+            "jacket1": {
+              "triangle": 1167,
+              "distanceM": 0.7868550405035776,
+              "pointWorld": [
+                -0.08009378014971083,
+                1.455917910001004,
+                -0.07968706788167734
+              ]
+            },
+            "oldJacket2": {
+              "triangle": 323,
+              "distanceM": 0.8000841028144485,
+              "pointWorld": [
+                -0.0814403631335799,
+                1.4535795814141461,
+                -0.06673612107025295
+              ]
+            },
+            "sourceJacket0": {
+              "triangle": 6474,
+              "distanceM": 0.7851907665797166,
+              "pointWorld": [
+                -0.07992437411822464,
+                1.4562120819688333,
+                -0.0813163536587842
+              ]
+            }
+          },
+          "beforePixelWinner": "oldJacket2",
+          "afterPixelWinner": "jacket1",
+          "targetOnNearestSkin": false,
+          "newlyVisibleSkinPoint": false,
+          "newlyExposedPixelCenter": false,
+          "sourceTriangleProjectedVertices": [
+            [
+              472.5572942847736,
+              536.6101580288604
+            ],
+            [
+              479.9246733282471,
+              546.4394303510392
+            ],
+            [
+              478.00462872956393,
+              543.8241778858037
+            ]
+          ],
+          "sourceTriangleMaxProjectedEdgePixels": 12.28384582912705
+        },
+        "profileCloseup": {
+          "inFront": true,
+          "withinViewport": true,
+          "coordinates": [
+            375.13892767439427,
+            520.7830048937772
+          ],
+          "depthM": 0.9398186648200049,
+          "targetDistanceM": 0.9494721999125207,
+          "hits": {
+            "skin2": {
+              "triangle": 3282,
+              "distanceM": 0.7936957431523102,
+              "pointWorld": [
+                0.06647940803560015,
+                1.4687604740311,
+                -0.010582851647919785
+              ]
+            },
+            "jacket1": {
+              "triangle": 1200,
+              "distanceM": 0.9263863386929989,
+              "pointWorld": [
+                -0.06451009879132275,
+                1.4476556640001697,
+                -0.012352100002590332
+              ]
+            },
+            "oldJacket2": {
+              "triangle": 335,
+              "distanceM": 0.9195532430473904,
+              "pointWorld": [
+                -0.057764603188772745,
+                1.4487424869580148,
+                -0.012260989979464449
+              ]
+            },
+            "sourceJacket0": {
+              "triangle": 6461,
+              "distanceM": 0.9302883904964998,
+              "pointWorld": [
+                -0.06836212642953587,
+                1.4470350317563534,
+                -0.012404128548434534
+              ]
+            }
+          },
+          "beforeWinner": "skin2",
+          "afterWinner": "skin2",
+          "sourceJacketWinnerAgainstSkin2": "skin2",
+          "pixel": [
+            375,
+            520
+          ],
+          "pixelCenterHits": {
+            "skin2": {
+              "triangle": 3282,
+              "distanceM": 0.7936692749058533,
+              "pointWorld": [
+                0.06647777617982342,
+                1.4689585765255087,
+                -0.010835233176624558
+              ]
+            },
+            "jacket1": {
+              "triangle": 1200,
+              "distanceM": 0.9266169900013289,
+              "pointWorld": [
+                -0.06477020415275903,
+                1.4478453499106791,
+                -0.012650245473188278
+              ]
+            },
+            "oldJacket2": {
+              "triangle": 335,
+              "distanceM": 0.9197479172457044,
+              "pointWorld": [
+                -0.05798895240062585,
+                1.4489362170204982,
+                -0.01255646837059952
+              ]
+            },
+            "sourceJacket0": {
+              "triangle": 6461,
+              "distanceM": 0.930443974407209,
+              "pointWorld": [
+                -0.06854826061409303,
+                1.447237592274869,
+                -0.012702491754746722
+              ]
+            }
+          },
+          "beforePixelWinner": "skin2",
+          "afterPixelWinner": "skin2",
+          "targetOnNearestSkin": false,
+          "newlyVisibleSkinPoint": false,
+          "newlyExposedPixelCenter": false,
+          "sourceTriangleProjectedVertices": [
+            [
+              371.70800638999793,
+              516.8694352407932
+            ],
+            [
+              383.2301158026977,
+              522.701459872665
+            ],
+            [
+              370.4604129036168,
+              522.7596346474143
+            ]
+          ],
+          "sourceTriangleMaxProjectedEdgePixels": 12.914004670317578
+        }
+      }
+    }
+  ],
+  "selectedPreservedPixelValues": [
+    {
+      "variant": "before-final",
+      "case": "neutral--idle--back--lod2",
+      "path": "artifacts/collar-lod/before-final/images/neutral--idle--back--lod2.png",
+      "sha256": "c243e3e28298bd5192ce9700e47e07ca612f4579f61fc8fd86cd6bf0448b3376",
+      "pixel": [
+        263,
+        524
+      ],
+      "rgb": [
+        110,
+        141,
+        141
+      ]
+    },
+    {
+      "variant": "before-final",
+      "case": "visual--closeup--neutral--profile",
+      "path": "artifacts/collar-lod/before-final/images/visual--closeup--neutral--profile.png",
+      "sha256": "9dad0a1354ea0a4ee46d5852b1d60631d9724c586923a8a56b21eb1a3021b52e",
+      "pixel": [
+        406,
+        533
+      ],
+      "rgb": [
+        126,
+        143,
+        135
+      ]
+    },
+    {
+      "variant": "after-final",
+      "case": "neutral--idle--back--lod2",
+      "path": "artifacts/collar-lod/after-final/images/neutral--idle--back--lod2.png",
+      "sha256": "ac6d360bb5f00522ca9eec6f0732359a146223ef6d8931bc7c74bec05dff1585",
+      "pixel": [
+        263,
+        524
+      ],
+      "rgb": [
+        173,
+        173,
+        161
+      ]
+    },
+    {
+      "variant": "after-final",
+      "case": "visual--closeup--neutral--profile",
+      "path": "artifacts/collar-lod/after-final/images/visual--closeup--neutral--profile.png",
+      "sha256": "521f53161dc388490ff1361b591ddc2e89cff9e08fc7f06c885583c664d86724",
+      "pixel": [
+        406,
+        533
+      ],
+      "rgb": [
+        139,
+        150,
+        137
+      ]
+    }
+  ],
+  "tests": {
+    "command": "python3 tests/collar_visibility.test.py",
+    "result": "5/5 passed",
+    "initialRegression": "Integer coordinates caused two errors; corrected to Float64 without changing preserved floating-point captures.",
+    "log": "artifacts/collar-followup/projection-tests-green.log",
+    "logSha256": "0f7e4b97443e54aca647179972594d13bb587afcbf151fab8228148587ea844a"
+  },
+  "limitations": [
+    "Only skin/jacket occlusion, excluding hair, equipment, environment and postprocessing.",
+    "Continuous target rays and containing pixel-center rays are separate; sparse pixel samples are not full screenshot coverage.",
+    "UNKNOWN probes target source anchors, not nonexistent confirmed skin2 intersections; no hole claim follows.",
+    "Source-jacket comparison uses the current skin2 target ray; it is not a source0 raster comparison.",
+    "Game pixel scales are transverse on-axis estimates for individual source triangles, not bounds on off-axis geometry or connected defect area; scenarios may be offscreen.",
+    "On-foot camera offsets4.3/10m and car mode2 offset17m are scenarios; photo mode is unbounded.",
+    "LOD hysteresis is player-distance based. Prepared poses do not prove motion, hardware or artistic acceptance."
+  ]
+}

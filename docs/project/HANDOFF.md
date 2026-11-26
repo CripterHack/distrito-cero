@@ -1,4 +1,10 @@
-# Continuación vigente · v0.20.25 · chaqueta LOD2 · refs #5
+# Continuación tras el merge de v0.20.25 · refs #5
+
+`master` incorporó #63, #64 y #65 en `ba9997df`. Consultar la [revisión en la cámara de calle](../../qa/collar-street-v02025/README.md) para reproducir el cambio de LOD con un peatón real y distinguirlo de las vistas forzadas del estudio.
+
+La proyección del subconjunto de 190 pérdidas identifica exposición en primeros planos forzados del borde lateral. El ancla 9216 de la pose neutra es un caso reproducible. Si se retoca ese borde en autoría, comparar las tres geometrías de prenda, la piel LOD2 y el orden de profundidad en las mismas cámaras. Conservar la cobertura que se recuperó en #65. Para evaluar prioridad en partida, repetir en movimiento y en la cámara más próxima en la que se mantenga LOD2.
+
+## Registro previo al merge · v0.20.25 · chaqueta LOD2
 
 La chaqueta LOD2 comparte la malla intermedia existente, con pose/apariencia por
 instancia y un solo propietario GPU. [Contrato, evidencia y coste](COLLAR-LOD.md).
