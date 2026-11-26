@@ -5,6 +5,10 @@ instancia y un solo propietario GPU. [Contrato, evidencia y coste](COLLAR-LOD.md
 No repetir el atlas de #63, la costura de #64 ni los experimentos de conectividad:
 los últimos corrigieron dos píxeles pero no la cobertura completa muestreada.
 
+### Trabajo posterior · v0.20.26 · puerta del sedán
+
+La corrección del tirador de la puerta parte del merge `ba9997df`. Para reproducir la fijación y contrastarla con el contacto del actor, utilizar las [mediciones de puerta](../../qa/door-handle-v02026/README.md). Revisar después la trayectoria de la palma durante una entrada completa contra ese anclaje en el panel. Mantener las comprobaciones de cancelación y ocupación de asiento.
+
 La base #64 (`2b72a688`) aprobó sus tres workflows y nueve jobs. Esta unidad
 mantiene master como destino y depende de #63/#64; ninguno se ha integrado ni
 desplegado. La nueva CI se registra por su commit exacto en el PR.

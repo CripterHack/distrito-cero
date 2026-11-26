@@ -4,6 +4,10 @@ La chaqueta LOD2 reutiliza la malla y el recurso GPU de LOD1; las demás partes
 conservan su reducción. El cambio evita la simplificación más agresiva del
 escote y torso. [Contrato, coste y evidencia](COLLAR-LOD.md).
 
+### Trabajo posterior · candidata v0.20.26
+
+El tirador conserva su fijación al panel durante la apertura y el cierre de la puerta detallada, incluida la inclinación de suspensión y el desplazamiento por daño lateral. La simulación de acceso mantiene otro objetivo para la mano. [Mediciones y reproducción](../../qa/door-handle-v02026/README.md).
+
 Verificación local: **707/707 Node**, benchmark **36/36**, recuperación
 **25/25**, collar **42 vistas/173 guardas/110 criterios geométricos** y
 comparación **304/304**. [Galería](../../qa/collar-lod-v02025/README.md).
