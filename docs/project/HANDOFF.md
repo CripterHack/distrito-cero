@@ -31,6 +31,15 @@ un buffer de instancias, un VAO y la reducción anterior. Medir el coste real
 con reparto en hardware físico; no extrapolar FPS desde SwiftShader. Siguen
 pendientes arte global y adaptación de los modelos Higgsfield. #5/#6/#7 abiertos.
 
+### Continuidad de los modelos Higgsfield
+
+La unidad de autoría posterior al merge conserva una versión intermedia del
+personaje y separa las ruedas del sedán. Para continuar el personaje, revisar
+los puentes entre dedos con poses de flexión antes de transferir pesos del
+rig de 49 huesos. Para el sedán, contrastar el habitáculo, los asientos y las
+puertas con los puntos de acceso del vehículo nativo. Las fichas identifican
+los archivos que se deben abrir y su procedencia. [Modelos y recetas](HIGGSFIELD-ASSETS.md).
+
 ## Registro anterior · v0.20.24
 
 # Continuación vigente · v0.20.24 · continuidad cervical LOD2 · refs #5

@@ -17,7 +17,16 @@ No son assets canónicos del runtime ni reemplazan las exportaciones históricas
 | Personaje urbano con chaqueta | 47,321 | Color, normal y ORM, 4096² cada uno | Una malla sin rig |
 | Sedán verde petróleo | 44,745 | Color, normal y ORM, 4096² cada uno | Una malla sin pivotes móviles |
 
-## Verificación y preparación
+## Derivados de autoría · 26 noviembre 2026
+
+Se prepararon dos derivados desde los GLB con tangentes del paquete original.
+El personaje intermedio conserva 28.391 triángulos y sus tres mapas. El sedán
+mide 4,4 m, apoya las ruedas en el suelo y ofrece cuatro pivotes que se pueden
+rotar por separado en el editor. Las pruebas, las medidas y los comandos están
+en las fichas del [personaje](../../assets/higgsfield-20261125/character-lod-review.md)
+y del [sedán](../../assets/higgsfield-20261125/sedan-review.md).
+
+## Verificación y preparación de las fuentes
 
 Los originales pasan Khronos glTF Validator 2.0.0-dev.3.10 con cero errores,
 una advertencia de tangentes y cuatro hints de bufferView cada uno.
