@@ -46,6 +46,8 @@ El job de lógica de #66 detectó que un checkout limpio carecía de `artifacts/
 
 **Índices del personaje.** La [retopología bilateral](../../assets/higgsfield-20261125/index-retopology.md) reconstruye las paredes entre índice y medio. Al flexionar 30°, el alargamiento máximo regional baja de 40,52 a 5,05 mm en la izquierda y de 42,30 a 5,49 mm en la derecha. Revisar en `Palma.R` el filete claro y la sombra en la raíz antes de pintar la transición; luego continuar por medio–anular y anular–meñique.
 
+**Movimiento del personaje.** La malla de índices de #71 ya tiene pesos en los 49 huesos y dos ciclos portátiles. La marcha alterna el apoyo de los zapatos, el reposo conserva la respiración y ambas flexiones de índice siguen editables. El siguiente pase de deformación es el pliegue del pantalón detrás de la rodilla derecha. [Escena, límites y pruebas](../../assets/higgsfield-20261125/body-motion.md).
+
 ## Registro anterior · v0.20.24
 
 # Continuación vigente · v0.20.24 · continuidad cervical LOD2 · refs #5
