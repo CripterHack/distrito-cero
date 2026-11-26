@@ -80,10 +80,10 @@ HORN = """() => {
 DRAW = """({view,control,measure,fallback}) => {
  const {r,sim,ped,live,storage}=marketQA,gl=r.gl;
  const delta=view==='far'?[5.6,1.65,23.7]:[2.55,1.36,2.20];
- const eye=[ped.x+delta[0],delta[1],ped.z+delta[2]],target=[ped.x,.95,ped.z];
+ const eye=view==='player'?r.camera.eye:[ped.x+delta[0],delta[1],ped.z+delta[2]],target=[ped.x,.95,ped.z];
  if(sim.world.blocked(eye[0],eye[2],.18)||!sim.world.visible(eye[0],eye[2],ped.x,ped.z))
    throw Error('Blocked pedestrian camera');
- Object.assign(r.camera,{eye,target,initialized:true});r.fovOverride=.63;
+ if(view!=='player'){Object.assign(r.camera,{eye,target,initialized:true});r.fovOverride=.63;}
  const keyOf=new Map([0,1].map(i=>[r.meshes['marketPed'+i].vao,'marketPed'+i]));
  const state=()=>JSON.stringify({ped,save:sim.serialize()});
  const before=state(),parts=new Set(),otherCrowd=new Set(),calls=[];
@@ -213,6 +213,9 @@ def sample(page, out, name, view='near', lod=0):
     expected={'idle':'Reposo','alert':'Carrera'}.get(name,'Marcha')
     if nearest!=expected or errors[expected]>=.04:
         raise RuntimeError(f'{name} skin matrices do not match {expected}: {errors}')
+    sole,crown=frame['metrics']['heightAboveCurb']
+    if not 1.60<crown<2.0 or (name!='alert' and abs(sole)>.02):
+        raise RuntimeError(f'{name} mesh lies outside its expected curb contact or adult scale: {sole}, {crown}')
     mask,pixels=actor_mask(frame,present,absent)
     present.save(out/(name+'.png'))
     if name=='idle':absent.save(out/'idle-control.png')
@@ -232,6 +235,58 @@ def motion(page, out, name):
         raise RuntimeError('A repeated pose interrupted '+name)
     frames[0].save(out/(name+'.webp'),save_all=True,append_images=frames[1:],duration=83,loop=0,quality=81,method=4)
     return trajectory
+
+
+PLAYER_VIEW = """({approach,turnToResident}) => {
+ const app=DC_APP,{r,storage}=marketQA;
+ const original=JSON.stringify(app.sim.serialize()),sim=new DC.Simulation(new DC.World(1337));
+ sim.free=true;
+ const workshop=sim.world.pois.find(p=>p.name==='Taller del Mercado');
+ if(!sim.travel(workshop.x,workshop.z))throw Error('Cannot travel to the Mercado on foot');
+ const ped=sim.peds.find(p=>p.visualModel==='mercado-higgsfield'),p=sim.player;
+ const start=[p.x,p.z];
+ let steps=0;
+ for(;steps<900;steps++){
+   const dx=ped.x+approach[0]-p.x,dz=ped.z+approach[1]-p.z;
+   if(Math.hypot(dx,dz)<.25)break;
+   sim.step(1/60,{throttle:1,sprint:true,lookYaw:Math.atan2(dx,dz)});
+ }
+ if(steps>=900||p.car!==null)throw Error('The default on-foot approach did not reach the resident: '+[p.x,p.z,ped.x,ped.z]);
+ if(turnToResident){
+   for(let i=0;i<24;i++)sim.step(1/60,{throttle:.38,lookYaw:Math.atan2(ped.x-p.x,ped.z-p.z)});
+ }
+ for(let i=0;i<(turnToResident?16:24);i++)sim.step(1/60,{});
+ r.world=sim.world;r.resize();r.resetSectors();r.syncSectors(100);
+ const yaw=Math.atan2(ped.x-p.x,ped.z-p.z)-.39;
+ Object.assign(r.camera,{yaw,pitch:.22,mode:0,initialized:false});
+ r.updateCamera(sim,1/60,{});
+ if(r.fovOverride!=null)throw Error('Gameplay camera must use the default FOV');
+ if(JSON.stringify(app.sim.serialize())!==original)throw Error('Starting the street view changed the existing game');
+ marketQA.contextOriginal={sim:app.sim,world:app.world,mode:app.mode,started:app.started,save:original};
+ app.world=sim.world;app.sim=sim;app.started=true;app.setMode('play');app.updateUI(performance.now());
+ Object.assign(marketQA,{sim,ped,live:JSON.stringify(sim.serialize())});
+ if(document.getElementById('hud').hidden||JSON.stringify([...qaCharacterStorage])!==storage)throw Error('Unavailable HUD or changed storage');
+ return {player:[p.x,p.z],resident:[ped.x,ped.z],start,approachSeconds:steps/60,yaw,
+         camera:r.camera.eye,target:r.camera.target,fov:Math.PI*.36,mode:r.camera.mode};
+}"""
+
+
+def player_view(page, out, *, approach, turn_to_resident):
+    page.set_viewport_size({'width':1280,'height':800})
+    data=page.evaluate(PLAYER_VIEW,dict(approach=approach,turnToResident=turn_to_resident))
+    frame,present=draw(page,'player')
+    _,absent=draw(page,'player','without-model')
+    _,area=actor_mask(frame,present,absent)
+    draw(page,'player')
+    page.screenshot(path=out,quality=89,type='jpeg',timeout=60000)
+    page.evaluate('''() => {
+      const app=DC_APP,{contextOriginal:old,storage}=marketQA;
+      app.sim=old.sim;app.world=old.world;app.renderer.world=old.world;app.started=old.started;app.setMode(old.mode);
+      if(JSON.stringify(app.sim.serialize())!==old.save||JSON.stringify([...qaCharacterStorage])!==storage)
+        throw Error('The gameplay capture changed the original game or persistent storage');
+    }''')
+    data.update(visibleActorPixels=area,mainDraws=[d for d in frame['calls'] if d['main']])
+    return data
 
 
 def load_page(browser, document, errors, *, fault=''):
@@ -290,6 +345,10 @@ def capture(html, out):
             raise RuntimeError('Startled resident did not run')
         report['frames']['alert']=alert
         report['motion']={'marcha':walk_frames,'carrera':motion(page,out,'carrera')}
+        report['gameplayViews']={
+            'street':player_view(page,out/'jugando.jpg',approach=[5.8,7],turn_to_resident=True),
+            'sidewalk':player_view(page,out/'acera-avatar.jpg',approach=[1.4,3.2],turn_to_resident=False),
+        }
         page.close()
         # Exercise the actual image decoder's error path with only the resident atlas damaged.
         fallback_page=load_page(browser,raw.decode(),errors,fault=BROKEN_ATLAS)
