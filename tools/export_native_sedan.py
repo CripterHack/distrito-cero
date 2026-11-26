@@ -1,4 +1,4 @@
-"""Export the unoccupied production sedan in its closed, undamaged near pose."""
+"""Export the unoccupied production sedan in its closed, undamaged near or distant pose."""
 import argparse
 import json
 import math
@@ -14,9 +14,9 @@ sys.path.insert(0, str(ROOT/'tools/qa'))
 from capture_vehicle_door import FIX, SETUP, launch_options
 
 # Read only the buffers the renderer actually submits for this car.
-CAPTURE = """() => {
+CAPTURE = """distance => {
  const {r,sim,car}=doorScene, parts=[], geometry={};
- Object.assign(sim.player,{x:2,z:0,car:null});Object.assign(car,{doorOpen:0,steerAngle:0,wheel:0,speed:0});
+ Object.assign(sim.player,{x:distance,z:0,car:null});Object.assign(car,{doorOpen:0,steerAngle:0,wheel:0,speed:0});
  r.currentSim=sim;r.currentTime=sim.time;
  r.add=function(list,key,x,y,z,w,h,d,color,mat=0,em=0,yaw=0,seed=0,detail=0,pitch=0,roll=0){
   parts.push({key,translation:[x,y,z],scale:[w,h,d],color,mat,em,yaw,pitch,roll});
@@ -32,11 +32,12 @@ CAPTURE = """() => {
   }
  }finally{gl.bindBuffer(gl.ARRAY_BUFFER,previous);}
  if(gl.getError()||gl.isContextLost())throw Error('Could not read native wheel/car buffers');
- return {parts,geometry,source:DC.VehicleAsset.sourceProject,revision:DC.VehicleAsset.revision};
+ return {parts,geometry,source:distance>=66?'Distrito Cero / procedural distant sedan':DC.VehicleAsset.sourceProject,
+         revision:distance>=66?DC.BuildInfo.version:DC.VehicleAsset.revision};
 }"""
 
 
-def capture(html):
+def capture(html, lod='near'):
     with sync_playwright() as pw, pw.chromium.launch(**launch_options()) as browser:
         page = browser.new_page(viewport={'width': 800, 'height': 500})
         raw = html.read_text()
@@ -44,7 +45,7 @@ def capture(html):
         page.wait_for_function('!!window.DC_APP', timeout=180000)
         page.evaluate('DC_APP.renderer.humanReady')
         page.evaluate(SETUP)
-        return page.evaluate(CAPTURE)
+        return page.evaluate(CAPTURE, 68 if lod=='far' else 2)
 
 
 def shader_rotation(yaw, roll, pitch):
@@ -66,14 +67,17 @@ def assemble(native):
     i = 0
     while i < len(native['parts']):
         part = native['parts'][i]
-        if part['key'] != 'tire':
+        distant_wheel = part['key'] == 'wheel' and part['mat'] == 4
+        if part['key'] != 'tire' and not distant_wheel:
             part = dict(part, parent=1, rotation=shader_rotation(part['yaw'], part['roll'], part['pitch']),
                         material=part['mat'])
             parts.append(part)
             i += 1
             continue
-        assembly = native['parts'][i:i+5]
-        if [p['key'] for p in assembly] != ['tire','rim','wheelBrake','wheelCaliper','wheelAlloy']:
+        names = ['tire','rim','hub'] if distant_wheel else ['tire','rim','wheelBrake','wheelCaliper','wheelAlloy']
+        assembly = native['parts'][i:i+len(names)]
+        keys = ['wheel']*3 if distant_wheel else names
+        if [p['key'] for p in assembly] != keys:
             raise ValueError('Unexpected native wheel components')
         pivot = part['translation']
         corner = ('Front' if pivot[2]>0 else 'Rear') + ('Left' if pivot[0]<0 else 'Right')
@@ -84,8 +88,8 @@ def assemble(native):
         nodes[0]['children'].append(upright)
         nodes.extend([{'name':'Steering_'+corner,'translation':pivot,'children':[axle]},
                       {'name':'Rolling_'+corner,'children':[]}])
-        for p in assembly:
-            parts.append(dict(p, material=p['mat'], name=corner+'_'+p['key'],
+        for p, name in zip(assembly, names, strict=True):
+            parts.append(dict(p, material=p['mat'], name=corner+'_'+name,
                               parent=upright if p['key']=='wheelCaliper' else axle,
                               translation=[v-origin for v,origin in zip(p['translation'],pivot,strict=True)],
                               rotation=shader_rotation(p['yaw'],p['roll'],p['pitch'])))
@@ -105,6 +109,7 @@ def export(native, output):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--html', type=Path, default=ROOT/'index.html')
+    parser.add_argument('--lod', choices=['near','far'], default='near')
     parser.add_argument('--output', type=Path, required=True)
     args = parser.parse_args()
-    export(capture(args.html), args.output)
+    export(capture(args.html, args.lod), args.output)
