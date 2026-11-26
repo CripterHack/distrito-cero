@@ -17,7 +17,7 @@ function scene() {
   vm.runInContext(fs.readFileSync('src/core.js','utf8'),ctx);
   const D = ctx.DC;
   Object.assign(D,{Renderer:StreetCast,SkinRig:{paletteStride:stride},MarketPedAsset:{
-    clips:{Marcha:{duration:.7654},Reposo:{duration:4},Carrera:{duration:.52},Giro:{duration:1.4}},
+    clips:{Marcha:{duration:.7654},Reposo:{duration:4},Carrera:{duration:.52},Giro:{duration:1.4},FrenadaL:{duration:.49},FrenadaR:{duration:.49}},
     writePalette(out,...phase) { out.fill(3);palettes.push(phase); }
   }});
   vm.runInContext(fs.readFileSync('src/market-ped-renderer.js','utf8'),ctx);
@@ -117,4 +117,26 @@ test('the one-shot turn stays in its starting frame across LOD, panic and repeat
   assert.equal(palettes.at(-1).length,4);
   r.currentTime+=.4;r.castCursor=1;r.renderPerson(n);
   assert.ok(Math.abs(palettes.at(-1)[1]-.1)<1e-12);
+});
+
+test('a stop uses one fixed draw origin, tracks its shadow, and hands the last key to rest',()=>{
+  const {r,palettes}=scene(), n=person({moveSpeed:1.35}), dirZ=-1;
+  const startZ=n.z,reach=.1653272101033296;
+  n.sidewalkRoute={brake:{clip:'FrenadaR',startX:n.x,startZ,progress:0}};
+  r.renderPerson(n);
+  for(const progress of [.2,.6,.98]){
+    n.sidewalkRoute.brake.progress=progress;
+    n.z=startZ+dirZ*reach*(1-(1-progress)**4);n.moveSpeed=1.35*(1-progress)**3;
+    r.currentTime+=.1;
+    if(progress>.5)r.camera.eye=[135,2,99];
+    r.renderPerson(n);
+    const [body,shadow]=r.dynamic.slice(-2);
+    assert.equal(body[1],n.x);assert.equal(body[3],startZ);
+    assert.equal(shadow[3],n.z);
+    assert.deepEqual(palettes.at(-1).slice(4),[progress,1,'FrenadaR']);
+  }
+  n.sidewalkRoute.brake=null;n.sidewalkRoute.wait=2.4;n.z=startZ+dirZ*reach;
+  n.moveSpeed=.00001;r.currentTime+=.01;r.renderPerson(n);
+  assert.equal(r.dynamic.at(-2)[3],n.z);
+  assert.equal(palettes.at(-1)[1],0);assert.equal(palettes.at(-1)[2],0);
 });

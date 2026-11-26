@@ -43,7 +43,7 @@
    const blend=dt<0?1:1-Math.exp(-12*dt);
    const step=n.sidewalkRoute?.brake,brake=step&&D.MarketPedAsset.clips[step.clip]?step:null;
    const finishedBrake=last?.braking && !brake;
-   const walk=finishedBrake && !speed?0:D.lerp(last?.walk??walking,walking,blend),run=D.lerp(last?.run??running,running,blend);
+   const walk=finishedBrake && (n.sidewalkRoute.wait>0 || speed<.01)?0:D.lerp(last?.walk??walking,walking,blend),run=D.lerp(last?.run??running,running,blend);
    const reaction=D.lerp(last?.reaction??tilt,tilt,blend);
    const turn=D.MarketPedAsset.clips.Giro && n.sidewalkRoute?.turn;
    // The turn ends on Reposo's first key in the new facing direction.
