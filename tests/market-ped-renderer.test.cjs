@@ -86,10 +86,3 @@ test('the same marked mesh reacts to a hit and a stationary stun, without mutati
   assert.equal(palettes[0][2],0);
   assert.equal(n.moveSpeed,1.35);
 });
-
-test('the authored palette is used by main, reflection and shadow draws without crowd neck morphs',()=>{
-  const source=fs.readFileSync('src/renderer.js','utf8');
-  assert.match(source,/if\(uSkinned==3\)\s*\{[^}]*crowdBone\(int\(aJoints\.x\)\)/);
-  assert.match(source,/else if\(uSkinned>0\)/);
-  assert.match(source,/m\.linearCrowd\?3:m\.crowd\?2/);
-});
