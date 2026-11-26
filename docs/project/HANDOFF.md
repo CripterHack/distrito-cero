@@ -47,6 +47,21 @@ un buffer de instancias, un VAO y la reducción anterior. Medir el coste real
 con reparto en hardware físico; no extrapolar FPS desde SwiftShader. Siguen
 pendientes arte global y adaptación de los modelos Higgsfield. #5/#6/#7 abiertos.
 
+### Continuidad de los modelos Higgsfield
+
+La unidad de autoría posterior al merge conserva una versión intermedia del
+personaje y separa las ruedas del sedán. Para continuar el personaje, revisar
+los puentes entre dedos con poses de flexión antes de transferir pesos del
+rig de 49 huesos. Para el sedán, contrastar el habitáculo, los asientos y las
+puertas con los puntos de acceso del vehículo nativo. Las fichas identifican
+los archivos que se deben abrir y su procedencia. [Modelos y recetas](HIGGSFIELD-ASSETS.md).
+
+El job de lógica de #66 detectó que un checkout limpio carecía de `artifacts/`. La prueba del sedán prepara esa carpeta. La receta admite el destino documentado `artifacts/sedan-review-model`. Su reproducción conserva la huella del GLB entregado.
+
+**Actualización de autoría.** Ya se pueden revisar las manos cerrando cada índice en la [escena editable](../../assets/higgsfield-20261125/hand-authoring.md). El trabajo pendiente es reconstruir las paredes entre dedos y repetir las flexiones. El [proxy de ruedas](../../assets/higgsfield-20261125/sedan-contact-proxy.md) queda listo para autoría. El [corte del habitáculo](../../assets/higgsfield-20261125/sedan-cabin.md) mide los tobillos a unos 8,5 cm por debajo de los bajos en la pose de referencia. Ajustar el espacio para los pies y contrastar la posición de la manilla con la trayectoria de la mano antes de vincular la carrocería al acceso del juego.
+
+**Índices del personaje.** La [retopología bilateral](../../assets/higgsfield-20261125/index-retopology.md) reconstruye las paredes entre índice y medio. Al flexionar 30°, el alargamiento máximo regional baja de 40,52 a 5,05 mm en la izquierda y de 42,30 a 5,49 mm en la derecha. Revisar en `Palma.R` el filete claro y la sombra en la raíz antes de pintar la transición; luego continuar por medio–anular y anular–meñique.
+
 ## Registro anterior · v0.20.24
 
 # Continuación vigente · v0.20.24 · continuidad cervical LOD2 · refs #5
