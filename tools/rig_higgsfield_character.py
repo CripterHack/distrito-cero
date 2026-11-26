@@ -1,4 +1,4 @@
-"""Fit the #71 character to the game's articulated body and bake its locomotion and planted half-turn.
+"""Fit the #71 character to the game's articulated body and bake its locomotion, half-turn and final steps.
 
 blender -b -t 2 --python-exit-code 1 -P tools/rig_higgsfield_character.py -- INPUT.glb NEW_DIRECTORY
 """
@@ -414,6 +414,68 @@ def turn_poses(bones, bind, idle_root, idle, sole, count=100):
     return np.linspace(0., 1.4, count + 1), poses
 
 
+
+def ankle_position(bind, root, pose, side):
+    chain = ("pelvis", "thigh" + side, "shin" + side, "foot" + side)
+    return root + sum(pose[parent] @ (bind[child] - bind[parent])
+                      for parent, child in zip(chain, chain[1:]))
+
+
+def brake_poses(bones, bind, walk, walk_dt, idle_root, idle, sole, support, entry):
+    """Settle from a flat-foot walk key onto both feet, with +Z root motion baked."""
+    swing = "R" if support == "L" else "L"
+    start_root, start = walk[entry]
+    next_root, following = walk[entry + 1]
+    ankles = {side: ankle_position(bind, start_root, start, side) for side in (support, swing)}
+    distance = ankles[support][2] - ankle_position(bind, idle_root, idle, support)[2]
+    speed = 1.35
+    duration = 4 * distance / speed
+    advance = np.array([0., 0., distance])
+    target = ankle_position(bind, idle_root, idle, swing) + advance
+    foot = "foot" + swing
+    start_height = ankles[swing][1] + ((sole[swing] - bind[foot]) @ start[foot][1]).min()
+    swing_speed = speed + (ankle_position(bind, next_root, following, swing)[2] - ankles[swing][2]) / walk_dt
+    end_rotation = {k: Rotation.from_matrix(idle[k] @ r.T).as_rotvec() for k, r in start.items()}
+    entry_spin = {k: Rotation.from_matrix(following[k] @ r.T).as_rotvec() / walk_dt for k, r in start.items()}
+    poses = []
+    for u in np.linspace(0., 1., 61):
+        if u == 0.:
+            poses.append((start_root, local_rotations(bones, start)))
+            continue
+        if u == 1.:
+            poses.append((idle_root + advance, local_rotations(bones, idle)))
+            continue
+        blend = smooth(0., 1., u)
+        # The path has walk speed at contact and zero speed at rest. Arm
+        # swing and vertical bob retain the walk's incoming angular velocity.
+        incoming = duration * u * (1 - u)**4
+        root = start_root + blend * (idle_root - start_root) + incoming * (next_root - start_root) / walk_dt
+        root += advance * (1 - (1 - u)**4)
+        load = np.sin(np.pi * smooth(0., .86, u))**2
+        root += np.array([.025 if support == "L" else -.025, -.014, 0.]) * load
+        world = {k: Rotation.from_rotvec(blend * end_rotation[k] + incoming * entry_spin[k]).as_matrix() @ r
+                 for k, r in start.items()}
+
+        # Lock the planted boot in all axes. The other foot completes its
+        # horizontal travel before it drops through the last centimetre.
+        flight = min(u / .74, 1.)
+        reach = min(u / .64, 1.)
+        landing = smooth(0., 1., reach)
+        swing_ankle = ankles[swing] + landing * (target - ankles[swing])
+        swing_ankle[2] += swing_speed * (.64 * duration) * reach * (1 - reach)**2
+        foot_blend = smooth(0., .64, u)
+        world[foot] = Rotation.from_rotvec(foot_blend * end_rotation[foot]).as_matrix() @ start[foot]
+        clearance = start_height * (1 - smooth(0., 1., flight)) + .072 * np.sin(np.pi * flight)**1.5
+        swing_ankle[1] = clearance - ((sole[swing] - bind[foot]) @ world[foot][1]).min()
+        world["foot" + support] = start["foot" + support]
+        for side, ankle in ((support, ankles[support]), (swing, swing_ankle)):
+            thigh = "thigh" + side
+            hip = root + world["pelvis"] @ (bind[thigh] - bind["pelvis"])
+            solve_leg(world, bind, side, hip, ankle, np.array([0., 0., 1.]), [1., 0., 0.])
+        poses.append((root, local_rotations(bones, world)))
+    return np.linspace(0., duration, len(poses)), poses
+
+
 def create(source, destination):
     raw = source.read_bytes()
     if hashlib.sha256(raw).hexdigest() != SOURCE_SHA:
@@ -468,9 +530,15 @@ def create(source, destination):
         world_poses = [retarget_world(frame, bones, bind, arm, sole) for frame in frames]
         poses = [(root, local_rotations(bones, world)) for root, world in world_poses]
         clips.append((clip["name"], [f["t"] for f in frames], poses))
+        if clip["name"] == "Marcha":
+            walk = world_poses
+            walk_dt = frames[1]["t"] - frames[0]["t"]
         if clip["name"] == "Reposo":
             idle_root, idle = world_poses[0]
     clips.append(("Giro", *turn_poses(bones, bind, idle_root, idle, sole)))
+    for side, entry in (("L", 6), ("R", 26)):
+        # These Marcha keys (15% and 65%) begin with a flat support foot.
+        clips.append(("Frenada" + side, *brake_poses(bones, bind, walk, walk_dt, idle_root, idle, sole, side, entry)))
     for name, clock, poses in clips:
         times = add_accessor(doc, binary, clock, "SCALAR", bounds=True)
         animation = {"name": name, "channels": [], "samplers": []}

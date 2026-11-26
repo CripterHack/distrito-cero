@@ -334,8 +334,9 @@ def inspect_playback(path, name, duration, expected_points):
             "samples": records}
 
 
-def inspect_turn(path, duration):
+def inspect_stops(path, spans):
     """Measure the deforming sole surface and the join to Reposo in glTF metres."""
+    duration = spans["Giro"]
     assert abs(duration - 1.4) < 1e-6
     bpy.ops.wm.read_factory_settings(use_empty=True)
     bpy.ops.import_scene.gltf(filepath=str(path.resolve()))
@@ -418,23 +419,71 @@ def inspect_turn(path, duration):
     assert all(s["maxSupportSlideM"] < .003 and s["maxAbsoluteSupportHeightM"] < .003
                and s["swingClearanceM"] > .025 for s in steps), steps
     assert separation > .012, f"Sole surfaces are too close during the turn: {separation}"
-    return {"seconds": duration, "endpointErrorsM": endpoint_errors, "steps": steps,
+    turn_report = {"seconds": duration, "endpointErrorsM": endpoint_errors, "steps": steps,
             "minSoleVertexSeparationM": separation, "samplesPerStep": 31,
             "shoeTriangles": {side: len(faces) for side, (_, faces) in shoes.items()}}
+
+
+    brakes = {}
+    for side, entry in (("L", .15), ("R", .65)):
+        name = "Frenada" + side
+        assert abs(spans[name] - .4898584) < 1e-6
+        swing = "R" if side == "L" else "L"
+        walking = sample(select("Marcha"), entry)
+        clip = select(name)
+        start = sample(clip, 0)
+        finish = sample(clip, 1)
+        advance = np.array([0., 0., .1653272101033296])
+        errors = [np.linalg.norm(start - walking, axis=1).max(),
+                  np.linalg.norm(finish - neutral - advance, axis=1).max()]
+        assert max(errors) < .0001, f"{name} does not join walk and rest: {errors}"
+        # Select actual heel and toe vertices in glTF forward (+Z), independent
+        # of the ankle and world-space game capsule.
+        support_ids = np.flatnonzero(soles[side])
+        z = start[support_ids, 2]
+        markers = {"heel": support_ids[z <= np.quantile(z, .20)],
+                   "toe": support_ids[z >= np.quantile(z, .80)]}
+        drift = {"heel": 0., "toe": 0.}
+        lift = 0.
+        floor_error = 0.
+        touchdown = []
+        for phase in np.linspace(0, 1, 101):
+            points = sample(clip, phase)
+            for marker, indices in markers.items():
+                delta = (points[indices] - start[indices])[:, [0, 2]]
+                drift[marker] = max(drift[marker], float(np.linalg.norm(delta, axis=1).max()))
+            floor_error = max(floor_error, abs(float(points[soles[side], 1].min())))
+            clearance = float(points[soles[swing], 1].min())
+            lift = max(lift, clearance)
+            assert clearance > -.001, (name, phase, clearance)
+            if phase >= .5 and clearance <= .010:
+                touchdown.append(points[soles[swing]][:, [0, 2]].copy())
+            left, right = (BVHTree.FromPolygons(points[vs].tolist(), fs, all_triangles=True)
+                           for vs, fs in shoes.values())
+            assert not left.overlap(right), (name, phase, "boots intersect")
+        touchdown_drift = max(float(np.linalg.norm(q - touchdown[-1], axis=1).max()) for q in touchdown)
+        assert max(drift.values()) < .002 and floor_error < .001, (name, drift, floor_error)
+        assert lift > .045 and touchdown_drift < .010, (name, lift, touchdown_drift)
+        brakes[name] = {"seconds": spans[name], "entryPhase": entry, "advanceM": float(advance[2]),
+                        "endpointErrorsM": list(map(float, errors)), "supportVertexDriftM": drift,
+                        "supportGroundErrorM": floor_error, "swingClearanceM": lift,
+                        "swingTouchdownDriftM": touchdown_drift, "samples": 101}
+    return turn_report, brakes
 
 
 def verify(source_path, walk_path, report_path):
     original, walk = Container(source_path), Container(walk_path)
     assert len(walk.doc.get("skins", [])) == 1, "Expected a skinned game skeleton"
-    assert sorted(a["name"] for a in walk.doc.get("animations", [])) == ["Carrera", "Giro", "Marcha", "Reposo"]
+    assert sorted(a["name"] for a in walk.doc.get("animations", [])) == ["Carrera", "FrenadaL", "FrenadaR", "Giro", "Marcha", "Reposo"]
     skin = verify_skin(walk, native_hierarchy())
     tris, maps, coords = compare_art(original, walk)
     spans = dict(animation_span(walk, clip) for clip in walk.doc["animations"])
+    turn, brakes = inspect_stops(walk_path, spans)
     result = {"sourceSha256": original.sha, "candidateSha256": walk.sha, "triangles": tris,
               "mapsSha256": maps, **skin, "blender": bpy.app.version_string,
               "clips": {name: inspect_playback(walk_path, name, duration, coords)
-                        for name, duration in spans.items() if name != "Giro"},
-              "turn": inspect_turn(walk_path, spans["Giro"])}
+                        for name, duration in spans.items() if name in ("Marcha", "Reposo", "Carrera")},
+              "turn": turn, "brakes": brakes}
     report_path.write_text(json.dumps(result, indent=2, ensure_ascii=False) + "\n")
     print("Giro", json.dumps(result["turn"]))
     for name, motion in result["clips"].items():
