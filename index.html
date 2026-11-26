@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover"><meta name="theme-color" content="#091314"><meta name="description" content="Distrito Cero. Una aventura criminal 3D original, sin dependencias externas.">
 <meta name="application-version" content="0.20.29">
-<meta name="build-source" content="86df0ceb381b2a833c35500a5e07e0d3ae487fe065c9c7fd59bd986cad718713">
+<meta name="build-source" content="35903c29b346f840924ab3d6295c2760ca2c1284c4f32135abfb57c9d442d1a2">
 <title>Distrito Cero v0.20.29 · Barrio del Mercado</title>
 <style>:root{color-scheme:dark;--bg:#081011;--ink:#f0f1e8;--muted:#9eaaa6;--accent:#d5ee94;--accent-dark:#182417;--line:#ffffff20;--danger:#fb826d;--panel:#0b1414ed;--font:Arial,Helvetica,sans-serif;--mono:'Courier New',monospace}
 *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--bg);font-family:var(--font);color:var(--ink);overscroll-behavior:none}button,input,select{font:inherit}button{cursor:pointer;color:inherit}button:disabled{opacity:.45;cursor:not-allowed}button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--accent);outline-offset:5px}button{touch-action:manipulation;-webkit-tap-highlight-color:transparent}button:hover{filter:brightness(1.12)}[hidden]{display:none!important}#world{display:block;width:100%;height:100%;touch-action:none}#app{position:fixed;inset:0;pointer-events:none}button,select,input,a{pointer-events:auto}.mono{font-family:var(--mono);font-size:10px;letter-spacing:1.7px;text-transform:uppercase}.muted{color:var(--muted)}.eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:2.5px;font-weight:400}.accent{color:var(--accent)}
@@ -162,7 +162,7 @@ body.arsenal-open #toast,body.arsenal-open #chapter{visibility:hidden}
  <div id="touchControls"><div id="joystick" class="joystick" aria-label="Mando de movimiento" role="application"><div class="joystick-knob" id="joystickKnob"></div></div><div class="touch-buttons"><div class="row" id="touchWeaponRow" hidden><button class="touch-btn" id="touchAim" aria-label="Mantener para apuntar u observar">APUNTAR</button><button class="touch-btn primary-touch" id="touchFire" aria-label="Mantener para disparar o cargar Gauss">FUEGO</button></div><div class="row"><button class="touch-btn" id="touchHorn" aria-label="Bocina">BOCINA</button><button class="touch-btn" id="touchCar" aria-label="Entrar o salir del vehículo">SUBIR</button></div><div class="row"><button class="touch-btn" id="touchBrake" aria-label="Freno de mano o correr">CORRER</button><button class="touch-btn primary-touch" id="touchAction" aria-label="Interactuar">ACCIÓN</button></div><div class="row"><button class="touch-btn" id="touchPush" aria-label="Lanzar o empujar">EMPUJAR</button><button class="touch-btn" id="touchJump" aria-label="Saltar">SALTAR</button></div></div></div>
 </section>
 <div id="toast" role="status" aria-live="polite"></div><div id="chapter"><small id="chapterLabel">DISTRITO CERO</small><h2 id="chapterText"></h2></div>
-<section id="pause" class="overlay" hidden aria-label="Menú de pausa"><div class="panel"><div class="panel-head"><div><div class="eyebrow accent">LA CIUDAD PUEDE ESPERAR</div><h2 id="pauseTitle">Pausa</h2></div><button class="close" id="closePause" aria-label="Cerrar pausa">×</button></div><div class="panel-body"><div class="pause-grid"><div class="pause-actions"><button class="primary" id="resume">Volver a la ciudad <span>↗</span></button><button class="secondary" id="saveGame">Guardar progreso</button><button class="secondary" id="pauseSaves">Mis partidas</button><button class="secondary" id="pauseArsenal">Equipamiento · TAB</button><button class="secondary" id="editAppearance">Editar personaje</button><p id="activeSaveStatus" class="identity-note" role="status"></p><button class="secondary" id="openMapPause">Mapa de la ciudad</button><button class="secondary" id="toggleStory">Cambiar a exploración libre</button><button class="secondary" id="mainMenu">Menú principal</button><div class="pause-info" id="pauseStats"></div><p id="releaseInfo" class="note" data-build-version="0.20.29">v0.20.29 · Barrio del Mercado · prototipo<br>Build 86df0ceb381b</p></div><div class="settings"><h3>ATMÓSFERA Y RENDIMIENTO</h3><label class="setting">Luz · noche a día<input id="daylight" type="range" min="0" max="100" value="62" aria-label="Luz solar"></label><label class="setting">Calidad gráfica<select id="quality"><option value="eco">Económica</option><option value="balanced" selected>Equilibrada</option><option value="high">Alta</option></select></label><label class="setting">Volumen<input id="volume" type="range" min="0" max="100" value="50"></label><div class="setting">Sonido<button class="toggle" id="soundToggle">SÍ</button></div><div class="setting">Lluvia y reflejos<button class="toggle" id="rainToggle">SÍ</button></div><div class="setting">Resplandor de luces<button class="toggle" id="bloomToggle">SÍ</button></div><div class="setting">Controles táctiles<button class="toggle" id="touchToggle">AUTO</button></div><div class="setting">Pantalla completa<button class="toggle" id="fullscreen">ABRIR</button></div><p class="note">Si la imagen pierde fluidez, usa calidad económica o desactiva lluvia y reflejos. El mundo y sus reglas no cambian.</p></div></div><div class="controls-grid"><div>Objetos: recoger / lanzar <kbd>E / G</kbd></div><div>Agacharse / esquivar <kbd>X / Q</kbd></div><div>Reparar junto al auto <kbd>MANTENER V · $90</kbd></div><div>Guía de interacciones <kbd>I</kbd></div><div>Moverte / conducir <kbd>W A S D / ↑ ← ↓ →</kbd></div><div>Subir / bajar del coche <kbd>F</kbd></div><div>Interactuar <kbd>E</kbd></div><div>Correr a pie <kbd>SHIFT</kbd></div><div>Freno de mano / saltar <kbd>ESPACIO</kbd></div><div>Mirar alrededor <kbd>ARRASTRAR RATÓN</kbd></div><div>Cambiar cámara / bocina <kbd>C / Q</kbd></div><div>Mapa / foto / radio <kbd>M / P / T</kbd></div><div>Rendirse cerca de una patrulla <kbd>MANTENER R · DETENIDO</kbd></div><div>Selector de equipo <kbd>TAB</kbd></div><div>Disparar / cargar y soltar Gauss <kbd>CLIC IZQ. / J</kbd></div><div>Apuntar y mover vista <kbd>CLIC DER. + ARRASTRAR / Z</kbd></div><div>Recargar <kbd>L</kbd></div><div>Binoculares / zoom / marcar <kbd>B / RUEDA / H</kbd></div><div>Pausar <kbd>ESC</kbd></div><div>Móvil <kbd>JOYSTICK + ARRASTRAR VISTA</kbd></div></div><div class="save-tools"><button id="exportSave">Exportar partida ↗</button><button id="importSave">Importar partida ↗</button><button id="cancelJob">Cancelar encargo activo</button><button id="newGame" class="danger">Reiniciar partida</button><input type="file" id="saveFile" accept="application/json,.json" hidden></div><div class="pause-info police-help">POLICÍA · Un roce no detiene el coche. Maniobra en reversa y gira para separarte. La captura solo sube si estás detenido y a la vista. Al perderte, las patrullas buscan tu última posición. Mantén R o el botón de rendición durante 1.8 segundos, detenido cerca de una patrulla, para entregar $150 en lugar de $300. Suelta o muévete para cancelar.</div><div class="pause-info">El autoguardado actualiza únicamente la partida activa. Mis partidas permite nombrar, duplicar y respaldar cada historia. Encargos temporizados y transmisiones en curso no se guardan.</div></div></div></section>
+<section id="pause" class="overlay" hidden aria-label="Menú de pausa"><div class="panel"><div class="panel-head"><div><div class="eyebrow accent">LA CIUDAD PUEDE ESPERAR</div><h2 id="pauseTitle">Pausa</h2></div><button class="close" id="closePause" aria-label="Cerrar pausa">×</button></div><div class="panel-body"><div class="pause-grid"><div class="pause-actions"><button class="primary" id="resume">Volver a la ciudad <span>↗</span></button><button class="secondary" id="saveGame">Guardar progreso</button><button class="secondary" id="pauseSaves">Mis partidas</button><button class="secondary" id="pauseArsenal">Equipamiento · TAB</button><button class="secondary" id="editAppearance">Editar personaje</button><p id="activeSaveStatus" class="identity-note" role="status"></p><button class="secondary" id="openMapPause">Mapa de la ciudad</button><button class="secondary" id="toggleStory">Cambiar a exploración libre</button><button class="secondary" id="mainMenu">Menú principal</button><div class="pause-info" id="pauseStats"></div><p id="releaseInfo" class="note" data-build-version="0.20.29">v0.20.29 · Barrio del Mercado · prototipo<br>Build 35903c29b346</p></div><div class="settings"><h3>ATMÓSFERA Y RENDIMIENTO</h3><label class="setting">Luz · noche a día<input id="daylight" type="range" min="0" max="100" value="62" aria-label="Luz solar"></label><label class="setting">Calidad gráfica<select id="quality"><option value="eco">Económica</option><option value="balanced" selected>Equilibrada</option><option value="high">Alta</option></select></label><label class="setting">Volumen<input id="volume" type="range" min="0" max="100" value="50"></label><div class="setting">Sonido<button class="toggle" id="soundToggle">SÍ</button></div><div class="setting">Lluvia y reflejos<button class="toggle" id="rainToggle">SÍ</button></div><div class="setting">Resplandor de luces<button class="toggle" id="bloomToggle">SÍ</button></div><div class="setting">Controles táctiles<button class="toggle" id="touchToggle">AUTO</button></div><div class="setting">Pantalla completa<button class="toggle" id="fullscreen">ABRIR</button></div><p class="note">Si la imagen pierde fluidez, usa calidad económica o desactiva lluvia y reflejos. El mundo y sus reglas no cambian.</p></div></div><div class="controls-grid"><div>Objetos: recoger / lanzar <kbd>E / G</kbd></div><div>Agacharse / esquivar <kbd>X / Q</kbd></div><div>Reparar junto al auto <kbd>MANTENER V · $90</kbd></div><div>Guía de interacciones <kbd>I</kbd></div><div>Moverte / conducir <kbd>W A S D / ↑ ← ↓ →</kbd></div><div>Subir / bajar del coche <kbd>F</kbd></div><div>Interactuar <kbd>E</kbd></div><div>Correr a pie <kbd>SHIFT</kbd></div><div>Freno de mano / saltar <kbd>ESPACIO</kbd></div><div>Mirar alrededor <kbd>ARRASTRAR RATÓN</kbd></div><div>Cambiar cámara / bocina <kbd>C / Q</kbd></div><div>Mapa / foto / radio <kbd>M / P / T</kbd></div><div>Rendirse cerca de una patrulla <kbd>MANTENER R · DETENIDO</kbd></div><div>Selector de equipo <kbd>TAB</kbd></div><div>Disparar / cargar y soltar Gauss <kbd>CLIC IZQ. / J</kbd></div><div>Apuntar y mover vista <kbd>CLIC DER. + ARRASTRAR / Z</kbd></div><div>Recargar <kbd>L</kbd></div><div>Binoculares / zoom / marcar <kbd>B / RUEDA / H</kbd></div><div>Pausar <kbd>ESC</kbd></div><div>Móvil <kbd>JOYSTICK + ARRASTRAR VISTA</kbd></div></div><div class="save-tools"><button id="exportSave">Exportar partida ↗</button><button id="importSave">Importar partida ↗</button><button id="cancelJob">Cancelar encargo activo</button><button id="newGame" class="danger">Reiniciar partida</button><input type="file" id="saveFile" accept="application/json,.json" hidden></div><div class="pause-info police-help">POLICÍA · Un roce no detiene el coche. Maniobra en reversa y gira para separarte. La captura solo sube si estás detenido y a la vista. Al perderte, las patrullas buscan tu última posición. Mantén R o el botón de rendición durante 1.8 segundos, detenido cerca de una patrulla, para entregar $150 en lugar de $300. Suelta o muévete para cancelar.</div><div class="pause-info">El autoguardado actualiza únicamente la partida activa. Mis partidas permite nombrar, duplicar y respaldar cada historia. Encargos temporizados y transmisiones en curso no se guardan.</div></div></div></section>
 <section id="mapOverlay" class="overlay" hidden aria-label="Atlas del mundo">
  <div class="panel" id="mapPanel"><div class="panel-head"><div><div class="eyebrow accent">HORIZONTE · ATLAS PROCEDURAL</div><h2 id="atlasTitle">El mundo continúa.</h2></div><button class="close" id="closeMap" aria-label="Cerrar mapa">×</button></div>
  <div class="map-body"><div class="atlas-toolbar"><div class="atlas-tabs"><button id="localView" aria-pressed="false">Calles</button><button id="regionalView" aria-pressed="true">Regiones</button></div><div class="atlas-zoom"><button id="zoomIn" aria-label="Acercar mapa">+</button><button id="zoomOut" aria-label="Alejar mapa">−</button><button id="centerMap">Centrar</button></div><span id="atlasPosition" class="mono"></span></div>
@@ -289,7 +289,7 @@ var DC = globalThis.DC = globalThis.DC || {};
  ];
 })(DC);
 
-DC.BuildInfo = Object.freeze({"schema":1,"version":"0.20.29","name":"Barrio del Mercado","channel":"prototype","date":"2026-11-26","label":"v0.20.29","product":"Distrito Cero","sourceSha256":"86df0ceb381b2a833c35500a5e07e0d3ae487fe065c9c7fd59bd986cad718713"});
+DC.BuildInfo = Object.freeze({"schema":1,"version":"0.20.29","name":"Barrio del Mercado","channel":"prototype","date":"2026-11-26","label":"v0.20.29","product":"Distrito Cero","sourceSha256":"35903c29b346f840924ab3d6295c2760ca2c1284c4f32135abfb57c9d442d1a2"});
 
 
 'use strict';
@@ -3604,7 +3604,9 @@ DC.HeroAsset={"version":2,"stride":24,"positionScale":10000,"bones":["pelvis","s
   dispose(){if(this.disposed)return;this.disposed=true;this.resources?.dispose();this.uniforms?.clear();for(const key of ['sectorGPU','hairParts','equipmentMeshes','lodHistory'])this[key]?.clear();this.motionTracker?.clear();this.meshes={};this.static={};this.dynamic={};this.humanTextures={};}
   uniform(program,name){let m=this.uniforms.get(program);if(!m){m={};this.uniforms.set(program,m);}if(!Object.prototype.hasOwnProperty.call(m,name))m[name]=this.gl.getUniformLocation(program,name);return m[name];}
   createMesh(data){const gl=this.gl,vao=gl.createVertexArray(),vbo=gl.createBuffer();gl.bindVertexArray(vao);gl.bindBuffer(gl.ARRAY_BUFFER,vbo);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(data),gl.STATIC_DRAW);for(const [i,size,offset]of [[0,3,0],[1,3,12],[2,2,24]]){gl.enableVertexAttribArray(i);gl.vertexAttribPointer(i,size,gl.FLOAT,false,32,offset);}return{vao,vbo,count:data.length/8};}
-  add(list,mesh,x,y,z,sx,sy,sz,color,mat=0,emission=0,yaw=0,seed=0,detail=0,pitch=0,roll=0){list[mesh].push(x,y,z,yaw,sx,sy,sz,mat,color[0],color[1],color[2],emission,pitch,roll,seed,detail);}
+  add(list,mesh,x,y,z,sx,sy,sz,color,mat=0,emission=0,yaw=0,seed=0,detail=0,pitch=0,roll=0){
+   if(this.playerSurfaceFrame)y=mat===37?this.playerSurfaceFrame.shadow:y+this.playerSurfaceFrame.lift;
+   list[mesh].push(x,y,z,yaw,sx,sy,sz,mat,color[0],color[1],color[2],emission,pitch,roll,seed,detail);}
   createWhite(){let gl=this.gl;this.white=gl.createTexture();gl.bindTexture(gl.TEXTURE_2D,this.white);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,1,1,0,gl.RGBA,gl.UNSIGNED_BYTE,new Uint8Array([0,0,0,255]));gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.NEAREST);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.NEAREST);}
   createSigns(){
    const c=document.createElement('canvas');c.width=2048;c.height=1024;const ctx=c.getContext('2d');
@@ -3939,10 +3941,11 @@ DC.HeroAsset={"version":2,"stride":24,"positionScale":10000,"bones":["pelvis","s
    const env=sim.dynamics;if(!env)return;const L=this.dynamic,player=sim.player;
    for(const p of env.hash.query(player.x,player.z,this.quality==='eco'?105:155)){
     const col=p.color,s=p.scale||1;
+    const heldLift=p.held&&player.carry===p.id&&player.car===null&&!sim.access&&!this.previewStudio?(this.playerSurface?.(player.x,player.z).lift||0):0;
     const put=(mesh,x,y,z,sx,sy,sz,color=col,mat=0,em=0,pitch=0,roll=0,yaw=0)=>{
      let X=x,Y=y,Z=z,a=p.yaw;
      if(p.hinged){const xx=x,yy=y*Math.cos(p.angle)-z*Math.sin(p.angle),zz=y*Math.sin(p.angle)+z*Math.cos(p.angle);X=xx;Y=yy;Z=zz;a=p.fallYaw;pitch+=p.angle;}
-     const co=Math.cos(a),si=Math.sin(a);this.add(L,mesh,p.x+(X*co+Z*si)*s,p.y+Y*s+.02,p.z+(-X*si+Z*co)*s,sx*s,sy*s,sz*s,color,mat,em,a+yaw,0,0,pitch,roll);
+     const co=Math.cos(a),si=Math.sin(a);this.add(L,mesh,p.x+(X*co+Z*si)*s,p.y+heldLift+Y*s+.02,p.z+(-X*si+Z*co)*s,sx*s,sy*s,sz*s,color,mat,em,a+yaw,0,0,pitch,roll);
     };
     if(p.type==='lamp'){
      put('body',0,.22,0,.40,.44,.40,col,3);if(this.meshes.lampMast)put('lampMast',0,0,0,1,1,1,col,3);else put('body',0,3.6,0,.12,7.2,.12,col,3);put('body',0,7.2,.82,.13,.15,1.8,col,3);put('body',0,7.18,1.5,.56,.12,.88,col,3);put('box',0,7.105,1.5,.45,.025,.73,(p.broken||p.empUntil>sim.time)?[.14,.15,.13]:p.warm?[1,.74,.42]:[.42,.73,1],0,(p.broken||p.empUntil>sim.time)?0:6);
@@ -4060,6 +4063,50 @@ DC.HeroAsset={"version":2,"stride":24,"positionScale":10000,"bones":["pelvis","s
 'use strict';
 (function(D){
  const Base=D.Renderer;
+ // The sector mesh and the player's presentation use these same walkable boxes.
+ // Cell identities are cached by FrontierWorld and expire with their sectors.
+ const surfaceCache=new WeakMap();
+ function streetSurfaces(c){
+  if(surfaceCache.has(c))return surfaceCache.get(c);
+  const colors={soil:c.home?[.09,.11,.10]:c.type==='farmland'?[[.25,.22,.12],[.14,.22,.095],[.27,.27,.12],[.11,.19,.09]][c.crop]:c.type==='woodland'?[.095,.145,.078]:[.13,.21,.105],
+   asphalt:[.048,.055,.058],curb:[.29,.31,.29],grass:[.13,.21,.105],path:[.37,.33,.23]};
+  const boxes=[],put=(x,y,z,w,h,d,color,material)=>boxes.push([x,y,z,w,h,d,colors[color],material]);
+  const country=['village','farmland','woodland'].includes(c.type),roads=c.roads;
+  put(c.x,-.52,c.z,84,.4,84,'soil',4);
+  put(c.x+(roads.w-roads.e)/4,-.24,c.z+(roads.n-roads.s)/4,84-(roads.w+roads.e)/2,.4,84-(roads.n+roads.s)/2,'soil',4);
+  if((!country||c.park)&&c.type!=='suburb')put(c.x,.045,c.z,62,.20,62,c.park?'grass':'curb',c.park?4:0);
+  for(const [side,width] of Object.entries(roads))if(width){
+   const vertical=side==='w'||side==='e',sign=side==='w'||side==='n'?-1:1;
+   const x=c.x+(vertical?sign*42:0),z=c.z+(vertical?0:sign*42);
+   put(x-(vertical?sign*width/4:0),-.037,z-(vertical?0:sign*width/4),vertical?width/2:84,.020,vertical?84:width/2,'asphalt',2);
+   if(!country)put(x-(vertical?sign*(width/2+1):0),.05,z-(vertical?0:sign*(width/2+1)),vertical?2:62,.20,vertical?62:2,'curb',0);
+  }
+  if(c.park){
+   put(c.x,.16,c.z,3,.03,61,'path',4);
+   put(c.x,.16,c.z,61,.03,3,'path',4);
+  }
+  surfaceCache.set(c,boxes);return boxes;
+ }
+ function playerSurface(world,x,z){
+  const c=world.cell(Math.floor(x/84),Math.floor(z/84)),boxes=streetSurfaces(c);
+  let base=-Infinity,top=-Infinity;
+  for(const [cx,y,cz,w,h,d] of boxes){
+   if(Math.abs(x-cx)>w/2||Math.abs(z-cz)>d/2)continue;
+   const height=y+h/2;top=Math.max(top,height);
+   if(height<=0)base=Math.max(base,height);
+  }
+  // Ease a curb step over one shoe length. The separate shadow stays on the
+  // actual top plane, including either side of an overlapping curb and plaza.
+  let support=base;
+  for(const [cx,y,cz,w,h,d] of boxes){
+   const height=y+h/2;if(height<=0)continue;
+   const inside=Math.min(w/2-Math.abs(x-cx),d/2-Math.abs(z-cz));
+   const t=D.clamp(.5+inside/.36,0,1);
+   support=Math.max(support,D.lerp(base,height,t*t*(3-2*t)));
+  }
+  // The authored planted outsole sits 15 mm above the rig's local floor.
+  return {lift:support-.015,shadow:top+.003};
+ }
  function extraGeometry(){
   const out=[];const tri=(a,b,c)=>{const n=D.normalize(D.cross(b.map((v,i)=>v-a[i]),c.map((v,i)=>v-a[i])));for(const p of[a,b,c])out.push(...p,...n,(p[0]+.5),(p[2]+.5));};
   const a=[-.5,0,-.5],b=[.5,0,-.5],c=[0,.6,-.5],d=[-.5,0,.5],e=[.5,0,.5],f=[0,.6,.5];tri(a,c,b);tri(d,e,f);tri(a,d,f);tri(a,f,c);tri(b,c,f);tri(b,f,e);return out;
@@ -4134,6 +4181,7 @@ DC.HeroAsset={"version":2,"stride":24,"positionScale":10000,"bones":["pelvis","s
   for(let i=0;i<3;i++)close(.76,1.29,1.96+i*1.0,.29,.46,.65,stock[(variant+i)%3]);
  }
  class FrontierRenderer extends Base{
+  playerSurface(x,z){return playerSurface(this.world,x,z);}
   buildCity(){} // Replaces one finite city batch with independently disposable sectors.
   constructor(...a){super(...a);this.sectorGPU=new Map();this.streamSeed=this.world.seed;this.renderOrigin=[0,0];this.daylight=.62;this.streamStats={loaded:0,pending:0,instances:0,buffers:0};
    for(const [name,data]of[['gable',extraGeometry()]]){const m=this.createMesh(data);m.chunks=[];m.dynamicBuffer=this.gl.createBuffer();this.meshes[name]=m;this.static[name]=[];this.dynamic[name]=[];}
@@ -4155,26 +4203,17 @@ DC.HeroAsset={"version":2,"stride":24,"positionScale":10000,"bones":["pelvis","s
    const shops=[];
    const lists={};for(const name of Object.keys(this.meshes))lists[name]=[];
    const add=(...a)=>this.add(lists,...a),box=(x,y,z,sx,sy,sz,c,mat=0,em=0,yaw=0,seed=0,detail=0,pitch=0,roll=0)=>add('box',x,y,z,sx,sy,sz,c,mat,em,yaw,seed,detail,pitch,roll);
-   const grass=[.13,.21,.105],curb=[.29,.31,.29],asphalt=[.048,.055,.058],stripe=[.62,.59,.39];
+   const stripe=[.62,.59,.39];
    for(const c of chunk.cells){
     const x0=c.ix*84,z0=c.iz*84,r=D.rng(Math.floor(c.seed*4294967295)),type=c.type,country=['village','farmland','woodland'].includes(type),field=type==='farmland',forest=type==='woodland';
-    const ground=c.home?[.09,.11,.10]:field?[[.25,.22,.12],[.14,.22,.095],[.27,.27,.12],[.11,.19,.09]][c.crop]:forest?[.095,.145,.078]:grass;
-    // Ground below the whole cell, then an inset land parcel. No grass plane under asphalt.
-    box(c.x,-.52,c.z,84,.4,84,ground,4);
-    const landW=84-(c.roads.w+c.roads.e)/2,landD=84-(c.roads.n+c.roads.s)/2;
-    box(c.x+(c.roads.w-c.roads.e)/4,-.24,c.z+(c.roads.n-c.roads.s)/4,landW,.4,landD,ground,4);
-    if((!country||c.park)&&type!=='suburb'){box(c.x,.045,c.z,62,.20,62,c.park?grass:curb,c.park?4:0);}
+    for(const surface of streetSurfaces(c))box(...surface);
     for(const [side,width]of Object.entries(c.roads))if(width){
      const vertical=side==='w'||side==='e',edgeX=side==='w'?x0:side==='e'?x0+84:c.x,edgeZ=side==='n'?z0:side==='s'?z0+84:c.z;
-     const rx=edgeX+(side==='w'?width/4:side==='e'?-width/4:0),rz=edgeZ+(side==='n'?width/4:side==='s'?-width/4:0);
-     box(rx,-.037,rz,vertical?width/2:84,.020,vertical?84:width/2,asphalt,2);
      if(side==='w'||side==='n'){
       for(let k=0;k<6;k++){const q=k*14+7;box(vertical?edgeX:x0+q,-.022,vertical?z0+q:edgeZ,vertical?.12:6,.011,vertical?6:.12,stripe,3);}
       if(width>=20)for(const sign of[-1,1])box(vertical?edgeX+sign*8.9:c.x,-.022,vertical?c.z:edgeZ+sign*8.9,vertical?.12:62,.011,vertical?62:.12,[.67,.69,.65],3);
      }
-     if(!country)box(edgeX+(side==='w'?width/2+1:side==='e'?-width/2-1:0),.05,edgeZ+(side==='n'?width/2+1:side==='s'?-width/2-1:0),vertical?2:62,.20,vertical?62:2,curb,0);
     }
-    if(c.park){box(c.x,.16,c.z,3,.03,61,[.37,.33,.23],4);box(c.x,.16,c.z,61,.03,3,[.37,.33,.23],4);}
     if(field&&!c.buildings.length){
      const rows=c.crop===0?14:18;for(let i=0;i<rows;i++){const z=z0+15+i*(53/(rows-1));box(c.x,.01,z,54,.025,1.5,[.18,.125,.06],4);if(c.crop)box(c.x,.22+(c.crop===2?.15:0),z,53,.34,1.1,c.crop===2?[.35,.37,.12]:[.09,.235,.06],4);}
      box(c.x,-.05,z0+11,62,.05,.8,[.065,.21,.25],7); // Irrigation channel, inside parcel.
@@ -4471,7 +4510,14 @@ DC.MercadoModels={"taller":{"size":[6.5325,6.5,8.5286],"levels":[{"triangles":65
   }
   renderPlayer(sim){
    if(sim.access){this.renderPerson(sim.accessPlayerPose(),true);return;}
-   const p=sim.player;if(p.car===null){this.renderPerson(p,true);return;}
+   const p=sim.player;if(p.car===null){
+    if(this.previewStudio||!this.playerSurface){this.renderPerson(p,true);return;}
+    // Keep simulation jump height, foot IK, hand targets and seat poses in their
+    // existing reference frame. Only submitted player and prop instances move.
+    this.playerSurfaceFrame=this.playerSurface(p.x,p.z);
+    try{this.renderPerson(p,true);}finally{this.playerSurfaceFrame=null;}
+    return;
+   }
    const c=sim.actor(),q=D.carPoint(c,-.38,-.20),hands=D.VehicleCabin.hands(c);
    this.renderPerson({...p,...q,y:-.29,yaw:c.yaw,seated:true,seatBlend:1,moveSpeed:0,crouch:0,handTargets:hands},true);
   }
@@ -4618,7 +4664,7 @@ DC.MercadoModels={"taller":{"size":[6.5325,6.5,8.5286],"levels":[{"triangles":65
    this.equipmentView=active;
    if(!active){this.fovOverride=null;super.updateCamera(sim,dt,options);return;}
    const c=this.camera,p=sim.player,optic=w.kind==='optics'&&e.aiming,scope=w.id==='sniper'&&e.aiming,yaw=c.yaw,pitch=D.clamp(c.weaponPitch||0,-.70,.70),dir=[Math.sin(yaw)*Math.cos(pitch),Math.sin(pitch),Math.cos(yaw)*Math.cos(pitch)];
-   const distance=optic?.0:e.aiming?1.8:2.6,side=optic?0:-.58,base=1.65-D.CharacterFit.drop(sim.appearance?.neckLength)-(p.crouch||0)*.22+(p.y||0),dx=-Math.sin(yaw)*distance+Math.cos(yaw)*side,dz=-Math.cos(yaw)*distance-Math.sin(yaw)*side;
+   const distance=optic?.0:e.aiming?1.8:2.6,side=optic?0:-.58,lift=this.playerSurface?.(p.x,p.z).lift||0,base=lift+1.65-D.CharacterFit.drop(sim.appearance?.neckLength)-(p.crouch||0)*.22+(p.y||0),dx=-Math.sin(yaw)*distance+Math.cos(yaw)*side,dz=-Math.cos(yaw)*distance-Math.sin(yaw)*side;
    const q=this.world.move(p.x,p.z,dx,dz,.12);let eye=[q.x,base+.055,q.z];if(optic)eye=[p.x+dir[0]*.13,base,p.z+dir[2]*.13];
    c.eye=eye;c.target=eye.map((v,i)=>v+dir[i]*4);c.initialized=true;
    this.fovOverride=optic?2*Math.atan(Math.tan(Math.PI*.36/2)/E.zoom[e.zoom]):scope?2*Math.atan(Math.tan(Math.PI*.36/2)/4):e.aiming?.79:Math.PI*.36;
