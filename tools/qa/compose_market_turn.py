@@ -81,7 +81,7 @@ def video_frame(pair, end, tick):
 
 
 def gallery(folders, ticks, size):
-    cell_w, cell_h, margin, gap, label_w = 314, 206, 24, 8, 181
+    cell_w, cell_h, margin, gap, label_w = 314, 206, 24, 8, 217
     title_h, section_h = 74, 64 + 2 * (cell_h + gap) + 18
     canvas = Image.new("RGB", (2 * margin + label_w + len(ticks) * (cell_w + gap) - gap,
                                 title_h + len(ENDS) * section_h), BACKGROUND)
@@ -161,7 +161,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     for key in ("before", "after", "output"):
         parser.add_argument("--" + key, type=Path, required=True)
-    parser.add_argument("--ticks", type=int, nargs=3, default=(36, 54, 108),
+    parser.add_argument("--ticks", type=int, nargs=3, default=(54, 72, 90),
                         help="Three captured ticks from arrival for the contact sheet (60 ticks/second)")
     parser.add_argument('--far', type=Path, nargs=2, metavar=('BEFORE', 'AFTER'),
                         help='Add a distance contact sheet from the native captures at tick 72')
