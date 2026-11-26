@@ -13,8 +13,8 @@
    }
   }
   renderCar(c){
-   D.ensureVehicle(c);const near=D.distance(c,this.currentSim?.player||c)<66;
-   if(!near||!this.assetParts.length){super.renderCar(c);return;}
+   D.ensureVehicle(c);const distance=D.distance(c,this.currentSim?.player||c);
+   if(distance>=66||!this.assetParts.length){super.renderCar(c);return;}
    const L=this.dynamic,a=c.yaw,co=Math.cos(a),si=Math.sin(a),col=c.color,body=c.suspension;
    const pitch=body.pitch+Math.sin(this.currentTime*20)*(body.kick||0),roll=body.roll;
    const cp=Math.cos(pitch),sp=Math.sin(pitch),cr=Math.cos(roll),sr=Math.sin(roll);
@@ -54,12 +54,30 @@
     put('body',side*.66,.79-damage.front*.06,2.105-damage.front*.42,.36,.105,.058,damage.front>.75?[.055,.08,.09]:[.70,.90,1],0,damage.front>.75?0:5);
     put('body',side*.65,.77,-2.16+damage.rear*.35,.37,.09,.045,[.8,.025,.016],0,damage.rear>.85?0:c.brake?6:2);
     for(const front of [-1,1]){
-     const z=front>0?1.36:-1.39,steer=front>0?c.steerAngle:0;
-     put(this.meshes.tire?'tire':'wheel',side*.92,.365,z,.27,.73,.73,[.018,.023,.028],4,0,steer,c.wheel||0);
-     put(this.meshes.rim?'rim':'wheel',side*1.052,.365,z,.025,.528,.528,[.3,.39,.43],3,0,steer,c.wheel||0);
-     put('wheel',side*1.066,.365,z,.026,.42,.42,[.025,.034,.045],3,0,steer);
-     for(let k=0;k<5;k++){const theta=(c.wheel||0)+k*Math.PI*2/5,dy=Math.cos(theta)*.145,dz=Math.sin(theta)*.145;put('body',side*1.085,.365+dy,z+dz,.030,.27,.041,[.38,.44,.47],3,0,steer,theta);}
-     put('wheel',side*1.09,.365,z,.035,.14,.14,[.36,.4,.42],3,0,steer);
+     const z=front>0?1.36:-1.39, steer=front>0?c.steerAngle:0, spin=side*(c.wheel||0);
+     // The wheel is authored facing +X. Turn the left assembly outwards around
+     // Y, then decompose body tilt × steering into the shader's Ry*Rz*Rx order.
+     const cs=side*Math.cos(steer), ss=side*Math.sin(steer);
+     const wheelYaw=a+Math.atan2(cp*ss,cr*cs-sr*sp*ss);
+     const wheelRoll=Math.asin(D.clamp(sr*cs+cr*sp*ss,-1,1));
+     const wheelPitch=Math.atan2(cr*sp*cs-sr*ss,cr*cp);
+     const pivot=rotate(side*.92,.365,z);
+     const axle=[Math.cos(wheelYaw)*Math.cos(wheelRoll),Math.sin(wheelRoll),-Math.sin(wheelYaw)*Math.cos(wheelRoll)];
+     const wheelPart=(key,offset,w,h,d,color,mat,rotation)=>{
+      this.add(L,key,pivot[0]+axle[0]*offset,pivot[1]+axle[1]*offset,pivot[2]+axle[2]*offset,
+       w,h,d,color,mat,0,wheelYaw,0,0,wheelPitch+rotation,wheelRoll);
+     };
+     wheelPart(this.meshes.tire?'tire':'wheel',0,.27,.73,.73,[.018,.023,.028],4,spin);
+     wheelPart(this.meshes.rim?'rim':'wheel',.132,.025,.528,.528,[.36,.41,.44],3,spin);
+     if(this.meshes.wheelAlloy){
+      if(distance<(this.quality==='eco'?16:26)){
+       wheelPart('wheelBrake',0,1,1,1,[.125,.145,.15],3,spin);
+       wheelPart('wheelCaliper',0,1,1,1,[.225,.153,.092],3,-side*1.12);
+      }else wheelPart('wheel',.078,.016,.41,.41,[.125,.145,.15],3,spin);
+      wheelPart('wheelAlloy',0,1,1,1,[.40,.44,.46],3,spin);
+     } else {
+      wheelPart('wheel',.14,.026,.42,.42,[.21,.25,.27],3,spin);
+     }
     }
     put('body',side*.37,.53,-.16,.48,.15,.57,[.05,.065,.067]);put('body',side*.37,.84,-.44,.45,.60,.16,[.043,.052,.056]);
    }

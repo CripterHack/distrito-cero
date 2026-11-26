@@ -22,6 +22,83 @@
   }
   radial('tire',[[-.50,.347],[-.50,.417],[-.40,.478],[-.26,.5],[.26,.5],[.40,.478],[.50,.417],[.50,.347]]);
   radial('rim',[[-.46,.435],[-.5,.483],[-.40,.5],[.44,.5],[.50,.475],[.42,.435],[-.46,.435]]);
+  // Metric wheel hardware, with the tire pivot at the origin and +X outboard.
+  // All cars share these meshes. The existing rim lip seats the spoke tips.
+  function turnedPart(points,faces,profile,segments,y=0,z=0,caps=true){
+   const first=points.length;
+   for(const [x,radius] of profile)for(let i=0;i<segments;i++){
+    const angle=i*2*Math.PI/segments;
+    points.push([x,y+radius*Math.sin(angle),z+radius*Math.cos(angle)]);
+   }
+   for(let row=0;row<profile.length-1;row++)for(let i=0;i<segments;i++){
+    const a=first+row*segments+i,b=first+row*segments+(i+1)%segments;
+    faces.push([a,a+segments,b+segments,b]);
+   }
+   if(caps){
+    const back=points.length, end=first+(profile.length-1)*segments;
+    points.push([profile[0][0],y,z],[profile[profile.length-1][0],y,z]);
+    for(let i=0;i<segments;i++){
+     const j=(i+1)%segments;
+     faces.push([back,first+i,first+j],[back+1,end+j,end+i]);
+    }
+   }
+  }
+  {
+   const points=[],faces=[];
+   turnedPart(points,faces,[[.101,.068],[.112,.079],[.135,.065],[.142,.029]],24);
+   // Six quad strips make each fork one continuous cast spoke. Three layers
+   // give the front edge a bevel and leave true openings between the arms.
+   const top=[[0,3,4,1],[1,4,5,2],[3,6,7,4],[4,7,8,5],[6,9,10,7],[7,11,12,8]];
+   const outline=[0,3,6,9,10,7,11,12,8,5,2,1];
+   for(let spoke=0;spoke<5;spoke++){
+    const angle=spoke*2*Math.PI/5, co=Math.cos(angle), si=Math.sin(angle), first=points.length;
+    for(const [depth,bevel] of [[0,.0025],[-.0035,0],[-.016,0]]){
+     const section=(x,r,t)=>points.push([x+depth,co*r-si*t,si*r+co*t]);
+     const stem=(x,r,width,sweep,centerR=r)=>{
+      section(x,r,sweep-width+bevel);
+      section(x,centerR,sweep);
+      section(x,r,sweep+width-bevel);
+     };
+     stem(.134,.064,.014,0);
+     stem(.112,.112,.021,.001);
+     stem(.113,.150,.031,.006,.150-bevel);
+     for(const t of [-.055+bevel,-.030-bevel,.030+bevel,.055-bevel])section(.134,.239,.012+t);
+    }
+    for(const quad of top){
+     faces.push(quad.map(i=>first+i),quad.map(i=>first+26+i).reverse());
+    }
+    for(let k=0;k<outline.length;k++)for(const layer of [0,13]){
+     const a=first+layer+outline[k],b=first+layer+outline[(k+1)%outline.length];
+     faces.push([a,a+13,b+13,b]);
+    }
+   }
+   surface('wheelAlloy',points,faces);
+  }
+  {
+   const points=[],faces=[];
+   turnedPart(points,faces,[[.072,.080],[.072,.196],[.075,.205],[.083,.205],
+                            [.086,.200],[.086,.130],[.077,.122],[.077,.080],[.072,.080]],24,0,0,false);
+   for(let i=0;i<5;i++){
+    const angle=(i+.5)*2*Math.PI/5;
+    turnedPart(points,faces,[[.136,.0095],[.143,.0095],[.145,.0075]],6,
+     .049*Math.cos(angle),.049*Math.sin(angle));
+   }
+   surface('wheelBrake',points,faces);
+  }
+  {
+   const points=[],faces=[];
+   const pad=[[.151,-.057],[.166,-.078],[.189,-.077],[.205,-.049],
+              [.211,.031],[.200,.067],[.177,.081],[.151,.061]];
+   for(const [x,scale] of [[.064,.87],[.070,1],[.099,1],[.106,.87]]){
+    for(const [y,z] of pad)points.push([x,.18+(y-.18)*scale,z*scale]);
+   }
+   const n=pad.length;
+   for(let row=0;row<3;row++)for(let i=0;i<n;i++){
+    const a=row*n+i,b=row*n+(i+1)%n;faces.push([a,b,b+n,a+n]);
+   }
+   faces.push(pad.map((_,i)=>n-1-i),pad.map((_,i)=>3*n+i));
+   surface('wheelCaliper',points,faces);
+  }
   const profile=[[-2.2,.73,.72,.36],[-2.06,.85,.85,.31],[-1.7,.94,.95,.28],[-1.36,.965,.99,.275],[-.92,.94,1.015,.275],[-.35,.923,1.005,.275],[.45,.932,.99,.275],[.9,.951,.975,.275],[1.36,.967,.965,.285],[1.75,.916,.91,.31],[2.06,.84,.81,.36],[2.2,.72,.70,.40]];
   function sample(z){let k=profile.findIndex((p,i)=>i<profile.length-1&&p[0]<=z&&profile[i+1][0]>=z);if(k<0)k=profile.length-2;
    const a=profile[k],b=profile[k+1],p=profile[Math.max(0,k-1)],q=profile[Math.min(profile.length-1,k+2)],u=(z-a[0])/(b[0]-a[0]),dist=b[0]-a[0];
