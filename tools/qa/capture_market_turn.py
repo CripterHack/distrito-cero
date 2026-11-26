@@ -61,7 +61,7 @@ def measure(rows, offset):
                 rootDriftM=max(hypot(r['root'][0]-rows[0]['root'][0], r['root'][1]-rows[0]['root'][1]) for r in rows))
 
 
-def capture(html, output, offset, images, far):
+def capture(html, output, offset, images, far, snapshot_tick):
     raw = html.read_bytes()
     report = dict(htmlSha256=sha256(raw).hexdigest(), turnOffsetS=offset, endpoints={})
     errors = []
@@ -71,13 +71,16 @@ def capture(html, output, offset, images, far):
         report['environment'] = page.evaluate(SETUP)
         report['chromium'] = browser.version
         report['landmarks'] = page.evaluate(STAGE, far)
-        for label in ('north', 'south'):
+        for label in ('south', 'north'):
             endpoint = page.evaluate('marketTurnQA.arrive()')
+            if endpoint['towardEnd'] != (label == 'south'):
+                raise RuntimeError('Expected +Z southbound first and −Z northbound on return')
             rows = []
             for tick in range(0, 145, 6):
-                frame = page.evaluate('a=>marketTurnQA.frame(a)', {'ticks':min(tick, 6), 'draw':images})
+                draw = images and (snapshot_tick is None or tick == snapshot_tick)
+                frame = page.evaluate('a=>marketTurnQA.frame(a)', {'ticks':min(tick, 6), 'draw':draw})
                 rows.extend(frame['rows'])
-                if images:
+                if draw:
                     (output / f'{label}-{tick:03}.png').write_bytes(base64.b64decode(frame['png']))
             metrics = measure(rows, offset)
             report['endpoints'][label] = dict(**endpoint, **metrics)
@@ -96,13 +99,15 @@ def main():
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--turn-offset', type=float, default=.5)
     parser.add_argument('--metrics-only', action='store_true')
+    parser.add_argument('--snapshot-tick', type=int, choices=range(0, 145, 6),
+                        help='Save just one frame per endpoint while measuring the entire stop')
     parser.add_argument('--far', action='store_true', help='Sample the reduced mesh through the normal distance selection')
     parser.add_argument('--require-turn', action='store_true')
     args = parser.parse_args()
     if not 0 <= args.turn_offset <= 1:
         parser.error('The turn must fit inside the 2.4 s stop')
     args.output.mkdir(parents=True, exist_ok=True)
-    report = capture(args.html, args.output, args.turn_offset, not args.metrics_only, args.far)
+    report = capture(args.html, args.output, args.turn_offset, not args.metrics_only, args.far, args.snapshot_tick)
     if args.require_turn:
         for label, endpoint in report['endpoints'].items():
             if endpoint['turnRuns'] != 1 or not endpoint['progressMonotonic']:

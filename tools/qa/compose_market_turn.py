@@ -14,7 +14,7 @@ from tempfile import TemporaryDirectory
 from PIL import Image, ImageDraw, ImageFont
 
 
-ENDS = {"north": "Extremo norte", "south": "Extremo sur"}
+ENDS = {"south": "Extremo sur", "north": "Extremo norte"}
 TICKS = range(0, 145, 6)
 STAGES = ("Antes · v0.20.29", "Después · v0.20.30")
 BACKGROUND, WHITE, MUTED, MINT = "#18211f", "#f4f3ee", "#c6cec9", "#a7e9c5"
