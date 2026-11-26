@@ -47,16 +47,70 @@ function skinUvs(swatch,part,i){
  const [u,v]=xyz(part.attr.TEXCOORD_0,i);
  return [u,1-v*(mainHeight-1)/span];
 }
-function quantize(part,i,atlas){
- const point=Buffer.alloc(21);
+function packVertex(part,i,atlas){
+ const point=Buffer.alloc(34);
  for(let k=0;k<3;k++){
-  point.writeInt16LE(Math.round(part.attr.POSITION.value(i,k)*16000),k*2);
-  point.writeInt8(Math.round(part.attr.NORMAL.value(i,k)*127),6+k);
+  point.writeFloatLE(part.attr.POSITION.value(i,k),k*4);
+  point.writeInt16LE(Math.round(part.attr.NORMAL.value(i,k)*32767),12+k*2);
  }
- skinUvs(atlas,part,i).forEach((v,k)=>point.writeUInt16LE(Math.round(Math.max(0,Math.min(1,v))*65535),9+k*2));
- part.attr.JOINTS_0.row(i).copy(point,13);
- part.attr.WEIGHTS_0.row(i).copy(point,17);
+ skinUvs(atlas,part,i).forEach((v,k)=>point.writeFloatLE(Math.max(0,Math.min(1,v)),18+k*4));
+ part.attr.JOINTS_0.row(i).copy(point,26);
+ part.attr.WEIGHTS_0.row(i).copy(point,30);
  return point;
+}
+// Edge incidence uses identical glTF positions. Packed vertices retain all UV,
+// normal, material and skinning seams of each surviving source vertex.
+function topology(part,order,baseline){
+ const edges=new Map(),opposed=new Set(),bad=new Set(),{positions:p,attributes:a,geometricId:g}=part;
+ for(let k=0;k<order.length;k+=3){
+  const i=order[k],j=order[k+1],l=order[k+2],ip=3*i,jp=3*j,lp=3*l;
+  const x=p[jp]-p[ip],y=p[jp+1]-p[ip+1],z=p[jp+2]-p[ip+2];
+  const u=p[lp]-p[ip],v=p[lp+1]-p[ip+1],w=p[lp+2]-p[ip+2];
+  const nx=y*w-z*v,ny=z*u-x*w,nz=x*v-y*u;
+  const ii=15*i,jj=15*j,ll=15*l;
+  const facing=nx*(a[ii]+a[jj]+a[ll])+ny*(a[ii+1]+a[jj+1]+a[ll+1])+nz*(a[ii+2]+a[jj+2]+a[ll+2]);
+  if(facing<=0){
+   const key=[i,j,l].sort((a,b)=>a-b).join(':');opposed.add(key);
+   if(baseline&&!baseline.opposed.has(key)){bad.add(i);bad.add(j);bad.add(l);}
+  }
+  if(baseline&&!part.attr.COLOR_0){
+   const det=(a[jj+3]-a[ii+3])*(a[ll+4]-a[ii+4])-(a[ll+3]-a[ii+3])*(a[jj+4]-a[ii+4]);
+   if(det<=0){bad.add(i);bad.add(j);bad.add(l);}
+  }
+  for(let e=0;e<3;e++){
+   const m=order[k+e],n=order[k+(e+1)%3];
+   const key=Math.min(g[m],g[n])*part.n+Math.max(g[m],g[n]);
+   if(edges.has(key))edges.get(key).count++;
+   else edges.set(key,{count:1,m,n});
+  }
+ }
+ if(baseline)for(const [key,{count,m,n}] of edges){
+  if(count!==2 && baseline.edges.get(key)?.count!==count){bad.add(m);bad.add(n);}
+ }
+ return {edges,opposed,bad};
+}
+function simplify(opt,part,ratio){
+ const lock=part.lock.slice(),target=Math.floor(part.order.length*ratio/3)*3;
+ const weights=[.24,.24,.24,.8,.8,...Array(10).fill(.30)];
+ const baseline=topology(part,part.order);
+ let previousLocked=-1;
+ for(let pass=0;pass<120;pass++){
+  const [reduced]=opt.simplifyWithAttributes(part.order,part.positions,3,part.attributes,15,weights,lock,target,.05);
+  const {bad}=topology(part,reduced,baseline);
+  if(!bad.size)return reduced;
+  // Restore the incident source triangles, not just the final edge endpoints.
+  const weld=new Set([...bad].map(i=>part.geometricId[i]));
+  const locked=lock.reduce((sum,x)=>sum+x,0),expand=locked===previousLocked;
+  previousLocked=locked;
+  for(let k=0;k<part.order.length;k+=3){
+   const i=part.order[k],j=part.order[k+1],l=part.order[k+2];
+   const flagged=[i,j,l].filter(k=>weld.has(part.geometricId[k])).length;
+   if(flagged>=(expand?1:2)){
+    lock[i]=lock[j]=lock[l]=1;
+   }
+  }
+ }
+ throw new Error('Could not preserve source winding, UV handedness and edge incidence');
 }
 async function prepare(filename,meshopt){
  const {MeshoptSimplifier:opt}=require(meshopt);await opt.ready;
@@ -71,22 +125,38 @@ async function prepare(filename,meshopt){
  const positionKeys=parts.map(part=>Array.from({length:part.n},(_,i)=>part.attr.POSITION.row(i).toString('hex')));
  const keySets=positionKeys.map(keys=>new Set(keys));
  for(const [pi,part] of parts.entries()){
-  for(let i=0;i<part.n;i++)part.lock[i]=+keySets[1-pi].has(positionKeys[pi][i]);
+  const geom=new Map();
+  part.geometricId=positionKeys[pi].map(key=>{
+   if(!geom.has(key))geom.set(key,geom.size);
+   return geom.get(key);
+  });
+  for(let i=0;i<part.n;i++){
+   part.lock[i]=+keySets[1-pi].has(positionKeys[pi][i]);
+   // Test the actual Float32 atlas coordinates used for tangent reconstruction.
+   part.attributes.set(skinUvs(swatch,part,i),i*15+3);
+  }
  }
  // Endpoints of the reviewed posterior trouser fold in the source topology.
- for(const id of [6155,6194])parts[0].lock[id]=1;
+ for(const id of [6155,6194,12708,12730])parts[0].lock[id]=1;
+ // Two nearby cloth layers at the outer left knee must retain their individual
+ // facets. Longer diagonals of a simplified layer can cross its neighbour in motion.
+ const body=parts[0];
+ for(let i=0;i<body.n;i++){
+  const [x,y,z]=body.positions.subarray(i*3,i*3+3);
+  if(x>.19 && y>.49 && y<.61 && z>.01 && z<.065)body.lock[i]=1;
+ }
  const vertices=[],lookup=new Map();
  const levels=[.30,.085].map(ratio=>{
   const ids=[];
   for(const part of parts){
-   const target=Math.floor(part.order.length*ratio/3)*3;
-   const weights=[.24,.24,.24,.8,.8,...Array(10).fill(.30)];
-   const [reduced]=opt.simplifyWithAttributes(part.order,part.positions,3,part.attributes,15,
-                                  weights,part.lock,target,.05);
+   // The thin repaired interdigital walls carry 1,062 faces. Retain the source
+   // connectivity in both levels: collapsing two opposite walls onto the same
+   // diagonal makes a four-face edge across the two material primitives.
+   const reduced=part.attr.COLOR_0?part.order:simplify(opt,part,ratio);
    const packedIds=new Map();
    for(const i of reduced){
     if(!packedIds.has(i)){
-     const point=quantize(part,i,swatch),key=point.toString('hex');
+     const point=packVertex(part,i,swatch),key=point.toString('hex');
      if(!lookup.has(key)){lookup.set(key,vertices.length);vertices.push(point);}
      packedIds.set(i,lookup.get(key));
     }
