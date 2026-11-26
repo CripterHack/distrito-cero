@@ -114,13 +114,15 @@ def skin_weights(points, bones, rays):
     halfwidth = 0.001 + 0.076 * smooth(0.785, 0.940, y)
     left = smooth(0.014 - halfwidth, 0.014 + halfwidth, x)
     foot = 1 - smooth(0.082, 0.171, y)
-    front_thigh = smooth(0.37, 0.63, y)
-    # Give the crease behind the knee a short region that rotates with both
-    # bones. Transfer the rest of the bend into the fabric above and below it.
-    back_thigh = 0.5 * (smooth(0.28, 0.50, y) + smooth(0.50, 0.72, y))
+    front_thigh = smooth(0.29, 0.71, y)
+    # The two overlapping envelopes spread deep running flexion over the denim
+    # on either side of the crease. End the transition before the cuff and inseam.
+    back_thigh = 0.5 * (smooth(0.095, 0.5054, y) + smooth(0.4446, 0.855, y))
+    back_thigh *= smooth(0.17, 0.29, y)
+    back_thigh += (1 - back_thigh) * smooth(0.71, 0.79, y)
     for side, fraction in [("L", left), ("R", 1 - left)]:
         knee_z = LIMBS[side][5][2]
-        front = smooth(knee_z - 0.060, knee_z + 0.100, z)
+        front = smooth(knee_z - 0.060, knee_z + 0.110, z)
         thigh = back_thigh + (front_thigh - back_thigh) * front
         add("foot" + side, leg * fraction * foot)
         add("shin" + side, leg * fraction * (1 - foot) * (1 - thigh))
