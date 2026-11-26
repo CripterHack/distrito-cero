@@ -30,3 +30,5 @@ node --test tests/market-*.test.cjs
 ```
 
 El módulo de calle ocupa 749.331 bytes, 32.764 más que el anterior. Las mallas tienen 9.773 y 5.331 triángulos. Comparten atlas, rig y pistas. El HTML autónomo ocupa 11.548.017 bytes.
+
+[Comparación del calzado en el juego](../../qa/market-turn-v02030/README.md) · [Escena editable y cámaras](../../assets/higgsfield-20261125/giro-estudio.md) · [Mediciones y huellas](evidence.md).
