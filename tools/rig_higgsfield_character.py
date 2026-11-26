@@ -100,7 +100,7 @@ def skeleton(ground):
 
 
 def skin_weights(points, bones, rays):
-    x, y, _ = points.T
+    x, y, z = points.T
     radial = np.abs(x)
     indices = {b[0]: i for i, b in enumerate(bones)}
     weight = np.zeros((len(x), len(bones)))
@@ -114,8 +114,14 @@ def skin_weights(points, bones, rays):
     halfwidth = 0.001 + 0.076 * smooth(0.785, 0.940, y)
     left = smooth(0.014 - halfwidth, 0.014 + halfwidth, x)
     foot = 1 - smooth(0.082, 0.171, y)
-    thigh = smooth(0.42, 0.578, y)
+    front_thigh = smooth(0.37, 0.63, y)
+    # Give the crease behind the knee a short region that rotates with both
+    # bones. Transfer the rest of the bend into the fabric above and below it.
+    back_thigh = 0.5 * (smooth(0.28, 0.50, y) + smooth(0.50, 0.72, y))
     for side, fraction in [("L", left), ("R", 1 - left)]:
+        knee_z = LIMBS[side][5][2]
+        front = smooth(knee_z - 0.060, knee_z + 0.100, z)
+        thigh = back_thigh + (front_thigh - back_thigh) * front
         add("foot" + side, leg * fraction * foot)
         add("shin" + side, leg * fraction * (1 - foot) * (1 - thigh))
         add("thigh" + side, leg * fraction * thigh)

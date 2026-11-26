@@ -209,6 +209,21 @@ def inspect_playback(path, name, duration, expected_points):
     radial = np.abs(base[:, 0])
     sleeve = (radial > .07) & (radial < .37) & (base[:, 1] > 1.23) & (base[:, 1] < 1.69)
     shoulder_edges = sleeve[edges].any(axis=1)
+    # Inspect the back of both trouser knees in bind coordinates, including
+    # seams. Trace physical edges over 8 mm to keep tiny UV slivers out of the metric.
+    mid = base[edges].mean(axis=1)
+    back_knees = {side: (np.abs(mid[:, 1] - .5) < .12) & (mid[:, 0]*sign > .015)
+                  & (mid[:, 2] < knee_z - .015) & (rest_lengths >= .008)
+                  for side, sign, knee_z in (("R", -1, -.068), ("L", 1, .040))}
+    assert all(mask.sum() > 100 for mask in back_knees.values())
+    knee_samples = {side: [] for side in back_knees}
+    # The documented seam is identified in bind space; vertex order can
+    # change during import. Its midpoint and length are in metres.
+    landmark = [-.06231844, .50810161, -.16068449]
+    crease = np.flatnonzero((np.linalg.norm(mid - landmark, axis=1) < .0001)
+                            & (np.abs(rest_lengths - .05493929) < .0001))
+    assert len(crease) > 0, "Reference trouser edge missing"
+    crease_lengths = []
     _, keep, group = np.unique(np.round(base, 7), axis=0, return_index=True, return_inverse=True)
     first_at_position = keep[group]
     duplicated = first_at_position != np.arange(len(base))
@@ -234,7 +249,16 @@ def inspect_playback(path, name, duration, expected_points):
             gaps = np.linalg.norm(pts[duplicated] - pts[first_at_position[duplicated]], axis=1)
             seam_errors.append(float(gaps.max()))
         lengths = np.linalg.norm(pts[edges[:, 0]] - pts[edges[:, 1]], axis=1)
+        crease_lengths.append(float(lengths[crease].min()))
         ratios = lengths[valid] / rest_lengths[valid]
+        for side, mask in back_knees.items():
+            ids = np.flatnonzero(mask)
+            local_ratios = lengths[ids] / rest_lengths[ids]
+            k = ids[np.argmin(local_ratios)]
+            knee_samples[side].append({"phase": i/32, "minimumRatio": float(local_ratios.min()),
+                                        "p01Ratio": float(np.percentile(local_ratios, 1)),
+                                        "restM": float(rest_lengths[k]), "posedM": float(lengths[k]),
+                                        "maximumRatio": float(local_ratios.max())})
         changes = np.abs(lengths - rest_lengths)
         peak_shoulder_change = max(peak_shoulder_change, float(changes[shoulder_edges].max()))
         worst = int(np.argmax(changes))
@@ -272,6 +296,11 @@ def inspect_playback(path, name, duration, expected_points):
     assert min(s[0] for s in strain) > .45 and max(s[1] for s in strain) < 1.8, "Widespread mesh collapse/stretch"
     shoulder_limit = .030 if name == "Reposo" else .035
     assert peak_shoulder_change < shoulder_limit, f"Sleeve deforms by {peak_shoulder_change:.4f} m near shoulder"
+    for side, samples in knee_samples.items():
+        worst = min(samples, key=lambda s: s["minimumRatio"])
+        assert worst["minimumRatio"] > .50, f"Posterior knee {side} collapses at {name}: {worst}"
+    if name == "Marcha":
+        assert min(crease_lengths) / rest_lengths[crease[0]] > .65, "Right trouser crease still pinches"
     # Exercise both independently after posing; the opposite hand and sleeves must stay still.
     morph_motion = {}
     for side in ("L", "R"):
@@ -289,7 +318,8 @@ def inspect_playback(path, name, duration, expected_points):
             "shoeLeadRangeM": [float(foot_differences.min()), float(foot_differences.max())],
             "handLeadRangeM": [float(hand_differences.min()), float(hand_differences.max())],
             "maxEdgeLengthChangeM": peak_edge["lengthChangeM"], "peakEdge": peak_edge,
-            "maxShoulderEdgeLengthChangeM": peak_shoulder_change,
+            "maxShoulderEdgeLengthChangeM": peak_shoulder_change, "posteriorKnees": knee_samples,
+            "rightCrease": {"restLengthM": float(rest_lengths[crease[0]]), "posedLengthsM": crease_lengths},
             "posedIndexFlex": morph_motion, **gait,
             "coincidentRestVertexPairs": int(np.count_nonzero(duplicated)),
             "maxSeparationOfCoincidentVerticesM": max_seam,
