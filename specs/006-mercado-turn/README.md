@@ -19,7 +19,7 @@ En un visor glTF, abrir el [GLB](../../assets/higgsfield-20261125/character-walk
 
 ## Reproducir el recurso de calle
 
-Con Node, Python, Pillow y meshoptimizer 0.23.0 en autoría, ejecutar los siguientes comandos desde la raíz. `MESHOPTIMIZER` es la ruta al paquete instalado.
+Con Node, Python, NumPy, Pillow y meshoptimizer 0.23.0 en autoría, ejecutar los siguientes comandos desde la raíz. `MESHOPTIMIZER` es la ruta al paquete instalado.
 
 ```sh
 mkdir -p artifacts/giro
