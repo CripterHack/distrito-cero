@@ -1,0 +1,596 @@
+{
+  "viewport": [
+    1280,
+    720
+  ],
+  "seed": 1337,
+  "fixtureTime": 1.25,
+  "producerSha256": "76509b299f5d9d1c86f467760c728b5cfde0af0a6aa52c4d88ab3d20d804fe59",
+  "comparisonMode": "shared-neckline-detail",
+  "browser": "156.0.8078.79",
+  "before": {
+    "htmlSha256": "862d703f14cea0e1f06038aca5bad726ccefca8a829122279cad55f639c1f4ba",
+    "environment": {
+      "playerXZ": [
+        4,
+        36
+      ],
+      "webgl": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    },
+    "frames": {
+      "balanced-5m": {
+        "points": [
+          [
+            429.79142624378375,
+            339.05170585892614
+          ],
+          [
+            418.9128906129057,
+            249.97027275926442
+          ],
+          [
+            416.3141972419601,
+            228.6902643532308
+          ]
+        ],
+        "eye": [
+          4,
+          2.660796924531014,
+          31.921001136285163
+        ],
+        "target": [
+          4,
+          1.3,
+          36
+        ],
+        "nativeBuffer": [
+          1126,
+          634
+        ],
+        "lod": 0,
+        "actors": 2,
+        "pedestrian": [
+          7.5,
+          41
+        ],
+        "actorDistance": 6.103277807866851,
+        "imageSha256": "908a1f403e47195cd8fbe1723a757ae0f6ad8898be16e7a5e0e8ee785e45c379",
+        "visibilityControlBounds": [
+          398,
+          230,
+          448,
+          344
+        ]
+      },
+      "balanced-42m": {
+        "points": [
+          [
+            595.3922107072603,
+            206.46723600794843
+          ],
+          [
+            594.9215189797228,
+            186.9050048860936
+          ],
+          [
+            594.8144849918609,
+            182.45660801410935
+          ]
+        ],
+        "eye": [
+          4,
+          2.660796924531014,
+          31.921001136285163
+        ],
+        "target": [
+          4,
+          1.3,
+          36
+        ],
+        "nativeBuffer": [
+          1126,
+          634
+        ],
+        "lod": 1,
+        "actors": 2,
+        "pedestrian": [
+          7.5,
+          78
+        ],
+        "actorDistance": 42.145581025773026,
+        "imageSha256": "4d1ea62191113c7162462f5a15c44c8215904805ba4c5ded9cb5c2831045db7c",
+        "visibilityControlBounds": [
+          577,
+          181,
+          602,
+          208
+        ]
+      },
+      "balanced-50m": {
+        "points": [
+          [
+            601.88455089952,
+            201.2692927417268
+          ],
+          [
+            601.5414271358713,
+            184.53304002825027
+          ],
+          [
+            601.463548545527,
+            180.73442300705833
+          ]
+        ],
+        "eye": [
+          4,
+          2.660796924531014,
+          31.921001136285163
+        ],
+        "target": [
+          4,
+          1.3,
+          36
+        ],
+        "nativeBuffer": [
+          1126,
+          634
+        ],
+        "lod": 2,
+        "actors": 2,
+        "pedestrian": [
+          7.5,
+          86
+        ],
+        "actorDistance": 50.12235030403104,
+        "imageSha256": "908b3120b4307e753c106d327457a1a46c865c317be852602c0b4f194459c1aa",
+        "visibilityControlBounds": [
+          592,
+          180,
+          606,
+          204
+        ]
+      },
+      "eco-5m": {
+        "points": [
+          [
+            429.9986509178043,
+            339.05170585892614
+          ],
+          [
+            419.1308394023115,
+            249.97027275926442
+          ],
+          [
+            416.5347078364199,
+            228.6902643532308
+          ]
+        ],
+        "eye": [
+          4,
+          2.660796924531014,
+          31.921001136285163
+        ],
+        "target": [
+          4,
+          1.3,
+          36
+        ],
+        "nativeBuffer": [
+          832,
+          468
+        ],
+        "lod": 0,
+        "actors": 2,
+        "pedestrian": [
+          7.5,
+          41
+        ],
+        "actorDistance": 6.103277807866851,
+        "imageSha256": "39c60a970ea64b5d8ea2b33edde658c7bbd4a3a63a9cb5c379a56b3363963e7f",
+        "visibilityControlBounds": [
+          398,
+          228,
+          448,
+          345
+        ]
+      },
+      "eco-24m": {
+        "points": [
+          [
+            567.7440586980521,
+            228.66017993277907
+          ],
+          [
+            566.4996941146902,
+            197.1147545031169
+          ],
+          [
+            566.2144333112865,
+            189.88321358488602
+          ]
+        ],
+        "eye": [
+          4,
+          2.660796924531014,
+          31.921001136285163
+        ],
+        "target": [
+          4,
+          1.3,
+          36
+        ],
+        "nativeBuffer": [
+          832,
+          468
+        ],
+        "lod": 1,
+        "actors": 2,
+        "pedestrian": [
+          7.5,
+          60
+        ],
+        "actorDistance": 24.253865671269807,
+        "imageSha256": "344bbfa97912a382ed6e3ac6de624896622f49893e64c30b4f5a5920bec65083",
+        "visibilityControlBounds": [
+          555,
+          185,
+          576,
+          230
+        ]
+      },
+      "eco-31m": {
+        "points": [
+          [
+            581.8068452519959,
+            217.3900222449075
+          ],
+          [
+            581.0024099785976,
+            191.913190274335
+          ],
+          [
+            580.8187561875966,
+            186.09679095817276
+          ]
+        ],
+        "eye": [
+          4,
+          2.660796924531014,
+          31.921001136285163
+        ],
+        "target": [
+          4,
+          1.3,
+          36
+        ],
+        "nativeBuffer": [
+          832,
+          468
+        ],
+        "lod": 2,
+        "actors": 2,
+        "pedestrian": [
+          7.5,
+          67
+        ],
+        "actorDistance": 31.196954979612997,
+        "imageSha256": "3da23dd64cef4c227fe528dbb4abb7ab8e7d7c6dc0b4ff834519f3b85826f1cd",
+        "visibilityControlBounds": [
+          570,
+          184,
+          588,
+          221
+        ]
+      }
+    }
+  },
+  "after": {
+    "htmlSha256": "8e7a5b44624e52ad28c21fba272cb813a6b6f76aa5a3c1fffb2baebf5d464ec8",
+    "environment": {
+      "playerXZ": [
+        4,
+        36
+      ],
+      "webgl": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    },
+    "frames": {
+      "balanced-5m": {
+        "points": [
+          [
+            429.79142624378375,
+            339.05170585892614
+          ],
+          [
+            418.9128906129057,
+            249.97027275926442
+          ],
+          [
+            416.3141972419601,
+            228.6902643532308
+          ]
+        ],
+        "eye": [
+          4,
+          2.660796924531014,
+          31.921001136285163
+        ],
+        "target": [
+          4,
+          1.3,
+          36
+        ],
+        "nativeBuffer": [
+          1126,
+          634
+        ],
+        "lod": 0,
+        "actors": 2,
+        "pedestrian": [
+          7.5,
+          41
+        ],
+        "actorDistance": 6.103277807866851,
+        "imageSha256": "908a1f403e47195cd8fbe1723a757ae0f6ad8898be16e7a5e0e8ee785e45c379",
+        "visibilityControlBounds": [
+          398,
+          230,
+          448,
+          344
+        ]
+      },
+      "balanced-42m": {
+        "points": [
+          [
+            595.3922107072603,
+            206.46723600794843
+          ],
+          [
+            594.9215189797228,
+            186.9050048860936
+          ],
+          [
+            594.8144849918609,
+            182.45660801410935
+          ]
+        ],
+        "eye": [
+          4,
+          2.660796924531014,
+          31.921001136285163
+        ],
+        "target": [
+          4,
+          1.3,
+          36
+        ],
+        "nativeBuffer": [
+          1126,
+          634
+        ],
+        "lod": 1,
+        "actors": 2,
+        "pedestrian": [
+          7.5,
+          78
+        ],
+        "actorDistance": 42.145581025773026,
+        "imageSha256": "4d1ea62191113c7162462f5a15c44c8215904805ba4c5ded9cb5c2831045db7c",
+        "visibilityControlBounds": [
+          577,
+          181,
+          602,
+          208
+        ]
+      },
+      "balanced-50m": {
+        "points": [
+          [
+            601.88455089952,
+            201.2692927417268
+          ],
+          [
+            601.5414271358713,
+            184.53304002825027
+          ],
+          [
+            601.463548545527,
+            180.73442300705833
+          ]
+        ],
+        "eye": [
+          4,
+          2.660796924531014,
+          31.921001136285163
+        ],
+        "target": [
+          4,
+          1.3,
+          36
+        ],
+        "nativeBuffer": [
+          1126,
+          634
+        ],
+        "lod": 2,
+        "actors": 2,
+        "pedestrian": [
+          7.5,
+          86
+        ],
+        "actorDistance": 50.12235030403104,
+        "imageSha256": "908b3120b4307e753c106d327457a1a46c865c317be852602c0b4f194459c1aa",
+        "visibilityControlBounds": [
+          592,
+          180,
+          606,
+          204
+        ]
+      },
+      "eco-5m": {
+        "points": [
+          [
+            429.9986509178043,
+            339.05170585892614
+          ],
+          [
+            419.1308394023115,
+            249.97027275926442
+          ],
+          [
+            416.5347078364199,
+            228.6902643532308
+          ]
+        ],
+        "eye": [
+          4,
+          2.660796924531014,
+          31.921001136285163
+        ],
+        "target": [
+          4,
+          1.3,
+          36
+        ],
+        "nativeBuffer": [
+          832,
+          468
+        ],
+        "lod": 0,
+        "actors": 2,
+        "pedestrian": [
+          7.5,
+          41
+        ],
+        "actorDistance": 6.103277807866851,
+        "imageSha256": "39c60a970ea64b5d8ea2b33edde658c7bbd4a3a63a9cb5c379a56b3363963e7f",
+        "visibilityControlBounds": [
+          398,
+          228,
+          448,
+          345
+        ]
+      },
+      "eco-24m": {
+        "points": [
+          [
+            567.7440586980521,
+            228.66017993277907
+          ],
+          [
+            566.4996941146902,
+            197.1147545031169
+          ],
+          [
+            566.2144333112865,
+            189.88321358488602
+          ]
+        ],
+        "eye": [
+          4,
+          2.660796924531014,
+          31.921001136285163
+        ],
+        "target": [
+          4,
+          1.3,
+          36
+        ],
+        "nativeBuffer": [
+          832,
+          468
+        ],
+        "lod": 1,
+        "actors": 2,
+        "pedestrian": [
+          7.5,
+          60
+        ],
+        "actorDistance": 24.253865671269807,
+        "imageSha256": "782f6fa51850b9d30c878723d0fb4b0d60bd923ad1cfa8f4088cd74ca2ea1626",
+        "visibilityControlBounds": [
+          555,
+          185,
+          576,
+          230
+        ]
+      },
+      "eco-31m": {
+        "points": [
+          [
+            581.8068452519959,
+            217.3900222449075
+          ],
+          [
+            581.0024099785976,
+            191.913190274335
+          ],
+          [
+            580.8187561875966,
+            186.09679095817276
+          ]
+        ],
+        "eye": [
+          4,
+          2.660796924531014,
+          31.921001136285163
+        ],
+        "target": [
+          4,
+          1.3,
+          36
+        ],
+        "nativeBuffer": [
+          832,
+          468
+        ],
+        "lod": 2,
+        "actors": 2,
+        "pedestrian": [
+          7.5,
+          67
+        ],
+        "actorDistance": 31.196954979612997,
+        "imageSha256": "3da23dd64cef4c227fe528dbb4abb7ab8e7d7c6dc0b4ff834519f3b85826f1cd",
+        "visibilityControlBounds": [
+          570,
+          184,
+          588,
+          221
+        ]
+      }
+    }
+  },
+  "comparison": {
+    "balanced-5m": {
+      "changedRGBPixels": 0,
+      "changeBounds": null
+    },
+    "balanced-42m": {
+      "changedRGBPixels": 0,
+      "changeBounds": null
+    },
+    "balanced-50m": {
+      "changedRGBPixels": 0,
+      "changeBounds": null
+    },
+    "eco-5m": {
+      "changedRGBPixels": 0,
+      "changeBounds": null
+    },
+    "eco-24m": {
+      "changedRGBPixels": 28,
+      "changeBounds": [
+        561,
+        192,
+        571,
+        200
+      ]
+    },
+    "eco-31m": {
+      "changedRGBPixels": 0,
+      "changeBounds": null
+    }
+  }
+}

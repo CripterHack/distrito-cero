@@ -1,0 +1,2306 @@
+{
+  "schema": 2,
+  "candidateHtmlSha256": "8e7a5b44624e52ad28c21fba272cb813a6b6f76aa5a3c1fffb2baebf5d464ec8",
+  "comparisonReportSha256": "e2d4e46d32f39b2b8f9b517b18c6bc324624e3f049b746244b763f30b8071a76",
+  "beforeHtmlSha256": "81c9f68654e0e14eddb9cfa73f6408038120d87943bb438c7d713adf64859003",
+  "producerSha256": "a7941ef75e580f02af148c2d16b018e0af4b84a944b626503182ebff73f18a6e",
+  "pixelsSha256": "a9821d3e9056cb931f1fa5420e4ca343ac9e6c505f0ae18af8c09cfcdb868c73",
+  "completeV1Reports": {
+    "beforeSha256": "a71cc508cbcfcf62ad031099d87fb1f3827681f251c9b5ca6681be03cda9931f",
+    "afterSha256": "506c3d3ce20de691b2462e303f7e7c9ed14729c193a3485151b4b7fb37d98cb4"
+  },
+  "results": {
+    "referenceV1CaptureChecks": 130,
+    "referenceV1GeometryChecks": 44,
+    "candidateV1CaptureChecks": 130,
+    "candidateV1GeometryChecks": 44,
+    "v2Checks": 361,
+    "matchedViews": 42,
+    "identicalFaces": 42,
+    "identicalLod0Images": 12,
+    "sourceConditionAnchors": 4596,
+    "beforeLost": 841,
+    "afterLost": 0,
+    "beforeExtra": 4,
+    "afterExtra": 0,
+    "depthSamples": 85,
+    "uniqueConditionViewPixels": 84,
+    "minCandidateJacketLeadMm": 9.331138544891981,
+    "beforeCore": {
+      "tested": 3755,
+      "unknown": 492,
+      "negative": 5
+    },
+    "afterOnSameCore": {
+      "tested": 3755,
+      "unknown": 492,
+      "negative": 20
+    },
+    "afterExpandedCore": {
+      "tested": 4596,
+      "unknown": 495,
+      "negative": 22
+    },
+    "negativeAlsoPresentWithSourceJacket": 22,
+    "worstMarginMm": -0.49647422231752747,
+    "negativeProjections": 110,
+    "newlyVisibleTargetRays": 4,
+    "newlyVisibleTargetsAlsoOutsideSourceJacket": 4,
+    "pixelCentersSwitchingFromJacketToSkin": 1,
+    "sourceWinnerAgreementOnProjectedPixels": 110
+  },
+  "conditions": {
+    "neutral/idle": {
+      "source": 367,
+      "candidate": 367,
+      "lost": [],
+      "extra": [],
+      "skinDiagnostic": {
+        "tested": 367,
+        "unknown": 40,
+        "negative": 0,
+        "minimumMm": 0.02748025316970566
+      },
+      "priorCoreSize": 289,
+      "priorCoreInCandidate": 289,
+      "priorCoreBefore": {
+        "tested": 289,
+        "unknown": 40,
+        "negative": 1,
+        "minimumMm": -0.07514255957969
+      },
+      "priorCoreAfter": {
+        "tested": 289,
+        "unknown": 40,
+        "negative": 0,
+        "minimumMm": 0.02748025316970566
+      },
+      "negativeRecords": []
+    },
+    "neutral/neck-left": {
+      "source": 351,
+      "candidate": 351,
+      "lost": [],
+      "extra": [],
+      "skinDiagnostic": {
+        "tested": 351,
+        "unknown": 40,
+        "negative": 2,
+        "minimumMm": -0.14701962666304488
+      },
+      "priorCoreSize": 284,
+      "priorCoreInCandidate": 284,
+      "priorCoreBefore": {
+        "tested": 284,
+        "unknown": 40,
+        "negative": 0,
+        "minimumMm": 0.46268165122602467
+      },
+      "priorCoreAfter": {
+        "tested": 284,
+        "unknown": 40,
+        "negative": 2,
+        "minimumMm": -0.14701962666304488
+      },
+      "negativeRecords": [
+        {
+          "sourceTriangle": 9256,
+          "candidateMarginMm": -0.14701962666304488,
+          "sourceJacketAgainstSameSkinMm": -0.14701962666304488,
+          "wasInBaselineCore": true,
+          "baselineJacketAgainstSameSkinMm": 1.7190774293235325,
+          "occlusionBySkinAndJacket": {
+            "neutral--idle--back--lod2": {
+              "pixel": [
+                460,
+                519
+              ],
+              "targetIsNearestSkin": false,
+              "sourcePixelWinner": "skin2",
+              "oldWinner": "skin2",
+              "newWinner": "skin2",
+              "sourceWinner": "skin2",
+              "oldPixelWinner": "skin2",
+              "newPixelWinner": "skin2",
+              "newlyVisibleTarget": false
+            },
+            "visual--closeup--neutral--profile": {
+              "pixel": [
+                357,
+                505
+              ],
+              "targetIsNearestSkin": false,
+              "sourcePixelWinner": "skin2",
+              "oldWinner": "skin2",
+              "newWinner": "skin2",
+              "sourceWinner": "skin2",
+              "oldPixelWinner": "skin2",
+              "newPixelWinner": "skin2",
+              "newlyVisibleTarget": false
+            },
+            "visual--fullbody--neutral--back": {
+              "pixel": [
+                386,
+                179
+              ],
+              "targetIsNearestSkin": false,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            },
+            "visual--fullbody--neutral--front": {
+              "pixel": [
+                333,
+                179
+              ],
+              "targetIsNearestSkin": true,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            },
+            "visual--fullbody--side--profile": {
+              "pixel": [
+                359,
+                182
+              ],
+              "targetIsNearestSkin": true,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            }
+          }
+        },
+        {
+          "sourceTriangle": 9268,
+          "candidateMarginMm": -0.014300139981980117,
+          "sourceJacketAgainstSameSkinMm": -0.014300139981980117,
+          "wasInBaselineCore": true,
+          "baselineJacketAgainstSameSkinMm": 5.915523212885651,
+          "occlusionBySkinAndJacket": {
+            "neutral--idle--back--lod2": {
+              "pixel": [
+                465,
+                523
+              ],
+              "targetIsNearestSkin": false,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "skin2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "skin2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            },
+            "visual--closeup--neutral--profile": {
+              "pixel": [
+                375,
+                505
+              ],
+              "targetIsNearestSkin": false,
+              "sourcePixelWinner": "skin2",
+              "oldWinner": "skin2",
+              "newWinner": "skin2",
+              "sourceWinner": "skin2",
+              "oldPixelWinner": "skin2",
+              "newPixelWinner": "skin2",
+              "newlyVisibleTarget": false
+            },
+            "visual--fullbody--neutral--back": {
+              "pixel": [
+                387,
+                178
+              ],
+              "targetIsNearestSkin": false,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            },
+            "visual--fullbody--neutral--front": {
+              "pixel": [
+                333,
+                179
+              ],
+              "targetIsNearestSkin": false,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            },
+            "visual--fullbody--side--profile": {
+              "pixel": [
+                364,
+                182
+              ],
+              "targetIsNearestSkin": true,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            }
+          }
+        }
+      ]
+    },
+    "neutral/neck-right": {
+      "source": 352,
+      "candidate": 352,
+      "lost": [],
+      "extra": [],
+      "skinDiagnostic": {
+        "tested": 352,
+        "unknown": 40,
+        "negative": 1,
+        "minimumMm": -0.10160117601617417
+      },
+      "priorCoreSize": 283,
+      "priorCoreInCandidate": 283,
+      "priorCoreBefore": {
+        "tested": 283,
+        "unknown": 40,
+        "negative": 0,
+        "minimumMm": 0.09007377239710192
+      },
+      "priorCoreAfter": {
+        "tested": 283,
+        "unknown": 40,
+        "negative": 1,
+        "minimumMm": -0.10160117601617417
+      },
+      "negativeRecords": [
+        {
+          "sourceTriangle": 9309,
+          "candidateMarginMm": -0.10160117601617417,
+          "sourceJacketAgainstSameSkinMm": -0.10160117601617417,
+          "wasInBaselineCore": true,
+          "baselineJacketAgainstSameSkinMm": 3.0706849442855506,
+          "occlusionBySkinAndJacket": {
+            "neutral--idle--back--lod2": {
+              "pixel": [
+                260,
+                519
+              ],
+              "targetIsNearestSkin": false,
+              "sourcePixelWinner": "skin2",
+              "oldWinner": "skin2",
+              "newWinner": "skin2",
+              "sourceWinner": "skin2",
+              "oldPixelWinner": "skin2",
+              "newPixelWinner": "skin2",
+              "newlyVisibleTarget": false
+            },
+            "visual--closeup--neutral--profile": {
+              "pixel": [
+                352,
+                538
+              ],
+              "targetIsNearestSkin": true,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            },
+            "visual--fullbody--neutral--back": {
+              "pixel": [
+                334,
+                179
+              ],
+              "targetIsNearestSkin": false,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            },
+            "visual--fullbody--neutral--front": {
+              "pixel": [
+                386,
+                179
+              ],
+              "targetIsNearestSkin": true,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            },
+            "visual--fullbody--side--profile": {
+              "pixel": [
+                358,
+                175
+              ],
+              "targetIsNearestSkin": true,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            }
+          }
+        }
+      ]
+    },
+    "light/idle": {
+      "source": 363,
+      "candidate": 363,
+      "lost": [],
+      "extra": [],
+      "skinDiagnostic": {
+        "tested": 363,
+        "unknown": 38,
+        "negative": 9,
+        "minimumMm": -0.30929897930048084
+      },
+      "priorCoreSize": 294,
+      "priorCoreInCandidate": 294,
+      "priorCoreBefore": {
+        "tested": 294,
+        "unknown": 38,
+        "negative": 0,
+        "minimumMm": 0.046708079145981136
+      },
+      "priorCoreAfter": {
+        "tested": 294,
+        "unknown": 38,
+        "negative": 8,
+        "minimumMm": -0.30929897930048084
+      },
+      "negativeRecords": [
+        {
+          "sourceTriangle": 9256,
+          "candidateMarginMm": -0.19659264634850498,
+          "sourceJacketAgainstSameSkinMm": -0.19659264634850498,
+          "wasInBaselineCore": true,
+          "baselineJacketAgainstSameSkinMm": 2.9186837371719023,
+          "occlusionBySkinAndJacket": {
+            "neutral--idle--back--lod2": {
+              "pixel": [
+                454,
+                524
+              ],
+              "targetIsNearestSkin": true,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "skin2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "skin2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            },
+            "visual--closeup--neutral--profile": {
+              "pixel": [
+                381,
+                507
+              ],
+              "targetIsNearestSkin": false,
+              "sourcePixelWinner": "skin2",
+              "oldWinner": "skin2",
+              "newWinner": "skin2",
+              "sourceWinner": "skin2",
+              "oldPixelWinner": "skin2",
+              "newPixelWinner": "skin2",
+              "newlyVisibleTarget": false
+            },
+            "visual--fullbody--neutral--back": {
+              "pixel": [
+                384,
+                178
+              ],
+              "targetIsNearestSkin": false,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            },
+            "visual--fullbody--neutral--front": {
+              "pixel": [
+                336,
+                180
+              ],
+              "targetIsNearestSkin": false,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            },
+            "visual--fullbody--side--profile": {
+              "pixel": [
+                365,
+                182
+              ],
+              "targetIsNearestSkin": true,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            }
+          }
+        },
+        {
+          "sourceTriangle": 9265,
+          "candidateMarginMm": -0.015442886832028364,
+          "sourceJacketAgainstSameSkinMm": -0.015442886832028364,
+          "wasInBaselineCore": true,
+          "baselineJacketAgainstSameSkinMm": 3.45313198587764,
+          "occlusionBySkinAndJacket": {
+            "neutral--idle--back--lod2": {
+              "pixel": [
+                453,
+                523
+              ],
+              "targetIsNearestSkin": false,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "skin2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            },
+            "visual--closeup--neutral--profile": {
+              "pixel": [
+                370,
+                508
+              ],
+              "targetIsNearestSkin": false,
+              "sourcePixelWinner": "skin2",
+              "oldWinner": "skin2",
+              "newWinner": "skin2",
+              "sourceWinner": "skin2",
+              "oldPixelWinner": "skin2",
+              "newPixelWinner": "skin2",
+              "newlyVisibleTarget": false
+            },
+            "visual--fullbody--neutral--back": {
+              "pixel": [
+                384,
+                179
+              ],
+              "targetIsNearestSkin": false,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            },
+            "visual--fullbody--neutral--front": {
+              "pixel": [
+                335,
+                180
+              ],
+              "targetIsNearestSkin": false,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            },
+            "visual--fullbody--side--profile": {
+              "pixel": [
+                362,
+                182
+              ],
+              "targetIsNearestSkin": true,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            }
+          }
+        },
+        {
+          "sourceTriangle": 9283,
+          "candidateMarginMm": -0.20158782415095056,
+          "sourceJacketAgainstSameSkinMm": -0.20158782415095056,
+          "wasInBaselineCore": true,
+          "baselineJacketAgainstSameSkinMm": 3.860715123431838,
+          "occlusionBySkinAndJacket": {
+            "neutral--idle--back--lod2": {
+              "pixel": [
+                432,
+                535
+              ],
+              "targetIsNearestSkin": true,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            },
+            "visual--closeup--neutral--profile": {
+              "pixel": [
+                436,
+                511
+              ],
+              "targetIsNearestSkin": false,
+              "sourcePixelWinner": "skin2",
+              "oldWinner": "skin2",
+              "newWinner": "skin2",
+              "sourceWinner": "skin2",
+              "oldPixelWinner": "skin2",
+              "newPixelWinner": "skin2",
+              "newlyVisibleTarget": false
+            },
+            "visual--fullbody--neutral--back": {
+              "pixel": [
+                377,
+                176
+              ],
+              "targetIsNearestSkin": true,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            },
+            "visual--fullbody--neutral--front": {
+              "pixel": [
+                342,
+                182
+              ],
+              "targetIsNearestSkin": false,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            },
+            "visual--fullbody--side--profile": {
+              "pixel": [
+                380,
+                181
+              ],
+              "targetIsNearestSkin": true,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            }
+          }
+        },
+        {
+          "sourceTriangle": 9285,
+          "candidateMarginMm": -0.2035969893715368,
+          "sourceJacketAgainstSameSkinMm": -0.2035969893715368,
+          "wasInBaselineCore": true,
+          "baselineJacketAgainstSameSkinMm": 3.3908460649841823,
+          "occlusionBySkinAndJacket": {
+            "neutral--idle--back--lod2": {
+              "pixel": [
+                419,
+                537
+              ],
+              "targetIsNearestSkin": true,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            },
+            "visual--closeup--neutral--profile": {
+              "pixel": [
+                447,
+                513
+              ],
+              "targetIsNearestSkin": false,
+              "sourcePixelWinner": "skin2",
+              "oldWinner": "skin2",
+              "newWinner": "skin2",
+              "sourceWinner": "skin2",
+              "oldPixelWinner": "skin2",
+              "newPixelWinner": "skin2",
+              "newlyVisibleTarget": false
+            },
+            "visual--fullbody--neutral--back": {
+              "pixel": [
+                374,
+                176
+              ],
+              "targetIsNearestSkin": true,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            },
+            "visual--fullbody--neutral--front": {
+              "pixel": [
+                346,
+                182
+              ],
+              "targetIsNearestSkin": true,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            },
+            "visual--fullbody--side--profile": {
+              "pixel": [
+                383,
+                181
+              ],
+              "targetIsNearestSkin": true,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            }
+          }
+        },
+        {
+          "sourceTriangle": 9301,
+          "candidateMarginMm": -0.11189382147051982,
+          "sourceJacketAgainstSameSkinMm": -0.11189382147051982,
+          "wasInBaselineCore": true,
+          "baselineJacketAgainstSameSkinMm": 2.5392913171102953,
+          "occlusionBySkinAndJacket": {
+            "neutral--idle--back--lod2": {
+              "pixel": [
+                403,
+                539
+              ],
+              "targetIsNearestSkin": true,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            },
+            "visual--closeup--neutral--profile": {
+              "pixel": [
+                457,
+                515
+              ],
+              "targetIsNearestSkin": false,
+              "sourcePixelWinner": "skin2",
+              "oldWinner": "skin2",
+              "newWinner": "skin2",
+              "sourceWinner": "skin2",
+              "oldPixelWinner": "skin2",
+              "newPixelWinner": "skin2",
+              "newlyVisibleTarget": false
+            },
+            "visual--fullbody--neutral--back": {
+              "pixel": [
+                370,
+                176
+              ],
+              "targetIsNearestSkin": true,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            },
+            "visual--fullbody--neutral--front": {
+              "pixel": [
+                350,
+                183
+              ],
+              "targetIsNearestSkin": true,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            },
+            "visual--fullbody--side--profile": {
+              "pixel": [
+                385,
+                181
+              ],
+              "targetIsNearestSkin": false,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            }
+          }
+        },
+        {
+          "sourceTriangle": 9309,
+          "candidateMarginMm": -0.08071589158420735,
+          "sourceJacketAgainstSameSkinMm": -0.08071589158420735,
+          "wasInBaselineCore": false,
+          "baselineJacketAgainstSameSkinMm": null,
+          "occlusionBySkinAndJacket": {
+            "neutral--idle--back--lod2": {
+              "pixel": [
+                265,
+                524
+              ],
+              "targetIsNearestSkin": true,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "skin2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            },
+            "visual--closeup--neutral--profile": {
+              "pixel": [
+                380,
+                537
+              ],
+              "targetIsNearestSkin": true,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            },
+            "visual--fullbody--neutral--back": {
+              "pixel": [
+                335,
+                178
+              ],
+              "targetIsNearestSkin": false,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            },
+            "visual--fullbody--neutral--front": {
+              "pixel": [
+                383,
+                180
+              ],
+              "targetIsNearestSkin": false,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            },
+            "visual--fullbody--side--profile": {
+              "pixel": [
+                364,
+                176
+              ],
+              "targetIsNearestSkin": true,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            }
+          }
+        },
+        {
+          "sourceTriangle": 9334,
+          "candidateMarginMm": -0.30929897930048084,
+          "sourceJacketAgainstSameSkinMm": -0.30929897930048084,
+          "wasInBaselineCore": true,
+          "baselineJacketAgainstSameSkinMm": 1.5539403824869564,
+          "occlusionBySkinAndJacket": {
+            "neutral--idle--back--lod2": {
+              "pixel": [
+                291,
+                536
+              ],
+              "targetIsNearestSkin": true,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            },
+            "visual--closeup--neutral--profile": {
+              "pixel": [
+                449,
+                532
+              ],
+              "targetIsNearestSkin": true,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            },
+            "visual--fullbody--neutral--back": {
+              "pixel": [
+                343,
+                176
+              ],
+              "targetIsNearestSkin": true,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            },
+            "visual--fullbody--neutral--front": {
+              "pixel": [
+                376,
+                182
+              ],
+              "targetIsNearestSkin": false,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            },
+            "visual--fullbody--side--profile": {
+              "pixel": [
+                382,
+                177
+              ],
+              "targetIsNearestSkin": true,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            }
+          }
+        },
+        {
+          "sourceTriangle": 9336,
+          "candidateMarginMm": -0.2212425128638511,
+          "sourceJacketAgainstSameSkinMm": -0.2212425128638511,
+          "wasInBaselineCore": true,
+          "baselineJacketAgainstSameSkinMm": 2.918228937825164,
+          "occlusionBySkinAndJacket": {
+            "neutral--idle--back--lod2": {
+              "pixel": [
+                306,
+                538
+              ],
+              "targetIsNearestSkin": true,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            },
+            "visual--closeup--neutral--profile": {
+              "pixel": [
+                459,
+                529
+              ],
+              "targetIsNearestSkin": true,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            },
+            "visual--fullbody--neutral--back": {
+              "pixel": [
+                346,
+                176
+              ],
+              "targetIsNearestSkin": true,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            },
+            "visual--fullbody--neutral--front": {
+              "pixel": [
+                372,
+                182
+              ],
+              "targetIsNearestSkin": true,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            },
+            "visual--fullbody--side--profile": {
+              "pixel": [
+                384,
+                178
+              ],
+              "targetIsNearestSkin": true,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            }
+          }
+        },
+        {
+          "sourceTriangle": 9352,
+          "candidateMarginMm": -0.09556564591441076,
+          "sourceJacketAgainstSameSkinMm": -0.09556564591441076,
+          "wasInBaselineCore": true,
+          "baselineJacketAgainstSameSkinMm": 2.233750788779789,
+          "occlusionBySkinAndJacket": {
+            "neutral--idle--back--lod2": {
+              "pixel": [
+                322,
+                540
+              ],
+              "targetIsNearestSkin": true,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "skin2",
+              "sourceWinner": "skin2",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": true
+            },
+            "visual--closeup--neutral--profile": {
+              "pixel": [
+                465,
+                527
+              ],
+              "targetIsNearestSkin": true,
+              "sourcePixelWinner": "skin2",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "skin2",
+              "newlyVisibleTarget": false
+            },
+            "visual--fullbody--neutral--back": {
+              "pixel": [
+                350,
+                176
+              ],
+              "targetIsNearestSkin": true,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            },
+            "visual--fullbody--neutral--front": {
+              "pixel": [
+                368,
+                183
+              ],
+              "targetIsNearestSkin": true,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            },
+            "visual--fullbody--side--profile": {
+              "pixel": [
+                386,
+                178
+              ],
+              "targetIsNearestSkin": true,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            }
+          }
+        }
+      ]
+    },
+    "light/neck-left": {
+      "source": 356,
+      "candidate": 356,
+      "lost": [],
+      "extra": [],
+      "skinDiagnostic": {
+        "tested": 356,
+        "unknown": 38,
+        "negative": 4,
+        "minimumMm": -0.12225904822077532
+      },
+      "priorCoreSize": 290,
+      "priorCoreInCandidate": 290,
+      "priorCoreBefore": {
+        "tested": 290,
+        "unknown": 38,
+        "negative": 1,
+        "minimumMm": -0.011387055719588752
+      },
+      "priorCoreAfter": {
+        "tested": 290,
+        "unknown": 38,
+        "negative": 3,
+        "minimumMm": -0.12225904822077532
+      },
+      "negativeRecords": [
+        {
+          "sourceTriangle": 9268,
+          "candidateMarginMm": -0.12225904822077532,
+          "sourceJacketAgainstSameSkinMm": -0.12225904822077532,
+          "wasInBaselineCore": true,
+          "baselineJacketAgainstSameSkinMm": 4.335935073173981,
+          "occlusionBySkinAndJacket": {
+            "neutral--idle--back--lod2": {
+              "pixel": [
+                459,
+                523
+              ],
+              "targetIsNearestSkin": false,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            },
+            "visual--closeup--neutral--profile": {
+              "pixel": [
+                374,
+                506
+              ],
+              "targetIsNearestSkin": false,
+              "sourcePixelWinner": "skin2",
+              "oldWinner": "skin2",
+              "newWinner": "skin2",
+              "sourceWinner": "skin2",
+              "oldPixelWinner": "skin2",
+              "newPixelWinner": "skin2",
+              "newlyVisibleTarget": false
+            },
+            "visual--fullbody--neutral--back": {
+              "pixel": [
+                385,
+                179
+              ],
+              "targetIsNearestSkin": false,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            },
+            "visual--fullbody--neutral--front": {
+              "pixel": [
+                334,
+                180
+              ],
+              "targetIsNearestSkin": false,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            },
+            "visual--fullbody--side--profile": {
+              "pixel": [
+                363,
+                182
+              ],
+              "targetIsNearestSkin": true,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            }
+          }
+        },
+        {
+          "sourceTriangle": 9321,
+          "candidateMarginMm": -0.06120802185426792,
+          "sourceJacketAgainstSameSkinMm": -0.06120802185426792,
+          "wasInBaselineCore": true,
+          "baselineJacketAgainstSameSkinMm": 3.832975646241301,
+          "occlusionBySkinAndJacket": {
+            "neutral--idle--back--lod2": {
+              "pixel": [
+                277,
+                531
+              ],
+              "targetIsNearestSkin": true,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            },
+            "visual--closeup--neutral--profile": {
+              "pixel": [
+                424,
+                534
+              ],
+              "targetIsNearestSkin": true,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            },
+            "visual--fullbody--neutral--back": {
+              "pixel": [
+                339,
+                177
+              ],
+              "targetIsNearestSkin": true,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            },
+            "visual--fullbody--neutral--front": {
+              "pixel": [
+                380,
+                181
+              ],
+              "targetIsNearestSkin": false,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            },
+            "visual--fullbody--side--profile": {
+              "pixel": [
+                375,
+                176
+              ],
+              "targetIsNearestSkin": true,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            }
+          }
+        },
+        {
+          "sourceTriangle": 9331,
+          "candidateMarginMm": -0.04574049676152229,
+          "sourceJacketAgainstSameSkinMm": -0.04574049676152229,
+          "wasInBaselineCore": true,
+          "baselineJacketAgainstSameSkinMm": 3.4741554375926977,
+          "occlusionBySkinAndJacket": {
+            "neutral--idle--back--lod2": {
+              "pixel": [
+                297,
+                536
+              ],
+              "targetIsNearestSkin": true,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            },
+            "visual--closeup--neutral--profile": {
+              "pixel": [
+                451,
+                531
+              ],
+              "targetIsNearestSkin": true,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            },
+            "visual--fullbody--neutral--back": {
+              "pixel": [
+                344,
+                176
+              ],
+              "targetIsNearestSkin": true,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            },
+            "visual--fullbody--neutral--front": {
+              "pixel": [
+                374,
+                182
+              ],
+              "targetIsNearestSkin": true,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            },
+            "visual--fullbody--side--profile": {
+              "pixel": [
+                382,
+                177
+              ],
+              "targetIsNearestSkin": true,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            }
+          }
+        },
+        {
+          "sourceTriangle": 9338,
+          "candidateMarginMm": -0.11573663582378664,
+          "sourceJacketAgainstSameSkinMm": -0.11573663582378664,
+          "wasInBaselineCore": false,
+          "baselineJacketAgainstSameSkinMm": null,
+          "occlusionBySkinAndJacket": {
+            "neutral--idle--back--lod2": {
+              "pixel": [
+                384,
+                537
+              ],
+              "targetIsNearestSkin": true,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "skin2",
+              "newWinner": "skin2",
+              "sourceWinner": "skin2",
+              "oldPixelWinner": "skin2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            },
+            "visual--closeup--neutral--profile": {
+              "pixel": [
+                463,
+                515
+              ],
+              "targetIsNearestSkin": false,
+              "sourcePixelWinner": "skin2",
+              "oldWinner": "skin2",
+              "newWinner": "skin2",
+              "sourceWinner": "skin2",
+              "oldPixelWinner": "skin2",
+              "newPixelWinner": "skin2",
+              "newlyVisibleTarget": false
+            },
+            "visual--fullbody--neutral--back": {
+              "pixel": [
+                365,
+                175
+              ],
+              "targetIsNearestSkin": true,
+              "sourcePixelWinner": "skin2",
+              "oldWinner": "skin2",
+              "newWinner": "skin2",
+              "sourceWinner": "skin2",
+              "oldPixelWinner": "skin2",
+              "newPixelWinner": "skin2",
+              "newlyVisibleTarget": false
+            },
+            "visual--fullbody--neutral--front": {
+              "pixel": [
+                354,
+                182
+              ],
+              "targetIsNearestSkin": true,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            },
+            "visual--fullbody--side--profile": {
+              "pixel": [
+                387,
+                179
+              ],
+              "targetIsNearestSkin": false,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            }
+          }
+        }
+      ]
+    },
+    "light/neck-right": {
+      "source": 354,
+      "candidate": 354,
+      "lost": [],
+      "extra": [],
+      "skinDiagnostic": {
+        "tested": 354,
+        "unknown": 38,
+        "negative": 5,
+        "minimumMm": -0.49647422231752747
+      },
+      "priorCoreSize": 292,
+      "priorCoreInCandidate": 292,
+      "priorCoreBefore": {
+        "tested": 292,
+        "unknown": 38,
+        "negative": 1,
+        "minimumMm": -0.19592918359185582
+      },
+      "priorCoreAfter": {
+        "tested": 292,
+        "unknown": 38,
+        "negative": 5,
+        "minimumMm": -0.49647422231752747
+      },
+      "negativeRecords": [
+        {
+          "sourceTriangle": 9280,
+          "candidateMarginMm": -0.0635351407504529,
+          "sourceJacketAgainstSameSkinMm": -0.0635351407504529,
+          "wasInBaselineCore": true,
+          "baselineJacketAgainstSameSkinMm": 3.802361703864489,
+          "occlusionBySkinAndJacket": {
+            "neutral--idle--back--lod2": {
+              "pixel": [
+                419,
+                537
+              ],
+              "targetIsNearestSkin": true,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            },
+            "visual--closeup--neutral--profile": {
+              "pixel": [
+                445,
+                513
+              ],
+              "targetIsNearestSkin": false,
+              "sourcePixelWinner": "skin2",
+              "oldWinner": "skin2",
+              "newWinner": "skin2",
+              "sourceWinner": "skin2",
+              "oldPixelWinner": "skin2",
+              "newPixelWinner": "skin2",
+              "newlyVisibleTarget": false
+            },
+            "visual--fullbody--neutral--back": {
+              "pixel": [
+                374,
+                176
+              ],
+              "targetIsNearestSkin": true,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            },
+            "visual--fullbody--neutral--front": {
+              "pixel": [
+                346,
+                182
+              ],
+              "targetIsNearestSkin": true,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            },
+            "visual--fullbody--side--profile": {
+              "pixel": [
+                382,
+                181
+              ],
+              "targetIsNearestSkin": false,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            }
+          }
+        },
+        {
+          "sourceTriangle": 9327,
+          "candidateMarginMm": -0.10148094205691494,
+          "sourceJacketAgainstSameSkinMm": -0.10148094205691494,
+          "wasInBaselineCore": true,
+          "baselineJacketAgainstSameSkinMm": 4.171626417242746,
+          "occlusionBySkinAndJacket": {
+            "neutral--idle--back--lod2": {
+              "pixel": [
+                259,
+                524
+              ],
+              "targetIsNearestSkin": true,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            },
+            "visual--closeup--neutral--profile": {
+              "pixel": [
+                381,
+                538
+              ],
+              "targetIsNearestSkin": true,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            },
+            "visual--fullbody--neutral--back": {
+              "pixel": [
+                334,
+                178
+              ],
+              "targetIsNearestSkin": false,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            },
+            "visual--fullbody--neutral--front": {
+              "pixel": [
+                385,
+                180
+              ],
+              "targetIsNearestSkin": false,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            },
+            "visual--fullbody--side--profile": {
+              "pixel": [
+                365,
+                176
+              ],
+              "targetIsNearestSkin": true,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            }
+          }
+        },
+        {
+          "sourceTriangle": 9333,
+          "candidateMarginMm": -0.17082139654667378,
+          "sourceJacketAgainstSameSkinMm": -0.17082139654667378,
+          "wasInBaselineCore": true,
+          "baselineJacketAgainstSameSkinMm": 3.794364270157153,
+          "occlusionBySkinAndJacket": {
+            "neutral--idle--back--lod2": {
+              "pixel": [
+                264,
+                530
+              ],
+              "targetIsNearestSkin": true,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            },
+            "visual--closeup--neutral--profile": {
+              "pixel": [
+                419,
+                537
+              ],
+              "targetIsNearestSkin": true,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            },
+            "visual--fullbody--neutral--back": {
+              "pixel": [
+                336,
+                177
+              ],
+              "targetIsNearestSkin": true,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            },
+            "visual--fullbody--neutral--front": {
+              "pixel": [
+                383,
+                181
+              ],
+              "targetIsNearestSkin": false,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            },
+            "visual--fullbody--side--profile": {
+              "pixel": [
+                374,
+                176
+              ],
+              "targetIsNearestSkin": true,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            }
+          }
+        },
+        {
+          "sourceTriangle": 9335,
+          "candidateMarginMm": -0.49647422231752747,
+          "sourceJacketAgainstSameSkinMm": -0.49647422231752747,
+          "wasInBaselineCore": true,
+          "baselineJacketAgainstSameSkinMm": -0.19592918359185582,
+          "occlusionBySkinAndJacket": {
+            "neutral--idle--back--lod2": {
+              "pixel": [
+                268,
+                528
+              ],
+              "targetIsNearestSkin": true,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            },
+            "visual--closeup--neutral--profile": {
+              "pixel": [
+                423,
+                533
+              ],
+              "targetIsNearestSkin": true,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "skin2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            },
+            "visual--fullbody--neutral--back": {
+              "pixel": [
+                337,
+                176
+              ],
+              "targetIsNearestSkin": true,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            },
+            "visual--fullbody--neutral--front": {
+              "pixel": [
+                382,
+                180
+              ],
+              "targetIsNearestSkin": false,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            },
+            "visual--fullbody--side--profile": {
+              "pixel": [
+                375,
+                175
+              ],
+              "targetIsNearestSkin": true,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            }
+          }
+        },
+        {
+          "sourceTriangle": 9352,
+          "candidateMarginMm": -0.050738488466590674,
+          "sourceJacketAgainstSameSkinMm": -0.050738488466590674,
+          "wasInBaselineCore": true,
+          "baselineJacketAgainstSameSkinMm": 1.6636261728047093,
+          "occlusionBySkinAndJacket": {
+            "neutral--idle--back--lod2": {
+              "pixel": [
+                293,
+                536
+              ],
+              "targetIsNearestSkin": true,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "skin2",
+              "sourceWinner": "skin2",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": true
+            },
+            "visual--closeup--neutral--profile": {
+              "pixel": [
+                454,
+                531
+              ],
+              "targetIsNearestSkin": true,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "skin2",
+              "sourceWinner": "skin2",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": true
+            },
+            "visual--fullbody--neutral--back": {
+              "pixel": [
+                343,
+                176
+              ],
+              "targetIsNearestSkin": true,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "skin2",
+              "sourceWinner": "skin2",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": true
+            },
+            "visual--fullbody--neutral--front": {
+              "pixel": [
+                375,
+                182
+              ],
+              "targetIsNearestSkin": true,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            },
+            "visual--fullbody--side--profile": {
+              "pixel": [
+                383,
+                177
+              ],
+              "targetIsNearestSkin": true,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            }
+          }
+        }
+      ]
+    },
+    "robust/idle": {
+      "source": 408,
+      "candidate": 408,
+      "lost": [],
+      "extra": [],
+      "skinDiagnostic": {
+        "tested": 408,
+        "unknown": 43,
+        "negative": 0,
+        "minimumMm": 0.007521223622300349
+      },
+      "priorCoreSize": 310,
+      "priorCoreInCandidate": 310,
+      "priorCoreBefore": {
+        "tested": 310,
+        "unknown": 43,
+        "negative": 0,
+        "minimumMm": 0.17425537637508762
+      },
+      "priorCoreAfter": {
+        "tested": 310,
+        "unknown": 43,
+        "negative": 0,
+        "minimumMm": 0.042731172538847555
+      },
+      "negativeRecords": []
+    },
+    "robust/neck-left": {
+      "source": 396,
+      "candidate": 396,
+      "lost": [],
+      "extra": [],
+      "skinDiagnostic": {
+        "tested": 396,
+        "unknown": 43,
+        "negative": 0,
+        "minimumMm": 0.14267507337879798
+      },
+      "priorCoreSize": 322,
+      "priorCoreInCandidate": 322,
+      "priorCoreBefore": {
+        "tested": 322,
+        "unknown": 43,
+        "negative": 0,
+        "minimumMm": 0.36147634475588236
+      },
+      "priorCoreAfter": {
+        "tested": 322,
+        "unknown": 43,
+        "negative": 0,
+        "minimumMm": 0.2604922068036515
+      },
+      "negativeRecords": []
+    },
+    "robust/neck-right": {
+      "source": 395,
+      "candidate": 395,
+      "lost": [],
+      "extra": [],
+      "skinDiagnostic": {
+        "tested": 395,
+        "unknown": 43,
+        "negative": 1,
+        "minimumMm": -0.034423610931449654
+      },
+      "priorCoreSize": 320,
+      "priorCoreInCandidate": 320,
+      "priorCoreBefore": {
+        "tested": 320,
+        "unknown": 43,
+        "negative": 1,
+        "minimumMm": -0.007299339565429878
+      },
+      "priorCoreAfter": {
+        "tested": 320,
+        "unknown": 43,
+        "negative": 1,
+        "minimumMm": -0.034423610931449654
+      },
+      "negativeRecords": [
+        {
+          "sourceTriangle": 9319,
+          "candidateMarginMm": -0.034423610931449654,
+          "sourceJacketAgainstSameSkinMm": -0.034423610931449654,
+          "wasInBaselineCore": true,
+          "baselineJacketAgainstSameSkinMm": 0.7852054718493291,
+          "occlusionBySkinAndJacket": {
+            "neutral--idle--back--lod2": {
+              "pixel": [
+                256,
+                520
+              ],
+              "targetIsNearestSkin": false,
+              "sourcePixelWinner": "skin2",
+              "oldWinner": "skin2",
+              "newWinner": "skin2",
+              "sourceWinner": "skin2",
+              "oldPixelWinner": "skin2",
+              "newPixelWinner": "skin2",
+              "newlyVisibleTarget": false
+            },
+            "visual--closeup--neutral--profile": {
+              "pixel": [
+                344,
+                541
+              ],
+              "targetIsNearestSkin": true,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            },
+            "visual--fullbody--neutral--back": {
+              "pixel": [
+                332,
+                180
+              ],
+              "targetIsNearestSkin": false,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            },
+            "visual--fullbody--neutral--front": {
+              "pixel": [
+                387,
+                179
+              ],
+              "targetIsNearestSkin": true,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            },
+            "visual--fullbody--side--profile": {
+              "pixel": [
+                356,
+                176
+              ],
+              "targetIsNearestSkin": true,
+              "sourcePixelWinner": "sourceJacket0",
+              "oldWinner": "oldJacket2",
+              "newWinner": "jacket1",
+              "sourceWinner": "sourceJacket0",
+              "oldPixelWinner": "oldJacket2",
+              "newPixelWinner": "jacket1",
+              "newlyVisibleTarget": false
+            }
+          }
+        }
+      ]
+    },
+    "extreme/idle": {
+      "source": 433,
+      "candidate": 433,
+      "lost": [],
+      "extra": [],
+      "skinDiagnostic": {
+        "tested": 433,
+        "unknown": 44,
+        "negative": 0,
+        "minimumMm": 0.3479529701231509
+      },
+      "priorCoreSize": 370,
+      "priorCoreInCandidate": 370,
+      "priorCoreBefore": {
+        "tested": 370,
+        "unknown": 43,
+        "negative": 0,
+        "minimumMm": 0.17447938583807363
+      },
+      "priorCoreAfter": {
+        "tested": 370,
+        "unknown": 43,
+        "negative": 0,
+        "minimumMm": 0.3479529701231509
+      },
+      "negativeRecords": []
+    },
+    "extreme/neck-left": {
+      "source": 410,
+      "candidate": 410,
+      "lost": [],
+      "extra": [],
+      "skinDiagnostic": {
+        "tested": 410,
+        "unknown": 44,
+        "negative": 0,
+        "minimumMm": 0.3084696953798242
+      },
+      "priorCoreSize": 354,
+      "priorCoreInCandidate": 354,
+      "priorCoreBefore": {
+        "tested": 354,
+        "unknown": 43,
+        "negative": 0,
+        "minimumMm": 0.20564283385288717
+      },
+      "priorCoreAfter": {
+        "tested": 354,
+        "unknown": 43,
+        "negative": 0,
+        "minimumMm": 0.3084696953798242
+      },
+      "negativeRecords": []
+    },
+    "extreme/neck-right": {
+      "source": 411,
+      "candidate": 411,
+      "lost": [],
+      "extra": [],
+      "skinDiagnostic": {
+        "tested": 411,
+        "unknown": 44,
+        "negative": 0,
+        "minimumMm": 0.33463783916908146
+      },
+      "priorCoreSize": 347,
+      "priorCoreInCandidate": 347,
+      "priorCoreBefore": {
+        "tested": 347,
+        "unknown": 43,
+        "negative": 1,
+        "minimumMm": -0.04632983783153334
+      },
+      "priorCoreAfter": {
+        "tested": 347,
+        "unknown": 43,
+        "negative": 0,
+        "minimumMm": 0.33463783916908146
+      },
+      "negativeRecords": []
+    }
+  },
+  "historicalRays": [
+    {
+      "camera": "backCloseup",
+      "pixel": [
+        267,
+        547
+      ],
+      "candidateLeadMm": 28.61997176749176
+    },
+    {
+      "camera": "profileCloseup",
+      "pixel": [
+        447,
+        548
+      ],
+      "candidateLeadMm": 43.77163322956601
+    }
+  ],
+  "residualGates": [
+    {
+      "condition": "light/idle",
+      "camera": "profileCloseup",
+      "pixel": [
+        465,
+        527
+      ],
+      "sourceTriangle": 9352,
+      "expectedWinner": "skin",
+      "candidateLeadMm": -0.7868047847853221,
+      "sourceJacketLeadAgainstLOD2SkinMm": -0.7868047847853221
+    },
+    {
+      "condition": "light/neck-right",
+      "camera": "backCloseup",
+      "pixel": [
+        293,
+        536
+      ],
+      "sourceTriangle": 9352,
+      "expectedWinner": "jacket",
+      "candidateLeadMm": 0.028305184945676132,
+      "sourceJacketLeadAgainstLOD2SkinMm": 0.028305184945676132
+    }
+  ],
+  "anchor9216": [
+    {
+      "condition": "neutral/idle",
+      "camera": "backCloseup",
+      "sourceTriangle": 9216,
+      "pixel": [
+        263,
+        524
+      ],
+      "beforeLeadMm": -37.94090988008614,
+      "candidateLeadMm": 20.79766689606066,
+      "sourceJacketLeadAgainstLOD2SkinMm": 20.79766689606066
+    },
+    {
+      "condition": "neutral/idle",
+      "camera": "profileCloseup",
+      "sourceTriangle": 9216,
+      "pixel": [
+        406,
+        533
+      ],
+      "beforeLeadMm": -105.2949477639663,
+      "candidateLeadMm": 18.453466309626187,
+      "sourceJacketLeadAgainstLOD2SkinMm": 18.453466309626187
+    }
+  ],
+  "residualPixelCenters": [
+    {
+      "condition": "light/idle",
+      "view": "profile",
+      "pixel": [
+        465,
+        527
+      ],
+      "jacketLeadAgainstSameSkinMm": {
+        "old": 8.592325874180794,
+        "new": -0.7868047847853221,
+        "source": -0.7868047847853221
+      },
+      "rgb": {
+        "before": [
+          46,
+          104,
+          117
+        ],
+        "after": [
+          77,
+          123,
+          129
+        ]
+      },
+      "pngSha256": {
+        "before": "7d3ea7505b8cc5fe8479cd05a90334c5d9518e992d4b15fc3aabd66c50755456",
+        "after": "8f2ea0e5198ba7bc1ea73217b360d139fffa02511a93983ea32c0b7c80530cad"
+      }
+    },
+    {
+      "condition": "light/neck-right",
+      "view": "back",
+      "pixel": [
+        293,
+        536
+      ],
+      "jacketLeadAgainstSameSkinMm": {
+        "old": 2.9705578479329864,
+        "new": 0.028305184945676132,
+        "source": 0.028305184945676132
+      },
+      "rgb": {
+        "before": [
+          30,
+          90,
+          104
+        ],
+        "after": [
+          123,
+          138,
+          129
+        ]
+      },
+      "pngSha256": {
+        "before": "211b3f281349172cb11bb0aec10181ec9228044f1472f307d7811d86d8512549",
+        "after": "3309b229f7a9f47fb1c0ebe4b5dcd8b82ab3253947ebb55efab36449b293fda0"
+      }
+    }
+  ],
+  "environment": {
+    "browser": "156.0.8078.79",
+    "headless": true,
+    "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+    "viewport": [
+      720,
+      720
+    ],
+    "drawingBuffer": [
+      634,
+      634
+    ],
+    "quality": "balanced"
+  },
+  "gallery": {
+    "posterior": {
+      "antes": {
+        "file": "antes-posterior.png",
+        "case": "neutral--idle--back--lod2",
+        "sha256": "ac6d360bb5f00522ca9eec6f0732359a146223ef6d8931bc7c74bec05dff1585"
+      },
+      "despues": {
+        "file": "despues-posterior.png",
+        "case": "neutral--idle--back--lod2",
+        "sha256": "36fe2e4870d803e0669724b7f0983f29f92ce60bb46d617268a89602686904cd"
+      }
+    },
+    "perfil": {
+      "antes": {
+        "file": "antes-perfil.png",
+        "case": "visual--closeup--neutral--profile",
+        "sha256": "521f53161dc388490ff1361b591ddc2e89cff9e08fc7f06c885583c664d86724"
+      },
+      "despues": {
+        "file": "despues-perfil.png",
+        "case": "visual--closeup--neutral--profile",
+        "sha256": "6cb065cc4f89169f67e5a6d2878613f2c645acd41f03a02681abff8667dd5284"
+      }
+    },
+    "cuerpo": {
+      "antes": {
+        "file": "antes-cuerpo.png",
+        "case": "visual--fullbody--side--front",
+        "sha256": "b750e6f190bb95c5e57a0950c0561e62bb186fc4671c489b9c9922d2eb9d6937"
+      },
+      "despues": {
+        "file": "despues-cuerpo.png",
+        "case": "visual--fullbody--side--front",
+        "sha256": "018be8ce3f0912bd23dc24c7d324f28bbcfe970f799c5eb885b58951b712e7a8"
+      }
+    }
+  },
+  "limitations": "Finite source-normal probes and two-surface camera rays; skin clearance diagnostics include unknowns. Prepared poses on software WebGL."
+}

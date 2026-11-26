@@ -4,6 +4,9 @@
   constructor(seed=1337){
    this.seed=seed;this.size=840;this.half=420;this.spacing=84;this.buildings=[];this.blocks=[];this.lights=[];this.props=[];this.rand=D.rng(seed);
    this.pois=[{type:'safe',name:'Refugio de Lía',x:-84,z:264},{type:'garage',name:'Taller del Mercado',x:168,z:96},{type:'garage',name:'Mecánica del Muelle',x:-252,z:-72},{type:'job',name:'Encargos de mensajería',x:0,z:-72},{type:'race',name:'Circuito nocturno',x:-168,z:12},{type:'terminal',name:'Terminal Vértice',x:252,z:-72},{type:'safe',name:'Muelle de los Olvidos',x:-252,z:-156}];
+   this.shelters=[{x:-13.5,z:58,yaw:Math.PI/2},{x:154.5,z:130,yaw:Math.PI/2}];
+   // Both fronts face +X. Only the bench/back frame occupies pedestrian space.
+   this.shelterBenches=this.shelters.map(s=>({x:s.x-.445,z:s.z,w:.71,d:2.33,h:.68}));
    const r=this.rand;
    for(let ix=-5;ix<5;ix++)for(let iz=-5;iz<5;iz++){
     const cx=(ix+.5)*84,cz=(iz+.5)*84,park=(ix===-2&&iz===0)||(ix===1&&iz===-3);
@@ -14,7 +17,15 @@
      const downtown=Math.exp(-((cx-95)**2+(cz+70)**2)/90000);
      let h=9+Math.pow(r(),1.5)*45+downtown*26,style=Math.floor(r()*4),tone=r();
      if(r()<.08)h+=30;
-     this.buildings.push({x,z,w,d,h,style,tone,seed:r()*500,sign:Math.floor(r()*12)});
+     const parcel={x,z,w,d,h,style,tone,seed:r()*500,sign:Math.floor(r()*12)};
+     if(ix===2&&iz===1&&a===0&&b===0){
+      // Keep the original west/north lot edges and the mission trigger on the street.
+      const width=8.5286,depth=6.5325;
+      Object.assign(parcel,{x:x-w/2+width/2,z:z-d/2+depth/2,w:width,d:depth,h:6.5,
+                            yaw:-Math.PI/2,landmark:'taller'});
+      this.workshop=parcel;
+     }
+     this.buildings.push(parcel);
     }
    }
    for(let n=-5;n<=5;n++)for(let j=-5;j<5;j++){
@@ -29,7 +40,7 @@
     this.crates.push({x:ix*84+13,z:iz*84+30+r()*24,id:i});
    }
   }
-  nearby(x,z,r=10){return this.buildings.filter(b=>Math.abs(b.x-x)<b.w/2+r&&Math.abs(b.z-z)<b.d/2+r);}
+  nearby(x,z,r=10){return this.buildings.concat(this.shelterBenches).filter(b=>Math.abs(b.x-x)<b.w/2+r&&Math.abs(b.z-z)<b.d/2+r);}
   blocked(x,z,r=.5){return Math.abs(x)>this.half+8||Math.abs(z)>this.half+8||this.nearby(x,z,r).some(b=>D.circleBox(x,z,r,b));}
   move(x,z,dx,dz,r){let p=D.moveCircle(x,z,dx,dz,r,this.nearby(x,z,Math.hypot(dx,dz)+r));p.x=D.clamp(p.x,-426+r,426-r);p.z=D.clamp(p.z,-426+r,426-r);return p;}
   visible(ax,az,bx,bz){return !this.buildings.some(b=>D.segmentBox(ax,az,bx,bz,b,.1));}

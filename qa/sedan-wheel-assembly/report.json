@@ -1,0 +1,737 @@
+{
+  "browser": "156.0.8078.79",
+  "before": {
+    "html": "8e7a5b44624e52ad28c21fba272cb813a6b6f76aa5a3c1fffb2baebf5d464ec8",
+    "scene": {
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "size": [
+        704,
+        440
+      ],
+      "eye": [
+        -5.4,
+        2.2,
+        3.1
+      ],
+      "target": [
+        -0.65,
+        0.86,
+        -0.1
+      ],
+      "fov": 0.54
+    },
+    "frames": {
+      "car": {
+        "pose": {
+          "eye": [
+            -5.8,
+            2.18,
+            4.3
+          ],
+          "target": [
+            0,
+            0.72,
+            0
+          ],
+          "fov": 0.48,
+          "steer": 0.0,
+          "spin": 0.0,
+          "tilt": false,
+          "distance": 2
+        },
+        "pieces": {
+          "tire": 4,
+          "rim": 4,
+          "wheel": 8,
+          "body": 20
+        },
+        "triangleInstances": 5936,
+        "sha256": "e005d0751b3d92cd8b97a6f0d7b34a30764a61eb5015c5e3ced26ae56f010233",
+        "visibleAssembly": {
+          "pixels": 20736,
+          "bounds": [
+            129,
+            243,
+            558,
+            431
+          ]
+        }
+      },
+      "front-rest": {
+        "pose": {
+          "eye": [
+            -2.82,
+            0.97,
+            2.42
+          ],
+          "target": [
+            -0.94,
+            0.405,
+            1.36
+          ],
+          "fov": 0.56,
+          "steer": 0,
+          "spin": 0,
+          "tilt": false,
+          "distance": 2
+        },
+        "pieces": {
+          "tire": 4,
+          "rim": 4,
+          "wheel": 8,
+          "body": 20
+        },
+        "triangleInstances": 5936,
+        "sha256": "cdf33646680f64af5fdfa3bc9c51c84b8855435ccb3d76d3ed0460daa2dcea0c"
+      },
+      "front-left": {
+        "pose": {
+          "eye": [
+            -2.82,
+            0.97,
+            2.42
+          ],
+          "target": [
+            -0.94,
+            0.405,
+            1.36
+          ],
+          "fov": 0.56,
+          "steer": -0.42,
+          "spin": 0.7,
+          "tilt": false,
+          "distance": 2
+        },
+        "pieces": {
+          "tire": 4,
+          "rim": 4,
+          "wheel": 8,
+          "body": 20
+        },
+        "triangleInstances": 5936,
+        "sha256": "495e6d57b88f7fe17330a2a391fad6900f3280bade2cf1c84112838e58eebf1c"
+      },
+      "front-right": {
+        "pose": {
+          "eye": [
+            -2.82,
+            0.97,
+            2.42
+          ],
+          "target": [
+            -0.94,
+            0.405,
+            1.36
+          ],
+          "fov": 0.56,
+          "steer": 0.42,
+          "spin": 1.35,
+          "tilt": false,
+          "distance": 2
+        },
+        "pieces": {
+          "tire": 4,
+          "rim": 4,
+          "wheel": 8,
+          "body": 20
+        },
+        "triangleInstances": 5936,
+        "sha256": "a7856d2a522261effac47563ae9321b600b1f5c1c2a60fd30ebef758cc177d93",
+        "visibleAssembly": {
+          "pixels": 65555,
+          "bounds": [
+            256,
+            118,
+            549,
+            406
+          ]
+        }
+      },
+      "rear-tilted": {
+        "pose": {
+          "eye": [
+            2.68,
+            1.04,
+            -2.51
+          ],
+          "target": [
+            0.94,
+            0.405,
+            -1.39
+          ],
+          "fov": 0.56,
+          "steer": 0.42,
+          "spin": 1.35,
+          "tilt": true,
+          "distance": 2
+        },
+        "pieces": {
+          "tire": 4,
+          "rim": 4,
+          "wheel": 8,
+          "body": 20
+        },
+        "triangleInstances": 5936,
+        "sha256": "133cacb03ab3f1457d3165fd90c9217ec9c28a4ea424bc91e18f53bdb2b494c6",
+        "visibleAssembly": {
+          "pixels": 73052,
+          "bounds": [
+            272,
+            85,
+            796,
+            386
+          ]
+        }
+      },
+      "mid": {
+        "pose": {
+          "eye": [
+            -5.8,
+            2.18,
+            4.3
+          ],
+          "target": [
+            0,
+            0.72,
+            0
+          ],
+          "fov": 0.48,
+          "steer": -0.42,
+          "spin": 1.35,
+          "tilt": false,
+          "distance": 28
+        },
+        "pieces": {
+          "tire": 4,
+          "rim": 4,
+          "wheel": 8,
+          "body": 20
+        },
+        "triangleInstances": 5936,
+        "sha256": "8680baa57cb54a29dc02a6af1a50a0dc02f2d763072d43bb561753cad0b55267"
+      },
+      "far": {
+        "pose": {
+          "eye": [
+            -5.8,
+            2.18,
+            4.3
+          ],
+          "target": [
+            0,
+            0.72,
+            0
+          ],
+          "fov": 0.48,
+          "steer": -0.42,
+          "spin": 1.35,
+          "tilt": false,
+          "distance": 68
+        },
+        "pieces": {
+          "wheel": 12
+        },
+        "triangleInstances": 864,
+        "sha256": "f847882c23ae1a0bbcc64e270e9352deff5d4443ebe08399a64da5cbb2e4c93a"
+      }
+    },
+    "driving": [
+      {
+        "input": {
+          "throttle": 1,
+          "steer": 1
+        },
+        "x": -0.00041740110395782707,
+        "z": 0.035952047804084945,
+        "speed": 0.8619874425073029,
+        "spin": 0.09717581767957448,
+        "steer": -0.18949911284050888,
+        "sha256": "e185b27797cccf4fc226b0003c98c5cba4fcf0c9b0aa95174ea0e4f486c41e8a"
+      },
+      {
+        "input": {
+          "throttle": 1,
+          "steer": 1
+        },
+        "x": -0.004606168637345038,
+        "z": 0.12896077943996162,
+        "speed": 1.7165366062787881,
+        "spin": 0.34882613661492456,
+        "steer": -0.29349843099687506,
+        "sha256": "16cfab992e62cb75bea49366bfeb08902470a4a4a3f57f92f34f817dc16a2b12"
+      },
+      {
+        "input": {
+          "throttle": 1,
+          "steer": 1
+        },
+        "x": -0.019815727415180777,
+        "z": 0.2779327900683721,
+        "speed": 2.563711677853404,
+        "spin": 0.7536179624476005,
+        "steer": -0.3505744669469336,
+        "sha256": "dc9daa42b0e8a82638292070f05cb72b6a21a0dec5cf9fd89e3649f866b6ef80"
+      },
+      {
+        "input": {
+          "throttle": 1,
+          "steer": 1
+        },
+        "x": -0.05613034912836733,
+        "z": 0.48059872950263566,
+        "speed": 3.403576289890374,
+        "spin": 1.3102298035198907,
+        "steer": -0.38189845961844676,
+        "sha256": "144c296df807942933a645401d8452d2bbb9390fb4601e0d13a22e533a3baf74"
+      },
+      {
+        "input": {
+          "throttle": 1,
+          "steer": -1
+        },
+        "x": -0.09672788179168786,
+        "z": 0.7390037142785795,
+        "speed": 4.236193525948746,
+        "spin": 2.0173515716154937,
+        "steer": -0.020091205604479356,
+        "sha256": "91b8951f78e25b7197c61fbc2d9da89935b6e5a1258751a389a4b7b4528a652f"
+      },
+      {
+        "input": {
+          "throttle": 1,
+          "steer": -1
+        },
+        "x": -0.1223455430371868,
+        "z": 1.0547429641693593,
+        "speed": 5.061625925225698,
+        "spin": 2.8736844835567217,
+        "steer": 0.17847282542161308,
+        "sha256": "9b12dc15c7a6009d073c0ac61561e504ff9aa74891b2f81ed832864a96807a67"
+      },
+      {
+        "input": {
+          "throttle": 1,
+          "steer": -1
+        },
+        "x": -0.12586215857051955,
+        "z": 1.4262300802640606,
+        "speed": 5.879935487253957,
+        "spin": 3.8779409636508415,
+        "steer": 0.28744707615846793,
+        "sha256": "41d0f2cfcb2ef1c95456fefbfc551ae021d26e3100e74d8e630ecf4754c30fb1"
+      },
+      {
+        "input": {
+          "throttle": 1,
+          "steer": -1
+        },
+        "x": -0.10075326608047412,
+        "z": 1.851248399215048,
+        "speed": 6.69118367655868,
+        "spin": 5.028844546978227,
+        "steer": 0.34725341299748186,
+        "sha256": "1d6523f31e1e5bcdf2488df56bb3880ca53b552a09a825335d5abf73cd7de089"
+      }
+    ]
+  },
+  "after": {
+    "html": "c50786ab2ee9ffac257a13d817fddcd994924be2be1483b6ab1da617d8dc9e25",
+    "scene": {
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "size": [
+        704,
+        440
+      ],
+      "eye": [
+        -5.4,
+        2.2,
+        3.1
+      ],
+      "target": [
+        -0.65,
+        0.86,
+        -0.1
+      ],
+      "fov": 0.54
+    },
+    "frames": {
+      "car": {
+        "pose": {
+          "eye": [
+            -5.8,
+            2.18,
+            4.3
+          ],
+          "target": [
+            0,
+            0.72,
+            0
+          ],
+          "fov": 0.48,
+          "steer": 0.0,
+          "spin": 0.0,
+          "tilt": false,
+          "distance": 2
+        },
+        "pieces": {
+          "tire": 4,
+          "rim": 4,
+          "wheelBrake": 4,
+          "wheelCaliper": 4,
+          "wheelAlloy": 4
+        },
+        "triangleInstances": 8864,
+        "sha256": "71419d949552e6a496ea56c05239654b759ee7e7255b344a2fd1117879579a62",
+        "visibleAssembly": {
+          "pixels": 20653,
+          "bounds": [
+            128,
+            243,
+            558,
+            431
+          ]
+        }
+      },
+      "front-rest": {
+        "pose": {
+          "eye": [
+            -2.82,
+            0.97,
+            2.42
+          ],
+          "target": [
+            -0.94,
+            0.405,
+            1.36
+          ],
+          "fov": 0.56,
+          "steer": 0,
+          "spin": 0,
+          "tilt": false,
+          "distance": 2
+        },
+        "pieces": {
+          "tire": 4,
+          "rim": 4,
+          "wheelBrake": 4,
+          "wheelCaliper": 4,
+          "wheelAlloy": 4
+        },
+        "triangleInstances": 8864,
+        "sha256": "89cc31de17cb45d4a60d3a913daf9ba863b6160c1cd492916f3753bb90b506dc"
+      },
+      "front-left": {
+        "pose": {
+          "eye": [
+            -2.82,
+            0.97,
+            2.42
+          ],
+          "target": [
+            -0.94,
+            0.405,
+            1.36
+          ],
+          "fov": 0.56,
+          "steer": -0.42,
+          "spin": 0.7,
+          "tilt": false,
+          "distance": 2
+        },
+        "pieces": {
+          "tire": 4,
+          "rim": 4,
+          "wheelBrake": 4,
+          "wheelCaliper": 4,
+          "wheelAlloy": 4
+        },
+        "triangleInstances": 8864,
+        "sha256": "215609ce080f79913c410b0fd9522f82527ff3a66cd0efb5de5c96807a29da27"
+      },
+      "front-right": {
+        "pose": {
+          "eye": [
+            -2.82,
+            0.97,
+            2.42
+          ],
+          "target": [
+            -0.94,
+            0.405,
+            1.36
+          ],
+          "fov": 0.56,
+          "steer": 0.42,
+          "spin": 1.35,
+          "tilt": false,
+          "distance": 2
+        },
+        "pieces": {
+          "tire": 4,
+          "rim": 4,
+          "wheelBrake": 4,
+          "wheelCaliper": 4,
+          "wheelAlloy": 4
+        },
+        "triangleInstances": 8864,
+        "sha256": "03b81911cbc474d59f83a6bb1caa42772d373ebc05b1fcb202a832640f2f0c76",
+        "visibleAssembly": {
+          "pixels": 66914,
+          "bounds": [
+            256,
+            118,
+            549,
+            406
+          ]
+        }
+      },
+      "rear-tilted": {
+        "pose": {
+          "eye": [
+            2.68,
+            1.04,
+            -2.51
+          ],
+          "target": [
+            0.94,
+            0.405,
+            -1.39
+          ],
+          "fov": 0.56,
+          "steer": 0.42,
+          "spin": 1.35,
+          "tilt": true,
+          "distance": 2
+        },
+        "pieces": {
+          "tire": 4,
+          "rim": 4,
+          "wheelBrake": 4,
+          "wheelCaliper": 4,
+          "wheelAlloy": 4
+        },
+        "triangleInstances": 8864,
+        "sha256": "5c1f7dd2e7d5854c20c64727be007712e5b769e6d11891599b489c4ecdbb3ba0",
+        "visibleAssembly": {
+          "pixels": 73154,
+          "bounds": [
+            272,
+            85,
+            796,
+            386
+          ]
+        }
+      },
+      "mid": {
+        "pose": {
+          "eye": [
+            -5.8,
+            2.18,
+            4.3
+          ],
+          "target": [
+            0,
+            0.72,
+            0
+          ],
+          "fov": 0.48,
+          "steer": -0.42,
+          "spin": 1.35,
+          "tilt": false,
+          "distance": 28
+        },
+        "pieces": {
+          "tire": 4,
+          "rim": 4,
+          "wheel": 4,
+          "wheelAlloy": 4
+        },
+        "triangleInstances": 6656,
+        "sha256": "3d36254b6b6d925ef1c137301b6a0098f98065465cfed17ae8e6becbe6adbdef"
+      },
+      "far": {
+        "pose": {
+          "eye": [
+            -5.8,
+            2.18,
+            4.3
+          ],
+          "target": [
+            0,
+            0.72,
+            0
+          ],
+          "fov": 0.48,
+          "steer": -0.42,
+          "spin": 1.35,
+          "tilt": false,
+          "distance": 68
+        },
+        "pieces": {
+          "wheel": 12
+        },
+        "triangleInstances": 864,
+        "sha256": "f847882c23ae1a0bbcc64e270e9352deff5d4443ebe08399a64da5cbb2e4c93a"
+      }
+    },
+    "driving": [
+      {
+        "input": {
+          "throttle": 1,
+          "steer": 1
+        },
+        "x": -0.00041740110395782707,
+        "z": 0.035952047804084945,
+        "speed": 0.8619874425073029,
+        "spin": 0.09717581767957448,
+        "steer": -0.18949911284050888,
+        "sha256": "5acaeaa08988cf5e77a7597ffbed1177a19c483f4da867261a8959b3a016af2f"
+      },
+      {
+        "input": {
+          "throttle": 1,
+          "steer": 1
+        },
+        "x": -0.004606168637345038,
+        "z": 0.12896077943996162,
+        "speed": 1.7165366062787881,
+        "spin": 0.34882613661492456,
+        "steer": -0.29349843099687506,
+        "sha256": "2c74eee57ccc2f10e49119f93d08a5e12c55469f0e8b1ce2de4ddffb99feac22"
+      },
+      {
+        "input": {
+          "throttle": 1,
+          "steer": 1
+        },
+        "x": -0.019815727415180777,
+        "z": 0.2779327900683721,
+        "speed": 2.563711677853404,
+        "spin": 0.7536179624476005,
+        "steer": -0.3505744669469336,
+        "sha256": "8ab0c868b16cd580acf96b5a3532eb3eb95831a52288cf044498fc7400066f4b"
+      },
+      {
+        "input": {
+          "throttle": 1,
+          "steer": 1
+        },
+        "x": -0.05613034912836733,
+        "z": 0.48059872950263566,
+        "speed": 3.403576289890374,
+        "spin": 1.3102298035198907,
+        "steer": -0.38189845961844676,
+        "sha256": "5c60d9115dd7e1fd26779b2134ccda0a34d20fcc4f67f60582bc2b27f235b8fe"
+      },
+      {
+        "input": {
+          "throttle": 1,
+          "steer": -1
+        },
+        "x": -0.09672788179168786,
+        "z": 0.7390037142785795,
+        "speed": 4.236193525948746,
+        "spin": 2.0173515716154937,
+        "steer": -0.020091205604479356,
+        "sha256": "4ac0bbc231bb336c6c41be1a1782954b2618168fb895e0a84d0bfbb0ebb9f992"
+      },
+      {
+        "input": {
+          "throttle": 1,
+          "steer": -1
+        },
+        "x": -0.1223455430371868,
+        "z": 1.0547429641693593,
+        "speed": 5.061625925225698,
+        "spin": 2.8736844835567217,
+        "steer": 0.17847282542161308,
+        "sha256": "7a7fbe3049656d637d137368ab586d9dd577332597cd8fe6821cc7ca63fb6ec5"
+      },
+      {
+        "input": {
+          "throttle": 1,
+          "steer": -1
+        },
+        "x": -0.12586215857051955,
+        "z": 1.4262300802640606,
+        "speed": 5.879935487253957,
+        "spin": 3.8779409636508415,
+        "steer": 0.28744707615846793,
+        "sha256": "66ae9ad3faa8e2352fbeff166ea31efe57acde1e1de8bfd61910d92be0c5a481"
+      },
+      {
+        "input": {
+          "throttle": 1,
+          "steer": -1
+        },
+        "x": -0.10075326608047412,
+        "z": 1.851248399215048,
+        "speed": 6.69118367655868,
+        "spin": 5.028844546978227,
+        "steer": 0.34725341299748186,
+        "sha256": "80fc3f79066f7c8012bede579cb2ad55619b00158c318c878cb5d52712ce7001"
+      }
+    ]
+  },
+  "comparison": {
+    "car": {
+      "pixels": 9604,
+      "bounds": [
+        128,
+        260,
+        523,
+        429
+      ]
+    },
+    "front-rest": {
+      "pixels": 32326,
+      "bounds": [
+        276,
+        162,
+        477,
+        388
+      ]
+    },
+    "front-left": {
+      "pixels": 23017,
+      "bounds": [
+        290,
+        165,
+        445,
+        411
+      ]
+    },
+    "front-right": {
+      "pixels": 37216,
+      "bounds": [
+        270,
+        163,
+        510,
+        395
+      ]
+    },
+    "rear-tilted": {
+      "pixels": 32402,
+      "bounds": [
+        277,
+        138,
+        737,
+        360
+      ]
+    },
+    "mid": {
+      "pixels": 8022,
+      "bounds": [
+        129,
+        260,
+        510,
+        430
+      ]
+    },
+    "far": {
+      "pixels": 0,
+      "bounds": null
+    }
+  },
+  "producerSha256": "d9da4a35ccc2bfc5e2ee805df5dd8181dcc4fb69a630bdc8fc46fc3e353156c2"
+}

@@ -1,3 +1,7 @@
+# Escote de la chaqueta en LOD1 y LOD2 · v0.20.27
+
+La ejecución de CI reutiliza las 42 capturas de `render_collar_lod.py` y añade `verify_neckline_detail.py`. La referencia externa v0.20.25 exige integridad de las 42 geometrías de cara y las doce imágenes y chaquetas LOD0. En los dos niveles reducidos se verifica la geometría compartida de la prenda y se cotejan todas las anclas contra su cobertura en la fuente. Las regresiones de buffers conservan los hashes de las demás partes en los tres niveles. Consultar los resultados, los límites y los comandos de reproducción en la [galería del escote](../../qa/neckline-detail-v02027/README.md) y la [comparación a distancia de juego](NECKLINE-DETAIL.md).
+
 # Cobertura de chaqueta en LOD2 · v0.20.25
 
 [Contrato y presupuesto](COLLAR-LOD.md). El productor

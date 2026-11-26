@@ -1,0 +1,33 @@
+{
+  "htmlSha256": "8e7a5b44624e52ad28c21fba272cb813a6b6f76aa5a3c1fffb2baebf5d464ec8",
+  "id": "light--neck-right--back--lod2",
+  "pixel": [
+    293,
+    536
+  ],
+  "outputs": {
+    "final": {
+      "imageSha256": "3309b229f7a9f47fb1c0ebe4b5dcd8b82ab3253947ebb55efab36449b293fda0",
+      "rgb": [
+        123,
+        138,
+        129
+      ],
+      "triangles": 21071
+    },
+    "jacket0-with-rest-lod2": {
+      "imageSha256": "61e830c3edceac3f1930a60ce845cfb688c9c4856018576c4052b4360cfa9472",
+      "rgb": [
+        123,
+        138,
+        129
+      ],
+      "triangles": 33132
+    }
+  },
+  "originalSourceLod0RGB": [
+    87,
+    122,
+    120
+  ]
+}

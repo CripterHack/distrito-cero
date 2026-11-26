@@ -59,7 +59,8 @@
    try{
     r=new D.Renderer(previous.canvas,s.world,s.view.quality);this.recoveryCandidate=r;
     Object.assign(r,s.view);r.camera={...s.camera,eye:s.camera.eye?.slice(),target:s.camera.target?.slice()};r.resize();
-    await r.humanReady;
+    const [,mercadoReady]=await Promise.all([r.humanReady,r.mercadoReady]);
+    if(!mercadoReady)throw new Error('No se pudo recuperar el atlas del Mercado.');
     if(r.disposed||gl.isContextLost())throw new Error('Se interrumpió la reconstrucción gráfica.');
     if(r.humanTextureStatus.failed||r.humanTextureStatus.loaded!==3)throw new Error('No se pudieron recuperar los mapas del personaje.');
     return r;

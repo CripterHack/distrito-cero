@@ -56,8 +56,9 @@
  }
  function gripProfile(n,k){
   if(n.handGrips?.[k])return n.handGrips[k];
-  const explicit=Number.isFinite(n.grip),seated=D.clamp(n.seatBlend??(n.seated?1:0),0,1),carry=!!n.carry,reach=n.reach||0;
-  const amount=D.clamp(explicit?n.grip:seated>.1?.61:carry?.70:reach>.1?.43:.13+(n.sprintBlend||0)*.18,0,1);
+  const grip=n.handTargets?.[k]?.grip??n.grip;
+  const explicit=Number.isFinite(grip),seated=D.clamp(n.seatBlend??(n.seated?1:0),0,1),carry=!!n.carry,reach=n.reach||0;
+  const amount=D.clamp(explicit?grip:seated>.1?.61:carry?.70:reach>.1?.43:.13+(n.sprintBlend||0)*.18,0,1);
   const style=explicit?'manual':seated>.1?'wheel':carry?'carry':reach>.1?'reach':'relaxed';
   const patterns={manual:[1,1,1,1,1],wheel:[.94,1.05,1.08,1.06,.79],carry:[.75,.90,.98,1.02,.78],reach:[.66,.80,.94,1,.65],relaxed:[.70,1,1.18,1.38,.75]};
   const f={};for(const [j,name]of ['index','middle','ring','little','thumb'].entries()){
@@ -188,11 +189,22 @@
   const o=transformed(r,bind);for(let i=0;i<3;i++)r[12+i]=position[i]-o[i];return r;
  }
  function applyArmTarget(q,n,k,target){
-  if(![target.x,target.y,target.z].every(Number.isFinite))return;
+  const weight=D.clamp(target.weight??1,0,1);
+  if(!weight||![target.x,target.y,target.z].every(Number.isFinite))return;
   const si=Math.sin(n.yaw||0),co=Math.cos(n.yaw||0),dx=target.x-(n.x||0),dz=target.z-(n.z||0),goal=[(dx*co-dz*si)/q.scale,(target.y-q.rootY)/q.scale,(dx*si+dz*co)/q.scale];
   const ai=ids['upperArm'+k],ei=ids['forearm'+k],hi=ids['hand'+k],ab=bones[ai][2],eb=bones[ei][2],hb=bones[hi][2];
+  const neutralWrist=q.matrices.subarray(hi*16,hi*16+16);
+  if(weight<1){
+   const start=transformed(neutralWrist,hb);
+   for(let i=0;i<3;i++)goal[i]=D.lerp(start[i],goal[i],weight);
+  }
   const shoulder=transformed(q.matrices.subarray(ai*16,ai*16+16),ab),vec=goal.map((v,i)=>v-shoulder[i]),len=Math.hypot(...vec);if(len<1e-6)return;
-  const l1=Math.hypot(...eb.map((v,i)=>v-ab[i])),l2=Math.hypot(...hb.map((v,i)=>v-eb[i])),d=D.clamp(len,.06,l1+l2-.002),dir=vec.map(v=>v/len),pole=target.pole&&target.pole.length===3&&target.pole.every(Number.isFinite)?target.pole:[k==='L'?-1:1,-.2,-.4];
+  const l1=Math.hypot(...eb.map((v,i)=>v-ab[i])),l2=Math.hypot(...hb.map((v,i)=>v-eb[i])),d=D.clamp(len,.06,l1+l2-.002),dir=vec.map(v=>v/len);
+  let pole=target.pole&&target.pole.length===3&&target.pole.every(Number.isFinite)?target.pole:[k==='L'?-1:1,-.2,-.4];
+  if(weight<1){
+   const elbow=transformed(q.matrices.subarray(ei*16,ei*16+16),eb);
+   pole=pole.map((v,i)=>D.lerp((elbow[i]-shoulder[i])/l1,v,weight));
+  }
   const dot=pole.reduce((s,v,i)=>s+v*dir[i],0);let perp=pole.map((v,i)=>v-dot*dir[i]);if(Math.hypot(...perp)<.0001)perp=D.cross(dir,[0,1,0]);perp=D.normalize(perp);
   const along=(l1*l1+d*d-l2*l2)/(2*d),height=Math.sqrt(Math.max(0,l1*l1-along*along)),elbow=shoulder.map((v,i)=>v+dir[i]*along+perp[i]*height),hand=shoulder.map((v,i)=>v+dir[i]*d);
   q.matrices.set(alignAt(ab,elbow.map((v,i)=>v-shoulder[i]),eb.map((v,i)=>v-ab[i]),shoulder),ai*16);
@@ -201,7 +213,12 @@
   const requested=target.orientation;
   if(requested&&[...(requested.palm||[]),...(requested.fingers||[])].length===6&&[...requested.palm,...requested.fingers].every(Number.isFinite)){
    const local=v=>[v[0]*co-v[2]*si,v[1],v[0]*si+v[2]*co];
-   const side=k==='R'?1:-1,palm=D.normalize(local(requested.palm)),finger=D.normalize(local(requested.fingers));
+   const side=k==='R'?1:-1;
+   let palm=D.normalize(local(requested.palm)),finger=D.normalize(local(requested.fingers));
+   if(weight<1){
+    palm=D.normalize(palm.map((v,i)=>D.lerp(-side*neutralWrist[i],v,weight)));
+    finger=D.normalize(finger.map((v,i)=>D.lerp(-neutralWrist[4+i],v,weight)));
+   }
    let x=palm.map(v=>-side*v),y=finger.map(v=>-v),z=D.cross(x,y);
    if(Math.hypot(...z)>.001){
     z=D.normalize(z);y=D.normalize(D.cross(z,x));x=D.normalize(x);

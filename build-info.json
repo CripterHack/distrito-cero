@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "version": "0.20.25",
-  "name": "Coherencia",
+  "version": "0.20.28",
+  "name": "Barrio del Mercado",
   "channel": "prototype",
-  "date": "2026-11-25",
-  "label": "v0.20.25",
+  "date": "2026-11-26",
+  "label": "v0.20.28",
   "product": "Distrito Cero",
-  "sourceSha256": "2473fa894a6359a0bd56895018c3da7de15ea65c9e411200cf6481eca63d4984",
-  "htmlSha256": "81c9f68654e0e14eddb9cfa73f6408038120d87943bb438c7d713adf64859003",
-  "htmlBytes": 9806323
+  "sourceSha256": "c601b0acf351ad9d437a981b30c5828ec6a014fdd8d9b7b1167700a53877fa51",
+  "htmlSha256": "f2e80f97bf977113c44ea85fda8a4db6221329931672c61a9b5d2bfda140e7b3",
+  "htmlBytes": 10780052
 }
