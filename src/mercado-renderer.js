@@ -64,6 +64,17 @@
    g.uniform1i(this.uniform(p,'uMercadoAtlas'),10);
    g.uniform1i(this.uniform(p,'uMercadoLoaded'),this.mercadoLoaded?1:0);
   }
+  diffuserPower(){
+   const t=D.clamp((.64-this.daylight)/.54,0,1);
+   return t*t*(3-2*t);
+  }
+  sceneLights(sim){
+   const lights=super.sceneLights(sim),downlight=this.diffuserPower();
+   if(!this.previewStudio && downlight>0){
+    for(const stop of this.world.shelters)lights.push({...stop.diffuser,downlight});
+   }
+   return lights;
+  }
   renderReactive(sim){
    super.renderReactive(sim);
    if(this.previewStudio||!this.world.workshop)return;
@@ -75,7 +86,13 @@
     this.add(this.dynamic,key+lod,site.x,.145,site.z,1,1,1,[.45,.43,.38],material,0,site.yaw);
    };
    draw('taller',this.world.workshop,50,950,72);
-   for(const site of this.world.shelters)draw('marquesina',site,51,330,40);
+   for(const site of this.world.shelters){
+    draw('marquesina',site,51,330,40);
+    const l=site.diffuser;
+    if(Math.hypot(l.x-eye[0],l.z-eye[2])<90){
+     this.add(this.dynamic,'box',l.x,l.y+.023,l.z,.78,.046,.15,[.59,.55,.46],0,5*this.diffuserPower(),site.yaw);
+    }
+   }
   }
  }
  D.Renderer=MercadoRenderer;
