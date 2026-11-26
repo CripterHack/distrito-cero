@@ -41,21 +41,25 @@
    const last=this.marketPedMotion.get(n),dt=last?t-last.time:Infinity;
    // Fade between clips in game time; a paused or repeated draw keeps the pose fixed.
    const blend=dt<0?1:1-Math.exp(-12*dt);
-   const walk=D.lerp(last?.walk??walking,walking,blend),run=D.lerp(last?.run??running,running,blend);
+   const step=n.sidewalkRoute?.brake,brake=step&&D.MarketPedAsset.clips[step.clip]?step:null;
+   const finishedBrake=last?.braking && !brake;
+   const walk=finishedBrake && !speed?0:D.lerp(last?.walk??walking,walking,blend),run=D.lerp(last?.run??running,running,blend);
    const reaction=D.lerp(last?.reaction??tilt,tilt,blend);
    const turn=D.MarketPedAsset.clips.Giro && n.sidewalkRoute?.turn;
    // The turn ends on Reposo's first key in the new facing direction.
-   const idleStart=last&&dt>=0?(last.turning&&!turn?t:last.idleStart):0;
-   this.marketPedMotion.set(n,{time:t,walk,run,reaction,idleStart,turning:!!turn});
+   const idleStart=last&&dt>=0?((last.turning&&!turn||finishedBrake)?t:last.idleStart):0;
+   this.marketPedMotion.set(n,{time:t,walk,run,reaction,idleStart,turning:!!turn,braking:!!brake});
    const slot=this.castCursor++,stride=D.SkinRig.paletteStride;
    const palette=this.posePixels.subarray(slot*stride,(slot+1)*stride);
    const walkPhase=wrap((n.phase||0)/(2*Math.PI)),idlePhase=wrap((t-idleStart)/D.MarketPedAsset.clips.Reposo.duration);
-   if(turn){
+   if(brake){
+    D.MarketPedAsset.writePalette(palette,walkPhase,idlePhase,walk,run,brake.progress,1,brake.clip);
+   }else if(turn){
     // Preserve the incoming pose briefly when panic reverses a moving actor.
     const entry=D.clamp(turn.progress/.13,0,1);
     D.MarketPedAsset.writePalette(palette,walkPhase,idlePhase,walk,run,turn.progress,entry*entry*(3-2*entry));
    }else D.MarketPedAsset.writePalette(palette,walkPhase,idlePhase,walk,run);
-   this.add(this.dynamic,key,n.x,y,n.z,1,1,1,[1,1,1],material,0,turn?turn.startYaw:n.yaw,reaction,200+slot);
+   this.add(this.dynamic,key,brake?brake.startX:n.x,y,brake?brake.startZ:n.z,1,1,1,[1,1,1],material,0,turn?turn.startYaw:n.yaw,reaction,200+slot);
    this.add(this.dynamic,'smoke',n.x,(n.groundY||0)+.003,n.z,.68,.46,1,[.004,.006,.008],37,
             .48*Math.exp(-Math.max(0,n.y||0)*2),n.yaw,0,0,-Math.PI/2);
    this.castStats.actors++;this.castStats.lod[lod]++;this.castStats.triangles+=this.meshes[key].count/3;

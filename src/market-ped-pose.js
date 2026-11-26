@@ -1,4 +1,4 @@
-/* Local glTF clip playback for the market pedestrian. Giro plays once.
+/* Local glTF clip playback for the market pedestrian. Giro and the two stopping steps play once.
    walkBlend mixes idle/locomotion; runBlend mixes walk/run at the same foot phase. */
 'use strict';
 (function(D) {
@@ -37,11 +37,11 @@
    if(keys.length===components)target.set(keys,index);
    else animated.push({keys,translation,components,target,index});
   }
-  clips[name]={sample,animated,intervals:source.frames-1};
+  clips[name]={sample,animated,intervals:source.frames-1,oneShot:['Giro','FrenadaL','FrenadaR'].includes(name)};
   metadata[name]=Object.freeze({duration:source.duration});
  }
  function sampleClip(clip,phase) {
-  const progress=clip===clips.Giro?Math.max(0,Math.min(1,phase)):phase-Math.floor(phase);
+  const progress=clip.oneShot?Math.max(0,Math.min(1,phase)):phase-Math.floor(phase);
   const at=progress*clip.intervals;
   const frame=Math.min(clip.intervals-1,Math.floor(at)), t=at-frame;
   for(let k=0;k<clip.animated.length;k++) {
@@ -77,11 +77,11 @@
   else stride=blendLocal(sampleClip(clips.Marcha,walkPhase),sampleClip(clips.Carrera,walkPhase),runBlend,locomotion);
   return walkBlend>=1?stride:blendLocal(sampleClip(clips.Reposo,idlePhase),stride,walkBlend,finalPose);
  }
- function writePalette(out,walkPhase,idlePhase,walkBlend,runBlend=0,turnProgress=null,turnBlend=1) {
+ function writePalette(out,walkPhase,idlePhase,walkBlend,runBlend=0,actionProgress=null,actionBlend=1,actionName='Giro') {
   let pose;
-  if(turnProgress!==null && clips.Giro) {
-   pose=sampleClip(clips.Giro,turnProgress);
-   if(turnBlend<1)pose=blendLocal(sampleMotion(walkPhase,idlePhase,walkBlend,runBlend),pose,turnBlend,finalPose);
+  if(actionProgress!==null && clips[actionName]) {
+   pose=sampleClip(clips[actionName],actionProgress);
+   if(actionBlend<1)pose=blendLocal(sampleMotion(walkPhase,idlePhase,walkBlend,runBlend),pose,actionBlend,finalPose);
   } else pose=sampleMotion(walkPhase,idlePhase,walkBlend,runBlend);
   // Build world matrices parent-first into the caller's palette. The source
   // joint index order places each clavicle after its upper arm.

@@ -33,7 +33,7 @@ test('the resident waits, walks to the corner, turns in place, and walks back on
  const {s,n}=scene();s.player.x=166;s.player.z=131;
  const phase=n.phase;tick(s,120);assert.equal(n.phase,phase);assert.equal(n.moveSpeed,0);
  tick(s,60);assert.ok(Math.abs(n.moveSpeed-1.35)<1e-6);assert.ok(n.z>130.5&&n.z<131.2);
- let stopped=false;for(let i=0;i<1000;i++){tick(s,1);if(n.z>148.99&&n.moveSpeed<.0001){stopped=true;break;}}
+ let stopped=false;for(let i=0;i<1000;i++){tick(s,1);if(n.z===149&&n.sidewalkRoute.wait>0){stopped=true;break;}}
  assert.ok(stopped);const corner=n.z;tick(s,100);assert.equal(n.z,corner);
  tick(s,100);assert.ok(n.z<corner-.4);assert.ok(Math.cos(n.yaw)<-.95);assert.equal(n.x,155.5);
 });
@@ -54,7 +54,7 @@ test('both ends play one grounded half-turn inside the existing wait, independen
   const route=n.sidewalkRoute,dt=1/hz;
   for(const [corner,direction] of [[149,-1],[130,1]]){
    let approach=0;
-   while(Math.abs(n.z-corner)>1e-6 && approach++<hz*20)s.pedestrians(dt);
+   while(route.towardEnd===(direction===-1) && approach++<hz*20)s.pedestrians(dt);
    assert.ok(Math.abs(n.z-corner)<1e-6);
    const initialYaw=n.yaw;
    let samples=0,previous=0,rotation=0,lastYaw=n.yaw,waiting=0;
@@ -109,4 +109,48 @@ test('a horn ahead reverses the walking resident once and streaming preserves th
  Object.assign(s.player,{x:158,z:137});tick(s,60);
  assert.equal(route.turn,null);assert.ok(n.z<z);assert.ok(Math.cos(n.yaw)<-.999);
  assert.ok(Math.abs(n.moveSpeed-3.78)<1e-6);
+});
+
+test('each approach joins a fitted stopping step and reaches the endpoint at clip completion',()=>{
+ const reach=.1653272101033296,duration=4*reach/1.35,feet=new Set();
+ for(const hz of [30,60,120]){
+  const {s,n}=scene(),r=n.sidewalkRoute,dt=1/hz;
+  Object.assign(s.player,{x:158,z:137});
+  for(const end of [149,130]){
+   const toward=r.towardEnd,dir=toward?1:-1;
+   let active=0,last=0,priorD,priorPhase,entry;
+   for(let i=0;i<20*hz && r.towardEnd===toward;i++){
+    priorD=Math.abs(end-n.z);priorPhase=n.phase/(Math.PI*2);
+    s.pedestrians(dt);
+    if(!r.brake)continue;
+    if(!active){
+     entry=r.brake.clip==='FrenadaL'?.15:.65;
+     const joined=priorPhase+(priorD-reach)*D.NaturalMotion.distanceRate(n.speed)/(Math.PI*2);
+     assert.ok(Math.abs(joined-entry-Math.round(joined-entry))<1e-5,'last walking stride reaches the first authored key');
+    }
+    active++;const {clip,progress,startX,startZ}=r.brake;
+    assert.ok(['FrenadaL','FrenadaR'].includes(clip));feet.add(clip);
+    assert.ok(progress>=last && progress<=1);last=progress;
+    assert.equal(startX,n.x);assert.ok(Math.abs(startZ-(end-dir*reach))<1e-9);
+    assert.ok(Math.abs(n.z-(end-dir*reach*(1-progress)**4))<1e-8);
+   }
+   assert.ok(Math.abs(active*dt-duration)<2*dt,'one stopping clip at either rate');
+   assert.equal(n.z,end);assert.equal(r.wait,2.4);assert.ok(!r.brake);
+   tick(s,2);
+  }
+ }
+ assert.deepEqual([...feet].sort(),['FrenadaL','FrenadaR']);
+});
+
+test('the horn accelerates a braking resident through the same planted step and turn',()=>{
+ const {s,n}=scene(),r=n.sidewalkRoute;Object.assign(s.player,{x:158,z:144});
+ for(let i=0;i<1200 && !(r.brake?.progress>.18);i++)s.pedestrians(1/60);
+ assert.ok(r.brake);const {progress,clip,startZ}=r.brake;
+ const c=s.cars[0];Object.assign(c,{x:n.x+2,z:n.z+1,speed:0});Object.assign(s.player,{car:0,x:c.x,z:c.z});
+ s.interact('horn');s.pedestrians(1/60);
+ assert.equal(r.brake.clip,clip);assert.equal(r.brake.startZ,startZ);
+ assert.ok(r.brake.progress>progress+1/60/.49);assert.ok(n.z<=149);
+ let ticks=0;while(r.brake&&ticks++<24)s.pedestrians(1/60);
+ assert.ok(ticks<24);assert.equal(n.z,149);assert.equal(r.wait,0);assert.equal(r.towardEnd,false);
+ s.pedestrians(1/60);assert.ok(r.turn);
 });
