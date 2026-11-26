@@ -33,7 +33,18 @@
    return {x,z,yaw,angle,panel,handle};
   }
   const direction=(x,y,z,yaw)=>place(x,y,z,0,0,0,Math.cos(yaw),Math.sin(yaw));
-  return {point,direction,door,pitch,roll};
+  function wheel(side,front){
+   const steer=front>0?(c.steerAngle||0):0,cs=side*Math.cos(steer),ss=side*Math.sin(steer);
+   // Body tilt × steering, expressed in the shader's yaw-roll-pitch order.
+   const yaw=c.yaw+Math.atan2(cp*ss,cr*cs-sr*sp*ss);
+   const axleRoll=Math.asin(D.clamp(sr*cs+cr*sp*ss,-1,1));
+   const axlePitch=Math.atan2(cr*sp*cs-sr*ss,cr*cp);
+   const pivot=point(side*.92,.365,front>0?1.36:-1.39);
+   const rx=Math.cos(yaw)*Math.cos(axleRoll),ry=Math.sin(axleRoll),rz=-Math.sin(yaw)*Math.cos(axleRoll);
+   return {yaw,pitch:axlePitch,roll:axleRoll,spin:side*(c.wheel||0),
+    point:offset=>[pivot[0]+rx*offset,pivot[1]+ry*offset,pivot[2]+rz*offset]};
+  }
+  return {point,direction,door,wheel,pitch,roll};
  };
  D.damageVehicle=function(c,amount,x,z){
   D.ensureVehicle(c);if(!Number.isFinite(amount)||amount<=0)return null;

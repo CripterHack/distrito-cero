@@ -534,14 +534,21 @@
   }
   tree(list,x,z,scale,r){this.add(list,'box',x,2*scale,z,.25*scale,4*scale,.25*scale,[.16,.13,.095],0);for(let i=0;i<4;i++)this.add(list,'sphere',x+(r()-.5)*2*scale,(4.2+r())*scale,z+(r()-.5)*2*scale,(2.4+r())*scale,3*scale,2.7*scale,[.08+r()*.025,.145,.105],8);}
   renderCar(c){
-   const L=this.dynamic,a=c.yaw,co=Math.cos(a),si=Math.sin(a),col=c.color;
-   const put=(mesh,x,y,z,sx,sy,sz,color,mat=0,em=0,da=0,pitch=0,roll=0)=>this.add(L,mesh,c.x+x*co+z*si,y,c.z-x*si+z*co,sx,sy,sz,color,mat,c.empUntil>this.currentTime?0:em,a+da,0,0,pitch,roll);
+   const L=this.dynamic,a=c.yaw,col=c.color,body=D.vehicleBodyFrame(c,this.currentTime);
+   const put=(mesh,x,y,z,sx,sy,sz,color,mat=0,em=0)=>this.add(L,mesh,...body.point(x,y,z),sx,sy,sz,color,mat,c.empUntil>this.currentTime?0:em,a,0,0,body.pitch,body.roll);
    put('body',0,.7,0,1.9,.70,4.45,col,5);put('box',0,.36,0,1.67,.22,3.8,[.025,.03,.03],3);
    put('cabin',0,1.25,-.25,1.64,.78,2.32,[.12,.19,.22],6);put('body',0,1.66,-.46,1.31,.075,1.23,col,5);
    put('box',0,1.17,-.57,1.67,.76,.055,col,5);put('box',0,.98,-.16,1.84,.05,2.2,col,5);
    for(let s of [-1,1]){
     put('body',s*.99,1.09,.48,.28,.16,.4,col,5);put('box',s*.97,.84,-.45,.025,.038,.29,[.45,.5,.49],3);
-    for(let f of [-1,1]){put('wheel',s*.96,.40,f*1.34,.24,.76,.76,[.022,.026,.026],4);put('wheel',s*1.092,.40,f*1.34,.018,.48,.48,[.28,.32,.33],3);put('wheel',s*1.105,.40,f*1.34,.024,.17,.17,[.07,.09,.1],3);}
+    for(const f of [-1,1]){
+     const axle=body.wheel(s,f);
+     const disc=(offset,width,diameter,color,mat)=>this.add(L,'wheel',...axle.point(offset),
+      width,diameter,diameter,color,mat,0,axle.yaw,0,0,axle.pitch+axle.spin,axle.roll);
+     disc(0,.27,.73,[.022,.026,.026],4);
+     disc(.132,.025,.528,[.28,.32,.33],3);
+     disc(.145,.024,.17,[.07,.09,.1],3);
+    }
     put('body',s*.64,.79,2.09,.45,.19,.09,[.91,.96,.87],0,5);
     put('box',s*.64,.8,-2.12,.49,.12,.025,[.65,.016,.009],0,c.brake?9:3);
     put('box',s*.62,.51,2.18,.21,.06,.04,[.95,.7,.2],0,1.3);
