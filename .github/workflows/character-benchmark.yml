@@ -2,10 +2,10 @@ name: Character reference benchmark
 on:
   pull_request:
     branches: [master]
-    paths: ['src/**', 'build.py', 'version.json', 'requirements-dev.txt', 'tools/qa/**', 'tests/character*', 'tests/native_tangent_frame.test.py', 'tests/lod_seam_qa.test.py', 'tests/collar_lod_qa.test.py', 'tests/crowd-seam-continuity.test.cjs', 'tests/crowd-garment-lod.test.cjs', 'tests/benchmarks/**', 'tests/qa_stage_assets.test.py', '.github/workflows/character-benchmark.yml']
+    paths: ['src/**', 'build.py', 'version.json', 'requirements-dev.txt', 'tools/qa/**', 'tests/character*', 'tests/native_tangent_frame.test.py', 'tests/lod_seam_qa.test.py', 'tests/collar_lod_qa.test.py', 'tests/collar_visibility.test.py', 'tests/crowd-seam-continuity.test.cjs', 'tests/crowd-garment-lod.test.cjs', 'tests/benchmarks/**', 'tests/qa_stage_assets.test.py', '.github/workflows/character-benchmark.yml']
   push:
     branches: [master]
-    paths: ['src/**', 'build.py', 'version.json', 'requirements-dev.txt', 'tools/qa/**', 'tests/character*', 'tests/native_tangent_frame.test.py', 'tests/lod_seam_qa.test.py', 'tests/collar_lod_qa.test.py', 'tests/crowd-seam-continuity.test.cjs', 'tests/crowd-garment-lod.test.cjs', 'tests/benchmarks/**', 'tests/qa_stage_assets.test.py', '.github/workflows/character-benchmark.yml']
+    paths: ['src/**', 'build.py', 'version.json', 'requirements-dev.txt', 'tools/qa/**', 'tests/character*', 'tests/native_tangent_frame.test.py', 'tests/lod_seam_qa.test.py', 'tests/collar_lod_qa.test.py', 'tests/collar_visibility.test.py', 'tests/crowd-seam-continuity.test.cjs', 'tests/crowd-garment-lod.test.cjs', 'tests/benchmarks/**', 'tests/qa_stage_assets.test.py', '.github/workflows/character-benchmark.yml']
   workflow_dispatch:
     inputs:
       matrix:
@@ -48,6 +48,7 @@ jobs:
           python3 -m playwright install --with-deps chromium
           python3 tests/lod_seam_qa.test.py
           python3 tests/collar_lod_qa.test.py
+          python3 tests/collar_visibility.test.py
       - name: Capture the production renderer
         env:
           MATRIX: ${{ inputs.matrix || 'smoke' }}

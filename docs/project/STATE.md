@@ -1,4 +1,8 @@
-# Estado vigente · candidata v0.20.25 · cobertura de chaqueta en LOD2
+# Estado · v0.20.25 integrada en master
+
+El merge `ba9997df` incorpora los PR #63, #64 y #65. Los nueve trabajos de CI del PR #65 aprobaron el commit `079c8ad3`. La comprobación posterior del cuello en cámara de calle está documentada en la [revisión visual](../../qa/collar-street-v02025/README.md).
+
+## Registro previo al merge · candidata v0.20.25
 
 La chaqueta LOD2 reutiliza la malla y el recurso GPU de LOD1; las demás partes
 conservan su reducción. El cambio evita la simplificación más agresiva del
