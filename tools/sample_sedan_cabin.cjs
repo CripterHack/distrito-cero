@@ -5,7 +5,8 @@ const path = require('node:path');
 const vm = require('node:vm');
 const crypto = require('node:crypto');
 const sources = ['core','world','frontier-world','police','simulation','dynamics','interactions',
-  'frontier-simulation','occupancy','character-motion','skin-rig','renderer','reactive-renderer'];
+  'frontier-simulation','occupancy','appearance','character-fit','character-motion','skin-rig',
+  'renderer','reactive-renderer'];
 
 function sampleCabin(shiftX=0, shiftZ=0) {
   const ctx = vm.createContext({performance});
@@ -34,9 +35,17 @@ function sampleCabin(shiftX=0, shiftZ=0) {
   });
   sim.access = null;
   car.driver = D.driverProfile(car);
-  const actor = sim.driverPose(car), posed = D.SkinRig.pose(actor,1.25);
+  const driver = sim.driverPose(car);
+  const timeS = 1.25;
+  // driverPose supplies the parked actor's walk, seated state and zero speed.
+  // Match CastRenderer.renderPerson's first visual frame for this driver.
+  const actor = new D.MotionTracker().update(driver.personId || driver.id, driver, timeS);
+  const look = D.Appearance.actorLook(driver, false, sim);
+  const neckDrop = D.CharacterFit.drop(look.neckLength);
+  const posed = D.SkinRig.pose({...actor, neckDrop}, timeS);
   const seatOrigin = local(actor);
-  const skeleton = D.SkinRig.bones.map(([name,parent,bind],index) => {
+  const fittedBones = D.CharacterFit.fittedBones(D.SkinRig.bones, neckDrop);
+  const skeleton = fittedBones.map(([name,parent,bind],index) => {
     const matrix = posed.matrices.subarray(16*index,16*(index+1));
     const [x,y,z] = D.SkinRig.transform(matrix,bind);
     return {name,parent,point:[seatOrigin[0]+x*posed.scale,posed.rootY+y*posed.scale,seatOrigin[2]+z*posed.scale]};
@@ -57,6 +66,7 @@ function sampleCabin(shiftX=0, shiftZ=0) {
   const door = driverPart('body',[.035,.30,1.7]);
   const wheel = D.VehicleCabin.wheel;
   return {schema:1,axes:'X right, Y up, Z forward; metres',sourceHashes,approach,openingHand,entry,seatOrigin,skeleton,
+    driverFit:{timeS, variant:driver.variant, neckLength:look.neckLength, neckDropM:neckDrop},
     wheelCenter:[wheel.x,wheel.y,wheel.z], wheelRadius:wheel.radius, wheelTilt:wheel.tilt,
     grips:Object.fromEntries(Object.entries(D.VehicleCabin.hands(car)).map(([side,p])=>[side,local(p)])),
     cushionCenter:driverPart('body',[.48,.15,.57]).p, backrestCenter:driverPart('body',[.45,.60,.16]).p,

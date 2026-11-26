@@ -9,8 +9,20 @@ test('in vehicle space the access path reaches the seated actor origin and appro
   assert.ok(approach[0] < -1 && openingHand[0] < seatOrigin[0]);
   assert.deepEqual(entry.at(-1), seatOrigin);
   assert.ok(entry.every(p => p.every(Number.isFinite)));
-  assert.ok(data.skeleton.find(b => b.name === 'head').point[1] > 1);
   assert.equal(data.skeleton.length, 49);
+});
+
+test('seated head and neck match the appearance-fitted cast renderer at 1.25 s', () => {
+  const {skeleton} = sampleCabin();
+  const joints = Object.fromEntries(skeleton.map(bone => [bone.name, bone.point]));
+  const expected = {
+    neck: [-.380000, 1.189205, -.178733],
+    head: [-.380023, 1.300012, -.172419]
+  };
+  for (const [name, point] of Object.entries(expected)) {
+    assert.ok(Math.hypot(...point.map((v, i) => joints[name][i] - v)) < 1e-6,
+      `${name}: expected ${point}, got ${joints[name]}`);
+  }
 });
 
 test('driver seat, steering grips and panel stay in the same vehicle-local frame after a world translation', () => {
