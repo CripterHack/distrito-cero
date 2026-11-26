@@ -1,0 +1,477 @@
+{
+  "htmlSha256": "6f259f408fc40bad8d8f14ad1d5ab851a51c2f390f9dfe70330cebfc021bb3a5",
+  "scene": {
+    "eye": [
+      -0.6,
+      2.3,
+      43.7
+    ],
+    "target": [
+      2.46,
+      1.04,
+      39.9
+    ],
+    "fov": 0.46,
+    "nativeBuffer": [
+      845,
+      528
+    ],
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+  },
+  "fps": 20,
+  "videoSha256": "97c551610bb5eddd83dfa214fd07bbaedff36bad6be58ade4a6e671b7e0b7270",
+  "motionFrames": [
+    {
+      "time": 1.25,
+      "phase": "approach",
+      "open": 0,
+      "seated": false
+    },
+    {
+      "time": 1.2999999999999998,
+      "phase": "approach",
+      "open": 0,
+      "seated": false
+    },
+    {
+      "time": 1.3499999999999996,
+      "phase": "approach",
+      "open": 0,
+      "seated": false
+    },
+    {
+      "time": 1.3999999999999995,
+      "phase": "approach",
+      "open": 0,
+      "seated": false
+    },
+    {
+      "time": 1.4499999999999993,
+      "phase": "open",
+      "open": 0,
+      "seated": false
+    },
+    {
+      "time": 1.4999999999999991,
+      "phase": "open",
+      "open": 0,
+      "seated": false
+    },
+    {
+      "time": 1.549999999999999,
+      "phase": "open",
+      "open": 0,
+      "seated": false
+    },
+    {
+      "time": 1.5999999999999988,
+      "phase": "open",
+      "open": 0,
+      "seated": false
+    },
+    {
+      "time": 1.6499999999999986,
+      "phase": "open",
+      "open": 0,
+      "seated": false
+    },
+    {
+      "time": 1.6999999999999984,
+      "phase": "open",
+      "open": 0,
+      "seated": false
+    },
+    {
+      "time": 1.7499999999999982,
+      "phase": "open",
+      "open": 0,
+      "seated": false
+    },
+    {
+      "time": 1.799999999999998,
+      "phase": "open",
+      "open": 0,
+      "seated": false
+    },
+    {
+      "time": 1.8499999999999979,
+      "phase": "open",
+      "open": 0,
+      "seated": false
+    },
+    {
+      "time": 1.8999999999999977,
+      "phase": "open",
+      "open": 0.008916323731138683,
+      "seated": false
+    },
+    {
+      "time": 1.9499999999999975,
+      "phase": "open",
+      "open": 0.04296875000000044,
+      "seated": false
+    },
+    {
+      "time": 1.9999999999999973,
+      "phase": "open",
+      "open": 0.09872256515775116,
+      "seated": false
+    },
+    {
+      "time": 2.049999999999997,
+      "phase": "open",
+      "open": 0.17215899348422628,
+      "seated": false
+    },
+    {
+      "time": 2.099999999999997,
+      "phase": "open",
+      "open": 0.259259259259261,
+      "seated": false
+    },
+    {
+      "time": 2.149999999999997,
+      "phase": "open",
+      "open": 0.3560045867626908,
+      "seated": false
+    },
+    {
+      "time": 2.1999999999999966,
+      "phase": "open",
+      "open": 0.458376200274351,
+      "seated": false
+    },
+    {
+      "time": 2.2499999999999964,
+      "phase": "open",
+      "open": 0.5623553240740768,
+      "seated": false
+    },
+    {
+      "time": 2.2999999999999963,
+      "phase": "open",
+      "open": 0.6639231824417032,
+      "seated": false
+    },
+    {
+      "time": 2.349999999999996,
+      "phase": "open",
+      "open": 0.7590609996570662,
+      "seated": false
+    },
+    {
+      "time": 2.399999999999996,
+      "phase": "open",
+      "open": 0.8437500000000012,
+      "seated": false
+    },
+    {
+      "time": 2.4499999999999957,
+      "phase": "open",
+      "open": 0.9139714077503439,
+      "seated": false
+    },
+    {
+      "time": 2.4999999999999956,
+      "phase": "open",
+      "open": 0.9657064471879292,
+      "seated": false
+    },
+    {
+      "time": 2.5499999999999954,
+      "phase": "open",
+      "open": 0.9949363425925927,
+      "seated": false
+    },
+    {
+      "time": 2.599999999999995,
+      "phase": "open",
+      "open": 1,
+      "seated": false
+    },
+    {
+      "time": 2.649999999999995,
+      "phase": "open",
+      "open": 1,
+      "seated": false
+    },
+    {
+      "time": 2.699999999999995,
+      "phase": "open",
+      "open": 1,
+      "seated": false
+    },
+    {
+      "time": 2.7499999999999947,
+      "phase": "open",
+      "open": 1,
+      "seated": false
+    },
+    {
+      "time": 2.7999999999999945,
+      "phase": "open",
+      "open": 1,
+      "seated": false
+    },
+    {
+      "time": 2.8499999999999943,
+      "phase": "open",
+      "open": 1,
+      "seated": false
+    },
+    {
+      "time": 2.899999999999994,
+      "phase": "open",
+      "open": 1,
+      "seated": false
+    },
+    {
+      "time": 2.949999999999994,
+      "phase": "open",
+      "open": 1,
+      "seated": false
+    },
+    {
+      "time": 2.999999999999994,
+      "phase": "open",
+      "open": 1,
+      "seated": false
+    },
+    {
+      "time": 3.0499999999999936,
+      "phase": "open",
+      "open": 1,
+      "seated": false
+    },
+    {
+      "time": 3.0999999999999934,
+      "phase": "open",
+      "open": 1,
+      "seated": false
+    },
+    {
+      "time": 3.1499999999999932,
+      "phase": "open",
+      "open": 1,
+      "seated": false
+    },
+    {
+      "time": 3.199999999999993,
+      "phase": "open",
+      "open": 1,
+      "seated": false
+    },
+    {
+      "time": 3.249999999999993,
+      "phase": "open",
+      "open": 1,
+      "seated": false
+    },
+    {
+      "time": 3.2999999999999927,
+      "phase": "open",
+      "open": 1,
+      "seated": false
+    },
+    {
+      "time": 3.3499999999999925,
+      "phase": "open",
+      "open": 1,
+      "seated": false
+    },
+    {
+      "time": 3.3999999999999924,
+      "phase": "open",
+      "open": 1,
+      "seated": false
+    },
+    {
+      "time": 3.449999999999992,
+      "phase": "open",
+      "open": 1,
+      "seated": false
+    },
+    {
+      "time": 3.499999999999992,
+      "phase": "open",
+      "open": 1,
+      "seated": false
+    },
+    {
+      "time": 3.549999999999992,
+      "phase": "enter",
+      "open": 1,
+      "seated": false
+    },
+    {
+      "time": 3.5999999999999917,
+      "phase": "enter",
+      "open": 1,
+      "seated": false
+    },
+    {
+      "time": 3.6499999999999915,
+      "phase": "enter",
+      "open": 1,
+      "seated": false
+    },
+    {
+      "time": 3.6999999999999913,
+      "phase": "enter",
+      "open": 1,
+      "seated": false
+    },
+    {
+      "time": 3.749999999999991,
+      "phase": "enter",
+      "open": 1,
+      "seated": false
+    },
+    {
+      "time": 3.799999999999991,
+      "phase": "enter",
+      "open": 1,
+      "seated": false
+    },
+    {
+      "time": 3.8499999999999908,
+      "phase": "enter",
+      "open": 1,
+      "seated": false
+    },
+    {
+      "time": 3.8999999999999906,
+      "phase": "enter",
+      "open": 1,
+      "seated": false
+    },
+    {
+      "time": 3.9499999999999904,
+      "phase": "enter",
+      "open": 1,
+      "seated": false
+    },
+    {
+      "time": 3.9999999999999902,
+      "phase": "enter",
+      "open": 1,
+      "seated": false
+    },
+    {
+      "time": 4.04999999999999,
+      "phase": "enter",
+      "open": 1,
+      "seated": false
+    },
+    {
+      "time": 4.09999999999999,
+      "phase": "enter",
+      "open": 1,
+      "seated": false
+    },
+    {
+      "time": 4.14999999999999,
+      "phase": "enter",
+      "open": 1,
+      "seated": false
+    },
+    {
+      "time": 4.1999999999999895,
+      "phase": "enter",
+      "open": 1,
+      "seated": false
+    },
+    {
+      "time": 4.249999999999989,
+      "phase": "enter",
+      "open": 1,
+      "seated": false
+    },
+    {
+      "time": 4.299999999999989,
+      "phase": "enter",
+      "open": 1,
+      "seated": false
+    },
+    {
+      "time": 4.349999999999989,
+      "phase": "enter",
+      "open": 1,
+      "seated": false
+    },
+    {
+      "time": 4.399999999999989,
+      "phase": "enter",
+      "open": 1,
+      "seated": false
+    },
+    {
+      "time": 4.449999999999989,
+      "phase": "enter",
+      "open": 1,
+      "seated": false
+    },
+    {
+      "time": 4.4999999999999885,
+      "phase": "enter",
+      "open": 1,
+      "seated": false
+    },
+    {
+      "time": 4.549999999999988,
+      "phase": "enter",
+      "open": 1,
+      "seated": false
+    },
+    {
+      "time": 4.599999999999988,
+      "phase": "close",
+      "open": 0.9617341746387271,
+      "seated": false
+    },
+    {
+      "time": 4.649999999999988,
+      "phase": "close",
+      "open": 0.8268878485650574,
+      "seated": false
+    },
+    {
+      "time": 4.699999999999988,
+      "phase": "close",
+      "open": 0.6309790352127339,
+      "seated": false
+    },
+    {
+      "time": 4.749999999999988,
+      "phase": "close",
+      "open": 0.41217178913091157,
+      "seated": false
+    },
+    {
+      "time": 4.799999999999987,
+      "phase": "close",
+      "open": 0.2086301648687452,
+      "seated": false
+    },
+    {
+      "time": 4.849999999999987,
+      "phase": "close",
+      "open": 0.058518216975389614,
+      "seated": false
+    },
+    {
+      "time": 4.899999999999987,
+      "phase": "close",
+      "open": 0,
+      "seated": false
+    },
+    {
+      "time": 4.949999999999987,
+      "phase": "complete",
+      "open": 0,
+      "seated": true
+    }
+  ],
+  "browser": "156.0.8078.79",
+  "producerSha256": "76c817c3da9b6395a94913f778b29ca3529edb7aa0083e8852d78c76e57ffcce"
+}
