@@ -1,0 +1,691 @@
+{
+  "htmlSha256": "ed3324c77cf501ba91bad3079a0f787068dd2e6f655191cb0c2106a0fae5b268",
+  "hz": 60,
+  "startTick": -72,
+  "endTick": 144,
+  "endpoints": {
+    "south": {
+      "dest": 149,
+      "eye": [
+        157.55,
+        1.3,
+        150.92
+      ],
+      "target": [
+        155.5,
+        1.02,
+        149
+      ],
+      "batch": "marketPed0",
+      "fov": 0.78,
+      "quality": "balanced",
+      "floorProbes": [
+        0.14500000000000002,
+        0.14500000000000002,
+        0.14500000000000002,
+        0.14500000000000002,
+        0.14500000000000002,
+        0.14500000000000002,
+        0.14500000000000002,
+        0.14500000000000002,
+        0.14500000000000002
+      ],
+      "arrival": 22.216666666666686,
+      "towardEnd": true,
+      "windows": {
+        "lead": {
+          "solesWithin10mm": {
+            "L": 0.035069530527577615,
+            "R": 0.028308280013169655
+          },
+          "markers": {
+            "L": {
+              "heel": {
+                "spanM": 0.7990850733071969,
+                "within10mmM": 0.012571055488544909,
+                "minHeightM": -0.00017807794083748996,
+                "maxHeightM": 0.12014104368393794
+              },
+              "toe": {
+                "spanM": 0.7933502065148029,
+                "within10mmM": 0.035901932973294234,
+                "minHeightM": -0.00011227286802278913,
+                "maxHeightM": 0.1540545053099334
+              },
+              "meanAbsoluteClearanceM": 0.02438332471251824,
+              "peakClearanceM": 0.11894833246159878,
+              "minClearanceM": -0.0001819572083618659
+            },
+            "R": {
+              "heel": {
+                "spanM": 1.067796025294769,
+                "within10mmM": 0.009990633028428043,
+                "minHeightM": 3.0151570247521908e-05,
+                "maxHeightM": 0.1199263715380641
+              },
+              "toe": {
+                "spanM": 1.0755586817949594,
+                "within10mmM": 0.031816562182616866,
+                "minHeightM": -0.00014076870850129874,
+                "maxHeightM": 0.15116915518012644
+              },
+              "meanAbsoluteClearanceM": 0.028457680439214303,
+              "peakClearanceM": 0.1199263715380641,
+              "minClearanceM": -0.00014076870850129874
+            }
+          }
+        },
+        "finalStep": {
+          "solesWithin10mm": {
+            "L": 4.6968990520478974e-07,
+            "R": 1.621607082379803e-06
+          },
+          "markers": {
+            "L": {
+              "heel": {
+                "spanM": 0.4549620956577581,
+                "within10mmM": 4.886658819344486e-07,
+                "minHeightM": 3.3202491601103112e-06,
+                "maxHeightM": 0.10814639770031656
+              },
+              "toe": {
+                "spanM": 0.4604532261274256,
+                "within10mmM": 6.597937370840249e-07,
+                "minHeightM": 6.912160667416067e-05,
+                "maxHeightM": 0.08234294790431806
+              },
+              "meanAbsoluteClearanceM": 0.03546195559664871,
+              "peakClearanceM": 0.08134039707196772,
+              "minClearanceM": -5.561735519077349e-07
+            },
+            "R": {
+              "heel": {
+                "spanM": 1.8152456752043996e-06,
+                "within10mmM": 1.8152456752043996e-06,
+                "minHeightM": 0.0009110891157568524,
+                "maxHeightM": 0.0009289839942696332
+              },
+              "toe": {
+                "spanM": 1.8596247666334352e-06,
+                "within10mmM": 1.8596247666334352e-06,
+                "minHeightM": -1.7851064005119932e-05,
+                "maxHeightM": 4.555917992865588e-08
+              },
+              "meanAbsoluteClearanceM": 2.655323663721306e-06,
+              "peakClearanceM": 4.555917992865588e-08,
+              "minClearanceM": -1.7851064005119932e-05
+            }
+          }
+        },
+        "settle": {
+          "solesWithin10mm": {
+            "L": 0.0,
+            "R": 0.0
+          },
+          "markers": {
+            "L": {
+              "heel": {
+                "spanM": 0.0,
+                "within10mmM": 0.0,
+                "minHeightM": 3.9080146740089194e-06,
+                "maxHeightM": 3.9080146740089194e-06
+              },
+              "toe": {
+                "spanM": 0.0,
+                "within10mmM": 0.0,
+                "minHeightM": 6.970997660690759e-05,
+                "maxHeightM": 6.970997660690759e-05
+              },
+              "meanAbsoluteClearanceM": 3.315304242246242e-08,
+              "peakClearanceM": 3.315304242246242e-08,
+              "minClearanceM": 3.315304242246242e-08
+            },
+            "R": {
+              "heel": {
+                "spanM": 0.0,
+                "within10mmM": 0.0,
+                "minHeightM": 0.0009289760601362551,
+                "maxHeightM": 0.0009289760601362551
+              },
+              "toe": {
+                "spanM": 0.0,
+                "within10mmM": 0.0,
+                "minHeightM": 3.9355416925346276e-08,
+                "maxHeightM": 3.9355416925346276e-08
+              },
+              "meanAbsoluteClearanceM": 3.9355416925346276e-08,
+              "peakClearanceM": 3.9355416925346276e-08,
+              "minClearanceM": 3.9355416925346276e-08
+            }
+          }
+        },
+        "entireApproach": {
+          "solesWithin10mm": {
+            "L": 0.035069530527577615,
+            "R": 0.028308280013169655
+          },
+          "markers": {
+            "L": {
+              "heel": {
+                "spanM": 1.2970812719658311,
+                "within10mmM": 0.012571055488544909,
+                "minHeightM": -0.00017807794083748996,
+                "maxHeightM": 0.12014104368393794
+              },
+              "toe": {
+                "spanM": 1.2971359002507266,
+                "within10mmM": 0.035901932973294234,
+                "minHeightM": -0.00011227286802278913,
+                "maxHeightM": 0.1540545053099334
+              },
+              "meanAbsoluteClearanceM": 0.02893618671969515,
+              "peakClearanceM": 0.11894833246159878,
+              "minClearanceM": -0.0001819572083618659
+            },
+            "R": {
+              "heel": {
+                "spanM": 1.067796025294769,
+                "within10mmM": 0.010010555715533321,
+                "minHeightM": 3.0151570247521908e-05,
+                "maxHeightM": 0.1199263715380641
+              },
+              "toe": {
+                "spanM": 1.0755586817949594,
+                "within10mmM": 0.031816562182616866,
+                "minHeightM": -0.00014076870850129874,
+                "maxHeightM": 0.15116915518012644
+              },
+              "meanAbsoluteClearanceM": 0.016763834501316802,
+              "peakClearanceM": 0.1199263715380641,
+              "minClearanceM": -0.00014076870850129874
+            }
+          }
+        }
+      },
+      "turn": {
+        "phases": [
+          {
+            "swing": "R",
+            "support": "L",
+            "supportDriftM": 0.0003392772693331123,
+            "swingClearanceM": 0.037877841180934596,
+            "supportMaxClearanceM": 3.315304242246242e-08
+          },
+          {
+            "swing": "L",
+            "support": "R",
+            "supportDriftM": 6.607010523270785e-05,
+            "swingClearanceM": 0.04939405065177127,
+            "supportMaxClearanceM": -4.200571751544757e-08
+          },
+          {
+            "swing": "R",
+            "support": "L",
+            "supportDriftM": 9.603311189894091e-05,
+            "swingClearanceM": 0.05200006636691917,
+            "supportMaxClearanceM": -4.06557121301887e-09
+          },
+          {
+            "swing": "L",
+            "support": "R",
+            "supportDriftM": 7.359675950690654e-05,
+            "swingClearanceM": 0.04924867062100985,
+            "supportMaxClearanceM": 3.003680939528408e-07
+          },
+          {
+            "swing": "R",
+            "support": "L",
+            "supportDriftM": 2.913235744481535e-05,
+            "swingClearanceM": 0.04353028715340737,
+            "supportMaxClearanceM": 3.3210690086882266e-08
+          }
+        ],
+        "groundedDriftM": {
+          "L": 0.017173432988258613,
+          "R": 0.012646539729871498
+        },
+        "groundedDriftByWindowM": {
+          "arrival": {
+            "L": 0.0,
+            "R": 0.0
+          },
+          "turn": {
+            "L": 0.017173432988258613,
+            "R": 0.012646539729871498
+          },
+          "rest": {
+            "L": 4.311172362870299e-11,
+            "R": 6.139872501154624e-10
+          }
+        },
+        "turnSamples": 84,
+        "turnRuns": 1,
+        "headingReversed": true,
+        "progressMonotonic": true,
+        "waitRemainingS": 3.434752482434078e-15,
+        "turnStartS": 0.5166666666666373,
+        "turnEndS": 1.899999999999892,
+        "stopDriftM": {
+          "L": 0.25347127905472494,
+          "R": 0.30863804123841027
+        },
+        "minClearanceM": -0.00025548969478736416,
+        "maxClearanceM": {
+          "L": 0.04939405065177127,
+          "R": 0.05200006636691917
+        },
+        "rootDriftM": 0.0
+      },
+      "observedFinalSupport": "R",
+      "brake": {
+        "clip": "FrenadaR",
+        "firstTick": -29,
+        "lastTick": -1,
+        "startPhase": 0.03073784723229466,
+        "endPhase": 0.9833940972322948,
+        "entryTravelM": {
+          "L": {
+            "heel": 0.043034103103962607,
+            "toe": 0.043332467676897725
+          },
+          "R": {
+            "heel": 1.9927196343339534e-05,
+            "toe": 2.008813494856794e-05
+          }
+        },
+        "exitTravelM": {
+          "L": {
+            "heel": 1.1054709376106194e-08,
+            "toe": 1.1054908357844548e-08
+          },
+          "R": {
+            "heel": 1.1028255698210223e-08,
+            "toe": 9.362999347508322e-09
+          }
+        },
+        "rootTravelM": 0.1674999999933391,
+        "firstSpeedMps": 1.294910151360682,
+        "lastSpeedMps": 6.442424194119667e-05,
+        "maxSpeedIncreaseMps": -0.00037979897285822517
+      },
+      "samples": 217
+    },
+    "north": {
+      "dest": 130,
+      "eye": [
+        157.55,
+        1.3,
+        131.92
+      ],
+      "target": [
+        155.5,
+        1.02,
+        130
+      ],
+      "batch": "marketPed0",
+      "fov": 0.78,
+      "quality": "balanced",
+      "floorProbes": [
+        0.14500000000000002,
+        0.14500000000000002,
+        0.14500000000000002,
+        0.14500000000000002,
+        0.14500000000000002,
+        0.14500000000000002,
+        0.14500000000000002,
+        0.14500000000000002,
+        0.14500000000000002
+      ],
+      "arrival": 39.06666666666573,
+      "towardEnd": false,
+      "windows": {
+        "lead": {
+          "solesWithin10mm": {
+            "L": 0.026412515754624676,
+            "R": 0.0369452706559759
+          },
+          "markers": {
+            "L": {
+              "heel": {
+                "spanM": 1.0669172741136597,
+                "within10mmM": 0.009673107678971187,
+                "minHeightM": -0.00013277747331283396,
+                "maxHeightM": 0.12046474469604992
+              },
+              "toe": {
+                "spanM": 1.0745487952343957,
+                "within10mmM": 0.032589310309781884,
+                "minHeightM": -6.704651423070085e-05,
+                "maxHeightM": 0.15405924132514628
+              },
+              "meanAbsoluteClearanceM": 0.0279651607423651,
+              "peakClearanceM": 0.11925591457833026,
+              "minClearanceM": -0.00013668263335406272
+            },
+            "R": {
+              "heel": {
+                "spanM": 0.7986341170741025,
+                "within10mmM": 0.012978932833335363,
+                "minHeightM": 2.52942180902771e-05,
+                "maxHeightM": 0.11960998257112757
+              },
+              "toe": {
+                "spanM": 0.7928751617963569,
+                "within10mmM": 0.03556754197308131,
+                "minHeightM": -0.00018854452369723718,
+                "maxHeightM": 0.1511160055435841
+              },
+              "meanAbsoluteClearanceM": 0.02483634699515861,
+              "peakClearanceM": 0.11960998257112757,
+              "minClearanceM": -0.00018854452369723718
+            }
+          }
+        },
+        "finalStep": {
+          "solesWithin10mm": {
+            "L": 1.6874225268750144e-06,
+            "R": 3.7533794455321154e-07
+          },
+          "markers": {
+            "L": {
+              "heel": {
+                "spanM": 1.8044241225206918e-06,
+                "within10mmM": 1.8044241225206918e-06,
+                "minHeightM": -1.3243409955732144e-05,
+                "maxHeightM": 3.9080146740089194e-06
+              },
+              "toe": {
+                "spanM": 1.609237031616649e-06,
+                "within10mmM": 1.609237031616649e-06,
+                "minHeightM": 5.2559645914745934e-05,
+                "maxHeightM": 6.970997660690759e-05
+              },
+              "meanAbsoluteClearanceM": 2.797976486523801e-06,
+              "peakClearanceM": 3.315304242246242e-08,
+              "minClearanceM": -1.7117993663690045e-05
+            },
+            "R": {
+              "heel": {
+                "spanM": 0.45547500736407043,
+                "within10mmM": 1.2621650638137466e-07,
+                "minHeightM": 0.0009285373906765537,
+                "maxHeightM": 0.11140337494623562
+              },
+              "toe": {
+                "spanM": 0.46101369792769664,
+                "within10mmM": 5.069919500787837e-07,
+                "minHeightM": -3.937809672782677e-07,
+                "maxHeightM": 0.08468429933780486
+              },
+              "meanAbsoluteClearanceM": 0.03571038560954073,
+              "peakClearanceM": 0.08166850506408943,
+              "minClearanceM": -3.937809672782677e-07
+            }
+          }
+        },
+        "settle": {
+          "solesWithin10mm": {
+            "L": 0.0,
+            "R": 0.0
+          },
+          "markers": {
+            "L": {
+              "heel": {
+                "spanM": 0.0,
+                "within10mmM": 0.0,
+                "minHeightM": 3.9080146740089194e-06,
+                "maxHeightM": 3.9080146740089194e-06
+              },
+              "toe": {
+                "spanM": 0.0,
+                "within10mmM": 0.0,
+                "minHeightM": 6.970997660690759e-05,
+                "maxHeightM": 6.970997660690759e-05
+              },
+              "meanAbsoluteClearanceM": 3.315304242246242e-08,
+              "peakClearanceM": 3.315304242246242e-08,
+              "minClearanceM": 3.315304242246242e-08
+            },
+            "R": {
+              "heel": {
+                "spanM": 0.0,
+                "within10mmM": 0.0,
+                "minHeightM": 0.0009289760601362551,
+                "maxHeightM": 0.0009289760601362551
+              },
+              "toe": {
+                "spanM": 0.0,
+                "within10mmM": 0.0,
+                "minHeightM": 3.9355416925346276e-08,
+                "maxHeightM": 3.9355416925346276e-08
+              },
+              "meanAbsoluteClearanceM": 3.9355416925346276e-08,
+              "peakClearanceM": 3.9355416925346276e-08,
+              "minClearanceM": 3.9355416925346276e-08
+            }
+          }
+        },
+        "entireApproach": {
+          "solesWithin10mm": {
+            "L": 0.026412515754624676,
+            "R": 0.0369452706559759
+          },
+          "markers": {
+            "L": {
+              "heel": {
+                "spanM": 1.0669172741136597,
+                "within10mmM": 0.009692670654858173,
+                "minHeightM": -0.00013277747331283396,
+                "maxHeightM": 0.12046474469604992
+              },
+              "toe": {
+                "spanM": 1.0745487952343957,
+                "within10mmM": 0.032589310309781884,
+                "minHeightM": -6.704651423070085e-05,
+                "maxHeightM": 0.15405924132514628
+              },
+              "meanAbsoluteClearanceM": 0.016473778783784865,
+              "peakClearanceM": 0.11925591457833026,
+              "minClearanceM": -0.00013668263335406272
+            },
+            "R": {
+              "heel": {
+                "spanM": 1.2971401767515822,
+                "within10mmM": 0.012978932833335363,
+                "minHeightM": 2.52942180902771e-05,
+                "maxHeightM": 0.11960998257112757
+              },
+              "toe": {
+                "spanM": 1.297214670181685,
+                "within10mmM": 0.03556754197308131,
+                "minHeightM": -0.00018854452369723718,
+                "maxHeightM": 0.1511160055435841
+              },
+              "meanAbsoluteClearanceM": 0.029305129987370438,
+              "peakClearanceM": 0.11960998257112757,
+              "minClearanceM": -0.00018854452369723718
+            }
+          }
+        }
+      },
+      "turn": {
+        "phases": [
+          {
+            "swing": "R",
+            "support": "L",
+            "supportDriftM": 0.0003392772693564235,
+            "swingClearanceM": 0.037877841180934596,
+            "supportMaxClearanceM": 3.315304242246242e-08
+          },
+          {
+            "swing": "L",
+            "support": "R",
+            "supportDriftM": 6.607010523270785e-05,
+            "swingClearanceM": 0.04939405065177127,
+            "supportMaxClearanceM": -4.200571751544757e-08
+          },
+          {
+            "swing": "R",
+            "support": "L",
+            "supportDriftM": 9.603311189894091e-05,
+            "swingClearanceM": 0.05200006636691917,
+            "supportMaxClearanceM": -4.06557121301887e-09
+          },
+          {
+            "swing": "L",
+            "support": "R",
+            "supportDriftM": 7.359675958642748e-05,
+            "swingClearanceM": 0.04924867062100985,
+            "supportMaxClearanceM": 3.003680939528408e-07
+          },
+          {
+            "swing": "R",
+            "support": "L",
+            "supportDriftM": 2.9132357429023057e-05,
+            "swingClearanceM": 0.04353028715340737,
+            "supportMaxClearanceM": 3.3210690086882266e-08
+          }
+        ],
+        "groundedDriftM": {
+          "L": 0.01717343298842615,
+          "R": 0.01264653972986499
+        },
+        "groundedDriftByWindowM": {
+          "arrival": {
+            "L": 0.0,
+            "R": 0.0
+          },
+          "turn": {
+            "L": 0.01717343298842615,
+            "R": 0.01264653972986499
+          },
+          "rest": {
+            "L": 4.3159888836117727e-11,
+            "R": 6.140416492588596e-10
+          }
+        },
+        "turnSamples": 84,
+        "turnRuns": 1,
+        "headingReversed": true,
+        "progressMonotonic": true,
+        "waitRemainingS": 3.434752482434078e-15,
+        "turnStartS": 0.5166666666666373,
+        "turnEndS": 1.899999999999892,
+        "stopDriftM": {
+          "L": 0.25347127905470107,
+          "R": 0.30863804123846184
+        },
+        "minClearanceM": -0.00025548969478736416,
+        "maxClearanceM": {
+          "L": 0.04939405065177127,
+          "R": 0.05200006636691917
+        },
+        "rootDriftM": 0.0
+      },
+      "observedFinalSupport": "L",
+      "brake": {
+        "clip": "FrenadaL",
+        "firstTick": -29,
+        "lastTick": -1,
+        "startPhase": 0.03073784723229466,
+        "endPhase": 0.9833940972322948,
+        "entryTravelM": {
+          "L": {
+            "heel": 1.957057060199015e-05,
+            "toe": 1.946965395289016e-05
+          },
+          "R": {
+            "heel": 0.04303105237021231,
+            "toe": 0.04332581049613418
+          }
+        },
+        "exitTravelM": {
+          "L": {
+            "heel": 8.493447706678141e-09,
+            "toe": 2.1585914958032963e-08
+          },
+          "R": {
+            "heel": 1.7351398620361348e-08,
+            "toe": 3.794443055254122e-09
+          }
+        },
+        "rootTravelM": 0.1674999999933391,
+        "firstSpeedMps": 1.294910151360682,
+        "lastSpeedMps": 6.442424194119667e-05,
+        "maxSpeedIncreaseMps": -0.00037979897285822517
+      },
+      "samples": 217
+    }
+  },
+  "environment": {
+    "seed": 1337,
+    "actor": "ped:38",
+    "actorOrigin": [
+      155.5,
+      130
+    ],
+    "workshop": [
+      168,
+      96
+    ],
+    "webgl": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+    "clips": {
+      "Marcha": {
+        "duration": 0.7654037475585938
+      },
+      "Reposo": {
+        "duration": 4
+      },
+      "Carrera": {
+        "duration": 0.5655468702316284
+      },
+      "Giro": {
+        "duration": 1.399999976158142
+      },
+      "FrenadaL": {
+        "duration": 0.48985838890075684
+      },
+      "FrenadaR": {
+        "duration": 0.48985838890075684
+      }
+    },
+    "canvas": [
+      563,
+      422
+    ]
+  },
+  "chromium": "156.0.8078.79",
+  "landmarks": {
+    "L": {
+      "shoePoints": 263,
+      "solePoints": 51,
+      "bindBottom": 0.0010188817977905273,
+      "heel": [
+        0.09001433104276657,
+        0.0010227560997009277,
+        -0.04133124276995659
+      ],
+      "toe": [
+        0.23619699478149414,
+        0.001088559627532959,
+        0.15716859698295593
+      ]
+    },
+    "R": {
+      "shoePoints": 259,
+      "solePoints": 58,
+      "bindBottom": 0,
+      "heel": [
+        -0.01419944129884243,
+        0.0009289383888244629,
+        -0.18581126630306244
+      ],
+      "toe": [
+        -0.10181866586208344,
+        0,
+        0.02259286493062973
+      ]
+    }
+  }
+}
