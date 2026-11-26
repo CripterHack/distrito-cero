@@ -1,4 +1,4 @@
-"""Fit the #71 character to the game's articulated body and bake two portable cycles.
+"""Fit the #71 character to the game's articulated body and bake three portable cycles.
 
 blender -b -t 2 --python-exit-code 1 -P tools/rig_higgsfield_character.py -- INPUT.glb NEW_DIRECTORY
 """

@@ -1,4 +1,16 @@
-# Marcha y reposo del personaje de Higgsfield
+# Personaje del Mercado · v0.20.29
+
+En el juego, el residente pasa del reposo a la marcha cuando sale de la parada y corre al oír el claxon de un vehículo cercano. Las tres acciones están disponibles por separado en el [GLB portátil](character-walk.glb). La escena editable `character-motion.blend` del paquete reproduce cuatro ciclos de marcha, una respiración y cuatro ciclos de carrera. Las cámaras de perfil y tres cuartos permiten seguir el apoyo de los pies.
+
+| Acción | Duración del ciclo | Velocidad de desplazamiento en el juego |
+| --- | ---: | ---: |
+| Reposo | 4,000 s | 0 m/s |
+| Marcha | 0,765 s | 1,35 m/s |
+| Carrera | 0,566 s | 3,78 m/s |
+
+El GLB contiene 30.099 triángulos, tres mapas de 4096 × 4096 píxeles y 49 huesos. El desplazamiento por la acera corresponde a la simulación. El GLB reproduce los ciclos en el sitio. [Conversión y revisión en la calle](../../specs/005-mercado-character/README.md).
+
+## Revisión original de v0.20.28 · marcha y reposo
 
 Abrir `character-motion.blend` del paquete de autoría y pulsar **Espacio**. La primera marca de la línea de tiempo muestra cuatro zancadas completas en el sitio. La segunda reproduce la respiración en reposo. Las cámaras **Estudio · oblicua** y **Estudio · perfil** permiten comparar la silueta y el contacto de los zapatos. En el GLB portátil, seleccionar la animación **Marcha** (0,7654 s) o **Reposo** (4 s) en el visor. [Descargar el GLB](character-walk.glb) · [Ver referencia y fases de marcha](marcha-personaje.jpg).
 
@@ -16,9 +28,9 @@ La prueba reimporta el GLB en Blender 4.3.2, reproduce 33 fases por clip y eval�
 
 Al bajar el brazo, la primera distribución de pesos estiraba de 63,9 a 117,5 mm una arista del hombro derecho. Tras repartir los pesos sobre la manga, en reposo mide 89,2 mm. En la marcha, la mayor variación se concentra ahora detrás de la rodilla derecha. Al 37,5 % del ciclo, una arista del pliegue del pantalón se comprime de 54,9 a 8,8 mm. El siguiente correctivo debe recuperar volumen al flexionar la rodilla. Quedan las uniones medio–anular y anular–meñique, las poses de agarre, la carrera y las transiciones entre clips. Estos ciclos emplean el skinning lineal del GLB. Su incorporación al juego requiere convertir y medir el recurso en las cámaras y los LOD del renderer nativo con cuaterniones duales.
 
-## Reproducción
+## Reproducción del modelo vigente
 
-Desde la raíz del repositorio, con Blender 4.3.2, Python de Blender con NumPy y SciPy, Node.js y el paquete `gltf-validator` 2.0.0-dev.3.10. Las dos recetas crean sus directorios de salida. La opción `--frames` reproduce y renderiza la referencia, doce fases oblicuas y cuatro de perfil para la marcha y ocho fases oblicuas para el reposo. Las vistas miden 464 × 576 px. Cycles usa 32 muestras para la referencia y diez para cada fase.
+Desde la raíz del repositorio, con Blender 4.3.2, Python de Blender con NumPy y SciPy, Node.js y el paquete `gltf-validator` 2.0.0-dev.3.10. Las dos recetas crean sus directorios de salida. La opción `--frames` reproduce y renderiza la referencia, doce fases oblicuas y cuatro de perfil para la marcha y la carrera, y ocho fases oblicuas para el reposo. Las vistas miden 464 × 576 px. Cycles usa 32 muestras para la referencia y diez para cada fase.
 
 ```sh
 original=/ruta/character-index-retopo.glb
@@ -32,4 +44,4 @@ blender -b -t 2 --python-exit-code 1 -P tests/higgsfield_body_motion.py -- "$ori
 blender -b -t 2 --python-exit-code 1 -P tools/review_higgsfield_motion.py -- "$original" "$salida/character-walk.glb" "$estudio" --frames
 ```
 
-El GLB de entrada tiene SHA-256 `9b74d3e839623de66f5ccffb822cd74dad85f4afa0dd6d18a333c911095c06e7`. El GLB animado mide 10.159.852 bytes y tiene SHA-256 `95515d51d7ba05df27cd9dcbddc9ffa0a496eac240bc0eb509c68768b702682c`. El validador de Khronos registró cero errores y cero advertencias.
+El GLB de entrada tiene SHA-256 `9b74d3e839623de66f5ccffb822cd74dad85f4afa0dd6d18a333c911095c06e7`. El derivado histórico de v0.20.28 medía 10.159.852 bytes y tenía SHA-256 `95515d51d7ba05df27cd9dcbddc9ffa0a496eac240bc0eb509c68768b702682c`. El validador de Khronos registró cero errores y cero advertencias.

@@ -1,4 +1,4 @@
-"""Create an editable Blender review scene; --frames also renders the two cycles.
+"""Create an editable Blender review scene; --frames also renders all three cycles.
 
 blender -b -t 2 --python-exit-code 1 -P tools/review_higgsfield_motion.py -- ORIGINAL.glb WALK.glb NEW_DIR [--frames]
 """
@@ -146,7 +146,7 @@ def save_scene(scene, cameras, rig, out):
                 view.clip_start = 0.01
     info = bpy.data.texts.new("LEEME · movimiento")
     info.write(
-        "Pulse Espacio para reproducir. Los marcadores llevan a los cuatro ciclos de marcha "
+        "Pulse Espacio para reproducir. Los marcadores llevan a los cuatro ciclos de marcha, "
         "al reposo y a los cuatro ciclos de carrera. Las tiras de cada acción son editables en el editor NLA. "
         "Encienda Superposiciones para ver los 49 huesos. Para editar la malla en T, "
         "seleccione el esqueleto y active la posición de reposo en Propiedades de datos. "
