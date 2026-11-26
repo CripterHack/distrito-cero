@@ -6,6 +6,17 @@ La rueda de aleación tiene cinco radios bifurcados con bisel, un cubo con cinco
 
 La [rueda descargable en GLB](../../assets/dc-sedan-wheel.glb) usa la geometría de producción, mide 0,73 m de diámetro y 0,27 m de ancho en el neumático. La raíz controla la dirección y el nodo `Rolling axle` controla la rodadura sobre X. Para regenerar el archivo ejecuta `node tools/export_sedan_wheel.cjs`.
 
+El [sedán completo en GLB](../../assets/dc-native-sedan.glb) contiene las 59 instancias que dibuja el juego con el coche cercano, intacto, parado y las puertas cerradas. Usa los búferes del renderer para la carrocería Higgsfield/Blender, cristales, guarnecidos, cabina y ruedas. Cada nodo `Steering_` gira sobre Y y su hijo `Rolling_` sobre X. Los materiales PBR del archivo aproximan la pintura, los cristales y la iluminación del shader nativo.
+
+Blender 4.3.2 importó las 59 piezas y 15.570 triángulos. El vehículo mide 4,485 m de largo, 2,350 m de ancho con retrovisores y 1,582 m de alto. Reconstruye el HTML antes de extraer la versión vigente del juego.
+
+```sh
+python3 build.py
+mkdir -p artifacts
+python3 tools/export_native_sedan.py --output artifacts/sedan.glb
+python3 tests/sedan_export.test.py
+```
+
 ![Comparación del sedán completo y de la rueda durante un giro](comparacion.jpg)
 
 ## Coste por sedán
