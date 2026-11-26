@@ -2,6 +2,7 @@
 
 - El residente desacelera en el último paso y coloca los dos pies para la media vuelta. El GLB y ambas mallas del juego incluyen las frenadas con apoyo izquierdo y derecho.
 - El sedán conserva la posición y la orientación de sus cuatro ejes al pasar a la malla lejana. La dirección, la rodadura y la inclinación de la carrocería siguen siendo visibles a partir de 66 m.
+- La luz de las vitrinas de esquina alcanza las baldas y la mercancía al anochecer.
 
 # v0.20.30 · Barrio del Mercado · 2026-11-26
 

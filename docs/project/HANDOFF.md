@@ -1,3 +1,9 @@
+# Continuación · v0.20.31 · refs #5
+
+Para ver el último paso, seguir al residente entre la marquesina y la esquina del Mercado. Comprobar talón y puntera en ambos sentidos. Si el personaje se calma a menos de 16,53 cm de la esquina, queda por diseñar una transición específica desde carrera. En la siguiente revisión artística del personaje, inspeccionar las separaciones de los dedos en primer plano. La transición de las mallas de personajes y escaparates sigue pendiente de perfilado en una GPU física. [Frenada y evidencia](../../specs/007-mercado-braking/README.md).
+
+## Registro anterior
+
 # Continuación · v0.20.30 · refs #5
 
 Para revisar la media vuelta, seguir al residente de chaqueta entre la marquesina del Mercado y la esquina, en X = 155,5 y Z = 130–149. Observar los apoyos a ambas distancias de juego y tocar el claxon durante un cambio de dirección. Durante el medio segundo de frenado previo, el centro de la suela cercana al suelo todavía avanza hasta 5,6 cm al pasar de marcha a reposo. El siguiente ajuste de animación es hacer coincidir el último paso con la llegada, fijar talón o puntera hasta transferir el peso y medir ambos puntos por separado. También queda la lectura de los dedos en primer plano. Sigue pendiente medir los dos niveles de detalle en una GPU física antes de ampliar el reparto. [Criterios, capturas y reproducción](../../specs/006-mercado-turn/README.md).
