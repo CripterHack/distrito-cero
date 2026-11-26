@@ -1,3 +1,7 @@
+# v0.20.26 · Coherencia · 2026-11-26
+
+El tirador se mantiene unido al panel de la puerta al abrirse o cerrarse, incluso con daño lateral o con la suspensión inclinada.
+
 # v0.20.25 · Coherencia · 2026-11-25
 
 La chaqueta en LOD2 comparte la malla intermedia existente para conservar su

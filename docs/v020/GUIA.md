@@ -1,4 +1,10 @@
-# Parche vigente del árbol: v0.20.25 · Coherencia
+# Parche vigente del árbol: v0.20.26 · Coherencia
+
+Los tiradores acompañan el panel durante la apertura y el cierre de las puertas de los vehículos cercanos.
+
+## Notas anteriores
+
+# v0.20.25 · Coherencia
 
 La chaqueta conserva más detalle en los personajes lejanos para evitar los
 parches adicionales de piel que aparecían junto al cuello. Inicio y Pausa
