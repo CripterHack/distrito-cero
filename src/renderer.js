@@ -69,7 +69,21 @@
   mat3 ry=mat3(c,0.,-s,0.,1.,0.,s,0.,c);mat3 rx=mat3(1.,0.,0.,0.,cx,sx,0.,-sx,cx);mat3 rz=mat3(cz,sz,0.,-sz,cz,0.,0.,0.,1.);
   mat3 rot=ry*rz*rx;vec3 position=aPosition,normal=aNormal;
   vSurface=position;vLook=vec4(0.);vTraits=vec4(0.);
-  if(uSkinned>0){
+  if(uSkinned==3){
+   // These glTF joints have their own inverse bind matrices and use linear skinning.
+   mat4 skin=crowdBone(int(aJoints.x))*aWeights.x+crowdBone(int(aJoints.y))*aWeights.y+
+             crowdBone(int(aJoints.z))*aWeights.z+crowdBone(int(aJoints.w))*aWeights.w;
+   position=(skin*vec4(position,1.)).xyz;normal=normalize(mat3(skin)*normal);
+   // Bend the torso in response to a hit, keeping the soles on the pavement.
+   if(iExtra.z!=0.){
+    float h=position.y-.92,t=clamp(h/.36,0.,1.),angle=iExtra.z*t*t*(3.-2.*t);
+    float ca=cos(angle),sa=sin(angle),slope=iExtra.z*6.*t*(1.-t)/.36;
+    vec2 yz=mat2(ca,sa,-sa,ca)*vec2(h,position.z);
+    vec2 dy=vec2(ca,sa)+slope*vec2(-yz.y,yz.x);
+    normal=normalize(vec3(dot(dy,vec2(ca,sa))*normal.x,ca*normal.y-dy.y*normal.z,sa*normal.y+dy.x*normal.z));
+    position.yz=yz+vec2(.92,0.);
+   }
+  }else if(uSkinned>0){
    int lookRow=uSkinned==2?clamp(int(iExtra.w+.5)-200,0,127):0;
    vLook=texelFetch(uCharacterLooks,ivec2(0,lookRow),0);
    if(uSkinned==2)vTraits=texelFetch(uCharacterLooks,ivec2(1,lookRow),0);
@@ -119,7 +133,7 @@
  precision highp float;
  flat in vec4 vTraits;flat in vec4 vLook;in vec3 vSurface;in vec3 vWorld;in vec3 vNormal;in vec3 vLocal;in vec3 vFace;in vec2 vUV;in vec4 vColor;in vec4 vShadow;in vec4 vReflection;
  flat in int vMaterial;flat in float vSeed;flat in float vDetail;
- uniform sampler2D uMercadoAtlas;uniform int uMercadoLoaded;
+ uniform sampler2D uMarketPedAtlas;uniform sampler2D uMercadoAtlas;uniform int uMercadoLoaded;
  uniform sampler2D uSkinAlbedo;uniform sampler2D uSkinNormal;uniform sampler2D uSkinRoughness;
  uniform float uStudio;uniform float uDaylight;uniform vec3 uEye;uniform vec3 uSun;uniform vec4 uLights[12];uniform vec3 uHeadPos;uniform vec3 uHeadDir;
  uniform sampler2D uShadow;uniform sampler2D uReflection;uniform sampler2D uSigns;uniform float uTime;uniform float uRain;uniform float uShadowTexel;uniform int uPass;uniform int uShadows;uniform int uLightCount;
@@ -177,6 +191,12 @@
   if(abs(orientation)<1e-20)return normal;
   return normalize(mat3(tangent,bitangent*sign(orientation),normal)*sampleNormal);
  }
+ void sampleStreetPBR(sampler2D atlas,vec2 uv,inout vec3 base,inout vec3 n,inout float rough,inout float metal){
+  base=pow(texture(atlas,uv).rgb,vec3(2.2));
+  vec3 orm=texture(atlas,uv+vec2(0.,1./3.)).rgb;
+  rough=clamp(orm.g,.06,1.);metal=orm.b;
+  n=mappedNormal(n,texture(atlas,uv+vec2(0.,2./3.)).rgb*2.-1.);
+ }
  void main(){
   if(uPass==1&&vWorld.y<.025)discard;
   bool groom=detailMaterial(42)||(detailMaterial(33)&&(vSurface.y>1.706||vSurface.z<.04));
@@ -199,11 +219,11 @@
    // Each of the six 640px tiles includes an eight-texel extruded border.
    vec2 tile=(vec2(8.5)+clamp(vUV,0.,1.)*623.)/640.;
    vec2 uv=(tile+vec2(detailMaterial(50)?0.:1.,0.))/vec2(2.,3.);
-   base=pow(texture(uMercadoAtlas,uv).rgb,vec3(2.2));
-   vec3 orm=texture(uMercadoAtlas,uv+vec2(0.,1./3.)).rgb;
-   rough=clamp(orm.g,.06,1.);metal=orm.b;
-   vec3 map=texture(uMercadoAtlas,uv+vec2(0.,2./3.)).rgb*2.-1.;
-   n=mappedNormal(n,map);
+   sampleStreetPBR(uMercadoAtlas,uv,base,n,rough,metal);
+  }
+  if(detailMaterial(52)){
+   vec2 tile=(vec2(4.5)+clamp(vUV,0.,1.)*503.)/512.;
+   sampleStreetPBR(uMarketPedAtlas,tile/vec2(1.,3.),base,n,rough,metal);
   }
   float grain=noise(vWorld.xz*85.)*.08;
   if(vDetail>=100.&&vDetail<=103.&&vSeed>.05){vec3 gn=normalize(cross(dFdx(vWorld),dFdy(vWorld)));if(dot(gn,n)<0.)gn=-gn;n=normalize(mix(n,gn,clamp(vSeed*.62,0.,.62)));}
@@ -628,7 +648,7 @@
      const {buffer,count}=batch;if(!count)continue;
      const selected=basic&&!m.skinned&&!m.crowd&&!batch.dynamic&&batch.basicMaterials===true?basic:original;
      if(program!==selected){gl.useProgram(selected);program=selected;}
-     gl.uniform1i(this.uniform(program,'uSkinned'),m.crowd?2:m.skinned?1:0);
+     gl.uniform1i(this.uniform(program,'uSkinned'),m.linearCrowd?3:m.crowd?2:m.skinned?1:0);
      if(m.skinned&&!m.crowd&&m.palette)gl.uniformMatrix4fv(this.uniform(program,'uBones[0]'),false,m.palette);
      const o=this.renderOrigin||[0,0];gl.uniform3fv(this.uniform(program,'uChunkOffset'),batch.dynamic?[0,0,0]:[(batch.baseX||0)-o[0],0,(batch.baseZ||0)-o[1]]);
      gl.bindBuffer(gl.ARRAY_BUFFER,buffer);for(let i=3;i<=6;i++){gl.enableVertexAttribArray(i);gl.vertexAttribPointer(i,4,gl.FLOAT,false,64,(i-3)*16);gl.vertexAttribDivisor(i,1);}

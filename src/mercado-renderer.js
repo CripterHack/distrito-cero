@@ -16,6 +16,32 @@
   }
   return out;
  }
+ // Shared atlas upload for embedded street assets. Each promise belongs to one GL generation.
+ D.loadStreetAtlas=function(renderer,texture,source,unit,maxLevel){
+  const g=renderer.gl,image=new Image();
+  return new Promise(resolve=>{
+   image.onload=()=>{
+    if(!renderer.canRender()){resolve(false);return;}
+    const previous=g.getParameter(g.ACTIVE_TEXTURE),flip=g.getParameter(g.UNPACK_FLIP_Y_WEBGL);
+    g.activeTexture(g.TEXTURE0+unit);
+    const previousTexture=g.getParameter(g.TEXTURE_BINDING_2D);
+    try{
+     g.bindTexture(g.TEXTURE_2D,texture);
+     g.pixelStorei(g.UNPACK_FLIP_Y_WEBGL,true);
+     g.texImage2D(g.TEXTURE_2D,0,g.RGBA,g.RGBA,g.UNSIGNED_BYTE,image);
+     g.texParameteri(g.TEXTURE_2D,g.TEXTURE_WRAP_S,g.CLAMP_TO_EDGE);
+     g.texParameteri(g.TEXTURE_2D,g.TEXTURE_WRAP_T,g.CLAMP_TO_EDGE);
+     g.texParameteri(g.TEXTURE_2D,g.TEXTURE_MAX_LEVEL,maxLevel);
+     g.texParameteri(g.TEXTURE_2D,g.TEXTURE_MIN_FILTER,g.LINEAR_MIPMAP_LINEAR);
+     g.generateMipmap(g.TEXTURE_2D);
+     resolve(renderer.canRender());
+    }catch{resolve(false);}
+    finally{g.pixelStorei(g.UNPACK_FLIP_Y_WEBGL,flip);g.bindTexture(g.TEXTURE_2D,previousTexture);g.activeTexture(previous);}
+   };
+   image.onerror=()=>resolve(false);
+   image.src=source;
+  });
+ };
  class MercadoRenderer extends D.Renderer{
   constructor(...args){
    super(...args);
@@ -27,28 +53,8 @@
     }
    }
    this.mercadoTexture=this.gl.createTexture();
-   this.mercadoReady=this.loadMercadoAtlas();
-  }
-  loadMercadoAtlas(){
-   const g=this.gl, image=new Image();
-   return new Promise(resolve=>{
-    image.onload=()=>{
-     if(!this.canRender()){resolve(false);return;}
-     const previous=g.getParameter(g.ACTIVE_TEXTURE),flip=g.getParameter(g.UNPACK_FLIP_Y_WEBGL);
-     g.activeTexture(g.TEXTURE10);g.bindTexture(g.TEXTURE_2D,this.mercadoTexture);
-     g.pixelStorei(g.UNPACK_FLIP_Y_WEBGL,true);
-     g.texImage2D(g.TEXTURE_2D,0,g.RGBA,g.RGBA,g.UNSIGNED_BYTE,image);
-     g.texParameteri(g.TEXTURE_2D,g.TEXTURE_WRAP_S,g.CLAMP_TO_EDGE);
-     g.texParameteri(g.TEXTURE_2D,g.TEXTURE_WRAP_T,g.CLAMP_TO_EDGE);
-     g.texParameteri(g.TEXTURE_2D,g.TEXTURE_MAX_LEVEL,3);
-     g.texParameteri(g.TEXTURE_2D,g.TEXTURE_MIN_FILTER,g.LINEAR_MIPMAP_LINEAR);
-     g.generateMipmap(g.TEXTURE_2D);
-     g.pixelStorei(g.UNPACK_FLIP_Y_WEBGL,flip);g.activeTexture(previous);
-     this.mercadoLoaded=true;resolve(true);
-    };
-    image.onerror=()=>resolve(false);
-    image.src=D.MercadoModels.atlas;
-   });
+   this.mercadoReady=D.loadStreetAtlas(this,this.mercadoTexture,D.MercadoModels.atlas,10,3)
+    .then(ready=>(this.mercadoLoaded=ready));
   }
   sceneUniforms(...args){
    super.sceneUniforms(...args);
