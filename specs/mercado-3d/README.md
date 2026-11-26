@@ -35,7 +35,7 @@ DC_QA_BROWSER=/usr/bin/chromium python3 tools/qa/capture_mercado.py --before art
 
 ## Revisión pendiente
 
-Comparar la lectura de los materiales de noche, el cambio de detalle al conducir y el coste de las vitrinas en GPU física. Validar vestuario, apariencias y presupuesto del GLB de personaje antes de sustituir un actor de campaña. El rendimiento de una captura en SwiftShader depende del equipo de QA.
+La v0.20.31 verifica la lectura de los paquetes y las baldas bajo la tira nocturna en dos cámaras del Mercado. Siguen pendientes el cambio de detalle al conducir y el coste de las vitrinas en GPU física. [Vistas de noche y mediciones](../../qa/mercado-vitrinas-noche/README.md). Validar vestuario, apariencias y presupuesto del GLB de personaje antes de sustituir un actor de campaña. El rendimiento de una captura en SwiftShader depende del equipo de QA.
 
 ## Vehículo, escaparates y personaje
 
