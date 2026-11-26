@@ -138,7 +138,7 @@
  uniform float uStudio;uniform float uDaylight;uniform vec3 uEye;uniform vec3 uSun;uniform vec4 uLights[12];uniform vec3 uHeadPos;uniform vec3 uHeadDir;
  uniform sampler2D uShadow;uniform sampler2D uReflection;uniform sampler2D uSigns;uniform float uTime;uniform float uRain;uniform float uShadowTexel;uniform int uPass;uniform int uShadows;uniform int uLightCount;
  out vec4 frag;
- // Static batches prove that none of the detailed 30–51 material paths is reachable.
+ // Static batches prove that none of the detailed material paths is reachable.
  // The general program retains the original comparisons and every surface formula.
  bool detailMaterial(int material){
 #ifdef DC_BASIC_MATERIALS
