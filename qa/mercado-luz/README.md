@@ -30,3 +30,9 @@ git show 5b97127:index.html > artifacts/mercado-luz-despues.html
 DC_QA_BROWSER=/usr/bin/chromium OPENBLAS_NUM_THREADS=1 python3 tools/qa/capture_mercado_lighting.py \
   --before artifacts/mercado-luz-antes.html --after artifacts/mercado-luz-despues.html --output artifacts/mercado-luz
 ```
+
+## Comprobación tras el ajuste de apoyo
+
+Se repitió la prueba con el mismo control `7155ff7` y el HTML `a6eb9e9`, que incluye el ajuste de altura del jugador sobre la acera. Coincidieron los conteos de píxeles, la paleta del residente, los valores de luma y contraste y los controles de toda la imagen en ambas cámaras. El contraste nocturno de la chaqueta volvió a pasar de 20,29 a 39,15 en los mismos 595 píxeles. La lámina de arriba corresponde a la pareja que aísla la instalación de la luminaria. El cambio posterior de entrada y salida del coche de `e291668` quedó fuera de este ensayo de iluminación estática.
+
+Para repetir esta comprobación, usar `a6eb9e9:index.html` como segunda entrada del comando anterior. Su SHA-256 es `a82e8c1f73b2172cc3371c4462a9c7b3df065f43f515852793497069ed891609` y la huella del informe JSON producido es `2aab32f3179239137de19deb407291bd3e3385ed6471c0cb9592beaaeac32c06`.
