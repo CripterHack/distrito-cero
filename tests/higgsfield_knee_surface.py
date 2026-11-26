@@ -1,7 +1,8 @@
 """Detect crossings between separate faces of the animated trouser knees.
 
-blender -b -t 2 --python-exit-code 1 -P tests/higgsfield_knee_surface.py -- CHARACTER.glb REPORT.json
+blender -b -t 2 --python-exit-code 1 -P tests/higgsfield_knee_surface.py -- CHARACTER.glb REPORT.json [--clip Carrera]
 """
+import argparse
 from hashlib import sha256
 import json
 from math import floor
@@ -28,7 +29,7 @@ class KneePatch:
         return {(a, b) for a, b in tree.overlap(tree) if a < b and self.corners[a].isdisjoint(self.corners[b])}
 
 
-def verify(path, output):
+def verify(path, output, clip):
     bpy.ops.wm.read_factory_settings(use_empty=True)
     bpy.ops.import_scene.gltf(filepath=str(path.resolve()))
     scene = bpy.context.scene
@@ -48,7 +49,7 @@ def verify(path, output):
     assert all(not p.crossings(base) for p in patches.values()), "Crossing faces in the bind pose"
 
     rig.data.pose_position = "POSE"
-    rig.animation_data.action = rig.animation_data.nla_tracks["Marcha"].strips[0].action
+    rig.animation_data.action = rig.animation_data.nla_tracks[clip].strips[0].action
     start, end = rig.animation_data.action.frame_range
     counts, unique = {s: [] for s in patches}, {s: set() for s in patches}
     for phase in np.linspace(0, 1, 129):
@@ -63,12 +64,17 @@ def verify(path, output):
                       "framesWithCrossings": sum(n > 0 for n in counts[side]),
                       "maximumSimultaneousPairs": max(counts[side])}
                for side, p in patches.items()}
-    report = {"sha256": sha256(path.read_bytes()).hexdigest(), "clip": "Marcha", "samples": 129,
+    report = {"sha256": sha256(path.read_bytes()).hexdigest(), "clip": clip, "samples": 129,
               "blender": bpy.app.version_string, "knees": metrics}
     output.write_text(json.dumps(report, indent=2) + "\n")
     print(json.dumps(report))
-    assert not any(unique.values()), f"Trouser faces cross during the walk: {metrics}"
+    assert not any(unique.values()), f"Trouser faces cross during {clip}: {metrics}"
 
 
 if __name__ == "__main__":
-    verify(*map(Path, sys.argv[sys.argv.index("--") + 1:]))
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("character", type=Path)
+    parser.add_argument("report", type=Path)
+    parser.add_argument("--clip", default="Marcha")
+    args = parser.parse_args(sys.argv[sys.argv.index("--") + 1:])
+    verify(args.character, args.report, args.clip)
