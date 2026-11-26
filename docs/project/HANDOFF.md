@@ -1,3 +1,9 @@
+# Continuación · v0.20.27 · refs #5
+
+La inserción de la chaqueta recupera sus caras fuente en los dos niveles reducidos de personaje. Revisar los pares del [contrato del escote](NECKLINE-DETAIL.md), incluidos los rayos del borde lateral y las vistas a distancia de juego. Para continuar, medir la transición del reparto en movimiento sobre hardware físico y revisar las regiones donde la piel reducida aún difiere de la superficie fuente. Mantener los controles de las caras y de la abertura del escote al modificar peinados o prendas.
+
+## Registro anterior
+
 # Continuación tras el merge de v0.20.25 · refs #5
 
 `master` incorporó #63, #64 y #65 en `ba9997df`. Consultar la [revisión en la cámara de calle](../../qa/collar-street-v02025/README.md) para reproducir el cambio de LOD con un peatón real y distinguirlo de las vistas forzadas del estudio.

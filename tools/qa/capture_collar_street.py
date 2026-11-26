@@ -77,7 +77,7 @@ def digest(data):
     return hashlib.sha256(data).hexdigest()
 
 
-def capture(browser, html, out):
+def capture(browser, html, out, compare_neckline_detail=False):
     page = browser.new_page(viewport={"width":1280,"height":720}, device_scale_factor=1)
     errors = []
     page.on("pageerror", lambda exc: errors.append(str(exc)))
@@ -92,7 +92,10 @@ def capture(browser, html, out):
         frames = {}
         for quality, near, far in [("balanced",42,50),("eco",24,31)]:
             page.evaluate("streetFixture.r.lodHistory.clear()")
-            for distance, expected in [(near,1),(far,2)]:
+            distances = [(near,1), (far,2)]
+            if compare_neckline_detail:
+                distances.insert(0,(5,0))
+            for distance, expected in distances:
                 key = f"{quality}-{distance}m"
                 options = dict(quality=quality, distance=distance)
                 metrics = page.evaluate(DRAW, {**options,"hidden":False})
@@ -126,25 +129,41 @@ def main():
     parser.add_argument("--before", required=True, type=Path)
     parser.add_argument("--after", required=True, type=Path)
     parser.add_argument("--output", required=True, type=Path)
+    parser.add_argument("--compare-neckline-detail", action="store_true",
+                        help="Include a LOD0 control and compare edited jacket geometry in both reduced LODs.")
     args = parser.parse_args()
     out = args.output.resolve()
     if not out.is_relative_to(ROOT / "artifacts") or out == ROOT / "artifacts":
         parser.error("Choose a fresh directory under artifacts/")
     out.mkdir(parents=True, exist_ok=False)
     report = {"viewport":[1280,720], "seed":1337, "fixtureTime":1.25,
-              "producerSha256":digest(Path(__file__).read_bytes())}
+              "producerSha256":digest(Path(__file__).read_bytes()),
+              "comparisonMode":"shared-neckline-detail" if args.compare_neckline_detail else "far-jacket-policy"}
     with sync_playwright() as pw, pw.chromium.launch(**launch_options()) as browser:
         report["browser"] = browser.version
         for label, html in [("before",args.before),("after",args.after)]:
             (out/label).mkdir()
-            report[label] = capture(browser, html, out/label)
+            report[label] = capture(browser, html, out/label, args.compare_neckline_detail)
     comparison = {}
     for key, a in report["after"]["frames"].items():
         b = report["before"]["frames"][key]
         if any(a[k] != b[k] for k in a if k not in ("imageSha256", "visibilityControlBounds")):
             raise RuntimeError("Camera, actor or sampling mismatch: "+key)
         delta = ImageChops.difference(*(Image.open(out/l/f"{key}.png").convert("RGB") for l in ("before","after")))
-        if a["lod"] == 1 and delta.getbbox():
+        changed = delta.getbbox()
+        if args.compare_neckline_detail:
+            if a["lod"] == 0 and changed:
+                raise RuntimeError("LOD0 control image differs: "+key)
+            if changed:
+                # The target may cast a shadow. Use the observed visible actor
+                # and its shadow in each build instead of an arbitrary ROI.
+                before_box, after_box = b["visibilityControlBounds"], a["visibilityControlBounds"]
+                region = (min(before_box[0], after_box[0]), min(before_box[1], after_box[1]),
+                          max(before_box[2], after_box[2]), max(before_box[3], after_box[3]))
+                if not (region[0] <= changed[0] and region[1] <= changed[1]
+                        and region[2] >= changed[2] and region[3] >= changed[3]):
+                    raise RuntimeError("Image changed beyond the target's visible region: "+key)
+        elif a["lod"] == 1 and changed:
             raise RuntimeError("LOD1 image differs: "+key)
         comparison[key] = {"changedRGBPixels":sum(1 for value in delta.convert("RGB").get_flattened_data() if any(value)), "changeBounds":delta.getbbox()}
     if report["before"]["environment"] != report["after"]["environment"]:

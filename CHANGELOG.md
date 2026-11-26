@@ -1,3 +1,7 @@
+# v0.20.27 · Coherencia · 2026-11-26
+
+La chaqueta conserva los vértices fuente del escote y de su unión con el torso en los niveles de detalle intermedio y lejano. Ambos niveles comparten una sola malla de 3.965 triángulos.
+
 # v0.20.26 · Coherencia · 2026-11-26
 
 El tirador se mantiene unido al panel de la puerta al abrirse o cerrarse, incluso con daño lateral o con la suspensión inclinada.
