@@ -1,9 +1,25 @@
-# Continuación vigente · v0.20.25 · chaqueta LOD2 · refs #5
+# Continuación · v0.20.27 · refs #5
+
+La inserción de la chaqueta recupera sus caras fuente en los dos niveles reducidos de personaje. Revisar los pares del [contrato del escote](NECKLINE-DETAIL.md), incluidos los rayos del borde lateral y las vistas a distancia de juego. Para continuar, medir la transición del reparto en movimiento sobre hardware físico y revisar las regiones donde la piel reducida aún difiere de la superficie fuente. Mantener los controles de las caras y de la abertura del escote al modificar peinados o prendas.
+
+## Registro anterior
+
+# Continuación tras el merge de v0.20.25 · refs #5
+
+`master` incorporó #63, #64 y #65 en `ba9997df`. Consultar la [revisión en la cámara de calle](../../qa/collar-street-v02025/README.md) para reproducir el cambio de LOD con un peatón real y distinguirlo de las vistas forzadas del estudio.
+
+La proyección del subconjunto de 190 pérdidas identifica exposición en primeros planos forzados del borde lateral. El ancla 9216 de la pose neutra es un caso reproducible. Si se retoca ese borde en autoría, comparar las tres geometrías de prenda, la piel LOD2 y el orden de profundidad en las mismas cámaras. Conservar la cobertura que se recuperó en #65. Para evaluar prioridad en partida, repetir en movimiento y en la cámara más próxima en la que se mantenga LOD2.
+
+## Registro previo al merge · v0.20.25 · chaqueta LOD2
 
 La chaqueta LOD2 comparte la malla intermedia existente, con pose/apariencia por
 instancia y un solo propietario GPU. [Contrato, evidencia y coste](COLLAR-LOD.md).
 No repetir el atlas de #63, la costura de #64 ni los experimentos de conectividad:
 los últimos corrigieron dos píxeles pero no la cobertura completa muestreada.
+
+### Trabajo posterior · v0.20.26 · puerta del sedán
+
+La corrección del tirador de la puerta parte del merge `ba9997df`. Para reproducir la fijación y contrastarla con el contacto del actor, utilizar las [mediciones de puerta](../../qa/door-handle-v02026/README.md). Revisar después la trayectoria de la palma durante una entrada completa contra ese anclaje en el panel. Mantener las comprobaciones de cancelación y ocupación de asiento.
 
 La base #64 (`2b72a688`) aprobó sus tres workflows y nueve jobs. Esta unidad
 mantiene master como destino y depende de #63/#64; ninguno se ha integrado ni

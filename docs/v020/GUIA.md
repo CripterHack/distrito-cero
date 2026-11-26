@@ -1,4 +1,14 @@
-# Parche vigente del árbol: v0.20.25 · Coherencia
+# Parche vigente del árbol: v0.20.27 · Coherencia
+
+Los personajes a media y larga distancia conservan el borde original del escote y el apoyo de la chaqueta en el cuello al cambiar de nivel de detalle.
+
+# v0.20.26 · Coherencia
+
+Los tiradores acompañan el panel durante la apertura y el cierre de las puertas de los vehículos cercanos.
+
+## Notas anteriores
+
+# v0.20.25 · Coherencia
 
 La chaqueta conserva más detalle en los personajes lejanos para evitar los
 parches adicionales de piel que aparecían junto al cuello. Inicio y Pausa

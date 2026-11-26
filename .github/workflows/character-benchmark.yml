@@ -2,10 +2,10 @@ name: Character reference benchmark
 on:
   pull_request:
     branches: [master]
-    paths: ['src/**', 'build.py', 'version.json', 'requirements-dev.txt', 'tools/qa/**', 'tests/character*', 'tests/native_tangent_frame.test.py', 'tests/lod_seam_qa.test.py', 'tests/collar_lod_qa.test.py', 'tests/crowd-seam-continuity.test.cjs', 'tests/crowd-garment-lod.test.cjs', 'tests/benchmarks/**', 'tests/qa_stage_assets.test.py', '.github/workflows/character-benchmark.yml']
+    paths: ['src/**', 'build.py', 'version.json', 'requirements-dev.txt', 'tools/qa/**', 'tests/character*', 'tests/native_tangent_frame.test.py', 'tests/lod_seam_qa.test.py', 'tests/collar_lod_qa.test.py', 'tests/collar_visibility.test.py', 'tests/neckline_detail.test.py', 'tests/crowd-seam-continuity.test.cjs', 'tests/crowd-garment-lod.test.cjs', 'tests/benchmarks/**', 'tests/qa_stage_assets.test.py', '.github/workflows/character-benchmark.yml']
   push:
     branches: [master]
-    paths: ['src/**', 'build.py', 'version.json', 'requirements-dev.txt', 'tools/qa/**', 'tests/character*', 'tests/native_tangent_frame.test.py', 'tests/lod_seam_qa.test.py', 'tests/collar_lod_qa.test.py', 'tests/crowd-seam-continuity.test.cjs', 'tests/crowd-garment-lod.test.cjs', 'tests/benchmarks/**', 'tests/qa_stage_assets.test.py', '.github/workflows/character-benchmark.yml']
+    paths: ['src/**', 'build.py', 'version.json', 'requirements-dev.txt', 'tools/qa/**', 'tests/character*', 'tests/native_tangent_frame.test.py', 'tests/lod_seam_qa.test.py', 'tests/collar_lod_qa.test.py', 'tests/collar_visibility.test.py', 'tests/neckline_detail.test.py', 'tests/crowd-seam-continuity.test.cjs', 'tests/crowd-garment-lod.test.cjs', 'tests/benchmarks/**', 'tests/qa_stage_assets.test.py', '.github/workflows/character-benchmark.yml']
   workflow_dispatch:
     inputs:
       matrix:
@@ -48,6 +48,8 @@ jobs:
           python3 -m playwright install --with-deps chromium
           python3 tests/lod_seam_qa.test.py
           python3 tests/collar_lod_qa.test.py
+          python3 tests/collar_visibility.test.py
+          python3 tests/neckline_detail.test.py
       - name: Capture the production renderer
         env:
           MATRIX: ${{ inputs.matrix || 'smoke' }}
@@ -61,6 +63,7 @@ jobs:
           fi
           xvfb-run -a python3 tools/qa/render_lod_seam.py --html index.html --output artifacts/ci-characters/lod-seam --label ci-current
           xvfb-run -a python3 tools/qa/render_collar_lod.py --html index.html --output artifacts/ci-characters/collar-lod --label ci-current
+          python3 tools/qa/verify_neckline_detail.py --candidate artifacts/ci-characters/collar-lod/report.json --output artifacts/ci-characters/neckline-detail-v2.json
           echo '### Character reference generated' >> "$GITHUB_STEP_SUMMARY"
           echo 'Read report.html and art-review.json in the artifact. Numerical checks do not approve anatomy or claim FPS.' >> "$GITHUB_STEP_SUMMARY"
       - name: Show failure diagnostics

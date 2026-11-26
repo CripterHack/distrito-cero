@@ -1,0 +1,349 @@
+{
+  "producerSha256": "bd81241bfd3dfff4259d87cd3f7777701ccdfd1d449a211f6a42e81f2787d7cb",
+  "seed": 1337,
+  "time": 1.25,
+  "viewport": [
+    960,
+    600
+  ],
+  "limitations": "Prepared stationary car, isolated storage and software WebGL.",
+  "browser": "156.0.8078.79",
+  "before": {
+    "htmlSha256": "81c9f68654e0e14eddb9cfa73f6408038120d87943bb438c7d713adf64859003",
+    "scene": {
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "size": [
+        845,
+        528
+      ],
+      "eye": [
+        -5.4,
+        2.2,
+        3.1
+      ],
+      "target": [
+        -0.65,
+        0.86,
+        -0.1
+      ],
+      "fov": 0.54
+    },
+    "frames": {
+      "closed": {
+        "open": 0,
+        "tiltedDamaged": false,
+        "sha256": "af72e965b20d7ab1338720c92afb8ae90fd573bdfe6c448ab2ef32fd10f908b4",
+        "handle": {
+          "world": [
+            -0.967,
+            0.96,
+            -0.5499999999999999
+          ],
+          "pixel": [
+            378.01247588439793,
+            282.43570108981976
+          ]
+        },
+        "visibleHandleDifference": {
+          "pixels": 412,
+          "bounds": [
+            357,
+            274,
+            398,
+            290
+          ]
+        }
+      },
+      "quarter": {
+        "open": 0.25,
+        "tiltedDamaged": false,
+        "sha256": "899c45e5aabe76084f2336403f7fb60f52693a4c4cd1bc9ecf0229d8113fa88b",
+        "handle": {
+          "world": [
+            -1.2019023012794965,
+            0.96,
+            -0.5168971225641552
+          ],
+          "pixel": [
+            354.3145986812634,
+            291.1281221639147
+          ]
+        },
+        "visibleHandleDifference": {
+          "pixels": 539,
+          "bounds": [
+            331,
+            284,
+            376,
+            358
+          ]
+        }
+      },
+      "half": {
+        "open": 0.5,
+        "tiltedDamaged": false,
+        "sha256": "5530a29f9d92a9a814588199116751fda3729ac40762cc86d3cbab693a0ed1ec",
+        "handle": {
+          "world": [
+            -1.4185082682327508,
+            0.96,
+            -0.4201668443614036
+          ],
+          "pixel": [
+            340.8624496688226,
+            301.41658674284434
+          ]
+        },
+        "visibleHandleDifference": {
+          "pixels": 968,
+          "bounds": [
+            316,
+            293,
+            371,
+            431
+          ]
+        }
+      },
+      "open": {
+        "open": 1,
+        "tiltedDamaged": false,
+        "sha256": "fe7f67f3e7577b6a8eb9fc88e3df0a3c03b0c51744e3a02a1a8d3215374025d2",
+        "handle": {
+          "world": [
+            -1.7320853758500292,
+            0.96,
+            -0.07033007933520524
+          ],
+          "pixel": [
+            353.5090597111864,
+            324.1803129727939
+          ]
+        },
+        "visibleHandleDifference": {
+          "pixels": 800,
+          "bounds": [
+            329,
+            315,
+            386,
+            464
+          ]
+        }
+      },
+      "tilted-damaged": {
+        "open": 1,
+        "tiltedDamaged": true,
+        "sha256": "aaa4bd5f0fd7094a20b8e248b5ce497790ed55f6287d87ed81a418a5cb28652d",
+        "handle": {
+          "world": [
+            -1.697333248344918,
+            1.1027948646233594,
+            -0.030384822923622587
+          ],
+          "pixel": [
+            364.3588418845614,
+            293.49297787422495
+          ]
+        },
+        "visibleHandleDifference": {
+          "pixels": 757,
+          "bounds": [
+            340,
+            286,
+            396,
+            454
+          ]
+        }
+      }
+    }
+  },
+  "after": {
+    "htmlSha256": "862d703f14cea0e1f06038aca5bad726ccefca8a829122279cad55f639c1f4ba",
+    "scene": {
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "size": [
+        845,
+        528
+      ],
+      "eye": [
+        -5.4,
+        2.2,
+        3.1
+      ],
+      "target": [
+        -0.65,
+        0.86,
+        -0.1
+      ],
+      "fov": 0.54
+    },
+    "frames": {
+      "closed": {
+        "open": 0,
+        "tiltedDamaged": false,
+        "sha256": "af72e965b20d7ab1338720c92afb8ae90fd573bdfe6c448ab2ef32fd10f908b4",
+        "handle": {
+          "world": [
+            -0.967,
+            0.9600000000000001,
+            -0.5499999999999999
+          ],
+          "pixel": [
+            378.01247588439793,
+            282.43570108981976
+          ]
+        },
+        "visibleHandleDifference": {
+          "pixels": 412,
+          "bounds": [
+            357,
+            274,
+            398,
+            290
+          ]
+        }
+      },
+      "quarter": {
+        "open": 0.25,
+        "tiltedDamaged": false,
+        "sha256": "0e5a56c4b9061ace539485d586053c2bd57ee0a1df2bc020505cd2209484e4af",
+        "handle": {
+          "world": [
+            -1.333657287671419,
+            0.9600000000000001,
+            -0.49184755303635064
+          ],
+          "pixel": [
+            341.20865542467675,
+            296.4494389581074
+          ]
+        },
+        "visibleHandleDifference": {
+          "pixels": 507,
+          "bounds": [
+            318,
+            287,
+            365,
+            304
+          ]
+        }
+      },
+      "half": {
+        "open": 0.5,
+        "tiltedDamaged": false,
+        "sha256": "1984cfa14dfd4075cb5fde65790b825cf5b3b5cdc30e7d3a1d2eec4facab0716",
+        "handle": {
+          "world": [
+            -1.6699645107880836,
+            0.9600000000000001,
+            -0.334632015095663
+          ],
+          "pixel": [
+            319.5370632030127,
+            313.74508310796614
+          ]
+        },
+        "visibleHandleDifference": {
+          "pixels": 580,
+          "bounds": [
+            293,
+            305,
+            346,
+            320
+          ]
+        }
+      },
+      "open": {
+        "open": 1,
+        "tiltedDamaged": false,
+        "sha256": "6670b28964dd5663fd34337c1ffa25f9196f357e8f4a1d0d7d89097fbe16fd69",
+        "handle": {
+          "world": [
+            -2.151154284359116,
+            0.9600000000000001,
+            0.22124465662203258
+          ],
+          "pixel": [
+            341.3107060140102,
+            355.05446412744556
+          ]
+        },
+        "visibleHandleDifference": {
+          "pixels": 739,
+          "bounds": [
+            312,
+            345,
+            370,
+            365
+          ]
+        }
+      },
+      "tilted-damaged": {
+        "open": 1,
+        "tiltedDamaged": true,
+        "sha256": "0500607add496d583b014e3a9c84d275a213686b35ead9546401b448924a0935",
+        "handle": {
+          "world": [
+            -2.0303601954387056,
+            1.096561518493764,
+            0.23567930987398705
+          ],
+          "pixel": [
+            362.11051276854766,
+            317.50907050406494
+          ]
+        },
+        "visibleHandleDifference": {
+          "pixels": 654,
+          "bounds": [
+            333,
+            309,
+            390,
+            324
+          ]
+        }
+      }
+    }
+  },
+  "comparison": {
+    "closed": {
+      "pixels": 0,
+      "bounds": null
+    },
+    "quarter": {
+      "pixels": 874,
+      "bounds": [
+        318,
+        284,
+        376,
+        358
+      ]
+    },
+    "half": {
+      "pixels": 1536,
+      "bounds": [
+        293,
+        293,
+        371,
+        431
+      ]
+    },
+    "open": {
+      "pixels": 1539,
+      "bounds": [
+        312,
+        315,
+        386,
+        464
+      ]
+    },
+    "tilted-damaged": {
+      "pixels": 1411,
+      "bounds": [
+        333,
+        286,
+        396,
+        454
+      ]
+    }
+  }
+}
