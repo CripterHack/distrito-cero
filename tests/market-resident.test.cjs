@@ -47,3 +47,66 @@ test('the horn makes the waiting resident run and the calm walk resumes',()=>{
  s.player.car=null;tick(s,210);
  assert.equal(n.panic,0);assert.ok(Math.abs(n.moveSpeed-1.35)<1e-6);
 });
+
+test('both ends play one grounded half-turn inside the existing wait, independent of frame rate',()=>{
+ for(const hz of [30,60,120]){
+  const {s,n}=scene();s.player.x=158;s.player.z=137;
+  const route=n.sidewalkRoute,dt=1/hz;
+  for(const [corner,direction] of [[149,-1],[130,1]]){
+   let approach=0;
+   while(Math.abs(n.z-corner)>1e-6 && approach++<hz*20)s.pedestrians(dt);
+   assert.ok(Math.abs(n.z-corner)<1e-6);
+   const initialYaw=n.yaw;
+   let samples=0,previous=0,rotation=0,lastYaw=n.yaw,waiting=0;
+   for(;waiting<hz*3;waiting++){
+    s.pedestrians(dt);
+    rotation+=D.wrap(n.yaw-lastYaw);lastYaw=n.yaw;
+    if(route.turn){
+     assert.equal(n.z,corner);assert.ok(n.moveSpeed<1e-8);
+     assert.ok(route.turn.progress>=previous && route.turn.progress<=1);
+     assert.ok(Math.abs(D.wrap(route.turn.startYaw-initialYaw))<1e-6);
+     previous=route.turn.progress;samples++;
+    }
+    if(Math.abs(n.z-corner)>1e-7)break;
+   }
+   assert.ok(Math.abs(samples/hz-1.4)<2/hz,'one full turn during the wait');
+   assert.ok(Math.abs(waiting/hz-2.4)<2/hz);
+   assert.ok(Math.abs(rotation-Math.PI)<1e-5);
+   assert.equal(Math.sign(n.z-corner),direction);assert.equal(n.x,route.x);
+  }
+ }
+});
+
+test('a horn during the turn preserves the planted actor and accelerates its departure',()=>{
+ const {s,n}=scene(),route=n.sidewalkRoute;
+ s.player.x=158;s.player.z=144;
+ for(let i=0;i<1200 && !(route.turn?.progress>.25);i++)s.pedestrians(1/60);
+ assert.ok(route.turn);
+ const c=s.cars[0],phase=route.turn.progress,corner=n.z;
+ Object.assign(c,{x:n.x+2,z:n.z-1,speed:0});Object.assign(s.player,{car:0,x:c.x,z:c.z});
+ s.interact('horn');
+ s.pedestrians(1/60);
+ assert.ok(route.turn.progress>phase);
+ assert.equal(n.z,corner);
+ let count=0;
+ while(n.z===corner && count++<65)s.pedestrians(1/60);
+ assert.ok(n.z<corner && count<60);
+ s.pedestrians(1/60);assert.ok(Math.abs(n.moveSpeed-3.78)<1e-5);
+ assert.equal(n.visualModel,'mercado-higgsfield');
+});
+
+test('a horn ahead reverses the walking resident once and streaming preserves the turn',()=>{
+ const {s,n}=scene(),route=n.sidewalkRoute;
+ Object.assign(s.player,{x:158,z:137});tick(s,420);
+ const z=n.z,initialYaw=n.yaw,c=s.cars[0];
+ assert.ok(z>133 && z<145);
+ Object.assign(c,{x:n.x+2,z:z+1,speed:0});Object.assign(s.player,{car:0,x:c.x,z:c.z});
+ s.interact('horn');tick(s,12);
+ assert.equal(route.turn.startYaw,initialYaw);assert.equal(n.z,z);
+ const progress=route.turn.progress;
+ Object.assign(s.player,{car:null,x:1000,z:1000});tick(s,90);
+ assert.equal(route.turn.progress,progress);
+ Object.assign(s.player,{x:158,z:137});tick(s,60);
+ assert.equal(route.turn,null);assert.ok(n.z<z);assert.ok(Math.cos(n.yaw)<-.999);
+ assert.ok(Math.abs(n.moveSpeed-3.78)<1e-6);
+});

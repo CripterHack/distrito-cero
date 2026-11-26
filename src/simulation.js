@@ -1,6 +1,8 @@
 'use strict';
 (function(D){
  const CAR_COLORS=[[.11,.2,.23],[.38,.06,.045],[.045,.055,.063],[.62,.63,.56],[.1,.16,.29],[.29,.25,.19],[.09,.24,.17]];
+ const SIDEWALK_STOP_SECONDS=2.4, TURN_SECONDS=1.4;
+ const TURN_START_REMAINING=(SIDEWALK_STOP_SECONDS+TURN_SECONDS)/2;
  class Simulation{
   constructor(world){
    this.world=world;this.random=D.rng(418);this.time=0;this.cash=850;this.heat=0;this.wanted=0;this.unseen=0;this.seen=false;this.bust=0;this.story=0;this.free=false;this.ending=null;this.events=[];this.job=null;this.upload=0;this.uploading=false;this.collected=[];this.stats={distance:0,jobs:0,escapes:0};
@@ -271,17 +273,37 @@
    const route=n.sidewalkRoute,fleeing=n.panic>0;
    if(fleeing){
     route.wait=0;
-    if(!route.fleeing&&car)route.towardEnd=car.z<=n.z;
+    if(!route.fleeing && car && !route.turn){
+     // At an endpoint the only escape along this sidewalk is back along the route.
+     if(n.z>=route.endZ-.001)route.towardEnd=false;
+     else if(n.z<=route.startZ+.001)route.towardEnd=true;
+     else route.towardEnd=car.z<=n.z;
+    }
    }
    route.fleeing=fleeing;
    const goalZ=route.towardEnd?route.endZ:route.startZ,dx=route.x-n.x,dz=goalZ-n.z;
    const distance=Math.hypot(dx,dz),heading=Math.atan2(dx,dz);
+   const wait=route.wait;
+   route.wait=Math.max(0,wait-dt);
+   let movingTime=Math.max(0,dt-wait);
+   // Settle for the first half-second of a normal 2.4 s stop. The authored
+   // turn rotates +Y in model space. Simulation heading follows its root.
+   if(route.turn || Math.abs(D.wrap(heading-n.yaw))>Math.PI*.9){
+    const turnTime=dt-Math.max(0,wait-TURN_START_REMAINING);
+    if(turnTime<=0)return n;
+    const turn=route.turn||(route.turn={startYaw:n.yaw,progress:0});
+    const duration=TURN_SECONDS/(fleeing?1.65:1);
+    const remaining=(1-turn.progress)*duration;
+    const u=turn.progress=Math.min(1,turn.progress+turnTime/duration);
+    n.yaw=D.wrap(turn.startYaw+Math.PI*u*u*(3-2*u));
+    if(u<1)return n;
+    route.turn=null;
+    movingTime=Math.min(movingTime,Math.max(0,turnTime-remaining));
+   }
    n.yaw=D.turn(n.yaw,heading,dt*4);
-   const movingTime=Math.max(0,dt-route.wait);
-   route.wait=Math.max(0,route.wait-dt);
    const step=Math.min(distance,speed*movingTime*Math.max(0,Math.cos(heading-n.yaw)));
    const q=step>0?this.world.move(n.x,n.z,dx/distance*step,dz/distance*step,.35):{x:n.x,z:n.z};
-   if(q.hit||distance-step<.00001){route.towardEnd=!route.towardEnd;route.wait=fleeing?0:2.4;}
+   if(q.hit||distance-step<.00001){route.towardEnd=!route.towardEnd;route.wait=fleeing?0:SIDEWALK_STOP_SECONDS;}
    return q;
   }
   pedestrians(dt){
