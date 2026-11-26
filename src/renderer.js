@@ -451,7 +451,9 @@
   dispose(){if(this.disposed)return;this.disposed=true;this.resources?.dispose();this.uniforms?.clear();for(const key of ['sectorGPU','hairParts','equipmentMeshes','lodHistory'])this[key]?.clear();this.motionTracker?.clear();this.meshes={};this.static={};this.dynamic={};this.humanTextures={};}
   uniform(program,name){let m=this.uniforms.get(program);if(!m){m={};this.uniforms.set(program,m);}if(!Object.prototype.hasOwnProperty.call(m,name))m[name]=this.gl.getUniformLocation(program,name);return m[name];}
   createMesh(data){const gl=this.gl,vao=gl.createVertexArray(),vbo=gl.createBuffer();gl.bindVertexArray(vao);gl.bindBuffer(gl.ARRAY_BUFFER,vbo);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(data),gl.STATIC_DRAW);for(const [i,size,offset]of [[0,3,0],[1,3,12],[2,2,24]]){gl.enableVertexAttribArray(i);gl.vertexAttribPointer(i,size,gl.FLOAT,false,32,offset);}return{vao,vbo,count:data.length/8};}
-  add(list,mesh,x,y,z,sx,sy,sz,color,mat=0,emission=0,yaw=0,seed=0,detail=0,pitch=0,roll=0){list[mesh].push(x,y,z,yaw,sx,sy,sz,mat,color[0],color[1],color[2],emission,pitch,roll,seed,detail);}
+  add(list,mesh,x,y,z,sx,sy,sz,color,mat=0,emission=0,yaw=0,seed=0,detail=0,pitch=0,roll=0){
+   if(this.playerSurfaceFrame)y=mat===37?this.playerSurfaceFrame.shadow:y+this.playerSurfaceFrame.lift;
+   list[mesh].push(x,y,z,yaw,sx,sy,sz,mat,color[0],color[1],color[2],emission,pitch,roll,seed,detail);}
   createWhite(){let gl=this.gl;this.white=gl.createTexture();gl.bindTexture(gl.TEXTURE_2D,this.white);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,1,1,0,gl.RGBA,gl.UNSIGNED_BYTE,new Uint8Array([0,0,0,255]));gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.NEAREST);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.NEAREST);}
   createSigns(){
    const c=document.createElement('canvas');c.width=2048;c.height=1024;const ctx=c.getContext('2d');

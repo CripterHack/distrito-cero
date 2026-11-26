@@ -2,6 +2,50 @@
 'use strict';
 (function(D){
  const Base=D.Renderer;
+ // The sector mesh and the player's presentation use these same walkable boxes.
+ // Cell identities are cached by FrontierWorld and expire with their sectors.
+ const surfaceCache=new WeakMap();
+ function streetSurfaces(c){
+  if(surfaceCache.has(c))return surfaceCache.get(c);
+  const colors={soil:c.home?[.09,.11,.10]:c.type==='farmland'?[[.25,.22,.12],[.14,.22,.095],[.27,.27,.12],[.11,.19,.09]][c.crop]:c.type==='woodland'?[.095,.145,.078]:[.13,.21,.105],
+   asphalt:[.048,.055,.058],curb:[.29,.31,.29],grass:[.13,.21,.105],path:[.37,.33,.23]};
+  const boxes=[],put=(x,y,z,w,h,d,color,material)=>boxes.push([x,y,z,w,h,d,colors[color],material]);
+  const country=['village','farmland','woodland'].includes(c.type),roads=c.roads;
+  put(c.x,-.52,c.z,84,.4,84,'soil',4);
+  put(c.x+(roads.w-roads.e)/4,-.24,c.z+(roads.n-roads.s)/4,84-(roads.w+roads.e)/2,.4,84-(roads.n+roads.s)/2,'soil',4);
+  if((!country||c.park)&&c.type!=='suburb')put(c.x,.045,c.z,62,.20,62,c.park?'grass':'curb',c.park?4:0);
+  for(const [side,width] of Object.entries(roads))if(width){
+   const vertical=side==='w'||side==='e',sign=side==='w'||side==='n'?-1:1;
+   const x=c.x+(vertical?sign*42:0),z=c.z+(vertical?0:sign*42);
+   put(x-(vertical?sign*width/4:0),-.037,z-(vertical?0:sign*width/4),vertical?width/2:84,.020,vertical?84:width/2,'asphalt',2);
+   if(!country)put(x-(vertical?sign*(width/2+1):0),.05,z-(vertical?0:sign*(width/2+1)),vertical?2:62,.20,vertical?62:2,'curb',0);
+  }
+  if(c.park){
+   put(c.x,.16,c.z,3,.03,61,'path',4);
+   put(c.x,.16,c.z,61,.03,3,'path',4);
+  }
+  surfaceCache.set(c,boxes);return boxes;
+ }
+ function playerSurface(world,x,z){
+  const c=world.cell(Math.floor(x/84),Math.floor(z/84)),boxes=streetSurfaces(c);
+  let base=-Infinity,top=-Infinity;
+  for(const [cx,y,cz,w,h,d] of boxes){
+   if(Math.abs(x-cx)>w/2||Math.abs(z-cz)>d/2)continue;
+   const height=y+h/2;top=Math.max(top,height);
+   if(height<=0)base=Math.max(base,height);
+  }
+  // Ease a curb step over one shoe length. The separate shadow stays on the
+  // actual top plane, including either side of an overlapping curb and plaza.
+  let support=base;
+  for(const [cx,y,cz,w,h,d] of boxes){
+   const height=y+h/2;if(height<=0)continue;
+   const inside=Math.min(w/2-Math.abs(x-cx),d/2-Math.abs(z-cz));
+   const t=D.clamp(.5+inside/.36,0,1);
+   support=Math.max(support,D.lerp(base,height,t*t*(3-2*t)));
+  }
+  // The authored planted outsole sits 15 mm above the rig's local floor.
+  return {lift:support-.015,shadow:top+.003};
+ }
  function extraGeometry(){
   const out=[];const tri=(a,b,c)=>{const n=D.normalize(D.cross(b.map((v,i)=>v-a[i]),c.map((v,i)=>v-a[i])));for(const p of[a,b,c])out.push(...p,...n,(p[0]+.5),(p[2]+.5));};
   const a=[-.5,0,-.5],b=[.5,0,-.5],c=[0,.6,-.5],d=[-.5,0,.5],e=[.5,0,.5],f=[0,.6,.5];tri(a,c,b);tri(d,e,f);tri(a,d,f);tri(a,f,c);tri(b,c,f);tri(b,f,e);return out;
@@ -76,6 +120,7 @@
   for(let i=0;i<3;i++)close(.76,1.29,1.96+i*1.0,.29,.46,.65,stock[(variant+i)%3]);
  }
  class FrontierRenderer extends Base{
+  playerSurface(x,z){return playerSurface(this.world,x,z);}
   buildCity(){} // Replaces one finite city batch with independently disposable sectors.
   constructor(...a){super(...a);this.sectorGPU=new Map();this.streamSeed=this.world.seed;this.renderOrigin=[0,0];this.daylight=.62;this.streamStats={loaded:0,pending:0,instances:0,buffers:0};
    for(const [name,data]of[['gable',extraGeometry()]]){const m=this.createMesh(data);m.chunks=[];m.dynamicBuffer=this.gl.createBuffer();this.meshes[name]=m;this.static[name]=[];this.dynamic[name]=[];}
@@ -97,26 +142,17 @@
    const shops=[];
    const lists={};for(const name of Object.keys(this.meshes))lists[name]=[];
    const add=(...a)=>this.add(lists,...a),box=(x,y,z,sx,sy,sz,c,mat=0,em=0,yaw=0,seed=0,detail=0,pitch=0,roll=0)=>add('box',x,y,z,sx,sy,sz,c,mat,em,yaw,seed,detail,pitch,roll);
-   const grass=[.13,.21,.105],curb=[.29,.31,.29],asphalt=[.048,.055,.058],stripe=[.62,.59,.39];
+   const stripe=[.62,.59,.39];
    for(const c of chunk.cells){
     const x0=c.ix*84,z0=c.iz*84,r=D.rng(Math.floor(c.seed*4294967295)),type=c.type,country=['village','farmland','woodland'].includes(type),field=type==='farmland',forest=type==='woodland';
-    const ground=c.home?[.09,.11,.10]:field?[[.25,.22,.12],[.14,.22,.095],[.27,.27,.12],[.11,.19,.09]][c.crop]:forest?[.095,.145,.078]:grass;
-    // Ground below the whole cell, then an inset land parcel. No grass plane under asphalt.
-    box(c.x,-.52,c.z,84,.4,84,ground,4);
-    const landW=84-(c.roads.w+c.roads.e)/2,landD=84-(c.roads.n+c.roads.s)/2;
-    box(c.x+(c.roads.w-c.roads.e)/4,-.24,c.z+(c.roads.n-c.roads.s)/4,landW,.4,landD,ground,4);
-    if((!country||c.park)&&type!=='suburb'){box(c.x,.045,c.z,62,.20,62,c.park?grass:curb,c.park?4:0);}
+    for(const surface of streetSurfaces(c))box(...surface);
     for(const [side,width]of Object.entries(c.roads))if(width){
      const vertical=side==='w'||side==='e',edgeX=side==='w'?x0:side==='e'?x0+84:c.x,edgeZ=side==='n'?z0:side==='s'?z0+84:c.z;
-     const rx=edgeX+(side==='w'?width/4:side==='e'?-width/4:0),rz=edgeZ+(side==='n'?width/4:side==='s'?-width/4:0);
-     box(rx,-.037,rz,vertical?width/2:84,.020,vertical?84:width/2,asphalt,2);
      if(side==='w'||side==='n'){
       for(let k=0;k<6;k++){const q=k*14+7;box(vertical?edgeX:x0+q,-.022,vertical?z0+q:edgeZ,vertical?.12:6,.011,vertical?6:.12,stripe,3);}
       if(width>=20)for(const sign of[-1,1])box(vertical?edgeX+sign*8.9:c.x,-.022,vertical?c.z:edgeZ+sign*8.9,vertical?.12:62,.011,vertical?62:.12,[.67,.69,.65],3);
      }
-     if(!country)box(edgeX+(side==='w'?width/2+1:side==='e'?-width/2-1:0),.05,edgeZ+(side==='n'?width/2+1:side==='s'?-width/2-1:0),vertical?2:62,.20,vertical?62:2,curb,0);
     }
-    if(c.park){box(c.x,.16,c.z,3,.03,61,[.37,.33,.23],4);box(c.x,.16,c.z,61,.03,3,[.37,.33,.23],4);}
     if(field&&!c.buildings.length){
      const rows=c.crop===0?14:18;for(let i=0;i<rows;i++){const z=z0+15+i*(53/(rows-1));box(c.x,.01,z,54,.025,1.5,[.18,.125,.06],4);if(c.crop)box(c.x,.22+(c.crop===2?.15:0),z,53,.34,1.1,c.crop===2?[.35,.37,.12]:[.09,.235,.06],4);}
      box(c.x,-.05,z0+11,62,.05,.8,[.065,.21,.25],7); // Irrigation channel, inside parcel.

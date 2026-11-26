@@ -90,10 +90,11 @@
    const env=sim.dynamics;if(!env)return;const L=this.dynamic,player=sim.player;
    for(const p of env.hash.query(player.x,player.z,this.quality==='eco'?105:155)){
     const col=p.color,s=p.scale||1;
+    const heldLift=p.held&&player.carry===p.id&&player.car===null&&!sim.access&&!this.previewStudio?(this.playerSurface?.(player.x,player.z).lift||0):0;
     const put=(mesh,x,y,z,sx,sy,sz,color=col,mat=0,em=0,pitch=0,roll=0,yaw=0)=>{
      let X=x,Y=y,Z=z,a=p.yaw;
      if(p.hinged){const xx=x,yy=y*Math.cos(p.angle)-z*Math.sin(p.angle),zz=y*Math.sin(p.angle)+z*Math.cos(p.angle);X=xx;Y=yy;Z=zz;a=p.fallYaw;pitch+=p.angle;}
-     const co=Math.cos(a),si=Math.sin(a);this.add(L,mesh,p.x+(X*co+Z*si)*s,p.y+Y*s+.02,p.z+(-X*si+Z*co)*s,sx*s,sy*s,sz*s,color,mat,em,a+yaw,0,0,pitch,roll);
+     const co=Math.cos(a),si=Math.sin(a);this.add(L,mesh,p.x+(X*co+Z*si)*s,p.y+heldLift+Y*s+.02,p.z+(-X*si+Z*co)*s,sx*s,sy*s,sz*s,color,mat,em,a+yaw,0,0,pitch,roll);
     };
     if(p.type==='lamp'){
      put('body',0,.22,0,.40,.44,.40,col,3);if(this.meshes.lampMast)put('lampMast',0,0,0,1,1,1,col,3);else put('body',0,3.6,0,.12,7.2,.12,col,3);put('body',0,7.2,.82,.13,.15,1.8,col,3);put('body',0,7.18,1.5,.56,.12,.88,col,3);put('box',0,7.105,1.5,.45,.025,.73,(p.broken||p.empUntil>sim.time)?[.14,.15,.13]:p.warm?[1,.74,.42]:[.42,.73,1],0,(p.broken||p.empUntil>sim.time)?0:6);
