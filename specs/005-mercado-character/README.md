@@ -1,0 +1,33 @@
+# Residente del Mercado · v0.20.29 · refs #5
+
+Un residente de chaqueta espera junto a la marquesina y recorre un tramo de la acera del taller. El jugador puede seguirlo, verlo volver y tocar el claxon desde un vehículo cercano. Permite revisar en movimiento el personaje creado para Distrito Cero con Higgsfield/Tripo. La ficha del original conserva el job, el prompt y las huellas. [Procedencia](../../assets/higgsfield-20261125/manifest.json).
+
+## Recorrido y criterios
+
+| Situación | Resultado observable |
+| --- | --- |
+| Llegar a la marquesina (154,5; 130) | Un civil espera o camina por la acera a un metro del centro de la parada. |
+| Seguirlo hacia la esquina | Recorre 19 m a 1,35 m/s. En los extremos espera 2,4 s y gira para volver. |
+| Tocar el claxon cerca del residente | Acelera a 3,78 m/s por la misma acera. Mantiene el modelo, alterna los pies y vuelve a caminar al calmarse. |
+| Alejarse y volver | El residente sigue en el barrio. El reparto mantiene sus 72 plazas y las partidas anteriores se pueden abrir. |
+| Acercar o retirar la cámara | Se alternan las dos mallas con histéresis. En calidad equilibrada pasa a detalle alto a menos de 12,8 m y baja al sobrepasar los 19,2 m. |
+
+## Integración
+
+La simulación asigna la ruta al puesto existente `ped:38`. La distancia recorrida determina la fase de zancada. El renderizador usa los materiales de este personaje y las transformaciones de los 49 huesos del GLB; la paleta lineal reproduce sus pesos de autoría. El reparto modular comparte la infraestructura de dibujo y usa su propia deformación con cuaterniones duales. La sombra se proyecta sobre la acera a 0,145 m. Las mallas, poses y texturas viajan dentro del HTML y se reconstruyen después de perder el contexto WebGL.
+
+## Reconstrucción
+
+Se requieren Blender 4.3.2 con SciPy y NumPy, Node, Python con Pillow y meshoptimizer 0.23.0 para autoría. `MESHOPTIMIZER` apunta al directorio local del paquete. `ORIGINAL` es el GLB del personaje con índices articulados, SHA-256 `9b74d3e839623de66f5ccffb822cd74dad85f4afa0dd6d18a333c911095c06e7`. Para obtener y revisar los tres ciclos se puede usar la [receta del modelo portátil](../../assets/higgsfield-20261125/body-motion.md).
+
+```sh
+mkdir -p artifacts/reparto
+blender -b -t 2 --python-exit-code 1 -P tools/rig_higgsfield_character.py -- "$ORIGINAL" artifacts/reparto/modelo
+cmp artifacts/reparto/modelo/character-walk.glb assets/higgsfield-20261125/character-walk.glb
+node tools/prepare_market_ped.cjs "$MESHOPTIMIZER" artifacts/reparto/market-ped-data.js
+cmp artifacts/reparto/market-ped-data.js src/market-ped-data.js
+python3 build.py --check
+node --test tests/market-*.test.cjs
+```
+
+La reversión consiste en recuperar el árbol de la candidata v0.20.28 y reconstruir el HTML. El esquema de partida sigue siendo el mismo.

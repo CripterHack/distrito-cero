@@ -10,7 +10,7 @@ import re
 import sys
 
 ROOT = Path(__file__).resolve().parent
-SOURCES = ['core.js', 'world.js', 'frontier-world.js', 'police.js', 'simulation.js', 'dynamics.js', 'interactions.js', 'frontier-simulation.js', 'occupancy.js', 'appearance.js', 'weapon-handling.js', 'equipment.js', 'equipment-simulation.js', 'save-store.js', 'character-fit.js', 'character-motion.js', 'vehicle-asset.js', 'skin-rig.js', 'dual-quaternion.js', 'crowd-geometry.js', 'visual-geometry.js', 'hero-asset.js', 'hair-geometry.js', 'human-materials.js', 'graphics-resources.js', 'renderer.js', 'reactive-renderer.js', 'realism-renderer.js', 'frontier-renderer.js', 'mercado-models.js', 'mercado-renderer.js', 'cast-renderer.js', 'equipment-geometry.js', 'equipment-renderer.js', 'audio.js', 'app.js', 'frontier-ui.js', 'identity-ui.js', 'equipment-ui.js', 'graphics-recovery.js']
+SOURCES = ['core.js', 'world.js', 'frontier-world.js', 'police.js', 'simulation.js', 'dynamics.js', 'interactions.js', 'frontier-simulation.js', 'occupancy.js', 'appearance.js', 'weapon-handling.js', 'equipment.js', 'equipment-simulation.js', 'save-store.js', 'character-fit.js', 'character-motion.js', 'vehicle-asset.js', 'skin-rig.js', 'dual-quaternion.js', 'crowd-geometry.js', 'visual-geometry.js', 'hero-asset.js', 'hair-geometry.js', 'human-materials.js', 'graphics-resources.js', 'renderer.js', 'reactive-renderer.js', 'realism-renderer.js', 'frontier-renderer.js', 'mercado-models.js', 'mercado-renderer.js', 'cast-renderer.js', 'equipment-geometry.js', 'equipment-renderer.js', 'market-ped-data.js', 'market-ped-pose.js', 'market-ped-asset.js', 'market-ped-renderer.js', 'audio.js', 'app.js', 'frontier-ui.js', 'identity-ui.js', 'equipment-ui.js', 'graphics-recovery.js']
 
 
 def load_release(root):

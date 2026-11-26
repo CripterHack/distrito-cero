@@ -1,3 +1,9 @@
+# Candidata v0.20.29 · El residente del Mercado
+
+El civil de Higgsfield aparece en la acera de la marquesina del Mercado. Usa el puesto existente `ped:38`, un recorrido de ida y vuelta de 19 m, dos niveles de detalle y tres animaciones. La simulación regula el paso y el renderizador mezcla reposo, marcha y carrera. [Especificación, reproducción y evidencia](../../specs/005-mercado-character/README.md).
+
+## Registro anterior
+
 # Candidata v0.20.28 · Barrio del Mercado
 
 La calle incorpora dos mallas generadas con Higgsfield: el taller de la misión y dos paradas que comparten una marquesina. El sedán recibe ruedas detalladas y una trayectoria de entrada medida contra el tirador. Los comercios de esquina añaden vitrinas visibles desde dos calles. El GLB de personaje de autoría conserva sus mapas 4K, los índices articulados y dos ciclos corporales. [Especificación y reproducción](../../specs/mercado-3d/README.md).

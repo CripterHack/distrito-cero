@@ -1,3 +1,7 @@
+# v0.20.29 · El residente del Mercado
+
+Desde el marcador del Taller del Mercado (168, 96), ve a la marquesina del banco (154,5; 130). El residente de chaqueta recorre esa misma acera hasta la esquina y espera un momento antes de girar. Para verlo correr, acércate en un coche y pulsa Q para tocar el claxon. Cuando se calma, recupera el paso.
+
 # v0.20.28 · Barrio del Mercado
 
 El taller de persiana turquesa se encuentra junto al marcador de la campaña. Hay marquesinas con banco en las aceras del centro y del Mercado. Al entrar en un sedán, la mano llega al tirador y lo acompaña al abrir la puerta. Se aprecia el giro de los radios y la pinza fija de freno al maniobrar cerca de la cámara.

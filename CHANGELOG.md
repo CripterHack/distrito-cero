@@ -1,3 +1,8 @@
+# v0.20.29 · Barrio del Mercado · 2026-11-26
+
+- Un residente recorre los 19 m de acera entre la parada del Mercado y la esquina. Espera en ambos extremos y corre al oír un claxon cercano.
+- El personaje 3D de Higgsfield tiene dos mallas de juego y tres animaciones con transiciones. El GLB de autoría incluye la corrección del pantalón en las rodillas.
+
 # v0.20.28 · Barrio del Mercado · 2026-11-26
 
 - Taller del Mercado y marquesinas con malla Higgsfield, mapas de material integrados y dos niveles de detalle.

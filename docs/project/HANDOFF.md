@@ -1,3 +1,9 @@
+# Continuación · v0.20.29 · refs #5
+
+Revisar al residente en la acera del Mercado, a pie y desde un vehículo. Para la aprobación artística quedan la lectura de las manos de cerca y el contacto del calzado al girar en el extremo del recorrido. Medir el coste de ambas mallas y su transición en GPU física antes de extender este recurso al reparto. El creador de personajes usa el vestuario modular existente. [Recorrido, pruebas y presupuesto](../../specs/005-mercado-character/README.md).
+
+## Registro anterior
+
 # Continuación · v0.20.28 · Barrio del Mercado
 
 Probar el recorrido entre el marcador del Taller del Mercado y la parada situada al oeste, la entrada al sedán y las vitrinas desde las dos aceras. El rig de 49 huesos del GLB de Higgsfield se puede revisar en Blender antes de integrar vestuario y apariencias en el reparto jugable. Quedan la aceptación artística del conjunto y el perfilado en GPU física. [Reproducción de la entrega](../../specs/mercado-3d/README.md).
