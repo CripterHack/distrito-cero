@@ -32,7 +32,7 @@ Al llegar a pie desde el taller, el avatar pisaba visualmente a 0,015 m en un bo
 | Atributos de las dos mallas en GPU | 2.899.968 bytes |
 | Textura RGBA8 de 512 × 1536 con dos niveles adicionales de mipmap | 4.128.768 bytes |
 
-Las posiciones y las UV conservan precisión de 32 bits para mantener las pequeñas superficies de los dedos. La conversión protege la separación del índice y los pliegues de ambas rodillas. La instancia aprovecha una fila de la textura de poses del reparto y ocupa un dibujo de color y otro de sombras si la pasada está activa. Los tamaños de GPU describen los buffers y los niveles de imagen, antes de la gestión interna del controlador. Falta el perfilado temporal en hardware físico.
+Las posiciones y las UV conservan precisión de 32 bits para mantener las pequeñas superficies de los dedos. La conversión protege la separación del índice y los pliegues de ambas rodillas. El HTML de 11.513.186 bytes ocupa 733.134 bytes más que v0.20.28 (6,8 %). La instancia aprovecha una fila de la textura de poses del reparto y ocupa un dibujo de color y otro de sombras si la pasada está activa. Los tamaños de GPU describen los buffers y los niveles de imagen, antes de la gestión interna del controlador. Falta el perfilado temporal en hardware físico.
 
 ## Reconstrucción
 
