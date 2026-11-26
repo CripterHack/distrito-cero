@@ -1,6 +1,6 @@
 # Continuación · v0.20.29 · refs #5
 
-Revisar al residente en la acera del Mercado, a pie y desde un vehículo. Para la aprobación artística quedan la lectura de las manos de cerca y el contacto del calzado al girar en el extremo del recorrido. Medir el coste de ambas mallas y su transición en GPU física antes de extender este recurso al reparto. El creador de personajes usa el vestuario modular existente. [Recorrido, pruebas y presupuesto](../../specs/005-mercado-character/README.md).
+Revisar al residente en la acera del Mercado, a pie y desde un vehículo. Para la aprobación artística quedan la lectura de las manos de cerca y el contacto del calzado al girar en el extremo del recorrido. Medir el coste de ambas mallas y su transición en GPU física antes de extender este recurso al reparto. En la toma a pie junto a la parada, el avatar modular del jugador se hunde a la altura de los tobillos. Revisar el apoyo en las parcelas elevadas y en el borde de la calzada con sus alturas de superficie respectivas. Comprobar también la entrada al coche y los puntos de agarre al modificar la altura del avatar. [Recorrido, pruebas y presupuesto](../../specs/005-mercado-character/README.md).
 
 ## Registro anterior
 

@@ -16,6 +16,18 @@ Un residente de chaqueta espera junto a la marquesina y recorre un tramo de la a
 
 La simulación asigna la ruta al puesto existente `ped:38`. La distancia recorrida determina la fase de zancada. El renderizador usa los materiales de este personaje y las transformaciones de los 49 huesos del GLB; la paleta lineal reproduce sus pesos de autoría. El reparto modular comparte la infraestructura de dibujo y usa su propia deformación con cuaterniones duales. La sombra se proyecta sobre la acera a 0,145 m. Las mallas, poses y texturas viajan dentro del HTML y se reconstruyen después de perder el contexto WebGL.
 
+## Mallas y presupuesto
+
+| Recurso | Presupuesto en esta candidata |
+| --- | ---: |
+| Malla cercana / lejana | 9.773 / 5.331 triángulos |
+| Módulo embebido con mallas, atlas y animaciones | 716.567 bytes |
+| Atlas PBR WebP | 131.180 bytes |
+| Atributos de las dos mallas en GPU | 2.899.968 bytes |
+| Textura RGBA8 de 512 × 1536 con dos niveles adicionales de mipmap | 4.128.768 bytes |
+
+Las posiciones y las UV conservan precisión de 32 bits para mantener las pequeñas superficies de los dedos. La conversión protege la separación del índice y los pliegues de ambas rodillas. La instancia aprovecha una fila de la textura de poses del reparto y ocupa un dibujo de color y otro de sombras si la pasada está activa. Los tamaños de GPU describen los buffers y los niveles de imagen, antes de la gestión interna del controlador. Falta el perfilado temporal en hardware físico.
+
 ## Reconstrucción
 
 Se requieren Blender 4.3.2 con SciPy y NumPy, Node, Python con Pillow y meshoptimizer 0.23.0 para autoría. `MESHOPTIMIZER` apunta al directorio local del paquete. `ORIGINAL` es el GLB del personaje con índices articulados, SHA-256 `9b74d3e839623de66f5ccffb822cd74dad85f4afa0dd6d18a333c911095c06e7`. Para obtener y revisar los tres ciclos se puede usar la [receta del modelo portátil](../../assets/higgsfield-20261125/body-motion.md).
