@@ -12,7 +12,7 @@ Un residente de chaqueta espera junto a la marquesina y recorre un tramo de la a
 | Alejarse y volver | El residente sigue en el barrio. El reparto mantiene sus 72 plazas y las partidas anteriores se pueden abrir. |
 | Acercar o retirar la cámara | Se alternan las dos mallas con histéresis. En calidad equilibrada pasa a detalle alto a menos de 12,8 m y baja al sobrepasar los 19,2 m. |
 
-[Integración y reversión](plan.md) · [Tareas verificadas](tasks.md).
+[Integración y reversión](plan.md) · [Tareas verificadas](tasks.md) · [Huellas y pruebas](evidence.md).
 
 ## Lectura nocturna en la parada
 
