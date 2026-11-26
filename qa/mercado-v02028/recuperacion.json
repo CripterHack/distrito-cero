@@ -1,0 +1,133 @@
+{
+  "checks": [
+    {
+      "name": "Recovery controller boots with the native game loop",
+      "pass": true
+    },
+    {
+      "name": "Actual loss event pauses drawing and simulation",
+      "pass": true
+    },
+    {
+      "name": "Direct render while lost cannot build sectors or mutate the retired generation",
+      "pass": true
+    },
+    {
+      "name": "Inputs cannot fire or enter cars behind the recovery dialog",
+      "pass": true
+    },
+    {
+      "name": "Held Gauss charge was cancelled without spending ammo",
+      "pass": true
+    },
+    {
+      "name": "Keyboard focus remains inside recovery dialog",
+      "pass": true
+    },
+    {
+      "name": "Live JSON export is usable while graphics are lost",
+      "pass": true
+    },
+    {
+      "name": "Existing catalogue was not overwritten by loss or export",
+      "pass": true
+    },
+    {
+      "name": "Restore rebuilds resources, skin maps and the Mercado atlas",
+      "pass": true
+    },
+    {
+      "name": "A stale renderer stays inert after the context has been restored",
+      "pass": true
+    },
+    {
+      "name": "New generation still renders a real frame after rejecting a stale draw",
+      "pass": true
+    },
+    {
+      "name": "Same simulation and active identity survived restoration",
+      "pass": true
+    },
+    {
+      "name": "No simulation resumes until explicit acknowledgement",
+      "pass": true
+    },
+    {
+      "name": "One native frame chain resumes without reactivating trigger",
+      "pass": true
+    },
+    {
+      "name": "Repeated scheduling cannot add a second app RAF",
+      "pass": true
+    },
+    {
+      "name": "Repeated loss disposes the previous generation without live GPU handles",
+      "pass": true
+    },
+    {
+      "name": "Translucent equipment selector is restored with pending choice intact",
+      "pass": true
+    },
+    {
+      "name": "Recovery controls remain visible at phone width",
+      "pass": true
+    },
+    {
+      "name": "Unsaved appearance draft can also be exported",
+      "pass": true
+    },
+    {
+      "name": "Creator identity and unsaved draft survive actual context replacement",
+      "pass": true
+    },
+    {
+      "name": "Cancelling recovered draft leaves session identity unchanged",
+      "pass": true
+    },
+    {
+      "name": "Failed reconstruction stays blocked and offers export",
+      "pass": true
+    },
+    {
+      "name": "An explicit retry recovers after a controlled failure",
+      "pass": true
+    },
+    {
+      "name": "No shader or JavaScript errors in completed recovery paths",
+      "pass": true
+    },
+    {
+      "name": "No external runtime requests",
+      "pass": true
+    }
+  ],
+  "passed": 25,
+  "errors": [],
+  "requests": [],
+  "sha256": "f2e80f97bf977113c44ea85fda8a4db6221329931672c61a9b5d2bfda140e7b3",
+  "observed": {
+    "losses": 4,
+    "restores": 4,
+    "resources": {
+      "total": 505,
+      "counts": {
+        "Buffer": 344,
+        "Texture": 12,
+        "Framebuffer": 3,
+        "Renderbuffer": 2,
+        "VertexArray": 139,
+        "Program": 5,
+        "Shader": 0
+      },
+      "disposed": false
+    },
+    "sectors": {
+      "loaded": 25,
+      "pending": 0,
+      "instances": 22992,
+      "buffers": 67
+    },
+    "frameCount": 33
+  },
+  "environment": "Chromium SwiftShader, real context events and native RAF. Prepared state, explicit in-memory storage fixture. Not physical GPU performance."
+}
