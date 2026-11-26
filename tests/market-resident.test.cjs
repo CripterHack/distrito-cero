@@ -154,3 +154,26 @@ test('the horn accelerates a braking resident through the same planted step and 
  assert.ok(ticks<24);assert.equal(n.z,149);assert.equal(r.wait,0);assert.equal(r.towardEnd,false);
  s.pedestrians(1/60);assert.ok(r.turn);
 });
+
+test('a fading panic prepares a walk stop while there is room for the fitted stride',()=>{
+ for(const [hz,hornZ,expectBrake] of [[30,135,true],[60,136.7,true],[120,135,true],[60,137.5,false]]){
+  const {s,n}=scene(),r=n.sidewalkRoute,dt=1/hz,c=s.cars[0];
+  Object.assign(s.player,{x:158,z:139});
+  while(n.z<hornZ)s.pedestrians(dt);
+  Object.assign(c,{x:n.x+2,z:n.z-1,speed:0});Object.assign(s.player,{car:0,x:c.x,z:c.z});
+  s.interact('horn');s.player.car=null;
+  let stopped=false,decayed=false;
+  for(let i=0;i<12*hz && r.towardEnd;i++){
+   const z=n.z,phase=n.phase;
+   s.pedestrians(dt);const moved=n.z-z;
+   if(!n.panic)decayed=true;
+   if(r.brake)stopped=true;
+   if(moved>1e-5 && !r.brake && r.towardEnd && n.moveSpeed>1){
+    const rate=D.NaturalMotion.distanceRate(n.moveSpeed,n.panic?.5:0);
+    assert.ok(Math.abs((n.phase-phase)/moved/rate-1)<.040001,'cadence stays continuous and within four percent');
+   }
+  }
+  assert.equal(n.z,149);assert.ok(decayed);
+  assert.equal(stopped,expectBrake,'a panic that ends inside the braking distance must not rewind to its first key');
+ }
+});
