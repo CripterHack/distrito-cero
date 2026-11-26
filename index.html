@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover"><meta name="theme-color" content="#091314"><meta name="description" content="Distrito Cero. Una aventura criminal 3D original, sin dependencias externas.">
 <meta name="application-version" content="0.20.28">
-<meta name="build-source" content="60aeaaf69095a99b238b8f9615747f1200893ea58582bfd50a8f063388dfbe32">
+<meta name="build-source" content="4580d3298b43c61c4a9a5b0b279ab9efb32a124ff8ccc7f11fc9b6ba4c2e2fb6">
 <title>Distrito Cero v0.20.28 · Barrio del Mercado</title>
 <style>:root{color-scheme:dark;--bg:#081011;--ink:#f0f1e8;--muted:#9eaaa6;--accent:#d5ee94;--accent-dark:#182417;--line:#ffffff20;--danger:#fb826d;--panel:#0b1414ed;--font:Arial,Helvetica,sans-serif;--mono:'Courier New',monospace}
 *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--bg);font-family:var(--font);color:var(--ink);overscroll-behavior:none}button,input,select{font:inherit}button{cursor:pointer;color:inherit}button:disabled{opacity:.45;cursor:not-allowed}button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--accent);outline-offset:5px}button{touch-action:manipulation;-webkit-tap-highlight-color:transparent}button:hover{filter:brightness(1.12)}[hidden]{display:none!important}#world{display:block;width:100%;height:100%;touch-action:none}#app{position:fixed;inset:0;pointer-events:none}button,select,input,a{pointer-events:auto}.mono{font-family:var(--mono);font-size:10px;letter-spacing:1.7px;text-transform:uppercase}.muted{color:var(--muted)}.eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:2.5px;font-weight:400}.accent{color:var(--accent)}
@@ -162,7 +162,7 @@ body.arsenal-open #toast,body.arsenal-open #chapter{visibility:hidden}
  <div id="touchControls"><div id="joystick" class="joystick" aria-label="Mando de movimiento" role="application"><div class="joystick-knob" id="joystickKnob"></div></div><div class="touch-buttons"><div class="row" id="touchWeaponRow" hidden><button class="touch-btn" id="touchAim" aria-label="Mantener para apuntar u observar">APUNTAR</button><button class="touch-btn primary-touch" id="touchFire" aria-label="Mantener para disparar o cargar Gauss">FUEGO</button></div><div class="row"><button class="touch-btn" id="touchHorn" aria-label="Bocina">BOCINA</button><button class="touch-btn" id="touchCar" aria-label="Entrar o salir del vehículo">SUBIR</button></div><div class="row"><button class="touch-btn" id="touchBrake" aria-label="Freno de mano o correr">CORRER</button><button class="touch-btn primary-touch" id="touchAction" aria-label="Interactuar">ACCIÓN</button></div><div class="row"><button class="touch-btn" id="touchPush" aria-label="Lanzar o empujar">EMPUJAR</button><button class="touch-btn" id="touchJump" aria-label="Saltar">SALTAR</button></div></div></div>
 </section>
 <div id="toast" role="status" aria-live="polite"></div><div id="chapter"><small id="chapterLabel">DISTRITO CERO</small><h2 id="chapterText"></h2></div>
-<section id="pause" class="overlay" hidden aria-label="Menú de pausa"><div class="panel"><div class="panel-head"><div><div class="eyebrow accent">LA CIUDAD PUEDE ESPERAR</div><h2 id="pauseTitle">Pausa</h2></div><button class="close" id="closePause" aria-label="Cerrar pausa">×</button></div><div class="panel-body"><div class="pause-grid"><div class="pause-actions"><button class="primary" id="resume">Volver a la ciudad <span>↗</span></button><button class="secondary" id="saveGame">Guardar progreso</button><button class="secondary" id="pauseSaves">Mis partidas</button><button class="secondary" id="pauseArsenal">Equipamiento · TAB</button><button class="secondary" id="editAppearance">Editar personaje</button><p id="activeSaveStatus" class="identity-note" role="status"></p><button class="secondary" id="openMapPause">Mapa de la ciudad</button><button class="secondary" id="toggleStory">Cambiar a exploración libre</button><button class="secondary" id="mainMenu">Menú principal</button><div class="pause-info" id="pauseStats"></div><p id="releaseInfo" class="note" data-build-version="0.20.28">v0.20.28 · Barrio del Mercado · prototipo<br>Build 60aeaaf69095</p></div><div class="settings"><h3>ATMÓSFERA Y RENDIMIENTO</h3><label class="setting">Luz · noche a día<input id="daylight" type="range" min="0" max="100" value="62" aria-label="Luz solar"></label><label class="setting">Calidad gráfica<select id="quality"><option value="eco">Económica</option><option value="balanced" selected>Equilibrada</option><option value="high">Alta</option></select></label><label class="setting">Volumen<input id="volume" type="range" min="0" max="100" value="50"></label><div class="setting">Sonido<button class="toggle" id="soundToggle">SÍ</button></div><div class="setting">Lluvia y reflejos<button class="toggle" id="rainToggle">SÍ</button></div><div class="setting">Resplandor de luces<button class="toggle" id="bloomToggle">SÍ</button></div><div class="setting">Controles táctiles<button class="toggle" id="touchToggle">AUTO</button></div><div class="setting">Pantalla completa<button class="toggle" id="fullscreen">ABRIR</button></div><p class="note">Si la imagen pierde fluidez, usa calidad económica o desactiva lluvia y reflejos. El mundo y sus reglas no cambian.</p></div></div><div class="controls-grid"><div>Objetos: recoger / lanzar <kbd>E / G</kbd></div><div>Agacharse / esquivar <kbd>X / Q</kbd></div><div>Reparar junto al auto <kbd>MANTENER V · $90</kbd></div><div>Guía de interacciones <kbd>I</kbd></div><div>Moverte / conducir <kbd>W A S D / ↑ ← ↓ →</kbd></div><div>Subir / bajar del coche <kbd>F</kbd></div><div>Interactuar <kbd>E</kbd></div><div>Correr a pie <kbd>SHIFT</kbd></div><div>Freno de mano / saltar <kbd>ESPACIO</kbd></div><div>Mirar alrededor <kbd>ARRASTRAR RATÓN</kbd></div><div>Cambiar cámara / bocina <kbd>C / Q</kbd></div><div>Mapa / foto / radio <kbd>M / P / T</kbd></div><div>Rendirse cerca de una patrulla <kbd>MANTENER R · DETENIDO</kbd></div><div>Selector de equipo <kbd>TAB</kbd></div><div>Disparar / cargar y soltar Gauss <kbd>CLIC IZQ. / J</kbd></div><div>Apuntar y mover vista <kbd>CLIC DER. + ARRASTRAR / Z</kbd></div><div>Recargar <kbd>L</kbd></div><div>Binoculares / zoom / marcar <kbd>B / RUEDA / H</kbd></div><div>Pausar <kbd>ESC</kbd></div><div>Móvil <kbd>JOYSTICK + ARRASTRAR VISTA</kbd></div></div><div class="save-tools"><button id="exportSave">Exportar partida ↗</button><button id="importSave">Importar partida ↗</button><button id="cancelJob">Cancelar encargo activo</button><button id="newGame" class="danger">Reiniciar partida</button><input type="file" id="saveFile" accept="application/json,.json" hidden></div><div class="pause-info police-help">POLICÍA · Un roce no detiene el coche. Maniobra en reversa y gira para separarte. La captura solo sube si estás detenido y a la vista. Al perderte, las patrullas buscan tu última posición. Mantén R o el botón de rendición durante 1.8 segundos, detenido cerca de una patrulla, para entregar $150 en lugar de $300. Suelta o muévete para cancelar.</div><div class="pause-info">El autoguardado actualiza únicamente la partida activa. Mis partidas permite nombrar, duplicar y respaldar cada historia. Encargos temporizados y transmisiones en curso no se guardan.</div></div></div></section>
+<section id="pause" class="overlay" hidden aria-label="Menú de pausa"><div class="panel"><div class="panel-head"><div><div class="eyebrow accent">LA CIUDAD PUEDE ESPERAR</div><h2 id="pauseTitle">Pausa</h2></div><button class="close" id="closePause" aria-label="Cerrar pausa">×</button></div><div class="panel-body"><div class="pause-grid"><div class="pause-actions"><button class="primary" id="resume">Volver a la ciudad <span>↗</span></button><button class="secondary" id="saveGame">Guardar progreso</button><button class="secondary" id="pauseSaves">Mis partidas</button><button class="secondary" id="pauseArsenal">Equipamiento · TAB</button><button class="secondary" id="editAppearance">Editar personaje</button><p id="activeSaveStatus" class="identity-note" role="status"></p><button class="secondary" id="openMapPause">Mapa de la ciudad</button><button class="secondary" id="toggleStory">Cambiar a exploración libre</button><button class="secondary" id="mainMenu">Menú principal</button><div class="pause-info" id="pauseStats"></div><p id="releaseInfo" class="note" data-build-version="0.20.28">v0.20.28 · Barrio del Mercado · prototipo<br>Build 4580d3298b43</p></div><div class="settings"><h3>ATMÓSFERA Y RENDIMIENTO</h3><label class="setting">Luz · noche a día<input id="daylight" type="range" min="0" max="100" value="62" aria-label="Luz solar"></label><label class="setting">Calidad gráfica<select id="quality"><option value="eco">Económica</option><option value="balanced" selected>Equilibrada</option><option value="high">Alta</option></select></label><label class="setting">Volumen<input id="volume" type="range" min="0" max="100" value="50"></label><div class="setting">Sonido<button class="toggle" id="soundToggle">SÍ</button></div><div class="setting">Lluvia y reflejos<button class="toggle" id="rainToggle">SÍ</button></div><div class="setting">Resplandor de luces<button class="toggle" id="bloomToggle">SÍ</button></div><div class="setting">Controles táctiles<button class="toggle" id="touchToggle">AUTO</button></div><div class="setting">Pantalla completa<button class="toggle" id="fullscreen">ABRIR</button></div><p class="note">Si la imagen pierde fluidez, usa calidad económica o desactiva lluvia y reflejos. El mundo y sus reglas no cambian.</p></div></div><div class="controls-grid"><div>Objetos: recoger / lanzar <kbd>E / G</kbd></div><div>Agacharse / esquivar <kbd>X / Q</kbd></div><div>Reparar junto al auto <kbd>MANTENER V · $90</kbd></div><div>Guía de interacciones <kbd>I</kbd></div><div>Moverte / conducir <kbd>W A S D / ↑ ← ↓ →</kbd></div><div>Subir / bajar del coche <kbd>F</kbd></div><div>Interactuar <kbd>E</kbd></div><div>Correr a pie <kbd>SHIFT</kbd></div><div>Freno de mano / saltar <kbd>ESPACIO</kbd></div><div>Mirar alrededor <kbd>ARRASTRAR RATÓN</kbd></div><div>Cambiar cámara / bocina <kbd>C / Q</kbd></div><div>Mapa / foto / radio <kbd>M / P / T</kbd></div><div>Rendirse cerca de una patrulla <kbd>MANTENER R · DETENIDO</kbd></div><div>Selector de equipo <kbd>TAB</kbd></div><div>Disparar / cargar y soltar Gauss <kbd>CLIC IZQ. / J</kbd></div><div>Apuntar y mover vista <kbd>CLIC DER. + ARRASTRAR / Z</kbd></div><div>Recargar <kbd>L</kbd></div><div>Binoculares / zoom / marcar <kbd>B / RUEDA / H</kbd></div><div>Pausar <kbd>ESC</kbd></div><div>Móvil <kbd>JOYSTICK + ARRASTRAR VISTA</kbd></div></div><div class="save-tools"><button id="exportSave">Exportar partida ↗</button><button id="importSave">Importar partida ↗</button><button id="cancelJob">Cancelar encargo activo</button><button id="newGame" class="danger">Reiniciar partida</button><input type="file" id="saveFile" accept="application/json,.json" hidden></div><div class="pause-info police-help">POLICÍA · Un roce no detiene el coche. Maniobra en reversa y gira para separarte. La captura solo sube si estás detenido y a la vista. Al perderte, las patrullas buscan tu última posición. Mantén R o el botón de rendición durante 1.8 segundos, detenido cerca de una patrulla, para entregar $150 en lugar de $300. Suelta o muévete para cancelar.</div><div class="pause-info">El autoguardado actualiza únicamente la partida activa. Mis partidas permite nombrar, duplicar y respaldar cada historia. Encargos temporizados y transmisiones en curso no se guardan.</div></div></div></section>
 <section id="mapOverlay" class="overlay" hidden aria-label="Atlas del mundo">
  <div class="panel" id="mapPanel"><div class="panel-head"><div><div class="eyebrow accent">HORIZONTE · ATLAS PROCEDURAL</div><h2 id="atlasTitle">El mundo continúa.</h2></div><button class="close" id="closeMap" aria-label="Cerrar mapa">×</button></div>
  <div class="map-body"><div class="atlas-toolbar"><div class="atlas-tabs"><button id="localView" aria-pressed="false">Calles</button><button id="regionalView" aria-pressed="true">Regiones</button></div><div class="atlas-zoom"><button id="zoomIn" aria-label="Acercar mapa">+</button><button id="zoomOut" aria-label="Alejar mapa">−</button><button id="centerMap">Centrar</button></div><span id="atlasPosition" class="mono"></span></div>
@@ -289,7 +289,7 @@ var DC = globalThis.DC = globalThis.DC || {};
  ];
 })(DC);
 
-DC.BuildInfo = Object.freeze({"schema":1,"version":"0.20.28","name":"Barrio del Mercado","channel":"prototype","date":"2026-11-26","label":"v0.20.28","product":"Distrito Cero","sourceSha256":"60aeaaf69095a99b238b8f9615747f1200893ea58582bfd50a8f063388dfbe32"});
+DC.BuildInfo = Object.freeze({"schema":1,"version":"0.20.28","name":"Barrio del Mercado","channel":"prototype","date":"2026-11-26","label":"v0.20.28","product":"Distrito Cero","sourceSha256":"4580d3298b43c61c4a9a5b0b279ab9efb32a124ff8ccc7f11fc9b6ba4c2e2fb6"});
 
 
 'use strict';
@@ -892,6 +892,27 @@ DC.BuildInfo = Object.freeze({"schema":1,"version":"0.20.28","name":"Barrio del 
   if(!c.suspension)c.suspension={pitch:0,roll:0,kick:0};
   if(!Number.isFinite(c.steerAngle))c.steerAngle=0;return c;
  };
+ // The door is rendered in body space, then its own yaw is applied to
+ // the handle. Share the exact shader order with boarding animation.
+ D.vehicleBodyFrame=function(c,time){
+  const body=c.suspension||{},pitch=(body.pitch||0)+Math.sin(time*20)*(body.kick||0),roll=body.roll||0;
+  const cp=Math.cos(pitch),sp=Math.sin(pitch),cr=Math.cos(roll),sr=Math.sin(roll);
+  const co=Math.cos(c.yaw),si=Math.sin(c.yaw);
+  function place(x,y,z,originX,originY,originZ,cy,sy){
+   const py=y*cp-z*sp,pz=y*sp+z*cp,rx=x*cr-py*sr;
+   return [originX+rx*cy+pz*sy,originY+x*sr+py*cr,originZ-rx*sy+pz*cy];
+  }
+  const point=(x,y,z)=>place(x,y-.6,z,c.x,.6,c.z,co,si);
+  function door(side,opening){
+   const angle=-side*opening*1.12,yaw=c.yaw+angle,cy=Math.cos(yaw),sy=Math.sin(yaw);
+   const x=side*.944-.85*Math.sin(angle),z=.78-.85*Math.cos(angle);
+   const damage=c.damage?.[side<0?'left':'right']||0,panel=point(x-side*damage*.12,.81,z);
+   const handle=place(side*.023,.15,-.48,...panel,cy,sy);
+   return {x,z,yaw,angle,panel,handle};
+  }
+  const direction=(x,y,z,yaw)=>place(x,y,z,0,0,0,Math.cos(yaw),Math.sin(yaw));
+  return {point,direction,door,pitch,roll};
+ };
  D.damageVehicle=function(c,amount,x,z){
   D.ensureVehicle(c);if(!Number.isFinite(amount)||amount<=0)return null;
   const dx=x-c.x,dz=z-c.z,u=dx*Math.cos(c.yaw)-dz*Math.sin(c.yaw),v=dx*Math.sin(c.yaw)+dz*Math.cos(c.yaw);
@@ -1273,6 +1294,34 @@ DC.BuildInfo = Object.freeze({"schema":1,"version":"0.20.28","name":"Barrio del 
   for(let i=0;i<lengths.length;i++){const length=lengths[i];if(remaining<=length||i===lengths.length-1){const f=length?clamp(remaining/length,0,1):1,a=path[i],b=path[i+1];return{x:mix(a.x,b.x,f),z:mix(a.z,b.z,f),yaw:Math.atan2(b.x-a.x,b.z-a.z)};}remaining-=length;}
   return{...path[path.length-1],yaw:0};
  }
+ // The driver approaches the latch, pulls the door through its arc, then
+ // steps around the free end before using the existing entry/occupant pose.
+ const latchReach=.45,latchSwing=.72,clearDoor=.93;
+ function openingPose(a,base,t,time){
+  const c=a.c,frame=D.vehicleBodyFrame(c,time),door=frame.door(-1,c.doorOpen);
+  const outside=frame.direction(-1,0,0,door.yaw),up=frame.direction(0,1,0,door.yaw);
+  const forward=frame.direction(0,0,1,door.yaw),[hx,,hz]=door.handle;
+  const nearHandle=(out,along)=>({x:hx+out*outside[0]+along*forward[0],z:hz+out*outside[2]+along*forward[2]});
+  const stance=nearHandle(.42,-.25),reach=ease(t/latchReach),clear=ease((t-latchReach-latchSwing)/clearDoor);
+  let q={x:mix(a.door.x,stance.x,reach),z:mix(a.door.z,stance.z,reach)};
+  if(clear>0){
+   // Round the free end on the outside, then enter from behind the panel.
+   const around=nearHandle(0,-.86),first=clear<=.5;
+   const start=first?stance:around,end=first?around:D.carPoint(c,-1.30,0);
+   const control=nearHandle(first?.55:-.55,-.86),f=first?clear*2:clear*2-1,u=1-f;
+   q={x:u*u*start.x+2*u*f*control.x+f*f*end.x,z:u*u*start.z+2*u*f*control.z+f*f*end.z};
+  }
+  const facing=a.approachYaw+D.wrap(door.yaw+.23-a.approachYaw)*reach;
+  const weight=reach*(1-ease((t-latchReach-latchSwing)/.22));
+  // The palm landmark is 13 mm inward and 49 mm below the wrist in this
+  // orientation. Place it against the outer face of the 30 mm thick handle.
+  const landmark=D.WeaponHandling?.palmLandmark('R')||[-.013,-.049,0];
+  const wrist=door.handle.map((v,i)=>v+outside[i]*(.015-landmark[0])-up[i]*landmark[1]);
+  return {...base,...q,moveSpeed:a.stepSpeed||0,stepDirection:a.stepDirection,yaw:facing+D.wrap(c.yaw+Math.PI*.5-facing)*clear,
+   crouch:.38*weight,bodyLean:.07*weight,reach:.58*weight,
+   handTargets:weight?{R:{x:wrist[0],y:wrist[1],z:wrist[2],weight,grip:mix(.13,.54,weight),
+     orientation:{palm:outside.map(v=>-v),fingers:up.map(v=>-v)}}}:null,accessPhase:'open'};
+ }
  class OccupancySimulation extends Base{
   constructor(world){
    super(world);this.access=null;this.accessSerial=0;this.driverEvents=new Set();
@@ -1304,9 +1353,10 @@ DC.BuildInfo = Object.freeze({"schema":1,"version":"0.20.28","name":"Barrio del 
    if(!this.clearance(door,c)||(!exiting&&!path)){this.emit('toast','No hay espacio libre junto a la puerta del conductor.');return;}
    if(p.carry)this.dropHeld();
    const approach=exiting?0:Math.max(.16,path.slice(1).reduce((s,v,i)=>s+D.distance(v,path[i]),0)/2.9);
+   const approachYaw=exiting?p.yaw:pointOnPath(path,1).yaw;
    const kind=exiting?'exit':c.driver?'extract':'enter';
-   const opening=.38,pulling=kind==='extract'?1.40:0,returning=kind==='extract'?.9:0,entry=1.05,closing=.34;
-   this.access={serial:++this.accessSerial,kind,index,c,elapsed:0,duration:approach+opening+pulling+returning+entry+closing,approach,opening,pulling,returning,entry,closing,door,path,driver:copyDriver(c.driver),released:false,reported:false,wasParked:c.parked,from:{x:p.x,z:p.z,yaw:p.yaw},lastSafe:{x:p.x,z:p.z},anchor:{x:c.x,z:c.z,yaw:c.yaw}};
+   const opening=exiting?.38:latchReach+latchSwing+clearDoor,pulling=kind==='extract'?1.40:0,returning=kind==='extract'?.9:0,entry=1.05,closing=.34;
+   this.access={serial:++this.accessSerial,kind,index,c,elapsed:0,duration:approach+opening+pulling+returning+entry+closing,approach,opening,pulling,returning,entry,closing,door,path,approachYaw,driver:copyDriver(c.driver),released:false,reported:false,wasParked:c.parked,from:{x:p.x,z:p.z,yaw:p.yaw},lastSafe:{x:p.x,z:p.z},anchor:{x:c.x,z:c.z,yaw:c.yaw}};
    c.boarding=true;c.doorOpen=0;c.doorSide=-1;c.speed=0;p.vx=p.vz=0;p.transition=null;p.moveSpeed=0;this.repairProgress=0;
    this.emit('sound','door');
   }
@@ -1360,11 +1410,22 @@ DC.BuildInfo = Object.freeze({"schema":1,"version":"0.20.28","name":"Barrio del 
     if(a){
      if(Math.abs(input.throttle||0)>.15||Math.abs(input.steer||0)>.15||input.brake||input.surrender||D.distance(a.c,a.anchor)>.65||Math.abs(D.wrap(a.c.yaw-a.anchor.yaw))>.2)this.cancelAccess();
      else{
-      a.elapsed+=h;const t=a.elapsed-a.approach,open=ease(t/a.opening),close=ease((a.elapsed-a.duration+a.closing)/a.closing);
+      a.elapsed+=h;const t=a.elapsed-a.approach,open=a.kind==='exit'?ease(t/a.opening):ease((t-latchReach)/latchSwing),close=ease((a.elapsed-a.duration+a.closing)/a.closing);
       a.c.doorOpen=open*(1-close);a.c.speed=0;
       if(a.kind!=='exit'){
        if(a.elapsed<a.approach){const q=pointOnPath(a.path,a.elapsed/a.approach);this.player.walk+=D.distance(this.player,q)*(D.NaturalMotion?D.NaturalMotion.distanceRate(2.9):4.8);Object.assign(this.player,q,{moveSpeed:2.9});if(this.clearance(q,a.c,true))a.lastSafe={x:q.x,z:q.z};}
-       else{this.player.x=a.door.x;this.player.z=a.door.z;this.player.moveSpeed=0;this.player.yaw=Math.atan2(a.c.x-a.door.x,a.c.z-a.door.z);a.lastSafe={...a.door};}
+       else if(t<a.opening){
+        const q=openingPose(a,this.player,t,this.time),dx=q.x-this.player.x,dz=q.z-this.player.z,dist=Math.hypot(dx,dz);
+        if(!this.clearance(q,a.c)){this.cancelAccess(true);this.emit('toast','El paso junto a la puerta quedó obstruido.');}
+        else{
+         const speed=dist/h,co=Math.cos(q.yaw),si=Math.sin(q.yaw);
+         a.stepSpeed=speed;
+         if(dist>1e-6)a.stepDirection=[(dx*co-dz*si)/dist,(dx*si+dz*co)/dist];
+         this.player.walk+=dist*(D.NaturalMotion?D.NaturalMotion.distanceRate(speed,0,q.crouch):4.8);
+         Object.assign(this.player,{x:q.x,z:q.z,yaw:q.yaw,moveSpeed:speed});
+         if(this.clearance(q,a.c,true))a.lastSafe={x:q.x,z:q.z};
+        }
+       }else{this.player.x=a.door.x;this.player.z=a.door.z;this.player.moveSpeed=0;this.player.yaw=Math.atan2(a.c.x-a.door.x,a.c.z-a.door.z);a.lastSafe={...a.door};}
        if(a.kind==='extract'&&t>=a.opening+.25&&!a.reported){a.reported=true;this.addHeat(a.c.police?38:16);this.emit('toast',a.c.police?'Alerta policial: intento de sustracción de patrulla.':'El conductor está dando la alarma.');}
        if(a.kind==='extract'&&t>=a.opening+a.pulling)this.releaseDriver(a);
       }
@@ -1394,13 +1455,16 @@ DC.BuildInfo = Object.freeze({"schema":1,"version":"0.20.28","name":"Barrio del 
    if(a.kind==='exit'){
     const f=ease((t-a.opening)/a.entry);return{...base,x:mix(seat.x,a.door.x,f),z:mix(seat.z,a.door.z,f),yaw:yaw-f*Math.PI*.55,y:mix(-.29,0,f),seatBlend:1-f,seated:f<.999,crouch:Math.sin(f*Math.PI)*.12,reach:.4,accessPhase:f<1?'exit':'close'};
    }
+   if(t<a.opening)return openingPose(a,base,t,this.time);
    if(t<pullEnd){
-    const pulling=a.kind==='extract'&&t>a.opening,drag=ease((t-a.opening-.25)/1.15),q=D.carPoint(c,mix(-1.85,-1.30,ease(t/a.opening))-drag*2.25,mix(.15,0,ease(t/a.opening))-drag*.24);
-    const driver=this.driverPose(c),handTarget=pulling&&driver?{x:driver.x-Math.cos(c.yaw)*.20,y:(driver.y||0)+1.30,z:driver.z+Math.sin(c.yaw)*.20}: {...D.carPoint(c,-.99,.54),y:1.0};
-    return{...base,...q,yaw:D.turn(base.yaw,yaw+Math.PI*.5,ease(t/a.opening)),bodyLean:pulling?.16:0,reach:pulling?.8:.65,crouch:pulling?.09:0,handTargets:{R:handTarget,L:pulling?{...handTarget,y:handTarget.y-.09,z:handTarget.z-.16}:null},accessPhase:pulling?'pull':'open'};
+    const drag=ease((t-a.opening-.25)/1.15),q=D.carPoint(c,-1.30-drag*2.25,-drag*.24),driver=this.driverPose(c);
+    const hand={x:driver.x-Math.cos(yaw)*.20,y:(driver.y||0)+1.30,z:driver.z+Math.sin(yaw)*.20};
+    const weight=ease((t-a.opening)/.20);
+    return {...base,...q,yaw:yaw+Math.PI*.5,bodyLean:.16*weight,reach:.8*weight,crouch:.09*weight,
+     handTargets:{R:{...hand,weight},L:{...hand,weight,y:hand.y-.09,z:hand.z-.16}},accessPhase:'pull'};
    }
    if(a.returning&&t<entryStart){const f=ease((t-pullEnd)/a.returning),u=1-f,q=D.carPoint(c,u*u*-3.55+2*u*f*-2.9+f*f*-1.85,u*u*-.24+2*u*f*1.20+f*f*.15);return{...base,...q,yaw:yaw+Math.PI*.5,walk:f*8,moveSpeed:2.6,accessPhase:'reposition'};}
-   const f=ease((t-entryStart)/a.entry),start=a.kind==='extract'?a.door:D.carPoint(c,-1.30,0);return{...base,x:mix(start.x,seat.x,f),z:mix(start.z,seat.z,f),yaw:yaw+Math.PI*.5*(1-f),y:mix(0,-.29,f),seatBlend:f,seated:f>.001,crouch:Math.sin(f*Math.PI)*.12,reach:.4,accessPhase:f<1?'enter':'close'};
+   const f=ease((t-entryStart)/a.entry),start=a.kind==='extract'?a.door:D.carPoint(c,-1.30,0);return{...base,x:mix(start.x,seat.x,f),z:mix(start.z,seat.z,f),yaw:yaw+Math.PI*.5*(1-f),y:mix(0,-.29,f),seatBlend:f,seated:f>.001,crouch:Math.sin(f*Math.PI)*.12,reach:.4*f,accessPhase:f<1?'enter':'close'};
   }
   driverPose(c){
    if(!c.driver)return null;const q=D.carPoint(c,-.38,-.20);let n={...c.driver,...q,y:-.29,yaw:c.yaw,seated:true,seatBlend:1,moveSpeed:0,walk:0,reach:1,steering:c.steerAngle||0,handTargets:D.VehicleCabin.hands(c)};
@@ -2246,7 +2310,10 @@ DC.BuildInfo = Object.freeze({"schema":1,"version":"0.20.28","name":"Barrio del 
   const lift=contact?0:Math.pow(Math.max(0,Math.sin(Math.PI*t)),1.35)*D.lerp(.12,.24,g.run)*g.weight;
   // Rotate around heel on strike and forefoot on push-off; bottom is y=.015 in bind pose.
   const soleOffset=.015+.070*Math.cos(pitch)+Math.sin(pitch)*(pitch>=0?.205:-.075);
-  return{x:side*(.108+.016*g.run+.018*(n.crouch||0)),y:soleOffset+lift,z,pitch,contact,phase:ph,progress:t,run:g.run,weight:g.weight,yaw:0};
+  const stance=side*(.108+.016*g.run+.018*(n.crouch||0));
+  // While pulling the door the actor sidesteps and backs around it.
+  const direction=n.stepDirection;
+  return{x:stance+(direction?z*direction[0]:0),y:soleOffset+lift,z:direction?z*direction[1]:z,pitch,contact,phase:ph,progress:t,run:g.run,weight:g.weight,yaw:0};
  }
  function frequency(speed,sprint=0,crouch=0){return gait(speed,sprint,crouch).hz*TAU;}
  function distanceRate(speed,sprint=0,crouch=0){return speed>.01?frequency(speed,sprint,crouch)/speed:0;}
@@ -2262,7 +2329,7 @@ DC.BuildInfo = Object.freeze({"schema":1,"version":"0.20.28","name":"Barrio del 
    const acceleration=reset?0:D.damp(old.motion.acceleration,D.clamp((speed-old.motion.speed)/Math.max(step,.001),-9,9),7,step);
    const turn=reset?finite(n.turnRate):D.damp(old.motion.turn,D.clamp(D.wrap(yaw-old.yaw)/Math.max(step,.001),-4,4),9,step);
    const motion={speed,acceleration,turn,phase:finite(n.walk),feet:{L:null,R:null},swing:{L:null,R:null},reset,inPlace};
-   const disabled=inPlace||n.seated||(n.seatBlend||0)>.025||(n.y||0)>.025||Math.abs(n.vy||0)>.05||!!n.accessPhase||(n.dodge||0)>.03;
+   const disabled=inPlace||n.seated||(n.seatBlend||0)>.025||(n.y||0)>.025||Math.abs(n.vy||0)>.05||(!!n.accessPhase&&n.accessPhase!=='open')||(n.dodge||0)>.03;
    for(const k of ['L','R']){
     const f=foot({...n,motion},k),previous=!reset&&!disabled?old.motion.feet[k]:null;
     if(disabled)continue;
@@ -2363,8 +2430,9 @@ DC.VehicleAsset={"sourceProject":"b423a0c7-1fe4-4a56-a0bd-4cd654a18258","revisio
  }
  function gripProfile(n,k){
   if(n.handGrips?.[k])return n.handGrips[k];
-  const explicit=Number.isFinite(n.grip),seated=D.clamp(n.seatBlend??(n.seated?1:0),0,1),carry=!!n.carry,reach=n.reach||0;
-  const amount=D.clamp(explicit?n.grip:seated>.1?.61:carry?.70:reach>.1?.43:.13+(n.sprintBlend||0)*.18,0,1);
+  const grip=n.handTargets?.[k]?.grip??n.grip;
+  const explicit=Number.isFinite(grip),seated=D.clamp(n.seatBlend??(n.seated?1:0),0,1),carry=!!n.carry,reach=n.reach||0;
+  const amount=D.clamp(explicit?grip:seated>.1?.61:carry?.70:reach>.1?.43:.13+(n.sprintBlend||0)*.18,0,1);
   const style=explicit?'manual':seated>.1?'wheel':carry?'carry':reach>.1?'reach':'relaxed';
   const patterns={manual:[1,1,1,1,1],wheel:[.94,1.05,1.08,1.06,.79],carry:[.75,.90,.98,1.02,.78],reach:[.66,.80,.94,1,.65],relaxed:[.70,1,1.18,1.38,.75]};
   const f={};for(const [j,name]of ['index','middle','ring','little','thumb'].entries()){
@@ -2495,11 +2563,22 @@ DC.VehicleAsset={"sourceProject":"b423a0c7-1fe4-4a56-a0bd-4cd654a18258","revisio
   const o=transformed(r,bind);for(let i=0;i<3;i++)r[12+i]=position[i]-o[i];return r;
  }
  function applyArmTarget(q,n,k,target){
-  if(![target.x,target.y,target.z].every(Number.isFinite))return;
+  const weight=D.clamp(target.weight??1,0,1);
+  if(!weight||![target.x,target.y,target.z].every(Number.isFinite))return;
   const si=Math.sin(n.yaw||0),co=Math.cos(n.yaw||0),dx=target.x-(n.x||0),dz=target.z-(n.z||0),goal=[(dx*co-dz*si)/q.scale,(target.y-q.rootY)/q.scale,(dx*si+dz*co)/q.scale];
   const ai=ids['upperArm'+k],ei=ids['forearm'+k],hi=ids['hand'+k],ab=bones[ai][2],eb=bones[ei][2],hb=bones[hi][2];
+  const neutralWrist=q.matrices.subarray(hi*16,hi*16+16);
+  if(weight<1){
+   const start=transformed(neutralWrist,hb);
+   for(let i=0;i<3;i++)goal[i]=D.lerp(start[i],goal[i],weight);
+  }
   const shoulder=transformed(q.matrices.subarray(ai*16,ai*16+16),ab),vec=goal.map((v,i)=>v-shoulder[i]),len=Math.hypot(...vec);if(len<1e-6)return;
-  const l1=Math.hypot(...eb.map((v,i)=>v-ab[i])),l2=Math.hypot(...hb.map((v,i)=>v-eb[i])),d=D.clamp(len,.06,l1+l2-.002),dir=vec.map(v=>v/len),pole=target.pole&&target.pole.length===3&&target.pole.every(Number.isFinite)?target.pole:[k==='L'?-1:1,-.2,-.4];
+  const l1=Math.hypot(...eb.map((v,i)=>v-ab[i])),l2=Math.hypot(...hb.map((v,i)=>v-eb[i])),d=D.clamp(len,.06,l1+l2-.002),dir=vec.map(v=>v/len);
+  let pole=target.pole&&target.pole.length===3&&target.pole.every(Number.isFinite)?target.pole:[k==='L'?-1:1,-.2,-.4];
+  if(weight<1){
+   const elbow=transformed(q.matrices.subarray(ei*16,ei*16+16),eb);
+   pole=pole.map((v,i)=>D.lerp((elbow[i]-shoulder[i])/l1,v,weight));
+  }
   const dot=pole.reduce((s,v,i)=>s+v*dir[i],0);let perp=pole.map((v,i)=>v-dot*dir[i]);if(Math.hypot(...perp)<.0001)perp=D.cross(dir,[0,1,0]);perp=D.normalize(perp);
   const along=(l1*l1+d*d-l2*l2)/(2*d),height=Math.sqrt(Math.max(0,l1*l1-along*along)),elbow=shoulder.map((v,i)=>v+dir[i]*along+perp[i]*height),hand=shoulder.map((v,i)=>v+dir[i]*d);
   q.matrices.set(alignAt(ab,elbow.map((v,i)=>v-shoulder[i]),eb.map((v,i)=>v-ab[i]),shoulder),ai*16);
@@ -2508,7 +2587,12 @@ DC.VehicleAsset={"sourceProject":"b423a0c7-1fe4-4a56-a0bd-4cd654a18258","revisio
   const requested=target.orientation;
   if(requested&&[...(requested.palm||[]),...(requested.fingers||[])].length===6&&[...requested.palm,...requested.fingers].every(Number.isFinite)){
    const local=v=>[v[0]*co-v[2]*si,v[1],v[0]*si+v[2]*co];
-   const side=k==='R'?1:-1,palm=D.normalize(local(requested.palm)),finger=D.normalize(local(requested.fingers));
+   const side=k==='R'?1:-1;
+   let palm=D.normalize(local(requested.palm)),finger=D.normalize(local(requested.fingers));
+   if(weight<1){
+    palm=D.normalize(palm.map((v,i)=>D.lerp(-side*neutralWrist[i],v,weight)));
+    finger=D.normalize(finger.map((v,i)=>D.lerp(-neutralWrist[4+i],v,weight)));
+   }
    let x=palm.map(v=>-side*v),y=finger.map(v=>-v),z=D.cross(x,y);
    if(Math.hypot(...z)>.001){
     z=D.normalize(z);y=D.normalize(D.cross(z,x));x=D.normalize(x);
@@ -2713,6 +2797,83 @@ DC.VehicleAsset={"sourceProject":"b423a0c7-1fe4-4a56-a0bd-4cd654a18258","revisio
   }
   radial('tire',[[-.50,.347],[-.50,.417],[-.40,.478],[-.26,.5],[.26,.5],[.40,.478],[.50,.417],[.50,.347]]);
   radial('rim',[[-.46,.435],[-.5,.483],[-.40,.5],[.44,.5],[.50,.475],[.42,.435],[-.46,.435]]);
+  // Metric wheel hardware, with the tire pivot at the origin and +X outboard.
+  // All cars share these meshes. The existing rim lip seats the spoke tips.
+  function turnedPart(points,faces,profile,segments,y=0,z=0,caps=true){
+   const first=points.length;
+   for(const [x,radius] of profile)for(let i=0;i<segments;i++){
+    const angle=i*2*Math.PI/segments;
+    points.push([x,y+radius*Math.sin(angle),z+radius*Math.cos(angle)]);
+   }
+   for(let row=0;row<profile.length-1;row++)for(let i=0;i<segments;i++){
+    const a=first+row*segments+i,b=first+row*segments+(i+1)%segments;
+    faces.push([a,a+segments,b+segments,b]);
+   }
+   if(caps){
+    const back=points.length, end=first+(profile.length-1)*segments;
+    points.push([profile[0][0],y,z],[profile[profile.length-1][0],y,z]);
+    for(let i=0;i<segments;i++){
+     const j=(i+1)%segments;
+     faces.push([back,first+i,first+j],[back+1,end+j,end+i]);
+    }
+   }
+  }
+  {
+   const points=[],faces=[];
+   turnedPart(points,faces,[[.101,.068],[.112,.079],[.135,.065],[.142,.029]],24);
+   // Six quad strips make each fork one continuous cast spoke. Three layers
+   // give the front edge a bevel and leave true openings between the arms.
+   const top=[[0,3,4,1],[1,4,5,2],[3,6,7,4],[4,7,8,5],[6,9,10,7],[7,11,12,8]];
+   const outline=[0,3,6,9,10,7,11,12,8,5,2,1];
+   for(let spoke=0;spoke<5;spoke++){
+    const angle=spoke*2*Math.PI/5, co=Math.cos(angle), si=Math.sin(angle), first=points.length;
+    for(const [depth,bevel] of [[0,.0025],[-.0035,0],[-.016,0]]){
+     const section=(x,r,t)=>points.push([x+depth,co*r-si*t,si*r+co*t]);
+     const stem=(x,r,width,sweep,centerR=r)=>{
+      section(x,r,sweep-width+bevel);
+      section(x,centerR,sweep);
+      section(x,r,sweep+width-bevel);
+     };
+     stem(.134,.064,.014,0);
+     stem(.112,.112,.021,.001);
+     stem(.113,.150,.031,.006,.150-bevel);
+     for(const t of [-.055+bevel,-.030-bevel,.030+bevel,.055-bevel])section(.134,.239,.012+t);
+    }
+    for(const quad of top){
+     faces.push(quad.map(i=>first+i),quad.map(i=>first+26+i).reverse());
+    }
+    for(let k=0;k<outline.length;k++)for(const layer of [0,13]){
+     const a=first+layer+outline[k],b=first+layer+outline[(k+1)%outline.length];
+     faces.push([a,a+13,b+13,b]);
+    }
+   }
+   surface('wheelAlloy',points,faces);
+  }
+  {
+   const points=[],faces=[];
+   turnedPart(points,faces,[[.072,.080],[.072,.196],[.075,.205],[.083,.205],
+                            [.086,.200],[.086,.130],[.077,.122],[.077,.080],[.072,.080]],24,0,0,false);
+   for(let i=0;i<5;i++){
+    const angle=(i+.5)*2*Math.PI/5;
+    turnedPart(points,faces,[[.136,.0095],[.143,.0095],[.145,.0075]],6,
+     .049*Math.cos(angle),.049*Math.sin(angle));
+   }
+   surface('wheelBrake',points,faces);
+  }
+  {
+   const points=[],faces=[];
+   const pad=[[.151,-.057],[.166,-.078],[.189,-.077],[.205,-.049],
+              [.211,.031],[.200,.067],[.177,.081],[.151,.061]];
+   for(const [x,scale] of [[.064,.87],[.070,1],[.099,1],[.106,.87]]){
+    for(const [y,z] of pad)points.push([x,.18+(y-.18)*scale,z*scale]);
+   }
+   const n=pad.length;
+   for(let row=0;row<3;row++)for(let i=0;i<n;i++){
+    const a=row*n+i,b=row*n+(i+1)%n;faces.push([a,b,b+n,a+n]);
+   }
+   faces.push(pad.map((_,i)=>n-1-i),pad.map((_,i)=>3*n+i));
+   surface('wheelCaliper',points,faces);
+  }
   const profile=[[-2.2,.73,.72,.36],[-2.06,.85,.85,.31],[-1.7,.94,.95,.28],[-1.36,.965,.99,.275],[-.92,.94,1.015,.275],[-.35,.923,1.005,.275],[.45,.932,.99,.275],[.9,.951,.975,.275],[1.36,.967,.965,.285],[1.75,.916,.91,.31],[2.06,.84,.81,.36],[2.2,.72,.70,.40]];
   function sample(z){let k=profile.findIndex((p,i)=>i<profile.length-1&&p[0]<=z&&profile[i+1][0]>=z);if(k<0)k=profile.length-2;
    const a=profile[k],b=profile[k+1],p=profile[Math.max(0,k-1)],q=profile[Math.min(profile.length-1,k+2)],u=(z-a[0])/(b[0]-a[0]),dist=b[0]-a[0];
@@ -3639,17 +3800,11 @@ DC.HeroAsset={"version":2,"stride":24,"positionScale":10000,"bones":["pelvis","s
    }
   }
   renderCar(c){
-   D.ensureVehicle(c);const near=D.distance(c,this.currentSim?.player||c)<66;
-   if(!near||!this.assetParts.length){super.renderCar(c);return;}
-   const L=this.dynamic,a=c.yaw,co=Math.cos(a),si=Math.sin(a),col=c.color,body=c.suspension;
-   const pitch=body.pitch+Math.sin(this.currentTime*20)*(body.kick||0),roll=body.roll;
+   D.ensureVehicle(c);const distance=D.distance(c,this.currentSim?.player||c);
+   if(distance>=66||!this.assetParts.length){super.renderCar(c);return;}
+   const L=this.dynamic,a=c.yaw,col=c.color,body=D.vehicleBodyFrame(c,this.currentTime);
+   const {pitch,roll,point:rotate}=body;
    const cp=Math.cos(pitch),sp=Math.sin(pitch),cr=Math.cos(roll),sr=Math.sin(roll);
-   // Match the vertex shader: pitch first, then roll, then yaw.
-   const place=(x,y,z,originX,originY,originZ,cy,sy)=>{
-    const pitchedY=y*cp-z*sp,pitchedZ=y*sp+z*cp,rolledX=x*cr-pitchedY*sr;
-    return [originX+rolledX*cy+pitchedZ*sy,(x*sr+pitchedY*cr)+originY,originZ-rolledX*sy+pitchedZ*cy];
-   };
-   const rotate=(x,y,z)=>place(x,y-.6,z,c.x,.6,c.z,co,si);
    const put=(mesh,x,y,z,sx,sy,sz,color,mat=0,em=0,yaw=0,spin=0)=>{const q=rotate(x,y,z);this.add(L,mesh,...q,sx,sy,sz,color,mat,c.empUntil>this.currentTime?0:em,a+yaw,0,0,pitch+spin,roll);return q;};
    const damage=c.damage,sideNames=['front','rear','left','right'],dominant=sideNames.reduce((best,k)=>damage[k]>damage[best]?k:best,'front'),d=damage[dominant];
    const open=c.boarding?c.doorOpen||0:c.doorUntil>this.currentTime?Math.sin(D.clamp((c.doorUntil-this.currentTime)/.85,0,1)*Math.PI):0;
@@ -3666,26 +3821,41 @@ DC.HeroAsset={"version":2,"stride":24,"positionScale":10000,"bones":["pelvis","s
    put('box',0,.69,2.205-damage.front*.4,.78,.14,.026,[.018,.022,.03],3);
    for(let k=0;k<5;k++)put('box',0,.645+k*.024,2.222-damage.front*.4,.71,.012,.008,[.22,.30,.32],3);
    for(const side of [-1,1]){
-    const sd=damage[side<0?'left':'right'],opening=c.doorSide===side?open:0,da=-side*opening*1.12;
-    const doorX=side*.944-.85*Math.sin(da),doorZ=.78-.85*Math.cos(da);
-    const panel=put('body',doorX-side*sd*.12,.81,doorZ,.035,.30,1.7,col,5,0,da);
+    const opening=c.doorSide===side?open:0,door=body.door(side,opening);
+    this.add(L,'body',...door.panel,.035,.30,1.7,col,5,0,door.yaw,0,0,pitch,roll);
     put('body',side*.946,.34,-.17,.06,.11,2.07,[.024,.034,.038],3);
-    const panelYaw=a+da;
-    const handle=place(side*.023,.15,-.48,...panel,Math.cos(panelYaw),Math.sin(panelYaw));
-    this.add(L,'box',...handle,.03,.036,.21,[.33,.40,.42],3,0,panelYaw,0,0,pitch,roll);
-    if(opening>.05)put(this.meshes.glassPanel?'glassPanel':'body',doorX,.123+1.1,doorZ,.028,.40,1.25,[.055,.13,.16],6,0,da);
+    this.add(L,'box',...door.handle,.03,.036,.21,[.33,.40,.42],3,0,door.yaw,0,0,pitch,roll);
+    if(opening>.05)put(this.meshes.glassPanel?'glassPanel':'body',door.x,.123+1.1,door.z,.028,.40,1.25,[.055,.13,.16],6,0,door.angle);
     put('body',side*1.065,1.1,.62,.22,.14,.27,col,5);
     put('box',side*.755,1.27,-.4,.044,.54,.06,[.025,.03,.037],3);
     put('body',side*.761,1.255,.715,.045,.79,.045,col,5,0,0,-.77);put('body',side*.760,1.255,-1.03,.064,.69,.051,col,5,0,0,.61);
     put('body',side*.66,.79-damage.front*.06,2.105-damage.front*.42,.36,.105,.058,damage.front>.75?[.055,.08,.09]:[.70,.90,1],0,damage.front>.75?0:5);
     put('body',side*.65,.77,-2.16+damage.rear*.35,.37,.09,.045,[.8,.025,.016],0,damage.rear>.85?0:c.brake?6:2);
     for(const front of [-1,1]){
-     const z=front>0?1.36:-1.39,steer=front>0?c.steerAngle:0;
-     put(this.meshes.tire?'tire':'wheel',side*.92,.365,z,.27,.73,.73,[.018,.023,.028],4,0,steer,c.wheel||0);
-     put(this.meshes.rim?'rim':'wheel',side*1.052,.365,z,.025,.528,.528,[.3,.39,.43],3,0,steer,c.wheel||0);
-     put('wheel',side*1.066,.365,z,.026,.42,.42,[.025,.034,.045],3,0,steer);
-     for(let k=0;k<5;k++){const theta=(c.wheel||0)+k*Math.PI*2/5,dy=Math.cos(theta)*.145,dz=Math.sin(theta)*.145;put('body',side*1.085,.365+dy,z+dz,.030,.27,.041,[.38,.44,.47],3,0,steer,theta);}
-     put('wheel',side*1.09,.365,z,.035,.14,.14,[.36,.4,.42],3,0,steer);
+     const z=front>0?1.36:-1.39, steer=front>0?c.steerAngle:0, spin=side*(c.wheel||0);
+     // The wheel is authored facing +X. Turn the left assembly outwards around
+     // Y, then decompose body tilt × steering into the shader's Ry*Rz*Rx order.
+     const cs=side*Math.cos(steer), ss=side*Math.sin(steer);
+     const wheelYaw=a+Math.atan2(cp*ss,cr*cs-sr*sp*ss);
+     const wheelRoll=Math.asin(D.clamp(sr*cs+cr*sp*ss,-1,1));
+     const wheelPitch=Math.atan2(cr*sp*cs-sr*ss,cr*cp);
+     const pivot=rotate(side*.92,.365,z);
+     const axle=[Math.cos(wheelYaw)*Math.cos(wheelRoll),Math.sin(wheelRoll),-Math.sin(wheelYaw)*Math.cos(wheelRoll)];
+     const wheelPart=(key,offset,w,h,d,color,mat,rotation)=>{
+      this.add(L,key,pivot[0]+axle[0]*offset,pivot[1]+axle[1]*offset,pivot[2]+axle[2]*offset,
+       w,h,d,color,mat,0,wheelYaw,0,0,wheelPitch+rotation,wheelRoll);
+     };
+     wheelPart(this.meshes.tire?'tire':'wheel',0,.27,.73,.73,[.018,.023,.028],4,spin);
+     wheelPart(this.meshes.rim?'rim':'wheel',.132,.025,.528,.528,[.36,.41,.44],3,spin);
+     if(this.meshes.wheelAlloy){
+      if(distance<(this.quality==='eco'?16:26)){
+       wheelPart('wheelBrake',0,1,1,1,[.125,.145,.15],3,spin);
+       wheelPart('wheelCaliper',0,1,1,1,[.225,.153,.092],3,-side*1.12);
+      }else wheelPart('wheel',.078,.016,.41,.41,[.125,.145,.15],3,spin);
+      wheelPart('wheelAlloy',0,1,1,1,[.40,.44,.46],3,spin);
+     } else {
+      wheelPart('wheel',.14,.026,.42,.42,[.21,.25,.27],3,spin);
+     }
     }
     put('body',side*.37,.53,-.16,.48,.15,.57,[.05,.065,.067]);put('body',side*.37,.84,-.44,.45,.60,.16,[.043,.052,.056]);
    }
@@ -3832,6 +4002,75 @@ DC.HeroAsset={"version":2,"stride":24,"positionScale":10000,"bones":["pelvis","s
   const out=[];const tri=(a,b,c)=>{const n=D.normalize(D.cross(b.map((v,i)=>v-a[i]),c.map((v,i)=>v-a[i])));for(const p of[a,b,c])out.push(...p,...n,(p[0]+.5),(p[2]+.5));};
   const a=[-.5,0,-.5],b=[.5,0,-.5],c=[0,.6,-.5],d=[-.5,0,.5],e=[.5,0,.5],f=[0,.6,.5];tri(a,c,b);tri(d,e,f);tri(a,d,f);tri(a,f,c);tri(b,c,f);tri(b,f,e);return out;
  }
+ // Detail records follow the lifetime of their uploaded sector. The frame loop
+ // appends the near records to the existing dynamic box batch.
+ const shopDetailBySector=new WeakMap();
+ const shopPaint=[[.12,.30,.24],[.43,.22,.14],[.24,.31,.35]];
+ const shopSigns=[3,10,2];
+ function cornerShop(cell){
+  if(cell.type!=='urban'||cell.park||cell.seed<.35||!cell.buildings.length)return null;
+  // Lowest seed picks one tenant per block independently of sector load order.
+  const b=cell.buildings.reduce((best,building)=>building.seed<best.seed?building:best);
+  const sx=Math.sign(b.x-cell.x),sz=Math.sign(b.z-cell.z);
+  if(!cell.roads[sx>0?'e':'w']||!cell.roads[sz>0?'s':'n'])return null;
+  return {b,sx,sz,x:b.x+sx*b.w/2,z:b.z+sz*b.d/2};
+ }
+ function buildCornerShop(shop,add,nearBox,wall){
+  const {b,x,z,sx,sz}=shop;
+  const width=9.6,side=5.2,depth=1.12,floor=.26,ceiling=3.75;
+  const trim=[.22,.20,.16],stone=[.48,.45,.37],wood=[.38,.25,.15];
+  const variant=b.sign%shopPaint.length,paint=shopPaint[variant];
+  // u and v are metres inward from the intersection-facing corner.
+  const box=(u,y,v,du,h,dv,col,mat=0,em=0)=>add('box',x-sx*u,y,z-sz*v,du,h,dv,col,mat,em);
+  const close=(u,y,v,du,h,dv,col,mat=0,em=0)=>nearBox(x-sx*u,y,z-sz*v,du,h,dv,col,mat,em);
+  const podium=(u0,u1,v0,v1,col)=>box((u0+u1)/2,(ceiling+floor)/2,(v0+v1)/2,u1-u0,ceiling-floor,v1-v0,col);
+
+  add('box',b.x,(b.h+.15+ceiling)/2,b.z,b.w,b.h+.15-ceiling,b.d,wall,1,0,0,b.seed,b.style);
+  box(b.w/2,.20,b.d/2,b.w+.28,.12,b.d+.28,stone);
+  podium(0,b.w,side,b.d,wall);
+  podium(width,b.w,0,side,wall);
+  podium(depth,width,depth,side,[.39,.32,.23]);
+
+  // Two sealed glazing planes on the original collision envelope. The
+  // transparent quad is also used for particles with a different material.
+  const frontYaw=sz>0?0:Math.PI;
+  add('smoke',x-sx*width/2,1.75,z,width,2.98,1,[.16,.26,.25],6,0,frontYaw);
+  add('smoke',x,1.75,z-sz*side/2,side,2.98,1,[.16,.26,.25],6,0,sx*Math.PI/2);
+
+  const doorJamb=width-1.52;
+  box(doorJamb/2,.49,0,doorJamb,.46,.21,stone);
+  box(0,.49,side/2,.21,.46,side,stone);
+  for(const u of [0,doorJamb/2,doorJamb,width])box(u,1.74,0,.11,2.96,.14,trim,3);
+  for(const v of [side/2,side])box(0,1.74,v,.14,2.96,.11,trim,3);
+  box(width/2,2.57,0,width,.09,.14,trim,3);
+  box(0,2.57,side/2,.14,.09,side,trim,3);
+  // Cantilever over the pavement. The two runs meet edge-to-edge at the corner.
+  box((width-1.08)/2,2.99,-.51,width+1.08,.16,1.14,paint,3);
+  box(-.51,2.99,(side+.06)/2,1.14,.16,side-.06,paint,3);
+  box(width/2,3.47,.39,width,.56,.94,paint);
+  box(.40,3.47,(side+.86)/2,.96,.56,side-.86,paint);
+  add('box',x-sx*width*.48,3.73,z+sz*.12,3.55,1.22,.12,[1,1,1],10+shopSigns[variant],0,frontYaw);
+  // Timber shelf and return wall are visible through the glass from the street.
+  for(const y of [1.02,1.73]){
+   box(4.35,y,.69,6.1,.065,.53,wood);
+   box(.70,y,3.0,.51,.065,2.9,wood);
+  }
+  box(doorJamb+.76,1.39,.94,1.30,2.23,.10,[.19,.23,.22]);
+  box(doorJamb+.76,.29,0,1.40,.06,.32,stone);
+
+  // Small features are prepared once, then streamed only near the eye.
+  close(doorJamb+.28,1.30,-.11,.042,.39,.049,[.68,.68,.58],3);
+  for(const y of [1.16,1.45])close(doorJamb+.28,y,-.07,.043,.037,.09,trim,3);
+  close(3.93,2.91,.43,5.4,.035,.10,[.95,.79,.48],0,.7);
+  const stock=[[.42,.23,.15],[.67,.51,.26],[.20,.35,.29]];
+  for(let bay=0;bay<3;bay++){
+   const u=2.1+bay*1.91;
+   close(u,1.17,.66,1.48,.25,.40,wood);
+   for(let i=0;i<3;i++)close(u+(i-1)*.37,1.33,.65,.30,.27,.31,stock[(bay+i+variant)%3]);
+   close(u+.10,1.95,.74,.62,.36,.23,stock[(bay+variant)%3]);
+  }
+  for(let i=0;i<3;i++)close(.76,1.29,1.96+i*1.0,.29,.46,.65,stock[(variant+i)%3]);
+ }
  class FrontierRenderer extends Base{
   buildCity(){} // Replaces one finite city batch with independently disposable sectors.
   constructor(...a){super(...a);this.sectorGPU=new Map();this.streamSeed=this.world.seed;this.renderOrigin=[0,0];this.daylight=.62;this.streamStats={loaded:0,pending:0,instances:0,buffers:0};
@@ -3851,6 +4090,7 @@ DC.HeroAsset={"version":2,"stride":24,"positionScale":10000,"bones":["pelvis","s
    this.streamStats={loaded:this.sectorGPU.size,pending:active.length-this.sectorGPU.size,instances,buffers};
   }
   buildSector(chunk){
+   const shops=[];
    const lists={};for(const name of Object.keys(this.meshes))lists[name]=[];
    const add=(...a)=>this.add(lists,...a),box=(x,y,z,sx,sy,sz,c,mat=0,em=0,yaw=0,seed=0,detail=0,pitch=0,roll=0)=>add('box',x,y,z,sx,sy,sz,c,mat,em,yaw,seed,detail,pitch,roll);
    const grass=[.13,.21,.105],curb=[.29,.31,.29],asphalt=[.048,.055,.058],stripe=[.62,.59,.39];
@@ -3878,6 +4118,7 @@ DC.HeroAsset={"version":2,"stride":24,"positionScale":10000,"bones":["pelvis","s
      box(c.x,-.05,z0+11,62,.05,.8,[.065,.21,.25],7); // Irrigation channel, inside parcel.
      for(const zz of [z0+11,z0+73]){for(let i=0;i<5;i++)box(x0+12+i*15,.54,zz,.10,1.1,.10,[.30,.22,.135]);box(c.x,.76,zz,61,.065,.065,[.38,.31,.20]);}
     }
+    const shop=cornerShop(c);
     for(const b of c.buildings){
      if(b.landmark==='taller')continue;
      const kind=b.kind||'urban',retro=kind==='retro',rural=['village','suburb','barn','greenhouse'].includes(kind),future=kind==='future';
@@ -3887,8 +4128,14 @@ DC.HeroAsset={"version":2,"stride":24,"positionScale":10000,"bones":["pelvis","s
       box(b.x,1.5,b.z,b.w,3,b.d,[.19,.31,.30],6);add('gable',b.x,3,b.z,b.w,3,b.d,[.31,.43,.39],6);
       for(let i=-2;i<=2;i++){box(b.x+i*5,1.55,b.z,.12,3.1,b.d+.1,[.56,.58,.53],3);box(b.x,1.3,b.z+i*4,b.w-.4,.20,1,[.10,.26,.085],4);}
      }else{
-      add(future?'body':'box',b.x,b.h/2+.15,b.z,b.w,b.h,b.d,color,rural?0:1,0,0,b.seed,future?1:b.style);
-      box(b.x,.45,b.z,b.w+.28,.8,b.d+.28,[.27,.28,.26]);
+      if(b===shop?.b){
+       const detail={box:[]};
+       buildCornerShop(shop,add,(...args)=>this.add(detail,'box',...args),color);
+       shops.push({x:shop.x,z:shop.z,boxes:detail.box});
+      }else{
+       add(future?'body':'box',b.x,b.h/2+.15,b.z,b.w,b.h,b.d,color,rural?0:1,0,0,b.seed,future?1:b.style);
+       box(b.x,.45,b.z,b.w+.28,.8,b.d+.28,[.27,.28,.26]);
+      }
       if(rural||retro){
        add('gable',b.x,b.h+.12,b.z,b.w+1.0,rural?4:2.4,b.d+1,[.30,.19,.13],0);
        box(b.x-b.w*.25,b.h+1.6,b.z-2,1.05,3.0,1.05,[.28,.26,.22]);
@@ -3908,10 +4155,10 @@ DC.HeroAsset={"version":2,"stride":24,"positionScale":10000,"bones":["pelvis","s
         for(let k=0;k<3;k++)box(b.x-6+k*5,b.h+1.0,b.z+2,3.7,.15,6,[.025,.12,.21],3,0,0,0,0,-.22);
         box(b.x,b.h*.68,b.z,b.w+1.1,.26,b.d+1.1,[.15,.63,.60],3,1.1);
        }
-       const edge=b.z+b.d/2+.09;box(b.x,2,edge,b.w*.75,2.5,.12,[.08,.17,.20],6);box(b.x,3.5,edge+.3,b.w*.83,.2,1.4,[.23,.26,.27],3);
+       if(b!==shop?.b){const edge=b.z+b.d/2+.09;box(b.x,2,edge,b.w*.75,2.5,.12,[.08,.17,.20],6);box(b.x,3.5,edge+.3,b.w*.83,.2,1.4,[.23,.26,.27],3);}
       }
      }
-     if(!rural&&b.seed%4<1.2)box(b.x,retro?3.05:4.7,b.z+b.d/2+.3,Math.min(11,b.w*.8),retro?1.6:2.4,.15,[1,1,1],10+(retro?4:future?0:b.sign));
+     if(b!==shop?.b&&!rural&&b.seed%4<1.2)box(b.x,retro?3.05:4.7,b.z+b.d/2+.3,Math.min(11,b.w*.8),retro?1.6:2.4,.15,[1,1,1],10+(retro?4:future?0:b.sign));
      if(rural){ // Each home connects to its nearest road, rather than opening onto a crop row.
       box(b.x,-.012,(z0+10+b.z-b.d/2)/2,2,.028,Math.max(.1,b.z-b.d/2-z0-10),[.34,.30,.22],4);
      }
@@ -3924,10 +4171,23 @@ DC.HeroAsset={"version":2,"stride":24,"positionScale":10000,"bones":["pelvis","s
     if(field&&c.seed>.94){const px=c.x,pz=c.z;box(px,10,pz,.4,20,.4,[.60,.62,.59],3);add('body',px,20,pz,1.8,.8,.9,[.69,.70,.65],3);for(let k=0;k<3;k++){const a=k*Math.PI*2/3;box(px+Math.sin(a)*3.7,20+Math.cos(a)*3.7,pz+.6,.35,7.5,.17,[.76,.77,.71],3,0,0,0,0,0,-a);}}
    }
    const entries={};for(const[name,data]of Object.entries(lists)){if(!data.length)continue;const packed=new Float32Array(data.length);for(let i=0;i<data.length;i++)packed[i]=data[i]-(i%16===0?chunk.x:i%16===2?chunk.z:0);const buffer=this.gl.createBuffer();this.gl.bindBuffer(this.gl.ARRAY_BUFFER,buffer);this.gl.bufferData(this.gl.ARRAY_BUFFER,packed,this.gl.STATIC_DRAW);entries[name]={buffer,count:data.length/16,basicMaterials:this.basicMaterialBatch(packed),baseX:chunk.x,baseZ:chunk.z,min:[chunk.x-12,-3,chunk.z-12],max:[chunk.x+348,170,chunk.z+348]};}
+   if(shops.length)shopDetailBySector.set(entries,shops);
    return entries;
+  }
+  renderCornerShopDetails(){
+   const [x,y,z]=this.camera.eye,radius=this.quality==='eco'?30:52,r2=radius*radius;
+   if((y-1.5)**2>r2)return;
+   for(const chunk of this.world.activeChunks){
+    if(x<chunk.x-radius||x>chunk.x+336+radius||z<chunk.z-radius||z>chunk.z+336+radius)continue;
+    const shops=shopDetailBySector.get(this.sectorGPU.get(chunk.key));
+    if(shops)for(const shop of shops){
+     if((x-shop.x)**2+(y-1.5)**2+(z-shop.z)**2<=r2)this.dynamic.box.push(...shop.boxes);
+    }
+   }
   }
   renderReactive(sim){
    super.renderReactive(sim);
+   this.renderCornerShopDetails();
    // Distant vegetation is cheap geometry, while the interactive near tree retains its detail.
    for(const p of sim.dynamics.props){if(p.type!=='tree'||p.broken)continue;const dist=D.distance(p,sim.player),near=this.quality==='eco'?105:155;if(dist<=near||dist>600)continue;const s=p.scale||1;
     this.add(this.dynamic,'box',p.x,1.7*s,p.z,.25*s,3.4*s,.25*s,[.18,.13,.08],35);

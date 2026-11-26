@@ -1,5 +1,6 @@
 """Capture the Mercado at walking height, an approach, and a distant LOD in production WebGL2."""
 import argparse
+import base64
 import hashlib
 import json
 from pathlib import Path
@@ -38,7 +39,7 @@ RENDER = """({site,eye,target,fov})=>{
  Object.assign(r.camera,{eye:at(eye),target:at(target),initialized:true});
  r.fovOverride=fov;r.frame=0;r.lightTime=-1;r.lightVP=null;r.render(sim);r.gl.finish();
  if(r.gl.isContextLost()||r.gl.getError())throw Error('WebGL');
- return Object.fromEntries(Object.keys(r.dynamic).filter(k=>/^(taller|marquesina)/.test(k)).map(k=>[k,r.dynamic[k].length/16]));
+ return {pixels:r.canvas.toDataURL('image/png').split(',')[1],lod:Object.fromEntries(Object.keys(r.dynamic).filter(k=>/^(taller|marquesina)/.test(k)).map(k=>[k,r.dynamic[k].length/16]))};
 }"""
 
 
@@ -54,9 +55,9 @@ def capture(browser, html, out):
         sites=page.evaluate(SETUP)
         frames={}
         for name,(site,eye,target,fov) in VIEWS.items():
-            lod=page.evaluate(RENDER,dict(site=sites[site],eye=eye,target=target,fov=fov))
-            page.screenshot(path=str(out/(name+'.png')),timeout=30000)
-            frames[name]={'site':sites[site],'eyeOffset':eye,'instances':lod}
+            rendered=page.evaluate(RENDER,dict(site=sites[site],eye=eye,target=target,fov=fov))
+            (out/(name+'.png')).write_bytes(base64.b64decode(rendered['pixels']))
+            frames[name]={'site':sites[site],'eyeOffset':eye,'instances':rendered['lod']}
         if errors:
             raise RuntimeError(str(errors))
         return {'htmlSha256':hashlib.sha256(raw).hexdigest(),'frames':frames}
