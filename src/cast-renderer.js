@@ -99,7 +99,14 @@
   }
   renderPlayer(sim){
    if(sim.access){this.renderPerson(sim.accessPlayerPose(),true);return;}
-   const p=sim.player;if(p.car===null){this.renderPerson(p,true);return;}
+   const p=sim.player;if(p.car===null){
+    if(this.previewStudio||!this.playerSurface){this.renderPerson(p,true);return;}
+    // Keep simulation jump height, foot IK, hand targets and seat poses in their
+    // existing reference frame. Only submitted player and prop instances move.
+    this.playerSurfaceFrame=this.playerSurface(p.x,p.z);
+    try{this.renderPerson(p,true);}finally{this.playerSurfaceFrame=null;}
+    return;
+   }
    const c=sim.actor(),q=D.carPoint(c,-.38,-.20),hands=D.VehicleCabin.hands(c);
    this.renderPerson({...p,...q,y:-.29,yaw:c.yaw,seated:true,seatBlend:1,moveSpeed:0,crouch:0,handTargets:hands},true);
   }
