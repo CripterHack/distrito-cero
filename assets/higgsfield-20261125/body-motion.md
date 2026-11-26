@@ -1,3 +1,7 @@
+# Personaje del Mercado · v0.20.31
+
+El GLB de seis acciones incluye `FrenadaL` y `FrenadaR`. La letra indica el pie que se mantiene apoyado. Las dos pistas terminan en reposo tras avanzar 16,53 cm. [Recorrido y revisión del calzado](../../specs/007-mercado-braking/README.md).
+
 # Personaje del Mercado · v0.20.30
 
 El GLB vigente incorpora una cuarta acción, `Giro`. Para ver el cambio de orientación y la posición final de los pies, reprodúcela una vez. Las tres acciones anteriores se pueden seguir revisando por separado. [Media vuelta en el juego y en el modelo](../../specs/006-mercado-turn/README.md).

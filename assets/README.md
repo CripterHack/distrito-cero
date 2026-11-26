@@ -1,10 +1,10 @@
 # Recursos de Distrito Cero
 
-Este directorio conserva insumos de autoría, bases geométricas, exportaciones GLB y referencias de QA de varias versiones. La versión de juego que usa estos recursos es **v0.20.30**.
+Este directorio conserva insumos de autoría, bases geométricas, exportaciones GLB y referencias de QA de varias versiones. La versión de juego que usa estos recursos es **v0.20.31**.
 
 El Taller del Mercado y la marquesina tienen originales 4K, procedencia y métricas en [mercado-20261126](mercado-20261126/).
 
-El [civil del Mercado](higgsfield-20261125/character-walk.glb) tiene un rig de 49 huesos y cuatro animaciones. Se puede reproducir `Giro` una vez para examinar la media vuelta completa. Sus dos mallas de juego, los materiales y las poses se reconstruyen desde ese GLB. [Modelo, recorrido y validación](../specs/006-mercado-turn/README.md).
+El [civil del Mercado](higgsfield-20261125/character-walk.glb) tiene un rig de 49 huesos y seis animaciones. Las dos frenadas permiten examinar el último paso con el apoyo izquierdo o derecho antes de la media vuelta. Sus dos mallas de juego, los materiales y las poses se reconstruyen desde ese GLB. [Modelo, recorrido y validación](../specs/007-mercado-braking/README.md).
 
 El índice rector está en [docs/project/ASSETS.md](../docs/project/ASSETS.md). La geometría humana del runtime está embebida en `src/hero-asset.js`, junto a materiales y generación de peinados en sus módulos. `dc019-equipment.glb` es el kit de equipamiento de esta base. Los GLB humanos anteriores son referencias/exportaciones históricas, no un exportador de todas las funciones del creador actual.
 

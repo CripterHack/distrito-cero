@@ -1,3 +1,9 @@
+# Candidata v0.20.31 · Frenada del residente
+
+El residente de Higgsfield usa una de dos nuevas acciones según el pie que sostiene el cuerpo en su último paso. La frenada recorre los últimos 16,53 cm de la acera en unos 0,49 s. El sedán distante conserva los ejes, pivotes y medidas de neumático del coche cercano. [Especificación del paso final](../../specs/007-mercado-braking/README.md).
+
+## Registro anterior
+
 # Candidata v0.20.30 · Media vuelta en la acera
 
 El residente del Mercado recoloca los pies en cinco pasos cuando llega a cualquiera de los dos extremos de su ruta. La simulación mantiene su posición durante el giro. Si un claxon lo sorprende antes de acabar, completa los pasos a mayor velocidad y corre por el tramo disponible. La animación se reproduce en los dos niveles de detalle a partir del mismo GLB de 49 huesos. [Recorrido y comprobaciones](../../specs/006-mercado-turn/README.md).

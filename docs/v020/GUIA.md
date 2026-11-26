@@ -1,3 +1,7 @@
+# v0.20.31 · El último paso
+
+Ve a la marquesina del Taller del Mercado y acompaña al hombre de chaqueta hasta la esquina de esa acera. Al llegar desacelera, planta un zapato y reúne el otro bajo el cuerpo antes de girar. El mismo movimiento se puede observar de regreso en la marquesina. Desde un coche cercano puedes tocar el claxon con **Q** durante el último paso.
+
 # v0.20.30 · La vuelta en la esquina
 
 Desde el Taller del Mercado (168, 96), acércate a la marquesina con banco. Sigue al hombre de chaqueta hasta el final de los 19 m de acera. Al llegar, apoya un zapato mientras recoloca el otro y vuelve hacia la parada. También puedes tocar el claxon con **Q** desde un coche cercano durante la media vuelta para verle terminar el giro y salir corriendo.
