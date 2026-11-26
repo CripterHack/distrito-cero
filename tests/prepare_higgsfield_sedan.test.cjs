@@ -339,9 +339,9 @@ test("articulation rejects disconnected geometry without four verifiable wheel c
   );
 });
 test("CLI rejects unregistered bytes, unsafe filenames and occupied destinations before writing", () => {
-  const directory = fs.mkdtempSync(
-    path.join(__dirname, "../artifacts/sedan-test-"),
-  );
+  const artifacts = path.resolve(__dirname, "../artifacts");
+  fs.mkdirSync(artifacts, { recursive: true });
+  const directory = fs.mkdtempSync(path.join(artifacts, "sedan-test-"));
   try {
     const input = path.join(directory, "input"),
       output = path.join(directory, "output");
@@ -366,6 +366,21 @@ test("CLI rejects unregistered bytes, unsafe filenames and occupied destinations
       /registered sedan lineage/,
     );
     assert.equal(fs.existsSync(output), false);
+
+    // A direct child is the documented destination; it must reach input validation.
+    const directChild = directory + "-model";
+    assert.throws(
+      () => M.exportPrepared(input, directChild),
+      /registered sedan lineage/,
+    );
+    assert.equal(fs.existsSync(directChild), false);
+    const redirect = path.join(directory, "redirect");
+    fs.symlinkSync(__dirname, redirect, "junction");
+    assert.throws(
+      () => M.exportPrepared(input, path.join(redirect, "model")),
+      /fresh confined/,
+    );
+
     manifest.file = "../source.glb";
     fs.writeFileSync(
       path.join(input, "source-manifest.json"),

@@ -364,12 +364,12 @@ function exportPrepared(inputDirectory, outputDirectory) {
   const input = path.resolve(inputDirectory),
     output = path.resolve(outputDirectory),
     artifacts = path.join(ROOT, "artifacts");
-  if (
-    !output.startsWith(artifacts + path.sep) ||
-    fs.existsSync(output) ||
-    !fs.realpathSync(path.dirname(output)).startsWith(artifacts + path.sep)
-  )
+  if (!output.startsWith(artifacts + path.sep) || fs.existsSync(output))
     throw new Error("Use a fresh confined artifacts subdirectory");
+  const parent = fs.realpathSync(path.dirname(output));
+  if (parent !== artifacts && !parent.startsWith(artifacts + path.sep))
+    throw new Error("Use a fresh confined artifacts subdirectory");
+  const destination = path.join(parent, path.basename(output));
   const manifestPath = path.join(input, "source-manifest.json"),
     manifestBytes = fs.readFileSync(manifestPath),
     manifest = JSON.parse(manifestBytes);
@@ -461,13 +461,13 @@ function exportPrepared(inputDirectory, outputDirectory) {
     hash(fs.readFileSync(registryPath)) !== hash(registryBytes)
   )
     throw new Error("Source changed during preparation");
-  fs.mkdirSync(output);
+  fs.mkdirSync(destination);
   for (const [name, payload] of [
     [file, blob],
     ["source-manifest.json", JSON.stringify(record, null, 2) + "\n"],
     ["preparation-report.json", JSON.stringify(report, null, 2) + "\n"],
   ])
-    fs.writeFileSync(path.join(output, name), payload, { flag: "wx" });
+    fs.writeFileSync(path.join(destination, name), payload, { flag: "wx" });
   return record;
 }
 module.exports = { normalizeSedan, connectedComponents, exportPrepared };

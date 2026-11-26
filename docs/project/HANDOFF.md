@@ -40,6 +40,8 @@ rig de 49 huesos. Para el sedán, contrastar el habitáculo, los asientos y las
 puertas con los puntos de acceso del vehículo nativo. Las fichas identifican
 los archivos que se deben abrir y su procedencia. [Modelos y recetas](HIGGSFIELD-ASSETS.md).
 
+El job de lógica de #66 detectó que un checkout limpio carecía de `artifacts/`. La prueba del sedán prepara esa carpeta. La receta admite el destino documentado `artifacts/sedan-review-model`. Su reproducción conserva la huella del GLB entregado.
+
 ## Registro anterior · v0.20.24
 
 # Continuación vigente · v0.20.24 · continuidad cervical LOD2 · refs #5
