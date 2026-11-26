@@ -37,7 +37,7 @@ try:
   ck('Existing catalogue was not overwritten by loss or export',p.evaluate('DC_APP.getStore().raw()===savedBytes'))
   p.screenshot(path=str(O/'recovery-panel.png'))
   p.evaluate('ext.restoreContext()');p.wait_for_function('DC_APP.graphics.state==="recovered"',timeout=90000)
-  ck('Restore rebuilds resources, skin maps and the Mercado atlas',p.evaluate('DC_APP.renderer!==oldRenderer&&DC_APP.renderer.humanTextureStatus.loaded===3&&DC_APP.renderer.mercadoLoaded&&DC_APP.renderer.resources.stats().total>0&&DC_APP.renderer.gl.getError()===0'))
+  ck('Restore rebuilds resources, skin maps, the Mercado and pedestrian atlases',p.evaluate('DC_APP.renderer!==oldRenderer&&DC_APP.renderer.humanTextureStatus.loaded===3&&DC_APP.renderer.mercadoLoaded&&DC_APP.renderer.marketPedLoaded&&DC_APP.renderer.resources.stats().total>0&&DC_APP.renderer.gl.getError()===0'))
   ck('A stale renderer stays inert after the context has been restored',p.evaluate("""()=>{const r=DC_APP.renderer,before=r.resources.stats().total,f=oldRenderer.frame;return oldRenderer.render(DC_APP.sim)===false&&oldRenderer.syncSectors(2)===false&&oldRenderer.frame===f&&r.resources.stats().total===before&&r.gl.getError()===0;}"""))
   ck('New generation still renders a real frame after rejecting a stale draw',p.evaluate("""()=>{const r=DC_APP.renderer,f=r.frame;r.render(DC_APP.sim);r.gl.finish();return r.frame===f+1&&r.gl.getError()===0;}"""))
   ck('Same simulation and active identity survived restoration',p.evaluate('DC_APP.sim===sameSim&&DC_APP.sim.cash===987&&DC_APP.sim.characterName==="Recuperación"&&DC_APP.getStore().raw()===savedBytes'))
