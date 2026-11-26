@@ -9,16 +9,15 @@ for (const name of ['core', 'character-motion', 'skin-rig']) {
   vm.runInContext(fs.readFileSync(file, 'utf8'), ctx, { filename: file });
 }
 const D = ctx.DC;
-const speed = 1.35;
-const period = 1 / D.NaturalMotion.gait(speed).hz;
-function sample(name, duration, count, moving) {
+function sample(name, speed, count, sprintBlend = 0) {
+  const duration = speed ? 1 / D.NaturalMotion.gait(speed,sprintBlend).hz : 4;
   const frames = [];
   for (let i = 0; i <= count; i++) {
     const phase = i === count ? 0 : 2 * Math.PI * i / count;
     // A periodic sweep of the idle sampler starts and finishes at rest.
     const gameTime = i === count ? 0 : i * duration / count;
-    const time = moving ? gameTime : 2 - 2 * Math.cos(phase);
-    const input = { moveSpeed: moving ? speed : 0, walk: moving ? phase : 0 };
+    const time = speed ? gameTime : 2 - 2 * Math.cos(phase);
+    const input = { moveSpeed: speed, walk: speed ? phase : 0, sprintBlend };
     const pose = D.SkinRig.pose(input, time);
     frames.push({ t: i * duration / count, rootY: pose.rootY, feet: pose.feet,
                   matrices: Array.from(pose.matrices) });
@@ -26,4 +25,4 @@ function sample(name, duration, count, moving) {
   return { name, frames };
 }
 process.stdout.write(JSON.stringify({ bones: D.SkinRig.bones,
-  clips: [sample('Marcha', period, 40, true), sample('Reposo', 4, 64, false)] }));
+  clips: [sample('Marcha', 1.35, 40), sample('Reposo', 0, 64), sample('Carrera', 3.78, 40, .5)] }));

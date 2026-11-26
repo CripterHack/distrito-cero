@@ -253,7 +253,7 @@ def inspect_playback(path, name, duration, expected_points):
     hand_differences = np.array([s["handL"][2] - s["handR"][2] for s in records])
     max_travel = max(float(np.linalg.norm(frame - frames[0], axis=1).max()) for frame in frames)
     gait = {}
-    if name == "Marcha":
+    if name in ("Marcha", "Carrera"):
         assert foot_differences.min() < -.035 and foot_differences.max() > .035, "Shoes never exchange lead"
         assert np.ptp(hand_differences) > .05, "Arm swing missing from the skinned hands"
         correlation = float(np.corrcoef(foot_differences[:-1], hand_differences[:-1])[0, 1])
@@ -262,6 +262,9 @@ def inspect_playback(path, name, duration, expected_points):
         for side in ("L", "R"):
             heights = [s["minimumSoleHeightM"]["shoe"+side] for s in records]
             assert -.005 < min(heights) < .005 and max(heights) > .025, "Missing stance or swing"
+        if name == "Carrera":
+            assert duration < .65, "A frightened pedestrian must turn over faster than a walker"
+            assert max(min(r["minimumSoleHeightM"].values()) for r in records) > .020, "Missing running flight phase"
     else:
         assert max_travel > .0005, "Rest clip plays a static mesh"
 
@@ -301,7 +304,7 @@ def inspect_playback(path, name, duration, expected_points):
 def verify(source_path, walk_path, report_path):
     original, walk = Container(source_path), Container(walk_path)
     assert len(walk.doc.get("skins", [])) == 1, "Expected a skinned game skeleton"
-    assert sorted(a["name"] for a in walk.doc.get("animations", [])) == ["Marcha", "Reposo"]
+    assert sorted(a["name"] for a in walk.doc.get("animations", [])) == ["Carrera", "Marcha", "Reposo"]
     skin = verify_skin(walk, native_hierarchy())
     tris, maps, coords = compare_art(original, walk)
     spans = dict(animation_span(walk, clip) for clip in walk.doc["animations"])

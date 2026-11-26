@@ -85,7 +85,7 @@ def save_frames(scene, cameras, rig, out):
     durations = {}
     for view, camera in cameras.items():
         scene.camera = camera
-        counts = {"Marcha": 12, "Reposo": 8} if view == "oblicua" else {"Marcha": 4}
+        counts = {"Marcha": 12, "Reposo": 8, "Carrera": 12} if view == "oblicua" else {"Marcha": 4, "Carrera": 4}
         for name, count in counts.items():
             action = rig.animation_data.nla_tracks[name].strips[0].action
             rig.animation_data.action = action
@@ -112,14 +112,18 @@ def save_scene(scene, cameras, rig, out):
     walk.repeat = 4
     idle = strips["Reposo"]
     idle.frame_start_ui = math.ceil(walk.frame_end)
+    run = strips["Carrera"]
+    run.frame_start_ui = math.ceil(idle.frame_end)
+    run.repeat = 4
     for strip in strips.values():
         full_length = (strip.action_frame_end - strip.action_frame_start) * strip.repeat
         if abs(strip.frame_end - strip.frame_start - full_length) > 0.001:
             raise ValueError(f"Timeline trimmed the {strip.name} action")
     scene.frame_start = int(walk.frame_start)
-    scene.frame_end = math.ceil(idle.frame_end) - 1
+    scene.frame_end = math.ceil(run.frame_end) - 1
     scene.timeline_markers.new("Marcha · cuatro ciclos", frame=scene.frame_start)
     scene.timeline_markers.new("Reposo · respiración", frame=int(idle.frame_start))
+    scene.timeline_markers.new("Carrera · cuatro ciclos", frame=int(run.frame_start))
     scene.frame_set(scene.frame_start)
     scene.camera = cameras["oblicua"]
     scene.cycles.samples = 32
@@ -143,7 +147,7 @@ def save_scene(scene, cameras, rig, out):
     info = bpy.data.texts.new("LEEME · movimiento")
     info.write(
         "Pulse Espacio para reproducir. Los marcadores llevan a los cuatro ciclos de marcha "
-        "y al ciclo de reposo. Las tiras de cada acción son editables en el editor NLA. "
+        "al reposo y a los cuatro ciclos de carrera. Las tiras de cada acción son editables en el editor NLA. "
         "Encienda Superposiciones para ver los 49 huesos. Para editar la malla en T, "
         "seleccione el esqueleto y active la posición de reposo en Propiedades de datos. "
         "Las claves Prueba.Indice.L/R de la malla se prueban de manera independiente.\n"
