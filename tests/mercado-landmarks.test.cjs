@@ -49,3 +49,33 @@ test('each native mesh has two indexed textured LODs on a shared metre-scale flo
     }
   }
 });
+
+test('the shelter diffuser and its dimmable downlight share one mounting point', () => {
+  const testContext = vm.createContext({DC: {SkinRig: {bones: Array(49)}}});
+  for (const name of ['core','world','frontier-world','renderer','mercado-renderer']) {
+    vm.runInContext(fs.readFileSync(path.join(__dirname,'../src',name+'.js'),'utf8'),testContext);
+    if(name==='renderer')testContext.DC.Renderer.prototype.renderReactive=()=>{};
+  }
+  const dc=testContext.DC, r=Object.create(dc.Renderer.prototype);
+  r.world=new dc.World(1337);r.camera={eye:[161.5,1.62,127]};r.quality='balanced';r.dynamic=[];
+  const baseStreetLight={x:167,y:7.6,z:108,warm:true};
+  r.world.lights=[baseStreetLight,{x:162,y:7.6,z:90,warm:true}];
+  const sim={dynamics:{lightActive:index=>index===0}};
+  r.add=(list,...args)=>list.push(args);
+  r.daylight=1;
+  assert.deepEqual(Array.from(r.sceneLights(sim)),[baseStreetLight]);
+  r.daylight=0;
+  const lit=r.sceneLights(sim),stop=r.world.shelters[1],light=lit.find(l=>l.x>stop.x && l.downlight);
+  assert.equal(lit.length,3);
+  assert.equal(light.downlight,1);
+  assert.ok(light.x < stop.x+.86 && Math.abs(light.z-stop.z)<1.45);
+  assert.ok(light.y>2.48 && light.y<2.60);
+  r.renderReactive(sim);
+  const diffuser=r.dynamic.find(row=>row[0]==='box' && Math.abs(row[1]-light.x)<.001 && Math.abs(row[3]-light.z)<.001);
+  assert.ok(diffuser && Math.abs(diffuser[2]-light.y)<.04 && diffuser[9]>0);
+  r.daylight=.4;
+  const partial=r.sceneLights(sim).find(l=>l.downlight);
+  assert.ok(partial.downlight>0 && partial.downlight<light.downlight);
+  r.previewStudio=true;
+  assert.deepEqual(Array.from(r.sceneLights(sim)),[baseStreetLight]);
+});

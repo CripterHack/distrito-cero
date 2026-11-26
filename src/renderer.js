@@ -343,7 +343,16 @@
   light+=brdf(n,view,uSun,base,rough,metal)*mix(vec3(1.4,1.65,1.9),vec3(3.8,3.65,3.25),uDaylight)*shadow(n)*mix(1.,.55,uStudio);
   for(int i=0;i<12;i++){
    if(i>=uLightCount)break;vec3 dl=uLights[i].xyz-vWorld;float ds=dot(dl,dl),dist=sqrt(ds);vec3 ld=dl/max(dist,.01);
-   float att=(1.-smoothstep(10.,27.,dist))/(1.+ds*.035);vec3 lc=mix(vec3(.42,.74,1.),vec3(1.,.73,.42),uLights[i].w)*10.8*mix(1.,.22,uStudio);
+   float kind=uLights[i].w,att;vec3 lc;
+   if(kind<0.){
+    // A canopy diffuser directs light below the roof and reaches only the boarding pavement.
+    if(ds>=16.||dl.y<=0.)continue;
+    att=smoothstep(.12,.50,ld.y)*(1.-smoothstep(2.,4.,dist))/(.32+ds);
+    lc=vec3(1.,.86,.69)*(-kind*10.);
+   }else{
+    att=(1.-smoothstep(10.,27.,dist))/(1.+ds*.035);
+    lc=mix(vec3(.42,.74,1.),vec3(1.,.73,.42),kind)*10.8*mix(1.,.22,uStudio);
+   }
    light+=brdf(n,view,ld,base,rough,metal)*lc*att;
    if(detailMaterial(30)||detailMaterial(40)||detailMaterial(36)){float transmission=pow(max(dot(-n,ld),0.),2.)*(detailMaterial(36)?.12:.035);light+=base*lc*att*transmission;}
   }
@@ -664,12 +673,13 @@
    const car=sim.player.car!==null?sim.actor():sim.cars[0],h=[car.x+Math.sin(car.yaw)*2.4,.75,car.z+Math.cos(car.yaw)*2.4];h[0]-=(this.renderOrigin?.[0]||0);h[2]-=(this.renderOrigin?.[1]||0);if(car.damage?.front>.8||car.empUntil>sim.time)h[1]=-1000;gl.uniform3fv(this.uniform(p,'uHeadPos'),h);gl.uniform3fv(this.uniform(p,'uHeadDir'),[Math.sin(car.yaw),-.05,Math.cos(car.yaw)]);
    for(const [i,n,tex]of [[0,'uShadow',this.shadowTex],[1,'uReflection',pass===1?this.white:this.reflection.tex],[2,'uSigns',this.signs]]){gl.activeTexture(gl.TEXTURE0+i);gl.bindTexture(gl.TEXTURE_2D,tex);gl.uniform1i(this.uniform(p,n),i);}
   }
+  sceneLights(sim){return this.world.lights.filter((light,index)=>!sim.dynamics||sim.dynamics.lightActive(index));}
   render(sim){
    if(!this.canRender())return false;
    const gl=this.gl;this.frame++;this.updateDynamic(sim);const c=this.camera,aspect=this.canvas.width/this.canvas.height,fov=this.fovOverride||Math.PI*.36;this.sun=D.normalize([-.55,.8,.42]);
    const o=this.renderOrigin||[0,0],eyeLocal=[c.eye[0]-o[0],c.eye[1],c.eye[2]-o[1]],targetLocal=[c.target[0]-o[0],c.target[1],c.target[2]-o[1]];const projection=D.M4.perspective(fov,aspect,.15,1000);this.vp=D.M4.multiply(projection,D.M4.lookAt(eyeLocal,targetLocal));
    const re=[eyeLocal[0],-eyeLocal[1],eyeLocal[2]],rt=[targetLocal[0],-targetLocal[1],targetLocal[2]];this.reflectVP=D.M4.multiply(projection,D.M4.lookAt(re,rt,[0,-1,0]));
-   if(this.lightTime<sim.time-.35||this.lightTime<0||this.lightRevision!==sim.dynamics?.lightRevision||this.lightWorld!==sim.dynamics){const sorted=this.world.lights.filter((l,i)=>!sim.dynamics||sim.dynamics.lightActive(i)).sort((a,b)=>Math.hypot(a.x-c.target[0],a.z-c.target[2])-Math.hypot(b.x-c.target[0],b.z-c.target[2]));for(let i=0;i<12;i++){const l=sorted[i];this.lights.set(l?[l.x-o[0],l.y,l.z-o[1],l.warm?1:0]:[0,-1000,0,0],i*4);}this.lightTime=sim.time;this.lightRevision=sim.dynamics?.lightRevision;this.lightWorld=sim.dynamics;}
+   if(this.lightTime<sim.time-.35||this.lightTime<0||this.lightRevision!==sim.dynamics?.lightRevision||this.lightWorld!==sim.dynamics){const sorted=this.sceneLights(sim).sort((a,b)=>Math.hypot(a.x-c.target[0],a.z-c.target[2])-Math.hypot(b.x-c.target[0],b.z-c.target[2]));for(let i=0;i<12;i++){const l=sorted[i];this.lights.set(l?[l.x-o[0],l.y,l.z-o[1],l.downlight?-l.downlight:l.warm?1:0]:[0,-1000,0,0],i*4);}this.lightTime=sim.time;this.lightRevision=sim.dynamics?.lightRevision;this.lightWorld=sim.dynamics;}
    gl.enable(gl.DEPTH_TEST);gl.disable(gl.CULL_FACE);gl.disable(gl.BLEND);
    if(this.frame%3===1||!this.lightVP){let t=[Math.round(targetLocal[0]/4)*4,0,Math.round(targetLocal[2]/4)*4],eye=t.map((v,i)=>v+this.sun[i]*170);this.lightVP=D.M4.multiply(D.M4.ortho(this.previewStudio?-3:-110,this.previewStudio?3:110,this.previewStudio?-3:-110,this.previewStudio?3:110,1,350),D.M4.lookAt(eye,t));
     if(this.quality!=='eco'){gl.bindFramebuffer(gl.FRAMEBUFFER,this.shadowFB);gl.viewport(0,0,this.shadowSize,this.shadowSize);gl.clear(gl.DEPTH_BUFFER_BIT);gl.useProgram(this.shadowProgram);gl.uniform1f(this.uniform(this.shadowProgram,'uTime'),sim.time);gl.uniformMatrix4fv(this.uniform(this.shadowProgram,'uVP'),false,this.lightVP);this.setFrustum(this.lightVP);this.drawMeshes();}

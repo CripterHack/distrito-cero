@@ -5,6 +5,11 @@
    this.seed=seed;this.size=840;this.half=420;this.spacing=84;this.buildings=[];this.blocks=[];this.lights=[];this.props=[];this.rand=D.rng(seed);
    this.pois=[{type:'safe',name:'Refugio de Lía',x:-84,z:264},{type:'garage',name:'Taller del Mercado',x:168,z:96},{type:'garage',name:'Mecánica del Muelle',x:-252,z:-72},{type:'job',name:'Encargos de mensajería',x:0,z:-72},{type:'race',name:'Circuito nocturno',x:-168,z:12},{type:'terminal',name:'Terminal Vértice',x:252,z:-72},{type:'safe',name:'Muelle de los Olvidos',x:-252,z:-156}];
    this.shelters=[{x:-13.5,z:58,yaw:Math.PI/2},{x:154.5,z:130,yaw:Math.PI/2}];
+   // Local +Z faces the road. The diffuser mounts under the leading edge of the canopy.
+   for(const stop of this.shelters){
+    const c=Math.cos(stop.yaw),s=Math.sin(stop.yaw);
+    stop.diffuser={x:stop.x+.58*c+.64*s,y:2.545,z:stop.z-.58*s+.64*c};
+   }
    // Both fronts face +X. Only the bench/back frame occupies pedestrian space.
    this.shelterBenches=this.shelters.map(s=>({x:s.x-.445,z:s.z,w:.71,d:2.33,h:.68}));
    const r=this.rand;
