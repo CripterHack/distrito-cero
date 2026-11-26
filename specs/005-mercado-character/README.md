@@ -16,6 +16,10 @@ Un residente de chaqueta espera junto a la marquesina y recorre un tramo de la a
 
 La simulación asigna la ruta al puesto existente `ped:38`. La distancia recorrida determina la fase de zancada. El renderizador usa los materiales de este personaje y las transformaciones de los 49 huesos del GLB; la paleta lineal reproduce sus pesos de autoría. El reparto modular comparte la infraestructura de dibujo y usa su propia deformación con cuaterniones duales. La sombra se proyecta sobre la acera a 0,145 m. Las mallas, poses y texturas viajan dentro del HTML y se reconstruyen después de perder el contexto WebGL.
 
+## Lectura nocturna en la parada
+
+El difusor situado bajo la cubierta de cada marquesina usa la lista de luces puntuales existente. Su cono apunta hacia abajo y se extingue a 4 m. En el menú de pausa, el control de luz permite comparar los extremos de día y noche. En la cámara preparada desde la calzada, el contraste mediano entre la chaqueta y el fondo pasó de 20,29 a 39,15 niveles de luminancia sobre 255 por la noche. En el taller, a la misma hora, ningún píxel cambió más de cuatro niveles por canal. El montaje sigue visible durante el día.
+
 ## Mallas y presupuesto
 
 | Recurso | Presupuesto en esta candidata |
