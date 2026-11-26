@@ -75,9 +75,17 @@ test('detail is bounded in the existing box batch and leaves the street at dista
   r.sectorGPU.clear();assert.equal(draw(p,'balanced'),0);
 });
 
-test('farm, retro and park parcels keep their own buildings; all four street corners occur',()=>{
+test('village, farm, suburb, future, retro and park parcels keep their own architecture; all four street corners occur',()=>{
   const w=new D.World(1337);
-  for (const cell of [w.cell(0,24),w.cell(-24,0),w.cell(-2,0)]) assert.equal(bake(w,cell).rows('smoke').length,0);
+  const controls = [[0,24,'village'],[12,12,'farmland'],[5,5,'suburb'],[24,0,'future'],[-24,0,'retro']];
+  for (const [ix,iz,type] of controls) {
+    const cell = w.cell(ix,iz);
+    assert.equal(cell.type,type);
+    assert.ok(cell.buildings.length);
+    assert.equal(bake(w,cell).rows('smoke').length,0);
+  }
+  const park = w.cell(-2,0);
+  assert.ok(park.park);assert.equal(bake(w,park).rows('smoke').length,0);
   const orientations=new Set();
   for(let i=-4;i<4;i++)for(let j=-4;j<4;j++){
     const c=w.cell(i,j), p=bake(w,c).rows('smoke').filter(v=>v[7]===6);

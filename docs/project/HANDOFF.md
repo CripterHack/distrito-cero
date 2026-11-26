@@ -2,6 +2,10 @@
 
 La inserción de la chaqueta recupera sus caras fuente en los dos niveles reducidos de personaje. Revisar los pares del [contrato del escote](NECKLINE-DETAIL.md), incluidos los rayos del borde lateral y las vistas a distancia de juego. Para continuar, medir la transición del reparto en movimiento sobre hardware físico y revisar las regiones donde la piel reducida aún difiere de la superficie fuente. Mantener los controles de las caras y de la abertura del escote al modificar peinados o prendas.
 
+## Arquitectura de calle · M4
+
+En las manzanas urbanas con dos frentes viarios hay nuevos escaparates de esquina. El recorrido del inicio (semilla 1337) permite revisar el acceso, el fondo de exposición y el lateral. Consultar la [comparativa sobre el renderer nativo](../../qa/street-corner-architecture/README.md) para reproducirla y medir el coste al cambiar la densidad.
+
 ## Registro anterior
 
 # Continuación tras el merge de v0.20.25 · refs #5
