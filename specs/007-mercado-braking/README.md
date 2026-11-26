@@ -15,7 +15,7 @@ El residente debe reunir los pies antes de dar media vuelta en los dos extremos 
 
 En el visor glTF, seleccionar `FrenadaL` o `FrenadaR` y reproducir una sola vez. En Blender, las marcas 273 y 298 permiten comparar los apoyos. Desde el marcador del Taller (168, 96), caminar hasta la marquesina y seguir al residente entre las coordenadas Z = 130 y Z = 149 de la acera X = 155,5. El último paso dura 0,490 s sin alarma. [GLB del civil](../../assets/higgsfield-20261125/character-walk.glb) · [Escena editable y cámaras](../../assets/higgsfield-20261125/frenada-estudio.md).
 
-Al llegar en coche, el sedán que cruza el umbral de distancia conserva los ejes de sus ruedas. De noche, en la esquina comercial del Mercado, la luz superior ilumina las cajas y las baldas detrás del cristal. [Modelo del sedán y reproducción](../../qa/sedan-axles-v02031/README.md).
+Al llegar en coche, el sedán que cruza el umbral de distancia conserva los ejes de sus ruedas. De noche, en la esquina comercial del Mercado, la luz superior ilumina las cajas y las baldas detrás del cristal. [Modelo del sedán y reproducción](../../qa/sedan-axles-v02031/README.md) · [Comparación de los escaparates](../../qa/mercado-vitrinas-noche/README.md).
 
 ## Coste de la animación
 

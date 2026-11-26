@@ -6,6 +6,8 @@ El Taller del Mercado y la marquesina tienen originales 4K, procedencia y métri
 
 El [civil del Mercado](higgsfield-20261125/character-walk.glb) tiene un rig de 49 huesos y seis animaciones. Las dos frenadas permiten examinar el último paso con el apoyo izquierdo o derecho antes de la media vuelta. Sus dos mallas de juego, los materiales y las poses se reconstruyen desde ese GLB. [Modelo, recorrido y validación](../specs/007-mercado-braking/README.md).
 
+El [sedán distante con ejes articulados](dc-native-sedan-far.glb) corresponde a la malla que se activa a 66 m en el juego. [Mediciones y receta](../qa/sedan-axles-v02031/README.md).
+
 El índice rector está en [docs/project/ASSETS.md](../docs/project/ASSETS.md). La geometría humana del runtime está embebida en `src/hero-asset.js`, junto a materiales y generación de peinados en sus módulos. `dc019-equipment.glb` es el kit de equipamiento de esta base. Los GLB humanos anteriores son referencias/exportaciones históricas, no un exportador de todas las funciones del creador actual.
 
 Para construir el juego: `python3 build.py`. Para reconstruir el kit actual: `python3 tools/export_contact.py`. No ejecutar una receta de otra versión sobre las fuentes actuales sin verificar su contrato y su insumo.

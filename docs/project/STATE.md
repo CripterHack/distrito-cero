@@ -1,6 +1,6 @@
 # Candidata v0.20.31 · Frenada del residente
 
-El residente de Higgsfield usa una de dos nuevas acciones según el pie que sostiene el cuerpo en su último paso. La frenada recorre los últimos 16,53 cm de la acera en unos 0,49 s. El sedán distante conserva los ejes, pivotes y medidas de neumático del coche cercano. [Especificación del paso final](../../specs/007-mercado-braking/README.md).
+El residente de Higgsfield usa una de dos nuevas acciones según el pie que sostiene el cuerpo en su último paso. La frenada recorre los últimos 16,53 cm de la acera en unos 0,49 s. De noche, las baldas y los productos de los comercios de esquina reciben luz de la tira superior del escaparate. El sedán distante conserva los ejes, pivotes y medidas de neumático del coche cercano. [Especificación del paso final](../../specs/007-mercado-braking/README.md).
 
 ## Registro anterior
 
