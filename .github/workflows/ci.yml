@@ -97,7 +97,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        group: [handoff, sight-base, sight-cross-family, sight-revolver-reload, graphics]
+        group: [handoff, sight-base, sight-cross-family-first, sight-cross-family-second, sight-revolver-reload, graphics]
     runs-on: ubuntu-24.04
     timeout-minutes: 40
     steps:

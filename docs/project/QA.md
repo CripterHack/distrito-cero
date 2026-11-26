@@ -139,7 +139,7 @@ retorno/reselección, movimiento, prioridades, longitudes y partidas. La cohorte
 de culata se conserva para cada ruta, no equivale a toda la malla ni CCD.
 [Plan actual](../../specs/003-weapon-contact/plan-shotgun-revolver-handoff.md).
 
-## Sight vigente: 148 checks en los tres jobs existentes
+## Los tres productores locales de sight conservan 148 comprobaciones
 
 | Selección | Checks | Contenido |
 | :--- | ---: | :--- |
@@ -154,6 +154,15 @@ su orden relativo dentro de cada partición, 61 estados/caso y resolución 820×
 todas las imágenes, teclas y umbrales. `all` conserva el orden original y agrega
 los cuatro casos nuevos. La distribución usa la capacidad observada, sin cambiar
 las escenas ni asignarles una preparación más favorable.
+
+GitHub Actions reparte `sight-cross-family` entre dos ejecutores independientes.
+`sight-cross-family-first` ejecuta los primeros cinco intercambios y
+`sight-cross-family-second` los últimos cinco. Cada uno produce 22 comprobaciones
+y 45 PNG, comprueba las cinco guardas y valida que su informe identifique los
+cinco casos en orden. Ambos conservan la resolución de 820 × 680, los 60 pasos
+a 60 Hz, los límites de cada medida y el plazo de 1800 s por productor.
+Para repetir los diez casos en un solo navegador se mantiene
+`python3 -m tools.qa.run --suite sight-cross-family --headed --timeout 1800`.
 
 El gate estricto de #56 se mantiene: cinco guardas canónicas por partición,
 contadas dentro de base y reportadas separadamente por las demás. La interfaz

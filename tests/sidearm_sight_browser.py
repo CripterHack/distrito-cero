@@ -6,10 +6,10 @@ from datetime import datetime, timezone
 import argparse,hashlib,json,os,sys,platform
 R=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(R))
-from tools.qa.sight_contract import SIGHT_PARTITIONS,SIGHT_GUARDS,sight_cases
+from tools.qa.sight_contract import CI_SIGHT_PARTITIONS,SIGHT_PARTITIONS,SIGHT_GUARDS,sight_cases
 from tools.qa.sight_timing import SightTiming
 parser=argparse.ArgumentParser(description=__doc__)
-parser.add_argument('--partition',choices=['all',*(p for p,_ in SIGHT_PARTITIONS)],default='all')
+parser.add_argument('--partition',choices=['all',*(p for p,_ in SIGHT_PARTITIONS+CI_SIGHT_PARTITIONS)],default='all')
 partition=parser.parse_args().partition
 # Reject invalid selection before optional browser imports or artifact writes.
 from playwright.sync_api import sync_playwright

@@ -1,6 +1,8 @@
 """Disjoint scheduling of the canonical sight producer and measured exchange cases."""
 
 SIGHT_PARTITIONS = (('base', 56), ('cross-family', 44), ('revolver-reload', 48))
+# Explicit CI selections. The local 'sight' and 'all' aliases keep the complete producer.
+CI_SIGHT_PARTITIONS = (('cross-family-first', 22), ('cross-family-second', 22))
 SWITCH_CASES = (
     ('pistol', 'revolver', None), ('revolver', 'pistol', None),
     ('pistol', 'revolver', .46), ('revolver', 'pistol', .46),
@@ -32,7 +34,7 @@ SIGHT_GUARDS = {
 
 def validate_sight_report(report: dict, partition: str) -> None:
     """Reject diagnostic, incomplete or mislabelled sight evidence, without retries."""
-    expected = dict(SIGHT_PARTITIONS).get(partition)
+    expected = dict(SIGHT_PARTITIONS + CI_SIGHT_PARTITIONS).get(partition)
     if expected is None:
         raise ValueError('Unknown sight partition: ' + str(partition))
     if report.get('partition') != partition:
@@ -70,6 +72,13 @@ def validate_sight_report(report: dict, partition: str) -> None:
         guard_names.append(name)
     if set(guard_names) != required:
         raise ValueError('Missing, duplicate or unknown sight guard names.')
+    if partition in dict(CI_SIGHT_PARTITIONS):
+        cases = report.get('crossFamilyCases')
+        if not isinstance(cases, list) or not all(isinstance(case, dict) for case in cases):
+            raise ValueError('Missing cross-family case evidence.')
+        observed = tuple((case.get('from'), case.get('to'), case.get('reloadPhase')) for case in cases)
+        if observed != sight_cases(partition):
+            raise ValueError('Cross-family evidence does not match the selected CI cases.')
 
 
 def sight_cases(partition: str) -> tuple:
@@ -80,6 +89,10 @@ def sight_cases(partition: str) -> tuple:
         return SWITCH_CASES[:4] + SWITCH_CASES[16:18] + SWITCH_CASES[20:22]
     if partition == 'cross-family':
         return SWITCH_CASES[4:10] + SWITCH_CASES[18:19] + SWITCH_CASES[22:23] + SWITCH_CASES[24:26]
+    if partition == 'cross-family-first':
+        return sight_cases('cross-family')[:5]
+    if partition == 'cross-family-second':
+        return sight_cases('cross-family')[5:]
     # Preserve existing per-partition order; distribute the four new cases
     # over existing runners without removing checks or raising their limits.
     # Keep base unchanged; append free cases to cross-family and reload exits here.
