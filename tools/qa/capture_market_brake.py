@@ -114,15 +114,19 @@ def capture(html, output, far, media):
                 draw=media and (tick==6 if far else -36<=tick<=30)
                 frame=page.evaluate('a=>marketTurnQA.frame(a)', {'ticks':3 if tick>START else 0, 'draw':draw})
                 rows.extend(frame['rows'])
-                if draw:(output/f'{label}-{tick:03}.png').write_bytes(base64.b64decode(frame['png']))
-            if len(rows)!=END-START+1: raise ValueError('Incomplete trajectory')
+                if draw:
+                    (output / f'{label}-{tick:03}.png').write_bytes(base64.b64decode(frame['png']))
+            if len(rows) != END - START + 1:
+                raise ValueError('Incomplete trajectory')
             for tick,r in enumerate(rows,START):
                 r['tick']=tick
-                if abs(r['time']-arrival-tick/HZ)>1e-6: raise ValueError('Arrival tick mismatch')
+                if abs(r['time'] - arrival - tick / HZ) > 1e-6:
+                    raise ValueError('Arrival tick mismatch')
             arrived=rows[-START]
             if abs(arrived['root'][1]-endpoint['dest'])>.001 or abs(arrived['wait']-2.4)>.001:
                 raise ValueError('Arrival differs from independent route clock')
-            def window(a,b):return [r for r in rows if a<=r['tick']<=b]
+            def window(first_tick, last_tick):
+                return rows[first_tick - START:last_tick - START + 1]
             turn=measure(window(0,144),.5)
             windows={name:measure_window(window(lo,hi)) for name,lo,hi in (
                 ('lead',-72,-30),('finalStep',-29,0),('settle',0,30),('entireApproach',-72,0))}
@@ -134,7 +138,8 @@ def capture(html, output, far, media):
             print(label,'support',support,'settle center',windows['settle']['solesWithin10mm'],
                   'final markers',json.dumps(final),flush=True)
         page.evaluate('marketTurnQA.finish()')
-        if errors: raise RuntimeError(errors)
+        if errors:
+            raise RuntimeError(errors)
     (output/'measurements.json').write_text(json.dumps(report,indent=2,ensure_ascii=False)+'\n')
     return report
 
@@ -157,6 +162,9 @@ def require_braking(report, reference=None):
         planted=windows['finalStep']['markers'][support]
         if max(planted[m]['spanM'] for m in MARKERS)>.005 or planted['peakClearanceM']>.005:
             raise ValueError(f'{end}/{support} loses its planted support before arrival')
+        swing = 'R' if support == 'L' else 'L'
+        if windows['finalStep']['markers'][swing]['peakClearanceM'] < .025:
+            raise ValueError(f'{end}/{swing} does not lift for the closing step')
         event=ep['brake']
         if not event or event['clip']!='Frenada'+support:
             raise ValueError(f'{end} disagrees with the observed weight-bearing foot')
@@ -172,10 +180,10 @@ def require_braking(report, reference=None):
             earlier=reference['endpoints'][end]
             if any(ep[k]!=earlier[k] for k in ('eye','target','batch','fov','quality','dest','towardEnd')):
                 raise ValueError('Camera, direction or distance selection differs from reference')
-            for name in ('lead','entireApproach'):
-                def worst(w):
-                    return max(foot[m]['within10mmM'] for foot in w['markers'].values() for m in MARKERS)
-                if worst(windows[name])>worst(earlier['windows'][name])+.005:
+            def contact_span(window):
+                return max(foot[m]['within10mmM'] for foot in window['markers'].values() for m in MARKERS)
+            for name in ('lead', 'entireApproach'):
+                if contact_span(windows[name]) > contact_span(earlier['windows'][name]) + .005:
                     raise ValueError(f'{end} moves the contact drift into the approach: {name}')
         turn=ep['turn']
         if turn['turnRuns']!=1 or not turn['progressMonotonic'] or not turn['headingReversed']:
