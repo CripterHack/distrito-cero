@@ -6,6 +6,7 @@ Requires Pillow, ffmpeg with libx264, and DejaVu Sans. Example:
         --after artifacts/giro/despues --output qa/market-turn-v02030
 """
 import argparse
+import json
 from pathlib import Path
 import subprocess
 from tempfile import TemporaryDirectory
@@ -31,6 +32,21 @@ def read_frame(folder, end, tick):
         if image.format != "PNG":
             raise ValueError(f"Expected a PNG capture: {path}")
         return image.convert("RGB")
+
+
+def check_capture_reports(folders):
+    reports = [folder / "measurements.json" for folder in folders]
+    if not any(path.exists() for path in reports):
+        return
+    before, after = [json.loads(path.read_text()) for path in reports]
+    for key in ("seed", "actor", "canvas"):
+        if before["environment"][key] != after["environment"][key]:
+            raise ValueError(f"The captures differ in {key}")
+    for end in ENDS:
+        a, b = [report["endpoints"][end] for report in (before, after)]
+        for key in ("eye", "target", "dest", "towardEnd", "fov", "quality"):
+            if a.get(key) != b.get(key):
+                raise ValueError(f"The captures differ in {key} at {end}")
 
 
 def load_pair(folders, end, tick, size):
@@ -93,6 +109,7 @@ def gallery(folders, ticks, size):
 
 def compose(before, after, output, ticks):
     folders = (before, after)
+    check_capture_reports(folders)
     size = read_frame(before, "north", TICKS[0]).size
     if min(size) < 100:
         raise ValueError(f"Need native frames at least 100 pixels wide and tall; found {size}")
