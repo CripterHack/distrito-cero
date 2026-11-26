@@ -1,6 +1,6 @@
-"""Create an editable Blender review scene; --frames also renders all three cycles.
+"""Create an editable Blender review scene for the Mercado resident's actions.
 
-blender -b -t 2 --python-exit-code 1 -P tools/review_higgsfield_motion.py -- ORIGINAL.glb WALK.glb NEW_DIR [--frames]
+blender -b -t 2 --python-exit-code 1 -P tools/review_higgsfield_motion.py -- [ORIGINAL.glb] CANDIDATE.glb NEW_DIR [--frames] [--turn-preview]
 """
 
 import argparse
@@ -81,18 +81,31 @@ def render(scene, destination):
     bpy.ops.render.render(write_still=True)
 
 
+def reset_pose(rig):
+    rig.animation_data.action = None
+    for bone in rig.pose.bones:
+        bone.matrix_basis = Matrix.Identity(4)
+
+
 def save_frames(scene, cameras, rig, out):
     durations = {}
+    tracks = rig.animation_data.nla_tracks
+    for track in tracks:
+        track.mute = True
     for view, camera in cameras.items():
         scene.camera = camera
         counts = {"Marcha": 12, "Reposo": 8, "Carrera": 12} if view == "oblicua" else {"Marcha": 4, "Carrera": 4}
+        if "Giro" in tracks:
+            counts["Giro"] = 5
         for name, count in counts.items():
-            action = rig.animation_data.nla_tracks[name].strips[0].action
+            action = tracks[name].strips[0].action
+            reset_pose(rig)
             rig.animation_data.action = action
             first, last = action.frame_range
             durations[name] = (last - first) * scene.render.fps_base / scene.render.fps
             for i in range(count):
-                frame = first + (last - first) * i / count
+                intervals = count - 1 if name == "Giro" else count
+                frame = first + (last - first) * i / intervals
                 whole = math.floor(frame)
                 scene.frame_set(whole, subframe=frame - whole)
                 render(scene, out / f"{name}-{view}-{i:02}.png")
@@ -100,7 +113,7 @@ def save_frames(scene, cameras, rig, out):
 
 
 def save_scene(scene, cameras, rig, out):
-    rig.animation_data.action = None
+    reset_pose(rig)
     strips = {}
     for track in rig.animation_data.nla_tracks:
         track.mute = False
@@ -115,6 +128,10 @@ def save_scene(scene, cameras, rig, out):
     run = strips["Carrera"]
     run.frame_start_ui = math.ceil(idle.frame_end)
     run.repeat = 4
+    turn = strips.get("Giro")
+    if turn:
+        turn.frame_start_ui = math.ceil(run.frame_end)
+        turn.extrapolation = "HOLD_FORWARD"
     for strip in strips.values():
         full_length = (strip.action_frame_end - strip.action_frame_start) * strip.repeat
         if abs(strip.frame_end - strip.frame_start - full_length) > 0.001:
@@ -124,6 +141,11 @@ def save_scene(scene, cameras, rig, out):
     scene.timeline_markers.new("Marcha · cuatro ciclos", frame=scene.frame_start)
     scene.timeline_markers.new("Reposo · respiración", frame=int(idle.frame_start))
     scene.timeline_markers.new("Carrera · cuatro ciclos", frame=int(run.frame_start))
+    if turn:
+        finish = math.ceil(turn.frame_end)
+        scene.timeline_markers.new("Giro · media vuelta", frame=int(turn.frame_start))
+        scene.timeline_markers.new("Fin del giro · de espaldas", frame=finish)
+        scene.frame_end = finish + round(.5 * scene.render.fps / scene.render.fps_base)
     scene.frame_set(scene.frame_start)
     scene.camera = cameras["oblicua"]
     scene.cycles.samples = 32
@@ -147,7 +169,9 @@ def save_scene(scene, cameras, rig, out):
     info = bpy.data.texts.new("LEEME · movimiento")
     info.write(
         "Pulse Espacio para reproducir. Los marcadores llevan a los cuatro ciclos de marcha, "
-        "al reposo y a los cuatro ciclos de carrera. Las tiras de cada acción son editables en el editor NLA. "
+        "al reposo y a los cuatro ciclos de carrera. "
+        + ("En la cuarta tira da media vuelta una vez y mantiene el último apoyo medio segundo. " if turn else "")
+        + "Las tiras de cada acción son editables en el editor NLA. "
         "Encienda Superposiciones para ver los 49 huesos. Para editar la malla en T, "
         "seleccione el esqueleto y active la posición de reposo en Propiedades de datos. "
         "Las claves Prueba.Indice.L/R de la malla se prueban de manera independiente.\n"
@@ -159,22 +183,40 @@ def save_scene(scene, cameras, rig, out):
     bpy.ops.wm.save_as_mainfile(filepath=str((out / "character-motion.blend").resolve()), compress=True)
 
 
+def render_turn_preview(scene, rig, out):
+    turn = rig.animation_data.nla_tracks["Giro"].strips[0]
+    scene.frame_start = int(turn.frame_start)
+    scene.render.image_settings.file_format = "FFMPEG"
+    scene.render.ffmpeg.format = "MPEG4"
+    scene.render.ffmpeg.codec = "H264"
+    scene.render.ffmpeg.constant_rate_factor = "HIGH"
+    scene.render.filepath = str((out / "giro-oblicua.mp4").resolve())
+    bpy.ops.render.render(animation=True)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("original", type=Path)
+    parser.add_argument("original", type=Path, nargs="?", help="source GLB used for the reference image with --frames")
     parser.add_argument("candidate", type=Path)
     parser.add_argument("output", type=Path)
     parser.add_argument("--frames", action="store_true")
+    parser.add_argument("--turn-preview", action="store_true", help="render the one-shot Giro strip to giro-oblicua.mp4")
     args = parser.parse_args(sys.argv[sys.argv.index("--") + 1 :])
+    if args.frames and args.original is None:
+        parser.error("--frames requiere el GLB original para la imagen de referencia")
     args.output.mkdir(parents=True, exist_ok=False)
     if args.frames:
         reference, _ = load(args.original, reference=True)
         render(reference, args.output / "referencia.png")
     scene, cameras = load(args.candidate)
     (rig,) = [obj for obj in scene.objects if obj.type == "ARMATURE"]
+    if args.turn_preview and "Giro" not in rig.animation_data.nla_tracks:
+        parser.error("--turn-preview requiere un GLB con la acción Giro")
     if args.frames:
         save_frames(scene, cameras, rig, args.output)
     save_scene(scene, cameras, rig, args.output)
+    if args.turn_preview:
+        render_turn_preview(scene, rig, args.output)
 
 
 if __name__ == "__main__":
