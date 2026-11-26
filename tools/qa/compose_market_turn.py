@@ -107,7 +107,25 @@ def gallery(folders, ticks, size):
     return canvas
 
 
-def compose(before, after, output, ticks):
+def distance_sheet(folders):
+    check_capture_reports(folders)
+    tick = 72
+    size = read_frame(folders[0], 'south', tick).size
+    w, h = size
+    canvas = Image.new('RGB', (2*w + 48, 2*h + 138), BACKGROUND)
+    draw = ImageDraw.Draw(canvas)
+    draw.text((16, 12), 'Mercado  /  Giro desde la cámara lejana', font=BOLD, fill=WHITE)
+    for row, (end, name) in enumerate(ENDS.items()):
+        y = 48 + row*(h + 42)
+        for col, picture in enumerate(load_pair(folders, end, tick, size)):
+            x = 16 + col*(w + 16)
+            draw.text((x, y), name + '  ·  ' + STAGES[col] + '  ·  ' + stamp(tick),
+                      font=REGULAR, fill=(MUTED, MINT)[col])
+            canvas.paste(picture, (x, y + 29))
+    return canvas
+
+
+def compose(before, after, output, ticks, far=None):
     folders = (before, after)
     check_capture_reports(folders)
     size = read_frame(before, "north", TICKS[0]).size
@@ -131,7 +149,11 @@ def compose(before, after, output, ticks):
                         "-c:v", "libx264", "-threads", "1", "-crf", "18", "-pix_fmt", "yuv420p",
                         "-movflags", "+faststart", str(stage / "giro.mp4")], check=True)
         gallery(folders, ticks, size).save(stage / "apoyos.jpg", quality=91, optimize=True, subsampling=0)
-        for name in ("giro.mp4", "apoyos.jpg"):
+        names = ['giro.mp4', 'apoyos.jpg']
+        if far:
+            distance_sheet(far).save(stage / 'distancia.jpg', quality=89, optimize=True, subsampling=0)
+            names.append('distancia.jpg')
+        for name in names:
             (stage / name).replace(output / name)
 
 
@@ -141,5 +163,7 @@ if __name__ == "__main__":
         parser.add_argument("--" + key, type=Path, required=True)
     parser.add_argument("--ticks", type=int, nargs=3, default=(36, 54, 108),
                         help="Three captured ticks from arrival for the contact sheet (60 ticks/second)")
+    parser.add_argument('--far', type=Path, nargs=2, metavar=('BEFORE', 'AFTER'),
+                        help='Add a distance contact sheet from the native captures at tick 72')
     args = parser.parse_args()
-    compose(args.before, args.after, args.output, args.ticks)
+    compose(args.before, args.after, args.output, args.ticks, args.far)
