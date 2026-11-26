@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover"><meta name="theme-color" content="#091314"><meta name="description" content="Distrito Cero. Una aventura criminal 3D original, sin dependencias externas.">
 <meta name="application-version" content="0.20.29">
-<meta name="build-source" content="56e177efd7bcc483d1a340b4736a46386a49ff16a6b6e6fb1fe16517394949ec">
+<meta name="build-source" content="86df0ceb381b2a833c35500a5e07e0d3ae487fe065c9c7fd59bd986cad718713">
 <title>Distrito Cero v0.20.29 · Barrio del Mercado</title>
 <style>:root{color-scheme:dark;--bg:#081011;--ink:#f0f1e8;--muted:#9eaaa6;--accent:#d5ee94;--accent-dark:#182417;--line:#ffffff20;--danger:#fb826d;--panel:#0b1414ed;--font:Arial,Helvetica,sans-serif;--mono:'Courier New',monospace}
 *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--bg);font-family:var(--font);color:var(--ink);overscroll-behavior:none}button,input,select{font:inherit}button{cursor:pointer;color:inherit}button:disabled{opacity:.45;cursor:not-allowed}button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--accent);outline-offset:5px}button{touch-action:manipulation;-webkit-tap-highlight-color:transparent}button:hover{filter:brightness(1.12)}[hidden]{display:none!important}#world{display:block;width:100%;height:100%;touch-action:none}#app{position:fixed;inset:0;pointer-events:none}button,select,input,a{pointer-events:auto}.mono{font-family:var(--mono);font-size:10px;letter-spacing:1.7px;text-transform:uppercase}.muted{color:var(--muted)}.eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:2.5px;font-weight:400}.accent{color:var(--accent)}
@@ -162,7 +162,7 @@ body.arsenal-open #toast,body.arsenal-open #chapter{visibility:hidden}
  <div id="touchControls"><div id="joystick" class="joystick" aria-label="Mando de movimiento" role="application"><div class="joystick-knob" id="joystickKnob"></div></div><div class="touch-buttons"><div class="row" id="touchWeaponRow" hidden><button class="touch-btn" id="touchAim" aria-label="Mantener para apuntar u observar">APUNTAR</button><button class="touch-btn primary-touch" id="touchFire" aria-label="Mantener para disparar o cargar Gauss">FUEGO</button></div><div class="row"><button class="touch-btn" id="touchHorn" aria-label="Bocina">BOCINA</button><button class="touch-btn" id="touchCar" aria-label="Entrar o salir del vehículo">SUBIR</button></div><div class="row"><button class="touch-btn" id="touchBrake" aria-label="Freno de mano o correr">CORRER</button><button class="touch-btn primary-touch" id="touchAction" aria-label="Interactuar">ACCIÓN</button></div><div class="row"><button class="touch-btn" id="touchPush" aria-label="Lanzar o empujar">EMPUJAR</button><button class="touch-btn" id="touchJump" aria-label="Saltar">SALTAR</button></div></div></div>
 </section>
 <div id="toast" role="status" aria-live="polite"></div><div id="chapter"><small id="chapterLabel">DISTRITO CERO</small><h2 id="chapterText"></h2></div>
-<section id="pause" class="overlay" hidden aria-label="Menú de pausa"><div class="panel"><div class="panel-head"><div><div class="eyebrow accent">LA CIUDAD PUEDE ESPERAR</div><h2 id="pauseTitle">Pausa</h2></div><button class="close" id="closePause" aria-label="Cerrar pausa">×</button></div><div class="panel-body"><div class="pause-grid"><div class="pause-actions"><button class="primary" id="resume">Volver a la ciudad <span>↗</span></button><button class="secondary" id="saveGame">Guardar progreso</button><button class="secondary" id="pauseSaves">Mis partidas</button><button class="secondary" id="pauseArsenal">Equipamiento · TAB</button><button class="secondary" id="editAppearance">Editar personaje</button><p id="activeSaveStatus" class="identity-note" role="status"></p><button class="secondary" id="openMapPause">Mapa de la ciudad</button><button class="secondary" id="toggleStory">Cambiar a exploración libre</button><button class="secondary" id="mainMenu">Menú principal</button><div class="pause-info" id="pauseStats"></div><p id="releaseInfo" class="note" data-build-version="0.20.29">v0.20.29 · Barrio del Mercado · prototipo<br>Build 56e177efd7bc</p></div><div class="settings"><h3>ATMÓSFERA Y RENDIMIENTO</h3><label class="setting">Luz · noche a día<input id="daylight" type="range" min="0" max="100" value="62" aria-label="Luz solar"></label><label class="setting">Calidad gráfica<select id="quality"><option value="eco">Económica</option><option value="balanced" selected>Equilibrada</option><option value="high">Alta</option></select></label><label class="setting">Volumen<input id="volume" type="range" min="0" max="100" value="50"></label><div class="setting">Sonido<button class="toggle" id="soundToggle">SÍ</button></div><div class="setting">Lluvia y reflejos<button class="toggle" id="rainToggle">SÍ</button></div><div class="setting">Resplandor de luces<button class="toggle" id="bloomToggle">SÍ</button></div><div class="setting">Controles táctiles<button class="toggle" id="touchToggle">AUTO</button></div><div class="setting">Pantalla completa<button class="toggle" id="fullscreen">ABRIR</button></div><p class="note">Si la imagen pierde fluidez, usa calidad económica o desactiva lluvia y reflejos. El mundo y sus reglas no cambian.</p></div></div><div class="controls-grid"><div>Objetos: recoger / lanzar <kbd>E / G</kbd></div><div>Agacharse / esquivar <kbd>X / Q</kbd></div><div>Reparar junto al auto <kbd>MANTENER V · $90</kbd></div><div>Guía de interacciones <kbd>I</kbd></div><div>Moverte / conducir <kbd>W A S D / ↑ ← ↓ →</kbd></div><div>Subir / bajar del coche <kbd>F</kbd></div><div>Interactuar <kbd>E</kbd></div><div>Correr a pie <kbd>SHIFT</kbd></div><div>Freno de mano / saltar <kbd>ESPACIO</kbd></div><div>Mirar alrededor <kbd>ARRASTRAR RATÓN</kbd></div><div>Cambiar cámara / bocina <kbd>C / Q</kbd></div><div>Mapa / foto / radio <kbd>M / P / T</kbd></div><div>Rendirse cerca de una patrulla <kbd>MANTENER R · DETENIDO</kbd></div><div>Selector de equipo <kbd>TAB</kbd></div><div>Disparar / cargar y soltar Gauss <kbd>CLIC IZQ. / J</kbd></div><div>Apuntar y mover vista <kbd>CLIC DER. + ARRASTRAR / Z</kbd></div><div>Recargar <kbd>L</kbd></div><div>Binoculares / zoom / marcar <kbd>B / RUEDA / H</kbd></div><div>Pausar <kbd>ESC</kbd></div><div>Móvil <kbd>JOYSTICK + ARRASTRAR VISTA</kbd></div></div><div class="save-tools"><button id="exportSave">Exportar partida ↗</button><button id="importSave">Importar partida ↗</button><button id="cancelJob">Cancelar encargo activo</button><button id="newGame" class="danger">Reiniciar partida</button><input type="file" id="saveFile" accept="application/json,.json" hidden></div><div class="pause-info police-help">POLICÍA · Un roce no detiene el coche. Maniobra en reversa y gira para separarte. La captura solo sube si estás detenido y a la vista. Al perderte, las patrullas buscan tu última posición. Mantén R o el botón de rendición durante 1.8 segundos, detenido cerca de una patrulla, para entregar $150 en lugar de $300. Suelta o muévete para cancelar.</div><div class="pause-info">El autoguardado actualiza únicamente la partida activa. Mis partidas permite nombrar, duplicar y respaldar cada historia. Encargos temporizados y transmisiones en curso no se guardan.</div></div></div></section>
+<section id="pause" class="overlay" hidden aria-label="Menú de pausa"><div class="panel"><div class="panel-head"><div><div class="eyebrow accent">LA CIUDAD PUEDE ESPERAR</div><h2 id="pauseTitle">Pausa</h2></div><button class="close" id="closePause" aria-label="Cerrar pausa">×</button></div><div class="panel-body"><div class="pause-grid"><div class="pause-actions"><button class="primary" id="resume">Volver a la ciudad <span>↗</span></button><button class="secondary" id="saveGame">Guardar progreso</button><button class="secondary" id="pauseSaves">Mis partidas</button><button class="secondary" id="pauseArsenal">Equipamiento · TAB</button><button class="secondary" id="editAppearance">Editar personaje</button><p id="activeSaveStatus" class="identity-note" role="status"></p><button class="secondary" id="openMapPause">Mapa de la ciudad</button><button class="secondary" id="toggleStory">Cambiar a exploración libre</button><button class="secondary" id="mainMenu">Menú principal</button><div class="pause-info" id="pauseStats"></div><p id="releaseInfo" class="note" data-build-version="0.20.29">v0.20.29 · Barrio del Mercado · prototipo<br>Build 86df0ceb381b</p></div><div class="settings"><h3>ATMÓSFERA Y RENDIMIENTO</h3><label class="setting">Luz · noche a día<input id="daylight" type="range" min="0" max="100" value="62" aria-label="Luz solar"></label><label class="setting">Calidad gráfica<select id="quality"><option value="eco">Económica</option><option value="balanced" selected>Equilibrada</option><option value="high">Alta</option></select></label><label class="setting">Volumen<input id="volume" type="range" min="0" max="100" value="50"></label><div class="setting">Sonido<button class="toggle" id="soundToggle">SÍ</button></div><div class="setting">Lluvia y reflejos<button class="toggle" id="rainToggle">SÍ</button></div><div class="setting">Resplandor de luces<button class="toggle" id="bloomToggle">SÍ</button></div><div class="setting">Controles táctiles<button class="toggle" id="touchToggle">AUTO</button></div><div class="setting">Pantalla completa<button class="toggle" id="fullscreen">ABRIR</button></div><p class="note">Si la imagen pierde fluidez, usa calidad económica o desactiva lluvia y reflejos. El mundo y sus reglas no cambian.</p></div></div><div class="controls-grid"><div>Objetos: recoger / lanzar <kbd>E / G</kbd></div><div>Agacharse / esquivar <kbd>X / Q</kbd></div><div>Reparar junto al auto <kbd>MANTENER V · $90</kbd></div><div>Guía de interacciones <kbd>I</kbd></div><div>Moverte / conducir <kbd>W A S D / ↑ ← ↓ →</kbd></div><div>Subir / bajar del coche <kbd>F</kbd></div><div>Interactuar <kbd>E</kbd></div><div>Correr a pie <kbd>SHIFT</kbd></div><div>Freno de mano / saltar <kbd>ESPACIO</kbd></div><div>Mirar alrededor <kbd>ARRASTRAR RATÓN</kbd></div><div>Cambiar cámara / bocina <kbd>C / Q</kbd></div><div>Mapa / foto / radio <kbd>M / P / T</kbd></div><div>Rendirse cerca de una patrulla <kbd>MANTENER R · DETENIDO</kbd></div><div>Selector de equipo <kbd>TAB</kbd></div><div>Disparar / cargar y soltar Gauss <kbd>CLIC IZQ. / J</kbd></div><div>Apuntar y mover vista <kbd>CLIC DER. + ARRASTRAR / Z</kbd></div><div>Recargar <kbd>L</kbd></div><div>Binoculares / zoom / marcar <kbd>B / RUEDA / H</kbd></div><div>Pausar <kbd>ESC</kbd></div><div>Móvil <kbd>JOYSTICK + ARRASTRAR VISTA</kbd></div></div><div class="save-tools"><button id="exportSave">Exportar partida ↗</button><button id="importSave">Importar partida ↗</button><button id="cancelJob">Cancelar encargo activo</button><button id="newGame" class="danger">Reiniciar partida</button><input type="file" id="saveFile" accept="application/json,.json" hidden></div><div class="pause-info police-help">POLICÍA · Un roce no detiene el coche. Maniobra en reversa y gira para separarte. La captura solo sube si estás detenido y a la vista. Al perderte, las patrullas buscan tu última posición. Mantén R o el botón de rendición durante 1.8 segundos, detenido cerca de una patrulla, para entregar $150 en lugar de $300. Suelta o muévete para cancelar.</div><div class="pause-info">El autoguardado actualiza únicamente la partida activa. Mis partidas permite nombrar, duplicar y respaldar cada historia. Encargos temporizados y transmisiones en curso no se guardan.</div></div></div></section>
 <section id="mapOverlay" class="overlay" hidden aria-label="Atlas del mundo">
  <div class="panel" id="mapPanel"><div class="panel-head"><div><div class="eyebrow accent">HORIZONTE · ATLAS PROCEDURAL</div><h2 id="atlasTitle">El mundo continúa.</h2></div><button class="close" id="closeMap" aria-label="Cerrar mapa">×</button></div>
  <div class="map-body"><div class="atlas-toolbar"><div class="atlas-tabs"><button id="localView" aria-pressed="false">Calles</button><button id="regionalView" aria-pressed="true">Regiones</button></div><div class="atlas-zoom"><button id="zoomIn" aria-label="Acercar mapa">+</button><button id="zoomOut" aria-label="Alejar mapa">−</button><button id="centerMap">Centrar</button></div><span id="atlasPosition" class="mono"></span></div>
@@ -289,7 +289,7 @@ var DC = globalThis.DC = globalThis.DC || {};
  ];
 })(DC);
 
-DC.BuildInfo = Object.freeze({"schema":1,"version":"0.20.29","name":"Barrio del Mercado","channel":"prototype","date":"2026-11-26","label":"v0.20.29","product":"Distrito Cero","sourceSha256":"56e177efd7bcc483d1a340b4736a46386a49ff16a6b6e6fb1fe16517394949ec"});
+DC.BuildInfo = Object.freeze({"schema":1,"version":"0.20.29","name":"Barrio del Mercado","channel":"prototype","date":"2026-11-26","label":"v0.20.29","product":"Distrito Cero","sourceSha256":"86df0ceb381b2a833c35500a5e07e0d3ae487fe065c9c7fd59bd986cad718713"});
 
 
 'use strict';
@@ -299,6 +299,11 @@ DC.BuildInfo = Object.freeze({"schema":1,"version":"0.20.29","name":"Barrio del 
    this.seed=seed;this.size=840;this.half=420;this.spacing=84;this.buildings=[];this.blocks=[];this.lights=[];this.props=[];this.rand=D.rng(seed);
    this.pois=[{type:'safe',name:'Refugio de Lía',x:-84,z:264},{type:'garage',name:'Taller del Mercado',x:168,z:96},{type:'garage',name:'Mecánica del Muelle',x:-252,z:-72},{type:'job',name:'Encargos de mensajería',x:0,z:-72},{type:'race',name:'Circuito nocturno',x:-168,z:12},{type:'terminal',name:'Terminal Vértice',x:252,z:-72},{type:'safe',name:'Muelle de los Olvidos',x:-252,z:-156}];
    this.shelters=[{x:-13.5,z:58,yaw:Math.PI/2},{x:154.5,z:130,yaw:Math.PI/2}];
+   // Local +Z faces the road. The diffuser mounts under the leading edge of the canopy.
+   for(const stop of this.shelters){
+    const c=Math.cos(stop.yaw),s=Math.sin(stop.yaw);
+    stop.diffuser={x:stop.x+.58*c+.64*s,y:2.545,z:stop.z-.58*s+.64*c};
+   }
    // Both fronts face +X. Only the bench/back frame occupies pedestrian space.
    this.shelterBenches=this.shelters.map(s=>({x:s.x-.445,z:s.z,w:.71,d:2.33,h:.68}));
    const r=this.rand;
@@ -3491,7 +3496,16 @@ DC.HeroAsset={"version":2,"stride":24,"positionScale":10000,"bones":["pelvis","s
   light+=brdf(n,view,uSun,base,rough,metal)*mix(vec3(1.4,1.65,1.9),vec3(3.8,3.65,3.25),uDaylight)*shadow(n)*mix(1.,.55,uStudio);
   for(int i=0;i<12;i++){
    if(i>=uLightCount)break;vec3 dl=uLights[i].xyz-vWorld;float ds=dot(dl,dl),dist=sqrt(ds);vec3 ld=dl/max(dist,.01);
-   float att=(1.-smoothstep(10.,27.,dist))/(1.+ds*.035);vec3 lc=mix(vec3(.42,.74,1.),vec3(1.,.73,.42),uLights[i].w)*10.8*mix(1.,.22,uStudio);
+   float kind=uLights[i].w,att;vec3 lc;
+   if(kind<0.){
+    // A canopy diffuser directs light below the roof and reaches only the boarding pavement.
+    if(ds>=16.||dl.y<=0.)continue;
+    att=smoothstep(.12,.50,ld.y)*(1.-smoothstep(2.,4.,dist))/(.32+ds);
+    lc=vec3(1.,.86,.69)*(-kind*10.);
+   }else{
+    att=(1.-smoothstep(10.,27.,dist))/(1.+ds*.035);
+    lc=mix(vec3(.42,.74,1.),vec3(1.,.73,.42),kind)*10.8*mix(1.,.22,uStudio);
+   }
    light+=brdf(n,view,ld,base,rough,metal)*lc*att;
    if(detailMaterial(30)||detailMaterial(40)||detailMaterial(36)){float transmission=pow(max(dot(-n,ld),0.),2.)*(detailMaterial(36)?.12:.035);light+=base*lc*att*transmission;}
   }
@@ -3812,12 +3826,13 @@ DC.HeroAsset={"version":2,"stride":24,"positionScale":10000,"bones":["pelvis","s
    const car=sim.player.car!==null?sim.actor():sim.cars[0],h=[car.x+Math.sin(car.yaw)*2.4,.75,car.z+Math.cos(car.yaw)*2.4];h[0]-=(this.renderOrigin?.[0]||0);h[2]-=(this.renderOrigin?.[1]||0);if(car.damage?.front>.8||car.empUntil>sim.time)h[1]=-1000;gl.uniform3fv(this.uniform(p,'uHeadPos'),h);gl.uniform3fv(this.uniform(p,'uHeadDir'),[Math.sin(car.yaw),-.05,Math.cos(car.yaw)]);
    for(const [i,n,tex]of [[0,'uShadow',this.shadowTex],[1,'uReflection',pass===1?this.white:this.reflection.tex],[2,'uSigns',this.signs]]){gl.activeTexture(gl.TEXTURE0+i);gl.bindTexture(gl.TEXTURE_2D,tex);gl.uniform1i(this.uniform(p,n),i);}
   }
+  sceneLights(sim){return this.world.lights.filter((light,index)=>!sim.dynamics||sim.dynamics.lightActive(index));}
   render(sim){
    if(!this.canRender())return false;
    const gl=this.gl;this.frame++;this.updateDynamic(sim);const c=this.camera,aspect=this.canvas.width/this.canvas.height,fov=this.fovOverride||Math.PI*.36;this.sun=D.normalize([-.55,.8,.42]);
    const o=this.renderOrigin||[0,0],eyeLocal=[c.eye[0]-o[0],c.eye[1],c.eye[2]-o[1]],targetLocal=[c.target[0]-o[0],c.target[1],c.target[2]-o[1]];const projection=D.M4.perspective(fov,aspect,.15,1000);this.vp=D.M4.multiply(projection,D.M4.lookAt(eyeLocal,targetLocal));
    const re=[eyeLocal[0],-eyeLocal[1],eyeLocal[2]],rt=[targetLocal[0],-targetLocal[1],targetLocal[2]];this.reflectVP=D.M4.multiply(projection,D.M4.lookAt(re,rt,[0,-1,0]));
-   if(this.lightTime<sim.time-.35||this.lightTime<0||this.lightRevision!==sim.dynamics?.lightRevision||this.lightWorld!==sim.dynamics){const sorted=this.world.lights.filter((l,i)=>!sim.dynamics||sim.dynamics.lightActive(i)).sort((a,b)=>Math.hypot(a.x-c.target[0],a.z-c.target[2])-Math.hypot(b.x-c.target[0],b.z-c.target[2]));for(let i=0;i<12;i++){const l=sorted[i];this.lights.set(l?[l.x-o[0],l.y,l.z-o[1],l.warm?1:0]:[0,-1000,0,0],i*4);}this.lightTime=sim.time;this.lightRevision=sim.dynamics?.lightRevision;this.lightWorld=sim.dynamics;}
+   if(this.lightTime<sim.time-.35||this.lightTime<0||this.lightRevision!==sim.dynamics?.lightRevision||this.lightWorld!==sim.dynamics){const sorted=this.sceneLights(sim).sort((a,b)=>Math.hypot(a.x-c.target[0],a.z-c.target[2])-Math.hypot(b.x-c.target[0],b.z-c.target[2]));for(let i=0;i<12;i++){const l=sorted[i];this.lights.set(l?[l.x-o[0],l.y,l.z-o[1],l.downlight?-l.downlight:l.warm?1:0]:[0,-1000,0,0],i*4);}this.lightTime=sim.time;this.lightRevision=sim.dynamics?.lightRevision;this.lightWorld=sim.dynamics;}
    gl.enable(gl.DEPTH_TEST);gl.disable(gl.CULL_FACE);gl.disable(gl.BLEND);
    if(this.frame%3===1||!this.lightVP){let t=[Math.round(targetLocal[0]/4)*4,0,Math.round(targetLocal[2]/4)*4],eye=t.map((v,i)=>v+this.sun[i]*170);this.lightVP=D.M4.multiply(D.M4.ortho(this.previewStudio?-3:-110,this.previewStudio?3:110,this.previewStudio?-3:-110,this.previewStudio?3:110,1,350),D.M4.lookAt(eye,t));
     if(this.quality!=='eco'){gl.bindFramebuffer(gl.FRAMEBUFFER,this.shadowFB);gl.viewport(0,0,this.shadowSize,this.shadowSize);gl.clear(gl.DEPTH_BUFFER_BIT);gl.useProgram(this.shadowProgram);gl.uniform1f(this.uniform(this.shadowProgram,'uTime'),sim.time);gl.uniformMatrix4fv(this.uniform(this.shadowProgram,'uVP'),false,this.lightVP);this.setFrustum(this.lightVP);this.drawMeshes();}
@@ -4320,6 +4335,17 @@ DC.MercadoModels={"taller":{"size":[6.5325,6.5,8.5286],"levels":[{"triangles":65
    g.uniform1i(this.uniform(p,'uMercadoAtlas'),10);
    g.uniform1i(this.uniform(p,'uMercadoLoaded'),this.mercadoLoaded?1:0);
   }
+  diffuserPower(){
+   const t=D.clamp((.64-this.daylight)/.54,0,1);
+   return t*t*(3-2*t);
+  }
+  sceneLights(sim){
+   const lights=super.sceneLights(sim),downlight=this.diffuserPower();
+   if(!this.previewStudio && downlight>0){
+    for(const stop of this.world.shelters)lights.push({...stop.diffuser,downlight});
+   }
+   return lights;
+  }
   renderReactive(sim){
    super.renderReactive(sim);
    if(this.previewStudio||!this.world.workshop)return;
@@ -4331,7 +4357,13 @@ DC.MercadoModels={"taller":{"size":[6.5325,6.5,8.5286],"levels":[{"triangles":65
     this.add(this.dynamic,key+lod,site.x,.145,site.z,1,1,1,[.45,.43,.38],material,0,site.yaw);
    };
    draw('taller',this.world.workshop,50,950,72);
-   for(const site of this.world.shelters)draw('marquesina',site,51,330,40);
+   for(const site of this.world.shelters){
+    draw('marquesina',site,51,330,40);
+    const l=site.diffuser;
+    if(Math.hypot(l.x-eye[0],l.z-eye[2])<90){
+     this.add(this.dynamic,'box',l.x,l.y+.023,l.z,.78,.046,.15,[.59,.55,.46],0,5*this.diffuserPower(),site.yaw);
+    }
+   }
   }
  }
  D.Renderer=MercadoRenderer;
