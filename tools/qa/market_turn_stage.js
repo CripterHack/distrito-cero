@@ -1,11 +1,12 @@
 // QA for a real seeded route. Mesh coordinates, weights and palette rows are those of the street renderer.
-() => {
+far => {
  const {r,sim,ped,live,storage}=marketQA,gl=r.gl,route=ped.sidewalkRoute;
- const dt=1/60,mesh=r.meshes.marketPed0,stride=DC.SkinRig.paletteStride;
+ const key=far?'marketPed1':'marketPed0',other=far?'marketPed0':'marketPed1';
+ const dt=1/60,mesh=r.meshes[key],stride=DC.SkinRig.paletteStride;
  const previous=gl.getParameter(gl.ARRAY_BUFFER_BINDING),vbo=new Float32Array(mesh.count*16);
  gl.bindBuffer(gl.ARRAY_BUFFER,mesh.vbo);gl.getBufferSubData(gl.ARRAY_BUFFER,0,vbo);
  gl.bindBuffer(gl.ARRAY_BUFFER,previous);
- if(gl.getError())throw Error('Cannot read the production LOD0 vertex buffer');
+ if(gl.getError())throw Error('Cannot read the production street vertex buffer');
  const feet={};
  for(const side of ['L','R']){
    // Each fixed sample is a unique point with weights. Triangulation and UV seams do not bias its mean.
@@ -32,9 +33,9 @@
    return [inst[0]+c*x+s*z,inst[1]+y-(ped.groundY||0),inst[2]-s*x+c*z];
  }
  function sample(){
-   const inst=r.dynamic.marketPed0;
-   if(inst.length!==16||r.dynamic.marketPed1.length||inst[12]||inst[13]||inst[14]||ped.panic)
-     throw Error('Expected one upright, calm near-LOD Mercado instance');
+   const inst=r.dynamic[key];
+   if(inst.length!==16||r.dynamic[other].length||inst[12]||inst[13]||inst[14]||ped.panic)
+     throw Error('Expected one upright, calm Mercado instance in '+key);
    const slot=inst[15]-200;
    if(!Number.isInteger(slot)||slot<1||slot>=r.castCursor)throw Error('Invalid skin palette row');
    const palette=r.posePixels.subarray(slot*stride,(slot+1)*stride),feetWorld={};
@@ -51,7 +52,8 @@
  }
  function arrive(){
    const towardEnd=route.towardEnd,dest=towardEnd?route.endZ:route.startZ;
-   const eye=[route.x+2.05,1.30,dest+1.92],target=[route.x,1.02,dest];
+   const eye=far?[route.x+5.6,1.65,dest+23.7]:[route.x+2.05,1.30,dest+1.92];
+   const target=[route.x,1.02,dest];
    if(sim.world.blocked(eye[0],eye[2],.18)||!sim.world.visible(eye[0],eye[2],route.x,dest))
      throw Error('Endpoint camera is obstructed');
    const floorProbes=[];
@@ -67,7 +69,7 @@
      if(route.towardEnd!==towardEnd){
        if(Math.abs(ped.z-dest)>.002||Math.abs(route.wait-2.4)>.001||sim.peds.length!==72||ped.panic)
          throw Error('Unexpected endpoint, population, or stop');
-       return {dest,eye,target,fov:r.fovOverride,quality:r.quality,floorProbes,arrival:sim.time,towardEnd};
+       return {dest,eye,target,batch:key,fov:r.fovOverride,quality:r.quality,floorProbes,arrival:sim.time,towardEnd};
      }
      if(Math.abs(ped.z-dest)<1 && i%3===0)r.updateDynamic(sim);
    }

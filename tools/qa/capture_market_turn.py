@@ -19,6 +19,15 @@ def drift(rows, side):
     return max(hypot(a[0] - b[0], a[2] - b[2]) for a in points for b in points)
 
 
+def grounded_drift(rows):
+    result = {}
+    for side in SIDES:
+        groups = groupby(rows, lambda r: r['feet'][side]['clearance'] <= .01)
+        contacts = [list(group) for contact, group in groups if contact]
+        result[side] = max((drift(group, side) for group in contacts), default=None)
+    return result
+
+
 def measure(rows, offset):
     total = 1.4
     phases = []
@@ -32,16 +41,15 @@ def measure(rows, offset):
                            swingClearanceM=max(r['feet'][swing]['clearance'] for r in phase),
                            supportMaxClearanceM=max(r['feet'][support]['clearance'] for r in phase)))
     # Independent of any clip definition. Track continuous physical contact separately per shoe.
-    grounded = {}
-    for side in SIDES:
-        groups = groupby(rows, lambda r: r['feet'][side]['clearance'] <= .01)
-        contacts = [list(group) for contact, group in groups if contact]
-        grounded[side] = max((drift(group, side) for group in contacts), default=None)
+    windows = {'arrival':(rows[0]['time'], start), 'turn':(start, start + total),
+               'rest':(start + total, rows[-1]['time'])}
+    by_window = {name:grounded_drift([r for r in rows if lo - 1e-8 <= r['time'] <= hi + 1e-8])
+                 for name, (lo, hi) in windows.items()}
     turn_runs = [list(group) for present, group in groupby(rows, lambda r: r['turn'] is not None) if present]
     active = [r for run in turn_runs for r in run]
     if any(not isfinite(v) for row in rows for foot in row['feet'].values() for v in [*foot['center'], foot['clearance']]):
         raise RuntimeError('Non-finite skinned shoe position')
-    return dict(phases=phases, groundedDriftM=grounded, turnSamples=len(active),
+    return dict(phases=phases, groundedDriftM=grounded_drift(rows), groundedDriftByWindowM=by_window, turnSamples=len(active),
                 turnRuns=len(turn_runs), headingReversed=cos(rows[-1]['heading'] - rows[0]['heading']) < -.999,
                 progressMonotonic=all(b['turn'] > a['turn'] for a, b in zip(active, active[1:])),
                 waitRemainingS=rows[-1]['wait'],
@@ -53,7 +61,7 @@ def measure(rows, offset):
                 rootDriftM=max(hypot(r['root'][0]-rows[0]['root'][0], r['root'][1]-rows[0]['root'][1]) for r in rows))
 
 
-def capture(html, output, offset, images):
+def capture(html, output, offset, images, far):
     raw = html.read_bytes()
     report = dict(htmlSha256=sha256(raw).hexdigest(), turnOffsetS=offset, endpoints={})
     errors = []
@@ -62,7 +70,7 @@ def capture(html, output, offset, images):
         page.set_viewport_size({'width':640, 'height':480})
         report['environment'] = page.evaluate(SETUP)
         report['chromium'] = browser.version
-        report['landmarks'] = page.evaluate(STAGE)
+        report['landmarks'] = page.evaluate(STAGE, far)
         for label in ('north', 'south'):
             endpoint = page.evaluate('marketTurnQA.arrive()')
             rows = []
@@ -88,12 +96,13 @@ def main():
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--turn-offset', type=float, default=.5)
     parser.add_argument('--metrics-only', action='store_true')
+    parser.add_argument('--far', action='store_true', help='Sample the reduced mesh through the normal distance selection')
     parser.add_argument('--require-turn', action='store_true')
     args = parser.parse_args()
     if not 0 <= args.turn_offset <= 1:
         parser.error('The turn must fit inside the 2.4 s stop')
     args.output.mkdir(parents=True, exist_ok=True)
-    report = capture(args.html, args.output, args.turn_offset, not args.metrics_only)
+    report = capture(args.html, args.output, args.turn_offset, not args.metrics_only, args.far)
     if args.require_turn:
         for label, endpoint in report['endpoints'].items():
             if endpoint['turnRuns'] != 1 or not endpoint['progressMonotonic']:
