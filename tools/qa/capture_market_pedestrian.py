@@ -20,7 +20,18 @@ sys.path.insert(0, str(ROOT/'tests'))
 from character_benchmark import FIX
 from qa_support import launch_options
 
-SETUP = """async () => {
+BROKEN_ATLAS = """(()=>{
+ const src=Object.getOwnPropertyDescriptor(HTMLImageElement.prototype,'src');
+ window.qaMarketAtlasFaults=0;
+ Object.defineProperty(HTMLImageElement.prototype,'src',{...src,set(value){
+   if(value===window.DC?.MarketPedAsset?.atlas){
+     window.qaMarketAtlasFaults++;return src.set.call(this,'data:image/webp;base64,AA==');
+   }
+   return src.set.call(this,value);
+ }});
+})();"""
+
+SETUP = """async (missingAtlas=false) => {
  const app=DC_APP;app.stopFrame();qaStopFrames();window.requestAnimationFrame=()=>0;
  const r=app.renderer,sim=new DC.Simulation(new DC.World(1337));
  sim.free=true;
@@ -28,8 +39,9 @@ SETUP = """async () => {
  if(marked.length!==1)throw Error('Expected one seeded Mercado resident; got '+marked.length);
  const ped=marked[0],live=JSON.stringify(app.sim.serialize()),storage=JSON.stringify([...qaCharacterStorage]);
  await r.humanReady;
- if(!(await r.mercadoReady)||!(await r.marketPedReady))throw Error('Embedded maps are not ready');
- // Enter the parked starter car so that a real horn can later provoke the fallback.
+ if(!(await r.mercadoReady)||Boolean(await r.marketPedReady)===Boolean(missingAtlas))throw Error('Unexpected embedded atlas state');
+ if(!DC.MarketPedAsset.clips.Carrera)throw Error('Missing authored Carrera clip');
+ // Reach the resident with the starter car and sound its horn during the test.
  sim.interact('car');
  for(let i=0;sim.access&&i<720;i++)sim.step(1/60,{});
  if(sim.player.car!==0)throw Error('Starter vehicle access failed');
@@ -39,11 +51,11 @@ SETUP = """async () => {
  r.world=sim.world;r.previewStudio=false;r.daylight=.83;r.rain=r.bloom=0;r.quality='balanced';
  r.resize();r.resetSectors();r.syncSectors(100);
  const settle=seconds=>{for(let i=0;i<Math.round(seconds*60);i++)sim.step(1/60,{});};
- window.marketQA={r,sim,ped,settle,live,storage};
+ window.marketQA={r,sim,ped,settle,live,storage,vertexBuffers:new Map()};
  const gl=r.gl,ext=gl.getExtension('WEBGL_debug_renderer_info');
  return {seed:sim.world.seed,actor:ped.personId||ped.id,actorOrigin:[ped.x,ped.z],workshop:[shop.x,shop.z],
    webgl:gl.getParameter(gl.VERSION),renderer:ext?gl.getParameter(ext.UNMASKED_RENDERER_WEBGL):gl.getParameter(gl.RENDERER),
-   canvas:[r.canvas.width,r.canvas.height]};
+   clips:DC.MarketPedAsset.clips,canvas:[r.canvas.width,r.canvas.height]};
 }"""
 
 WALK = """() => {
@@ -65,7 +77,7 @@ HORN = """() => {
  return {range,horn:sim.actor().horn,panic:ped.panic};
 }"""
 
-DRAW = """({view,control}) => {
+DRAW = """({view,control,measure,fallback}) => {
  const {r,sim,ped,live,storage}=marketQA,gl=r.gl;
  const delta=view==='far'?[5.6,1.65,23.7]:[2.55,1.36,2.20];
  const eye=[ped.x+delta[0],delta[1],ped.z+delta[2]],target=[ped.x,.95,ped.z];
@@ -108,6 +120,13 @@ DRAW = """({view,control}) => {
  if(before!==state()||live!==JSON.stringify(DC_APP.sim.serialize())||storage!==JSON.stringify([...qaCharacterStorage]))
    throw Error('Rendering changed the resident, game state, or persistent storage');
  if(actorVisits!==1)throw Error('Expected one production renderPerson visit for the seeded resident; got '+actorVisits);
+ if(fallback){
+   const generic=[...parts].filter(k=>r.meshes[k]?.crowd&&!keyOf.has(r.meshes[k].vao));
+   if(!generic.length||!otherCrowd.size||calls.length||window.qaMarketAtlasFaults!==1)
+     throw Error('Unusable embedded atlas did not select the standard cast');
+   return {actor:ped.personId,atlasDecodeFailures:window.qaMarketAtlasFaults,nativeDraws:calls.length,
+           genericCrowdMeshes:generic.sort(),actorVisits,glError:gl.getError()};
+ }
  const batch=Object.keys(r.dynamic).find(k=>keyOf.get(r.meshes[k]?.vao) && r.dynamic[k].length);
  if(!batch||r.dynamic[batch].length!==16)throw Error('Expected one native Mercado instance');
  const slot=r.dynamic[batch][15]-200,stride=DC.SkinRig.paletteStride;
@@ -116,21 +135,50 @@ DRAW = """({view,control}) => {
  if(!pose.every(Number.isFinite))throw Error('Non-finite skin palette');
  if([...parts].some(k=>r.meshes[k]?.crowd&&!keyOf.has(r.meshes[k].vao))||!otherCrowd.size)
    throw Error('Duplicate cast body or missing unmarked crowd');
+ let metrics;
+ if(measure){
+   const mesh=r.meshes[batch],vertices=marketQA.vertexBuffers;
+   if(!vertices.has(batch)){
+     const previous=gl.getParameter(gl.ARRAY_BUFFER_BINDING),data=new Float32Array(mesh.count*16);
+     gl.bindBuffer(gl.ARRAY_BUFFER,mesh.vbo);gl.getBufferSubData(gl.ARRAY_BUFFER,0,data);
+     gl.bindBuffer(gl.ARRAY_BUFFER,previous);vertices.set(batch,data);
+     if(gl.getError())throw Error('Cannot read production vertex buffer');
+   }
+   const data=vertices.get(batch),inst=r.dynamic[batch];
+   if(inst[12]||inst[13]||inst[14])throw Error('Expected an upright resident for the pavement measurement');
+   let low=Infinity,high=-Infinity;
+   for(let i=0;i<data.length;i+=16){
+     let height=0;
+     for(let k=0;k<4;k++){
+       const j=16*data[i+8+k],weight=data[i+12+k];
+       height+=weight*(pose[j+1]*data[i]+pose[j+5]*data[i+1]+pose[j+9]*data[i+2]+pose[j+13]);
+     }
+     height=inst[1]+height*inst[5]-(ped.groundY||0);
+     low=Math.min(low,height);high=Math.max(high,height);
+   }
+   const work=new Float32Array(stride),phase=ped.phase/(Math.PI*2),idle=r.currentTime/DC.MarketPedAsset.clips.Reposo.duration;
+   const clipError=(walk,run)=>{
+     DC.MarketPedAsset.writePalette(work,phase,idle,walk,run);
+     return Math.sqrt(work.reduce((sum,v,i)=>sum+(v-pose[i])**2,0)/stride);
+   };
+   metrics={heightAboveCurb:[low,high],paletteRms:{Reposo:clipError(0,0),Marcha:clipError(1,0),Carrera:clipError(1,1)}};
+ }
  const corners=[];
  for(const dx of [-.53,.53])for(const dy of [-.03,1.88])for(const dz of [-.42,.42]){
    const [x,y,z,w]=r.project(ped.x+dx,dy+(ped.groundY||0),ped.z+dz);
    if(w<=0||Math.abs(z)>=1)throw Error('Resident out of view');
    corners.push([(1+x)*r.canvas.width/2,(1-y)*r.canvas.height/2]);
  }
- return {png:r.canvas.toDataURL('image/png').split(',')[1],pose,calls,slot,otherCrowdMeshes:otherCrowd.size,parts:[...parts].sort(),actorVisits,
+ return {metrics,png:r.canvas.toDataURL('image/png').split(',')[1],pose,calls,slot,otherCrowdMeshes:otherCrowd.size,parts:[...parts].sort(),actorVisits,
    time:sim.time,pos:[ped.x,ped.z],speed:ped.moveSpeed||0,phase:ped.phase,panic:ped.panic,yaw:ped.yaw,
-   camera:eye,playerRange:DC.distance(ped,sim.player),roi:[Math.floor(Math.min(...corners.map(p=>p[0]))),
-   Math.floor(Math.min(...corners.map(p=>p[1]))),Math.ceil(Math.max(...corners.map(p=>p[0]))),Math.ceil(Math.max(...corners.map(p=>p[1])))]};
+   camera:eye,playerRange:DC.distance(ped,sim.player),roi:[Math.max(0,Math.floor(Math.min(...corners.map(p=>p[0])))),
+   Math.max(0,Math.floor(Math.min(...corners.map(p=>p[1])))),Math.min(r.canvas.width,Math.ceil(Math.max(...corners.map(p=>p[0])))),
+   Math.min(r.canvas.height,Math.ceil(Math.max(...corners.map(p=>p[1]))))]};
 }"""
 
 
-def draw(page, view, control=None):
-    frame=page.evaluate(DRAW, dict(view=view,control=control))
+def draw(page, view, control=None, measure=False):
+    frame=page.evaluate(DRAW, dict(view=view,control=control,measure=measure))
     pixels=base64.b64decode(frame.pop('png'))
     frame['sha256']=sha256(pixels).hexdigest()
     palette=frame.pop('pose')
@@ -152,7 +200,7 @@ def actor_mask(frame, present, absent):
 
 
 def sample(page, out, name, view='near', lod=0):
-    frame,present=draw(page,view)
+    frame,present=draw(page,view,measure=True)
     control,absent=draw(page,view,'without-model')
     if any(frame[k]!=control[k] for k in ['time','roi','camera','pos','phase']):
         raise RuntimeError('The actor or camera moved between the test and control exposures')
@@ -160,6 +208,11 @@ def sample(page, out, name, view='near', lod=0):
     if (len(draws)!=1 or draws[0]['key']!='marketPed'+str(lod) or draws[0]['instances']!=1
             or draws[0]['vertices']<=0):
         raise RuntimeError('Unexpected Mercado main-pass draw: '+str(draws))
+    errors=frame['metrics']['paletteRms']
+    nearest=min(errors,key=errors.get)
+    expected={'idle':'Reposo','alert':'Carrera'}.get(name,'Marcha')
+    if nearest!=expected or errors[expected]>=.04:
+        raise RuntimeError(f'{name} skin matrices do not match {expected}: {errors}')
     mask,pixels=actor_mask(frame,present,absent)
     present.save(out/(name+'.png'))
     if name=='idle':absent.save(out/'idle-control.png')
@@ -181,18 +234,23 @@ def motion(page, out, name):
     return trajectory
 
 
+def load_page(browser, document, errors, *, fault=''):
+    page=browser.new_page(viewport={'width':880,'height':600},device_scale_factor=1)
+    page.on('pageerror',lambda e:errors.append(str(e)))
+    page.on('console',lambda m:errors.append(m.text) if m.type=='error' else None)
+    page.on('request',lambda r:errors.append(r.url) if r.url.startswith(('https:','http:')) else None)
+    page.set_content(document.replace('<script>','<script>'+FIX+fault,1),timeout=120000)
+    page.wait_for_function('!!window.DC_APP',timeout=120000)
+    return page
+
+
 def capture(html, out):
     raw=html.read_bytes()
     report={'htmlSha256':sha256(raw).hexdigest(),'frames':{}}
     images={}
     with sync_playwright() as pw,pw.chromium.launch(**launch_options()) as browser:
-        page=browser.new_page(viewport={'width':880,'height':600},device_scale_factor=1)
         errors=[]
-        page.on('pageerror',lambda e:errors.append(str(e)))
-        page.on('console',lambda m:errors.append(m.text) if m.type=='error' else None)
-        page.on('request',lambda r:errors.append(r.url) if r.url.startswith(('https:','http:')) else None)
-        page.set_content(raw.decode().replace('<script>','<script>'+FIX,1),timeout=120000)
-        page.wait_for_function('!!window.DC_APP',timeout=120000)
+        page=load_page(browser,raw.decode(),errors)
         report['environment']=page.evaluate(SETUP)
         report['chromium']=browser.version
         # Warm shaders, static chunks, and the first crowd palette transfer.
@@ -232,10 +290,32 @@ def capture(html, out):
             raise RuntimeError('Startled resident did not run')
         report['frames']['alert']=alert
         report['motion']={'marcha':walk_frames,'carrera':motion(page,out,'carrera')}
+        page.close()
+        # Exercise the actual image decoder's error path with only the resident atlas damaged.
+        fallback_page=load_page(browser,raw.decode(),errors,fault=BROKEN_ATLAS)
+        fallback_page.evaluate(SETUP,True)
+        report['fallback']=fallback_page.evaluate(DRAW,dict(view='near',fallback=True))
+        fallback_page.close()
         if errors:raise RuntimeError(str(errors))
         report['errors']=errors
-        page.close()
     return report,images
+
+
+def visibility_plate(out, bounds):
+    # The two source images differ only in the main-pass draw of the resident.
+    present=Image.open(out/'idle.png').convert('RGB')
+    absent=Image.open(out/'idle-control.png').convert('RGB')
+    mask,_=actor_mask({'roi':bounds},present,absent)
+    panels=[('Dibujo normal',present.crop(bounds)),('Control',absent.crop(bounds)),
+            ('Píxeles del residente',mask.convert('RGB'))]
+    w,h=panels[0][1].size
+    board=Image.new('RGB',(3*w,h+40),'#1a262a')
+    canvas=ImageDraw.Draw(board)
+    font=ImageFont.load_default(size=19)
+    for i,(label,panel) in enumerate(panels):
+        board.paste(panel,(i*w,0))
+        canvas.text((i*w+10,h+9),label,fill='#f5eee2',font=font)
+    board.save(out/'control.jpg',quality=90,optimize=True)
 
 
 def gallery(out, images):
@@ -259,5 +339,6 @@ if __name__=='__main__':
     args.output.mkdir(parents=True,exist_ok=False)
     result,shots=capture(args.html,args.output)
     gallery(args.output,shots)
+    visibility_plate(args.output,result['frames']['idle']['roi'])
     (args.output/'report.json').write_text(json.dumps(result,indent=2,ensure_ascii=False)+'\n')
     print('Verified real Mercado pedestrian, motion, both LODs and horn reaction.')
