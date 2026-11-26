@@ -42,7 +42,7 @@ function buildPose(doc, binary) {
   }
   const clips = {};
   for (const animation of doc.animations) {
-    if (!['Marcha','Reposo','Carrera'].includes(animation.name)) continue;
+    if (!['Marcha','Reposo','Carrera','Giro'].includes(animation.name)) continue;
     const firstInput = animation.samplers[0].input, times = accessor(doc,binary,firstInput);
     const frames = times.a.count, duration = times.value(frames-1);
     for (let i=0;i<frames;i++) {

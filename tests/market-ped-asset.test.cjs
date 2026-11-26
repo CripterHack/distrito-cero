@@ -32,6 +32,15 @@ test('market pedestrian comes from the reviewed skinned GLB, with two budgeted L
  }
 });
 
+test('the shipped street poses match the tracks baked from the reviewed GLB',()=>{
+ const {MarketPedData:data}=load();
+ const {decodeGlb}=require('../tools/export_human_tangents.cjs');
+ const {buildPose}=require('../tools/prepare_market_ped_pose.cjs');
+ const {document:doc,binary}=decodeGlb(fs.readFileSync(path.join(root,data.source)));
+ assert.deepEqual(Object.keys(data.pose.clips).sort(),['Carrera','Giro','Marcha','Reposo']);
+ assert.deepEqual(JSON.parse(JSON.stringify(data.pose)),buildPose(doc,binary));
+});
+
 test('street meshes keep the repaired finger walls, both knee edges and source skin weights',()=>{
  const {accessor,decodeGlb}=require('../tools/export_human_tangents.cjs');
  const {MarketPedAsset:asset,MarketPedData:data}=load();
