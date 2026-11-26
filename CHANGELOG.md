@@ -3,6 +3,7 @@
 - Un residente recorre los 19 m de acera entre la parada del Mercado y la esquina. Espera en ambos extremos y corre al oír un claxon cercano.
 - El personaje 3D de Higgsfield tiene dos mallas de juego y tres animaciones con transiciones. El GLB de autoría incluye la corrección del pantalón en las rodillas.
 - Las marquesinas tienen un difusor bajo la cubierta. Su luz aumenta al anochecer y cae con la distancia hasta los cuatro metros.
+- Los zapatos y la sombra del jugador siguen la altura de la acera y del bordillo. El equipo en mano se eleva con el cuerpo.
 
 # v0.20.28 · Barrio del Mercado · 2026-11-26
 

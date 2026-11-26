@@ -1,6 +1,6 @@
 # Candidata v0.20.29 · El residente del Mercado
 
-El civil de Higgsfield aparece en la acera de la marquesina del Mercado. Usa el puesto existente `ped:38`, un recorrido de ida y vuelta de 19 m, dos niveles de detalle y tres animaciones. La simulación regula el paso y el renderizador mezcla reposo, marcha y carrera. Las dos marquesinas tienen un difusor que ilumina al residente y el banco durante la noche. [Especificación, reproducción y evidencia](../../specs/005-mercado-character/README.md).
+El civil de Higgsfield aparece en la acera de la marquesina del Mercado. Usa el puesto existente `ped:38`, un recorrido de ida y vuelta de 19 m, dos niveles de detalle y tres animaciones. La simulación regula el paso y el renderizador mezcla reposo, marcha y carrera. Las dos marquesinas tienen un difusor que ilumina al residente y el banco durante la noche. El avatar del jugador, sus objetos y su sombra siguen las superficies de acera y calzada durante el recorrido. [Especificación, reproducción y evidencia](../../specs/005-mercado-character/README.md).
 
 ## Registro anterior
 

@@ -1,6 +1,6 @@
 # Continuación · v0.20.29 · refs #5
 
-Revisar al residente en la acera del Mercado, a pie y desde un vehículo. Para la aprobación artística quedan la lectura de las manos de cerca y el contacto del calzado al girar en el extremo del recorrido. Medir el coste de ambas mallas y su transición en GPU física antes de extender este recurso al reparto. En la toma a pie junto a la parada, el avatar modular del jugador se hunde a la altura de los tobillos. Revisar el apoyo en las parcelas elevadas y en el borde de la calzada con sus alturas de superficie respectivas. Comprobar también la entrada al coche y los puntos de agarre al modificar la altura del avatar. [Recorrido, pruebas y presupuesto](../../specs/005-mercado-character/README.md).
+Revisar al residente en la acera del Mercado, a pie y desde un vehículo. Para la aprobación artística quedan la lectura de las manos de cerca y el contacto del calzado al girar en el extremo del recorrido. Medir el coste de ambas mallas y su transición en GPU física antes de extender este recurso al reparto. La corrección del apoyo para el jugador reutiliza las superficies del sector. La comparación de la misma pose junto al bordillo pasa de 13,5 cm de penetración a contacto con el plano de 0,150 m. Para el siguiente pase de animación, revisar la transferencia del peso del cuerpo al primer escalón del acceso a un coche aparcado junto a la acera. [Recorrido, pruebas y presupuesto](../../specs/005-mercado-character/README.md).
 
 ## Registro anterior
 
