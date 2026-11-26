@@ -44,6 +44,8 @@ El job de lógica de #66 detectó que un checkout limpio carecía de `artifacts/
 
 **Actualización de autoría.** Ya se pueden revisar las manos cerrando cada índice en la [escena editable](../../assets/higgsfield-20261125/hand-authoring.md). El trabajo pendiente es reconstruir las paredes entre dedos y repetir las flexiones. El [proxy de ruedas](../../assets/higgsfield-20261125/sedan-contact-proxy.md) queda listo para autoría. El [corte del habitáculo](../../assets/higgsfield-20261125/sedan-cabin.md) mide los tobillos a unos 8,5 cm por debajo de los bajos en la pose de referencia. Ajustar el espacio para los pies y contrastar la posición de la manilla con la trayectoria de la mano antes de vincular la carrocería al acceso del juego.
 
+**Índices del personaje.** La [retopología bilateral](../../assets/higgsfield-20261125/index-retopology.md) reconstruye las paredes entre índice y medio. Al flexionar 30°, el alargamiento máximo regional baja de 40,52 a 5,05 mm en la izquierda y de 42,30 a 5,49 mm en la derecha. Revisar en `Palma.R` el filete claro y la sombra en la raíz antes de pintar la transición; luego continuar por medio–anular y anular–meñique.
+
 ## Registro anterior · v0.20.24
 
 # Continuación vigente · v0.20.24 · continuidad cervical LOD2 · refs #5
