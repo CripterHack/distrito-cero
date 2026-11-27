@@ -1,3 +1,7 @@
+# Frenada del residente · v0.20.31
+
+Los apoyos se comparan en el renderer de producción siguiendo por separado un vértice de talón y otro de puntera en las dos mallas de calle. La maniobra comprende los últimos centímetros de marcha, la llegada y la preparación de la media vuelta. [Especificación y evidencia](../../specs/007-mercado-braking/README.md).
+
 # Media vuelta del Mercado · v0.20.30
 
 La [especificación del giro](../../specs/006-mercado-turn/README.md) identifica los dos extremos de la acera, las fases de apoyo y la reacción al claxon. La comparación usa el calzado deformado en coordenadas de mundo.

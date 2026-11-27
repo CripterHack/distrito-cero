@@ -20,11 +20,11 @@ function save(name, values) {
   fs.writeFileSync(path.join(dir, name), Buffer.from(values.buffer));
 }
 for (const lod of [0, 1]) save('mesh' + lod, asset.decodeLevel(lod));
-for (const [name, walk, run] of [['Reposo', 0, 0], ['Marcha', 1, 0], ['Carrera', 1, 1], ['Transicion', 1, .5], ['Giro', 0, 0]]) {
+for (const [name, walk, run] of [['Reposo', 0, 0], ['Marcha', 1, 0], ['Carrera', 1, 1], ['Transicion', 1, .5], ['Giro', 0, 0], ['FrenadaL', 0, 0], ['FrenadaR', 0, 0]]) {
   const matrices = new Float32Array(phases * 49 * 16);
   for (let i = 0; i < phases; i++) {
     const phase = i / (phases - 1);
-    asset.writePalette(matrices.subarray(i * 49 * 16), phase, phase, walk, run, name === 'Giro' ? phase : null);
+    asset.writePalette(matrices.subarray(i * 49 * 16), phase, phase, walk, run, ['Giro','FrenadaL','FrenadaR'].includes(name) ? phase : null, 1, name);
   }
   save(name, matrices);
 }
@@ -64,11 +64,11 @@ with TemporaryDirectory() as directory:
     out = Path(directory)
     subprocess.run(['node', '-e', EXPORT, directory, str(PHASES)], cwd=ROOT, check=True)
     clips = {}
-    for name in ['Reposo', 'Marcha', 'Carrera', 'Transicion', 'Giro']:
+    for name in ['Reposo', 'Marcha', 'Carrera', 'Transicion', 'Giro', 'FrenadaL', 'FrenadaR']:
         column_major = np.fromfile(out / name, dtype='<f4').reshape(PHASES, 49, 4, 4)
         clips[name] = column_major.swapaxes(-1, -2)
     for lod in [0, 1]:
         vertices = np.fromfile(out / f'mesh{lod}', dtype='<f4').reshape(-1, 3, 16)
         for sign in [-1, 1]:
             check_leg(vertices, sign, clips, lod)
-print(f"Street LOD knees passed {PHASES} phases of five poses on both legs and both meshes.")
+print(f"Street LOD knees passed {PHASES} phases of seven poses on both legs and both meshes.")

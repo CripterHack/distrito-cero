@@ -3,6 +3,25 @@
  const CAR_COLORS=[[.11,.2,.23],[.38,.06,.045],[.045,.055,.063],[.62,.63,.56],[.1,.16,.29],[.29,.25,.19],[.09,.24,.17]];
  const SIDEWALK_STOP_SECONDS=2.4, TURN_SECONDS=1.4;
  const TURN_START_REMAINING=(SIDEWALK_STOP_SECONDS+TURN_SECONDS)/2;
+ // First grounded key of the authored stop, in cycles and metres at 1.35 m/s.
+ const BRAKE_ENTRY=.15, BRAKE_REACH=.1653272101033296, BRAKE_SECONDS=4*BRAKE_REACH/1.35;
+ function planSidewalkStop(n,approach,runDistance=0){
+  if(approach<=0)return;
+  const tau=2*Math.PI,rate=D.NaturalMotion?D.NaturalMotion.distanceRate(n.speed):3;
+  const runRate=D.NaturalMotion?D.NaturalMotion.distanceRate(n.speed*2.8,.5):3;
+  // Allow the run-to-walk blend to settle before placing the final walking foot.
+  if(runDistance && approach-runDistance<.5)return;
+  const projected=n.phase+(approach-runDistance)*rate+runDistance*runRate;
+  const half=Math.round(2*(projected/tau-BRAKE_ENTRY));
+  const correction=(BRAKE_ENTRY+half/2)*tau-projected;
+  // Choose the starting foot while still at rest. When recovering from a run,
+  // spread the correction over the remaining strides only if it is small.
+  let bias=0;
+  if(n.moveSpeed<.001 && !runDistance)n.phase+=correction;
+  else if(Math.abs(correction)<.04*approach*(runDistance?Math.min(runRate,rate):rate))bias=correction/approach;
+  else return;
+  n.sidewalkRoute.brakePlan={phaseRate:rate+bias,runRate:runRate+bias,clip:half%2?'FrenadaR':'FrenadaL'};
+ }
  class Simulation{
   constructor(world){
    this.world=world;this.random=D.rng(418);this.time=0;this.cash=850;this.heat=0;this.wanted=0;this.unseen=0;this.seen=false;this.bust=0;this.story=0;this.free=false;this.ending=null;this.events=[];this.job=null;this.upload=0;this.uploading=false;this.collected=[];this.stats={distance:0,jobs:0,escapes:0};
@@ -269,8 +288,29 @@
    for(const [key,value] of this.contactRecords)if(this.time-value.touch>3)this.contactRecords.delete(key);
    if(playerCar){p.x=playerCar.x;p.z=playerCar.z;}
   }
+  brakeSidewalk(n,seconds){
+   const route=n.sidewalkRoute,brake=route.brake,fleeing=n.panic>0;
+   const endZ=route.towardEnd?route.endZ:route.startZ;
+   const u=brake.progress=Math.min(1,brake.progress+seconds*(fleeing?1.65:1)/BRAKE_SECONDS);
+   // The GLB and simulation both cover the same distance with zero exit speed.
+   const left=(1-u)**4;
+   const x=route.x+(brake.startX-route.x)*left,z=endZ+(brake.startZ-endZ)*left;
+   const q=this.world.move(n.x,n.z,x-n.x,z-n.z,.35);
+   if(u===1||q.hit){
+    route.brake=route.brakePlan=null;route.towardEnd=!route.towardEnd;
+    route.wait=fleeing?0:SIDEWALK_STOP_SECONDS;
+   }
+   return q;
+  }
   walkSidewalk(n,speed,dt,car){
    const route=n.sidewalkRoute,fleeing=n.panic>0;
+   if(route.brake){
+    route.fleeing=fleeing;
+    return this.brakeSidewalk(n,dt);
+   }
+   // Replan when the escape starts, ends, or an approaching car prolongs it.
+   if(fleeing!==route.fleeing || (fleeing&&n.panic>route.panicLeft))route.brakePlan=null;
+   route.panicLeft=n.panic;
    if(fleeing){
     route.wait=0;
     if(!route.fleeing && car && !route.turn){
@@ -302,8 +342,20 @@
    }
    n.yaw=D.turn(n.yaw,heading,dt*4);
    const step=Math.min(distance,speed*movingTime*Math.max(0,Math.cos(heading-n.yaw)));
+   const approach=distance-BRAKE_REACH;
+   if(!route.brakePlan && step>0){
+    // The timer was decremented at the top of this tick. Allow half a tick
+    // for the subframe expiry, then reconcile with the actual remaining stride.
+    const runDistance=fleeing?speed*(n.panic+.5*dt):0;
+    planSidewalkStop(n,approach,runDistance);
+   }
+   if(!fleeing && route.brakePlan && step>0 && step>=approach){
+    const scale=BRAKE_REACH/distance;
+    route.brake={clip:route.brakePlan.clip,startX:route.x-dx*scale,startZ:goalZ-dz*scale,progress:0};
+    return this.brakeSidewalk(n,movingTime*Math.max(0,1-approach/step));
+   }
    const q=step>0?this.world.move(n.x,n.z,dx/distance*step,dz/distance*step,.35):{x:n.x,z:n.z};
-   if(q.hit||distance-step<.00001){route.towardEnd=!route.towardEnd;route.wait=fleeing?0:SIDEWALK_STOP_SECONDS;}
+   if(q.hit||distance-step<.00001){route.brakePlan=null;route.towardEnd=!route.towardEnd;route.wait=fleeing?0:SIDEWALK_STOP_SECONDS;}
    return q;
   }
   pedestrians(dt){
@@ -314,7 +366,9 @@
     let direction=n.yaw;
     if(n.panic&&car)direction=Math.atan2(n.x-car.x,n.z-car.z);
     const q=n.sidewalkRoute?this.walkSidewalk(n,speed,dt,car):
-     this.world.move(n.x,n.z,Math.sin(direction)*speed*dt,Math.cos(direction)*speed*dt,.35);const travelled=D.distance(n,q);n.x=q.x;n.z=q.z;n.moveSpeed=travelled/Math.max(dt,.001);n.phase+=travelled*(D.NaturalMotion?D.NaturalMotion.distanceRate(n.moveSpeed,n.panic?.5:0):3);
+     this.world.move(n.x,n.z,Math.sin(direction)*speed*dt,Math.cos(direction)*speed*dt,.35);const travelled=D.distance(n,q);n.x=q.x;n.z=q.z;n.moveSpeed=travelled/Math.max(dt,.001);
+    const plan=n.sidewalkRoute?.brakePlan;
+    n.phase+=travelled*(plan?(n.panic?plan.runRate:plan.phaseRate):(D.NaturalMotion?D.NaturalMotion.distanceRate(n.moveSpeed,n.panic?.5:0):3));
     if(!n.sidewalkRoute&&(q.hit||n.z<n.homeZ+10||n.z>n.homeZ+74))n.yaw=D.wrap(n.yaw+Math.PI);
     if(car&&D.distance(n,car)<1.8&&Math.abs(car.speed)>4&&this.cooldowns.crime<=0){this.addHeat(18);this.cooldowns.crime=3;n.panic=8;this.emit('toast','Un peatón ha dado la alarma. La policía busca tu vehículo.');}
    }

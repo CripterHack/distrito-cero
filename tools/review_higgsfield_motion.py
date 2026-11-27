@@ -1,6 +1,6 @@
 """Create an editable Blender review scene for the Mercado resident's actions.
 
-blender -b -t 2 --python-exit-code 1 -P tools/review_higgsfield_motion.py -- [ORIGINAL.glb] CANDIDATE.glb NEW_DIR [--frames] [--turn-preview]
+blender -b -t 2 --python-exit-code 1 -P tools/review_higgsfield_motion.py -- [ORIGINAL.glb] CANDIDATE.glb NEW_DIR [--frames] [--turn-preview] [--brake-frames]
 """
 
 import argparse
@@ -97,6 +97,9 @@ def save_frames(scene, cameras, rig, out):
         counts = {"Marcha": 12, "Reposo": 8, "Carrera": 12} if view == "oblicua" else {"Marcha": 4, "Carrera": 4}
         if "Giro" in tracks:
             counts["Giro"] = 5
+        for name in ("FrenadaL", "FrenadaR"):
+            if name in tracks:
+                counts[name] = 5
         for name, count in counts.items():
             action = tracks[name].strips[0].action
             reset_pose(rig)
@@ -104,7 +107,7 @@ def save_frames(scene, cameras, rig, out):
             first, last = action.frame_range
             durations[name] = (last - first) * scene.render.fps_base / scene.render.fps
             for i in range(count):
-                intervals = count - 1 if name == "Giro" else count
+                intervals = count - 1 if name in ("Giro", "FrenadaL", "FrenadaR") else count
                 frame = first + (last - first) * i / intervals
                 whole = math.floor(frame)
                 scene.frame_set(whole, subframe=frame - whole)
@@ -146,6 +149,29 @@ def save_scene(scene, cameras, rig, out):
         scene.timeline_markers.new("Giro · media vuelta", frame=int(turn.frame_start))
         scene.timeline_markers.new("Fin del giro · de espaldas", frame=finish)
         scene.frame_end = finish + round(.5 * scene.render.fps / scene.render.fps_base)
+    if "FrenadaL" in strips:
+        # Consecutive one-shots on one NLA track hold only until the next take.
+        # Separate HOLD_FORWARD tracks would keep Giro layered over braking.
+        tracks = rig.animation_data.nla_tracks
+        stops = tracks["Giro"]
+        for name, side in (("FrenadaL", "izquierdo"), ("FrenadaR", "derecho")):
+            action = strips[name].action
+            tracks.remove(tracks[name])
+            strip = stops.strips.new(name, scene.frame_end + 1, action)
+            strip.name = name
+            strip.extrapolation = "HOLD_FORWARD"
+            scene.timeline_markers.new(f"{name} · apoyo {side}", frame=int(strip.frame_start))
+            scene.frame_end = math.ceil(strip.frame_end) + round(.5 * scene.render.fps / scene.render.fps_base)
+            angle = math.radians(58) * (1 if name == "FrenadaL" else -1)
+            bpy.ops.object.camera_add(location=(3 * math.sin(angle), -3 * math.cos(angle), .96))
+            camera = bpy.context.object
+            camera.name = f"Estudio · apoyo {side}"
+            camera.data.type = "ORTHO"
+            camera.data.sensor_fit = "HORIZONTAL"
+            camera.data.ortho_scale = .86
+            aim(camera, (0, -.025, .21))
+            cameras[name] = camera
+        stops.name = "Giro y frenadas"
     scene.frame_set(scene.frame_start)
     scene.camera = cameras["oblicua"]
     scene.cycles.samples = 32
@@ -171,6 +197,8 @@ def save_scene(scene, cameras, rig, out):
         "Pulse Espacio para reproducir. Los marcadores llevan a los cuatro ciclos de marcha, "
         "al reposo y a los cuatro ciclos de carrera. "
         + ("En la cuarta tira da media vuelta una vez y mantiene el último apoyo medio segundo. " if turn else "")
+        + ("Las marcas FrenadaL y FrenadaR muestran el apoyo izquierdo y el derecho. "
+           "Elija su cámara de apoyo para revisar el calzado. " if "FrenadaL" in strips else "")
         + "Las tiras de cada acción son editables en el editor NLA. "
         "Encienda Superposiciones para ver los 49 huesos. Para editar la malla en T, "
         "seleccione el esqueleto y active la posición de reposo en Propiedades de datos. "
@@ -183,9 +211,10 @@ def save_scene(scene, cameras, rig, out):
     bpy.ops.wm.save_as_mainfile(filepath=str((out / "character-motion.blend").resolve()), compress=True)
 
 
-def render_turn_preview(scene, rig, out):
-    turn = rig.animation_data.nla_tracks["Giro"].strips[0]
-    scene.frame_start = int(turn.frame_start)
+def render_turn_preview(scene, out):
+    markers = scene.timeline_markers
+    scene.frame_start = markers["Giro · media vuelta"].frame
+    scene.frame_end = markers["Fin del giro · de espaldas"].frame + round(.5 * scene.render.fps / scene.render.fps_base)
     scene.render.image_settings.file_format = "FFMPEG"
     scene.render.ffmpeg.format = "MPEG4"
     scene.render.ffmpeg.codec = "H264"
@@ -200,6 +229,7 @@ def main():
     parser.add_argument("candidate", type=Path)
     parser.add_argument("output", type=Path)
     parser.add_argument("--frames", action="store_true")
+    parser.add_argument("--brake-frames", action="store_true", help="render five foot close-ups for each brake")
     parser.add_argument("--turn-preview", action="store_true", help="render the one-shot Giro strip to giro-oblicua.mp4")
     args = parser.parse_args(sys.argv[sys.argv.index("--") + 1 :])
     if args.frames and args.original is None:
@@ -210,13 +240,31 @@ def main():
         render(reference, args.output / "referencia.png")
     scene, cameras = load(args.candidate)
     (rig,) = [obj for obj in scene.objects if obj.type == "ARMATURE"]
-    if args.turn_preview and "Giro" not in rig.animation_data.nla_tracks:
+    tracks = rig.animation_data.nla_tracks
+    has_brakes = "FrenadaL" in tracks and "FrenadaR" in tracks
+    if ("FrenadaL" in tracks or "FrenadaR" in tracks) and (not has_brakes or "Giro" not in tracks):
+        parser.error("La secuencia de frenado requiere Giro, FrenadaL y FrenadaR")
+    if args.brake_frames and not has_brakes:
+        parser.error("--brake-frames requiere las acciones FrenadaL y FrenadaR")
+    if args.turn_preview and "Giro" not in tracks:
         parser.error("--turn-preview requiere un GLB con la acción Giro")
     if args.frames:
         save_frames(scene, cameras, rig, args.output)
     save_scene(scene, cameras, rig, args.output)
     if args.turn_preview:
-        render_turn_preview(scene, rig, args.output)
+        render_turn_preview(scene, args.output)
+    if args.brake_frames:
+        scene.render.image_settings.file_format = "PNG"
+        scene.render.resolution_x, scene.render.resolution_y = 400, 320
+        stops = tracks["Giro y frenadas"].strips
+        for name in ("FrenadaL", "FrenadaR"):
+            strip = stops[name]
+            scene.camera = cameras[name]
+            for step in range(5):
+                frame = strip.frame_start + (strip.frame_end - strip.frame_start) * step / 4
+                whole = math.floor(frame)
+                scene.frame_set(whole, subframe=frame - whole)
+                render(scene, args.output / f"{name}-apoyo-{step}.png")
 
 
 if __name__ == "__main__":

@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "version": "0.20.30",
+  "version": "0.20.31",
   "name": "Barrio del Mercado",
   "channel": "prototype",
   "date": "2026-11-26",
-  "label": "v0.20.30",
+  "label": "v0.20.31",
   "product": "Distrito Cero",
-  "sourceSha256": "2029ca5f07fcd68203ac059beb7e84a7b0cfe65fc78de6546262094549b6d972",
-  "htmlSha256": "c29717f5178dfff47f0a63b93b26c7d350b1d4e1eaab2e9a307aa70027b0df05",
-  "htmlBytes": 11548017
+  "sourceSha256": "a04fcc716840ea2fb94b8d4e1eae23fd09a60c72ca2c92690c4a38eeea8362d9",
+  "htmlSha256": "ed3324c77cf501ba91bad3079a0f787068dd2e6f655191cb0c2106a0fae5b268",
+  "htmlBytes": 11606306
 }

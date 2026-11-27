@@ -17,7 +17,6 @@
    if(distance>=66||!this.assetParts.length){super.renderCar(c);return;}
    const L=this.dynamic,a=c.yaw,col=c.color,body=D.vehicleBodyFrame(c,this.currentTime);
    const {pitch,roll,point:rotate}=body;
-   const cp=Math.cos(pitch),sp=Math.sin(pitch),cr=Math.cos(roll),sr=Math.sin(roll);
    const put=(mesh,x,y,z,sx,sy,sz,color,mat=0,em=0,yaw=0,spin=0)=>{const q=rotate(x,y,z);this.add(L,mesh,...q,sx,sy,sz,color,mat,c.empUntil>this.currentTime?0:em,a+yaw,0,0,pitch+spin,roll);return q;};
    const damage=c.damage,sideNames=['front','rear','left','right'],dominant=sideNames.reduce((best,k)=>damage[k]>damage[best]?k:best,'front'),d=damage[dominant];
    const open=c.boarding?c.doorOpen||0:c.doorUntil>this.currentTime?Math.sin(D.clamp((c.doorUntil-this.currentTime)/.85,0,1)*Math.PI):0;
@@ -45,18 +44,9 @@
     put('body',side*.66,.79-damage.front*.06,2.105-damage.front*.42,.36,.105,.058,damage.front>.75?[.055,.08,.09]:[.70,.90,1],0,damage.front>.75?0:5);
     put('body',side*.65,.77,-2.16+damage.rear*.35,.37,.09,.045,[.8,.025,.016],0,damage.rear>.85?0:c.brake?6:2);
     for(const front of [-1,1]){
-     const z=front>0?1.36:-1.39, steer=front>0?c.steerAngle:0, spin=side*(c.wheel||0);
-     // The wheel is authored facing +X. Turn the left assembly outwards around
-     // Y, then decompose body tilt × steering into the shader's Ry*Rz*Rx order.
-     const cs=side*Math.cos(steer), ss=side*Math.sin(steer);
-     const wheelYaw=a+Math.atan2(cp*ss,cr*cs-sr*sp*ss);
-     const wheelRoll=Math.asin(D.clamp(sr*cs+cr*sp*ss,-1,1));
-     const wheelPitch=Math.atan2(cr*sp*cs-sr*ss,cr*cp);
-     const pivot=rotate(side*.92,.365,z);
-     const axle=[Math.cos(wheelYaw)*Math.cos(wheelRoll),Math.sin(wheelRoll),-Math.sin(wheelYaw)*Math.cos(wheelRoll)];
+     const axle=body.wheel(side,front),spin=axle.spin;
      const wheelPart=(key,offset,w,h,d,color,mat,rotation)=>{
-      this.add(L,key,pivot[0]+axle[0]*offset,pivot[1]+axle[1]*offset,pivot[2]+axle[2]*offset,
-       w,h,d,color,mat,0,wheelYaw,0,0,wheelPitch+rotation,wheelRoll);
+      this.add(L,key,...axle.point(offset),w,h,d,color,mat,0,axle.yaw,0,0,axle.pitch+rotation,axle.roll);
      };
      wheelPart(this.meshes.tire?'tire':'wheel',0,.27,.73,.73,[.018,.023,.028],4,spin);
      wheelPart(this.meshes.rim?'rim':'wheel',.132,.025,.528,.528,[.36,.41,.44],3,spin);

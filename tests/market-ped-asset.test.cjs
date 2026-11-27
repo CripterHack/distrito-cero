@@ -37,7 +37,7 @@ test('the shipped street poses match the tracks baked from the reviewed GLB',()=
  const {decodeGlb}=require('../tools/export_human_tangents.cjs');
  const {buildPose}=require('../tools/prepare_market_ped_pose.cjs');
  const {document:doc,binary}=decodeGlb(fs.readFileSync(path.join(root,data.source)));
- assert.deepEqual(Object.keys(data.pose.clips).sort(),['Carrera','Giro','Marcha','Reposo']);
+ assert.deepEqual(Object.keys(data.pose.clips).sort(),['Carrera','FrenadaL','FrenadaR','Giro','Marcha','Reposo']);
  assert.deepEqual(JSON.parse(JSON.stringify(data.pose)),buildPose(doc,binary));
 });
 

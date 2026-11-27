@@ -1,7 +1,8 @@
 'use strict';
 const fs=require('node:fs');
-function writeVehicleGlb(out,meshes,parts,nodes){
- const gltf={asset:{version:'2.0',generator:'Distrito Cero · mallas nativas del sedán'},scene:0,
+const {encodeGlb}=require('./export_human_tangents.cjs');
+function buildInstanceDocument(meshes,parts,nodes,generator){
+ const gltf={asset:{version:'2.0',generator},scene:0,
   scenes:[{nodes:[0]}],nodes,
   meshes:[],materials:[],accessors:[],bufferViews:[],buffers:[]};
  const chunks=[];let byteOffset=0;
@@ -48,14 +49,13 @@ function writeVehicleGlb(out,meshes,parts,nodes){
   gltf.nodes.push({name:part.name||part.key,mesh,scale:part.scale,translation:part.translation,rotation:part.rotation});
  }
  gltf.buffers.push({byteLength:byteOffset});
- const json=Buffer.from(JSON.stringify(gltf)),padding=Buffer.alloc((4-json.length%4)%4,0x20);
- const jsonSize=json.length+padding.length,header=Buffer.alloc(20),binHeader=Buffer.alloc(8);
- header.write('glTF');header.writeUInt32LE(2,4);header.writeUInt32LE(28+jsonSize+byteOffset,8);
- header.writeUInt32LE(jsonSize,12);header.write('JSON',16);
- binHeader.writeUInt32LE(byteOffset);binHeader.write('BIN\x00',4);
- fs.writeFileSync(out,Buffer.concat([header,json,padding,binHeader,...chunks]));
+ return {document:gltf,binary:Buffer.concat(chunks)};
 }
-module.exports={writeVehicleGlb};
+function writeVehicleGlb(out,meshes,parts,nodes){
+ const {document,binary}=buildInstanceDocument(meshes,parts,nodes,'Distrito Cero · mallas nativas del sedán');
+ fs.writeFileSync(out,encodeGlb(document,binary));
+}
+module.exports={buildInstanceDocument,writeVehicleGlb};
 if(require.main===module){
  const [source,out]=process.argv.slice(2),{geometry,parts,nodes}=JSON.parse(fs.readFileSync(source));
  writeVehicleGlb(out,geometry,parts,nodes);
