@@ -1,3 +1,14 @@
+# v0.20.31 · Barrio del Mercado · 2026-11-26
+
+- El residente desacelera en el último paso y coloca los dos pies para la media vuelta. El GLB y ambas mallas del juego incluyen las frenadas con apoyo izquierdo y derecho.
+- El sedán conserva la posición y la orientación de sus cuatro ejes al pasar a la malla lejana. La dirección, la rodadura y la inclinación de la carrocería siguen siendo visibles a partir de 66 m.
+- La luz de las vitrinas de esquina alcanza las baldas y la mercancía al anochecer.
+
+# v0.20.30 · Barrio del Mercado · 2026-11-26
+
+- El residente da media vuelta en cinco pasos al llegar a la marquesina y a la esquina. El claxon puede acelerar la maniobra en curso.
+- El modelo de Higgsfield incorpora la acción `Giro` en el GLB y en las dos mallas del juego. Dura 1,4 s al paso normal.
+
 # v0.20.29 · Barrio del Mercado · 2026-11-26
 
 - Un residente recorre los 19 m de acera entre la parada del Mercado y la esquina. Espera en ambos extremos y corre al oír un claxon cercano.

@@ -58,6 +58,28 @@ class SelectionTests(unittest.TestCase):
             ('tests/sidearm_sight_browser.py','--partition','cross-family'),
             ('tests/sidearm_sight_browser.py','--partition','revolver-reload')])
 
+    def test_explicit_ci_halves_keep_all_local_cross_family_cases_in_order(self):
+        from tools.qa.sight_contract import sight_cases
+        parts=('cross-family-first','cross-family-second')
+        complete=sight_cases('cross-family')
+        local_all={s.name for s in select_suites(['all'],'fixture')}
+        local_sight={s.name for s in select_suites(['sight'],'fixture')}
+        for index,part in enumerate(parts):
+            with self.subTest(part=part):
+                suite_name='sight-'+part
+                suite,=select_suites([suite_name],'fixture')
+                self.assertEqual(suite.command,('tests/sidearm_sight_browser.py','--partition',part))
+                self.assertEqual(suite.report,'qa/v020/sidearm-sight-'+part+'.json')
+                cases=sight_cases(part)
+                self.assertEqual(cases,complete[index*5:index*5+5])
+                self.assertEqual(suite.expected_checks,sum(4+(phase is not None) for _,_,phase in cases))
+                self.assertEqual(suite.expected_checks,22)
+                self.assertNotIn(suite_name,local_all|local_sight)
+                with self.assertRaises(ValueError):select_suites([suite_name],'http')
+                for overlapping in ('all','sight','sight-cross-family'):
+                    with self.assertRaises(ValueError):select_suites([overlapping,suite_name],'fixture')
+        self.assertEqual(sight_cases(parts[0])+sight_cases(parts[1]),complete)
+
     def test_sight_partitions_reject_native_mode_and_unknown_names(self):
         from tools.qa.run import SUITES
         self.assertIn('sight-base',SUITES)

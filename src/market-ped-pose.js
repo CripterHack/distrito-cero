@@ -1,4 +1,4 @@
-/* Local glTF clip playback for the market pedestrian. Phases are cycles.
+/* Local glTF clip playback for the market pedestrian. Giro and the two stopping steps play once.
    walkBlend mixes idle/locomotion; runBlend mixes walk/run at the same foot phase. */
 'use strict';
 (function(D) {
@@ -37,11 +37,12 @@
    if(keys.length===components)target.set(keys,index);
    else animated.push({keys,translation,components,target,index});
   }
-  clips[name]={sample,animated,intervals:source.frames-1};
+  clips[name]={sample,animated,intervals:source.frames-1,oneShot:['Giro','FrenadaL','FrenadaR'].includes(name)};
   metadata[name]=Object.freeze({duration:source.duration});
  }
  function sampleClip(clip,phase) {
-  const at=(phase-Math.floor(phase))*clip.intervals;
+  const progress=clip.oneShot?Math.max(0,Math.min(1,phase)):phase-Math.floor(phase);
+  const at=progress*clip.intervals;
   const frame=Math.min(clip.intervals-1,Math.floor(at)), t=at-frame;
   for(let k=0;k<clip.animated.length;k++) {
    const track=clip.animated[k], a=frame*track.components, b=a+track.components;
@@ -68,15 +69,20 @@
   const t=joint===rig.root?pose.root:rig.localBind, j=joint===rig.root?0:joint*3;
   local[12]=t[j];local[13]=t[j+1];local[14]=t[j+2];local[15]=1;
  }
- function writePalette(out,walkPhase,idlePhase,walkBlend,runBlend=0) {
+ function sampleMotion(walkPhase,idlePhase,walkBlend,runBlend) {
+  if(walkBlend<=0)return sampleClip(clips.Reposo,idlePhase);
+  let stride;
+  if(!clips.Carrera || runBlend<=0)stride=sampleClip(clips.Marcha,walkPhase);
+  else if(runBlend>=1)stride=sampleClip(clips.Carrera,walkPhase);
+  else stride=blendLocal(sampleClip(clips.Marcha,walkPhase),sampleClip(clips.Carrera,walkPhase),runBlend,locomotion);
+  return walkBlend>=1?stride:blendLocal(sampleClip(clips.Reposo,idlePhase),stride,walkBlend,finalPose);
+ }
+ function writePalette(out,walkPhase,idlePhase,walkBlend,runBlend=0,actionProgress=null,actionBlend=1,actionName='Giro') {
   let pose;
-  if(walkBlend<=0)pose=sampleClip(clips.Reposo,idlePhase);
-  else {
-   if(!clips.Carrera || runBlend<=0)pose=sampleClip(clips.Marcha,walkPhase);
-   else if(runBlend>=1)pose=sampleClip(clips.Carrera,walkPhase);
-   else pose=blendLocal(sampleClip(clips.Marcha,walkPhase),sampleClip(clips.Carrera,walkPhase),runBlend,locomotion);
-   if(walkBlend<1)pose=blendLocal(sampleClip(clips.Reposo,idlePhase),pose,walkBlend,finalPose);
-  }
+  if(actionProgress!==null && clips[actionName]) {
+   pose=sampleClip(clips[actionName],actionProgress);
+   if(actionBlend<1)pose=blendLocal(sampleMotion(walkPhase,idlePhase,walkBlend,runBlend),pose,actionBlend,finalPose);
+  } else pose=sampleMotion(walkPhase,idlePhase,walkBlend,runBlend);
   // Build world matrices parent-first into the caller's palette. The source
   // joint index order places each clavicle after its upper arm.
   for(let k=0;k<joints;k++) {

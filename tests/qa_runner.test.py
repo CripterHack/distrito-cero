@@ -103,33 +103,60 @@ class RunnerTests(unittest.TestCase):
         'No JavaScript or graphics exceptions or external requests',
     )
 
+    SIGHT_COUNTS={'base':56,'cross-family':44,'cross-family-first':22,
+                  'cross-family-second':22,'revolver-reload':48}
+
     def sight_report(self, partition='revolver-reload'):
-        counts={'base':56,'cross-family':44,'revolver-reload':48}
         guards=[{'name':name,'pass':True} for name in self.SIGHT_GUARD_NAMES]
-        count=counts[partition]
+        count=self.SIGHT_COUNTS[partition]
         checks=[{'name':f'continuity {i}','pass':True} for i in range(count)]
         if partition=='base':
             checks[:len(guards)]=guards
             guards=[]
-        return dict(partition=partition,checks=checks,guards=guards,
+        report=dict(partition=partition,checks=checks,guards=guards,
                     comparisonOnly=False,sha256=self.sha,errors=[],requests=[])
+        if partition in ('cross-family-first','cross-family-second'):
+            from tools.qa.sight_contract import sight_cases
+            cases=[]
+            for start,target,phase in sight_cases(partition):
+                case={'from':start,'to':target}
+                if phase is not None:
+                    case['reloadPhase']=phase
+                cases.append(case)
+            report['crossFamilyCases']=cases
+        return report
 
     def run_sight_report(self, report, partition='revolver-reload', output='run-one'):
         probe=self.suite(self.report_code(**report))
         suite=Suite('sight-'+partition,probe.command,probe.report,
-                    {'base':56,'cross-family':44,'revolver-reload':48}[partition])
+                    self.SIGHT_COUNTS[partition])
         cfg=Config(self.root,self.root/'artifacts'/output,timeout=3)
         result=run_suites(cfg,[suite])
         self.assertEqual(result['suites'][0]['exitCode'],0,'Probe failure must not impersonate gate rejection.')
         return result
 
     def test_sight_accepts_complete_base_and_separate_guards_without_double_counting(self):
-        for partition in ('base','cross-family','revolver-reload'):
+        for partition in self.SIGHT_COUNTS:
             with self.subTest(partition=partition):
                 report=self.sight_report(partition)
                 result=self.run_sight_report(report,partition,partition)
                 self.assertEqual(result['status'],'passed')
                 self.assertEqual(result['suites'][0]['checks'],len(report['checks']))
+
+    def test_ci_halves_require_their_own_ordered_cases_and_all_guards(self):
+        first='cross-family-first'
+        second='cross-family-second'
+        self.assertEqual(self.run_sight_report(self.sight_report(first),second,'wrong-partition')['status'],'failed')
+        sibling=self.sight_report(first)
+        sibling['partition']=second
+        self.assertEqual(self.run_sight_report(sibling,second,'wrong-scenes')['status'],'failed')
+        reordered=self.sight_report(second)
+        reordered['crossFamilyCases'].reverse()
+        self.assertEqual(self.run_sight_report(reordered,second,'wrong-order')['status'],'failed')
+        for part in (first,second):
+            report=self.sight_report(part)
+            report['guards'].pop()
+            self.assertEqual(self.run_sight_report(report,part,'incomplete-'+part)['status'],'failed')
 
     def test_comparison_report_is_not_acceptance_even_with_all_checks_passed(self):
         result=run_suites(self.cfg,[self.suite(self.report_code(comparisonOnly=True))])

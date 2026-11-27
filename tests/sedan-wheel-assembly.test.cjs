@@ -2,9 +2,8 @@
 const {test}=require('node:test');
 const assert=require('node:assert/strict');
 const vm=require('node:vm'),fs=require('node:fs'),path=require('node:path');
-class BaseRenderer { renderCar(){ this.farDraws++; } }
-const context=vm.createContext({DC:{Renderer:BaseRenderer,Simulation:class {}}});
-for(const name of ['core','dynamics','visual-geometry','reactive-renderer']) {
+const context=vm.createContext({DC:{Simulation:class {}}});
+for(const name of ['core','dynamics','visual-geometry','skin-rig','renderer','reactive-renderer']) {
  vm.runInContext(fs.readFileSync(path.join(__dirname,'../src',name+'.js'),'utf8'),context);
 }
 const {DC}=context;
@@ -13,11 +12,11 @@ function draw({spin=0,steer=0,pitch=0,roll=0,yaw=0,distance=0,quality='balanced'
  const car={id:1,x:18,z:-12,yaw,wheel:spin,steerAngle:steer,color:[.1,.2,.3],suspension:{pitch,roll,kick:0}};
  const parts=[];
  const renderer={assetParts:[{name:'BODY_shell',key:'asset_BODY_shell'}],meshes:geometry,currentTime:0,dynamic:{},
-  quality,farDraws:0,currentSim:{player:{x:car.x+distance,z:car.z}},add(list,key,x,y,z,w,h,d,col,mat,em,yaw,seed,detail,pitch,roll){
+  quality,currentSim:{player:{x:car.x+distance,z:car.z}},add(list,key,x,y,z,w,h,d,col,mat,em,yaw,seed,detail,pitch,roll){
    parts.push({key,center:[x,y,z],yaw,pitch,roll,scale:[w,h,d]});
   }};
  DC.Renderer.prototype.renderCar.call(renderer,car);
- return {parts,farDraws:renderer.farDraws,car};
+ return {parts,car};
 }
 function rotateX([x,y,z],a){return [x,y*Math.cos(a)-z*Math.sin(a),y*Math.sin(a)+z*Math.cos(a)];}
 function rotateY([x,y,z],a){return [x*Math.cos(a)+z*Math.sin(a),y,-x*Math.sin(a)+z*Math.cos(a)];}
@@ -68,7 +67,7 @@ test('disc and caliper detail follow distance and quality without dropping the m
    assert.equal(near.filter(k=>k===key).length,4);assert.ok(!mid.includes(key));
   }
  }
- const far=draw({distance:66});assert.equal(far.farDraws,1);assert.equal(far.parts.length,0);
+ const far=draw({distance:66});assert.equal(far.parts.filter(p=>p.key==='wheel').length,12);
 });
 test('wheel hardware is metric, finite and budgeted per visible wheel',()=>{
  let triangles=0;
@@ -81,4 +80,22 @@ test('wheel hardware is metric, finite and budgeted per visible wheel',()=>{
   }
  }
  assert.ok(triangles<1200,'shared wheel detail budget');
+});
+
+test('the far sedan keeps each tire on the same steered axle and pavement across the 66 m boundary',()=>{
+ for(const pose of [{yaw:.83,steer:.48,spin:2.1,pitch:0,roll:0},
+                     {yaw:-1.16,steer:-.43,spin:1.3,pitch:-.10,roll:.07}]){
+  const near=draw({...pose,distance:65.99}).parts.filter(p=>p.key==='tire');
+  const distant=draw({...pose,distance:66.01}).parts.filter(p=>p.key==='wheel');
+  assert.equal(near.length,4);assert.equal(distant.length,12);
+  for(const [i,tire] of near.entries()){
+   const simple=distant[i*3],rim=distant[i*3+1];
+   close(simple.center,tire.center,'world-space axle center');
+   close(simple.scale,tire.scale,'tire envelope');
+   const axis=transform([1,0,0],tire);
+   close(transform([1,0,0],simple),axis,'steered axle');
+   close(transform([0,1,0],simple),transform([0,1,0],tire),'rolling orientation');
+   close(rim.center,add(simple.center,axis.map(c=>c*.132)),'outward hub axis');
+  }
+ }
 });

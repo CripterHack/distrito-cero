@@ -11,6 +11,9 @@ import sys
 
 import bpy
 import numpy as np
+from scipy.spatial import cKDTree
+from mathutils import Matrix
+from mathutils.bvhtree import BVHTree
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
@@ -331,18 +334,158 @@ def inspect_playback(path, name, duration, expected_points):
             "samples": records}
 
 
+def inspect_stops(path, spans):
+    """Measure the deforming sole surface and the join to Reposo in glTF metres."""
+    duration = spans["Giro"]
+    assert abs(duration - 1.4) < 1e-6
+    bpy.ops.wm.read_factory_settings(use_empty=True)
+    bpy.ops.import_scene.gltf(filepath=str(path.resolve()))
+    scene = bpy.context.scene
+    rig, = [o for o in scene.objects if o.type == "ARMATURE"]
+    mesh, = [o for o in scene.objects if o.type == "MESH" and o.data.shape_keys]
+    graph = bpy.context.evaluated_depsgraph_get()
+    rig.data.pose_position = "REST"
+    graph.update()
+    base = positions(mesh.evaluated_get(graph))
+    soles = {side: (sign * base[:, 0] > .03) & (base[:, 1] < .075)
+             for side, sign in (("L", 1), ("R", -1))}
+    assert all(mask.sum() > 100 for mask in soles.values())
+    mesh.data.calc_loop_triangles()
+    triangles = np.array([tuple(face.vertices) for face in mesh.data.loop_triangles])
+    mid = base[triangles].mean(axis=1)
+    shoes = {}
+    for side, sign in (("L", 1), ("R", -1)):
+        selection = triangles[(mid[:, 1] < .14) & (mid[:, 0] * sign > .015)]
+        assert len(selection) > 400, f"Missing boot surface {side}"
+        vertices, faces = np.unique(selection, return_inverse=True)
+        shoes[side] = vertices, faces.reshape(-1, 3).tolist()
+    rig.data.pose_position = "POSE"
+
+    def sample(action, phase):
+        start, end = action.frame_range
+        frame = start + phase * (end - start)
+        scene.frame_set(math.floor(frame), subframe=frame - math.floor(frame))
+        return positions(mesh.evaluated_get(graph))
+
+    def select(name):
+        # Blender retains unkeyed transforms when an action is replaced by hand.
+        rig.animation_data.action = None
+        for bone in rig.pose.bones:
+            bone.matrix_basis = Matrix.Identity(4)
+        action = rig.animation_data.nla_tracks[name].strips[0].action
+        rig.animation_data.action = action
+        return action
+
+    def pelvis_position():
+        head = rig.matrix_world @ rig.pose.bones["pelvis"].head
+        return np.array([head.x, head.z, -head.y])
+
+    neutral = sample(select("Reposo"), 0)
+    idle_hip = pelvis_position()
+    turn = select("Giro")
+    endpoint_errors = []
+    for phase in (0, 1):
+        actual = sample(turn, phase)
+        expected = neutral if phase == 0 else neutral * [-1, 1, -1]
+        endpoint_errors.append(float(np.linalg.norm(actual - expected, axis=1).max()))
+    assert max(endpoint_errors) < .0001, f"Turn does not join the idle mesh: {endpoint_errors}"
+
+    steps, separation = [], float("inf")
+    for i, swing in enumerate(("R", "L", "R", "L", "R")):
+        support = "L" if swing == "R" else "R"
+        planted = sample(turn, i / 5)[soles[support]]
+        slide, support_height, lift = 0., 0., 0.
+        for phase in np.linspace(i / 5, (i + 1) / 5, 31):
+            points = sample(turn, phase)
+            moving, fixed = points[soles[swing]], points[soles[support]]
+            lateral = (fixed - planted)[:, [0, 2]]
+            slide = max(slide, float(np.linalg.norm(lateral, axis=1).max()))
+            support_height = max(support_height, abs(float(fixed[:, 1].min())))
+            lift = max(lift, float(moving[:, 1].min()))
+            # Sample the complete low shoe surfaces independent of their current heading.
+            distance = cKDTree(fixed).query(moving)[0].min()
+            separation = min(separation, float(distance))
+            left, right = (BVHTree.FromPolygons(points[vertices].tolist(), faces, all_triangles=True)
+                           for vertices, faces in shoes.values())
+            assert not left.overlap(right), f"Left and right shoes intersect at phase {phase}"
+        apex = (i + .5) / 5
+        sample(turn, apex)
+        angle = np.pi * apex**2 * (3 - 2 * apex)
+        body_x = np.array([np.cos(angle), 0., -np.sin(angle)])
+        lean = float(pelvis_position() @ body_x - idle_hip[0])
+        assert lean * (1 if support == "L" else -1) > .025, "Weight shifted away from the support boot"
+        steps.append({"swing": swing, "lateralPelvisShiftM": lean, "support": support, "maxSupportSlideM": slide,
+                      "maxAbsoluteSupportHeightM": support_height, "swingClearanceM": lift})
+    assert all(s["maxSupportSlideM"] < .003 and s["maxAbsoluteSupportHeightM"] < .003
+               and s["swingClearanceM"] > .025 for s in steps), steps
+    assert separation > .012, f"Sole surfaces are too close during the turn: {separation}"
+    turn_report = {"seconds": duration, "endpointErrorsM": endpoint_errors, "steps": steps,
+            "minSoleVertexSeparationM": separation, "samplesPerStep": 31,
+            "shoeTriangles": {side: len(faces) for side, (_, faces) in shoes.items()}}
+
+
+    brakes = {}
+    for side, entry in (("L", .15), ("R", .65)):
+        name = "Frenada" + side
+        assert abs(spans[name] - .4898584) < 1e-6
+        swing = "R" if side == "L" else "L"
+        walking = sample(select("Marcha"), entry)
+        clip = select(name)
+        start = sample(clip, 0)
+        finish = sample(clip, 1)
+        advance = np.array([0., 0., .1653272101033296])
+        errors = [np.linalg.norm(start - walking, axis=1).max(),
+                  np.linalg.norm(finish - neutral - advance, axis=1).max()]
+        assert max(errors) < .0001, f"{name} does not join walk and rest: {errors}"
+        # Select actual heel and toe vertices in glTF forward (+Z), independent
+        # of the ankle and world-space game capsule.
+        support_ids = np.flatnonzero(soles[side])
+        z = start[support_ids, 2]
+        markers = {"heel": support_ids[z <= np.quantile(z, .20)],
+                   "toe": support_ids[z >= np.quantile(z, .80)]}
+        drift = {"heel": 0., "toe": 0.}
+        lift = 0.
+        floor_error = 0.
+        touchdown = []
+        for phase in np.linspace(0, 1, 101):
+            points = sample(clip, phase)
+            for marker, indices in markers.items():
+                delta = (points[indices] - start[indices])[:, [0, 2]]
+                drift[marker] = max(drift[marker], float(np.linalg.norm(delta, axis=1).max()))
+            floor_error = max(floor_error, abs(float(points[soles[side], 1].min())))
+            clearance = float(points[soles[swing], 1].min())
+            lift = max(lift, clearance)
+            assert clearance > -.001, (name, phase, clearance)
+            if phase >= .5 and clearance <= .010:
+                touchdown.append(points[soles[swing]][:, [0, 2]].copy())
+            left, right = (BVHTree.FromPolygons(points[vs].tolist(), fs, all_triangles=True)
+                           for vs, fs in shoes.values())
+            assert not left.overlap(right), (name, phase, "boots intersect")
+        touchdown_drift = max(float(np.linalg.norm(q - touchdown[-1], axis=1).max()) for q in touchdown)
+        assert max(drift.values()) < .002 and floor_error < .001, (name, drift, floor_error)
+        assert lift > .045 and touchdown_drift < .010, (name, lift, touchdown_drift)
+        brakes[name] = {"seconds": spans[name], "entryPhase": entry, "advanceM": float(advance[2]),
+                        "endpointErrorsM": list(map(float, errors)), "supportVertexDriftM": drift,
+                        "supportGroundErrorM": floor_error, "swingClearanceM": lift,
+                        "swingTouchdownDriftM": touchdown_drift, "samples": 101}
+    return turn_report, brakes
+
+
 def verify(source_path, walk_path, report_path):
     original, walk = Container(source_path), Container(walk_path)
     assert len(walk.doc.get("skins", [])) == 1, "Expected a skinned game skeleton"
-    assert sorted(a["name"] for a in walk.doc.get("animations", [])) == ["Carrera", "Marcha", "Reposo"]
+    assert sorted(a["name"] for a in walk.doc.get("animations", [])) == ["Carrera", "FrenadaL", "FrenadaR", "Giro", "Marcha", "Reposo"]
     skin = verify_skin(walk, native_hierarchy())
     tris, maps, coords = compare_art(original, walk)
     spans = dict(animation_span(walk, clip) for clip in walk.doc["animations"])
+    turn, brakes = inspect_stops(walk_path, spans)
     result = {"sourceSha256": original.sha, "candidateSha256": walk.sha, "triangles": tris,
               "mapsSha256": maps, **skin, "blender": bpy.app.version_string,
               "clips": {name: inspect_playback(walk_path, name, duration, coords)
-                        for name, duration in spans.items()}}
+                        for name, duration in spans.items() if name in ("Marcha", "Reposo", "Carrera")},
+              "turn": turn, "brakes": brakes}
     report_path.write_text(json.dumps(result, indent=2, ensure_ascii=False) + "\n")
+    print("Giro", json.dumps(result["turn"]))
     for name, motion in result["clips"].items():
         print(name, tris, "triangles;", skin["joints"], "joints;", motion["playbackFrames"], "posed frames;",
               "shoe lead (m)", motion["shoeLeadRangeM"], "loop error (m)", motion["maxLoopClosureErrorM"])

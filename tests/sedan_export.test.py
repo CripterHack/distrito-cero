@@ -54,6 +54,22 @@ class SedanExport(unittest.TestCase):
                         self.assertEqual(a[:3]+a[6:],b[:3]+b[6:])
                         self.assertLessEqual(max(abs(x-y) for x,y in zip(a[3:6],b[3:6])),2.22e-16)
 
+    def test_distant_sedan_exposes_the_same_four_steering_pivots(self):
+        near,_=unpack('dc-native-sedan.glb')
+        far,blob=unpack('dc-native-sedan-far.glb')
+        near_by_name={n['name']:n for n in near['nodes']}
+        far_ids={n['name']:i for i,n in enumerate(far['nodes'])}
+        for corner in ('FrontLeft','FrontRight','RearLeft','RearRight'):
+            steer='Steering_'+corner
+            upright=far['nodes'][far_ids[steer]]
+            self.assertEqual(upright['translation'],near_by_name[steer]['translation'])
+            axle=far_ids['Rolling_'+corner]
+            self.assertIn(axle,upright['children'])
+            parts=[far['nodes'][i] for i in far['nodes'][axle]['children']]
+            self.assertEqual([n['name'] for n in parts],[corner+'_'+k for k in ('tire','rim','hub')])
+            self.assertEqual(parts[0]['scale'],[.27,.73,.73])
+            self.assertEqual(sum(len(native_vertices(far,blob,n))//96 for n in parts),216)
+
 
 if __name__=='__main__':
     unittest.main()

@@ -1,10 +1,14 @@
 # Recursos de Distrito Cero
 
-Este directorio conserva insumos de autoría, bases geométricas, exportaciones GLB y referencias de QA de varias versiones. **El juego vigente es v0.20.29**, no la versión indicada en el nombre de cada recurso.
+Este directorio conserva insumos de autoría, bases geométricas, exportaciones GLB y referencias de QA de varias versiones. La versión de juego que usa estos recursos es **v0.20.31**.
 
 El Taller del Mercado y la marquesina tienen originales 4K, procedencia y métricas en [mercado-20261126](mercado-20261126/).
 
-El [civil del Mercado](higgsfield-20261125/character-walk.glb) tiene un rig de 49 huesos y tres animaciones. Sus dos mallas de juego, los materiales y las poses se reconstruyen desde ese GLB. [Receta de conversión](../specs/005-mercado-character/README.md).
+El [escaparate modular «La Esquina»](mercado-20261126/escaparate-esquina.glb) incluye las dos vitrinas de la fachada, estanterías, productos y el rótulo que se ve desde la acera. [Ficha y dimensiones del modelo](mercado-20261126/escaparate-esquina.md) · [Iluminación nocturna dentro del juego](../qa/mercado-vitrinas-noche/README.md).
+
+El [civil del Mercado](higgsfield-20261125/character-walk.glb) tiene un rig de 49 huesos y seis animaciones. Las dos frenadas permiten examinar el último paso con el apoyo izquierdo o derecho antes de la media vuelta. Sus dos mallas de juego, los materiales y las poses se reconstruyen desde ese GLB. [Modelo, recorrido y validación](../specs/007-mercado-braking/README.md).
+
+El [sedán distante con ejes articulados](dc-native-sedan-far.glb) corresponde a la malla que se activa a 66 m en el juego. [Mediciones y receta](../qa/sedan-axles-v02031/README.md).
 
 El índice rector está en [docs/project/ASSETS.md](../docs/project/ASSETS.md). La geometría humana del runtime está embebida en `src/hero-asset.js`, junto a materiales y generación de peinados en sus módulos. `dc019-equipment.glb` es el kit de equipamiento de esta base. Los GLB humanos anteriores son referencias/exportaciones históricas, no un exportador de todas las funciones del creador actual.
 

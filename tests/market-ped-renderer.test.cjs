@@ -17,7 +17,7 @@ function scene() {
   vm.runInContext(fs.readFileSync('src/core.js','utf8'),ctx);
   const D = ctx.DC;
   Object.assign(D,{Renderer:StreetCast,SkinRig:{paletteStride:stride},MarketPedAsset:{
-    clips:{Marcha:{duration:.7654},Reposo:{duration:4},Carrera:{duration:.52}},
+    clips:{Marcha:{duration:.7654},Reposo:{duration:4},Carrera:{duration:.52},Giro:{duration:1.4},FrenadaL:{duration:.49},FrenadaR:{duration:.49}},
     writePalette(out,...phase) { out.fill(3);palettes.push(phase); }
   }});
   vm.runInContext(fs.readFileSync('src/market-ped-renderer.js','utf8'),ctx);
@@ -85,4 +85,58 @@ test('the same marked mesh reacts to a hit and a stationary stun, without mutati
   assert.equal(body[0],'marketPed0');assert.notEqual(body[11],0);
   assert.equal(palettes[0][2],0);
   assert.equal(n.moveSpeed,1.35);
+});
+
+test('the one-shot turn stays in its starting frame across LOD, panic and repeated draws',()=>{
+  const {r,palettes}=scene(), n=person({moveSpeed:1.35});
+  const startYaw=n.yaw;
+  r.renderPerson(n);
+  n.sidewalkRoute={turn:{startYaw,progress:0}};n.moveSpeed=0;
+  r.renderPerson(n);
+  assert.deepEqual(palettes[1].slice(0,4),palettes[0]);
+  assert.equal(palettes[1][4],0);
+  assert.equal(palettes[1][5],0,'first frame must retain the incoming walk');
+  for(const progress of [.07,.5,1]) {
+    r.currentTime+=.09;r.castCursor=1;
+    n.yaw=startYaw+progress*Math.PI;n.sidewalkRoute.turn.progress=progress;
+    if(progress>=.5){r.camera.eye=[104,1.5,130];n.panic=2;}
+    r.renderPerson(n);
+    const [body,shadow]=r.dynamic.slice(-2);
+    assert.equal(body[0],progress>=.5?'marketPed1':'marketPed0');
+    assert.equal(body[10],startYaw,'instance yaw must not repeat the root rotation');
+    assert.equal(shadow[10],n.yaw);
+    assert.equal(palettes.at(-1)[4],progress);
+    if(progress===.07)assert.ok(palettes.at(-1)[5]>0 && palettes.at(-1)[5]<1);
+    else assert.equal(palettes.at(-1)[5],1);
+    r.castCursor=1;r.renderPerson(n);
+    assert.deepEqual(palettes.at(-1),palettes.at(-2));
+  }
+  n.sidewalkRoute.turn=null;r.currentTime+=.01;r.castCursor=1;r.renderPerson(n);
+  assert.equal(r.dynamic.at(-2)[10],startYaw+Math.PI);
+  assert.equal(palettes.at(-1)[1],0,'resume the authored exit breathing phase');
+  assert.equal(palettes.at(-1).length,4);
+  r.currentTime+=.4;r.castCursor=1;r.renderPerson(n);
+  assert.ok(Math.abs(palettes.at(-1)[1]-.1)<1e-12);
+});
+
+test('a stop uses one fixed draw origin, tracks its shadow, and hands the last key to rest',()=>{
+  const {r,palettes}=scene(), n=person({moveSpeed:1.35}), dirZ=-1;
+  const startZ=n.z,reach=.1653272101033296;
+  n.sidewalkRoute={brake:{clip:'FrenadaR',startX:n.x,startZ,progress:0}};
+  r.renderPerson(n);
+  for(const progress of [.2,.6,.98]){
+    n.sidewalkRoute.brake.progress=progress;
+    n.z=startZ+dirZ*reach*(1-(1-progress)**4);n.moveSpeed=1.35*(1-progress)**3;
+    r.currentTime+=.1;
+    if(progress>.5)r.camera.eye=[135,2,99];
+    r.renderPerson(n);
+    const [body,shadow]=r.dynamic.slice(-2);
+    assert.equal(body[1],n.x);assert.equal(body[3],startZ);
+    assert.equal(shadow[3],n.z);
+    assert.deepEqual(palettes.at(-1).slice(4),[progress,1,'FrenadaR']);
+  }
+  n.sidewalkRoute.brake=null;n.sidewalkRoute.wait=2.4;n.z=startZ+dirZ*reach;
+  n.moveSpeed=.00001;r.currentTime+=.01;r.renderPerson(n);
+  assert.equal(r.dynamic.at(-2)[3],n.z);
+  assert.equal(palettes.at(-1)[1],0);assert.equal(palettes.at(-1)[2],0);
 });

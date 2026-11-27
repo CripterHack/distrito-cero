@@ -1,4 +1,4 @@
-"""Fit the #71 character to the game's articulated body and bake three portable cycles.
+"""Fit the #71 character to the game's articulated body and bake its locomotion, half-turn and final steps.
 
 blender -b -t 2 --python-exit-code 1 -P tools/rig_higgsfield_character.py -- INPUT.glb NEW_DIRECTORY
 """
@@ -276,7 +276,24 @@ def arm_alignment(bind, native_rest):
     return align
 
 
-def retarget_frame(frame, bones, bind, arm_align, sole):
+def solve_leg(world, bind, side, hip, ankle, pole, lateral):
+    """Solve the knee in its bending plane, fixing the ankle to its contact target."""
+    thigh, shin, foot = (k + side for k in ("thigh", "shin", "foot"))
+    thigh_axis, shin_axis = bind[shin] - bind[thigh], bind[foot] - bind[shin]
+    a, b = np.linalg.norm(thigh_axis), np.linalg.norm(shin_axis)
+    to_ankle = ankle - hip
+    distance = np.linalg.norm(to_ankle)
+    if not abs(a - b) < distance < a + b:
+        raise ValueError(f"Unreachable ankle {side} at {ankle}")
+    direction = to_ankle / distance
+    forward = unit(pole - np.dot(direction, pole) * direction)
+    along = (a * a + distance * distance - b * b) / (2 * distance)
+    knee = hip + direction * along + forward * np.sqrt(max(0, a * a - along * along))
+    world[thigh] = alignment(thigh_axis, knee - hip, [1, 0, 0], lateral)
+    world[shin] = alignment(shin_axis, ankle - knee, [1, 0, 0], lateral)
+
+
+def retarget_world(frame, bones, bind, arm_align, sole):
     world = {}
     for i, (name, _, _) in enumerate(bones):
         palette = np.asarray(frame["matrices"][16 * i : 16 * i + 16]).reshape(4, 4).T
@@ -310,25 +327,153 @@ def retarget_frame(frame, bones, bind, arm_align, sole):
         permitted = np.sqrt(max(0.001, reach**2 - delta[0] ** 2 - delta[2] ** 2))
         root[1] = min(root[1], targets[side][1] + permitted - hips[side][1])
     for side in ("L", "R"):
-        thigh, shin, foot = [k + side for k in ("thigh", "shin", "foot")]
-        hip = root + hips[side]
-        thigh_axis, shin_axis = bind[shin] - bind[thigh], bind[foot] - bind[shin]
-        a, b = np.linalg.norm(thigh_axis), np.linalg.norm(shin_axis)
-        v = targets[side] - hip
-        distance = np.linalg.norm(v)
-        direction = v / distance
-        pole = np.array([0.0, 0.0, 1.0])
-        forward = unit(pole - np.dot(direction, pole) * direction)
-        along = (a * a + distance * distance - b * b) / (2 * distance)
-        knee = hip + direction * along + forward * np.sqrt(max(0, a * a - along * along))
-        lateral = [1, 0, 0]
-        world[thigh] = alignment(thigh_axis, knee - hip, lateral, lateral)
-        world[shin] = alignment(shin_axis, targets[side] - knee, lateral, lateral)
+        solve_leg(world, bind, side, root + hips[side], targets[side], np.array([0, 0, 1]), [1, 0, 0])
+    return root, world
+
+
+def local_rotations(bones, world):
     rotations = []
     for name, parent, _ in bones:
         local = world[parent].T @ world[name] if parent else world[name]
         rotations.append(Rotation.from_matrix(local).as_quat())
-    return root, rotations
+    return rotations
+
+
+def turn_poses(bones, bind, idle_root, idle, sole, count=100):
+    """Place the boots along alternating arcs, solving in glTF world metres (+Y up)."""
+    swing_order = ("R", "L", "R", "L", "R")
+    # Each ankle starts in Reposo, moves to a new heading, then locks there
+    # until the same leg takes another step. Positive yaw turns +Z toward +X.
+    next_headings = np.deg2rad([35, 90, 145, 180, 180])
+    ankles = {}
+    for side in ("L", "R"):
+        thigh, shin, foot = (k + side for k in ("thigh", "shin", "foot"))
+        hip = idle_root + idle["pelvis"] @ (bind[thigh] - bind["pelvis"])
+        knee = hip + idle[thigh] @ (bind[shin] - bind[thigh])
+        ankles[side] = knee + idle[shin] @ (bind[foot] - bind[shin])
+
+    def y_rotation(angle):
+        return Rotation.from_rotvec([0., angle, 0.]).as_matrix()
+
+    poses = []
+    for u in np.linspace(0., 1., count + 1):
+        heading = np.pi * smooth(0., 1., u)
+        yaw = y_rotation(heading)
+        root = yaw @ idle_root
+        if u == 0. or u == 1.:
+            # Exact rigid end poses, including every articulated finger.
+            poses.append((root, local_rotations(bones, {k: yaw @ r for k, r in idle.items()})))
+            continue
+
+        stride = min(int(5 * u), 4)
+        swing = swing_order[stride]
+        fraction = 5 * u - stride
+        travel = smooth(.06, .94, fraction)
+        airborne = np.sin(np.pi * travel)
+        headings = {"L": 0., "R": 0.}
+        for side, completed in zip(swing_order[:stride], next_headings[:stride]):
+            headings[side] = completed
+        headings[swing] += (next_headings[stride] - headings[swing]) * travel
+
+        envelope = np.sin(np.pi * u)**2
+        transfer = np.sin(5 * np.pi * u) * smooth(0, .10, u) * smooth(0, .10, 1 - u)
+        root += yaw @ np.array([.037 * transfer, -.023 * envelope - .006 * transfer**2, 0.])
+        # The chest and gaze lead the pelvis slightly. Arms counterbalance
+        # each planted boot instead of staying welded to the idle silhouette.
+        chest = y_rotation(heading + .105 * envelope)
+        tilt = Rotation.from_rotvec([.022 * envelope, 0., .038 * transfer]).as_matrix()
+        world = {k: chest @ tilt @ r for k, r in idle.items()}
+        world["pelvis"] = yaw @ idle["pelvis"]
+        world["spine"] = y_rotation(heading + .048 * envelope) @ tilt @ idle["spine"]
+        for k in ("neck", "head"):
+            world[k] = y_rotation(heading + .19 * envelope) @ tilt @ idle[k]
+        for side, sign in (("L", 1), ("R", -1)):
+            arm_pitch = sign * (.085 * transfer + .045 * envelope)
+            arm = Rotation.from_rotvec([arm_pitch, 0., 0.]).as_matrix()
+            for name in idle:
+                if name.endswith(side) and not name.startswith(("clavicle", "thigh", "shin", "foot")):
+                    world[name] = chest @ tilt @ arm @ idle[name]
+
+            thigh, foot = "thigh" + side, "foot" + side
+            foot_yaw = y_rotation(headings[side])
+            lift = (.040 + .012 * np.sin(np.pi * (stride + .5) / 5)) * airborne if side == swing else 0.
+            pitch = .092 * np.sin(2 * np.pi * travel) * airborne if side == swing else 0.
+            world[foot] = foot_yaw @ Rotation.from_rotvec([pitch, 0., 0.]).as_matrix() @ idle[foot]
+            # Open the stance through the middle of the turn. Without the
+            # wider planted arc the lead boot cuts across the trailing toe.
+            outward = .06 * np.sin(headings[side]) * sign
+            ankle = foot_yaw @ (ankles[side] + [outward, 0., 0.])
+            ankle[1] = lift - ((sole[side] - bind[foot]) @ world[foot][1]).min()
+            if side == swing:
+                ankle += foot_yaw @ [.022 * sign * airborne, 0., 0.]
+            hip = root + world["pelvis"] @ (bind[thigh] - bind["pelvis"])
+            # Project the knee pole between the planted shoe and torso headings.
+            leg_yaw = y_rotation(.60 * headings[side] + .40 * heading)
+            solve_leg(world, bind, side, hip, ankle, leg_yaw[:, 2], leg_yaw[:, 0])
+        poses.append((root, local_rotations(bones, world)))
+    return np.linspace(0., 1.4, count + 1), poses
+
+
+
+def ankle_position(bind, root, pose, side):
+    chain = ("pelvis", "thigh" + side, "shin" + side, "foot" + side)
+    return root + sum(pose[parent] @ (bind[child] - bind[parent])
+                      for parent, child in zip(chain, chain[1:]))
+
+
+def brake_poses(bones, bind, walk, walk_dt, idle_root, idle, sole, support, entry):
+    """Settle from a flat-foot walk key onto both feet, with +Z root motion baked."""
+    swing = "R" if support == "L" else "L"
+    start_root, start = walk[entry]
+    next_root, following = walk[entry + 1]
+    ankles = {side: ankle_position(bind, start_root, start, side) for side in (support, swing)}
+    distance = ankles[support][2] - ankle_position(bind, idle_root, idle, support)[2]
+    speed = 1.35
+    duration = 4 * distance / speed
+    advance = np.array([0., 0., distance])
+    target = ankle_position(bind, idle_root, idle, swing) + advance
+    foot = "foot" + swing
+    start_height = ankles[swing][1] + ((sole[swing] - bind[foot]) @ start[foot][1]).min()
+    swing_speed = speed + (ankle_position(bind, next_root, following, swing)[2] - ankles[swing][2]) / walk_dt
+    end_rotation = {k: Rotation.from_matrix(idle[k] @ r.T).as_rotvec() for k, r in start.items()}
+    entry_spin = {k: Rotation.from_matrix(following[k] @ r.T).as_rotvec() / walk_dt for k, r in start.items()}
+    poses = []
+    for u in np.linspace(0., 1., 61):
+        if u == 0.:
+            poses.append((start_root, local_rotations(bones, start)))
+            continue
+        if u == 1.:
+            poses.append((idle_root + advance, local_rotations(bones, idle)))
+            continue
+        blend = smooth(0., 1., u)
+        # The path has walk speed at contact and zero speed at rest. Arm
+        # swing and vertical bob retain the walk's incoming angular velocity.
+        incoming = duration * u * (1 - u)**4
+        root = start_root + blend * (idle_root - start_root) + incoming * (next_root - start_root) / walk_dt
+        root += advance * (1 - (1 - u)**4)
+        load = np.sin(np.pi * smooth(0., .86, u))**2
+        root += np.array([.025 if support == "L" else -.025, -.014, 0.]) * load
+        world = {k: Rotation.from_rotvec(blend * end_rotation[k] + incoming * entry_spin[k]).as_matrix() @ r
+                 for k, r in start.items()}
+
+        # Lock the planted boot in all axes. The other foot completes its
+        # horizontal travel before it drops through the last centimetre.
+        flight = min(u / .74, 1.)
+        reach = min(u / .64, 1.)
+        landing = smooth(0., 1., reach)
+        swing_ankle = ankles[swing] + landing * (target - ankles[swing])
+        swing_ankle[2] += swing_speed * (.64 * duration) * reach * (1 - reach)**2
+        foot_blend = smooth(0., .64, u)
+        world[foot] = Rotation.from_rotvec(foot_blend * end_rotation[foot]).as_matrix() @ start[foot]
+        clearance = start_height * (1 - smooth(0., 1., flight)) + .072 * np.sin(np.pi * flight)**1.5
+        swing_ankle[1] = clearance - ((sole[swing] - bind[foot]) @ world[foot][1]).min()
+        world["foot" + support] = start["foot" + support]
+        for side, ankle in ((support, ankles[support]), (swing, swing_ankle)):
+            thigh = "thigh" + side
+            hip = root + world["pelvis"] @ (bind[thigh] - bind["pelvis"])
+            solve_leg(world, bind, side, hip, ankle, np.array([0., 0., 1.]), [1., 0., 0.])
+        poses.append((root, local_rotations(bones, world)))
+    return np.linspace(0., duration, len(poses)), poses
 
 
 def create(source, destination):
@@ -379,10 +524,24 @@ def create(source, destination):
         for s, side in [(1, "L"), (-1, "R")]
     }
     doc["animations"] = []
+    clips = []
     for clip in native["clips"]:
         frames = clip["frames"]
-        times = add_accessor(doc, binary, [f["t"] for f in frames], "SCALAR", bounds=True)
-        animation = {"name": clip["name"], "channels": [], "samplers": []}
+        world_poses = [retarget_world(frame, bones, bind, arm, sole) for frame in frames]
+        poses = [(root, local_rotations(bones, world)) for root, world in world_poses]
+        clips.append((clip["name"], [f["t"] for f in frames], poses))
+        if clip["name"] == "Marcha":
+            walk = world_poses
+            walk_dt = frames[1]["t"] - frames[0]["t"]
+        if clip["name"] == "Reposo":
+            idle_root, idle = world_poses[0]
+    clips.append(("Giro", *turn_poses(bones, bind, idle_root, idle, sole)))
+    for side, entry in (("L", 6), ("R", 26)):
+        # These Marcha keys (15% and 65%) begin with a flat support foot.
+        clips.append(("Frenada" + side, *brake_poses(bones, bind, walk, walk_dt, idle_root, idle, sole, side, entry)))
+    for name, clock, poses in clips:
+        times = add_accessor(doc, binary, clock, "SCALAR", bounds=True)
+        animation = {"name": name, "channels": [], "samplers": []}
 
         def channel(name, path, data):
             target = add_accessor(doc, binary, data, "VEC4" if path == "rotation" else "VEC3")
@@ -391,7 +550,6 @@ def create(source, destination):
             )
             animation["samplers"].append({"input": times, "output": target, "interpolation": "LINEAR"})
 
-        poses = [retarget_frame(frame, bones, bind, arm, sole) for frame in frames]
         channel("pelvis", "translation", [p[0] for p in poses])
         for i, (name, _, _) in enumerate(bones):
             qs = np.array([p[1][i] for p in poses])
@@ -423,7 +581,7 @@ def create(source, destination):
         "sha256": hashlib.sha256(output).hexdigest(),
         "sourceSha256": SOURCE_SHA,
         "nativeJoints": len(bones),
-        "clips": {c["name"]: c["frames"][-1]["t"] for c in native["clips"]},
+        "clips": {name: clock[-1] for name, clock, _ in clips},
     }
     (destination / "source-manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
 

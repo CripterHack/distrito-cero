@@ -1,0 +1,250 @@
+{
+  "htmlSha256": "eea706081b10f04383614db3dd9456277dbb85e0a48ac69a056c2013f086b8eb",
+  "turnOffsetS": 0.5,
+  "endpoints": {
+    "south": {
+      "dest": 149,
+      "eye": [
+        161.1,
+        1.65,
+        172.7
+      ],
+      "target": [
+        155.5,
+        1.02,
+        149
+      ],
+      "batch": "marketPed1",
+      "fov": 0.78,
+      "quality": "balanced",
+      "floorProbes": [
+        0.14500000000000002,
+        0.14500000000000002,
+        0.14500000000000002,
+        0.14500000000000002,
+        0.14500000000000002,
+        0.14500000000000002,
+        0.14500000000000002,
+        0.14500000000000002,
+        0.14500000000000002
+      ],
+      "arrival": 21.85000000000004,
+      "towardEnd": true,
+      "phases": [
+        {
+          "swing": "R",
+          "support": "L",
+          "supportDriftM": 0.11908626405029579,
+          "swingClearanceM": 0.0002276719902386537,
+          "supportMaxClearanceM": 0.00024350654941879268
+        },
+        {
+          "swing": "L",
+          "support": "R",
+          "supportDriftM": 0.0011106935335567965,
+          "swingClearanceM": 0.0001693751021749068,
+          "supportMaxClearanceM": 0.00022919502507035006
+        },
+        {
+          "swing": "R",
+          "support": "L",
+          "supportDriftM": 4.6158200851403e-07,
+          "swingClearanceM": 0.00022928455869228315,
+          "supportMaxClearanceM": 0.0001666793486660434
+        },
+        {
+          "swing": "L",
+          "support": "R",
+          "supportDriftM": 2.6789450657815905e-09,
+          "swingClearanceM": 0.00016656868171566197,
+          "supportMaxClearanceM": 0.00022927542479855845
+        },
+        {
+          "swing": "R",
+          "support": "L",
+          "supportDriftM": 1.0089706847793423e-11,
+          "swingClearanceM": 0.00022927553756860175,
+          "supportMaxClearanceM": 0.00016656785427837661
+        }
+      ],
+      "groundedDriftM": {
+        "L": 0.25775832036412505,
+        "R": 0.25258839710579684
+      },
+      "groundedDriftByWindowM": {
+        "arrival": {
+          "L": 0.19056722803943946,
+          "R": 0.21524506218224548
+        },
+        "turn": {
+          "L": 0.12654011170581192,
+          "R": 0.14494437949519637
+        },
+        "rest": {
+          "L": 4.263256414560601e-13,
+          "R": 2.2737367544323206e-13
+        }
+      },
+      "turnSamples": 0,
+      "turnRuns": 0,
+      "headingReversed": true,
+      "progressMonotonic": true,
+      "waitRemainingS": 3.434752482434078e-15,
+      "turnStartS": null,
+      "turnEndS": null,
+      "stopDriftM": {
+        "L": 0.3673574495761352,
+        "R": 0.25258839710579684
+      },
+      "minClearanceM": -0.0038125872231700997,
+      "maxClearanceM": {
+        "L": 0.12193410133161911,
+        "R": 0.00022928455869228315
+      },
+      "rootDriftM": 0.0
+    },
+    "north": {
+      "dest": 130,
+      "eye": [
+        161.1,
+        1.65,
+        153.7
+      ],
+      "target": [
+        155.5,
+        1.02,
+        130
+      ],
+      "batch": "marketPed1",
+      "fov": 0.78,
+      "quality": "balanced",
+      "floorProbes": [
+        0.14500000000000002,
+        0.14500000000000002,
+        0.14500000000000002,
+        0.14500000000000002,
+        0.14500000000000002,
+        0.14500000000000002,
+        0.14500000000000002,
+        0.14500000000000002,
+        0.14500000000000002
+      ],
+      "arrival": 38.33333333333244,
+      "towardEnd": false,
+      "phases": [
+        {
+          "swing": "R",
+          "support": "L",
+          "supportDriftM": 0.11867793514184324,
+          "swingClearanceM": 0.0003329628135688434,
+          "supportMaxClearanceM": 0.00016547371895511698
+        },
+        {
+          "swing": "L",
+          "support": "R",
+          "supportDriftM": 0.0011063463498118588,
+          "swingClearanceM": 0.00016651579580967413,
+          "supportMaxClearanceM": 0.00023271598069751764
+        },
+        {
+          "swing": "R",
+          "support": "L",
+          "supportDriftM": 1.2628793148826834e-07,
+          "swingClearanceM": 0.00022936939683826374,
+          "supportMaxClearanceM": 0.00016656793840089112
+        },
+        {
+          "swing": "L",
+          "support": "R",
+          "supportDriftM": 2.9701141102245464e-08,
+          "swingClearanceM": 0.00016656785472263236,
+          "supportMaxClearanceM": 0.00022927817946241658
+        },
+        {
+          "swing": "R",
+          "support": "L",
+          "supportDriftM": 2.0749794485304823e-12,
+          "swingClearanceM": 0.00022927553976404003,
+          "supportMaxClearanceM": 0.00016656771120512892
+        }
+      ],
+      "groundedDriftM": {
+        "L": 0.27432967658585833,
+        "R": 0.2365263772442795
+      },
+      "groundedDriftByWindowM": {
+        "arrival": {
+          "L": 0.21858741878198198,
+          "R": 0.15114511108952353
+        },
+        "turn": {
+          "L": 0.12612703152577873,
+          "R": 0.14460746968220956
+        },
+        "rest": {
+          "L": 8.526512829121202e-14,
+          "R": 6.252776074688882e-13
+        }
+      },
+      "turnSamples": 0,
+      "turnRuns": 0,
+      "headingReversed": true,
+      "progressMonotonic": true,
+      "waitRemainingS": 3.434752482434078e-15,
+      "turnStartS": null,
+      "turnEndS": null,
+      "stopDriftM": {
+        "L": 0.27432967658585833,
+        "R": 0.2365263772442795
+      },
+      "minClearanceM": -0.0025157469325855497,
+      "maxClearanceM": {
+        "L": 0.00016656793840089112,
+        "R": 0.10337208811618867
+      },
+      "rootDriftM": 0.0
+    }
+  },
+  "environment": {
+    "seed": 1337,
+    "actor": "ped:38",
+    "actorOrigin": [
+      155.5,
+      130
+    ],
+    "workshop": [
+      168,
+      96
+    ],
+    "webgl": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+    "clips": {
+      "Marcha": {
+        "duration": 0.7654037475585938
+      },
+      "Reposo": {
+        "duration": 4
+      },
+      "Carrera": {
+        "duration": 0.5655468702316284
+      }
+    },
+    "canvas": [
+      563,
+      422
+    ]
+  },
+  "chromium": "156.0.8078.79",
+  "landmarks": {
+    "L": {
+      "shoePoints": 98,
+      "solePoints": 35,
+      "bindBottom": 0.0011854171752929688
+    },
+    "R": {
+      "shoePoints": 164,
+      "solePoints": 53,
+      "bindBottom": 0.00022923946380615234
+    }
+  }
+}

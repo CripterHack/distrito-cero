@@ -11,6 +11,7 @@ import unittest
 ROOT = Path(__file__).resolve().parents[1]
 READY = "${{ !cancelled() && steps.checkout.outcome == 'success' && steps.node.outcome == 'success' && steps.python.outcome == 'success' }}"
 NODE = 'node --test tests/*.test.cjs'
+CROSS_FAMILY_JOBS = ('sight-cross-family-first', 'sight-cross-family-second')
 COMMANDS = [
     'python3 tools/refine_thenar.py --check',
     'python3 tests/thenar_contour.test.py',
@@ -99,22 +100,27 @@ class WorkflowTests(unittest.TestCase):
                 capture_output=True,text=True,check=True).stdout.splitlines()
             names=[output[i+1] for i,x in enumerate(output[:-1]) if x=='--suite']
             return [k for k,v in SUITES.items() if v.origin=='fixture'] if 'all' in names else names
+        matrix=re.search(r'^        group: \[(.+)\]$',self.source,re.MULTILINE)
+        self.assertIsNotNone(matrix)
+        groups=[name.strip() for name in matrix[1].split(',')]
+        self.assertCountEqual(groups,['handoff','sight-base',*CROSS_FAMILY_JOBS,'sight-revolver-reload','graphics'])
         for full in (False,True):
-            groups=['handoff','sight-base','sight-cross-family','sight-revolver-reload','graphics']
             results={g:selected(g,full) for g in groups}
             self.assertEqual(results['handoff'],['handoff'])
             self.assertEqual(results['sight-base'],['sight-base'])
-            self.assertEqual(results['sight-cross-family'],['sight-cross-family'])
+            for group in CROSS_FAMILY_JOBS:
+                self.assertEqual(results[group],[group])
             self.assertEqual(results['sight-revolver-reload'],['sight-revolver-reload'])
             names=[name for g in groups for name in results[g]]
             self.assertEqual(len(names),len(set(names)),'every fixture runs once')
             expected={k for k,v in SUITES.items() if v.origin=='fixture'} if full else {'handoff','longarms','sight-base','sight-cross-family','sight-revolver-reload','thenar','sidearms','thumbs','fingers','handling','optical','recovery'}
+            expected.remove('sight-cross-family')
+            expected.update(CROSS_FAMILY_JOBS)
             self.assertEqual(set(names),expected)
 
     def test_browser_shards_fail_independently_and_keep_their_own_evidence(self):
         browser=self.source.split('\n  browser:\n',1)[1].split('\n  native:\n',1)[0]
         self.assertIn('fail-fast: false',browser)
-        self.assertIn('group: [handoff, sight-base, sight-cross-family, sight-revolver-reload, graphics]',browser)
         self.assertIn('webgl-${{ matrix.group }}-',browser)
         self.assertNotIn('continue-on-error',browser)
         self.assertIn('timeout-minutes: 40',browser)

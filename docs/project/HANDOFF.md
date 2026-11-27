@@ -1,3 +1,15 @@
+# Continuación · v0.20.31 · refs #5
+
+Para ver el último paso, seguir al residente entre la marquesina y la esquina del Mercado. Comprobar talón y puntera en ambos sentidos. Si el personaje se calma a menos de 16,53 cm de la esquina, queda por diseñar una transición específica desde carrera. En la siguiente revisión artística del personaje, inspeccionar las separaciones de los dedos en primer plano. La transición de las mallas de personajes y escaparates sigue pendiente de perfilado en una GPU física. [Frenada y evidencia](../../specs/007-mercado-braking/README.md).
+
+## Registro anterior
+
+# Continuación · v0.20.30 · refs #5
+
+Para revisar la media vuelta, seguir al residente de chaqueta entre la marquesina del Mercado y la esquina, en X = 155,5 y Z = 130–149. Observar los apoyos a ambas distancias de juego y tocar el claxon durante un cambio de dirección. Durante el medio segundo de frenado previo, el centro de la suela cercana al suelo todavía avanza hasta 5,6 cm al pasar de marcha a reposo. El siguiente ajuste de animación es hacer coincidir el último paso con la llegada, fijar talón o puntera hasta transferir el peso y medir ambos puntos por separado. También queda la lectura de los dedos en primer plano. Sigue pendiente medir los dos niveles de detalle en una GPU física antes de ampliar el reparto. [Criterios, capturas y reproducción](../../specs/006-mercado-turn/README.md).
+
+## Registro anterior
+
 # Continuación · v0.20.29 · refs #5
 
 Revisar al residente en la acera del Mercado, a pie y desde un vehículo. Para la aprobación artística quedan la lectura de las manos de cerca y el contacto del calzado al girar en el extremo del recorrido. Medir el coste de ambas mallas y su transición en GPU física antes de extender este recurso al reparto. La corrección del apoyo para el jugador reutiliza las superficies del sector. La comparación de la misma pose junto al bordillo pasa de 13,5 cm de penetración a contacto con el plano de 0,150 m. La aproximación entrega el apoyo al marco del coche antes del contacto con la manilla. Revisar con animación continua el reparto de peso entre pies al girar en el extremo de la acera. [Recorrido, pruebas y presupuesto](../../specs/005-mercado-character/README.md).

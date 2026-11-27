@@ -1,5 +1,6 @@
 'use strict';
 (function(D){
+ const shopDisplay=D.ShopDisplay=Object.freeze({material:53,stripLength:5.4});
  const VS=`#version 300 es
  precision highp float;
  layout(location=0) in vec3 aPosition; layout(location=1) in vec3 aNormal; layout(location=2) in vec2 aUV;
@@ -214,7 +215,7 @@
   }
   // Clip the ocular opening while lids close; the eyeball stays spherical.
   if((detailMaterial(34)||detailMaterial(41))&&vSurface.y>1.65){float ph=mod(uTime+vSeed*7.31,3.7+vSeed*.8);float blink=0.;if(ph<.17){float t=1.-abs(ph-.085)/.085;blink=t*t*(3.-2.*t);}float dy=abs(vSurface.y-1.6708135);if(blink>.15&&dy>.0125*(1.-blink))discard;}
-  vec3 n=normalize(vNormal),view=normalize(uEye-vWorld),base=vColor.rgb,emission=base*max(vColor.a,0.);float rough=.66,metal=0.;
+  vec3 n=normalize(vNormal),view=normalize(uEye-vWorld),base=vColor.rgb,emission=vMaterial==${shopDisplay.material}?vec3(0.):base*max(vColor.a,0.);float rough=.66,metal=0.;
   if((detailMaterial(50)||detailMaterial(51))&&uMercadoLoaded==1){
    // Each of the six 640px tiles includes an eight-texel extruded border.
    vec2 tile=(vec2(8.5)+clamp(vUV,0.,1.)*623.)/640.;
@@ -227,7 +228,7 @@
   }
   float grain=noise(vWorld.xz*85.)*.08;
   if(vDetail>=100.&&vDetail<=103.&&vSeed>.05){vec3 gn=normalize(cross(dFdx(vWorld),dFdy(vWorld)));if(dot(gn,n)<0.)gn=-gn;n=normalize(mix(n,gn,clamp(vSeed*.62,0.,.62)));}
-  if(vMaterial==0){base*=.91+noise((vWorld.xz+vWorld.y)*12.)*.15;}
+  if(vMaterial==0||vMaterial==${shopDisplay.material}){base*=.91+noise((vWorld.xz+vWorld.y)*12.)*.15;}
   if(vMaterial==1){
    rough=.58;vec2 uv=abs(vFace.x)>.5?vLocal.zy:vLocal.xy;bool wall=abs(vFace.y)<.5;
    if(wall){
@@ -355,6 +356,20 @@
    }
    light+=brdf(n,view,ld,base,rough,metal)*lc*att;
    if(detailMaterial(30)||detailMaterial(40)||detailMaterial(36)){float transmission=pow(max(dot(-n,ld),0.),2.)*(detailMaterial(36)?.12:.035);light+=base*lc*att*transmission;}
+  }
+  if(vMaterial==${shopDisplay.material} && uDaylight<.64){
+   // Untwisted display boxes pack the strip's centre relative to their origin.
+   // Evaluate the nearest point on its length, in metres, only on the cabinet interior.
+   vec3 delta=vec3(vSeed-vLocal.x,vColor.a-vWorld.y,vDetail-vLocal.z);
+   float cameraFade=1.-smoothstep(16.,22.,length(uEye-vWorld-delta));
+   delta.x-=clamp(delta.x,-${shopDisplay.stripLength/2},${shopDisplay.stripLength/2});
+   float ds=dot(delta,delta);
+   if(delta.y>0. && ds<16. && cameraFade>0.){
+    vec3 ld=delta*inversesqrt(max(.001,ds));
+    float power=(1.-smoothstep(.10,.64,uDaylight))*cameraFade;
+    float att=smoothstep(.12,.50,ld.y)*(1.-smoothstep(2.,4.,sqrt(ds)))/(.32+ds);
+    light+=brdf(n,view,ld,base,rough,metal)*vec3(1.,.86,.69)*8.*power*att;
+   }
   }
   vec3 hl=uHeadPos-vWorld;float hd=length(hl);vec3 hdir=hl/max(hd,.01);float cone=smoothstep(.89,.99,dot(-hdir,uHeadDir));
   float hatt=cone/(1.+hd*hd*.017);light+=brdf(n,view,hdir,base,rough,metal)*vec3(1.,.93,.77)*hatt*12.;
@@ -534,14 +549,21 @@
   }
   tree(list,x,z,scale,r){this.add(list,'box',x,2*scale,z,.25*scale,4*scale,.25*scale,[.16,.13,.095],0);for(let i=0;i<4;i++)this.add(list,'sphere',x+(r()-.5)*2*scale,(4.2+r())*scale,z+(r()-.5)*2*scale,(2.4+r())*scale,3*scale,2.7*scale,[.08+r()*.025,.145,.105],8);}
   renderCar(c){
-   const L=this.dynamic,a=c.yaw,co=Math.cos(a),si=Math.sin(a),col=c.color;
-   const put=(mesh,x,y,z,sx,sy,sz,color,mat=0,em=0,da=0,pitch=0,roll=0)=>this.add(L,mesh,c.x+x*co+z*si,y,c.z-x*si+z*co,sx,sy,sz,color,mat,c.empUntil>this.currentTime?0:em,a+da,0,0,pitch,roll);
+   const L=this.dynamic,a=c.yaw,col=c.color,body=D.vehicleBodyFrame(c,this.currentTime);
+   const put=(mesh,x,y,z,sx,sy,sz,color,mat=0,em=0)=>this.add(L,mesh,...body.point(x,y,z),sx,sy,sz,color,mat,c.empUntil>this.currentTime?0:em,a,0,0,body.pitch,body.roll);
    put('body',0,.7,0,1.9,.70,4.45,col,5);put('box',0,.36,0,1.67,.22,3.8,[.025,.03,.03],3);
    put('cabin',0,1.25,-.25,1.64,.78,2.32,[.12,.19,.22],6);put('body',0,1.66,-.46,1.31,.075,1.23,col,5);
    put('box',0,1.17,-.57,1.67,.76,.055,col,5);put('box',0,.98,-.16,1.84,.05,2.2,col,5);
    for(let s of [-1,1]){
     put('body',s*.99,1.09,.48,.28,.16,.4,col,5);put('box',s*.97,.84,-.45,.025,.038,.29,[.45,.5,.49],3);
-    for(let f of [-1,1]){put('wheel',s*.96,.40,f*1.34,.24,.76,.76,[.022,.026,.026],4);put('wheel',s*1.092,.40,f*1.34,.018,.48,.48,[.28,.32,.33],3);put('wheel',s*1.105,.40,f*1.34,.024,.17,.17,[.07,.09,.1],3);}
+    for(const f of [-1,1]){
+     const axle=body.wheel(s,f);
+     const disc=(offset,width,diameter,color,mat)=>this.add(L,'wheel',...axle.point(offset),
+      width,diameter,diameter,color,mat,0,axle.yaw,0,0,axle.pitch+axle.spin,axle.roll);
+     disc(0,.27,.73,[.022,.026,.026],4);
+     disc(.132,.025,.528,[.28,.32,.33],3);
+     disc(.145,.024,.17,[.07,.09,.1],3);
+    }
     put('body',s*.64,.79,2.09,.45,.19,.09,[.91,.96,.87],0,5);
     put('box',s*.64,.8,-2.12,.49,.12,.025,[.65,.016,.009],0,c.brake?9:3);
     put('box',s*.62,.51,2.18,.21,.06,.04,[.95,.7,.2],0,1.3);
@@ -630,7 +652,7 @@
   // Metadata is computed once from immutable upload data, never from a mesh name.
   basicMaterialBatch(data){
    if(!(Array.isArray(data)||ArrayBuffer.isView(data))||!data.length||data.length%16)return false;
-   for(let i=7;i<data.length;i+=16)if(!Number.isInteger(data[i])||data[i]<0||data[i]>25)return false;
+   for(let i=7;i<data.length;i+=16)if(!Number.isInteger(data[i])||data[i]<0||(data[i]>25 && data[i]!==shopDisplay.material))return false;
    return true;
   }
   chunkInstances(data){

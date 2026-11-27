@@ -38,7 +38,8 @@ test('basic classification accepts only complete immutable material-ID batches i
  const r=Object.create(Base.prototype);assert.equal(typeof r.basicMaterialBatch,'function','basic batch proof is missing');
  for(let material=0;material<=25;material++)assert.equal(r.basicMaterialBatch(packed(material)),true);
  const input=new Float32Array(packed(0,6,9,25)),before=Array.from(input);assert.equal(r.basicMaterialBatch(input),true);assert.deepEqual(Array.from(input),before);
- for(const material of [-1,26,30,49,50,NaN,Infinity,2.5,'2',null])assert.equal(r.basicMaterialBatch(packed(0,material)),false,String(material));
+ assert.equal(r.basicMaterialBatch(packed(0,ctx.DC.ShopDisplay.material)),true);
+ for(const material of [-1,26,30,49,50,52,54,NaN,Infinity,2.5,'2',null])assert.equal(r.basicMaterialBatch(packed(0,material)),false,String(material));
  for(const input of [null,undefined,[],[0],packed(0).slice(1),{length:16}])assert.equal(r.basicMaterialBatch(input),false);
 });
 test('legacy static uploads record proof without reordering or dropping instance bytes',()=>{

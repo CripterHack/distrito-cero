@@ -44,7 +44,8 @@ function sourceLocals(name,phase) {
   const locals=doc.nodes.map(n=>({rotation:identity,translation:n.translation||[0,0,0]}));
   for (const channel of a.channels) {
     const {input,output}=a.samplers[channel.sampler], times=source(input), values=source(output);
-    const time=(phase-Math.floor(phase))*times.value(times.a.count-1);
+    const progress=['Giro','FrenadaL','FrenadaR'].includes(name)?Math.min(1,Math.max(0,phase)):phase-Math.floor(phase);
+    const time=progress*times.value(times.a.count-1);
     let j=0;
     while(j<times.a.count-2 && times.value(j+1)<time) j++;
     const t=(time-times.value(j))/(times.value(j+1)-times.value(j));
@@ -54,8 +55,8 @@ function sourceLocals(name,phase) {
   }
   return locals;
 }
-function sourceMatrices(walkPhase,idlePhase,blend,runBlend=0) {
-  const walk=sourceLocals('Marcha',walkPhase),idle=sourceLocals('Reposo',idlePhase);
+function sourceMatrices(walkPhase,idlePhase,blend,runBlend=0,clip='Marcha') {
+  const walk=sourceLocals(clip,walkPhase),idle=sourceLocals('Reposo',idlePhase);
   const run=runBlend?sourceLocals('Carrera',walkPhase):walk;
   const cache=new Map();
   function world(node) {
@@ -101,4 +102,46 @@ test('cyclic playback closes on every joint and is independent of actor sampling
   assert.ok(start.some((v,i)=>Math.abs(v-pose[i])>.05),'independent clips have different transforms');
   sample(.77,.18,.1);
   assert.deepEqual(sample(-.75,4.5,1),pose);
+});
+
+test('the turn samples the source GLB once, including its last key and the entry blend',()=>{
+  const implementation=rig(), out=new Float32Array(jointCount*16);
+  assert.ok(implementation.clips.Giro,'bake the authored turn into both street LODs');
+  for(const [progress,mix] of [[-.2,1],[0,1],[.037,.35],[.16,1],[.48,1],[.98,1],[1,1],[1.24,1]]){
+    implementation.writePalette(out,.27,.58,0,0,progress,mix);
+    const expected=sourceMatrices(progress,.58,mix,0,'Giro');
+    const error=out.reduce((max,v,k)=>Math.max(max,Math.abs(v-expected[k])),0);
+    assert.ok(error<.000025,`turn ${progress}, blend ${mix}, error ${error}`);
+  }
+});
+
+test('turn endpoints join rest in world space across the instance yaw handoff',()=>{
+  const implementation=rig(), rest=new Float32Array(jointCount*16), pose=rest.slice();
+  implementation.writePalette(rest,0,0,0);
+  for(const progress of [0,1]){
+    implementation.writePalette(pose,0,0,0,0,progress);
+    for(let k=0;k<pose.length;k++){
+      // Each column's X/Z rows are negated by the final world Y half-turn.
+      const expected=progress && (k%4===0 || k%4===2)?-rest[k]:rest[k];
+      assert.ok(Math.abs(pose[k]-expected)<.000025,`progress ${progress}, joint ${Math.floor(k/16)}, component ${k%16}`);
+    }
+  }
+});
+
+test('both baked stops retain every source joint and join exact walk and rest keys',()=>{
+  const impl=rig(), pose=new Float32Array(jointCount*16), ref=pose.slice(), reach=.1653272101033296;
+  for(const [clip,entry] of [['FrenadaL',.15],['FrenadaR',.65]]){
+    assert.ok(Math.abs(impl.clips[clip].duration-4*reach/1.35)<1e-6);
+    for(const progress of [-.2,0,.13,.47,.925,1,1.3]){
+      impl.writePalette(pose,0,0,0,0,progress,1,clip);
+      const expected=sourceMatrices(progress,0,1,0,clip);
+      assert.ok(pose.every((v,k)=>Math.abs(v-expected[k])<.000025),clip+' source at '+progress);
+    }
+    impl.writePalette(ref,entry,0,1);
+    impl.writePalette(pose,0,0,0,0,0,1,clip);
+    assert.ok(pose.every((v,k)=>Math.abs(v-ref[k])<.000025),clip+' entry');
+    impl.writePalette(ref,0,0,0);
+    impl.writePalette(pose,0,0,0,0,1,1,clip);
+    assert.ok(pose.every((v,k)=>Math.abs(v-ref[k]-(k%16===14?reach:0))<.000025),clip+' exit');
+  }
 });

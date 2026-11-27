@@ -1,0 +1,297 @@
+{
+  "chromium": "156.0.8078.79",
+  "before": {
+    "htmlSha256": "c29717f5178dfff47f0a63b93b26c7d350b1d4e1eaab2e9a307aa70027b0df05",
+    "environment": {
+      "webGL": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    },
+    "views": {
+      "front-night": {
+        "eye": [
+          148.5,
+          1.8,
+          176.7
+        ],
+        "target": [
+          146.5,
+          1.55,
+          185.8
+        ],
+        "calls": 80,
+        "triangles": 446038,
+        "stream": {
+          "loaded": 25,
+          "pending": 0,
+          "instances": 22992,
+          "buffers": 67
+        },
+        "world": 1337
+      },
+      "front-day": {
+        "eye": [
+          148.5,
+          1.8,
+          176.7
+        ],
+        "target": [
+          146.5,
+          1.55,
+          185.8
+        ],
+        "calls": 80,
+        "triangles": 446038,
+        "stream": {
+          "loaded": 25,
+          "pending": 0,
+          "instances": 22992,
+          "buffers": 67
+        },
+        "world": 1337
+      },
+      "corner-night": {
+        "eye": [
+          155.3,
+          1.8,
+          179.6
+        ],
+        "target": [
+          147.5,
+          1.65,
+          186.4
+        ],
+        "calls": 76,
+        "triangles": 428722,
+        "stream": {
+          "loaded": 25,
+          "pending": 0,
+          "instances": 22992,
+          "buffers": 67
+        },
+        "world": 1337
+      },
+      "corner-day": {
+        "eye": [
+          155.3,
+          1.8,
+          179.6
+        ],
+        "target": [
+          147.5,
+          1.65,
+          186.4
+        ],
+        "calls": 76,
+        "triangles": 428722,
+        "stream": {
+          "loaded": 25,
+          "pending": 0,
+          "instances": 22992,
+          "buffers": 67
+        },
+        "world": 1337
+      },
+      "shelter-night": {
+        "eye": [
+          161.5,
+          1.62,
+          127
+        ],
+        "target": [
+          154.5,
+          1.5,
+          130
+        ],
+        "calls": 81,
+        "triangles": 461380,
+        "stream": {
+          "loaded": 25,
+          "pending": 0,
+          "instances": 22992,
+          "buffers": 67
+        },
+        "world": 1337
+      },
+      "rural-night": {
+        "eye": [
+          5.5,
+          1.85,
+          2020
+        ],
+        "target": [
+          26,
+          2,
+          2041
+        ],
+        "calls": 85,
+        "triangles": 509678,
+        "stream": {
+          "loaded": 25,
+          "pending": 0,
+          "instances": 10724,
+          "buffers": 43
+        },
+        "world": 1337
+      }
+    }
+  },
+  "after": {
+    "htmlSha256": "ed3324c77cf501ba91bad3079a0f787068dd2e6f655191cb0c2106a0fae5b268",
+    "environment": {
+      "webGL": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    },
+    "views": {
+      "front-night": {
+        "eye": [
+          148.5,
+          1.8,
+          176.7
+        ],
+        "target": [
+          146.5,
+          1.55,
+          185.8
+        ],
+        "calls": 80,
+        "triangles": 446038,
+        "stream": {
+          "loaded": 25,
+          "pending": 0,
+          "instances": 22992,
+          "buffers": 67
+        },
+        "world": 1337
+      },
+      "front-day": {
+        "eye": [
+          148.5,
+          1.8,
+          176.7
+        ],
+        "target": [
+          146.5,
+          1.55,
+          185.8
+        ],
+        "calls": 80,
+        "triangles": 446038,
+        "stream": {
+          "loaded": 25,
+          "pending": 0,
+          "instances": 22992,
+          "buffers": 67
+        },
+        "world": 1337
+      },
+      "corner-night": {
+        "eye": [
+          155.3,
+          1.8,
+          179.6
+        ],
+        "target": [
+          147.5,
+          1.65,
+          186.4
+        ],
+        "calls": 76,
+        "triangles": 428722,
+        "stream": {
+          "loaded": 25,
+          "pending": 0,
+          "instances": 22992,
+          "buffers": 67
+        },
+        "world": 1337
+      },
+      "corner-day": {
+        "eye": [
+          155.3,
+          1.8,
+          179.6
+        ],
+        "target": [
+          147.5,
+          1.65,
+          186.4
+        ],
+        "calls": 76,
+        "triangles": 428722,
+        "stream": {
+          "loaded": 25,
+          "pending": 0,
+          "instances": 22992,
+          "buffers": 67
+        },
+        "world": 1337
+      },
+      "shelter-night": {
+        "eye": [
+          161.5,
+          1.62,
+          127
+        ],
+        "target": [
+          154.5,
+          1.5,
+          130
+        ],
+        "calls": 81,
+        "triangles": 461380,
+        "stream": {
+          "loaded": 25,
+          "pending": 0,
+          "instances": 22992,
+          "buffers": 67
+        },
+        "world": 1337
+      },
+      "rural-night": {
+        "eye": [
+          5.5,
+          1.85,
+          2020
+        ],
+        "target": [
+          26,
+          2,
+          2041
+        ],
+        "calls": 85,
+        "triangles": 509678,
+        "stream": {
+          "loaded": 25,
+          "pending": 0,
+          "instances": 10724,
+          "buffers": 43
+        },
+        "world": 1337
+      }
+    }
+  },
+  "merchandise": {
+    "front": {
+      "pixels": 2549,
+      "stockAgainstBacking": [
+        17.7,
+        23.98
+      ]
+    },
+    "corner": {
+      "pixels": 2907,
+      "stockAgainstBacking": [
+        18.34,
+        22.91
+      ]
+    }
+  },
+  "changedPixels": {
+    "front-night": 22867,
+    "front-day": 0,
+    "corner-night": 12730,
+    "corner-day": 0,
+    "shelter-night": 0,
+    "rural-night": 0
+  }
+}
